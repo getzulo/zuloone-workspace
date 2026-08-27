@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "CommonSettings",
+    "objectMetaId": "83321261-0387-519e-822b-5128b78e690e",
+    "executionOrder": 0,
+    "metaId": "15773eb3-1a44-4b4c-a506-4125bb174aac",
+    "name": "CommonSettingsEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Customer",
+    "caption_ru": "Клиент",
+    "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
+    "description": "Reusable analytic over the Customer dictionary",
+    "metaId": "37666495-de93-4eee-91b1-c72af788c054",
+    "name": "Customer",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  }
+}

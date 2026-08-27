@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "nextValue": 1000,
+    "resetPolicy": "None",
+    "metaId": "ebcce1ef-ac24-4878-a1cf-f0a20a8c8d65",
+    "name": "AddressSeq",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

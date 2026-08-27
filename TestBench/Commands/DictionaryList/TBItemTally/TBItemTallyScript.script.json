@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DictionaryListCommand",
+    "objectType": "Command",
+    "objectName": "TBItemTally",
+    "objectMetaId": "df1d5fa8-2941-4cfa-93e8-04fb668ab666",
+    "executionOrder": 0,
+    "metaId": "21bc4565-675a-4e76-bdcc-94ed292d3291",
+    "name": "TBItemTallyScript",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TBWarehouse",
+    "objectMetaId": "4d6395fc-a492-4311-acaf-49534745ed06",
+    "baseClassName": "TypedDictionaryEventHandler",
+    "executionOrder": 0,
+    "metaId": "e4443e8d-8b6b-472f-9b0a-16812057c4ff",
+    "name": "TBWarehouseEvents",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

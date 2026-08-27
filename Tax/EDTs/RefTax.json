@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "59cf0fba-776e-4223-943f-f8ab2d8ef203",
+    "isRequired": false,
+    "metaId": "721d3568-4674-4d69-8828-cb32f33f3df5",
+    "name": "RefTax",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}

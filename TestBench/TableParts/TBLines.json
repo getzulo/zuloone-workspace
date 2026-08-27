@@ -1,0 +1,71 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "TBLinesTablePartRow",
+    "caption": "TBLines",
+    "tableName": "TP_TBLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "2967ae5e-10d2-46af-9cbd-cfbda3eea143",
+    "name": "TBLines",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "2967ae5e-10d2-46af-9cbd-cfbda3eea143",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "caption_ar": "المبلغ",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 2,
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 3,
+      "metaId": "820cd0f9-9aca-48a0-8a55-815c7d34108e",
+      "name": "Amount",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "tablePartTypeMetaId": "2967ae5e-10d2-46af-9cbd-cfbda3eea143",
+      "fieldName": "Item",
+      "caption": "Item",
+      "caption_ar": "الصنف",
+      "baseType": "Guid",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "5e824787-4656-4223-98c5-97d1b7e69fdc",
+      "name": "Item",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "tablePartTypeMetaId": "2967ae5e-10d2-46af-9cbd-cfbda3eea143",
+      "fieldName": "Quantity",
+      "caption": "Quantity",
+      "caption_ar": "الكمية",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 3,
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "386c9ac1-cc2c-47df-8794-3b14d1721f07",
+      "name": "Quantity",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ]
+}

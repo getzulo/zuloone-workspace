@@ -1,0 +1,14 @@
+{
+  "kind": "TotalDriver",
+  "object": {
+    "caption": "Складские итоги с защитой цены",
+    "baseClassName": "StockBaseTotalDriver",
+    "baseEngine": "PriceProtect",
+    "isKernel": true,
+    "description": "FIFO + переоценка остатков нулевым приходом",
+    "metaId": "163042ab-21d9-458a-88ea-8a02cd8782e8",
+    "name": "StockBaseTotalDriver",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1
+  }
+}

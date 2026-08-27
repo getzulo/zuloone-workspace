@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "ChartOfAccounts",
+    "objectMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
+    "executionOrder": 0,
+    "metaId": "bf5d2685-1d79-4288-bb6a-4c7e52c8314e",
+    "name": "ChartOfAccountsEventHandler",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

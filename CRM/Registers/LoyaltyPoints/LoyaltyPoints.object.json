@@ -1,0 +1,42 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "Loyalty points",
+    "caption_ru": "Баллы лояльности",
+    "isObsolete": false,
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": false,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
+    "name": "LoyaltyPoints",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+    "layerId": 2
+  },
+  "resources": [
+    {
+      "registerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
+      "fieldName": "Points",
+      "isOperational": true,
+      "edtMetaId": "8c1d6f54-0e9a-4b3c-9d4f-5a8b9c6d2e70",
+      "displayOrder": 1,
+      "metaId": "0e3f8b76-2a1c-4d5e-9f6b-7c0d1e8f4a90",
+      "name": "Points",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+      "layerId": 2
+    }
+  ],
+  "analytics": [
+    {
+      "registerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
+      "analyticMetaId": "37666495-de93-4eee-91b1-c72af788c054",
+      "displayOrder": 1,
+      "isRequired": true,
+      "metaId": "1f4a9c87-3b2d-4e6f-8a7c-8d1e2f9a5b00",
+      "name": "LoyaltyPoints-Customer",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+      "layerId": 2
+    }
+  ]
+}

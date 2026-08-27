@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TaxCode",
+    "objectMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
+    "executionOrder": 0,
+    "metaId": "0ee6f23c-b965-46b9-af8a-ffd13b9ef88f",
+    "name": "TaxCodeEventHandler",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}

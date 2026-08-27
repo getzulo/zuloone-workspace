@@ -1,0 +1,16 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "description": "System self-reference of the hierarchical dictionary ChartOfAccounts",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
+    "isRequired": false,
+    "metaId": "a697056e-c5a7-49c2-97b2-510e163e7672",
+    "name": "ChartOfAccountsParentRef",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

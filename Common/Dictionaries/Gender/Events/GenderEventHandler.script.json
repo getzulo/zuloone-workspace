@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "Gender",
+    "objectMetaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
+    "executionOrder": 0,
+    "metaId": "59d0ed26-66ed-4ad6-8bb2-a9dbeb3cd946",
+    "name": "GenderEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

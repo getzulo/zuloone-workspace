@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "PayrollAccrual",
+    "objectMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+    "executionOrder": 1,
+    "metaId": "08153204-7c2e-4d1a-9b6f-3e5a2c7d1f80",
+    "name": "PayrollAccrualTx",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  }
+}

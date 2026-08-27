@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "nextValue": 1000,
+    "resetPolicy": "None",
+    "metaId": "7fb35a80-4de3-4f0f-8d3a-32802c834366",
+    "name": "JournalEntrySeq",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

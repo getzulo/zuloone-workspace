@@ -1,0 +1,10 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Округление количества, веса и сумм по настроенной точности (константы QuantityScale/WeightScale/AmountScale)",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "7a8b9c0d-1e2f-4a3b-8c4d-6e7f8a9b0c1d",
+    "metaId": "6f7a8b9c-0d1e-4f2a-9b3c-5d6e7f8a9b0c", "name": "MeasurementService",
+    "modelId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d", "layerId": 1
+  }
+}

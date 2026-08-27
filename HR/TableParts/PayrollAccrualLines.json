@@ -1,0 +1,53 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "PayrollAccrualLinesTablePartRow",
+    "caption": "Accrual lines",
+    "caption_ru": "Строки начисления",
+    "tableName": "TP_PayrollAccrualLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "b56a4082-9c3e-4d1f-8a7b-2e6f5c1d3a90",
+    "name": "PayrollAccrualLines",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "b56a4082-9c3e-4d1f-8a7b-2e6f5c1d3a90",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "caption_ar": "المبلغ",
+      "caption_ru": "Сумма",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "21c23af7-6e9d-4b3a-8c2f-5a7e1d4c3b68",
+      "name": "Amount",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "b56a4082-9c3e-4d1f-8a7b-2e6f5c1d3a90",
+      "fieldName": "Employee",
+      "caption": "Employee",
+      "caption_ar": "الموظف",
+      "caption_ru": "Сотрудник",
+      "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "0ee60482-5d8c-4a2f-9b1e-7c3d6f2a4e15",
+      "name": "Employee",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ]
+}

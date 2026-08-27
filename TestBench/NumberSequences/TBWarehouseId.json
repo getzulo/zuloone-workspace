@@ -1,0 +1,16 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "TBWarehouse ID",
+    "description": "Auto-created for the TBWarehouse system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "nextValue": 1,
+    "resetPolicy": "None",
+    "metaId": "59f6b6d1-11be-4c15-ba86-2ee508a26c8f",
+    "name": "TBWarehouseId",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

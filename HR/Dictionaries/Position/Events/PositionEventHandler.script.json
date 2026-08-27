@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "Position",
+    "objectMetaId": "3ffd2704-716e-40c3-9dc5-a585c96b4be7",
+    "executionOrder": 0,
+    "metaId": "b68a89a0-08b5-4678-b79e-3878370238fa",
+    "name": "PositionEventHandler",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Address",
+    "caption_ar": "العنوان",
+    "caption_ru": "Адрес",
+    "edtMetaId": "0c3b8ac7-65fc-4286-9a35-6fc98d350e8b",
+    "description": "Reusable analytic over the Address dictionary",
+    "metaId": "2d06811b-c3cd-48e5-909c-73b238d05e17",
+    "name": "Address",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

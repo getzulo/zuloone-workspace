@@ -1,0 +1,16 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Decimal",
+    "precision": 18,
+    "scale": 4,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "9f21e6eb-307e-4941-8bf5-15437d476ec5",
+    "name": "TBQty",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

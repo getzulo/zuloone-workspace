@@ -1,0 +1,14 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Unit of measure",
+    "caption_ar": "وحدة القياس",
+    "caption_ru": "Единица измерения",
+    "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
+    "description": "Reusable analytic over the UnitOfMeasure dictionary",
+    "metaId": "e587b81f-a16c-43f6-9c08-ff5eb1a9eb7a",
+    "name": "UnitOfMeasure",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

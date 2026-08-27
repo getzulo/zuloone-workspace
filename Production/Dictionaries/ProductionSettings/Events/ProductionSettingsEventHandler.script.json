@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "ProductionSettings",
+    "objectMetaId": "bd0fccd2-d075-5de8-b054-dd7ba806c280",
+    "executionOrder": 0,
+    "metaId": "d9ae6885-b1e5-41af-9081-af05e47c4c91",
+    "name": "ProductionSettingsEventHandler",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+    "layerId": 2
+  }
+}

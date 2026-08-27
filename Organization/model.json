@@ -1,0 +1,27 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Юрлица и оргструктура: юрлица, подразделения, площадки",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+    "name": "Organization",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 1
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "minVersion": "1.0.0",
+      "metaId": "c52fce9a-14b7-453b-aecc-206853ca8b82",
+      "name": "Organization->Common",
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "layerId": 1
+    }
+  ]
+}

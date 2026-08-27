@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "LegalEntity",
+    "objectMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+    "executionOrder": 0,
+    "metaId": "039ac1f5-7821-4877-8dbf-e9c683099351",
+    "name": "LegalEntityEventHandler",
+    "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+    "layerId": 1
+  }
+}

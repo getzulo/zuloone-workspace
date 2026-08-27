@@ -1,0 +1,136 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Sales invoice",
+    "caption_ar": "فاتورة مبيعات",
+    "caption_ru": "Счёт-фактура",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "61c2bfe7-e9ee-44b8-93ce-2ebe8e55424d",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "name": "SalesInvoice",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "fieldName": "Customer",
+      "caption": "Customer",
+      "caption_ar": "العميل",
+      "caption_ru": "Клиент",
+      "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "5ef15695-33f5-449f-948a-f050b9c05266",
+      "name": "Customer",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "fieldName": "ID",
+      "caption": "ID",
+      "caption_ar": "معرف",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "metaId": "2466f989-76ca-44d7-8ffc-fbe59c95cf53",
+      "name": "ID",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "fieldName": "Location",
+      "caption": "Ship-from location",
+      "caption_ru": "Ячейка отгрузки",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "60d8388c-63ce-426c-88a9-f2168ba5786e",
+      "name": "Location",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "name": "Draft",
+      "caption": "Draft",
+      "caption_ar": "مسودة",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "metaId": "8b4cca89-693a-4364-85d8-a6fcb3c9116b",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "name": "Issued",
+      "caption": "Issued",
+      "subtypeValue": "Issued",
+      "subtypeCaption": "Issued",
+      "subtypeCaption_ru": "Выставлен",
+      "displayOrder": 2,
+      "isInitial": false,
+      "metaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
+      "isCloneable": true,
+      "metaId": "d3066ffb-1126-4f8f-9fc5-494bd7a6269a",
+      "name": "Lines",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
+      "scriptMetaId": "3091fc32-12ab-4600-847b-aab135687bdf",
+      "executionOrder": 1,
+      "metaId": "35909b53-9e13-45c6-9442-e076a3b42a9c",
+      "name": "",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "subtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
+      "scriptMetaId": "6835956c-5e40-486b-afef-481a6be83167",
+      "executionOrder": 2,
+      "metaId": "796080a3-8fed-424b-94ff-5b176368309f",
+      "name": "",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "General ledger",
+    "caption_ar": "دفتر الأستاذ العام",
+    "caption_ru": "Главная книга",
+    "description": "Double-entry general ledger; every posted journal entry balances (ΣDebit = ΣCredit, enforced on the document)",
+    "isObsolete": false,
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
+    "name": "GL",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  },
+  "resources": [
+    {
+      "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
+      "fieldName": "Credit",
+      "caption": "Credit",
+      "caption_ar": "دائن",
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 2,
+      "metaId": "5e0eb5d9-040d-469f-80b1-c63ab03c6032",
+      "name": "Credit",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    },
+    {
+      "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
+      "fieldName": "Debit",
+      "caption": "Debit",
+      "caption_ar": "مدين",
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "metaId": "adceee8e-2471-4ca6-8a8b-2fc301245637",
+      "name": "Debit",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    }
+  ],
+  "analytics": [
+    {
+      "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
+      "analyticMetaId": "824381d1-62ba-491c-9287-f315a6267184",
+      "displayOrder": 1,
+      "isRequired": true,
+      "metaId": "96ade6c5-959b-4dc3-91c7-737b528de3b8",
+      "name": "GL-Account",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    },
+    {
+      "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
+      "analyticMetaId": "24f1082c-2dd6-4e4c-a2a5-0d543dddb607",
+      "displayOrder": 3,
+      "isRequired": true,
+      "metaId": "cca02cdb-e9a6-4898-b9f6-21dfc4044de0",
+      "name": "GL-FiscalPeriod",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    },
+    {
+      "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
+      "analyticMetaId": "2421974a-d39c-43f1-9d21-49f88605f5c7",
+      "displayOrder": 2,
+      "isRequired": true,
+      "metaId": "330d5e3e-9878-48c1-8fc6-77c49643d07a",
+      "name": "GL-LegalEntity",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    }
+  ]
+}

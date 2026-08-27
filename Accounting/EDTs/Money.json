@@ -1,0 +1,17 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Decimal",
+    "description": "Monetary amount (18,2) — the single precision point for money across modules",
+    "precision": 18,
+    "scale": 2,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+    "name": "Money",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

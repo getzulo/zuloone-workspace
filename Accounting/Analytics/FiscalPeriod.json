@@ -1,0 +1,13 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Fiscal period",
+    "caption_ru": "Фискальный период",
+    "edtMetaId": "e5963100-d15f-4650-924b-0c35e26a233d",
+    "description": "Reusable analytic over the FiscalPeriod dictionary (GL)",
+    "metaId": "24f1082c-2dd6-4e4c-a2a5-0d543dddb607",
+    "name": "FiscalPeriod",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

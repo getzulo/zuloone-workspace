@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "PurchaseOrder",
+    "objectMetaId": "9bbf8cdb-8913-4286-8f9c-31809cca4231",
+    "executionOrder": 4,
+    "metaId": "6d0e3a85-9b2c-4f7d-9e5a-0c6b9d2e7f00",
+    "name": "ReceiptFifoTx",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+    "layerId": 2
+  }
+}

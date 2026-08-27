@@ -1,0 +1,12 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Налоговый расчёт: ставка по налоговому коду (TaxCode → TaxRate) и сумма налога = база × ставка с округлением",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "f2a3b4c5-d6e7-4f8a-9b0c-2d3e4f5a6b7c",
+    "metaId": "e1f2a3b4-c5d6-4e7f-8a9b-1c2d3e4f5a6b",
+    "name": "TaxService",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}

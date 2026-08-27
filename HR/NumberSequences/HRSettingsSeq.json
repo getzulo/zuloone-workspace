@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1,
+    "increment": 1,
+    "nextValue": 2,
+    "resetPolicy": "None",
+    "metaId": "ea2f2fb4-92b6-5d3c-9f29-3275bef84232",
+    "name": "HRSettingsSeq",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  }
+}

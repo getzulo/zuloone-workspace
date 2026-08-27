@@ -1,0 +1,16 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "TBStockDoc ID",
+    "description": "Auto-created for the TBStockDoc system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "nextValue": 1,
+    "resetPolicy": "None",
+    "metaId": "41f0bd85-04c1-4e8a-a30c-ba7c88072dbc",
+    "name": "TBStockDocId",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

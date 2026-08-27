@@ -1,0 +1,54 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Склад и номенклатура: товары, контрагенты, склады, ячейки, регистр остатков Stock",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "name": "Inventory",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 2
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "dependsOnModelMetaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "minVersion": "1.0.0",
+      "metaId": "af2165ca-ff16-46f7-b3a9-ee8c491c07b8",
+      "name": "Inventory->Accounting",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "minVersion": "1.0.0",
+      "metaId": "4e793e52-bcdb-4327-bc69-50a9ff105aa7",
+      "name": "Inventory->Common",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "dependsOnModelMetaId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "minVersion": "1.0.0",
+      "metaId": "a1b2c3d4-e5f6-4a7b-8c9d-1a2b3c4d5e6f",
+      "name": "Inventory->Measurement",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "minVersion": "1.0.0",
+      "metaId": "c82e1b83-9ed6-4c94-b832-39d8e49ae41f",
+      "name": "Inventory->Organization",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ]
+}

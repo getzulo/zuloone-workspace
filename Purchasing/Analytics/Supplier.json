@@ -1,0 +1,13 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Supplier",
+    "caption_ru": "Поставщик",
+    "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
+    "description": "Reusable analytic over the Supplier dictionary (Payable)",
+    "metaId": "df1c1b60-b610-433e-b4c0-de9ea19938ef",
+    "name": "Supplier",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+    "layerId": 2
+  }
+}

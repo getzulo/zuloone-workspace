@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+    "isRequired": false,
+    "metaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+    "name": "RefLegalEntity",
+    "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+    "layerId": 1
+  }
+}

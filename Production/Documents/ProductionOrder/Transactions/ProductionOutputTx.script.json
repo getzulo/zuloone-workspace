@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "ProductionOrder",
+    "objectMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
+    "executionOrder": 2,
+    "metaId": "5a2b4c0f-7e1d-4f3a-8b4c-4d8e9f5a0b30",
+    "name": "ProductionOutputTx",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+    "layerId": 2
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Разворачивание спецификации (BOM) в потребность компонентов под заданное количество изделия",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "8e5f7a3c-0b4d-4c6e-9f8a-7b1c2d8e3f60",
+    "metaId": "7c4d6e2b-9a3f-4b5c-8d6e-6f0a1b7c2d50",
+    "name": "BomService",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+    "layerId": 2
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "TBFifo",
+    "isObsolete": false,
+    "registerEngineType": "FIFO",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "51f350a5-48fd-4fa3-95d4-e9abb349c919",
+    "name": "TBFifo",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "51f350a5-48fd-4fa3-95d4-e9abb349c919",
+      "fieldName": "Item",
+      "caption": "Item",
+      "caption_ar": "الصنف",
+      "edtMetaId": "1677b5ee-7824-4e20-bc15-d11a561d04a2",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "displayOrder": 1,
+      "metaId": "c484c8f7-57fe-432b-9f24-80de59e4ed3e",
+      "name": "Item",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "51f350a5-48fd-4fa3-95d4-e9abb349c919",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "caption_ar": "المبلغ",
+      "isOperational": true,
+      "edtMetaId": "9f21e6eb-307e-4941-8bf5-15437d476ec5",
+      "displayOrder": 2,
+      "metaId": "c8662756-87ef-419e-a125-16ef16950c7a",
+      "name": "Amount",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "registerMetaId": "51f350a5-48fd-4fa3-95d4-e9abb349c919",
+      "fieldName": "Quantity",
+      "caption": "Quantity",
+      "caption_ar": "الكمية",
+      "isOperational": true,
+      "edtMetaId": "9f21e6eb-307e-4941-8bf5-15437d476ec5",
+      "displayOrder": 1,
+      "metaId": "394667dd-9fd6-43ae-b722-c05de8eea36d",
+      "name": "Quantity",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ]
+}

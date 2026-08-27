@@ -1,0 +1,12 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Номерные серии: next/preview/raw по имени серии",
+    "namespace": "Core",
+    "scriptMetaId": "da51f19e-6577-4319-86e0-cff2af5d993b",
+    "metaId": "eca4d24c-de84-474c-880f-2dfbdf37259d",
+    "name": "NumberSequences",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1
+  }
+}

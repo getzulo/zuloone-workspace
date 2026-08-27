@@ -1,0 +1,17 @@
+{
+  "kind": "UserCommand",
+  "object": {
+    "caption": "TBParamEcho",
+    "scriptMetaId": "f129ce6c-01f7-46ad-99d3-cbe8b6a9d9d7",
+    "parameterMode": "None",
+    "displayOrder": 0,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "659a9de0-84b9-4598-8057-aecb88fbd613",
+    "name": "TBParamEcho",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

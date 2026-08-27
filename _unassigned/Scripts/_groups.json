@@ -1,0 +1,12 @@
+{
+  "kind": "ScriptGroups",
+  "items": [
+    {
+      "caption": "Test bench scripts",
+      "metaId": "78a961ad-61fe-4f90-b1ba-d0e312650f3f",
+      "name": "TBScripts",
+      "modelId": "9eae87b1-c80f-430c-baa2-4dcea0bae929",
+      "layerId": 1
+    }
+  ]
+}

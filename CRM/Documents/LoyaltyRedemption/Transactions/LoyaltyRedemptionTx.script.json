@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "LoyaltyRedemption",
+    "objectMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
+    "executionOrder": 1,
+    "metaId": "8a1b6d54-0c9e-4f3a-9b4d-5e8f9a6c2d70",
+    "name": "LoyaltyRedemptionTx",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+    "layerId": 2
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Tax direction",
+    "caption_ru": "Направление налога",
+    "edtMetaId": "fa28b007-cf13-48c9-a238-d0117c902ead",
+    "description": "Reusable analytic over the TaxDirection dictionary (TaxLedger)",
+    "metaId": "6522a220-8b19-4da5-ad3f-0903eb26fbea",
+    "name": "TaxDirection",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}

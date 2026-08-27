@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "ProductionOrder",
+    "objectMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
+    "executionOrder": 0,
+    "metaId": "6b3c5d1a-8f2e-4a4b-9c5d-5e9f0a6b1c40",
+    "name": "ProductionOrderEventHandler",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+    "layerId": 2
+  }
+}

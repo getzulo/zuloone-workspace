@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
+    "isRequired": false,
+    "metaId": "e5963100-d15f-4650-924b-0c35e26a233d",
+    "name": "RefFiscalPeriod",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

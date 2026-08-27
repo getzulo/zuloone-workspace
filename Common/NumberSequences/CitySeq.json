@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "nextValue": 1000,
+    "resetPolicy": "None",
+    "metaId": "2a30c28e-e13b-49ce-a1a9-8aef3f977c50",
+    "name": "CitySeq",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "kind": "VirtualTotalPredicate",
+  "object": {
+    "sqlQuery": "SELECT [MetaId] AS [WAREHOUSE] FROM [TBWarehouse] WHERE [Name] LIKE 'VTP-%'",
+    "arguments": "WAREHOUSE",
+    "metaId": "6022b6f1-7ec1-441f-84dd-65e1e7a40454",
+    "name": "TBWarehouseByName",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "kind": "Menu",
+  "items": [
+    {
+      "caption": "Organization",
+      "caption_ar": "المؤسسة",
+      "caption_ru": "Организация",
+      "displayOrder": 3,
+      "targetType": "Group",
+      "metaId": "05fc20e3-4b78-40db-b781-6ce37e247c97",
+      "name": "Organization",
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "layerId": 1
+    },
+    {
+      "caption": "Dictionaries",
+      "caption_ar": "القوائم المرجعية",
+      "caption_ru": "Справочники",
+      "parentMetaId": "05fc20e3-4b78-40db-b781-6ce37e247c97",
+      "displayOrder": 1,
+      "targetType": "Group",
+      "metaId": "056ae83e-b101-485d-87d5-320de4d4e920",
+      "name": "Dictionaries",
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "layerId": 1
+    },
+    {
+      "caption": "Settings",
+      "caption_ru": "Настройки",
+      "parentMetaId": "05fc20e3-4b78-40db-b781-6ce37e247c97",
+      "displayOrder": 2,
+      "targetType": "Group",
+      "metaId": "29720d2c-504a-5235-8035-caa33aeae64b",
+      "name": "Settings",
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "layerId": 1
+    },
+    {
+      "caption": "Legal entities",
+      "caption_ar": "الكيانات القانونية",
+      "caption_ru": "Юрлица",
+      "parentMetaId": "056ae83e-b101-485d-87d5-320de4d4e920",
+      "displayOrder": 1,
+      "targetType": "Dictionary",
+      "targetMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+      "metaId": "dabbf1e0-d2b9-4856-b642-6d498fab6b6b",
+      "name": "LegalEntity",
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "layerId": 1
+    },
+    {
+      "caption": "Organization settings",
+      "caption_ru": "Настройки модуля",
+      "parentMetaId": "29720d2c-504a-5235-8035-caa33aeae64b",
+      "displayOrder": 1,
+      "targetType": "Dictionary",
+      "targetMetaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
+      "metaId": "fc9a2413-bbbc-5971-8376-85f8e17097be",
+      "name": "OrganizationSettings",
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "layerId": 1
+    },
+    {
+      "caption": "Divisions",
+      "caption_ar": "الأقسام",
+      "caption_ru": "Подразделения",
+      "parentMetaId": "056ae83e-b101-485d-87d5-320de4d4e920",
+      "displayOrder": 2,
+      "targetType": "Dictionary",
+      "targetMetaId": "94139682-fbaf-4cea-b3bf-99e067f31b2a",
+      "metaId": "8b174fc7-f037-4344-bdac-8ac120159b55",
+      "name": "Division",
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "layerId": 1
+    },
+    {
+      "caption": "Division types",
+      "caption_ar": "أنواع الأقسام",
+      "caption_ru": "Типы подразделений",
+      "parentMetaId": "056ae83e-b101-485d-87d5-320de4d4e920",
+      "displayOrder": 3,
+      "targetType": "Dictionary",
+      "targetMetaId": "9eff86a3-7382-4094-863d-a04d07c4ab0b",
+      "metaId": "9b71f874-0a5b-4d27-9e01-9b5efb7004f3",
+      "name": "DivisionType",
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "layerId": 1
+    }
+  ]
+}

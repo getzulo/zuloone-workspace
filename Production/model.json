@@ -1,0 +1,45 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Производство (core): спецификации (BOM) и производственные заказы",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+    "name": "Production",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 2
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "minVersion": "1.0.0",
+      "metaId": "ab3c5d7e-9f1a-4b2c-8d3e-4f5a6b7c8d90",
+      "name": "Production->Common",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "minVersion": "1.0.0",
+      "metaId": "2b8c1f6a-4d7e-4a9b-8c3f-1e5a6d2b7c90",
+      "name": "Production->Inventory",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "dependsOnModelMetaId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "minVersion": "1.0.0",
+      "metaId": "9c1e5a72-3b8f-4d2e-8a5c-0f7b2d9e4a60",
+      "name": "Production->Measurement",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "layerId": 2
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "BomComponent",
+    "objectMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
+    "executionOrder": 0,
+    "metaId": "a7bf74e2-02ea-4f7b-b20a-381a31534413",
+    "name": "BomComponentEventHandler",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+    "layerId": 2
+  }
+}

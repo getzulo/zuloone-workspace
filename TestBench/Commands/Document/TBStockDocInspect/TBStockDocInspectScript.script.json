@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "TBStockDocInspect",
+    "objectMetaId": "fcabe79e-860b-48c9-849b-f47c5097a13b",
+    "executionOrder": 0,
+    "metaId": "92f1e34d-ed4b-42f1-a808-9b34ed20c332",
+    "name": "TBStockDocInspectScript",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

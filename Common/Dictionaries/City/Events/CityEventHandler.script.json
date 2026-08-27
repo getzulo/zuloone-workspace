@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "City",
+    "objectMetaId": "690564b8-f618-4f1d-9954-8d8d7b10452f",
+    "executionOrder": 0,
+    "metaId": "c95c8a27-0510-42c0-99b5-861a99ce723f",
+    "name": "CityEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

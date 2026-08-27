@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "FiscalYear",
+    "objectMetaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
+    "executionOrder": 0,
+    "metaId": "8fae2568-9a6a-4963-8c56-1a756427e58b",
+    "name": "FiscalYearEventHandler",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

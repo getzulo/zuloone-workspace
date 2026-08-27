@@ -1,0 +1,110 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Payroll accrual",
+    "caption_ru": "Начисление ФОТ",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "5766b3cf-668f-4085-a216-0559bf99e7a9",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+    "name": "PayrollAccrual",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+      "fieldName": "Division",
+      "caption": "Division",
+      "caption_ar": "الفرع",
+      "caption_ru": "Подразделение",
+      "edtMetaId": "ff85f4a4-ab90-41f8-9bf9-32367aab94a1",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "b238e829-4d7c-4a1f-9b2e-6c3a5d1e7f42",
+      "name": "Division",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+      "fieldName": "ID",
+      "caption": "ID",
+      "caption_ar": "معرف",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "metaId": "a635e321-0a6f-455a-94b1-184ec7effcf0",
+      "name": "ID",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+      "name": "Posted",
+      "caption": "Posted",
+      "caption_ar": "مرسل",
+      "subtypeValue": "Posted",
+      "subtypeCaption": "Posted",
+      "subtypeCaption_ru": "Проведено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "metaId": "4629fcca-6d1e-4b8a-9c3f-5a7e2d1c4b86",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+      "name": "Draft",
+      "caption": "Draft",
+      "caption_ar": "مسودة",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": false,
+      "metaId": "6a17b68b-3e5c-4d2a-8f1b-7c4a6e2d9b53",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+      "tablePartTypeMetaId": "b56a4082-9c3e-4d1f-8a7b-2e6f5c1d3a90",
+      "isCloneable": true,
+      "metaId": "2493b6b8-7c4e-4d1a-9b6f-3e2a5c7d1f48",
+      "name": "Lines",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "4629fcca-6d1e-4b8a-9c3f-5a7e2d1c4b86",
+      "scriptMetaId": "08153204-7c2e-4d1a-9b6f-3e5a2c7d1f80",
+      "executionOrder": 1,
+      "metaId": "5207f916-1a2b-4c3d-8e4f-5a6b7c8d9e01",
+      "name": "",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ]
+}

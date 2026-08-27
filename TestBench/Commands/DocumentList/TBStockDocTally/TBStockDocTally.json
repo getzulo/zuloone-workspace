@@ -1,0 +1,24 @@
+{
+  "kind": "DocumentListCommand",
+  "object": {
+    "caption": "TBStockDocTally",
+    "scriptMetaId": "1e41c907-91d6-48ec-92cd-2fd656d9f7b7",
+    "parameterMode": "None",
+    "displayOrder": 0,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "d741889b-951c-4eb4-b8bd-b21c5db833dc",
+    "name": "TBStockDocTally",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  },
+  "typeBindings": [
+    {
+      "metaId": "60ae90ad-f988-4109-9b7d-0aad58d28522",
+      "documentListCommandMetaId": "d741889b-951c-4eb4-b8bd-b21c5db833dc",
+      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61"
+    }
+  ]
+}

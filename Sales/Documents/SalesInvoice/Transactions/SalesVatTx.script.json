@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "SalesInvoice",
+    "objectMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
+    "executionOrder": 6,
+    "metaId": "6f0b3c29-7e4d-4a1b-8c5f-9d2e4a0b7c30",
+    "name": "SalesVatTx",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+    "layerId": 3
+  }
+}

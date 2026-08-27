@@ -1,0 +1,45 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Себестоимость (core): оценка запасов по стоимости прихода (FIFO/COGS через драйвер — отложено)",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+    "name": "Costing",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 2
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "minVersion": "1.0.0",
+      "metaId": "5c8f2b63-9e4d-4a7b-8c3f-6d9e2a5b8c40",
+      "name": "Costing->Inventory",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "dependsOnModelMetaId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "minVersion": "1.0.0",
+      "metaId": "7ea0b4c1-1f6d-4a2e-9b3c-8d5e0f7a2b40",
+      "name": "Costing->Measurement",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "dependsOnModelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "minVersion": "1.0.0",
+      "metaId": "6d9a3c74-0f5e-4b8c-9d4a-7e0f3b6c9d50",
+      "name": "Costing->Purchasing",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "layerId": 2
+    }
+  ]
+}

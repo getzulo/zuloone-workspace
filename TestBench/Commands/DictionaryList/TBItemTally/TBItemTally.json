@@ -1,0 +1,18 @@
+{
+  "kind": "DictionaryListCommand",
+  "object": {
+    "dictionaryMetaId": "0d9d07ab-31ae-4297-a834-760c6f2094e6",
+    "caption": "TBItemTally",
+    "scriptMetaId": "21bc4565-675a-4e76-bdcc-94ed292d3291",
+    "parameterMode": "None",
+    "displayOrder": 0,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "df1d5fa8-2941-4cfa-93e8-04fb668ab666",
+    "name": "TBItemTally",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

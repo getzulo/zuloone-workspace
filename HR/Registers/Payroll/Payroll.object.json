@@ -1,0 +1,55 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "Payroll",
+    "caption_ar": "الرواتب",
+    "caption_ru": "ФОТ",
+    "isObsolete": false,
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "254b351a-6f4f-4d6a-8e2f-2c1f0f4c9a71",
+    "name": "Payroll",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  },
+  "resources": [
+    {
+      "registerMetaId": "254b351a-6f4f-4d6a-8e2f-2c1f0f4c9a71",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "caption_ar": "المبلغ",
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "metaId": "8c38dfe1-2a7c-4f0e-9b1d-6d3e5a8f0c42",
+      "name": "Amount",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "analytics": [
+    {
+      "registerMetaId": "254b351a-6f4f-4d6a-8e2f-2c1f0f4c9a71",
+      "analyticMetaId": "8319a81f-f08c-4e1e-8861-6ce8bc7152c6",
+      "displayOrder": 1,
+      "isRequired": true,
+      "metaId": "db7c5024-4b8f-4c1a-9e6d-3f2a1c7b5e08",
+      "name": "Payroll-Division",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "registerMetaId": "254b351a-6f4f-4d6a-8e2f-2c1f0f4c9a71",
+      "analyticMetaId": "0f98913b-3880-4fc8-84f1-632d5cfe505e",
+      "displayOrder": 2,
+      "isRequired": true,
+      "metaId": "cf5bf0c8-7d2e-4a19-8c4f-1b6e9d3a2f57",
+      "name": "Payroll-Employee",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ]
+}

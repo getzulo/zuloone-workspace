@@ -1,0 +1,142 @@
+{
+  "kind": "Menu",
+  "items": [
+    {
+      "caption": "Common",
+      "caption_ar": "عام",
+      "caption_ru": "Общие",
+      "displayOrder": 1,
+      "targetType": "Group",
+      "metaId": "ee56f9bb-66b6-43fd-9378-6f9d453374c4",
+      "name": "Common",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "caption": "Dictionaries",
+      "caption_ar": "القوائم المرجعية",
+      "caption_ru": "Справочники",
+      "parentMetaId": "ee56f9bb-66b6-43fd-9378-6f9d453374c4",
+      "displayOrder": 1,
+      "targetType": "Group",
+      "metaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "name": "Dictionaries",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "caption": "Settings",
+      "caption_ru": "Настройки",
+      "parentMetaId": "ee56f9bb-66b6-43fd-9378-6f9d453374c4",
+      "displayOrder": 2,
+      "targetType": "Group",
+      "metaId": "cf5e80d1-e7e5-508c-82bf-40e67a1c59c8",
+      "name": "Settings",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "caption": "Common settings",
+      "caption_ru": "Настройки модуля",
+      "parentMetaId": "cf5e80d1-e7e5-508c-82bf-40e67a1c59c8",
+      "displayOrder": 1,
+      "targetType": "Dictionary",
+      "targetMetaId": "83321261-0387-519e-822b-5128b78e690e",
+      "metaId": "dbc90904-7761-57b3-bcb3-d1f5b54e191d",
+      "name": "CommonSettings",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "caption": "Gender",
+      "caption_ar": "الجنس",
+      "caption_ru": "Пол",
+      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "displayOrder": 1,
+      "targetType": "Dictionary",
+      "targetMetaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
+      "metaId": "230f97f8-144d-491a-a153-19932585c2ba",
+      "name": "Gender",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "caption": "Countries",
+      "caption_ar": "الدول",
+      "caption_ru": "Страны",
+      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "displayOrder": 2,
+      "targetType": "Dictionary",
+      "targetMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
+      "metaId": "712724b4-1102-432c-9284-b3c76256f96b",
+      "name": "Country",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "caption": "Regions",
+      "caption_ar": "المناطق",
+      "caption_ru": "Регионы",
+      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "displayOrder": 3,
+      "targetType": "Dictionary",
+      "targetMetaId": "56e72501-c6c6-4fc8-9cbd-c645dcbbb669",
+      "metaId": "f2f64457-a5ea-4b86-9ebd-02f25ccf530e",
+      "name": "Region",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "caption": "Cities",
+      "caption_ar": "المدن",
+      "caption_ru": "Города",
+      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "displayOrder": 4,
+      "targetType": "Dictionary",
+      "targetMetaId": "690564b8-f618-4f1d-9954-8d8d7b10452f",
+      "metaId": "047f5201-7ec6-4b98-9d42-2aff0af64fc3",
+      "name": "City",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "caption": "Addresses",
+      "caption_ar": "العناوين",
+      "caption_ru": "Адреса",
+      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "displayOrder": 5,
+      "targetType": "Dictionary",
+      "targetMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
+      "metaId": "10f066c7-f9cf-495f-b4bc-c295cc3b6a9a",
+      "name": "Address",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "caption": "Currencies",
+      "caption_ar": "العملات",
+      "caption_ru": "Валюты",
+      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "displayOrder": 6,
+      "targetType": "Dictionary",
+      "targetMetaId": "f90a6b92-f04d-4454-8de5-362a8893d34e",
+      "metaId": "d1fa3e00-2603-41f9-9c0f-7837ad214a50",
+      "name": "Currency",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "caption": "Units of measure",
+      "caption_ar": "وحدات القياس",
+      "caption_ru": "Единицы измерения",
+      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "displayOrder": 7,
+      "targetType": "Dictionary",
+      "targetMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
+      "metaId": "595405ff-1513-4755-8f8e-df305792b322",
+      "name": "UnitOfMeasure",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    }
+  ]
+}

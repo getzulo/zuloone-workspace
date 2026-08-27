@@ -1,0 +1,15 @@
+{
+  "kind": "GlobalConstant",
+  "object": {
+    "caption": "TBVatRate",
+    "groupMetaId": "69317462-fd93-4332-abbe-9eaa3234d05f",
+    "constantType": "Decimal",
+    "numberValue": 20.00,
+    "value": 20.00,
+    "displayValue": "20.00",
+    "metaId": "8b68cc3a-010a-4783-bb56-1cd55502a3ac",
+    "name": "TBVatRate",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

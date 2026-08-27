@@ -1,0 +1,16 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "E2eCompDoc1787412229585 ID",
+    "description": "Auto-created for the E2eCompDoc1787412229585 system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "nextValue": 1,
+    "resetPolicy": "None",
+    "metaId": "218bd520-33ea-4328-899e-60ec272adb60",
+    "name": "E2eCompDoc1787412229585Id",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

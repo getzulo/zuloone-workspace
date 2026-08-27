@@ -1,0 +1,17 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Decimal",
+    "description": "Tax rate value (9,6) — e.g. 0.150000 for 15%",
+    "precision": 9,
+    "scale": 6,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "713835c7-1701-4c43-9cf7-c754519dc5d4",
+    "name": "TaxRateValue",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}

@@ -1,0 +1,158 @@
+---
+name: zuloone-extend
+description: Расширить ЧУЖУЮ модель ZuloOne — поля-расширения на чужих объектах, звено цепочки событий, наследование кода скриптов, прививка меню. Use when adding fields, event handlers, script overrides or menu items to objects owned by another model.
+---
+
+# Расширение чужой модели
+
+Чужие модели не редактируются — они расширяются АДДИТИВНО из твоей модели.
+Четыре механики: поля-расширения, звено цепочки событий, наследование кода,
+прививка меню.
+
+## 0. Предусловия — без них расширение отклонят
+
+1. **Зависимость объявлена**: ребро на модель-владельца в твоём `model.json`
+   (скилл `zuloone-new-model`). Ссылка вне транзитивного замыкания
+   зависимостей — нарушение depends-гейта.
+2. **Слой строго выше** слоя расширяемой модели.
+3. `Core/` расширяется как любая модель, но НЕ редактируется; `isSealed`-модель
+   — тоже только расширяется.
+
+## 1. Поля на чужом объекте — экстеншен-агрегат
+
+Раскладка §8.2: тип-папки зеркально базовым, имя агрегата = `<Цель>.<ТвояМодель>`
+(глобально уникально, один агрегат на пару цель+модель):
+
+`DictionaryExtensions/Country.WMS/Country.WMS.extension.json`:
+```json
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "<GUID чужого справочника>",
+    "description": "<Зачем расширяем>",
+    "metaId": "<GUID-агрегата>", "name": "Country.WMS",
+    "modelId": "<GUID ТВОЕЙ модели>", "layerId": 2
+  },
+  "fields": [
+    { "dictionaryMetaId": "<GUID чужого справочника>", "extensionMetaId": "<GUID-агрегата>",
+      "fieldName": "CustomsCode", "name": "CustomsCode", "caption": "Код таможни",
+      "baseType": "String", "length": 32, "displayOrder": 50, "isVisible": true,
+      "metaId": "<GUID>", "modelId": "<GUID ТВОЕЙ модели>", "layerId": 2 }
+  ]
+}
+```
+
+Для документов — `DocumentExtensions/<Цель>.<Модель>/` тем же лекалом
+(`targetDocumentTypeMetaId`). Поле живёт в ТВОЕЙ модели (row-слоение): отключение
+твоей модели убирает поле из effective set. В сгенерированном классе сущности
+поле появляется как обычное свойство — доступно всем скриптам.
+
+## 2. Звено цепочки событий на чужом объекте
+
+Обработчики одного объекта выстраиваются в ЦЕПОЧКУ по слоям: владелец первым,
+расширения после. Звено — обычный EventHandler-скрипт твоей модели в папке
+агрегата:
+
+`DictionaryExtensions/Country.WMS/CountryWmsEvents.script.json`:
+```json
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler", "objectType": "Dictionary",
+    "objectMetaId": "<GUID чужого справочника>", "objectName": "Country",
+    "extensionMetaId": "<GUID-агрегата>",
+    "metaId": "<GUID>", "name": "CountryWmsEvents",
+    "modelId": "<GUID ТВОЕЙ модели>", "layerId": 2
+  }
+}
+```
+
+`CountryWmsEvents.cs` — класс с **УНИКАЛЬНЫМ именем** (не `CountryEventHandler` —
+так уже зовётся звено владельца):
+
+```csharp
+#nullable enable
+namespace ZuloOne.Runtime.Generated;
+
+public partial class CountryWmsEventHandler : TypedDictionaryEventHandler<Country>
+{
+    public override Task<EventResult> OnBeforeSaveAsync(Country record, bool isNew, EventContext context)
+    {
+        // выполняется ПОСЛЕ звена владельца: record несёт всё, что оно
+        // записало; context.PreviousResult — результат предыдущего звена
+        // (Data объединяется по всей цепочке — позднее звено дополняет,
+        // но не затирает). Свои поля-расширения типизированы: record.CustomsCode.
+        return Task.FromResult(EventResult.Ok());
+    }
+}
+```
+
+Правила цепочки: порядок = слой модели звена (затем имя); фейл любого звена
+(`EventResult.Cancel/Error`) прерывает цепочку; отключение модели снимает её
+звено. `super()` не нужен — звено не оборачивает, а ДОПОЛНЯЕТ.
+
+## 3. Наследование КОДА (tx-скрипты, команды) — вместо Chain of Command
+
+Расширение исполняемого скрипта = C#-класс, наследующий класс базового скрипта;
+`base.Метод(...)` — это super(). Рантайм исполняет САМЫЙ ПРОИЗВОДНЫЙ класс
+цепочки; несколько расширений выстраиваются линейно по слоям.
+
+Envelope — обычный Script твоей модели + `baseScriptMetaId`:
+```json
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript", "objectType": "Document",
+    "objectMetaId": "<GUID подтипа — тот же, что у базы>", "objectName": "<Документ>",
+    "baseScriptMetaId": "<GUID базового скрипта>",
+    "metaId": "<GUID>", "name": "ReceiptTx_WMS",
+    "modelId": "<GUID ТВОЕЙ модели>", "layerId": 2
+  }
+}
+```
+
+Код объявляет базу САМ (framework-часть не генерится — она у корня цепочки).
+`base.Метод(...)` — вызов родителя, его РЕЗУЛЬТАТ у тебя в руках:
+
+```csharp
+public class ReceiptTx_WMS : ReceiptTx
+{
+    protected override void GetTransactions(<Документ> document, TransactionPairCollection pairs, TransactionCollection transactions)
+    {
+        base.GetTransactions(document, pairs, transactions);
+        // ← в коллекциях уже ВСЁ, что насеял родитель: можно дополнить,
+        //   поправить или отфильтровать его движения перед проведением.
+        // transactions.Add(new RegisterMovementSpec("CostRegister")…);
+    }
+}
+```
+
+Для методов с возвращаемым значением (хуки драйверов, команды) — как в
+обычном C#: `var result = base.CalculatePartialAmount(…);` — получил расчёт
+родителя, поправил, вернул. Аргументы можно править ДО вызова base,
+результат — ПОСЛЕ; вызов base можно и опустить (полное замещение — validate
+предупредит, но не заблокирует).
+
+- базу можно НЕ вызывать — полное замещение легально (validate предупредит);
+- точки расширения = `protected virtual` базового класса; `private` недоступно,
+  `sealed` — запрещено переопределять;
+- скаффолд всех virtual-точек c готовыми `base.()`: кнопка «Расширить» в студии
+  или `POST /api/metadata/extensions/extend-script`.
+
+## 4. Меню и прочее
+
+- Пункт в ЧУЖУЮ группу меню: свой пункт в СВОЁМ `Menu/menu.json` с
+  `parentMetaId` чужой группы (тоже зависимость!).
+- Реестр всех экстеншенов стенда: страница `/extensions` и
+  `GET /api/metadata/extensions`.
+
+## 5. Проверка
+
+`zuloone-verify` полностью, плюс специфика:
+- после применения файлов — компиляция моделей И schema sync (новая колонка);
+- живой смок: создать запись чужого объекта и убедиться, что твоё звено
+  отработало (значение в поле-расширении);
+- негативный тест: выключи свою модель — поле уходит из effective set,
+  звено из цепочки; включи обратно;
+- интеграционный тест на цепочку (порядок и данные) — раннер откатит данные
+  сам (`zuloone-new-test`).

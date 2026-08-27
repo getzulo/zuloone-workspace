@@ -1,0 +1,14 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Legal entity",
+    "caption_ar": "الكيان القانوني",
+    "caption_ru": "Юрлицо",
+    "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+    "description": "Reusable analytic over the LegalEntity dictionary (GL / TaxLedger / Payroll)",
+    "metaId": "2421974a-d39c-43f1-9d21-49f88605f5c7",
+    "name": "LegalEntity",
+    "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+    "layerId": 1
+  }
+}

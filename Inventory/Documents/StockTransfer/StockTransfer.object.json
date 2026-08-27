@@ -1,0 +1,129 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Stock transfer",
+    "caption_ar": "المخزون التحويل",
+    "caption_ru": "Перемещение остатков",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "ac436074-541b-4d08-a0d0-0cec9e2c2372",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
+    "name": "StockTransfer",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
+      "fieldName": "FromLocation",
+      "caption": "From location",
+      "caption_ar": "من الموقع",
+      "caption_ru": "Из ячейки",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "8d0dc878-ecb8-4116-ade2-ace9bbe501f8",
+      "name": "FromLocation",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
+      "fieldName": "ID",
+      "caption": "ID",
+      "caption_ar": "معرف",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "metaId": "1119f624-c3d3-44df-8658-b947b6e103f2",
+      "name": "ID",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
+      "fieldName": "ToLocation",
+      "caption": "To location",
+      "caption_ar": "إلى الموقع",
+      "caption_ru": "В ячейку",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "d2c64b50-3a79-4fd2-a69d-b02779ce4943",
+      "name": "ToLocation",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
+      "name": "Posted",
+      "caption": "Posted",
+      "caption_ar": "مرسل",
+      "subtypeValue": "Posted",
+      "subtypeCaption": "Posted",
+      "subtypeCaption_ru": "Проведено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "metaId": "3bb13656-ae81-4e6e-9307-1efa6863994a",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
+      "name": "Draft",
+      "caption": "Draft",
+      "caption_ar": "مسودة",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "metaId": "a554970b-8b47-43e9-9572-d918b39c18a5",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
+      "tablePartTypeMetaId": "111f1288-f692-4b6d-ab54-a2fd6658a98d",
+      "isCloneable": true,
+      "metaId": "e90c337a-a775-45b5-9cbc-051f201b112c",
+      "name": "Lines",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "3bb13656-ae81-4e6e-9307-1efa6863994a",
+      "scriptMetaId": "d646cfa7-f6a0-4455-9560-728fa25bf7bd",
+      "executionOrder": 1,
+      "metaId": "03c95876-c809-4623-9950-fa21b4a46d1c",
+      "name": "",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ]
+}

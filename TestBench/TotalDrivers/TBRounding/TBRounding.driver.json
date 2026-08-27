@@ -1,0 +1,14 @@
+{
+  "kind": "TotalDriver",
+  "object": {
+    "caption": "TBRounding",
+    "baseClassName": "FifoTotalDriver",
+    "baseEngine": "FIFO",
+    "isKernel": false,
+    "description": "Стендовый драйвер: FIFO-база + скриптовый хук округления COGS до 2 знаков.",
+    "metaId": "74946168-3fa5-45e7-82f2-8e459771099a",
+    "name": "TBRounding",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "StockTransfer",
+    "objectMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
+    "executionOrder": 0,
+    "metaId": "55f4be7e-7561-4c4b-92bc-a1cf5da57ab3",
+    "name": "StockTransferEventHandler",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  }
+}

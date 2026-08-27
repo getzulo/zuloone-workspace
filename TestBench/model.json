@@ -1,0 +1,14 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Persistent demo model for the in-app totals integration tests («Ядерные тесты. Итоги»).",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "metaId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "name": "TestBench",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 1
+  }
+}

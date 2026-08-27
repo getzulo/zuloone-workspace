@@ -1,0 +1,13 @@
+{
+  "kind": "ConstantGroups",
+  "items": [
+    {
+      "caption": "Saudi Arabia",
+      "caption_ru": "Саудовская Аравия",
+      "metaId": "1a5c8d74-2f9e-4b6c-9d0a-4e7f9b5c2d80",
+      "name": "SaudiArabia",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+      "layerId": 3
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Standalone",
+    "objectMetaId": "00000000-0000-0000-0000-000000000000",
+    "formKind": "Standalone",
+    "layoutJson": "{\"version\": 4, \"nodes\": [{\"type\": \"group\", \"title\": \"Оперативный пульт (демо)\", \"titleStyle\": \"heading\", \"frame\": \"plain\", \"columns\": 2, \"items\": [{\"type\": \"label\", \"text\": \"Живая витрина форм: график, список с подсветкой, real-time, HTML/JS-мост.\", \"span\": 2, \"dimmed\": true}, {\"type\": \"chart\", \"chartType\": \"donut\", \"height\": 200, \"source\": {\"entity\": \"Country\", \"groupBy\": \"Name\", \"agg\": \"count\"}}, {\"type\": \"chart\", \"chartType\": \"bar\", \"height\": 200, \"source\": {\"entity\": \"PurchaseOrder\", \"groupBy\": \"StatusValue\", \"agg\": \"count\", \"live\": true}}, {\"type\": \"list\", \"span\": 2, \"height\": 180, \"source\": {\"entity\": \"Country\"}, \"columns\": [\"ID\", \"Name\", \"CodeISO2\"], \"rowRules\": [{\"when\": \"CodeISO2 == 'GE'\", \"color\": \"green\"}, {\"when\": \"CodeISO2 == 'CZ'\", \"color\": \"yellow\"}]}, {\"type\": \"html\", \"span\": 2, \"height\": 90, \"allowServices\": [], \"html\": \"<div id='o' style=\\\"padding:6px\\\">загрузка…</div>\", \"js\": \"ZuloForm.query({entity:'Country'}).then(function(rows){document.getElementById('o').innerHTML='Стран (через ZuloForm.query): <b>'+rows.length+'</b> — '+rows.map(function(r){return r.Name;}).join(', ');});\"}]}]}",
+    "metaId": "9e40ebd2-19d8-4d4d-aecc-afba5d28ff92",
+    "name": "OpsConsoleDemo",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

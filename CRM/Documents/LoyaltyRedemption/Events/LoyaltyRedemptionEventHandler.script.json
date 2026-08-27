@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "LoyaltyRedemption",
+    "objectMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
+    "executionOrder": 0,
+    "metaId": "ef805716-945f-42ed-95c1-d1e53e68e018",
+    "name": "LoyaltyRedemptionEventHandler",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+    "layerId": 2
+  }
+}

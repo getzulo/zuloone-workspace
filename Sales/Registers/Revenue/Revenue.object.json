@@ -1,0 +1,56 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "Revenue",
+    "caption_ar": "الإيراد",
+    "caption_ru": "Выручка",
+    "description": "Recognized sales revenue by item and customer",
+    "isObsolete": false,
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "103cdb23-2d49-4c42-9bf3-3c5a8ce46cdc",
+    "name": "Revenue",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2
+  },
+  "resources": [
+    {
+      "registerMetaId": "103cdb23-2d49-4c42-9bf3-3c5a8ce46cdc",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "caption_ar": "المبلغ",
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "metaId": "4d7c4455-4ce1-4c5d-b581-d02d1a4d8a07",
+      "name": "Amount",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ],
+  "analytics": [
+    {
+      "registerMetaId": "103cdb23-2d49-4c42-9bf3-3c5a8ce46cdc",
+      "analyticMetaId": "37666495-de93-4eee-91b1-c72af788c054",
+      "displayOrder": 2,
+      "isRequired": true,
+      "metaId": "d0f6c80a-44cf-4998-a4c9-1a3310f0b9ed",
+      "name": "Revenue-Customer",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "registerMetaId": "103cdb23-2d49-4c42-9bf3-3c5a8ce46cdc",
+      "analyticMetaId": "4384343f-aa55-4cc4-9e0d-9893bfc47fb3",
+      "displayOrder": 1,
+      "isRequired": true,
+      "metaId": "102cd75a-2d85-4707-a54c-4e181d0c93d0",
+      "name": "Revenue-Item",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ]
+}

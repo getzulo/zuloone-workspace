@@ -1,0 +1,14 @@
+{
+  "kind": "TotalDriver",
+  "object": {
+    "caption": "Виртуальные итоги",
+    "baseClassName": "VirtualTotalDriver",
+    "baseEngine": "Virtual",
+    "isKernel": true,
+    "description": "Остатки считает скрипт драйвера, без физических таблиц",
+    "metaId": "db98e618-7c41-4b46-9609-70d8c4cf53b7",
+    "name": "VirtualTotalDriver",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1
+  }
+}

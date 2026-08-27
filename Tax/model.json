@@ -1,0 +1,45 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Налоговый движок (core): мастер-данные налога, расчёт (TaxCalculation), налоговый леджер (TaxLedger)",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "name": "Tax",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 1
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "dependsOnModelMetaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "minVersion": "1.0.0",
+      "metaId": "0a3da314-5395-4c1b-ac7b-2b622652945e",
+      "name": "Tax->Accounting",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1
+    },
+    {
+      "modelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "minVersion": "1.0.0",
+      "metaId": "9239864d-8284-4836-addc-2922b7724543",
+      "name": "Tax->Common",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1
+    },
+    {
+      "modelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "minVersion": "1.0.0",
+      "metaId": "773dcabe-9210-4367-9827-013a7a9be659",
+      "name": "Tax->Organization",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1
+    }
+  ]
+}

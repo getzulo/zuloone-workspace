@@ -1,0 +1,54 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "PayrollPaymentLinesTablePartRow",
+    "caption": "Payment lines",
+    "caption_ar": "الدفع السطر",
+    "caption_ru": "Строки выплаты",
+    "tableName": "TP_PayrollPaymentLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "92379308-4a1c-4e8d-9f2b-6c3a7e5d1b40",
+    "name": "PayrollPaymentLines",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "92379308-4a1c-4e8d-9f2b-6c3a7e5d1b40",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "caption_ar": "المبلغ",
+      "caption_ru": "Сумма",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "fa1ff31c-7c2e-4d9b-8a3f-6e5c1d2a4b70",
+      "name": "Amount",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "92379308-4a1c-4e8d-9f2b-6c3a7e5d1b40",
+      "fieldName": "Employee",
+      "caption": "Employee",
+      "caption_ar": "الموظف",
+      "caption_ru": "Сотрудник",
+      "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "4490ac17-8d5e-4c2a-9b6f-3e1d7a4c2f85",
+      "name": "Employee",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ]
+}

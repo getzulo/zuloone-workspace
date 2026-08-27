@@ -1,0 +1,92 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Payroll payment",
+    "caption_ar": "الرواتب الدفع",
+    "caption_ru": "Выплата ФОТ",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "b4ab45db-58f1-4a2e-99c8-ea5756a57a67",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+    "name": "PayrollPayment",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+      "fieldName": "ID",
+      "caption": "ID",
+      "caption_ar": "معرف",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "metaId": "d6edce12-43ba-4755-bfc4-7f4252e7ebf2",
+      "name": "ID",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+      "name": "Paid",
+      "caption": "Paid",
+      "subtypeValue": "Paid",
+      "subtypeCaption": "Paid",
+      "subtypeCaption_ru": "Выплачено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "metaId": "aa119dda-7d3e-4c1a-9b2f-5a6e3d1c7b48",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+      "name": "Draft",
+      "caption": "Draft",
+      "caption_ar": "مسودة",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": false,
+      "metaId": "dbb3ce31-5c7e-4a2d-8b1f-6e3a4c7d2f90",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+      "tablePartTypeMetaId": "92379308-4a1c-4e8d-9f2b-6c3a7e5d1b40",
+      "isCloneable": true,
+      "metaId": "b5478822-6c1e-4d9a-8b3f-7e4a2c6d1f53",
+      "name": "Lines",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "aa119dda-7d3e-4c1a-9b2f-5a6e3d1c7b48",
+      "scriptMetaId": "7a7240c9-6d1e-4b8a-9c3f-2a5e7d1c4b90",
+      "executionOrder": 1,
+      "metaId": "297a7908-2b3c-4d5e-9f60-1a2b3c4d5e6f",
+      "name": "",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ]
+}

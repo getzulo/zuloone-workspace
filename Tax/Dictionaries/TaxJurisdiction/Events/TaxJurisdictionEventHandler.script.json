@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TaxJurisdiction",
+    "objectMetaId": "e1fe83cc-7d21-4724-9871-017178727e91",
+    "executionOrder": 0,
+    "metaId": "a4011fea-3f56-4481-9361-73c64add4d9b",
+    "name": "TaxJurisdictionEventHandler",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}

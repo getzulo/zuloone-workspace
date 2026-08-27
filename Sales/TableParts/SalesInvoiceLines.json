@@ -1,0 +1,72 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "SalesInvoiceLinesTablePartRow",
+    "caption": "Lines",
+    "caption_ar": "السطر",
+    "caption_ru": "Строки",
+    "tableName": "TP_SalesInvoiceLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
+    "name": "SalesInvoiceLines",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
+      "fieldName": "Item",
+      "caption": "Item",
+      "caption_ar": "الصنف",
+      "caption_ru": "Товар",
+      "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "7c30eb7a-a5cd-4a92-b6d3-63b4935a6d3f",
+      "name": "Item",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
+      "fieldName": "Quantity",
+      "caption": "Quantity",
+      "caption_ar": "الكمية",
+      "caption_ru": "Количество",
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "baef12f8-d79c-47d1-9170-8666524c0d0b",
+      "name": "Quantity",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
+      "fieldName": "UnitPrice",
+      "caption": "Unit price",
+      "caption_ar": "سعر الوحدة",
+      "caption_ru": "Цена",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 3,
+      "metaId": "0ccf20bf-0577-42dd-96b3-45368140286e",
+      "name": "UnitPrice",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ]
+}

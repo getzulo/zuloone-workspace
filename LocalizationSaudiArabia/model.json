@@ -1,0 +1,45 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Локализация Саудовская Аравия (core): НДС 15% на продажах (ZATCA/FATOORA — отложено)",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+    "name": "LocalizationSaudiArabia",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 3
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+      "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "minVersion": "1.0.0",
+      "metaId": "0f4b7c63-1e8d-4a5b-8c9f-3d6e8a4b1c70",
+      "name": "LocalizationSaudiArabia->Inventory",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+      "layerId": 3
+    },
+    {
+      "modelMetaId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+      "dependsOnModelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "minVersion": "1.0.0",
+      "metaId": "9e3a6b52-0d7c-4f4a-9b8e-2c5d7f3a0b60",
+      "name": "LocalizationSaudiArabia->Sales",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+      "layerId": 3
+    },
+    {
+      "modelMetaId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+      "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "minVersion": "1.0.0",
+      "metaId": "b4c5d6e7-f8a9-4b0c-8d1e-4f5a6b7c8d90",
+      "name": "LocalizationSaudiArabia->Tax",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+      "layerId": 3
+    }
+  ]
+}

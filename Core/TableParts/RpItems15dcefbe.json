@@ -1,0 +1,48 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "RpItems15dcefbeTablePartRow",
+    "tableName": "TP_RpItems15dcefbe",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "753ef7a9-1d5c-4abc-b5ed-fafc0fa54696",
+    "name": "RpItems15dcefbe",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "753ef7a9-1d5c-4abc-b5ed-fafc0fa54696",
+      "fieldName": "Item",
+      "baseType": "String",
+      "length": 50,
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "a02e92c7-d9f7-422a-b129-702bbfd25377",
+      "name": "Item",
+      "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+      "layerId": 1
+    },
+    {
+      "tablePartTypeMetaId": "753ef7a9-1d5c-4abc-b5ed-fafc0fa54696",
+      "fieldName": "Quantity",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 3,
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "37942dc9-31ae-49b6-8597-8d238afa0f84",
+      "name": "Quantity",
+      "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+      "layerId": 1
+    }
+  ]
+}

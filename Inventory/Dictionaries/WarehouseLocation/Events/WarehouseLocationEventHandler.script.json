@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "WarehouseLocation",
+    "objectMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
+    "executionOrder": 0,
+    "metaId": "3b7924ab-daf2-46a7-a278-b3dbabd99a07",
+    "name": "WarehouseLocationEventHandler",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  }
+}

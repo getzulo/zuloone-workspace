@@ -1,0 +1,54 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "ProductionOrderComponentsTablePartRow",
+    "caption": "Components",
+    "caption_ar": "مكون",
+    "caption_ru": "Компоненты",
+    "tableName": "TP_ProductionOrderComponents",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
+    "name": "ProductionOrderComponents",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+    "layerId": 2
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
+      "fieldName": "Component",
+      "caption": "Component",
+      "caption_ar": "المكون",
+      "caption_ru": "Компонент",
+      "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "1c8d0e6b-3a7f-4b9c-8d0e-0f4a5b1c6d90",
+      "name": "Component",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
+      "fieldName": "QtyRequired",
+      "caption": "Qty required",
+      "caption_ar": "الكمية مطلوب",
+      "caption_ru": "Требуется",
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "2d9e1f7c-4b8a-4c0d-9e1f-1a5b6c2d7e00",
+      "name": "QtyRequired",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "layerId": 2
+    }
+  ]
+}

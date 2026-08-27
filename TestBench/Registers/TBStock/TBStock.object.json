@@ -1,0 +1,63 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "TBStock",
+    "isObsolete": false,
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "1aec25e9-7fce-4cd0-a758-c84dcfb005f7",
+    "name": "TBStock",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "1aec25e9-7fce-4cd0-a758-c84dcfb005f7",
+      "fieldName": "Item",
+      "caption": "Item",
+      "caption_ar": "الصنف",
+      "edtMetaId": "1677b5ee-7824-4e20-bc15-d11a561d04a2",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "displayOrder": 2,
+      "metaId": "831a5e5f-b618-469d-8c40-e65e5eb86b74",
+      "name": "Item",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "registerMetaId": "1aec25e9-7fce-4cd0-a758-c84dcfb005f7",
+      "fieldName": "Warehouse",
+      "caption": "Warehouse",
+      "caption_ar": "المستودع",
+      "edtMetaId": "ddc755e3-fe81-45d0-b1dd-04126fa8b8fb",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "displayOrder": 1,
+      "metaId": "299614b5-2a13-4af3-a809-cacb9e94b7ba",
+      "name": "Warehouse",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "1aec25e9-7fce-4cd0-a758-c84dcfb005f7",
+      "fieldName": "Quantity",
+      "caption": "Quantity",
+      "caption_ar": "الكمية",
+      "isOperational": true,
+      "edtMetaId": "9f21e6eb-307e-4941-8bf5-15437d476ec5",
+      "displayOrder": 1,
+      "metaId": "ba36c30f-99a0-4e74-b5ac-f6aad987ba86",
+      "name": "Quantity",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "description": "System self-reference of the hierarchical dictionary Division",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "94139682-fbaf-4cea-b3bf-99e067f31b2a",
+    "isRequired": false,
+    "metaId": "99466a3e-1b4c-4587-8f97-16d7576d8402",
+    "name": "DivisionParentRef",
+    "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+    "layerId": 1
+  }
+}

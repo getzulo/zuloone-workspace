@@ -1,0 +1,26 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Общие справочники — фундамент бизнес-слоя (география, адреса, валюты, единицы)",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "name": "Common",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 1
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "dependsOnModelMetaId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+      "metaId": "6c9a07c4-b5ab-4fd8-8b1a-bc0d969ca675",
+      "name": "Common->Core",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    }
+  ]
+}

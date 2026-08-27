@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "TaxCalculation",
+    "objectMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
+    "executionOrder": 1,
+    "metaId": "40d747d6-08a6-41cd-92b1-c585866c43ac",
+    "name": "TaxLedgerTx",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}

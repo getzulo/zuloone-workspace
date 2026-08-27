@@ -1,0 +1,36 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Кадры и ФОТ (core): должности, сотрудники, начисление и выплата ФОТ",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "name": "HR",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 2
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "dependsOnModelMetaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "minVersion": "1.0.0",
+      "metaId": "6ce1089b-1e5a-4107-933a-bcfc1383175e",
+      "name": "HR->Accounting",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "minVersion": "1.0.0",
+      "metaId": "52e0aa33-76a2-4425-b7b4-856ca2c4f957",
+      "name": "HR->Organization",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ]
+}

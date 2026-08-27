@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "Region",
+    "objectMetaId": "56e72501-c6c6-4fc8-9cbd-c645dcbbb669",
+    "executionOrder": 0,
+    "metaId": "a8d3a633-8228-4fd6-aff0-48ca421c7c7a",
+    "name": "RegionEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

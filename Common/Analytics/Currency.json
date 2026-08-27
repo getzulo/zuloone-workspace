@@ -1,0 +1,14 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Currency",
+    "caption_ar": "العملة",
+    "caption_ru": "Валюта",
+    "edtMetaId": "8d2b209b-68a9-41ed-bf05-f069a12dbe2c",
+    "description": "Reusable analytic over the Currency dictionary",
+    "metaId": "e7717f5a-1bca-4c7b-abb8-64a319f9ef55",
+    "name": "Currency",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

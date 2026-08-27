@@ -1,0 +1,16 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Decimal",
+    "precision": 18,
+    "scale": 4,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "6c6298ca-f80c-41f7-ac53-e07ca0af3b3c",
+    "name": "RpQ15dcefbe",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1
+  }
+}

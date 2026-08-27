@@ -1,0 +1,12 @@
+{
+  "kind": "ConstantGroups",
+  "items": [
+    {
+      "caption": "Test bench constants",
+      "metaId": "69317462-fd93-4332-abbe-9eaa3234d05f",
+      "name": "TBBench",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ]
+}

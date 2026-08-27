@@ -1,0 +1,66 @@
+{
+  "kind": "LinkTable",
+  "object": {
+    "caption": "Country currencies",
+    "caption_ar": "عملات الدول",
+    "caption_ru": "Валюты стран",
+    "tableName": "",
+    "isKernel": false,
+    "isLogged": false,
+    "metaId": "cef0123c-0a60-4424-b043-ede12dc69c50",
+    "name": "CountryCurrency",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  },
+  "properties": [
+    {
+      "linkTableMetaId": "cef0123c-0a60-4424-b043-ede12dc69c50",
+      "fieldName": "Country",
+      "caption": "Country",
+      "caption_ru": "Страна",
+      "isRequired": false,
+      "isPrimaryKey": false,
+      "isLogged": false,
+      "isIndexed": false,
+      "isReference": true,
+      "displayOrder": 1,
+      "metaId": "c686ea6b-55a6-43ad-b1d6-16247f7e7229",
+      "name": "Country",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "linkTableMetaId": "cef0123c-0a60-4424-b043-ede12dc69c50",
+      "fieldName": "Currency",
+      "caption": "Currency",
+      "caption_ru": "Валюта",
+      "isRequired": false,
+      "isPrimaryKey": false,
+      "isLogged": false,
+      "isIndexed": false,
+      "isReference": true,
+      "displayOrder": 2,
+      "metaId": "e0f9f3c9-4a88-4bb6-8f80-c97cb5dc989f",
+      "name": "Currency",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    },
+    {
+      "linkTableMetaId": "cef0123c-0a60-4424-b043-ede12dc69c50",
+      "fieldName": "IsPrimary",
+      "caption": "Primary",
+      "caption_ru": "Основная",
+      "baseType": "Boolean",
+      "isRequired": false,
+      "isPrimaryKey": false,
+      "isLogged": false,
+      "isIndexed": false,
+      "isReference": false,
+      "displayOrder": 3,
+      "metaId": "f7ac291f-263a-43f8-b5ad-5bce7dd653cb",
+      "name": "IsPrimary",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1
+    }
+  ]
+}

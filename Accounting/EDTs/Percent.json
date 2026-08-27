@@ -1,0 +1,17 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Decimal",
+    "description": "Percentage value (9,4)",
+    "precision": 9,
+    "scale": 4,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "30bbd045-98c8-41ce-9421-2297d50170ce",
+    "name": "Percent",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

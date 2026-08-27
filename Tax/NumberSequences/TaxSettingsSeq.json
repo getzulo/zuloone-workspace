@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1,
+    "increment": 1,
+    "nextValue": 1,
+    "resetPolicy": "None",
+    "metaId": "2c4b6847-76e8-50e6-a2e4-caee9da31a02",
+    "name": "TaxSettingsSeq",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}

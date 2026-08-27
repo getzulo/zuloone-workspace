@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "JournalEntry",
+    "objectMetaId": "188246b3-5ed0-4da0-98cb-a86b6da36581",
+    "executionOrder": 1,
+    "metaId": "79d60b8f-5884-44d6-b533-af9ace04c61e",
+    "name": "GLPostingTx",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

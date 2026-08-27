@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TBItem",
+    "objectMetaId": "0d9d07ab-31ae-4297-a834-760c6f2094e6",
+    "executionOrder": 0,
+    "metaId": "cc7e275d-f255-488e-af28-a05baa65b03a",
+    "name": "TBItemEventHandler",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

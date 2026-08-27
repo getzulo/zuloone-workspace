@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "Currency",
+    "objectMetaId": "f90a6b92-f04d-4454-8de5-362a8893d34e",
+    "executionOrder": 0,
+    "metaId": "416ea79c-fdfa-4944-9d0a-5d3d257353f0",
+    "name": "CurrencyEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

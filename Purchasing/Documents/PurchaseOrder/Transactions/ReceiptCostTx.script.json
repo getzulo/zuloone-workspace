@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "PurchaseOrder",
+    "objectMetaId": "9bbf8cdb-8913-4286-8f9c-31809cca4231",
+    "executionOrder": 3,
+    "metaId": "1c4f8b29-5e0d-4a3b-8c9f-2d5e8a1b4c00",
+    "name": "ReceiptCostTx",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+    "layerId": 2
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Интеграция подсистем с главной книгой: разноска GL с проведения бизнес-документов",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "name": "GLIntegration",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 2
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "dependsOnModelMetaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "minVersion": "1.0.0",
+      "metaId": "4e8a1b05-7d3c-4f9e-8b6a-2c5d8f1e3b90",
+      "name": "GLIntegration->Accounting",
+      "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "minVersion": "1.0.0",
+      "metaId": "7b1d4e38-0a6f-4c2b-9e9d-5f8a1c4b6e20",
+      "name": "GLIntegration->Inventory",
+      "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "minVersion": "1.0.0",
+      "metaId": "6a0c3d27-9f5e-4b1a-8d8c-4e7f0b3a5d10",
+      "name": "GLIntegration->Organization",
+      "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "dependsOnModelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "minVersion": "1.0.0",
+      "metaId": "5f9b2c16-8e4d-4a0f-9c7b-3d6e9a2f4c00",
+      "name": "GLIntegration->Sales",
+      "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "layerId": 2
+    }
+  ]
+}

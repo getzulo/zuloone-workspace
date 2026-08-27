@@ -1,0 +1,36 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Бухгалтерия: план счетов, фискальные периоды, журнал проводок, главная книга (GL)",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "name": "Accounting",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 1
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "minVersion": "1.0.0",
+      "metaId": "74a70870-99de-4f85-8ff2-3e8f1a08498f",
+      "name": "Accounting->Common",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    },
+    {
+      "modelMetaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "minVersion": "1.0.0",
+      "metaId": "32304574-dfd9-4c3e-9cb2-32665f9bce86",
+      "name": "Accounting->Organization",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    }
+  ]
+}

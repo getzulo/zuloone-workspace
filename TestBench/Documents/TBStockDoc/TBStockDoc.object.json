@@ -1,0 +1,151 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "TBStockDoc",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "41f0bd85-04c1-4e8a-a30c-ba7c88072dbc",
+    "requiresPosting": false,
+    "postOnSave": false,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+    "name": "TBStockDoc",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+      "fieldName": "ID",
+      "caption": "ID",
+      "caption_ar": "معرف",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "metaId": "5ee1364a-dc9f-4544-80b8-5931f3659819",
+      "name": "ID",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+      "fieldName": "Warehouse",
+      "caption": "Warehouse",
+      "caption_ar": "المستودع",
+      "edtMetaId": "ddc755e3-fe81-45d0-b1dd-04126fa8b8fb",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "bae60913-cd6f-4522-b221-bad0e160d7e0",
+      "name": "Warehouse",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ],
+  "statuses": [
+    {
+      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+      "statusName": "Draft",
+      "statusValue": "Draft",
+      "workflowOrder": 1,
+      "isInitial": true,
+      "isFinal": false,
+      "postsMovements": false,
+      "reversesMovements": false,
+      "allowChange": true,
+      "metaId": "d64b31af-6261-4800-9e91-e43ac7177b09",
+      "name": "Draft",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+      "statusName": "Posted",
+      "statusValue": "Posted",
+      "workflowOrder": 2,
+      "isInitial": false,
+      "isFinal": false,
+      "postsMovements": true,
+      "reversesMovements": false,
+      "allowChange": true,
+      "metaId": "6929bb7d-5918-42c0-9ff9-0bdd416a4ac6",
+      "name": "Posted",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+      "statusName": "Reverted",
+      "statusValue": "Reverted",
+      "workflowOrder": 3,
+      "isInitial": false,
+      "isFinal": false,
+      "postsMovements": false,
+      "reversesMovements": true,
+      "allowChange": true,
+      "metaId": "47b8e92f-3e56-4da4-b506-658960514c4e",
+      "name": "Reverted",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+      "name": "Issue",
+      "caption": "Issue",
+      "subtypeValue": "Issue",
+      "displayOrder": 2,
+      "isInitial": false,
+      "metaId": "0f4ff72d-b652-4065-9716-8e8b669eea8a",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+      "name": "Receipt",
+      "caption": "Receipt",
+      "caption_ar": "الاستلام",
+      "subtypeValue": "Receipt",
+      "displayOrder": 1,
+      "isInitial": false,
+      "metaId": "165eb2f2-55ef-45af-b47f-48833140665e",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+      "name": "ReceiptChain",
+      "caption": "ReceiptChain",
+      "subtypeValue": "ReceiptChain",
+      "displayOrder": 3,
+      "isInitial": false,
+      "metaId": "70f1ebe3-43a5-4548-978a-ccb63850939f",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+      "tablePartTypeMetaId": "2967ae5e-10d2-46af-9cbd-cfbda3eea143",
+      "caption": "Items",
+      "isCloneable": false,
+      "metaId": "ae50e0ef-31ed-4307-9082-3a0ff57d0532",
+      "name": "Items",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ]
+}

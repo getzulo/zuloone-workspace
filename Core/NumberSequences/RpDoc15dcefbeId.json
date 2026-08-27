@@ -1,0 +1,16 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "RpDoc15dcefbe ID",
+    "description": "Auto-created for the RpDoc15dcefbe system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "nextValue": 1,
+    "resetPolicy": "None",
+    "metaId": "5e4b0a20-aa83-43ec-9800-7037dd64d496",
+    "name": "RpDoc15dcefbeId",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1
+  }
+}

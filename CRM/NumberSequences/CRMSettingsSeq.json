@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1,
+    "increment": 1,
+    "nextValue": 1,
+    "resetPolicy": "None",
+    "metaId": "211b66ad-b4f4-5904-8222-42f310577a8f",
+    "name": "CRMSettingsSeq",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+    "layerId": 2
+  }
+}

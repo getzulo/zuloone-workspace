@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "PurchasingSettings",
+    "objectMetaId": "e8c8174d-fd25-5eb9-b255-2209f294e1bf",
+    "executionOrder": 0,
+    "metaId": "09a47b62-0f84-45f7-abb0-aa74da596053",
+    "name": "PurchasingSettingsEventHandler",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+    "layerId": 2
+  }
+}

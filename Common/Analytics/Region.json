@@ -1,0 +1,14 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Region",
+    "caption_ar": "المنطقة",
+    "caption_ru": "Регион",
+    "edtMetaId": "94c8d7a9-5b24-410e-9f60-792d090bb8f5",
+    "description": "Reusable analytic over the Region dictionary",
+    "metaId": "2b25c77b-1c0d-41a4-aa5d-ee1bae4977a3",
+    "name": "Region",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

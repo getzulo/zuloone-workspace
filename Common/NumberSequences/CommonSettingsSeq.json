@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1,
+    "increment": 1,
+    "nextValue": 2,
+    "resetPolicy": "None",
+    "metaId": "4b4751c7-be03-5dbf-8730-f9c79b9d171f",
+    "name": "CommonSettingsSeq",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

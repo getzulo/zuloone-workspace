@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "Supplier",
+    "objectMetaId": "d1f4e8dc-6454-4a20-b116-132053950800",
+    "executionOrder": 0,
+    "metaId": "a1b4b407-f21e-4a04-9770-f03e5e8c52f2",
+    "name": "SupplierEventHandler",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  }
+}

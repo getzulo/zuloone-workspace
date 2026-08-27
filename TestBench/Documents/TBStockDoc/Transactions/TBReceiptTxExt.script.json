@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "baseScriptMetaId": "11d100f8-7724-47e3-b057-80d5b51263b7",
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectMetaId": "165eb2f2-55ef-45af-b47f-48833140665e",
+    "executionOrder": 0,
+    "metaId": "abf9f1fa-714e-4b9f-8153-b5dbd4952991",
+    "name": "TBReceiptTxExt",
+    "modelId": "390cbabb-1f33-47db-afd7-b78fb78afae9",
+    "layerId": 2
+  }
+}

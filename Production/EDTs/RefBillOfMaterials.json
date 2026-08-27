@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
+    "isRequired": false,
+    "metaId": "6f3a5b1e-8d2c-4e4f-8a7b-5c9d0e6f1a40",
+    "name": "RefBillOfMaterials",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+    "layerId": 2
+  }
+}

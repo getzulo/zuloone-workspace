@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "UnitOfMeasure",
+    "objectMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
+    "executionOrder": 0,
+    "metaId": "616b3f10-97e5-48d0-ad37-e76eed87fef3",
+    "name": "UnitOfMeasureEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

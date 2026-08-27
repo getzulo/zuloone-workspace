@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TaxDirection",
+    "objectMetaId": "4969cf4b-d049-4d50-b611-1942cee7fc20",
+    "executionOrder": 0,
+    "metaId": "ff8aa703-611c-48c8-b63f-e811d9cdc6cf",
+    "name": "TaxDirectionEventHandler",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}

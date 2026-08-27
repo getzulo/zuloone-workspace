@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectMetaId": "0f4ff72d-b652-4065-9716-8e8b669eea8a",
+    "executionOrder": 0,
+    "metaId": "171ee9c7-398b-45c6-9b7d-9ed692685015",
+    "name": "TBIssueTx",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

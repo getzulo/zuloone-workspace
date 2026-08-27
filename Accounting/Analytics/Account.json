@@ -1,0 +1,13 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Account",
+    "caption_ru": "Счёт",
+    "edtMetaId": "e0f20335-243d-42b1-81ea-989f8a14b809",
+    "description": "Reusable analytic over the ChartOfAccounts dictionary (GL)",
+    "metaId": "824381d1-62ba-491c-9287-f315a6267184",
+    "name": "Account",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

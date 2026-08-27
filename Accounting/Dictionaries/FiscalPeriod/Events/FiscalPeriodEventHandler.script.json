@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "FiscalPeriod",
+    "objectMetaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
+    "executionOrder": 0,
+    "metaId": "4eac9526-47ff-4a2b-adf6-0b53d90c6792",
+    "name": "FiscalPeriodEventHandler",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

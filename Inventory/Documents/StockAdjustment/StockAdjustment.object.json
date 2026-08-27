@@ -1,0 +1,130 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Stock adjustment",
+    "caption_ar": "المخزون التعديل",
+    "caption_ru": "Корректировка остатков",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "54ab1e3a-d460-492a-b2de-8c67dff56c29",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+    "name": "StockAdjustment",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+      "fieldName": "ID",
+      "caption": "ID",
+      "caption_ar": "معرف",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "metaId": "6b32b54f-b561-4d0d-ba93-ecef80f33f08",
+      "name": "ID",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+      "fieldName": "Location",
+      "caption": "Location",
+      "caption_ar": "الموقع",
+      "caption_ru": "Ячейка",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "13076e61-87af-4df9-8f3f-c986d8171681",
+      "name": "Location",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+      "fieldName": "Reason",
+      "caption": "Reason",
+      "caption_ar": "السبب",
+      "caption_ru": "Причина",
+      "baseType": "String",
+      "length": 128,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "37b3b94c-5a47-407b-a146-0e11f53130dd",
+      "name": "Reason",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+      "name": "Posted",
+      "caption": "Posted",
+      "caption_ar": "مرسل",
+      "subtypeValue": "Posted",
+      "subtypeCaption": "Posted",
+      "subtypeCaption_ru": "Проведено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "metaId": "5e3aa0ba-bda6-45f4-a9e3-d7c4876a1499",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+      "name": "Draft",
+      "caption": "Draft",
+      "caption_ar": "مسودة",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "metaId": "c8721d46-690b-4d87-bebd-182b73c9c5b1",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+      "tablePartTypeMetaId": "1d90aee7-f168-4a7b-bbaf-f3d05ca1ead3",
+      "isCloneable": true,
+      "metaId": "e57e386e-8d44-4ec0-92f4-e318216548aa",
+      "name": "Lines",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "5e3aa0ba-bda6-45f4-a9e3-d7c4876a1499",
+      "scriptMetaId": "492aa099-1441-4613-b212-093a8a76abc7",
+      "executionOrder": 1,
+      "metaId": "44001036-2be8-4c9f-9453-76c596a05cf3",
+      "name": "",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ]
+}

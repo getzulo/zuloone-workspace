@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "29178a63-d9f1-434a-9b4b-750eb92e4b7b",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SalesInvoice",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "executionOrder": 10,
+    "metaId": "3b7d0e9e-6a2f-4c8b-9e5d-1f4a7c0b2e80",
+    "name": "SalesGLEventHandler",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2
+  }
+}

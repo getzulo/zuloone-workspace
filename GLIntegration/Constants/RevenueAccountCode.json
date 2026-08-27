@@ -1,0 +1,16 @@
+{
+  "kind": "GlobalConstant",
+  "object": {
+    "caption": "Revenue account code",
+    "caption_ru": "Код счёта выручки",
+    "groupMetaId": "8c2e5f49-1b7a-4d3c-8f0e-6a9b2d5c7f30",
+    "constantType": "String",
+    "stringValue": "4000",
+    "value": "4000",
+    "displayValue": "4000",
+    "metaId": "0e4a7b6b-3d9c-4f5e-8b2a-8c1d4f7e9b50",
+    "name": "RevenueAccountCode",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2
+  }
+}

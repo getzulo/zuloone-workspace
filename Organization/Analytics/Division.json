@@ -1,0 +1,14 @@
+{
+  "kind": "Analytic",
+  "object": {
+    "caption": "Division",
+    "caption_ar": "القسم",
+    "caption_ru": "Подразделение",
+    "edtMetaId": "ff85f4a4-ab90-41f8-9bf9-32367aab94a1",
+    "description": "Reusable analytic over the Division dictionary (Payroll and cost centers)",
+    "metaId": "8319a81f-f08c-4e1e-8861-6ce8bc7152c6",
+    "name": "Division",
+    "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+    "layerId": 1
+  }
+}

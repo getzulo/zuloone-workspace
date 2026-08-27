@@ -1,0 +1,17 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Decimal",
+    "description": "Loyalty points (18,2)",
+    "precision": 18,
+    "scale": 2,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "8c1d6f54-0e9a-4b3c-9d4f-5a8b9c6d2e70",
+    "name": "Points",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+    "layerId": 2
+  }
+}

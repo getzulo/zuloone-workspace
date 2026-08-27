@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectMetaId": "70f1ebe3-43a5-4548-978a-ccb63850939f",
+    "executionOrder": 1,
+    "metaId": "1b58fd95-e6e3-438e-94a3-2c8431baa205",
+    "name": "TBChainFlatTx",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

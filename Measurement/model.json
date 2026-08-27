@@ -1,0 +1,26 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Единицы измерения и точность: настройки знаков после запятой и сервис округления количества/веса/сумм",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+    "name": "Measurement",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 1
+  },
+  "dependencies": [
+    {
+      "modelMetaId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "dependsOnModelMetaId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+      "metaId": "6abb3680-2302-4db7-9257-d0979caa959c",
+      "name": "Measurement->Core",
+      "modelId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "layerId": 1
+    }
+  ]
+}

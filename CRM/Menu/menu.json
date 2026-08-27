@@ -1,0 +1,87 @@
+{
+  "kind": "Menu",
+  "items": [
+    {
+      "caption": "CRM",
+      "caption_ar": "إدارة العملاء",
+      "caption_ru": "CRM",
+      "displayOrder": 10,
+      "targetType": "Group",
+      "metaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
+      "name": "CRM",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+      "layerId": 2
+    },
+    {
+      "caption": "Documents",
+      "caption_ar": "المستندات",
+      "caption_ru": "Документы",
+      "parentMetaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
+      "displayOrder": 1,
+      "targetType": "Group",
+      "metaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
+      "name": "Documents",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+      "layerId": 2
+    },
+    {
+      "caption": "Registers",
+      "caption_ru": "Итоги",
+      "parentMetaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
+      "displayOrder": 2,
+      "targetType": "Group",
+      "metaId": "3f6a1c09-5b4d-4e8f-8a9c-0d3e4f1b7c20",
+      "name": "Registers",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+      "layerId": 2
+    },
+    {
+      "caption": "Settings",
+      "caption_ru": "Настройки",
+      "parentMetaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
+      "displayOrder": 3,
+      "targetType": "Group",
+      "metaId": "337ec1e4-ee3c-5b75-b924-74d5eace80b5",
+      "name": "Settings",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+      "layerId": 2
+    },
+    {
+      "caption": "CRM settings",
+      "caption_ru": "Настройки модуля",
+      "parentMetaId": "337ec1e4-ee3c-5b75-b924-74d5eace80b5",
+      "displayOrder": 1,
+      "targetType": "Dictionary",
+      "targetMetaId": "4d8e6d80-cbf0-5dc2-b88b-00a1eae5cdf8",
+      "metaId": "ffa2b73e-5731-56c8-908b-c81b77ecdf65",
+      "name": "CRMSettings",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+      "layerId": 2
+    },
+    {
+      "caption": "Loyalty points",
+      "caption_ru": "Баллы лояльности",
+      "parentMetaId": "3f6a1c09-5b4d-4e8f-8a9c-0d3e4f1b7c20",
+      "displayOrder": 1,
+      "targetType": "Register",
+      "targetMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
+      "metaId": "6c9d4f32-8e7a-4b0c-9d1e-2f5a6b3c9d40",
+      "name": "LoyaltyPoints",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+      "layerId": 2
+    },
+    {
+      "caption": "Loyalty redemption",
+      "caption_ar": "استرجاع الولاء",
+      "caption_ru": "Списание баллов",
+      "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
+      "displayOrder": 1,
+      "targetType": "Document",
+      "targetMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
+      "metaId": "5b8c3e21-7d6f-4a9b-8c0d-1e4f5a2b8c30",
+      "name": "LoyaltyRedemption",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+      "layerId": 2
+    }
+  ]
+}

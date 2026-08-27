@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "Division",
+    "objectMetaId": "94139682-fbaf-4cea-b3bf-99e067f31b2a",
+    "executionOrder": 0,
+    "metaId": "3327f8da-a856-4bc5-aad8-1c8f2d5de34a",
+    "name": "DivisionEventHandler",
+    "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+    "layerId": 1
+  }
+}

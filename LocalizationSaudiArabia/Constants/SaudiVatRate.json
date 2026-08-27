@@ -1,0 +1,16 @@
+{
+  "kind": "GlobalConstant",
+  "object": {
+    "caption": "Saudi VAT rate",
+    "caption_ru": "Ставка НДС КСА",
+    "groupMetaId": "1a5c8d74-2f9e-4b6c-9d0a-4e7f9b5c2d80",
+    "constantType": "Decimal",
+    "numberValue": 0.15,
+    "value": 0.15,
+    "displayValue": "0.15",
+    "metaId": "2b6d9e85-3a0f-4c7d-8e1b-5f8a0c6d3e90",
+    "name": "SaudiVatRate",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+    "layerId": 3
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "GlobalConstant",
+  "object": {
+    "caption": "TBFeatureOn",
+    "groupMetaId": "69317462-fd93-4332-abbe-9eaa3234d05f",
+    "constantType": "Flag",
+    "numberValue": 1.00,
+    "value": true,
+    "displayValue": "true",
+    "metaId": "d474799b-8758-4487-8f6e-b101b44ca66a",
+    "name": "TBFeatureOn",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  }
+}

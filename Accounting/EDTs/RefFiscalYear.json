@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
+    "isRequired": false,
+    "metaId": "dbc30202-8620-4223-ae50-7ac65d164678",
+    "name": "RefFiscalYear",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "Address",
+    "objectMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
+    "executionOrder": 0,
+    "metaId": "b94e6685-ee91-407f-882b-e50ab0478fb1",
+    "name": "AddressEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

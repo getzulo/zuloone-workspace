@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "AccountingSettings",
+    "objectMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+    "executionOrder": 0,
+    "metaId": "c94756d5-3833-4939-89b0-ec93d1100254",
+    "name": "AccountingSettingsEventHandler",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

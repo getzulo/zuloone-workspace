@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "JournalEntry",
+    "objectMetaId": "188246b3-5ed0-4da0-98cb-a86b6da36581",
+    "executionOrder": 0,
+    "metaId": "c11d4c0c-08b1-412e-8949-7409a6034ce3",
+    "name": "JournalEntryEventHandler",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

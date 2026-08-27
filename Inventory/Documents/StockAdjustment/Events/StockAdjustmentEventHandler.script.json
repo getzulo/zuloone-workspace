@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "StockAdjustment",
+    "objectMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+    "executionOrder": 0,
+    "metaId": "71730959-4fcf-44e0-886d-887eb9c2956b",
+    "name": "StockAdjustmentEventHandler",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  }
+}

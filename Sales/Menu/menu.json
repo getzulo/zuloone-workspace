@@ -1,0 +1,88 @@
+{
+  "kind": "Menu",
+  "items": [
+    {
+      "caption": "Sales",
+      "caption_ar": "المبيعات",
+      "caption_ru": "Продажи",
+      "displayOrder": 7,
+      "targetType": "Group",
+      "metaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
+      "name": "Sales",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "caption": "Documents",
+      "caption_ar": "المستندات",
+      "caption_ru": "Документы",
+      "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
+      "displayOrder": 1,
+      "targetType": "Group",
+      "metaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
+      "name": "Documents",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "caption": "Registers",
+      "caption_ru": "Итоги",
+      "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
+      "displayOrder": 2,
+      "targetType": "Group",
+      "metaId": "cad86e08-d829-485c-b79b-984c300fa847",
+      "name": "Registers",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "caption": "Settings",
+      "caption_ru": "Настройки",
+      "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
+      "displayOrder": 3,
+      "targetType": "Group",
+      "metaId": "019d7614-3204-5496-90af-b58cacca2d58",
+      "name": "Settings",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "caption": "Revenue",
+      "caption_ar": "الإيراد",
+      "caption_ru": "Выручка",
+      "parentMetaId": "cad86e08-d829-485c-b79b-984c300fa847",
+      "displayOrder": 1,
+      "targetType": "Register",
+      "targetMetaId": "103cdb23-2d49-4c42-9bf3-3c5a8ce46cdc",
+      "metaId": "ded980b5-c8a7-4b55-bdd8-0f339d1a5d05",
+      "name": "Revenue",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "caption": "Sales invoices",
+      "caption_ar": "البيع الفاتورة",
+      "caption_ru": "Счета-фактуры",
+      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
+      "displayOrder": 1,
+      "targetType": "Document",
+      "targetMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "metaId": "c23f527a-3faa-4113-a084-743bfece09b0",
+      "name": "SalesInvoice",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "caption": "Sales settings",
+      "caption_ru": "Настройки модуля",
+      "parentMetaId": "019d7614-3204-5496-90af-b58cacca2d58",
+      "displayOrder": 1,
+      "targetType": "Dictionary",
+      "targetMetaId": "f330a37a-a4d4-5565-9969-3f689aae5730",
+      "metaId": "f9cf15b4-f135-5be9-82c2-c5c918cfa59d",
+      "name": "SalesSettings",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ]
+}
