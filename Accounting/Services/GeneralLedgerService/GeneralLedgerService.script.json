@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "GeneralLedgerService",
+    "executionOrder": 0,
+    "metaId": "b7c8d9e0-f1a2-4b3c-8d4e-5f6a7b8c9d01",
+    "name": "GeneralLedgerService",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

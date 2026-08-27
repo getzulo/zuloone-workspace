@@ -1,0 +1,12 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Разноска в главную книгу: создаёт сбалансированную проводку Dr/Cr по кодам счетов из настроек учёта и проводит её",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "b7c8d9e0-f1a2-4b3c-8d4e-5f6a7b8c9d01",
+    "metaId": "a6b7c8d9-e0f1-4a2b-9c3d-4e5f6a7b8c90",
+    "name": "GeneralLedgerService",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}
