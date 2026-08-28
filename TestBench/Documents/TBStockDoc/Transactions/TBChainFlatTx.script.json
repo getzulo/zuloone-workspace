@@ -3,11 +3,11 @@
   "object": {
     "scriptType": "TransactionScript",
     "objectType": "Document",
-    "objectMetaId": "1286eb72-3360-48d8-b113-041b5685f847",
+    "objectMetaId": "0129f466-ae1d-4ca3-b844-bb8264f89d21",
     "executionOrder": 1,
-    "metaId": "e2cbcbba-6741-473b-808e-01eca140bb9f",
+    "metaId": "f461a6e7-ff65-4bd2-9092-45a689ec0e1d",
     "name": "TBChainFlatTx",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

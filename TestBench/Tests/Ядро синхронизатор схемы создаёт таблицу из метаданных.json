@@ -6,9 +6,9 @@
     "isActive": true,
     "groupName": "Ядерные тесты.Ядро",
     "isExtension": false,
-    "metaId": "168d3bca-6c0e-4cc0-baaa-114e21c90867",
+    "metaId": "2a466c49-392c-4e15-8ce4-e5edd26e3723",
     "name": "Ядро: синхронизатор схемы создаёт таблицу из метаданных",
-    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
     "layerId": 1
   }
 }

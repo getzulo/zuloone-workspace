@@ -5,11 +5,11 @@
     "hasTime": true,
     "hasTimezone": false,
     "dateOnly": false,
-    "referenceDictionaryMetaId": "01533bbd-c610-441b-becb-a8b27e606960",
+    "referenceDictionaryMetaId": "f808a852-1145-47bd-953a-d25e42f3c315",
     "isRequired": false,
-    "metaId": "3f4fbab2-0edc-4c81-b2e7-6bc69410163f",
+    "metaId": "d3c586bc-147f-4b02-bbaf-ef9651ce705f",
     "name": "TBWarehouseRef",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

@@ -8,51 +8,54 @@
     "allowNegativeBalance": true,
     "useBalanceTable": true,
     "isExtension": false,
-    "metaId": "7c6ec758-549c-4511-a13e-af8812e34e4a",
+    "metaId": "2015c2a5-ff9f-4b15-9f2c-7239158a5a25",
     "name": "TBStock",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   },
   "dimensions": [
     {
-      "registerMetaId": "7c6ec758-549c-4511-a13e-af8812e34e4a",
+      "registerMetaId": "2015c2a5-ff9f-4b15-9f2c-7239158a5a25",
       "fieldName": "Item",
-      "edtMetaId": "cf0beef7-7ef8-4d26-a0d9-3804d36cd1e7",
+      "caption": "Item",
+      "edtMetaId": "d64b376f-4124-4503-8f28-66870509d54a",
       "isOperational": true,
       "isInformational": false,
       "isPivotDimension": false,
       "isTranslatable": false,
       "displayOrder": 2,
-      "metaId": "0ba8485b-7763-4213-98bb-7f59f8b3ec66",
+      "metaId": "3a30f857-1766-43d4-b9ba-7e6626907af9",
       "name": "Item",
-      "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1
     },
     {
-      "registerMetaId": "7c6ec758-549c-4511-a13e-af8812e34e4a",
+      "registerMetaId": "2015c2a5-ff9f-4b15-9f2c-7239158a5a25",
       "fieldName": "Warehouse",
-      "edtMetaId": "3f4fbab2-0edc-4c81-b2e7-6bc69410163f",
+      "caption": "Warehouse",
+      "edtMetaId": "d3c586bc-147f-4b02-bbaf-ef9651ce705f",
       "isOperational": true,
       "isInformational": false,
       "isPivotDimension": false,
       "isTranslatable": false,
       "displayOrder": 1,
-      "metaId": "75d7a7d5-d41d-4f69-bf1b-d60cdc21d223",
+      "metaId": "83c843ea-49bd-4da4-9535-c11878e1a9eb",
       "name": "Warehouse",
-      "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1
     }
   ],
   "resources": [
     {
-      "registerMetaId": "7c6ec758-549c-4511-a13e-af8812e34e4a",
+      "registerMetaId": "2015c2a5-ff9f-4b15-9f2c-7239158a5a25",
       "fieldName": "Quantity",
+      "caption": "Quantity",
       "isOperational": true,
-      "edtMetaId": "a18e3d85-4c9f-41df-ab68-8b2eb0d48835",
+      "edtMetaId": "b8e8cefa-2069-4b6e-a3bc-cf21362d932a",
       "displayOrder": 1,
-      "metaId": "187d21ee-5326-44ca-9e2c-3816c2fddb7a",
+      "metaId": "73f84978-79e2-4865-9baf-6f36373ff88f",
       "name": "Quantity",
-      "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1
     }
   ]

@@ -6,9 +6,9 @@
     "baseEngine": "FIFO",
     "isKernel": false,
     "description": "Стендовый драйвер: FIFO-база + скриптовый хук округления COGS до 2 знаков.",
-    "metaId": "9e968cb9-244e-48d8-8775-6e65fc7ce225",
+    "metaId": "5f0b7131-cad6-4f29-a639-758bf8507b29",
     "name": "TBRounding",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

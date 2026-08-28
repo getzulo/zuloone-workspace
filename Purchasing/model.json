@@ -31,6 +31,15 @@
       "name": "Purchasing->Inventory",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2
+    },
+    {
+      "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "minVersion": "1.0.0",
+      "metaId": "06b286d9-4905-4056-ae87-e1c53465223b",
+      "name": "Purchasing->Tax",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2
     }
   ]
 }

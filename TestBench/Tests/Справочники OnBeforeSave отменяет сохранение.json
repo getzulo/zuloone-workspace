@@ -6,9 +6,9 @@
     "isActive": true,
     "groupName": "Ядерные тесты.Справочники",
     "isExtension": false,
-    "metaId": "4eb1e9ef-f161-4373-bad2-1a72ca327b2a",
+    "metaId": "9a6a9718-9752-478f-b5ce-320f3769c73e",
     "name": "Справочники: OnBeforeSave отменяет сохранение",
-    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
     "layerId": 1
   }
 }
