@@ -2,14 +2,14 @@
   "kind": "GlobalConstant",
   "object": {
     "caption": "TBFeatureOn",
-    "groupMetaId": "b23427a0-c3be-4757-8f06-db8e9e15c07d",
+    "groupMetaId": "16e87add-2147-4bda-a281-80ea7f929de6",
     "constantType": "Flag",
-    "numberValue": 1.00,
+    "numberValue": 1,
     "value": true,
     "displayValue": "true",
-    "metaId": "42a7f128-8f5b-4ca0-830f-ef61ce531c20",
+    "metaId": "c5bcaf47-e1ef-4a79-ab4c-cbc7b79f93c6",
     "name": "TBFeatureOn",
-    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
     "layerId": 1
   }
 }

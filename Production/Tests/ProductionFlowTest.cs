@@ -54,7 +54,7 @@ public class ProductionFlowTest : IntegrationTestScriptBase
             { ["Components"] = new[] { new Dictionary<string, object?> { ["Component"] = comp, ["QtyRequired"] = 10m } } });
         await Db.ChangeSubtypeAsync("ProductionOrder", order, "Finished");
 
-        // Stock — двойная запись с физическими измерениями: сверяем on-hand по (ячейка, товар).
+        // Stock — односторонний регистр с физическими измерениями: остаток по (ячейка, товар)
         // Компонент: 20 заведено − 10 списано = 10; изделие: выпуск +5.
         decimal onHandComp = 0m, onHandProduct = 0m;
         foreach (var r in await Db.QueryBalancesAsync("Stock", "[Cell] = '" + loc + "' AND [Item] = '" + comp + "'"))

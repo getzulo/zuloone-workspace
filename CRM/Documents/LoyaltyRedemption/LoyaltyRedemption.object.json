@@ -101,7 +101,7 @@
       "subtypeCaption_ru": "Списано",
       "displayOrder": 2,
       "isInitial": false,
-      "isReadOnly": false,
+      "isReadOnly": true,
       "metaId": "6e9f4b32-8a7c-4d1e-9f2b-3c6d7e4a0b50",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
       "layerId": 2

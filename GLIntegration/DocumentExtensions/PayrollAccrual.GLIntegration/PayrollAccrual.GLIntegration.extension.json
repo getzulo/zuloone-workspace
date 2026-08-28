@@ -1,0 +1,11 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+    "description": "Extension of PayrollAccrual by model GLIntegration",
+    "metaId": "e877e1a2-afe2-45c2-a27a-dd3679444b46",
+    "name": "PayrollAccrual.GLIntegration",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2
+  }
+}

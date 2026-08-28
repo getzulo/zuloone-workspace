@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 1,
+    "nextValue": 2,
     "resetPolicy": "None",
     "metaId": "6b7c8d9e-0f1a-4b2c-8d3e-5f6a7b8c9d0b",
     "name": "TimeSheetSeq",

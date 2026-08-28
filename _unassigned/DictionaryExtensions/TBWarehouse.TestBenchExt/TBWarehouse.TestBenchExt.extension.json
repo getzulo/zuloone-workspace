@@ -1,0 +1,32 @@
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "01533bbd-c610-441b-becb-a8b27e606960",
+    "description": "Extension of TBWarehouse by model TestBenchExt",
+    "metaId": "2928f226-e7a0-45a3-96e4-0d4787ee781f",
+    "name": "TBWarehouse.TestBenchExt",
+    "modelId": "b88adb0d-0567-4f0f-b9da-a5232911df8b",
+    "layerId": 2
+  },
+  "fields": [
+    {
+      "extensionMetaId": "2928f226-e7a0-45a3-96e4-0d4787ee781f",
+      "dictionaryMetaId": "01533bbd-c610-441b-becb-a8b27e606960",
+      "fieldName": "ExtNote",
+      "baseType": "String",
+      "length": 200,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 50,
+      "isIndexed": false,
+      "isUnique": false,
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "3c3eaedc-b44c-4de9-b3aa-081322fd3e99",
+      "name": "ExtNote",
+      "modelId": "b88adb0d-0567-4f0f-b9da-a5232911df8b",
+      "layerId": 2
+    }
+  ]
+}

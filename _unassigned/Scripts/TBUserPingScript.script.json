@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "UserCommand",
+    "objectType": "Command",
+    "objectName": "TBUserPing",
+    "objectMetaId": "92bfb701-bf0d-44ce-8edb-aa5ee40d3498",
+    "executionOrder": 0,
+    "metaId": "1ea61094-7c5b-474f-84c5-caaa3aeceb72",
+    "name": "TBUserPingScript",
+    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "layerId": 1
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "UserCommand",
+    "groupMetaId": "d1c2731b-c650-4dc6-b266-09d7a27c6821",
+    "objectType": "Command",
+    "objectName": "TBParamEcho",
+    "objectMetaId": "5bac99c9-d450-4e09-9020-0b11cf670da5",
+    "executionOrder": 0,
+    "metaId": "ce477b73-2817-4561-a2db-b4397ead95b2",
+    "name": "TBParamEchoScript",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "layerId": 1
+  },
+  "parameters": [
+    {
+      "scriptMetaId": "ce477b73-2817-4561-a2db-b4397ead95b2",
+      "caption": "Note",
+      "parameterType": "String",
+      "isRequired": true,
+      "saveHistory": false,
+      "sortIndex": 2,
+      "metaId": "f4573246-019d-4517-bb95-1f89dd026fa3",
+      "name": "Note",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "scriptMetaId": "ce477b73-2817-4561-a2db-b4397ead95b2",
+      "caption": "Rate",
+      "parameterType": "Decimal",
+      "defaultValue": "2.5",
+      "isRequired": true,
+      "saveHistory": false,
+      "sortIndex": 0,
+      "metaId": "4291f27d-d78a-4c82-9105-880a378c0f86",
+      "name": "Rate",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    },
+    {
+      "scriptMetaId": "ce477b73-2817-4561-a2db-b4397ead95b2",
+      "caption": "Tag",
+      "parameterType": "String",
+      "defaultValue": "x",
+      "isRequired": false,
+      "saveHistory": false,
+      "sortIndex": 1,
+      "metaId": "21670a2b-6e9a-416b-a0dd-48d558198daa",
+      "name": "Tag",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "layerId": 1
+    }
+  ]
+}

@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1001,
     "resetPolicy": "None",
     "metaId": "5e2f4a9d-7c1b-4d3e-9f6a-4b8c9d5e0f30",
     "name": "ProductionOrderSeq",

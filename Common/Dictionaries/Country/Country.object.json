@@ -14,7 +14,7 @@
     "notificationEnabled": false,
     "transparentTranslation": false,
     "defaultSearchProperty": "Name",
-    "displayFormat": "{Name}",
+    "displayFormat": "{Name} - ({CodeISO2})",
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,

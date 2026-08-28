@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "2928f226-e7a0-45a3-96e4-0d4787ee781f",
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TBWarehouse",
+    "objectMetaId": "01533bbd-c610-441b-becb-a8b27e606960",
+    "baseClassName": "TypedDictionaryEventHandler",
+    "executionOrder": 0,
+    "metaId": "d0e79c66-9af3-41a9-898a-002226bdfb1b",
+    "name": "TBWarehouseExtEvents",
+    "modelId": "b88adb0d-0567-4f0f-b9da-a5232911df8b",
+    "layerId": 2
+  }
+}

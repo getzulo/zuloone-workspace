@@ -1,0 +1,13 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"items\":[{\"type\":\"field\",\"name\":\"ID\"},{\"type\":\"field\",\"name\":\"Name\"},{\"type\":\"field\",\"name\":\"CodeISO2\"},{\"type\":\"field\",\"name\":\"CodeISO3\"},{\"type\":\"field\",\"name\":\"PhoneCode\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[]}",
+    "metaId": "26084f79-320e-474d-bc97-c7432eb7b3fe",
+    "name": "Country.Record",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

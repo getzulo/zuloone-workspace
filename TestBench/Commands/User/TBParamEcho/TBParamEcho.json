@@ -3,7 +3,7 @@
   "object": {
     "caption": "TBParamEcho",
     "scriptMetaId": "ce477b73-2817-4561-a2db-b4397ead95b2",
-    "parameterMode": "None",
+    "parameterMode": "UseForm",
     "displayOrder": 0,
     "beginGroup": false,
     "isEnabled": true,

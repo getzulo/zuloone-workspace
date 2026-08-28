@@ -3,11 +3,11 @@
   "object": {
     "caption": "Stock",
     "caption_ru": "Остатки",
-    "description": "On-hand quantity by location and item (double-entry ledger). Receipts/issues are balanced pairs against the External counterparty bucket; transfers move between two locations.",
+    "description": "On-hand quantity by location and item (single-entry accumulation register, MIQS-style). Receipts add +qty, issues/sales post -qty directly from the cell; transfers move between two cells. Balance = actual on-hand — no External counterparty bucket.",
     "isObsolete": false,
     "hotkey": "Ctrl+Shift+E",
     "registerEngineType": "Standard",
-    "isDoubleEntry": true,
+    "isDoubleEntry": false,
     "allowNegativeBalance": true,
     "useBalanceTable": true,
     "isExtension": false,

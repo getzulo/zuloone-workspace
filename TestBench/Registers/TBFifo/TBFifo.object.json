@@ -8,51 +8,48 @@
     "allowNegativeBalance": true,
     "useBalanceTable": true,
     "isExtension": false,
-    "metaId": "d3674953-8654-47eb-9f9c-f1e376a9871e",
+    "metaId": "986d520f-fe0b-4093-814e-305463d2fbf3",
     "name": "TBFifo",
-    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
     "layerId": 1
   },
   "dimensions": [
     {
-      "registerMetaId": "d3674953-8654-47eb-9f9c-f1e376a9871e",
+      "registerMetaId": "986d520f-fe0b-4093-814e-305463d2fbf3",
       "fieldName": "Item",
-      "caption": "Item",
-      "edtMetaId": "d64b376f-4124-4503-8f28-66870509d54a",
+      "edtMetaId": "cf0beef7-7ef8-4d26-a0d9-3804d36cd1e7",
       "isOperational": true,
       "isInformational": false,
       "isPivotDimension": false,
       "isTranslatable": false,
       "displayOrder": 1,
-      "metaId": "31dd73d9-7677-4cc5-8249-7e8cea918e69",
+      "metaId": "f263b61e-4eb8-493f-bc3b-6dcdf01168f3",
       "name": "Item",
-      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
       "layerId": 1
     }
   ],
   "resources": [
     {
-      "registerMetaId": "d3674953-8654-47eb-9f9c-f1e376a9871e",
+      "registerMetaId": "986d520f-fe0b-4093-814e-305463d2fbf3",
       "fieldName": "Amount",
-      "caption": "Amount",
       "isOperational": true,
-      "edtMetaId": "b8e8cefa-2069-4b6e-a3bc-cf21362d932a",
+      "edtMetaId": "a18e3d85-4c9f-41df-ab68-8b2eb0d48835",
       "displayOrder": 2,
-      "metaId": "d2b84571-4d0a-4d98-bfaa-c02f5bf3cd91",
+      "metaId": "1579f1cf-9eac-47d9-81ce-799708e7f7ec",
       "name": "Amount",
-      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
       "layerId": 1
     },
     {
-      "registerMetaId": "d3674953-8654-47eb-9f9c-f1e376a9871e",
+      "registerMetaId": "986d520f-fe0b-4093-814e-305463d2fbf3",
       "fieldName": "Quantity",
-      "caption": "Quantity",
       "isOperational": true,
-      "edtMetaId": "b8e8cefa-2069-4b6e-a3bc-cf21362d932a",
+      "edtMetaId": "a18e3d85-4c9f-41df-ab68-8b2eb0d48835",
       "displayOrder": 1,
-      "metaId": "bcf86e9d-cdb1-4ed1-a008-6c0f9a13384c",
+      "metaId": "4ba24e3a-80d1-4d0d-a895-95a0a60f5a1c",
       "name": "Quantity",
-      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
+      "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
       "layerId": 1
     }
   ]

@@ -124,7 +124,7 @@
       "subtypeCaption_ru": "Финализировано",
       "displayOrder": 2,
       "isInitial": false,
-      "isReadOnly": false,
+      "isReadOnly": true,
       "metaId": "31a249a0-f86c-4062-867b-db3052fb9a9b",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1
@@ -163,6 +163,16 @@
       "executionOrder": 1,
       "metaId": "f388d1a8-492c-4c51-ba76-896e640ef9c0",
       "name": "",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "3c95258c-d9fd-48b0-877c-46feb4fdf275",
+      "toSubtypeMetaId": "31a249a0-f86c-4062-867b-db3052fb9a9b",
+      "metaId": "fa2e5df8-0d52-4017-ac1a-292c51e0a676",
+      "name": "Draft->31a249a0f86c4062867bdb3052fb9a9b",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1
     }

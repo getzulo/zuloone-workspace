@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
 
-// Integration coverage for the double-entry Stock ledger: an adjustment brings
-// stock in from the External bucket, a transfer moves it between two locations
-// as one balanced pair, and a write-off beyond on-hand is rejected by the
-// StockAdjustment precheck. On-hand is read per (Location,Item) — Stock now has
-// physical dimensions, and the register sums to zero (conservation).
+// Integration coverage for the single-entry Stock ledger (MIQS-style): an
+// adjustment brings stock in as one positive movement (no External counterparty),
+// a transfer moves it between two cells as a balanced pair, and a write-off beyond
+// on-hand is rejected by the StockAdjustment precheck. On-hand is read per
+// (Cell,Item); the register sums to the real on-hand quantity.
 public class StockFlowTest : IntegrationTestScriptBase
 {
     private async Task<(Guid Loc1, Guid Loc2, Guid Item)> SetupAsync()
@@ -58,21 +58,13 @@ public class StockFlowTest : IntegrationTestScriptBase
         return q;
     }
 
-    private async Task<decimal> RegisterSumAsync()
-    {
-        decimal q = 0m;
-        foreach (var r in await Db.QueryBalancesAsync("Stock")) q += Convert.ToDecimal(r["Qty"]);
-        return q;
-    }
-
-    [IntegrationTest("Корректировка вводит остаток из внешнего мира")]
+    [IntegrationTest("Корректировка вводит остаток на склад")]
     public async Task AdjustmentAddsStock()
     {
         var s = await SetupAsync();
         await PostAdjustmentAsync(s.Loc1, s.Item, 10m);
 
         Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 10m, "на ячейке должно быть 10");
-        Assert.IsTrue(await RegisterSumAsync() == 0m, "двойная запись: сумма по регистру равна нулю");
     }
 
     [IntegrationTest("Перемещение делит остаток между ячейками")]
@@ -92,14 +84,15 @@ public class StockFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 6m, "на исходной ячейке осталось 6");
         Assert.IsTrue(await OnHandAsync(s.Loc2, s.Item) == 4m, "на целевой ячейке 4");
 
-        // Две пары: приход (External −10 / Loc1 +10) и перемещение (Loc1 −4 / Loc2 +4).
-        // Считаем ТОЛЬКО движения по своему товару: регистр общий, и незакрытые
-        // строки соседних прогонов попадут в безусловный QueryMovementsAsync.
+        // Три движения: приход +10 на Loc1 (одиночная проводка) и перемещение
+        // (Loc1 −4 / Loc2 +4). Считаем ТОЛЬКО движения по своему товару: регистр
+        // общий, и незакрытые строки соседних прогонов попадут в безусловный
+        // QueryMovementsAsync.
         var moves = await Db.QueryMovementsAsync("Stock", $"[Item] = '{s.Item}'");
         decimal sum = 0m;
         foreach (var m in moves) sum += Convert.ToDecimal(m["Qty"]);
-        Assert.IsTrue(moves.Count == 4, "ожидалось 4 движения (две пары), а не {0}", moves.Count);
-        Assert.IsTrue(sum == 0m, "двойная запись: сумма движений равна нулю, а не {0}", sum);
+        Assert.IsTrue(moves.Count == 3, "ожидалось 3 движения (приход + пара перемещения), а не {0}", moves.Count);
+        Assert.IsTrue(sum == 10m, "одинарная запись: сумма движений равна остатку (10), а не {0}", sum);
     }
 
     [IntegrationTest("Списание сверх наличия отклоняется")]

@@ -1,0 +1,13 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "2c41cfac-b612-471c-8731-67441d06a829",
+    "formKind": "List",
+    "layoutJson": "{\"rowRules\":[{\"when\":\"Stock < 1\",\"color\":\"red\"}],\"summary\":{\"version\":4,\"nodes\":[]}}",
+    "metaId": "c497efda-bc8a-4901-a8d8-b32e4c8f427c",
+    "name": "LfDictbd09b7e0.List",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1
+  }
+}

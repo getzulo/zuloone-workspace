@@ -102,7 +102,7 @@
       "subtypeCaption_ru": "Оприходовано",
       "displayOrder": 3,
       "isInitial": false,
-      "isReadOnly": false,
+      "isReadOnly": true,
       "metaId": "9bbf8cdb-8913-4286-8f9c-31809cca4231",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2

@@ -31,6 +31,15 @@
       "name": "Sales->Inventory",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2
+    },
+    {
+      "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "minVersion": "1.0.0",
+      "metaId": "e898e296-0661-43cc-805d-2c13a8554763",
+      "name": "Sales->Tax",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
     }
   ]
 }

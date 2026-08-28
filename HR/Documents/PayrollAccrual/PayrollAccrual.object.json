@@ -68,7 +68,7 @@
       "subtypeCaption_ru": "Проведено",
       "displayOrder": 2,
       "isInitial": false,
-      "isReadOnly": false,
+      "isReadOnly": true,
       "metaId": "4629fcca-6d1e-4b8a-9c3f-5a7e2d1c4b86",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2
@@ -107,6 +107,16 @@
       "executionOrder": 1,
       "metaId": "5207f916-1a2b-4c3d-8e4f-5a6b7c8d9e01",
       "name": "",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "6a17b68b-3e5c-4d2a-8f1b-7c4a6e2d9b53",
+      "toSubtypeMetaId": "4629fcca-6d1e-4b8a-9c3f-5a7e2d1c4b86",
+      "metaId": "2b88c450-6bbf-457b-b5bb-c3193a99954b",
+      "name": "Draft->4629fcca6d1e4b8a9c3f5a7e2d1c4b86",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2
     }

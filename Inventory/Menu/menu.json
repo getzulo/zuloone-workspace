@@ -226,6 +226,19 @@
       "layerId": 2
     },
     {
+      "caption": "Goods issue",
+      "caption_ar": "صرف بضاعة",
+      "caption_ru": "Реализация",
+      "parentMetaId": "2364c19b-2842-4f8d-b8b8-5272b64a0011",
+      "displayOrder": 5,
+      "targetType": "Document",
+      "targetMetaId": "57101301-0000-4000-8000-000000000000",
+      "metaId": "57101315-0000-4000-8000-000000000000",
+      "name": "GoodsIssue",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
       "caption": "Store zones",
       "caption_ar": "مناطق المخزن",
       "caption_ru": "Зоны склада",

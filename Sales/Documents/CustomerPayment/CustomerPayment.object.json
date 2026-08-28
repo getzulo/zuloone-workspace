@@ -62,7 +62,7 @@
       "subtypeCaption_ru": "Оплачено",
       "displayOrder": 2,
       "isInitial": false,
-      "isReadOnly": false,
+      "isReadOnly": true,
       "metaId": "2d3e4f5a-6b7c-4d8e-8f9a-1b2c3d4e5f6a",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2

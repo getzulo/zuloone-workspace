@@ -1,0 +1,11 @@
+{
+  "kind": "VirtualTotal",
+  "object": {
+    "caption": "Combined stock (virtual)",
+    "language": "en",
+    "metaId": "31828623-b12e-4481-8729-7eeb28b7e807",
+    "name": "TBCombinedStock",
+    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "layerId": 1
+  }
+}
