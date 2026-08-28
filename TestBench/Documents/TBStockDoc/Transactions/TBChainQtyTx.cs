@@ -4,7 +4,7 @@ public partial class TBChainQtyTx
     {
         foreach (var line in document.Items)
         {
-            transactions.Add(new TBStock { Warehouse = document.Warehouse, Item = line.Item ?? Guid.Empty, Quantity = line.Quantity ?? 0m });
+            transactions.Add(new TBStock { Warehouse = document.Warehouse, Item = line.Item, Quantity = line.Quantity ?? 0m });
         }
     }
 }

@@ -32,6 +32,7 @@
       "isIndexed": true,
       "isUnique": true,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "0c9da404-191e-42ab-af28-7441f1695742",
       "name": "ID",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
@@ -50,6 +51,7 @@
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "75b58f15-9b9b-4057-86ee-5b88d4842180",
       "name": "Location",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
@@ -68,6 +70,7 @@
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "a3c2ee0f-c9f9-41f1-b138-908c8794947b",
       "name": "Supplier",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
@@ -85,6 +88,7 @@
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
       "isInitial": true,
+      "isReadOnly": false,
       "metaId": "3a55ddfb-7d19-433b-93d6-5be9e5fdb6c6",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2
@@ -98,6 +102,7 @@
       "subtypeCaption_ru": "Оприходовано",
       "displayOrder": 3,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "9bbf8cdb-8913-4286-8f9c-31809cca4231",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2
@@ -105,11 +110,13 @@
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "name": "Ordered",
+      "caption": "Ordered",
       "subtypeValue": "Ordered",
       "subtypeCaption": "Ordered",
       "subtypeCaption_ru": "Заказано",
       "displayOrder": 2,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "9e0f1a2b-3c4d-4e5f-8a6b-7c8d9e0f1a2b",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2
@@ -142,6 +149,16 @@
       "executionOrder": 2,
       "metaId": "13aeeee9-0deb-45ba-ac48-a0c290d5252f",
       "name": "",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "3a55ddfb-7d19-433b-93d6-5be9e5fdb6c6",
+      "toSubtypeMetaId": "9e0f1a2b-3c4d-4e5f-8a6b-7c8d9e0f1a2b",
+      "metaId": "688492fe-7e41-4dcf-91d2-1809d94fbb16",
+      "name": "Draft->9e0f1a2b3c4d4e5f8a6b7c8d9e0f1a2b",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2
     }

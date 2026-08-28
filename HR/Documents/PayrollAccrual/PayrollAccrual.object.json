@@ -30,6 +30,7 @@
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "b238e829-4d7c-4a1f-9b2e-6c3a5d1e7f42",
       "name": "Division",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
@@ -49,6 +50,7 @@
       "isIndexed": true,
       "isUnique": true,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "a635e321-0a6f-455a-94b1-184ec7effcf0",
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
@@ -66,6 +68,7 @@
       "subtypeCaption_ru": "Проведено",
       "displayOrder": 2,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "4629fcca-6d1e-4b8a-9c3f-5a7e2d1c4b86",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2
@@ -80,6 +83,7 @@
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "6a17b68b-3e5c-4d2a-8f1b-7c4a6e2d9b53",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2

@@ -31,6 +31,7 @@
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "5ef15695-33f5-449f-948a-f050b9c05266",
       "name": "Customer",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -50,6 +51,7 @@
       "isIndexed": true,
       "isUnique": true,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "2466f989-76ca-44d7-8ffc-fbe59c95cf53",
       "name": "ID",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -67,6 +69,7 @@
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "60d8388c-63ce-426c-88a9-f2168ba5786e",
       "name": "Location",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -77,11 +80,13 @@
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
       "name": "Paid",
+      "caption": "Paid",
       "subtypeValue": "Paid",
       "subtypeCaption": "Paid",
       "subtypeCaption_ru": "Оплачено",
       "displayOrder": 3,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "7a8b9c0d-1e2f-4a3b-8c4d-6e7f8a9b0c1e",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2
@@ -96,6 +101,7 @@
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
       "isInitial": true,
+      "isReadOnly": false,
       "metaId": "8b4cca89-693a-4364-85d8-a6fcb3c9116b",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2
@@ -109,6 +115,7 @@
       "subtypeCaption_ru": "Выставлен",
       "displayOrder": 2,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2

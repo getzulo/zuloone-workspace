@@ -4,9 +4,9 @@
     "scriptType": "DictionaryCommand",
     "objectType": "Command",
     "objectName": "TBWarehouseInfo",
-    "objectMetaId": "5bcf94e0-a1d6-4299-a1a1-67a4e7ddf528",
+    "objectMetaId": "dfdce097-e992-4f69-b421-b98c3d87ae4a",
     "executionOrder": 0,
-    "metaId": "382c8df9-04c1-4933-b14c-3333e01ba01e",
+    "metaId": "37cdacda-5800-4659-a76a-65f5967dbb45",
     "name": "TBWarehouseInfoScript",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1

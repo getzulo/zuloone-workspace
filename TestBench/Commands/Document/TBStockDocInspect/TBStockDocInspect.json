@@ -2,23 +2,23 @@
   "kind": "DocumentCommand",
   "object": {
     "caption": "TBStockDocInspect",
-    "scriptMetaId": "92f1e34d-ed4b-42f1-a808-9b34ed20c332",
+    "scriptMetaId": "78b99c99-9cdc-4fd8-ad6f-b4ac7fc4c3c6",
     "parameterMode": "None",
     "displayOrder": 0,
     "beginGroup": false,
     "isEnabled": true,
     "requiresConfirmation": false,
     "reloadAfterExecution": true,
-    "metaId": "fcabe79e-860b-48c9-849b-f47c5097a13b",
+    "metaId": "cbea7348-e1b3-4f70-933e-2c8fa74f3292",
     "name": "TBStockDocInspect",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   },
   "subtypeBindings": [
     {
-      "metaId": "44559f48-98f4-44be-bdc3-d8ab97cf9975",
-      "documentCommandMetaId": "fcabe79e-860b-48c9-849b-f47c5097a13b",
-      "documentSubtypeMetaId": "165eb2f2-55ef-45af-b47f-48833140665e"
+      "metaId": "f119599d-db58-4760-b67e-1e35a5d861a5",
+      "documentCommandMetaId": "cbea7348-e1b3-4f70-933e-2c8fa74f3292",
+      "documentSubtypeMetaId": "e5523145-7e40-4b80-8ce4-10bf41c97a52"
     }
   ]
 }

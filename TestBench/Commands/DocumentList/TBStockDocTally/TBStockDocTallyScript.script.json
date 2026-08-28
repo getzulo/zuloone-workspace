@@ -4,9 +4,9 @@
     "scriptType": "DocumentListCommand",
     "objectType": "Command",
     "objectName": "TBStockDocTally",
-    "objectMetaId": "d741889b-951c-4eb4-b8bd-b21c5db833dc",
+    "objectMetaId": "6f09da54-43c1-4462-a52a-e1904be66155",
     "executionOrder": 0,
-    "metaId": "1e41c907-91d6-48ec-92cd-2fd656d9f7b7",
+    "metaId": "f22de76e-4dbe-44b5-9d41-e44959a89fe1",
     "name": "TBStockDocTallyScript",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1

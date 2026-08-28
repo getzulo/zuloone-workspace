@@ -4,10 +4,10 @@
     "scriptType": "EventHandler",
     "objectType": "Document",
     "objectName": "TBStockDoc",
-    "objectMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61",
+    "objectMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",
     "baseClassName": "DocumentEventHandler",
     "executionOrder": 0,
-    "metaId": "3a9d1b60-ed31-4ab2-ab83-4e2e52c35205",
+    "metaId": "97f402e3-e219-4850-9f6a-0e2a60cd3a15",
     "name": "TBStockDocEvents",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1

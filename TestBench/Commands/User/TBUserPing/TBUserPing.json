@@ -2,15 +2,14 @@
   "kind": "UserCommand",
   "object": {
     "caption": "TBUserPing",
-    "scriptMetaId": "9e148ec5-a1bd-407b-9694-bd2d42d445e6",
-    "parameterMode": "UseForm",
-    "parameterForm": "{\n  \"version\": 4,\n  \"nodes\": [\n    {\n      \"type\": \"group\",\n      \"title\": \"Параметры\",\n      \"columns\": 1,\n      \"items\": []\n    }\n  ]\n}",
+    "scriptMetaId": "c5b8b8c5-9fc6-48c6-9940-cf02d2e1d4f3",
+    "parameterMode": "None",
     "displayOrder": 0,
     "beginGroup": false,
     "isEnabled": true,
     "requiresConfirmation": false,
     "reloadAfterExecution": true,
-    "metaId": "bce10bd8-d247-4e8c-8ec9-2d3f45a8e2af",
+    "metaId": "62075b75-a056-4dc4-80c2-1b8159e1431b",
     "name": "TBUserPing",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1

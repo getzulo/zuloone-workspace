@@ -1,14 +1,14 @@
 {
   "kind": "Script",
   "object": {
-    "extensionMetaId": "23f125d5-f8f2-4f66-97d9-032d03fdd80e",
+    "extensionMetaId": "e8e8a959-99d2-42ea-9530-bdf4f5507c4d",
     "scriptType": "EventHandler",
     "objectType": "Dictionary",
     "objectName": "TBWarehouse",
-    "objectMetaId": "4d6395fc-a492-4311-acaf-49534745ed06",
+    "objectMetaId": "f808a852-1145-47bd-953a-d25e42f3c315",
     "baseClassName": "TypedDictionaryEventHandler",
     "executionOrder": 0,
-    "metaId": "fee79521-b009-4e47-9ba3-28c6fdfa50a8",
+    "metaId": "f3fc97c0-d50e-42d6-8d6d-9b3f59c27c5c",
     "name": "TBWarehouseExtEvents",
     "modelId": "390cbabb-1f33-47db-afd7-b78fb78afae9",
     "layerId": 2

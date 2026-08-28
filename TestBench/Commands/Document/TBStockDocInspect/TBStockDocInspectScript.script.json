@@ -4,9 +4,9 @@
     "scriptType": "DocumentCommand",
     "objectType": "Command",
     "objectName": "TBStockDocInspect",
-    "objectMetaId": "fcabe79e-860b-48c9-849b-f47c5097a13b",
+    "objectMetaId": "cbea7348-e1b3-4f70-933e-2c8fa74f3292",
     "executionOrder": 0,
-    "metaId": "92f1e34d-ed4b-42f1-a808-9b34ed20c332",
+    "metaId": "78b99c99-9cdc-4fd8-ad6f-b4ac7fc4c3c6",
     "name": "TBStockDocInspectScript",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1

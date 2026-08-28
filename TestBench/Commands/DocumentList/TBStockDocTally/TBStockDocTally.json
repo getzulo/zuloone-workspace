@@ -2,23 +2,23 @@
   "kind": "DocumentListCommand",
   "object": {
     "caption": "TBStockDocTally",
-    "scriptMetaId": "1e41c907-91d6-48ec-92cd-2fd656d9f7b7",
+    "scriptMetaId": "f22de76e-4dbe-44b5-9d41-e44959a89fe1",
     "parameterMode": "None",
     "displayOrder": 0,
     "beginGroup": false,
     "isEnabled": true,
     "requiresConfirmation": false,
     "reloadAfterExecution": true,
-    "metaId": "d741889b-951c-4eb4-b8bd-b21c5db833dc",
+    "metaId": "6f09da54-43c1-4462-a52a-e1904be66155",
     "name": "TBStockDocTally",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   },
   "typeBindings": [
     {
-      "metaId": "60ae90ad-f988-4109-9b7d-0aad58d28522",
-      "documentListCommandMetaId": "d741889b-951c-4eb4-b8bd-b21c5db833dc",
-      "documentTypeMetaId": "8723c671-0a2d-4f2c-a26b-56a4a8cdcb61"
+      "metaId": "130b4698-70e7-4944-bc89-311a5224f15d",
+      "documentListCommandMetaId": "6f09da54-43c1-4462-a52a-e1904be66155",
+      "documentTypeMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a"
     }
   ]
 }

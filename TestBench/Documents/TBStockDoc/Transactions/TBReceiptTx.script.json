@@ -3,9 +3,9 @@
   "object": {
     "scriptType": "TransactionScript",
     "objectType": "Document",
-    "objectMetaId": "165eb2f2-55ef-45af-b47f-48833140665e",
+    "objectMetaId": "e5523145-7e40-4b80-8ce4-10bf41c97a52",
     "executionOrder": 0,
-    "metaId": "11d100f8-7724-47e3-b057-80d5b51263b7",
+    "metaId": "15c8d864-23d3-4d1c-a10f-bbddbba76506",
     "name": "TBReceiptTx",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1

@@ -1,16 +1,16 @@
 {
   "kind": "DictionaryListCommand",
   "object": {
-    "dictionaryMetaId": "0d9d07ab-31ae-4297-a834-760c6f2094e6",
+    "dictionaryMetaId": "5929e99f-75f5-4635-9293-b99892d085be",
     "caption": "TBItemTally",
-    "scriptMetaId": "21bc4565-675a-4e76-bdcc-94ed292d3291",
+    "scriptMetaId": "70a4f833-7c65-42a2-90c2-72b7a6ee6daa",
     "parameterMode": "None",
     "displayOrder": 0,
     "beginGroup": false,
     "isEnabled": true,
     "requiresConfirmation": false,
     "reloadAfterExecution": true,
-    "metaId": "df1d5fa8-2941-4cfa-93e8-04fb668ab666",
+    "metaId": "11a08f79-9e94-4baa-b9b3-9fcf2ad7a525",
     "name": "TBItemTally",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1

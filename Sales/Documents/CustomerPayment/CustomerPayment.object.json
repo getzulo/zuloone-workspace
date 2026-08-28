@@ -21,6 +21,7 @@
     {
       "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
       "fieldName": "ID",
+      "caption": "ID",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -30,6 +31,7 @@
       "isIndexed": true,
       "isUnique": true,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "68c52836-bbd8-468a-bbe8-f1a4b1ca820e",
       "name": "ID",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -40,11 +42,13 @@
     {
       "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
       "name": "Draft",
+      "caption": "Draft",
       "subtypeValue": "Draft",
       "subtypeCaption": "Draft",
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
       "isInitial": true,
+      "isReadOnly": false,
       "metaId": "1c2d3e4f-5a6b-4c7d-9e8f-0a1b2c3d4e5f",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2
@@ -52,11 +56,13 @@
     {
       "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
       "name": "Paid",
+      "caption": "Paid",
       "subtypeValue": "Paid",
       "subtypeCaption": "Paid",
       "subtypeCaption_ru": "Оплачено",
       "displayOrder": 2,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "2d3e4f5a-6b7c-4d8e-8f9a-1b2c3d4e5f6a",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2

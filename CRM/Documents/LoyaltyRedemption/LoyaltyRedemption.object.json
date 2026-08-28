@@ -31,6 +31,7 @@
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "3b6c1e09-5d4f-4a8b-8c9e-0f3a4b1c7d20",
       "name": "Customer",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
@@ -39,6 +40,8 @@
     {
       "documentTypeMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
       "fieldName": "ID",
+      "caption": "ID",
+      "caption_ar": "معرف",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -48,11 +51,11 @@
       "isIndexed": true,
       "isUnique": true,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "e857af1c-a207-488f-93ca-e5a392f51c52",
       "name": "ID",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2,
-      "caption_ar": "معرف"
+      "layerId": 2
     },
     {
       "documentTypeMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
@@ -66,6 +69,7 @@
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "4c7d2f10-6e5a-4b9c-9d0f-1a4b5c2d8e30",
       "name": "Points",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
@@ -76,24 +80,28 @@
     {
       "documentTypeMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
       "name": "Draft",
+      "caption": "Draft",
+      "caption_ar": "مسودة",
       "subtypeValue": "Draft",
       "subtypeCaption": "Draft",
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "5d8e3a21-7f6b-4c0d-8e1a-2b5c6d3e9f40",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2,
-      "caption_ar": "مسودة"
+      "layerId": 2
     },
     {
       "documentTypeMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
       "name": "Redeemed",
+      "caption": "Redeemed",
       "subtypeValue": "Redeemed",
       "subtypeCaption": "Redeemed",
       "subtypeCaption_ru": "Списано",
       "displayOrder": 2,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "6e9f4b32-8a7c-4d1e-9f2b-3c6d7e4a0b50",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
       "layerId": 2

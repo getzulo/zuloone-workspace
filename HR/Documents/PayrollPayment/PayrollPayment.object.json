@@ -32,6 +32,7 @@
       "isIndexed": true,
       "isUnique": true,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "d6edce12-43ba-4755-bfc4-7f4252e7ebf2",
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
@@ -48,6 +49,7 @@
       "subtypeCaption_ru": "Выплачено",
       "displayOrder": 2,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "aa119dda-7d3e-4c1a-9b2f-5a6e3d1c7b48",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2
@@ -62,6 +64,7 @@
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "dbb3ce31-5c7e-4a2d-8b1f-6e3a4c7d2f90",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2

@@ -3,9 +3,9 @@
   "object": {
     "scriptType": "TransactionScript",
     "objectType": "Document",
-    "objectMetaId": "0f4ff72d-b652-4065-9716-8e8b669eea8a",
+    "objectMetaId": "91395484-b4cf-45ac-b1f2-46239fe8d8fe",
     "executionOrder": 0,
-    "metaId": "171ee9c7-398b-45c6-9b7d-9ed692685015",
+    "metaId": "85430f74-3647-4ec6-b629-bcaa21a604c9",
     "name": "TBIssueTx",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1

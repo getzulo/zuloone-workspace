@@ -18,10 +18,12 @@
     {
       "registerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
       "fieldName": "Customer",
+      "caption": "Customer",
       "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
       "isOperational": true,
       "isInformational": false,
       "isPivotDimension": false,
+      "isTranslatable": false,
       "displayOrder": 1,
       "metaId": "08dc2b3b-6c8e-4f6c-91ac-da84ada11552",
       "name": "Customer",
@@ -33,6 +35,7 @@
     {
       "registerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
       "fieldName": "Points",
+      "caption": "Points",
       "isOperational": true,
       "edtMetaId": "8c1d6f54-0e9a-4b3c-9d4f-5a8b9c6d2e70",
       "displayOrder": 1,

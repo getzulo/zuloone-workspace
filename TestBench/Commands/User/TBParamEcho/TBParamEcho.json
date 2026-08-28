@@ -2,14 +2,14 @@
   "kind": "UserCommand",
   "object": {
     "caption": "TBParamEcho",
-    "scriptMetaId": "f129ce6c-01f7-46ad-99d3-cbe8b6a9d9d7",
+    "scriptMetaId": "ce477b73-2817-4561-a2db-b4397ead95b2",
     "parameterMode": "None",
     "displayOrder": 0,
     "beginGroup": false,
     "isEnabled": true,
     "requiresConfirmation": false,
     "reloadAfterExecution": true,
-    "metaId": "659a9de0-84b9-4598-8057-aecb88fbd613",
+    "metaId": "5bac99c9-d450-4e09-9020-0b11cf670da5",
     "name": "TBParamEcho",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1

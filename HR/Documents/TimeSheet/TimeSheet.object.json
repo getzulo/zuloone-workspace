@@ -30,6 +30,7 @@
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "8b9c0d1e-2f3a-4b4c-8d5e-7f8a9b0c1d2a",
       "name": "Division",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
@@ -38,6 +39,7 @@
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
       "fieldName": "ID",
+      "caption": "ID",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -47,6 +49,7 @@
       "isIndexed": true,
       "isUnique": true,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "6374eb29-78ec-408a-af6f-8c8bfdfb3186",
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
@@ -57,11 +60,13 @@
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
       "name": "Draft",
+      "caption": "Draft",
       "subtypeValue": "Draft",
       "subtypeCaption": "Draft",
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
       "isInitial": true,
+      "isReadOnly": false,
       "metaId": "1a2b3c4d-5e6f-4a7b-9c8d-0e1f2a3b4c5a",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2
@@ -69,11 +74,13 @@
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
       "name": "Approved",
+      "caption": "Approved",
       "subtypeValue": "Approved",
       "subtypeCaption": "Approved",
       "subtypeCaption_ru": "Утверждён",
       "displayOrder": 2,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "2b3c4d5e-6f7a-4b8c-8d9e-1f2a3b4c5d6b",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2

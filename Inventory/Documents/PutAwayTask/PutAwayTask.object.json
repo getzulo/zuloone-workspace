@@ -31,6 +31,7 @@
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "57100703-0000-4000-8000-000000000000",
       "name": "FromCell",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
@@ -50,6 +51,7 @@
       "isIndexed": true,
       "isUnique": true,
       "isVisible": true,
+      "isTranslatable": false,
       "metaId": "57100702-0000-4000-8000-000000000000",
       "name": "ID",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
@@ -67,6 +69,7 @@
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
       "isInitial": true,
+      "isReadOnly": false,
       "metaId": "57100704-0000-4000-8000-000000000000",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
@@ -81,6 +84,7 @@
       "subtypeCaption_ru": "Подтверждено",
       "displayOrder": 2,
       "isInitial": false,
+      "isReadOnly": false,
       "metaId": "57100705-0000-4000-8000-000000000000",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
