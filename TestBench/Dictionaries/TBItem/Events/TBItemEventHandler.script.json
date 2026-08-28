@@ -4,11 +4,11 @@
     "scriptType": "EventHandler",
     "objectType": "Dictionary",
     "objectName": "TBItem",
-    "objectMetaId": "c9d2fbdf-e532-4bfe-b479-7a99e542cae8",
+    "objectMetaId": "5929e99f-75f5-4635-9293-b99892d085be",
     "executionOrder": 0,
-    "metaId": "f176d429-2a03-45ee-b221-3806e5b68438",
+    "metaId": "32b076aa-1411-4f27-b02d-5f4ff28475c9",
     "name": "TBItemEventHandler",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

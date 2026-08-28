@@ -1,0 +1,67 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "Social insurance",
+    "caption_ru": "Соцстрах",
+    "isObsolete": false,
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6",
+    "name": "SocialInsurance",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  },
+  "resources": [
+    {
+      "registerMetaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6",
+      "fieldName": "EmployeeContribution",
+      "caption": "Employee contribution",
+      "caption_ru": "Взнос работника",
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "metaId": "67659ede-da12-461c-97e8-6fd3da76815d",
+      "name": "EmployeeContribution",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "registerMetaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6",
+      "fieldName": "EmployerContribution",
+      "caption": "Employer contribution",
+      "caption_ru": "Взнос работодателя",
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 2,
+      "metaId": "158a6bf2-7ec7-4d6a-8133-85ce2d10d72e",
+      "name": "EmployerContribution",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "analytics": [
+    {
+      "registerMetaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6",
+      "analyticMetaId": "8319a81f-f08c-4e1e-8861-6ce8bc7152c6",
+      "displayOrder": 2,
+      "isRequired": true,
+      "metaId": "2e32bca4-fa4f-4505-b8ea-37d98fbf6a74",
+      "name": "SocialInsurance-Division",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "registerMetaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6",
+      "analyticMetaId": "0f98913b-3880-4fc8-84f1-632d5cfe505e",
+      "displayOrder": 1,
+      "isRequired": true,
+      "metaId": "722e1e63-642a-46c4-9ecf-41b274df117f",
+      "name": "SocialInsurance-Employee",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ]
+}

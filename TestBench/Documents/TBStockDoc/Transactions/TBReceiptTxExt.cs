@@ -8,7 +8,7 @@ public class TBReceiptTx_TestBenchExt : TBReceiptTx
         foreach (var line in document.Items)
         {
             if (line.Amount == 777.77m)
-                transactions.Add(new TBStock { Warehouse = document.Warehouse, Item = line.Item ?? Guid.Empty, Quantity = line.Quantity ?? 0m });
+                transactions.Add(new TBStock { Warehouse = document.Warehouse, Item = line.Item, Quantity = line.Quantity ?? 0m });
         }
     }
 }

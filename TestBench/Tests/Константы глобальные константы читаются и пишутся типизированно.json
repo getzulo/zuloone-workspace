@@ -6,9 +6,9 @@
     "isActive": true,
     "groupName": "Ядерные тесты.Константы",
     "isExtension": false,
-    "metaId": "67e10474-ecc4-4d09-97cd-5e20712a8656",
+    "metaId": "bf19fdd0-eb39-4e39-86ae-0eea6dd5a280",
     "name": "Константы: глобальные константы читаются и пишутся типизированно",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

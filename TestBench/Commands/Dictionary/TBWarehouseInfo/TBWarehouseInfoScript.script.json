@@ -4,11 +4,11 @@
     "scriptType": "DictionaryCommand",
     "objectType": "Command",
     "objectName": "TBWarehouseInfo",
-    "objectMetaId": "b25f681b-c27d-4b27-9e30-91215737e248",
+    "objectMetaId": "dfdce097-e992-4f69-b421-b98c3d87ae4a",
     "executionOrder": 0,
-    "metaId": "44dee42b-3104-4bd6-bfb9-544dd7aa6915",
+    "metaId": "37cdacda-5800-4659-a76a-65f5967dbb45",
     "name": "TBWarehouseInfoScript",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

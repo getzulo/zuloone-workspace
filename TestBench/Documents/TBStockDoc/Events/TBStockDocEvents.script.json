@@ -4,12 +4,12 @@
     "scriptType": "EventHandler",
     "objectType": "Document",
     "objectName": "TBStockDoc",
-    "objectMetaId": "4aa0891a-4829-465c-b844-1511eadd3df6",
+    "objectMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",
     "baseClassName": "DocumentEventHandler",
     "executionOrder": 0,
-    "metaId": "05ddaeea-2cdb-4f8d-a1b0-a0aad7d7c844",
+    "metaId": "97f402e3-e219-4850-9f6a-0e2a60cd3a15",
     "name": "TBStockDocEvents",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

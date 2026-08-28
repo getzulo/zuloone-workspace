@@ -6,9 +6,9 @@
     "isActive": true,
     "groupName": "Ядерные тесты.Ядро",
     "isExtension": false,
-    "metaId": "78d88463-2808-4f6a-bf16-4070b32d5382",
+    "metaId": "5e9bd4e7-8c76-4292-a256-593646741a19",
     "name": "Ядро: незакоммиченное невидимо вне транзакции",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

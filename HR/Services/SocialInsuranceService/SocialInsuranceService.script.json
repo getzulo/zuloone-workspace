@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "SocialInsuranceService",
+    "executionOrder": 0,
+    "metaId": "9fd72704-071d-41ed-8cc7-e5ee7454bb44",
+    "name": "SocialInsuranceService",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  }
+}

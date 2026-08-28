@@ -6,9 +6,9 @@
     "isActive": true,
     "groupName": "Ядерные тесты.Справочники",
     "isExtension": false,
-    "metaId": "9cd1d4b2-3934-4f9f-b483-5f435765d5c6",
+    "metaId": "7497ae41-6cca-4e02-9490-666da2a695b3",
     "name": "Справочники: CreateSampleRecord строит валидную запись",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

@@ -1,0 +1,98 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Social insurance accrual",
+    "caption_ru": "Начисление соцстраха",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "21862e36-63a6-4fd3-a459-fd40992cea2c",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "a0d03063-af77-4fd0-886b-223a9731f105",
+    "name": "SocialInsuranceAccrual",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
+      "fieldName": "Division",
+      "caption": "Division",
+      "caption_ru": "Подразделение",
+      "edtMetaId": "ff85f4a4-ab90-41f8-9bf9-32367aab94a1",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "c1613860-2772-49ba-bc22-9308f78099e7",
+      "name": "Division",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "f165565b-37e4-4a8f-af8e-1e3940829025",
+      "name": "ID",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
+      "name": "Draft",
+      "caption": "Draft",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "476f82fa-43f5-42d0-9cdf-89afed3ebe4f",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
+      "name": "Posted",
+      "caption": "Posted",
+      "subtypeValue": "Posted",
+      "subtypeCaption": "Posted",
+      "subtypeCaption_ru": "Проведено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "e789d2a1-f54c-4ca0-a75d-eb9b96546e94",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
+      "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
+      "isCloneable": true,
+      "metaId": "620ce126-09e7-40de-82cd-3e0039efe4b1",
+      "name": "Lines",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ]
+}

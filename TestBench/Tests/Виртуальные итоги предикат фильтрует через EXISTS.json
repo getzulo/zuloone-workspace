@@ -6,9 +6,9 @@
     "isActive": true,
     "groupName": "Ядерные тесты.Виртуальные итоги",
     "isExtension": false,
-    "metaId": "b0d6d524-aeb2-430d-8be6-3b6364c00f2a",
+    "metaId": "ca039df9-dc58-4dd6-a435-bb17d4944f1a",
     "name": "Виртуальные итоги: предикат фильтрует через EXISTS",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

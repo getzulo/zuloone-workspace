@@ -6,9 +6,9 @@
     "isActive": true,
     "groupName": "Ядерные тесты.Транзакции",
     "isExtension": false,
-    "metaId": "f86d5f72-ecf0-455e-9c67-775b822a10ee",
+    "metaId": "a6ddca7c-1899-4274-aa86-cce20770b756",
     "name": "Транзакции: цепочка подтипа выполняется целиком",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

@@ -1,0 +1,81 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "SocialInsuranceAccrualLinesTablePartRow",
+    "caption": "Lines",
+    "caption_ru": "Строки",
+    "tableName": "TP_SocialInsuranceAccrualLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
+    "name": "SocialInsuranceAccrualLines",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
+      "fieldName": "ContributoryBase",
+      "caption": "Contributory base",
+      "caption_ru": "База начисления",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "displayOrder": 2,
+      "metaId": "1a3e7b93-a62c-4df4-8987-4920bb5999f8",
+      "name": "ContributoryBase",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
+      "fieldName": "Employee",
+      "caption": "Employee",
+      "caption_ru": "Сотрудник",
+      "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "displayOrder": 1,
+      "metaId": "eff91a84-9128-47a4-a8cb-fe62f1af263d",
+      "name": "Employee",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
+      "fieldName": "EmployeeContribution",
+      "caption": "Employee contribution",
+      "caption_ru": "Взнос работника",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "displayOrder": 3,
+      "metaId": "f46b6b7a-418c-4192-aca2-4105f8ade8e6",
+      "name": "EmployeeContribution",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
+      "fieldName": "EmployerContribution",
+      "caption": "Employer contribution",
+      "caption_ru": "Взнос работодателя",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "displayOrder": 4,
+      "metaId": "f98fa0a7-0f1e-43ec-8eb7-d2a04fa77d73",
+      "name": "EmployerContribution",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    }
+  ]
+}

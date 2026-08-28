@@ -6,9 +6,9 @@
     "isActive": true,
     "groupName": "Ядерные тесты.Иерархия",
     "isExtension": false,
-    "metaId": "36c58ae6-3e93-4031-89b0-6f6acede5d56",
+    "metaId": "4a827d2d-d69f-4008-9f42-ed29f1558d9f",
     "name": "Иерархия: справочник-дерево получает системный ParentId",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

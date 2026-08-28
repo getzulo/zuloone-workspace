@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SocialInsuranceAccrual",
+    "objectMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
+    "executionOrder": 0,
+    "metaId": "a624cecd-3c0b-4aad-a6c7-324857ae67a0",
+    "name": "SocialInsuranceAccrualEventHandler",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  }
+}

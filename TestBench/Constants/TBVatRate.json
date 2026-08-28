@@ -2,14 +2,14 @@
   "kind": "GlobalConstant",
   "object": {
     "caption": "TBVatRate",
-    "groupMetaId": "16e87add-2147-4bda-a281-80ea7f929de6",
+    "groupMetaId": "b23427a0-c3be-4757-8f06-db8e9e15c07d",
     "constantType": "Decimal",
-    "numberValue": 20,
-    "value": 20,
-    "displayValue": "20",
-    "metaId": "29d42d74-1a58-4cf6-b9eb-d8438950ee60",
+    "numberValue": 20.00,
+    "value": 20.00,
+    "displayValue": "20.00",
+    "metaId": "31a0753c-6b61-4f98-857a-98db87329a33",
     "name": "TBVatRate",
-    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
   }
 }

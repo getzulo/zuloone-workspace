@@ -1,0 +1,12 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Соцстрах: расчёт взносов работника и работодателя от базы с потолком и по гражданству, порождение начисления взносов",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "9fd72704-071d-41ed-8cc7-e5ee7454bb44",
+    "metaId": "e4af4086-db26-4f7d-a1ff-c039913971f3",
+    "name": "SocialInsuranceService",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  }
+}
