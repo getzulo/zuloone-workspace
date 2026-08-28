@@ -17,12 +17,12 @@ public partial class StockAdjustmentTx
             var q = line.Quantity;
             if (q >= 0m)
                 transactionPairs.Add(
-                    new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Location", External).Res("Qty", -q),
-                    new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Location", document.Location).Res("Qty", q));
+                    new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", External).Res("Qty", -q),
+                    new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", document.Cell).Res("Qty", q));
             else
                 transactionPairs.Add(
-                    new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Location", document.Location).Res("Qty", q),
-                    new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Location", External).Res("Qty", -q));
+                    new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", document.Cell).Res("Qty", q),
+                    new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", External).Res("Qty", -q));
         }
     }
 }

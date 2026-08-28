@@ -1,0 +1,32 @@
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
+    "description": "Extension of BillOfMaterials by model Accounting",
+    "metaId": "ab3aba51-293f-401c-bc34-7cd29124ff7a",
+    "name": "BillOfMaterials.Accounting",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  },
+  "fields": [
+    {
+      "extensionMetaId": "ab3aba51-293f-401c-bc34-7cd29124ff7a",
+      "dictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
+      "fieldName": "Test",
+      "baseType": "String",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Test",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": true,
+      "metaId": "f12d4d99-ca2c-4f5d-8079-8165694aa4e0",
+      "name": "Test",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    }
+  ]
+}

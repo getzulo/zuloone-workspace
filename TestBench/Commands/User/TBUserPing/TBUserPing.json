@@ -3,7 +3,8 @@
   "object": {
     "caption": "TBUserPing",
     "scriptMetaId": "9e148ec5-a1bd-407b-9694-bd2d42d445e6",
-    "parameterMode": "None",
+    "parameterMode": "UseForm",
+    "parameterForm": "{\n  \"version\": 4,\n  \"nodes\": [\n    {\n      \"type\": \"group\",\n      \"title\": \"Параметры\",\n      \"columns\": 1,\n      \"items\": []\n    }\n  ]\n}",
     "displayOrder": 0,
     "beginGroup": false,
     "isEnabled": true,

@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1001,
     "resetPolicy": "None",
     "metaId": "dc79fcbb-a1cd-4430-9592-3ee52f4baf0e",
     "name": "DivisionTypeSeq",

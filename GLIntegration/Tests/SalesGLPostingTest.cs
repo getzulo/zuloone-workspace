@@ -22,9 +22,10 @@ public class SalesGLPostingTest : IntegrationTestScriptBase
             { ["Name"] = "ACME GmbH", ["RegistrationNumber"] = "REG-GL-1", ["Country"] = country, ["Currency"] = currency });
         var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?> { ["Code"] = "SP", ["Name"] = "SalesPoint" });
         var div = await Db.InsertAsync("Division", new Dictionary<string, object?> { ["Name"] = "Shop", ["LegalEntity"] = le, ["DivisionType"] = dt });
-        var wh = await Db.InsertAsync("Warehouse", new Dictionary<string, object?> { ["Name"] = "Shop WH", ["Division"] = div });
-        var lt = await Db.InsertAsync("LocationType", new Dictionary<string, object?> { ["Code"] = "PICK", ["Name"] = "Picking" });
-        var loc = await Db.InsertAsync("WarehouseLocation", new Dictionary<string, object?> { ["Warehouse"] = wh, ["Name"] = "P-01", ["LocationType"] = lt });
+        var wh = await Db.InsertAsync("Store", new Dictionary<string, object?> { ["Name"] = "Shop WH", ["Division"] = div, ["IsSimple"] = true });
+        var whZone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?> { ["Name"] = "Зона", ["Store"] = wh, ["IsBarcodeTracking"] = false });
+        var lt = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?> {["Code"] = $"PICK-{Db.NewId():N}"[..12], ["Name"] = "Picking" });
+        var loc = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "P-01", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
 
         var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?> { ["Name"] = "Piece", ["Code"] = "PCS" });
         var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?> { ["Code"] = "GOODS", ["Name"] = "Finished goods" });
@@ -33,11 +34,19 @@ public class SalesGLPostingTest : IntegrationTestScriptBase
         var customer = await Db.InsertAsync("Customer", new Dictionary<string, object?>
             { ["Name"] = "Buyer Ltd", ["CustomerType"] = "B2B" });
 
-        // Настроенные счета разноски (коды совпадают с константами ArAccountCode/RevenueAccountCode).
+        // Настроенные счета разноски (коды совпадают с профилем AccountingSettings).
         await Db.InsertAsync("ChartOfAccounts", new Dictionary<string, object?>
             { ["Code"] = "1200", ["Name"] = "Accounts receivable", ["AccountType"] = "Asset", ["IsPostable"] = true, ["Currency"] = currency });
         await Db.InsertAsync("ChartOfAccounts", new Dictionary<string, object?>
             { ["Code"] = "4000", ["Name"] = "Sales revenue", ["AccountType"] = "Income", ["IsPostable"] = true, ["Currency"] = currency });
+
+        // Профиль разноски — одиночный справочник настроек учёта: именно отсюда
+        // GeneralLedgerService берёт коды счетов (раньше были глобальные константы).
+        await Db.InsertAsync("AccountingSettings", new Dictionary<string, object?>
+        {
+            ["ArAccountCode"] = "1200", ["RevenueAccountCode"] = "4000",
+            ["InventoryAccountCode"] = "1400", ["PayableAccountCode"] = "2000",
+        });
 
         // Учётный год и период, покрывающий сегодня.
         var fy = await Db.InsertAsync("FiscalYear", new Dictionary<string, object?>
@@ -47,7 +56,7 @@ public class SalesGLPostingTest : IntegrationTestScriptBase
 
         // Товар на складе, затем выставляем счёт на 3 × 5 = 15.
         await Db.PostMovementAsync("Stock", today,
-            new Dictionary<string, object?> { ["Location"] = loc, ["Item"] = item },
+            new Dictionary<string, object?> { ["Cell"] = loc, ["Item"] = item },
             new Dictionary<string, decimal> { ["Qty"] = 10m });
 
         var inv = await Db.CreateDocumentAsync("SalesInvoice",

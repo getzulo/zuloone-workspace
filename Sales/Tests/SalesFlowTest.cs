@@ -17,9 +17,10 @@ public class SalesFlowTest : IntegrationTestScriptBase
             { ["Name"] = "ACME GmbH", ["RegistrationNumber"] = "REG-SALES-1", ["Country"] = country, ["Currency"] = currency });
         var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?> { ["Code"] = "SP", ["Name"] = "SalesPoint" });
         var div = await Db.InsertAsync("Division", new Dictionary<string, object?> { ["Name"] = "Shop", ["LegalEntity"] = le, ["DivisionType"] = dt });
-        var wh = await Db.InsertAsync("Warehouse", new Dictionary<string, object?> { ["Name"] = "Shop WH", ["Division"] = div });
-        var lt = await Db.InsertAsync("LocationType", new Dictionary<string, object?> { ["Code"] = "PICK", ["Name"] = "Picking" });
-        var loc = await Db.InsertAsync("WarehouseLocation", new Dictionary<string, object?> { ["Warehouse"] = wh, ["Name"] = "P-01", ["LocationType"] = lt });
+        var wh = await Db.InsertAsync("Store", new Dictionary<string, object?> { ["Name"] = "Shop WH", ["Division"] = div, ["IsSimple"] = true });
+        var whZone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?> { ["Name"] = "Зона", ["Store"] = wh, ["IsBarcodeTracking"] = false });
+        var lt = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?> {["Code"] = $"PICK-{Db.NewId():N}"[..12], ["Name"] = "Picking" });
+        var loc = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "P-01", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
 
         var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?> { ["Name"] = "Piece", ["Code"] = "PCS" });
         var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?> { ["Code"] = "GOODS", ["Name"] = "Finished goods" });
@@ -34,7 +35,7 @@ public class SalesFlowTest : IntegrationTestScriptBase
     private async Task StockInAsync(Guid location, Guid item, decimal qty)
     {
         var doc = await Db.CreateDocumentAsync("StockAdjustment",
-            new Dictionary<string, object?> { ["Location"] = location },
+            new Dictionary<string, object?> { ["Cell"] = location },
             new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
             {
                 ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = item, ["Quantity"] = qty } },
@@ -60,7 +61,7 @@ public class SalesFlowTest : IntegrationTestScriptBase
         await Db.ChangeSubtypeAsync("SalesInvoice", inv, "Issued");
 
         decimal stock = 0m;
-        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Location] = '" + s.Location + "'")) stock += Convert.ToDecimal(r["Qty"]);
+        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Cell] = '" + s.Location + "'")) stock += Convert.ToDecimal(r["Qty"]);
         decimal revenue = 0m;
         foreach (var r in await Db.QueryBalancesAsync("Revenue")) revenue += Convert.ToDecimal(r["Amount"]);
 

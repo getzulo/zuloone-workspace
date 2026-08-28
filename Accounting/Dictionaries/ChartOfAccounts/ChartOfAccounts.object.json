@@ -27,8 +27,7 @@
     {
       "dictionaryMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
       "fieldName": "AccountType",
-      "baseType": "String",
-      "length": 16,
+      "edtMetaId": "471ee4ab-0934-4ad4-b9ab-1005a72f8a7f",
       "isSystem": false,
       "isRequired": true,
       "displayOrder": 3,

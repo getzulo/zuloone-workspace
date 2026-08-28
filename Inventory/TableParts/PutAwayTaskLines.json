@@ -1,0 +1,72 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "PutAwayTaskLinesTablePartRow",
+    "caption": "Lines",
+    "caption_ar": "السطور",
+    "caption_ru": "Строки",
+    "tableName": "TP_PutAwayTaskLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "57100708-0000-4000-8000-000000000000",
+    "name": "PutAwayTaskLines",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
+      "fieldName": "Item",
+      "caption": "Item",
+      "caption_ar": "الصنف",
+      "caption_ru": "Товар",
+      "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "57100709-0000-4000-8000-000000000000",
+      "name": "Item",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
+      "fieldName": "Quantity",
+      "caption": "Quantity",
+      "caption_ar": "الكمية",
+      "caption_ru": "Количество",
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "5710070a-0000-4000-8000-000000000000",
+      "name": "Quantity",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
+      "fieldName": "ToCell",
+      "caption": "To cell (storage)",
+      "caption_ar": "إلى الخلية",
+      "caption_ru": "В ячейку (хранение)",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 3,
+      "metaId": "5710070b-0000-4000-8000-000000000000",
+      "name": "ToCell",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ]
+}

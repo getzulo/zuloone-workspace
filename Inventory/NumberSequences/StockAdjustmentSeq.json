@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1013,
     "resetPolicy": "None",
     "metaId": "54ab1e3a-d460-492a-b2de-8c67dff56c29",
     "name": "StockAdjustmentSeq",

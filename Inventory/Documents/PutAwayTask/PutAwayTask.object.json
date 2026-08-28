@@ -1,0 +1,111 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Put-away task",
+    "caption_ar": "مهمة التخزين",
+    "caption_ru": "Приёмка (раскладка)",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "57100202-0000-4000-8000-000000000000",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "57100701-0000-4000-8000-000000000000",
+    "name": "PutAwayTask",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "57100701-0000-4000-8000-000000000000",
+      "fieldName": "FromCell",
+      "caption": "From cell (receiving)",
+      "caption_ar": "من الخلية",
+      "caption_ru": "Из ячейки (приёмка)",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "57100703-0000-4000-8000-000000000000",
+      "name": "FromCell",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "57100701-0000-4000-8000-000000000000",
+      "fieldName": "ID",
+      "caption": "ID",
+      "caption_ar": "معرف",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "metaId": "57100702-0000-4000-8000-000000000000",
+      "name": "ID",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "57100701-0000-4000-8000-000000000000",
+      "name": "Draft",
+      "caption": "Draft",
+      "caption_ar": "مسودة",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "metaId": "57100704-0000-4000-8000-000000000000",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "57100701-0000-4000-8000-000000000000",
+      "name": "Confirmed",
+      "caption": "Confirmed",
+      "caption_ar": "مؤكد",
+      "subtypeValue": "Confirmed",
+      "subtypeCaption": "Confirmed",
+      "subtypeCaption_ru": "Подтверждено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "metaId": "57100705-0000-4000-8000-000000000000",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "57100701-0000-4000-8000-000000000000",
+      "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
+      "isCloneable": true,
+      "metaId": "57100706-0000-4000-8000-000000000000",
+      "name": "Lines",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "57100705-0000-4000-8000-000000000000",
+      "scriptMetaId": "5710070d-0000-4000-8000-000000000000",
+      "executionOrder": 1,
+      "metaId": "57100707-0000-4000-8000-000000000000",
+      "name": "",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ]
+}

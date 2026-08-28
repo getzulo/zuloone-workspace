@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "CustomerPayment",
+    "objectMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+    "executionOrder": 0,
+    "metaId": "e3f07a98-e053-4e70-b1ef-ff78e35ed1b8",
+    "name": "CustomerPaymentEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2
+  }
+}

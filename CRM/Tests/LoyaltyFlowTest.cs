@@ -19,9 +19,10 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
             { ["Name"] = "ACME GmbH", ["RegistrationNumber"] = "REG-CRM-1", ["Country"] = country, ["Currency"] = currency });
         var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?> { ["Code"] = "SP", ["Name"] = "SalesPoint" });
         var div = await Db.InsertAsync("Division", new Dictionary<string, object?> { ["Name"] = "Shop", ["LegalEntity"] = le, ["DivisionType"] = dt });
-        var wh = await Db.InsertAsync("Warehouse", new Dictionary<string, object?> { ["Name"] = "Shop WH", ["Division"] = div });
-        var lt = await Db.InsertAsync("LocationType", new Dictionary<string, object?> { ["Code"] = "PICK", ["Name"] = "Picking" });
-        var loc = await Db.InsertAsync("WarehouseLocation", new Dictionary<string, object?> { ["Warehouse"] = wh, ["Name"] = "P-01", ["LocationType"] = lt });
+        var wh = await Db.InsertAsync("Store", new Dictionary<string, object?> { ["Name"] = "Shop WH", ["Division"] = div, ["IsSimple"] = true });
+        var whZone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?> { ["Name"] = "Зона", ["Store"] = wh, ["IsBarcodeTracking"] = false });
+        var lt = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?> {["Code"] = $"PICK-{Db.NewId():N}"[..12], ["Name"] = "Picking" });
+        var loc = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "P-01", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
 
         var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?> { ["Name"] = "Piece", ["Code"] = "PCS" });
         var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?> { ["Code"] = "GOODS", ["Name"] = "Finished goods" });
@@ -33,21 +34,27 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
         return ((Guid)loc, (Guid)item, (Guid)customer);
     }
 
-    private async Task<decimal> PointsBalanceAsync()
+    // Customer — ФИЗИЧЕСКОЕ измерение регистра, поэтому баланс спрашивается по
+    // конкретному клиенту: баллы — это его лицевой счёт, а не общий котёл.
+    private async Task<decimal> PointsBalanceAsync(Guid customer)
     {
-        // LoyaltyPoints несёт только динамическую аналитику Customer — баланс
-        // схлопывается в одну строку, поэтому суммируем все строки остатка.
         decimal sum = 0m;
-        foreach (var r in await Db.QueryBalancesAsync("LoyaltyPoints")) sum += Convert.ToDecimal(r["Points"]);
+        foreach (var r in await Db.QueryBalancesAsync("LoyaltyPoints", $"[Customer] = '{customer}'"))
+            sum += Convert.ToDecimal(r["Points"]);
         return sum;
     }
+
+    private Task<Guid> TierAsync(string name, decimal minPoints, decimal maxPerDoc)
+        => Db.InsertAsync("LoyaltyTier", new Dictionary<string, object?>
+            { ["Name"] = name, ["MinPoints"] = minPoints, ["MaxRedemptionPerDocument"] = maxPerDoc,
+              ["DiscountPercent"] = 0m });
 
     [IntegrationTest("Выставление счёта начисляет баллы лояльности (расширение Sales)")]
     public async Task IssueEarnsPoints()
     {
         var s = await SetupAsync();
         await Db.PostMovementAsync("Stock", DateTime.UtcNow.Date,
-            new Dictionary<string, object?> { ["Location"] = s.Location, ["Item"] = s.Item },
+            new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Qty"] = 10m });
 
         var inv = await Db.CreateDocumentAsync("SalesInvoice",
@@ -57,7 +64,7 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
         await Db.ChangeSubtypeAsync("SalesInvoice", inv, "Issued");
 
         // 3 × 5 = 15 баллов.
-        Assert.IsTrue(await PointsBalanceAsync() == 15m, "начислено 15 баллов, факт {0}", await PointsBalanceAsync());
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 15m, "начислено 15 баллов, факт {0}", await PointsBalanceAsync(s.Customer));
     }
 
     [IntegrationTest("Списание уменьшает баланс баллов")]
@@ -73,7 +80,7 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
             new Dictionary<string, IEnumerable<IDictionary<string, object?>>>());
         await Db.ChangeSubtypeAsync("LoyaltyRedemption", doc, "Redeemed");
 
-        Assert.IsTrue(await PointsBalanceAsync() == 5m, "остаток 15 − 10 = 5, факт {0}", await PointsBalanceAsync());
+        Assert.IsTrue(await PointsBalanceAsync(customer) == 5m, "остаток 15 − 10 = 5, факт {0}", await PointsBalanceAsync(customer));
     }
 
     [IntegrationTest("Списание сверх баланса отклоняется (allowNegativeBalance=false)")]
@@ -92,5 +99,53 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
         try { await Db.ChangeSubtypeAsync("LoyaltyRedemption", doc, "Redeemed"); }
         catch (Exception) { rejected = true; }
         Assert.IsTrue(rejected, "списание 20 при балансе 15 должно быть отклонено");
+    }
+
+    [IntegrationTest("Уровень ограничивает списание за один документ")]
+    public async Task TierCapsRedemption()
+    {
+        var customer = Db.NewId();
+        await Db.PostMovementAsync("LoyaltyPoints", DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Customer"] = customer },
+            new Dictionary<string, decimal> { ["Points"] = 500m });
+
+        // Клиент с балансом 500 попадает на Silver (порог 100), а не на Gold (1000):
+        // берётся САМЫЙ ВЫСОКИЙ достигнутый уровень, значит лимит 50, не 500.
+        await TierAsync("Bronze", 0m, 10m);
+        await TierAsync("Silver", 100m, 50m);
+        await TierAsync("Gold", 1000m, 500m);
+
+        var doc = await Db.CreateDocumentAsync("LoyaltyRedemption",
+            new Dictionary<string, object?> { ["Customer"] = customer, ["Points"] = 200m },
+            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>());
+
+        var reason = "";
+        try { await Db.ChangeSubtypeAsync("LoyaltyRedemption", doc, "Redeemed"); }
+        catch (Exception ex) { reason = ex.Message; }
+        Assert.IsTrue(reason.Length > 0, "200 баллов сверх лимита уровня Silver (50) — должно быть отклонено");
+        // Причина важна: без этой проверки тест зеленел бы от любой поломки внутри события.
+        Assert.IsTrue(reason.Contains("Silver"), "отказ должен ссылаться на лимит уровня Silver, а не на другую ошибку: {0}", reason);
+        Assert.IsTrue(await PointsBalanceAsync(customer) == 500m,
+            "отклонённое погашение не трогает баланс, факт {0}", await PointsBalanceAsync(customer));
+    }
+
+    [IntegrationTest("Списание в пределах лимита уровня проходит")]
+    public async Task WithinTierCapRedeems()
+    {
+        var customer = Db.NewId();
+        await Db.PostMovementAsync("LoyaltyPoints", DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Customer"] = customer },
+            new Dictionary<string, decimal> { ["Points"] = 500m });
+
+        await TierAsync("Bronze", 0m, 10m);
+        await TierAsync("Silver", 100m, 50m);
+
+        var doc = await Db.CreateDocumentAsync("LoyaltyRedemption",
+            new Dictionary<string, object?> { ["Customer"] = customer, ["Points"] = 50m },
+            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>());
+        await Db.ChangeSubtypeAsync("LoyaltyRedemption", doc, "Redeemed");
+
+        Assert.IsTrue(await PointsBalanceAsync(customer) == 450m,
+            "ровно лимит уровня списывается: 500 − 50 = 450, факт {0}", await PointsBalanceAsync(customer));
     }
 }

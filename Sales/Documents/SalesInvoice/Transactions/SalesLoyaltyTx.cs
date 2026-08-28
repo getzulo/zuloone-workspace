@@ -17,7 +17,7 @@ public partial class SalesLoyaltyTx
 
         if (points > 0m)
             transactions.Add(new RegisterMovementSpec("LoyaltyPoints")
-                .An("Customer", document.Customer)
+                .Dim("Customer", document.Customer)
                 .Res("Points", points));
     }
 }

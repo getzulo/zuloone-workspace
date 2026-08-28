@@ -1,0 +1,76 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Customer payment",
+    "caption_ru": "Оплата покупателя",
+    "description": "Погашение дебиторки: отдельный документ, а не подтип счёта — счёт остаётся выставленным, выручка и отгрузка не трогаются. Зеркало выплаты ФОТ в HR.",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "6d7e8f9a-0b1c-4d2e-8f3a-5b6c7d8e9f0a",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+    "name": "CustomerPayment",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "metaId": "68c52836-bbd8-468a-bbe8-f1a4b1ca820e",
+      "name": "ID",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+      "name": "Draft",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "metaId": "1c2d3e4f-5a6b-4c7d-9e8f-0a1b2c3d4e5f",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+      "name": "Paid",
+      "subtypeValue": "Paid",
+      "subtypeCaption": "Paid",
+      "subtypeCaption_ru": "Оплачено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "metaId": "2d3e4f5a-6b7c-4d8e-8f9a-1b2c3d4e5f6a",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+      "tablePartTypeMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
+      "isCloneable": true,
+      "metaId": "3e4f5a6b-7c8d-4e9f-9a0b-2c3d4e5f6a7b",
+      "name": "Lines",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ]
+}

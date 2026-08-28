@@ -96,9 +96,21 @@
       "subtypeValue": "Received",
       "subtypeCaption": "Received",
       "subtypeCaption_ru": "Оприходовано",
-      "displayOrder": 2,
+      "displayOrder": 3,
       "isInitial": false,
       "metaId": "9bbf8cdb-8913-4286-8f9c-31809cca4231",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
+      "name": "Ordered",
+      "subtypeValue": "Ordered",
+      "subtypeCaption": "Ordered",
+      "subtypeCaption_ru": "Заказано",
+      "displayOrder": 2,
+      "isInitial": false,
+      "metaId": "9e0f1a2b-3c4d-4e5f-8a6b-7c8d9e0f1a2b",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2
     }

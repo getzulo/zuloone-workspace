@@ -1,0 +1,63 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "Five standard account classes; determines normal balance and reporting section",
+    "isExtension": false,
+    "metaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
+    "name": "AccountType",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  },
+  "values": [
+    {
+      "enumMetaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
+      "value": 0,
+      "displayOrder": 0,
+      "description": "Актив",
+      "metaId": "a88aa3ab-d26d-49cf-b528-0d5d500566ac",
+      "name": "Asset",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    },
+    {
+      "enumMetaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
+      "value": 2,
+      "displayOrder": 2,
+      "description": "Капитал",
+      "metaId": "0e2a6cac-181b-4c87-af15-7933f1df01d7",
+      "name": "Equity",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    },
+    {
+      "enumMetaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
+      "value": 4,
+      "displayOrder": 4,
+      "description": "Расход",
+      "metaId": "4e869747-b11c-41cf-adbb-59635284f60e",
+      "name": "Expense",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    },
+    {
+      "enumMetaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
+      "value": 3,
+      "displayOrder": 3,
+      "description": "Доход",
+      "metaId": "484af250-1fb4-47c3-bcbe-49ee32b23fa4",
+      "name": "Income",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    },
+    {
+      "enumMetaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
+      "value": 1,
+      "displayOrder": 1,
+      "description": "Обязательство",
+      "metaId": "78f5232c-59be-4398-b4b6-7572a571781d",
+      "name": "Liability",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    }
+  ]
+}

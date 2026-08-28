@@ -12,8 +12,8 @@ public partial class GoodsReceiptStockTx
         foreach (var line in document.Lines)
         {
             transactionPairs.Add(
-                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Location", External).Res("Qty", -line.Quantity),
-                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Location", document.Location).Res("Qty", line.Quantity));
+                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", External).Res("Qty", -line.Quantity),
+                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", document.Location).Res("Qty", line.Quantity));
         }
     }
 }

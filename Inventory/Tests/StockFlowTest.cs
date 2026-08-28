@@ -23,19 +23,16 @@ public class StockFlowTest : IntegrationTestScriptBase
         var div = await Db.InsertAsync("Division", new Dictionary<string, object?>
             { ["Name"] = "Main", ["LegalEntity"] = le, ["DivisionType"] = dt });
 
-        var wh = await Db.InsertAsync("Warehouse", new Dictionary<string, object?>
-            { ["Name"] = "Central", ["Division"] = div });
-        var lt = await Db.InsertAsync("LocationType", new Dictionary<string, object?>
-            { ["Code"] = "STG", ["Name"] = "Storage" });
-        var loc1 = await Db.InsertAsync("WarehouseLocation", new Dictionary<string, object?>
-            { ["Warehouse"] = wh, ["Name"] = "A-01", ["LocationType"] = lt });
-        var loc2 = await Db.InsertAsync("WarehouseLocation", new Dictionary<string, object?>
-            { ["Warehouse"] = wh, ["Name"] = "A-02", ["LocationType"] = lt });
+        var wh = await Db.InsertAsync("Store", new Dictionary<string, object?> { ["Name"] = "Central", ["Division"] = div, ["IsSimple"] = true });
+        var whZone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?> { ["Name"] = "Зона", ["Store"] = wh, ["IsBarcodeTracking"] = false });
+        var lt = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?> {["Code"] = $"STG-{Db.NewId():N}"[..12], ["Name"] = "Storage" });
+        var loc1 = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "A-01", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
+        var loc2 = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "A-02", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 2 });
 
         var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?>
             { ["Name"] = "Piece", ["Code"] = "PCS" });
         var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?>
-            { ["Code"] = "MERCH", ["Name"] = "Merchandise" });
+            { ["Code"] = $"MERCH-{Db.NewId():N}"[..12], ["Name"] = "Merchandise" });
         var item = await Db.InsertAsync("Item", new Dictionary<string, object?>
             { ["Name"] = "Widget", ["ItemGroup"] = group, ["UnitOfMeasure"] = uom });
 
@@ -45,7 +42,7 @@ public class StockFlowTest : IntegrationTestScriptBase
     private async Task PostAdjustmentAsync(Guid location, Guid item, decimal qty)
     {
         var doc = await Db.CreateDocumentAsync("StockAdjustment",
-            new Dictionary<string, object?> { ["Location"] = location },
+            new Dictionary<string, object?> { ["Cell"] = location },
             new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
             {
                 ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = item, ["Quantity"] = qty } },
@@ -56,7 +53,7 @@ public class StockFlowTest : IntegrationTestScriptBase
     private async Task<decimal> OnHandAsync(Guid location, Guid item)
     {
         decimal q = 0m;
-        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Location] = '" + location + "' AND [Item] = '" + item + "'"))
+        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Cell] = '" + location + "' AND [Item] = '" + item + "'"))
             q += Convert.ToDecimal(r["Qty"]);
         return q;
     }
@@ -85,7 +82,7 @@ public class StockFlowTest : IntegrationTestScriptBase
         await PostAdjustmentAsync(s.Loc1, s.Item, 10m);
 
         var doc = await Db.CreateDocumentAsync("StockTransfer",
-            new Dictionary<string, object?> { ["FromLocation"] = s.Loc1, ["ToLocation"] = s.Loc2 },
+            new Dictionary<string, object?> { ["FromCell"] = s.Loc1, ["ToCell"] = s.Loc2 },
             new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
             {
                 ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = s.Item, ["Quantity"] = 4m } },
@@ -95,8 +92,10 @@ public class StockFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 6m, "на исходной ячейке осталось 6");
         Assert.IsTrue(await OnHandAsync(s.Loc2, s.Item) == 4m, "на целевой ячейке 4");
 
-        // Movements: adjustment pair (External −10 / Loc1 +10) + transfer pair (Loc1 −4 / Loc2 +4) = 4 rows summing to 0.
-        var moves = await Db.QueryMovementsAsync("Stock");
+        // Две пары: приход (External −10 / Loc1 +10) и перемещение (Loc1 −4 / Loc2 +4).
+        // Считаем ТОЛЬКО движения по своему товару: регистр общий, и незакрытые
+        // строки соседних прогонов попадут в безусловный QueryMovementsAsync.
+        var moves = await Db.QueryMovementsAsync("Stock", $"[Item] = '{s.Item}'");
         decimal sum = 0m;
         foreach (var m in moves) sum += Convert.ToDecimal(m["Qty"]);
         Assert.IsTrue(moves.Count == 4, "ожидалось 4 движения (две пары), а не {0}", moves.Count);
@@ -110,7 +109,7 @@ public class StockFlowTest : IntegrationTestScriptBase
         await PostAdjustmentAsync(s.Loc1, s.Item, 5m);
 
         var wo = await Db.CreateDocumentAsync("StockAdjustment",
-            new Dictionary<string, object?> { ["Location"] = s.Loc1 },
+            new Dictionary<string, object?> { ["Cell"] = s.Loc1 },
             new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
             {
                 ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = s.Item, ["Quantity"] = -8m } },

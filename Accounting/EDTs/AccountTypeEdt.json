@@ -1,0 +1,16 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "description": "Account class of a chart-of-accounts row",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
+    "isRequired": false,
+    "metaId": "471ee4ab-0934-4ad4-b9ab-1005a72f8a7f",
+    "name": "AccountTypeEdt",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1
+  }
+}

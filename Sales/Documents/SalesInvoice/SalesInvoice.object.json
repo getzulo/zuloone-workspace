@@ -76,6 +76,18 @@
   "subtypes": [
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "name": "Paid",
+      "subtypeValue": "Paid",
+      "subtypeCaption": "Paid",
+      "subtypeCaption_ru": "Оплачено",
+      "displayOrder": 3,
+      "isInitial": false,
+      "metaId": "7a8b9c0d-1e2f-4a3b-8c4d-6e7f8a9b0c1e",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
       "name": "Draft",
       "caption": "Draft",
       "caption_ar": "مسودة",

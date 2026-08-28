@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "PutAwayTask",
+    "objectMetaId": "57100701-0000-4000-8000-000000000000",
+    "executionOrder": 1,
+    "metaId": "5710070d-0000-4000-8000-000000000000",
+    "name": "PutAwayTaskTx",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  }
+}

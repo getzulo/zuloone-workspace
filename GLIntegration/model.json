@@ -43,6 +43,15 @@
     },
     {
       "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "dependsOnModelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "minVersion": "1.0.0",
+      "metaId": "c8d9e0f1-a2b3-4c4d-9e5f-6a7b8c9d0e12",
+      "name": "GLIntegration->Purchasing",
+      "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "layerId": 2
+    },
+    {
+      "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
       "dependsOnModelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "minVersion": "1.0.0",
       "metaId": "5f9b2c16-8e4d-4a0f-9c7b-3d6e9a2f4c00",

@@ -17,9 +17,10 @@ public class PurchaseFlowTest : IntegrationTestScriptBase
             { ["Name"] = "ACME GmbH", ["RegistrationNumber"] = "REG-PUR-1", ["Country"] = country, ["Currency"] = currency });
         var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?> { ["Code"] = "WH", ["Name"] = "Warehouse" });
         var div = await Db.InsertAsync("Division", new Dictionary<string, object?> { ["Name"] = "Main", ["LegalEntity"] = le, ["DivisionType"] = dt });
-        var wh = await Db.InsertAsync("Warehouse", new Dictionary<string, object?> { ["Name"] = "Central", ["Division"] = div });
-        var lt = await Db.InsertAsync("LocationType", new Dictionary<string, object?> { ["Code"] = "RCV", ["Name"] = "Receiving" });
-        var loc = await Db.InsertAsync("WarehouseLocation", new Dictionary<string, object?> { ["Warehouse"] = wh, ["Name"] = "R-01", ["LocationType"] = lt });
+        var wh = await Db.InsertAsync("Store", new Dictionary<string, object?> { ["Name"] = "Central", ["Division"] = div, ["IsSimple"] = true });
+        var whZone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?> { ["Name"] = "Зона", ["Store"] = wh, ["IsBarcodeTracking"] = false });
+        var lt = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?> {["Code"] = $"RCV-{Db.NewId():N}"[..12], ["Name"] = "Receiving" });
+        var loc = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "R-01", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
 
         var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?> { ["Name"] = "Piece", ["Code"] = "PCS" });
         var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?> { ["Code"] = "RAW", ["Name"] = "Raw material" });
@@ -46,7 +47,7 @@ public class PurchaseFlowTest : IntegrationTestScriptBase
         await Db.ChangeSubtypeAsync("PurchaseOrder", po, "Received");
 
         decimal stock = 0m;
-        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Location] = '" + s.Location + "'")) stock += Convert.ToDecimal(r["Qty"]);
+        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Cell] = '" + s.Location + "'")) stock += Convert.ToDecimal(r["Qty"]);
         decimal payable = 0m;
         foreach (var r in await Db.QueryBalancesAsync("Payable")) payable += Convert.ToDecimal(r["Amount"]);
 

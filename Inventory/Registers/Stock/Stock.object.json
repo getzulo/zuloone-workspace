@@ -19,6 +19,21 @@
   "dimensions": [
     {
       "registerMetaId": "83559331-ac7f-46da-87a8-7da599ef6f41",
+      "fieldName": "Cell",
+      "caption": "Cell",
+      "caption_ru": "Ячейка",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "displayOrder": 2,
+      "metaId": "2e3f4a5b-6c7d-4e8f-9a0b-1c2d3e4f5a61",
+      "name": "Cell",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "registerMetaId": "83559331-ac7f-46da-87a8-7da599ef6f41",
       "fieldName": "Item",
       "caption": "Item",
       "caption_ru": "Товар",
@@ -29,21 +44,6 @@
       "displayOrder": 1,
       "metaId": "1d2e3f4a-5b6c-4d7e-8f9a-0b1c2d3e4f50",
       "name": "Item",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
-    },
-    {
-      "registerMetaId": "83559331-ac7f-46da-87a8-7da599ef6f41",
-      "fieldName": "Location",
-      "caption": "Location",
-      "caption_ru": "Ячейка",
-      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
-      "isOperational": true,
-      "isInformational": false,
-      "isPivotDimension": false,
-      "displayOrder": 2,
-      "metaId": "2e3f4a5b-6c7d-4e8f-9a0b-1c2d3e4f5a61",
-      "name": "Location",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     }

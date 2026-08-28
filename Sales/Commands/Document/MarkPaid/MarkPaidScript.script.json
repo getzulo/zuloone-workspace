@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "MarkPaid",
+    "objectMetaId": "9c0d1e2f-3a4b-4c5d-8e6f-8a9b0c1d2e3f",
+    "executionOrder": 0,
+    "metaId": "0d1e2f3a-4b5c-4d6e-9f7a-9b0c1d2e3f4a",
+    "name": "MarkPaidScript",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Stock count",
+    "caption_ar": "جرد المخزون",
+    "caption_ru": "Инвентаризация",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "57100204-0000-4000-8000-000000000000",
+    "requiresPosting": true,
+    "postOnSave": false,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "57100901-0000-4000-8000-000000000000",
+    "name": "StockCount",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
+      "fieldName": "Cell",
+      "caption": "Cell",
+      "caption_ar": "الخلية",
+      "caption_ru": "Ячейка",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "57100903-0000-4000-8000-000000000000",
+      "name": "Cell",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
+      "fieldName": "CountDate",
+      "caption": "Count date",
+      "caption_ar": "تاريخ الجرد",
+      "caption_ru": "Дата пересчёта",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "metaId": "57100904-0000-4000-8000-000000000000",
+      "name": "CountDate",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
+      "fieldName": "ID",
+      "caption": "ID",
+      "caption_ar": "معرف",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "metaId": "57100902-0000-4000-8000-000000000000",
+      "name": "ID",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
+      "name": "Draft",
+      "caption": "Draft",
+      "caption_ar": "مسودة",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "metaId": "57100905-0000-4000-8000-000000000000",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
+      "name": "Posted",
+      "caption": "Posted",
+      "caption_ar": "مرسل",
+      "subtypeValue": "Posted",
+      "subtypeCaption": "Posted",
+      "subtypeCaption_ru": "Проведено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "metaId": "57100906-0000-4000-8000-000000000000",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
+      "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
+      "isCloneable": true,
+      "metaId": "57100907-0000-4000-8000-000000000000",
+      "name": "Lines",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "57100906-0000-4000-8000-000000000000",
+      "scriptMetaId": "5710090d-0000-4000-8000-000000000000",
+      "executionOrder": 1,
+      "metaId": "57100908-0000-4000-8000-000000000000",
+      "name": "",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ]
+}

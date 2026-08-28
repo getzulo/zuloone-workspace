@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "LoyaltyTier",
+    "objectMetaId": "86a86778-40a7-4921-8283-1b2cefb4c3f1",
+    "executionOrder": 0,
+    "metaId": "5bf9075b-5d48-444e-a9a5-82d195a4f2a2",
+    "name": "LoyaltyTierEventHandler",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+    "layerId": 2
+  }
+}

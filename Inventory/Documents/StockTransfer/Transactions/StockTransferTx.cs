@@ -10,8 +10,8 @@ public partial class StockTransferTx
         foreach (var line in document.Lines)
         {
             transactionPairs.Add(
-                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Location", document.FromLocation).Res("Qty", -line.Quantity),
-                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Location", document.ToLocation).Res("Qty", line.Quantity));
+                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", document.FromCell).Res("Qty", -line.Quantity),
+                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", document.ToCell).Res("Qty", line.Quantity));
         }
     }
 }

@@ -5,7 +5,7 @@ public partial class LoyaltyRedemptionTx
         // Списание баллов клиента. Регистр LoyaltyPoints не допускает
         // отрицательный остаток → списать больше накопленного нельзя.
         transactions.Add(new RegisterMovementSpec("LoyaltyPoints")
-            .An("Customer", document.Customer)
+            .Dim("Customer", document.Customer)
             .Res("Points", -document.Points));
     }
 }

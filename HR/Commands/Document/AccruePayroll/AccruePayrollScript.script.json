@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "AccruePayroll",
+    "objectMetaId": "4d5e6f7a-8b9c-4d0e-8f1a-3b4c5d6e7f8d",
+    "executionOrder": 0,
+    "metaId": "5e6f7a8b-9c0d-4e1f-9a2b-4c5d6e7f8a9e",
+    "name": "AccruePayrollScript",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  }
+}

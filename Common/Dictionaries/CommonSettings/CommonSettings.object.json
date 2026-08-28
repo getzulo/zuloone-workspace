@@ -24,8 +24,7 @@
     {
       "dictionaryMetaId": "83321261-0387-519e-822b-5128b78e690e",
       "fieldName": "DefaultCountryCode",
-      "baseType": "String",
-      "length": 128,
+      "edtMetaId": "c5b40cc4-d521-493a-a7ae-f1d9e2da23c8",
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 1,

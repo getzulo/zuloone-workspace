@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "ExpandBom",
+    "objectMetaId": "5a6b7c8d-9e0f-4a1b-8c2d-3e4f5a6b7c8d",
+    "executionOrder": 0,
+    "metaId": "6b7c8d9e-0f1a-4b2c-9d3e-4f5a6b7c8d9e",
+    "name": "ExpandBomScript",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+    "layerId": 2
+  }
+}

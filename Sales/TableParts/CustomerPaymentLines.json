@@ -1,0 +1,51 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "CustomerPaymentLinesTablePartRow",
+    "caption": "Lines",
+    "caption_ru": "Строки",
+    "tableName": "TP_CustomerPaymentLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
+    "name": "CustomerPaymentLines",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "caption_ru": "Сумма",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "9a0b1c2d-3e4f-4a5b-9c6d-8e9f0a1b2c3d",
+      "name": "Amount",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
+      "fieldName": "Customer",
+      "caption": "Customer",
+      "caption_ru": "Покупатель",
+      "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "8f9a0b1c-2d3e-4f4a-8b5c-7d8e9f0a1b2c",
+      "name": "Customer",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    }
+  ]
+}

@@ -20,7 +20,7 @@
   "headerFields": [
     {
       "documentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
-      "fieldName": "FromLocation",
+      "fieldName": "FromCell",
       "caption": "From location",
       "caption_ar": "من الموقع",
       "caption_ru": "Из ячейки",
@@ -32,7 +32,7 @@
       "isUnique": false,
       "isVisible": true,
       "metaId": "8d0dc878-ecb8-4116-ade2-ace9bbe501f8",
-      "name": "FromLocation",
+      "name": "FromCell",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     },
@@ -57,7 +57,7 @@
     },
     {
       "documentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
-      "fieldName": "ToLocation",
+      "fieldName": "ToCell",
       "caption": "To location",
       "caption_ar": "إلى الموقع",
       "caption_ru": "В ячейку",
@@ -69,7 +69,7 @@
       "isUnique": false,
       "isVisible": true,
       "metaId": "d2c64b50-3a79-4fd2-a69d-b02779ce4943",
-      "name": "ToLocation",
+      "name": "ToCell",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     }

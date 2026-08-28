@@ -1,0 +1,54 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "StockCountLinesTablePartRow",
+    "caption": "Lines",
+    "caption_ar": "السطور",
+    "caption_ru": "Строки",
+    "tableName": "TP_StockCountLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "57100909-0000-4000-8000-000000000000",
+    "name": "StockCountLines",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
+      "fieldName": "CountedQty",
+      "caption": "Counted qty",
+      "caption_ar": "الكمية المجرودة",
+      "caption_ru": "Факт (насчитано)",
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "5710090b-0000-4000-8000-000000000000",
+      "name": "CountedQty",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
+      "fieldName": "Item",
+      "caption": "Item",
+      "caption_ar": "الصنف",
+      "caption_ru": "Товар",
+      "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "5710090a-0000-4000-8000-000000000000",
+      "name": "Item",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ]
+}

@@ -45,7 +45,7 @@ public class ProductionFlowTest : IntegrationTestScriptBase
 
         // Заводим 20 ед. компонента на ячейку.
         await Db.PostMovementAsync("Stock", DateTime.UtcNow.Date,
-            new Dictionary<string, object?> { ["Location"] = loc, ["Item"] = comp },
+            new Dictionary<string, object?> { ["Cell"] = loc, ["Item"] = comp },
             new Dictionary<string, decimal> { ["Qty"] = 20m });
 
         var order = await Db.CreateDocumentAsync("ProductionOrder",
@@ -57,9 +57,9 @@ public class ProductionFlowTest : IntegrationTestScriptBase
         // Stock — двойная запись с физическими измерениями: сверяем on-hand по (ячейка, товар).
         // Компонент: 20 заведено − 10 списано = 10; изделие: выпуск +5.
         decimal onHandComp = 0m, onHandProduct = 0m;
-        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Location] = '" + loc + "' AND [Item] = '" + comp + "'"))
+        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Cell] = '" + loc + "' AND [Item] = '" + comp + "'"))
             onHandComp += Convert.ToDecimal(r["Qty"]);
-        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Location] = '" + loc + "' AND [Item] = '" + product + "'"))
+        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Cell] = '" + loc + "' AND [Item] = '" + product + "'"))
             onHandProduct += Convert.ToDecimal(r["Qty"]);
         Assert.IsTrue(onHandComp == 10m, "компонент 20 − 10 = 10, факт {0}", onHandComp);
         Assert.IsTrue(onHandProduct == 5m, "изделие выпущено +5, факт {0}", onHandProduct);
@@ -74,7 +74,7 @@ public class ProductionFlowTest : IntegrationTestScriptBase
         var comp = await newItem("Компонент-В");
 
         await Db.PostMovementAsync("Stock", DateTime.UtcNow.Date,
-            new Dictionary<string, object?> { ["Location"] = loc, ["Item"] = comp },
+            new Dictionary<string, object?> { ["Cell"] = loc, ["Item"] = comp },
             new Dictionary<string, decimal> { ["Qty"] = 5m });
 
         var order = await Db.CreateDocumentAsync("ProductionOrder",

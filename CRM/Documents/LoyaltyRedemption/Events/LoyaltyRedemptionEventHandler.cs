@@ -1,76 +1,61 @@
 #nullable enable
+using System.Linq;
+
 namespace ZuloOne.Runtime.Generated;
 
-// Strongly-typed lifecycle handler for LoyaltyRedemption documents.
-// `header` is a typed LoyaltyRedemption entity — access fields directly (header.Number).
-// Record events (insert/update/delete/validate) plus the document-only posting
-// events are stubbed below. Cancel a transition with EventResult.Cancel("reason");
-// document table-part rows are available via document.TableParts["Name"].
+// Правила погашения баллов. Регистр сам не даёт уйти в минус, но отказ движка —
+// это исключение проведения без внятной причины; здесь переход отклоняется
+// осмысленным текстом и добавляется то, что регистр не знает: лестница уровней.
+//
+// Уровень НЕ хранится у клиента, а выводится из накопленного баланса — так он не
+// может разъехаться с фактическими баллами. Уровень решает, сколько баллов можно
+// списать одним документом.
+//
+// Почему проверки в событии, а не в транзакционном скрипте: и баланс регистра, и
+// справочник уровней читаются асинхронно, а GetTransactions синхронный. Сервисом
+// это не оформлено намеренно — скрипт своей же модели не видит контракт
+// I<Сервис> этой модели (контракты собираются после её скриптов).
 public partial class LoyaltyRedemptionEventHandler : TypedDocumentEventHandler<LoyaltyRedemption>
 {
-    // Building a new document server-side: seed header defaults (number, date).
-    public override Task<EventResult> OnBeforeCreateAsync(LoyaltyRedemption header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+    private static readonly Guid LoyaltyPointsRegister = Guid.Parse("9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80");
 
-    // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
-    public override Task<EventResult> OnBeforeSaveAsync(LoyaltyRedemption header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
-
-    // MIQS AfterSave: runs after ANY save (insert or update).
-    public override Task<EventResult> OnAfterSaveAsync(LoyaltyRedemption header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
-
-    // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
-    // for that operation (the default implementation is what delegates to them).
-    //public override Task<EventResult> OnBeforeInsertAsync(LoyaltyRedemption header, EventContext context)
-    //    => Task.FromResult(EventResult.Ok());
-    //public override Task<EventResult> OnAfterInsertAsync(LoyaltyRedemption header, EventContext context)
-    //    => Task.FromResult(EventResult.Ok());
-    //public override Task<EventResult> OnBeforeUpdateAsync(LoyaltyRedemption header, EventContext context)
-    //    => Task.FromResult(EventResult.Ok());
-    //public override Task<EventResult> OnAfterUpdateAsync(LoyaltyRedemption header, EventContext context)
-    //    => Task.FromResult(EventResult.Ok());
-
-    // Just before the document is deleted.
-    public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
-
-    // After the document was deleted.
-    public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
-
-    // Before posting: validate the whole document; cancel to block posting.
-    public override Task<EventResult> OnBeforePostAsync(LoyaltyRedemption header, EventContext context)
+    public override async Task<EventResult> OnBeforePostAsync(LoyaltyRedemption header, EventContext context)
     {
-        // if (header.Number == null)
-        //     return Task.FromResult(EventResult.Cancel("Number is required before posting"));
-        return Task.FromResult(EventResult.Ok());
+        if (header.Subtype != "Redeemed") return EventResult.Ok();
+
+        var requested = header.Points;
+        if (requested <= 0m)
+            return EventResult.Cancel("Списывать нечего: количество баллов должно быть положительным.");
+
+        var movements = context.GetService<IRegisterMovementService>();
+        var balance = await movements.GetBalanceAsync(LoyaltyPointsRegister,
+            new Dictionary<string, object?> { ["Customer"] = header.Customer });
+        var available = balance != null && balance.TryGetValue("Points", out var raw) && raw != null
+            ? Convert.ToDecimal(raw)
+            : 0m;
+
+        if (requested > available)
+            return EventResult.Cancel($"На счету {available} баллов — списать {requested} нельзя.");
+
+        var tiers = context.GetService<IDictionaryManager<LoyaltyTier>>();
+        var reached = (await tiers.GetRecordsAsync($"MinPoints <= {available}"))
+            .OrderByDescending(t => t.MinPoints)
+            .FirstOrDefault();
+
+        // Пустая лестница — уровни ещё не заведены; тогда лимитов нет и погашение
+        // ограничено только балансом. Иначе клиент обязан достичь уровня.
+        if (reached == null)
+        {
+            var anyTier = (await tiers.GetRecordsAsync(null)).Any();
+            if (anyTier)
+                return EventResult.Cancel($"Баланса {available} не хватает ни на один уровень лояльности.");
+            return EventResult.Ok();
+        }
+
+        if (requested > reached.MaxRedemptionPerDocument)
+            return EventResult.Cancel(
+                $"Уровень «{reached.Name}» позволяет списать не больше {reached.MaxRedemptionPerDocument} баллов за раз.");
+
+        return EventResult.Ok();
     }
-
-    // After the document was posted (register movements are written).
-    public override Task<EventResult> OnAfterPostAsync(LoyaltyRedemption header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
-
-    // Before unpost/cancel: about to reverse the document's movements.
-    public override Task<EventResult> OnBeforeUnpostAsync(LoyaltyRedemption header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
-
-    // After the document's movements were reversed.
-    public override Task<EventResult> OnAfterUnpostAsync(LoyaltyRedemption header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
-
-    // Human-readable description shown in lists: put it in context.Data["description"].
-    public override Task<EventResult> OnGenerateDescriptionAsync(LoyaltyRedemption header, EventContext context)
-    {
-        // context.Data["description"] = "LoyaltyRedemption " + header.Number;
-        return Task.FromResult(EventResult.Ok());
-    }
-
-    // An insert/update failed: return Error("friendly text") to replace the raw DB error.
-    public override Task<EventResult> OnSaveFailedAsync(LoyaltyRedemption header, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
-
-    // A delete failed.
-    public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
 }

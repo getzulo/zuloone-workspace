@@ -17,8 +17,8 @@ public partial class ProductionConsumeTx
         {
             var q = measure.RoundQuantity(line.QtyRequired);
             transactionPairs.Add(
-                new RegisterMovementSpec("Stock").Dim("Item", line.Component).Dim("Location", document.Location).Res("Qty", -q),
-                new RegisterMovementSpec("Stock").Dim("Item", line.Component).Dim("Location", External).Res("Qty", q));
+                new RegisterMovementSpec("Stock").Dim("Item", line.Component).Dim("Cell", document.Location).Res("Qty", -q),
+                new RegisterMovementSpec("Stock").Dim("Item", line.Component).Dim("Cell", External).Res("Qty", q));
         }
     }
 }

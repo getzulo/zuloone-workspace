@@ -1,0 +1,12 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Проверка наличия остатка в ячейке (регистр Stock) перед списанием",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "57101004-0000-4000-8000-000000000000",
+    "metaId": "57101003-0000-4000-8000-000000000000",
+    "name": "StockAvailabilityService",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  }
+}

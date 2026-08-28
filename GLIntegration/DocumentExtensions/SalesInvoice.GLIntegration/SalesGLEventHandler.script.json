@@ -6,6 +6,7 @@
     "objectType": "Document",
     "objectName": "SalesInvoice",
     "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "baseClassName": "TypedDocumentEventHandler",
     "executionOrder": 10,
     "metaId": "3b7d0e9e-6a2f-4c8b-9e5d-1f4a7c0b2e80",
     "name": "SalesGLEventHandler",

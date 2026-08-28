@@ -65,7 +65,7 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         foreach (var kv in demand)
         {
             var bal = await stock.GetBalanceAsync(StockRegister,
-                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Location"] = header.Location });
+                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = header.Location });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)
                 return EventResult.Cancel($"Недостаточно остатка на ячейке: требуется {kv.Value}, в наличии {onHand}");

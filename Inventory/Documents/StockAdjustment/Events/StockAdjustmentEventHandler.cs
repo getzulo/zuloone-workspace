@@ -62,7 +62,7 @@ public partial class StockAdjustmentEventHandler : TypedDocumentEventHandler<Sto
         foreach (var kv in writeOff)
         {
             var bal = await stock.GetBalanceAsync(StockRegister,
-                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Location"] = header.Location });
+                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = header.Cell });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)
                 return EventResult.Cancel($"Списание сверх остатка: списывается {kv.Value}, в наличии {onHand}");

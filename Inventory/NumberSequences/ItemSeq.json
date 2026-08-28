@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1002,
     "resetPolicy": "None",
     "metaId": "1fd2ab5d-7cc7-46c1-8e1e-7ba29811e0d4",
     "name": "ItemSeq",

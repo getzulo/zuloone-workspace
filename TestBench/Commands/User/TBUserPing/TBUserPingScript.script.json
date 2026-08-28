@@ -10,5 +10,18 @@
     "name": "TBUserPingScript",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1
-  }
+  },
+  "parameters": [
+    {
+      "scriptMetaId": "9e148ec5-a1bd-407b-9694-bd2d42d445e6",
+      "parameterType": "String",
+      "isRequired": false,
+      "saveHistory": false,
+      "sortIndex": 0,
+      "metaId": "d72277ec-eb10-4c48-ab2b-5d57aeaa65e3",
+      "name": "Param1",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    }
+  ]
 }

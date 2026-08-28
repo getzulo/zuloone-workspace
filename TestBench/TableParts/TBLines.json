@@ -36,7 +36,7 @@
       "fieldName": "Item",
       "caption": "Item",
       "caption_ar": "الصنف",
-      "baseType": "Guid",
+      "edtMetaId": "1677b5ee-7824-4e20-bc15-d11a561d04a2",
       "isRequired": true,
       "isVisible": true,
       "isLogged": false,

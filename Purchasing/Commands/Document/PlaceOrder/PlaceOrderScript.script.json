@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "PlaceOrder",
+    "objectMetaId": "0f1a2b3c-4d5e-4f6a-9b7c-8d9e0f1a2b3c",
+    "executionOrder": 0,
+    "metaId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5e",
+    "name": "PlaceOrderScript",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+    "layerId": 2
+  }
+}

@@ -14,6 +14,21 @@
     "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
     "layerId": 2
   },
+  "dimensions": [
+    {
+      "registerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
+      "fieldName": "Customer",
+      "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "displayOrder": 1,
+      "metaId": "08dc2b3b-6c8e-4f6c-91ac-da84ada11552",
+      "name": "Customer",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+      "layerId": 2
+    }
+  ],
   "resources": [
     {
       "registerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
@@ -23,18 +38,6 @@
       "displayOrder": 1,
       "metaId": "0e3f8b76-2a1c-4d5e-9f6b-7c0d1e8f4a90",
       "name": "Points",
-      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
-    }
-  ],
-  "analytics": [
-    {
-      "registerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
-      "analyticMetaId": "37666495-de93-4eee-91b1-c72af788c054",
-      "displayOrder": 1,
-      "isRequired": true,
-      "metaId": "1f4a9c87-3b2d-4e6f-8a7c-8d1e2f9a5b00",
-      "name": "LoyaltyPoints-Customer",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
       "layerId": 2
     }

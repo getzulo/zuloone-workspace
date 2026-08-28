@@ -14,7 +14,7 @@ public partial class ProductionOutputTx
         var measure = GetService<IMeasurementService>();
         var q = measure.RoundQuantity(document.Quantity);
         transactionPairs.Add(
-            new RegisterMovementSpec("Stock").Dim("Item", document.Product).Dim("Location", External).Res("Qty", -q),
-            new RegisterMovementSpec("Stock").Dim("Item", document.Product).Dim("Location", document.Location).Res("Qty", q));
+            new RegisterMovementSpec("Stock").Dim("Item", document.Product).Dim("Cell", External).Res("Qty", -q),
+            new RegisterMovementSpec("Stock").Dim("Item", document.Product).Dim("Cell", document.Location).Res("Qty", q));
     }
 }

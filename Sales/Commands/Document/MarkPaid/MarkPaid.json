@@ -1,0 +1,25 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Mark as paid (disabled)",
+    "caption_ru": "Оплатить (отключено)",
+    "scriptMetaId": "0d1e2f3a-4b5c-4d6e-9f7a-9b0c1d2e3f4a",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": false,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "9c0d1e2f-3a4b-4c5d-8e6f-8a9b0c1d2e3f",
+    "name": "MarkPaid",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "1e2f3a4b-5c6d-4e7f-8a8b-0c1d2e3f4a5b",
+      "documentCommandMetaId": "9c0d1e2f-3a4b-4c5d-8e6f-8a9b0c1d2e3f",
+      "documentSubtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff"
+    }
+  ]
+}

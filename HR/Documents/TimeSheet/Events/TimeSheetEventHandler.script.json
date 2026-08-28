@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "TimeSheet",
+    "objectMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
+    "executionOrder": 0,
+    "metaId": "b2eb0ea3-a298-4e25-a0c7-b63cabea0b90",
+    "name": "TimeSheetEventHandler",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2
+  }
+}

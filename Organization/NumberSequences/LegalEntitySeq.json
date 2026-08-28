@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1001,
     "resetPolicy": "None",
     "metaId": "c38d8961-25e8-4e59-8b03-8c1428512cb1",
     "name": "LegalEntitySeq",

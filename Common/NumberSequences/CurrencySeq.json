@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1001,
     "resetPolicy": "None",
     "metaId": "4e27177b-c9a4-421a-9980-25760cbf65d5",
     "name": "CurrencySeq",
