@@ -1,0 +1,16 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "description": "Среда подключения к госсистеме: песочница, симуляция, продуктив",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "ac7d5358-4aa3-44d0-ab57-009727f1f903",
+    "isRequired": false,
+    "metaId": "a0340d93-59a6-4c97-9f7e-b4ae66c4a80d",
+    "name": "TaxConnectionEnvironmentEdt",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}

@@ -108,6 +108,18 @@
       "layerId": 1
     },
     {
+      "caption": "Authority connections",
+      "caption_ru": "Подключения к госсистемам",
+      "parentMetaId": "0dd22d55-1199-5094-aa04-dfe6d006374a",
+      "displayOrder": 1,
+      "targetType": "Dictionary",
+      "targetMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
+      "metaId": "0b2f0413-6fc5-45a9-b2ba-6ebc6076d865",
+      "name": "TaxAuthorityConnection",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1
+    },
+    {
       "caption": "Tax codes",
       "caption_ar": "الضريبة رمز",
       "caption_ru": "Налоговые коды",

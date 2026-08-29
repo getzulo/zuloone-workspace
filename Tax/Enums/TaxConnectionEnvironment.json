@@ -1,0 +1,43 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "Среда подключения к госсистеме: песочница, симуляция, продуктив",
+    "isExtension": false,
+    "metaId": "ac7d5358-4aa3-44d0-ab57-009727f1f903",
+    "name": "TaxConnectionEnvironment",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  },
+  "values": [
+    {
+      "enumMetaId": "ac7d5358-4aa3-44d0-ab57-009727f1f903",
+      "value": 2,
+      "displayOrder": 2,
+      "description": "Продуктив",
+      "metaId": "ed44af5d-e72f-4613-bd73-29b0ab85358e",
+      "name": "Production",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1
+    },
+    {
+      "enumMetaId": "ac7d5358-4aa3-44d0-ab57-009727f1f903",
+      "value": 0,
+      "displayOrder": 0,
+      "description": "Песочница",
+      "metaId": "d9311b02-3d56-4819-aa9c-77fa1e3031c4",
+      "name": "Sandbox",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1
+    },
+    {
+      "enumMetaId": "ac7d5358-4aa3-44d0-ab57-009727f1f903",
+      "value": 1,
+      "displayOrder": 1,
+      "description": "Симуляция",
+      "metaId": "ab4f9ac9-b449-437c-844b-87e4136df9c9",
+      "name": "Simulation",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1
+    }
+  ]
+}

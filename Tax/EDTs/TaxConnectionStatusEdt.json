@@ -1,0 +1,16 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "description": "Стадия онбординга подключения к госсистеме",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "97ab7203-5df0-4d95-a7b7-5179b6fc5050",
+    "isRequired": false,
+    "metaId": "755d9e52-b60b-4cbb-82de-1362545b04e0",
+    "name": "TaxConnectionStatusEdt",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1
+  }
+}
