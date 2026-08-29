@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "TBStockDoc",
+    "objectMetaId": "4aa0891a-4829-465c-b844-1511eadd3df6",
+    "baseClassName": "DocumentEventHandler",
+    "executionOrder": 0,
+    "metaId": "05ddaeea-2cdb-4f8d-a1b0-a0aad7d7c844",
+    "name": "TBStockDocEvents",
+    "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
+    "layerId": 1
+  }
+}
