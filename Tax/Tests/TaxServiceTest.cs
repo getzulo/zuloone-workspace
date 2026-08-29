@@ -1,6 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using ZuloOne.Core.Services;
+using ZuloOne.Runtime.Generated;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Services.Contracts;
 
@@ -23,23 +24,39 @@ public class TaxServiceTest : IntegrationTestScriptBase
     public async Task ResolvesRateByCode()
     {
         var today = DateTime.UtcNow.Date;
+        // Коды уникальны в справочнике: фиксированные значения ломали бы тест на
+        // стенде, где такая запись уже заведена.
+        var uniq = $"{Db.NewId():N}"[..6];
 
-        var taxRate = await Db.InsertAsync("TaxRate", new Dictionary<string, object?>
-            { ["Code"] = "R15", ["EffectiveFrom"] = today, ["Rate"] = 0.15m, ["Tax"] = Db.NewId() });
-        var taxCategory = await Db.InsertAsync("TaxCategory", new Dictionary<string, object?>
-            { ["Code"] = "STD", ["Tax"] = Db.NewId(), ["Treatment"] = "Standard" });
-        var taxCode = await Db.InsertAsync("TaxCode", new Dictionary<string, object?>
+        var taxRate = await NewRecordAsync<TaxRate>(r =>
         {
-            ["Code"] = "KSA-VAT", ["Name"] = "KSA VAT 15%", ["EffectiveFrom"] = today,
-            ["Tax"] = Db.NewId(), ["TaxCategory"] = taxCategory, ["TaxRate"] = taxRate
+            r.Code = $"R15-{uniq}";
+            r.EffectiveFrom = today;
+            r.Rate = 0.15m;
+            r.Tax = Db.NewId();
+        });
+        var taxCategory = await NewRecordAsync<TaxCategory>(c =>
+        {
+            c.Code = $"STD-{uniq}";
+            c.Tax = Db.NewId();
+            c.Treatment = "Standard";
+        });
+        var taxCode = await NewRecordAsync<TaxCode>(c =>
+        {
+            c.Code = $"VAT-{uniq}";
+            c.Name = "KSA VAT 15%";
+            c.EffectiveFrom = today;
+            c.Tax = Db.NewId();
+            c.TaxCategory = taxCategory;
+            c.TaxRate = taxRate;
         });
 
         var tax = GetService<ITaxService>();
 
-        var rate = await tax.ResolveRateAsync((Guid)taxCode);
+        var rate = await tax.ResolveRateAsync(taxCode);
         Assert.IsTrue(rate == 0.15m, "ставка кода = 0.15, факт {0}", rate.HasValue ? rate.Value : -1m);
 
-        var amount = await tax.CalculateByCodeAsync(200m, (Guid)taxCode);
+        var amount = await tax.CalculateByCodeAsync(200m, taxCode);
         Assert.IsTrue(amount == 30m, "200 × 0.15 = 30, факт {0}", amount);
     }
 }

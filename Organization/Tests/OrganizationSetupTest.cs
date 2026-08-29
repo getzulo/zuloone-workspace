@@ -13,26 +13,17 @@ using ZuloOne.Runtime.Testing;
 // становится ошибкой компиляции, а не «null пришёл откуда-то» в рантайме.
 public class OrganizationSetupTest : IntegrationTestScriptBase
 {
-    private async Task<Guid> NewCurrencyAsync(string name, string code, string symbol)
-    {
-        var currencies = GetService<IDictionaryManager<Currency>>();
-        var currency = await currencies.NewRecordAsync();
-        currency.Name = name;
-        currency.Code = code;
-        currency.Symbol = symbol;
-        return await currencies.SaveRecordAsync(currency);
-    }
+    private static Task<Guid> NewCurrencyAsync(string name, string code, string symbol)
+        => NewRecordAsync<Currency>(c => { c.Name = name; c.Code = code; c.Symbol = symbol; });
 
-    private async Task<Guid> NewCountryAsync(string name, string iso2, string iso3, string phone)
-    {
-        var countries = GetService<IDictionaryManager<Country>>();
-        var country = await countries.NewRecordAsync();
-        country.Name = name;
-        country.CodeISO2 = iso2;
-        country.CodeISO3 = iso3;
-        country.PhoneCode = phone;
-        return await countries.SaveRecordAsync(country);
-    }
+    private static Task<Guid> NewCountryAsync(string name, string iso2, string iso3, string phone)
+        => NewRecordAsync<Country>(c =>
+        {
+            c.Name = name;
+            c.CodeISO2 = iso2;
+            c.CodeISO3 = iso3;
+            c.PhoneCode = phone;
+        });
 
     [IntegrationTest("Юрлицо со страной и валютой создаётся")]
     public async Task LegalEntityIsCreated()
@@ -40,17 +31,17 @@ public class OrganizationSetupTest : IntegrationTestScriptBase
         var currency = await NewCurrencyAsync("US Dollar", "USD", "$");
         var country = await NewCountryAsync("United States", "US", "USA", "1");
 
-        var entities = GetService<IDictionaryManager<LegalEntity>>();
-        var entity = await entities.NewRecordAsync();
-        entity.Name = "ACME LLC";
-        entity.RegistrationNumber = "REG-100";
-        entity.Country = country;
-        entity.Currency = currency;
-        var le = await entities.SaveRecordAsync(entity);
+        var le = await NewRecordAsync<LegalEntity>(e =>
+        {
+            e.Name = "ACME LLC";
+            e.RegistrationNumber = "REG-100";
+            e.Country = country;
+            e.Currency = currency;
+        });
 
         Assert.IsTrue(le != Guid.Empty, "ожидался реальный id юрлица");
 
-        var saved = await entities.GetRecordAsync(le);
+        var saved = await RecordAsync<LegalEntity>(le);
         Assert.IsTrue(saved != null, "юрлицо должно читаться из базы");
         Assert.AreEqual("ACME LLC", saved!.Name);
         Assert.IsTrue(saved.Country == country, "страна должна сохраниться как есть");
@@ -62,30 +53,30 @@ public class OrganizationSetupTest : IntegrationTestScriptBase
         var currency = await NewCurrencyAsync("Euro", "EUR", "€");
         var country = await NewCountryAsync("Germany", "DE", "DEU", "49");
 
-        var entities = GetService<IDictionaryManager<LegalEntity>>();
-        var entity = await entities.NewRecordAsync();
-        entity.Name = "Muster GmbH";
-        entity.RegistrationNumber = "REG-200";
-        entity.Country = country;
-        entity.Currency = currency;
-        var le = await entities.SaveRecordAsync(entity);
+        var le = await NewRecordAsync<LegalEntity>(e =>
+        {
+            e.Name = "Muster GmbH";
+            e.RegistrationNumber = "REG-200";
+            e.Country = country;
+            e.Currency = currency;
+        });
 
-        var types = GetService<IDictionaryManager<DivisionType>>();
-        var type = await types.NewRecordAsync();
-        type.Code = $"WH-{Db.NewId():N}"[..12];
-        type.Name = "Warehouse";
-        var dt = await types.SaveRecordAsync(type);
+        var dt = await NewRecordAsync<DivisionType>(t =>
+        {
+            t.Code = $"WH-{Db.NewId():N}"[..12];
+            t.Name = "Warehouse";
+        });
 
-        var divisions = GetService<IDictionaryManager<Division>>();
-        var division = await divisions.NewRecordAsync();
-        division.Name = "Main warehouse";
-        division.LegalEntity = le;
-        division.DivisionType = dt;
-        var div = await divisions.SaveRecordAsync(division);
+        var div = await NewRecordAsync<Division>(d =>
+        {
+            d.Name = "Main warehouse";
+            d.LegalEntity = le;
+            d.DivisionType = dt;
+        });
 
         Assert.IsTrue(div != Guid.Empty, "ожидался реальный id подразделения");
 
-        var saved = await divisions.GetRecordAsync(div);
+        var saved = await RecordAsync<Division>(div);
         Assert.IsTrue(saved != null, "подразделение должно читаться из базы");
         Assert.IsTrue(saved!.LegalEntity == le,
             "подразделение должно быть привязано к своему юрлицу, а не к {0}", saved.LegalEntity);
@@ -94,15 +85,15 @@ public class OrganizationSetupTest : IntegrationTestScriptBase
     [IntegrationTest("Юрлицо без страны и валюты отклоняется")]
     public async Task LegalEntityWithoutRefsIsRejected()
     {
-        var entities = GetService<IDictionaryManager<LegalEntity>>();
-        var entity = await entities.NewRecordAsync();
-        entity.Name = "No refs Ltd";
-        entity.RegistrationNumber = "REG-300";
-
         var rejected = false;
         try
         {
-            rejected = await entities.SaveRecordAsync(entity) == Guid.Empty;
+            var bad = await NewRecordAsync<LegalEntity>(e =>
+            {
+                e.Name = "No refs Ltd";
+                e.RegistrationNumber = "REG-300";
+            });
+            rejected = bad == Guid.Empty;
         }
         catch
         {
