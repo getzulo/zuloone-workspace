@@ -39,7 +39,7 @@
       "caption": "Settings",
       "caption_ru": "Настройки",
       "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
-      "displayOrder": 2,
+      "displayOrder": 3,
       "targetType": "Group",
       "metaId": "019d7614-3204-5496-90af-b58cacca2d58",
       "name": "Settings",
@@ -60,19 +60,6 @@
       "layerId": 2
     },
     {
-      "caption": "Sales invoices",
-      "caption_ar": "البيع الفاتورة",
-      "caption_ru": "Счета-фактуры",
-      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
-      "displayOrder": 0,
-      "targetType": "Document",
-      "targetMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
-      "metaId": "c23f527a-3faa-4113-a084-743bfece09b0",
-      "name": "SalesInvoice",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
-    },
-    {
       "caption": "Sales settings",
       "caption_ru": "Настройки модуля",
       "parentMetaId": "019d7614-3204-5496-90af-b58cacca2d58",
@@ -85,18 +72,6 @@
       "layerId": 2
     },
     {
-      "caption": "Customer payment",
-      "caption_ru": "Оплата покупателя",
-      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
-      "displayOrder": 1,
-      "targetType": "Document",
-      "targetMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
-      "metaId": "5a6b7c8d-9e0f-4a1b-8c2d-4e5f6a7b8c9e",
-      "name": "CustomerPayment",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
-    },
-    {
       "caption": "Receivable",
       "caption_ru": "Дебиторка",
       "parentMetaId": "cad86e08-d829-485c-b79b-984c300fa847",
@@ -105,6 +80,31 @@
       "targetMetaId": "4d5e6f7a-8b9c-4d0e-9f1a-3b4c5d6e7f8b",
       "metaId": "3a4b5c6d-7e8f-4a9b-8c0d-2e3f4a5b6c7d",
       "name": "Receivable",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "caption": "Sales invoices",
+      "caption_ar": "البيع الفاتورة",
+      "caption_ru": "Счета-фактуры",
+      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
+      "displayOrder": 1,
+      "targetType": "Document",
+      "targetMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "metaId": "c23f527a-3faa-4113-a084-743bfece09b0",
+      "name": "SalesInvoice",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2
+    },
+    {
+      "caption": "Customer payment",
+      "caption_ru": "Оплата покупателя",
+      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
+      "displayOrder": 2,
+      "targetType": "Document",
+      "targetMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+      "metaId": "5a6b7c8d-9e0f-4a1b-8c2d-4e5f6a7b8c9e",
+      "name": "CustomerPayment",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2
     }

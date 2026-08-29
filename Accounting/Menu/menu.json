@@ -13,6 +13,15 @@
       "layerId": 1
     },
     {
+      "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
+      "displayOrder": 2,
+      "targetType": "Group",
+      "metaId": "c4d44439-a864-4b37-8da5-9898e48f318d",
+      "name": "Dictionaries",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    },
+    {
       "caption": "Dictionaries",
       "caption_ru": "Справочники",
       "parentMetaId": "d9db0c81-915d-4cc0-a153-5fbee50c78f0",
