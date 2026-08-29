@@ -10,6 +10,8 @@
     "metaId": "6f3a5b1e-8d2c-4e4f-8a7b-5c9d0e6f1a40",
     "name": "RefBillOfMaterials",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:30:39.7216741",
+    "modifiedDateTime": "2026-08-25T21:30:39.7216741"
   }
 }

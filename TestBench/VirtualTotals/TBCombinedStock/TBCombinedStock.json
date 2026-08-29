@@ -6,6 +6,8 @@
     "metaId": "0a0a29b4-7f9f-454e-a0c7-1bad2891325d",
     "name": "TBCombinedStock",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T21:19:22.1874869",
+    "modifiedDateTime": "2026-08-25T21:19:22.1874881"
   }
 }

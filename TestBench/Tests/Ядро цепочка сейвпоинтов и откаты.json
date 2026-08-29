@@ -9,6 +9,8 @@
     "metaId": "bd0549c3-d0cf-4554-ad94-ac06ff26b51d",
     "name": "Ядро: цепочка сейвпоинтов и откаты",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.3111169",
+    "modifiedDateTime": "2026-08-28T11:06:22.311117"
   }
 }

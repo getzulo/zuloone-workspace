@@ -1,0 +1,18 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Decimal",
+    "precision": 18,
+    "scale": 4,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "5f2083e5-af8f-4fd6-93d8-6a4e8289c6e2",
+    "name": "MAc84f18a0Mo",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-08-29T12:56:42.2435879",
+    "modifiedDateTime": "2026-08-29T12:56:42.243588"
+  }
+}

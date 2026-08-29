@@ -12,7 +12,9 @@
     "metaId": "98ec3cdf-6263-4cc3-806b-237c68f9e584",
     "name": "TBFifoDriven",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:19.3508906",
+    "modifiedDateTime": "2026-08-28T11:06:19.3508906"
   },
   "dimensions": [
     {
@@ -28,7 +30,9 @@
       "metaId": "91bb9353-181b-4373-bd6a-104451533e25",
       "name": "Item",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T11:06:19.3623799",
+      "modifiedDateTime": "2026-08-28T11:06:19.3623799"
     }
   ],
   "resources": [
@@ -42,7 +46,9 @@
       "metaId": "41564b1f-8e42-468a-9ff1-058a28ef8d37",
       "name": "Amount",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T11:06:19.3752347",
+      "modifiedDateTime": "2026-08-28T11:06:19.3752348"
     },
     {
       "registerMetaId": "98ec3cdf-6263-4cc3-806b-237c68f9e584",
@@ -54,7 +60,9 @@
       "metaId": "5fb3fe4e-d867-4f0f-a75b-731ea429157a",
       "name": "Quantity",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T11:06:19.3692611",
+      "modifiedDateTime": "2026-08-28T11:06:19.3692612"
     }
   ]
 }

@@ -10,7 +10,9 @@
       "metaId": "05fc20e3-4b78-40db-b781-6ce37e247c97",
       "name": "Organization",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:09:09.666099",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Dictionaries",
@@ -22,7 +24,9 @@
       "metaId": "056ae83e-b101-485d-87d5-320de4d4e920",
       "name": "Dictionaries",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:09:09.6670841",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Settings",
@@ -33,7 +37,9 @@
       "metaId": "29720d2c-504a-5235-8035-caa33aeae64b",
       "name": "Settings",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:53.9657724",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Legal entities",
@@ -46,7 +52,9 @@
       "metaId": "dabbf1e0-d2b9-4856-b642-6d498fab6b6b",
       "name": "LegalEntity",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:09:09.6672044",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Organization settings",
@@ -58,7 +66,9 @@
       "metaId": "fc9a2413-bbbc-5971-8376-85f8e17097be",
       "name": "OrganizationSettings",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:53.9657741",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Divisions",
@@ -71,7 +81,9 @@
       "metaId": "8b174fc7-f037-4344-bdac-8ac120159b55",
       "name": "Division",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:09:09.6672875",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Division types",
@@ -84,7 +96,9 @@
       "metaId": "9b71f874-0a5b-4d27-9e01-9b5efb7004f3",
       "name": "DivisionType",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:09:09.6672912",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     }
   ]
 }

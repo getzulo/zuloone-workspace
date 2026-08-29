@@ -12,9 +12,9 @@ public partial class GLPostingTx
         foreach (var line in document.Lines)
         {
             transactions.Add(new RegisterMovementSpec("GL")
-                .An("Account", line.Account)
-                .An("LegalEntity", document.LegalEntity)
-                .An("FiscalPeriod", document.FiscalPeriod)
+                .An(Analytics.GL.Account, line.Account)
+                .An(Analytics.GL.LegalEntity, document.LegalEntity)
+                .An(Analytics.GL.FiscalPeriod, document.FiscalPeriod)
                 .Res("Debit", line.Debit)
                 .Res("Credit", line.Credit));
         }

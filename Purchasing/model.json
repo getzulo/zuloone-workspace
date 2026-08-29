@@ -11,7 +11,9 @@
     "metaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
     "name": "Purchasing",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:06:39.6403512",
+    "modifiedDateTime": "2026-08-27T18:37:50.9650042"
   },
   "dependencies": [
     {
@@ -21,7 +23,20 @@
       "metaId": "dfe4267a-5843-4d79-a0be-06c776d61ee0",
       "name": "Purchasing->Accounting",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:06:39.6404008",
+      "modifiedDateTime": "2026-08-25T21:06:39.6404008"
+    },
+    {
+      "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "minVersion": "1.0.0",
+      "metaId": "bed4d55b-252d-4aaa-9578-7e031c73dd74",
+      "name": "Purchasing->Common",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2,
+      "createdDateTime": "2026-08-29T03:44:45.5570035",
+      "modifiedDateTime": "2026-08-29T03:44:45.5570035"
     },
     {
       "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
@@ -30,7 +45,9 @@
       "metaId": "ef7f42b4-cc09-4740-84a1-cec6b3d6af5f",
       "name": "Purchasing->Inventory",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:06:39.6403956",
+      "modifiedDateTime": "2026-08-25T21:06:39.6403957"
     },
     {
       "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
@@ -39,7 +56,9 @@
       "metaId": "06b286d9-4905-4056-ae87-e1c53465223b",
       "name": "Purchasing->Tax",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:10:12.1673252",
+      "modifiedDateTime": "2026-08-28T21:10:12.1673252"
     }
   ]
 }

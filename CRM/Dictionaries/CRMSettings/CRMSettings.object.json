@@ -18,7 +18,9 @@
     "metaId": "4d8e6d80-cbf0-5dc2-b88b-00a1eae5cdf8",
     "name": "CRMSettings",
     "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-26T20:56:52.5618002",
+    "modifiedDateTime": "2026-08-26T20:56:52.5618002"
   },
   "fields": [
     {
@@ -39,7 +41,9 @@
       "metaId": "cee5d2cf-a4be-4e9e-a9a2-7f31d56c397f",
       "name": "ID",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:52.5955321",
+      "modifiedDateTime": "2026-08-26T20:56:52.5955321"
     },
     {
       "dictionaryMetaId": "4d8e6d80-cbf0-5dc2-b88b-00a1eae5cdf8",
@@ -58,7 +62,9 @@
       "metaId": "8a9882ba-1264-5b4b-bf98-f68141b4f489",
       "name": "LoyaltyEnabled",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:52.5618298",
+      "modifiedDateTime": "2026-08-26T20:56:52.5618298"
     },
     {
       "dictionaryMetaId": "4d8e6d80-cbf0-5dc2-b88b-00a1eae5cdf8",
@@ -79,7 +85,9 @@
       "metaId": "e23062c6-94f5-53ea-970f-254b75738d26",
       "name": "PointsPerCurrencyUnit",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:52.5618419",
+      "modifiedDateTime": "2026-08-26T20:56:52.5618419"
     }
   ]
 }

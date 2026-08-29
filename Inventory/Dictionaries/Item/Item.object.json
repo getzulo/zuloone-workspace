@@ -21,7 +21,9 @@
     "metaId": "319da250-b783-4c33-aa69-1c6ced3be605",
     "name": "Item",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T17:30:30.9277695",
+    "modifiedDateTime": "2026-08-25T17:30:30.9277695"
   },
   "fields": [
     {
@@ -43,7 +45,9 @@
       "metaId": "57100601-0000-4000-8000-000000000000",
       "name": "Barcode",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T21:35:40.3271268",
+      "modifiedDateTime": "2026-08-27T21:35:40.3271268"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -63,7 +67,9 @@
       "metaId": "88572b6b-6694-4ec1-9a32-5e5cd3c42c03",
       "name": "DefaultPurchasePrice",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:30.9285043",
+      "modifiedDateTime": "2026-08-27T21:35:40.345912"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -83,7 +89,9 @@
       "metaId": "1a072de9-ed3f-4eef-a01a-5f4cc2f04dc4",
       "name": "DefaultSalePrice",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:30.928506",
+      "modifiedDateTime": "2026-08-27T21:35:40.348094"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -104,7 +112,9 @@
       "metaId": "f03d2bbb-996e-404f-b096-480f6d88c628",
       "name": "ID",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:30.9672905",
+      "modifiedDateTime": "2026-08-25T17:30:30.9672909"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -124,7 +134,9 @@
       "metaId": "4fe54440-01a3-436e-be91-aba3917af213",
       "name": "IsRawMaterial",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:30.9285008",
+      "modifiedDateTime": "2026-08-25T17:30:30.9285008"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -144,7 +156,9 @@
       "metaId": "9c5861dd-d6ee-49d9-8638-f16a5ba8ab64",
       "name": "IsSellable",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:30.9285025",
+      "modifiedDateTime": "2026-08-25T17:30:30.9285025"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -164,7 +178,9 @@
       "metaId": "698e4a70-bd0c-4453-a80e-0f88423450d9",
       "name": "ItemGroup",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:30.9282514",
+      "modifiedDateTime": "2026-08-25T17:30:30.9282515"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -185,7 +201,9 @@
       "metaId": "10ea4c84-7f64-40c6-bea9-00539472db22",
       "name": "Name",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:30.9282343",
+      "modifiedDateTime": "2026-08-25T17:30:30.9282344"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -206,7 +224,9 @@
       "metaId": "91ed7351-69e0-4027-a55d-09ba4806fa3b",
       "name": "TaxProductCategory",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:30.9285076",
+      "modifiedDateTime": "2026-08-27T21:35:40.353701"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -226,7 +246,9 @@
       "metaId": "1017d776-cd14-44d4-9c8b-95ffd6db3b11",
       "name": "UnitOfMeasure",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:30.9284983",
+      "modifiedDateTime": "2026-08-25T17:30:30.9284983"
     }
   ]
 }

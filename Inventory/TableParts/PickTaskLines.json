@@ -11,9 +11,32 @@
     "metaId": "57100808-0000-4000-8000-000000000000",
     "name": "PickTaskLines",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-27T21:46:16.118921",
+    "modifiedDateTime": "2026-08-28T14:40:55.0616176"
   },
   "properties": [
+    {
+      "tablePartTypeMetaId": "57100808-0000-4000-8000-000000000000",
+      "fieldName": "BaseQuantity",
+      "caption": "Qty in base unit",
+      "caption_ar": "الكمية بالوحدة الأساسية",
+      "caption_ru": "Количество в базовой единице",
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "isRequired": false,
+      "isVisible": false,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 5,
+      "developerComments": "Заполняется платформой при сохранении: введённое количество, переведённое в базовую единицу товара. Руками не редактируется.",
+      "metaId": "04b8ba15-db7b-4088-a2f1-6d58a5f80975",
+      "name": "BaseQuantity",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-08-29T03:43:59.9674775",
+      "modifiedDateTime": "2026-08-29T03:43:59.9674775"
+    },
     {
       "tablePartTypeMetaId": "57100808-0000-4000-8000-000000000000",
       "fieldName": "Item",
@@ -33,7 +56,9 @@
       "metaId": "57100809-0000-4000-8000-000000000000",
       "name": "Item",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T21:46:16.118938",
+      "modifiedDateTime": "2026-08-29T02:57:50.6620472"
     },
     {
       "tablePartTypeMetaId": "57100808-0000-4000-8000-000000000000",
@@ -48,10 +73,15 @@
       "isSystem": false,
       "isReference": false,
       "displayOrder": 2,
+      "unitFieldName": "Unit",
+      "baseUnitPath": "Item.UnitOfMeasure",
+      "normalizedFieldName": "BaseQuantity",
       "metaId": "5710080a-0000-4000-8000-000000000000",
       "name": "Quantity",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T21:46:16.1189479",
+      "modifiedDateTime": "2026-08-29T04:28:59.7583015"
     },
     {
       "tablePartTypeMetaId": "57100808-0000-4000-8000-000000000000",
@@ -72,7 +102,32 @@
       "metaId": "5710080b-0000-4000-8000-000000000000",
       "name": "ToCell",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T21:46:16.11895",
+      "modifiedDateTime": "2026-08-29T02:58:07.7444259"
+    },
+    {
+      "tablePartTypeMetaId": "57100808-0000-4000-8000-000000000000",
+      "fieldName": "Unit",
+      "caption": "Unit",
+      "caption_ar": "الوحدة",
+      "caption_ru": "Единица",
+      "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
+      "referenceName": "UnitOfMeasure",
+      "displayOrder": 4,
+      "metaId": "023add1b-4b62-430e-9075-fc26bd79c538",
+      "name": "Unit",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-08-29T03:43:59.9674753",
+      "modifiedDateTime": "2026-08-29T03:43:59.9674753"
     }
   ]
 }

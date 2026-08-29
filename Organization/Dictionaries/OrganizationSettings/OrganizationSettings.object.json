@@ -18,7 +18,9 @@
     "metaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
     "name": "OrganizationSettings",
     "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-26T20:56:52.8258619",
+    "modifiedDateTime": "2026-08-26T20:56:52.8258619"
   },
   "fields": [
     {
@@ -39,7 +41,9 @@
       "metaId": "b4917c1e-cd65-54fd-bdae-59ca88cf3d31",
       "name": "DefaultLegalEntityCode",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:52.8258949",
+      "modifiedDateTime": "2026-08-26T20:56:52.8258949"
     },
     {
       "dictionaryMetaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
@@ -59,7 +63,9 @@
       "metaId": "4ec59664-75f3-4d2a-9755-7dd460984fa2",
       "name": "ID",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:52.9114579",
+      "modifiedDateTime": "2026-08-26T20:56:52.9114579"
     }
   ]
 }

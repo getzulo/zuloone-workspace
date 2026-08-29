@@ -6,7 +6,9 @@
     "metaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
     "name": "AccountType",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-27T20:26:52.1830267",
+    "modifiedDateTime": "2026-08-27T20:26:52.1830267"
   },
   "values": [
     {
@@ -17,7 +19,9 @@
       "metaId": "a88aa3ab-d26d-49cf-b528-0d5d500566ac",
       "name": "Asset",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-27T20:26:52.1836422",
+      "modifiedDateTime": "2026-08-27T20:26:52.1836422"
     },
     {
       "enumMetaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
@@ -27,7 +31,9 @@
       "metaId": "0e2a6cac-181b-4c87-af15-7933f1df01d7",
       "name": "Equity",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-27T20:26:52.1838538",
+      "modifiedDateTime": "2026-08-27T20:26:52.1838539"
     },
     {
       "enumMetaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
@@ -37,7 +43,9 @@
       "metaId": "4e869747-b11c-41cf-adbb-59635284f60e",
       "name": "Expense",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-27T20:26:52.1838573",
+      "modifiedDateTime": "2026-08-27T20:26:52.1838574"
     },
     {
       "enumMetaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
@@ -47,7 +55,9 @@
       "metaId": "484af250-1fb4-47c3-bcbe-49ee32b23fa4",
       "name": "Income",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-27T20:26:52.1838556",
+      "modifiedDateTime": "2026-08-27T20:26:52.1838557"
     },
     {
       "enumMetaId": "999b672c-ac9d-435e-95cf-f4ada3855ac3",
@@ -57,7 +67,9 @@
       "metaId": "78f5232c-59be-4398-b4b6-7572a571781d",
       "name": "Liability",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-27T20:26:52.1838509",
+      "modifiedDateTime": "2026-08-27T20:26:52.183851"
     }
   ]
 }

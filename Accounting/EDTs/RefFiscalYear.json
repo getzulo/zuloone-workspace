@@ -10,6 +10,8 @@
     "metaId": "dbc30202-8620-4223-ae50-7ac65d164678",
     "name": "RefFiscalYear",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:26:10.666632",
+    "modifiedDateTime": "2026-08-25T15:26:10.666632"
   }
 }

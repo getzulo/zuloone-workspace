@@ -11,7 +11,9 @@
     "metaId": "92379308-4a1c-4e8d-9f2b-6c3a7e5d1b40",
     "name": "PayrollPaymentLines",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:18:38.5631525",
+    "modifiedDateTime": "2026-08-25T21:18:38.5631526"
   },
   "properties": [
     {
@@ -30,7 +32,9 @@
       "metaId": "fa1ff31c-7c2e-4d9b-8a3f-6e5c1d2a4b70",
       "name": "Amount",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:18:38.563175",
+      "modifiedDateTime": "2026-08-25T21:18:38.563175"
     },
     {
       "tablePartTypeMetaId": "92379308-4a1c-4e8d-9f2b-6c3a7e5d1b40",
@@ -48,7 +52,9 @@
       "metaId": "4490ac17-8d5e-4c2a-9b6f-3e1d7a4c2f85",
       "name": "Employee",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:18:38.5631669",
+      "modifiedDateTime": "2026-08-25T21:18:38.5631669"
     }
   ]
 }

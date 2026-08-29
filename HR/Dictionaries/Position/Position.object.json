@@ -20,7 +20,9 @@
     "metaId": "3ffd2704-716e-40c3-9dc5-a585c96b4be7",
     "name": "Position",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:15:17.3482446",
+    "modifiedDateTime": "2026-08-25T21:15:17.3482446"
   },
   "fields": [
     {
@@ -41,7 +43,9 @@
       "metaId": "347fc765-1989-4b6d-b94a-b9011bf5cf3d",
       "name": "HourlyRate",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:15:17.348281",
+      "modifiedDateTime": "2026-08-25T21:15:17.348281"
     },
     {
       "dictionaryMetaId": "3ffd2704-716e-40c3-9dc5-a585c96b4be7",
@@ -62,7 +66,9 @@
       "metaId": "f970c82e-513c-4dae-af14-b546da2bd506",
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:15:17.3643023",
+      "modifiedDateTime": "2026-08-25T21:15:17.3643025"
     },
     {
       "dictionaryMetaId": "3ffd2704-716e-40c3-9dc5-a585c96b4be7",
@@ -83,7 +89,9 @@
       "metaId": "a3301eda-32fb-472d-9d90-bd1c5b45cc6f",
       "name": "Name",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:15:17.348266",
+      "modifiedDateTime": "2026-08-25T21:15:17.3482661"
     }
   ]
 }

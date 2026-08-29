@@ -9,6 +9,8 @@
     "metaId": "70a4f833-7c65-42a2-90c2-72b7a6ee6daa",
     "name": "TBItemTallyScript",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:19.8037742",
+    "modifiedDateTime": "2026-08-28T11:06:19.8037743"
   }
 }

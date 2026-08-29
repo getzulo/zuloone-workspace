@@ -9,6 +9,8 @@
     "metaId": "9c13040d-d7b3-4d4b-abe5-a9d63d74a6b6",
     "name": "TypedLinkProbe",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-22T09:20:49.3222317",
+    "modifiedDateTime": "2026-08-29T20:52:13.5905558"
   }
 }

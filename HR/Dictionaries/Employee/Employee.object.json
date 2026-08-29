@@ -20,7 +20,9 @@
     "metaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
     "name": "Employee",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:15:26.1190251",
+    "modifiedDateTime": "2026-08-25T21:15:26.1190251"
   },
   "fields": [
     {
@@ -41,7 +43,9 @@
       "metaId": "d21a83ed-d7e3-4482-b1fe-f007fec7c60e",
       "name": "Division",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:15:26.1191086",
+      "modifiedDateTime": "2026-08-25T21:15:26.1191086"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -61,7 +65,9 @@
       "metaId": "3ac1cb15-5455-42f9-9561-f802886d5ac5",
       "name": "HireDate",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:15:26.1191179",
+      "modifiedDateTime": "2026-08-25T21:15:26.1191179"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -82,7 +88,9 @@
       "metaId": "8cebe7cb-7cbe-4bf3-86f5-16f8b3f2d88f",
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:15:26.138548",
+      "modifiedDateTime": "2026-08-25T21:15:26.1385483"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -102,7 +110,9 @@
       "metaId": "7e0cecd3-978a-4314-86a9-1cd2c0b912ad",
       "name": "IsActive",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:15:26.1191205",
+      "modifiedDateTime": "2026-08-25T21:15:26.1191205"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -123,7 +133,9 @@
       "metaId": "fd60765e-bf3f-49fb-8da7-8ee48747bde8",
       "name": "Name",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:15:26.1190766",
+      "modifiedDateTime": "2026-08-25T21:15:26.1190766"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -142,7 +154,9 @@
       "metaId": "5e9f9ae1-514f-437d-83d5-eeba886b005b",
       "name": "Nationality",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:20:17.6085703",
+      "modifiedDateTime": "2026-08-28T21:20:17.6085704"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -162,7 +176,9 @@
       "metaId": "a46a3e96-b0b9-4010-b25c-c2810b07066e",
       "name": "Position",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:15:26.1191151",
+      "modifiedDateTime": "2026-08-25T21:15:26.1191151"
     }
   ]
 }

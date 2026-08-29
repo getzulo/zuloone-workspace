@@ -16,7 +16,9 @@
     "metaId": "5929e99f-75f5-4635-9293-b99892d085be",
     "name": "TBItem",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:18.9802456",
+    "modifiedDateTime": "2026-08-28T11:06:18.9802496"
   },
   "fields": [
     {
@@ -37,7 +39,9 @@
       "metaId": "0c1e86ec-2bd7-43c1-8b5f-bdfa7d29e676",
       "name": "ID",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T11:06:18.9884307",
+      "modifiedDateTime": "2026-08-28T11:06:18.9884308"
     },
     {
       "dictionaryMetaId": "5929e99f-75f5-4635-9293-b99892d085be",
@@ -55,7 +59,9 @@
       "metaId": "14c89e11-fd45-42f6-9c40-292d7bef7abb",
       "name": "WarehouseID",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T11:06:19.1548929",
+      "modifiedDateTime": "2026-08-28T11:06:19.1548929"
     }
   ]
 }

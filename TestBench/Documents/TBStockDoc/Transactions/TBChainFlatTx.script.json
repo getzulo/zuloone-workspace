@@ -8,6 +8,8 @@
     "metaId": "f461a6e7-ff65-4bd2-9092-45a689ec0e1d",
     "name": "TBChainFlatTx",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:19.6814444",
+    "modifiedDateTime": "2026-08-28T11:06:19.6814445"
   }
 }

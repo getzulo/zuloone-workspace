@@ -1,0 +1,18 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Decimal",
+    "precision": 18,
+    "scale": 4,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "374212af-dc37-4158-84e5-f1f32320f40a",
+    "name": "MA340aa871Mo",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-08-29T14:00:04.3749315",
+    "modifiedDateTime": "2026-08-29T14:00:04.3749315"
+  }
+}

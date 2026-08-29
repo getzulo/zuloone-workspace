@@ -10,6 +10,8 @@
     "metaId": "05ddaeea-2cdb-4f8d-a1b0-a0aad7d7c844",
     "name": "TBStockDocEvents",
     "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T20:36:24.8503561",
+    "modifiedDateTime": "2026-08-28T20:36:24.8503561"
   }
 }

@@ -6,7 +6,9 @@
       "metaId": "6b71a36a-1c60-4897-978b-844b50593ed5",
       "name": "TBScripts",
       "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T17:21:35.3429439",
+      "modifiedDateTime": "2026-08-28T17:21:35.342944"
     }
   ]
 }

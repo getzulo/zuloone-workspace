@@ -19,7 +19,9 @@
     "metaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
     "name": "BomComponent",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:30:56.0126173",
+    "modifiedDateTime": "2026-08-25T21:30:56.0126174"
   },
   "fields": [
     {
@@ -40,7 +42,9 @@
       "metaId": "0d7e9f5c-2b6a-4c8d-9e9f-9a3b4c0d5e80",
       "name": "Bom",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:30:56.01265",
+      "modifiedDateTime": "2026-08-25T21:30:56.0126501"
     },
     {
       "dictionaryMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
@@ -60,7 +64,9 @@
       "metaId": "1e8f0a6d-3c7b-4d9e-8f0a-0b4c5d1e6f90",
       "name": "Component",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:30:56.012665",
+      "modifiedDateTime": "2026-08-25T21:30:56.0126651"
     },
     {
       "dictionaryMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
@@ -81,7 +87,9 @@
       "metaId": "7fa6b678-9805-4c0e-b7aa-f2fc2d7a9e79",
       "name": "ID",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:30:56.0284525",
+      "modifiedDateTime": "2026-08-25T21:30:56.0284525"
     },
     {
       "dictionaryMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
@@ -101,7 +109,9 @@
       "metaId": "2f9a1b7e-4d8c-4e0f-9a1b-1c5d6e2f7a00",
       "name": "QtyPer",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:30:56.0126672",
+      "modifiedDateTime": "2026-08-25T21:30:56.0126672"
     },
     {
       "dictionaryMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
@@ -121,7 +131,9 @@
       "metaId": "f2a3b4c5-d6e7-4f8a-9b0c-3d4e5f6a7b8c",
       "name": "Unit",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T21:13:19.01446",
+      "modifiedDateTime": "2026-08-26T21:13:19.01446"
     }
   ]
 }

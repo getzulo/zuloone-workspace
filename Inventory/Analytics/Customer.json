@@ -8,6 +8,8 @@
     "metaId": "37666495-de93-4eee-91b1-c72af788c054",
     "name": "Customer",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T17:32:14.0789991",
+    "modifiedDateTime": "2026-08-25T17:32:14.0789992"
   }
 }

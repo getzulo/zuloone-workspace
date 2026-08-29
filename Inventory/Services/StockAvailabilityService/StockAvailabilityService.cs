@@ -1,27 +1,28 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 
 // Проверка наличия остатка в ячейке: хватает ли `qty` товара `item` в ячейке
 // `cell` по регистру Stock. Переиспружется Production/Sales перед списанием строго
 // из ячейки отбора.
 public partial class StockAvailabilityService
 {
-    private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
-    private readonly IRegisterMovementService _stock;
+    private readonly ITotalsManager _totals;
 
-    public StockAvailabilityService(IRegisterMovementService stock)
+    public StockAvailabilityService(ITotalsManager totals)
     {
-        _stock = stock;
+        _totals = totals;
     }
 
     /// <summary>Текущий остаток товара в ячейке по регистру Stock (0, если строки нет).</summary>
     public async Task<decimal> OnHandAsync(Guid cell, Guid item)
     {
-        var bal = await _stock.GetBalanceAsync(StockRegister,
+        // Отсутствующая строка остатка — это ноль, а не ошибка; менеджер трактует
+        // её так сам, поэтому проверки на null здесь больше нет.
+        return await _totals.GetBalanceAsync("Stock", "Qty",
             new Dictionary<string, object?> { ["Item"] = item, ["Cell"] = cell });
-        return bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
     }
 
     /// <summary>Хватает ли остатка в ячейке под требуемое количество.</summary>

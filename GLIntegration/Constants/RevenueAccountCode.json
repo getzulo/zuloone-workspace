@@ -11,6 +11,8 @@
     "metaId": "0e4a7b6b-3d9c-4f5e-8b2a-8c1d4f7e9b50",
     "name": "RevenueAccountCode",
     "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T22:30:52.0214557",
+    "modifiedDateTime": "2026-08-25T22:40:27.2179427"
   }
 }

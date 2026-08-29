@@ -9,6 +9,8 @@
     "metaId": "4eb1e9ef-f161-4373-bad2-1a72ca327b2a",
     "name": "Справочники: OnBeforeSave отменяет сохранение",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.2905903",
+    "modifiedDateTime": "2026-08-28T11:06:22.2905904"
   }
 }

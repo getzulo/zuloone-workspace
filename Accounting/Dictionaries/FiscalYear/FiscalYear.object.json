@@ -21,7 +21,9 @@
     "metaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
     "name": "FiscalYear",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:27:18.3013139",
+    "modifiedDateTime": "2026-08-25T15:27:18.3013139"
   },
   "fields": [
     {
@@ -43,7 +45,9 @@
       "metaId": "9a4f115e-9889-4ec6-84a8-57b4ac586201",
       "name": "Code",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:27:18.3013534",
+      "modifiedDateTime": "2026-08-25T15:27:18.3013534"
     },
     {
       "dictionaryMetaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
@@ -63,7 +67,9 @@
       "metaId": "cbcb5b9a-3aa3-48c3-8520-7e2d62a91c52",
       "name": "EndDate",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:27:18.3013761",
+      "modifiedDateTime": "2026-08-25T15:27:18.3013761"
     },
     {
       "dictionaryMetaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
@@ -84,7 +90,9 @@
       "metaId": "edeb5235-a91d-40db-a3b6-fbd7bf82b359",
       "name": "ID",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:27:18.3229958",
+      "modifiedDateTime": "2026-08-25T15:27:18.322996"
     },
     {
       "dictionaryMetaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
@@ -104,7 +112,9 @@
       "metaId": "dec693fb-9e8c-4119-babe-c07191587559",
       "name": "IsClosed",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:27:18.3013778",
+      "modifiedDateTime": "2026-08-25T15:27:18.3013778"
     },
     {
       "dictionaryMetaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
@@ -124,7 +134,9 @@
       "metaId": "613cf20b-25ec-466f-ab66-efc27d1b69d5",
       "name": "StartDate",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:27:18.301374",
+      "modifiedDateTime": "2026-08-25T15:27:18.301374"
     }
   ]
 }

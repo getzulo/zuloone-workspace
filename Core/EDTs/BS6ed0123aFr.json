@@ -1,0 +1,17 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "String",
+    "length": 50,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "5859cf32-b99c-4fb3-b8ef-f3936edc7a66",
+    "name": "BS6ed0123aFr",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-08-29T12:43:30.609241",
+    "modifiedDateTime": "2026-08-29T12:43:30.609241"
+  }
+}

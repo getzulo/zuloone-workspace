@@ -11,7 +11,7 @@ public partial class GoodsReceiptPayableTx
         foreach (var line in document.Lines)
         {
             transactions.Add(new RegisterMovementSpec("Payable")
-                .An("Supplier", document.Supplier)
+                .An(Analytics.Payable.Supplier, document.Supplier)
                 .Res("Amount", pricing.LineAmount(line.Quantity, line.UnitPrice)));
         }
     }

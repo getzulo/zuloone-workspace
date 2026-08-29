@@ -9,6 +9,8 @@
     "metaId": "e7717f5a-1bca-4c7b-abb8-64a319f9ef55",
     "name": "Currency",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-22T04:17:48.0602707",
+    "modifiedDateTime": "2026-08-22T04:17:48.0602707"
   }
 }

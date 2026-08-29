@@ -9,6 +9,8 @@
     "metaId": "bf19fdd0-eb39-4e39-86ae-0eea6dd5a280",
     "name": "Константы: глобальные константы читаются и пишутся типизированно",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.3937568",
+    "modifiedDateTime": "2026-08-28T11:06:22.393757"
   }
 }

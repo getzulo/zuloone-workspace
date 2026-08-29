@@ -21,7 +21,9 @@
     "metaId": "c9831a46-480a-45c4-be44-5ef6138514b9",
     "name": "TaxRecoverability",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T16:22:12.0784676",
+    "modifiedDateTime": "2026-08-25T16:22:12.0784676"
   },
   "fields": [
     {
@@ -43,7 +45,9 @@
       "metaId": "76864c50-6628-4207-b692-5f449838a4c9",
       "name": "Code",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:22:12.0784952",
+      "modifiedDateTime": "2026-08-25T16:22:12.0784952"
     },
     {
       "dictionaryMetaId": "c9831a46-480a-45c4-be44-5ef6138514b9",
@@ -64,7 +68,9 @@
       "metaId": "816a4793-2979-489f-b9bb-cb1f3e9fef3e",
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:22:12.0956729",
+      "modifiedDateTime": "2026-08-25T16:22:12.0956731"
     },
     {
       "dictionaryMetaId": "c9831a46-480a-45c4-be44-5ef6138514b9",
@@ -85,7 +91,9 @@
       "metaId": "0b9be609-8aca-4d73-922a-4cd7818b5f47",
       "name": "Name",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:22:12.0785056",
+      "modifiedDateTime": "2026-08-25T16:22:12.0785057"
     }
   ]
 }

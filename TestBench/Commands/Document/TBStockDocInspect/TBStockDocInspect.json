@@ -12,7 +12,9 @@
     "metaId": "cbea7348-e1b3-4f70-933e-2c8fa74f3292",
     "name": "TBStockDocInspect",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:19.8234759",
+    "modifiedDateTime": "2026-08-28T11:06:19.8234759"
   },
   "subtypeBindings": [
     {

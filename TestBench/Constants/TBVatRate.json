@@ -10,6 +10,8 @@
     "metaId": "31a0753c-6b61-4f98-857a-98db87329a33",
     "name": "TBVatRate",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:19.9553961",
+    "modifiedDateTime": "2026-08-28T11:06:19.9553962"
   }
 }

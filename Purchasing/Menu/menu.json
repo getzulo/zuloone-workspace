@@ -10,7 +10,9 @@
       "metaId": "8e5ae3cf-4b86-4b04-8669-1695f2591946",
       "name": "Purchasing",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:08:49.2962465",
+      "modifiedDateTime": "2026-08-25T21:08:49.2962465"
     },
     {
       "caption": "Documents",
@@ -22,7 +24,9 @@
       "metaId": "c946d33a-7f47-4846-9563-d42b9a6ba275",
       "name": "Documents",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:08:49.2962639",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Registers",
@@ -33,7 +37,9 @@
       "metaId": "50606981-635b-43f4-9546-dd5c34f9da14",
       "name": "Registers",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:08:49.2962675",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Settings",
@@ -44,7 +50,9 @@
       "metaId": "3554bd49-9e38-50a4-9dee-29d7394cef94",
       "name": "Settings",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:53.8085341",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Accounts payable",
@@ -56,7 +64,9 @@
       "metaId": "f9311a9b-cc50-4091-a930-ac5e7e24392c",
       "name": "Payable",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:08:49.2962716",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Purchase orders",
@@ -69,7 +79,9 @@
       "metaId": "0629c3e1-0087-41be-9d53-2119b9f0d8f5",
       "name": "PurchaseOrder",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:08:49.296269",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Purchasing settings",
@@ -81,7 +93,9 @@
       "metaId": "2e2f37fe-f62f-5294-8668-a06066776347",
       "name": "PurchasingSettings",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:53.808537",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     }
   ]
 }

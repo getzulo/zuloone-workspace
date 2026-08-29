@@ -13,7 +13,9 @@
     "metaId": "254b351a-6f4f-4d6a-8e2f-2c1f0f4c9a71",
     "name": "Payroll",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:18:06.5271612",
+    "modifiedDateTime": "2026-08-25T21:18:06.5271613"
   },
   "resources": [
     {
@@ -27,7 +29,9 @@
       "metaId": "8c38dfe1-2a7c-4f0e-9b1d-6d3e5a8f0c42",
       "name": "Amount",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:18:06.5271769",
+      "modifiedDateTime": "2026-08-25T21:18:06.527177"
     }
   ],
   "analytics": [
@@ -39,7 +43,9 @@
       "metaId": "db7c5024-4b8f-4c1a-9e6d-3f2a1c7b5e08",
       "name": "Payroll-Division",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:18:06.5271848",
+      "modifiedDateTime": "2026-08-25T21:18:06.5271848"
     },
     {
       "registerMetaId": "254b351a-6f4f-4d6a-8e2f-2c1f0f4c9a71",
@@ -49,7 +55,9 @@
       "metaId": "cf5bf0c8-7d2e-4a19-8c4f-1b6e9d3a2f57",
       "name": "Payroll-Employee",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:18:06.5271888",
+      "modifiedDateTime": "2026-08-25T21:18:06.5271888"
     }
   ]
 }

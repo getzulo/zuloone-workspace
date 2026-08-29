@@ -9,6 +9,8 @@
     "metaId": "264ca268-2f5d-4d34-a5dc-bc83f44619e5",
     "name": "Итоги: учётные периоды блокируют проведение",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.2805344",
+    "modifiedDateTime": "2026-08-28T11:06:22.2805347"
   }
 }

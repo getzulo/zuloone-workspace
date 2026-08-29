@@ -11,6 +11,8 @@
     "metaId": "3c4d5e6f-7a8b-4c9d-8e0f-2a3b4c5d6e7f",
     "name": "QuantityScale",
     "modelId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T22:48:53.2792826",
+    "modifiedDateTime": "2026-08-25T23:16:33.7678202"
   }
 }

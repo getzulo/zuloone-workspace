@@ -15,9 +15,33 @@
     "metaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
     "name": "ProductionOrder",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:31:26.0330582",
+    "modifiedDateTime": "2026-08-25T21:31:26.0330583"
   },
   "headerFields": [
+    {
+      "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
+      "fieldName": "BaseQuantity",
+      "caption": "Qty in base unit",
+      "caption_ar": "الكمية بالوحدة الأساسية",
+      "caption_ru": "Количество в базовой единице",
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "description": "Заполняется платформой при сохранении: введённое количество, переведённое в базовую единицу товара. Руками не редактируется.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": false,
+      "isTranslatable": false,
+      "metaId": "62c29a0d-b8eb-4677-b90e-67fe50e558cf",
+      "name": "BaseQuantity",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "layerId": 2,
+      "createdDateTime": "2026-08-29T03:44:00.114801",
+      "modifiedDateTime": "2026-08-29T03:44:00.1148011"
+    },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "fieldName": "ID",
@@ -36,7 +60,9 @@
       "metaId": "acb51986-b76a-4453-924d-f2ddcf89d36d",
       "name": "ID",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:31:26.0610257",
+      "modifiedDateTime": "2026-08-25T21:31:26.0610257"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
@@ -55,7 +81,9 @@
       "metaId": "6d3e5f1c-8b2a-4c4d-9e5f-5a9b0c6d1e40",
       "name": "Location",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:31:26.033088",
+      "modifiedDateTime": "2026-08-25T21:31:26.033088"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
@@ -74,7 +102,9 @@
       "metaId": "4b1c3d9a-6f0e-4a2b-9c3d-3e7f8a4b9c20",
       "name": "Product",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:31:26.0330778",
+      "modifiedDateTime": "2026-08-25T21:31:26.0330778"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
@@ -90,10 +120,36 @@
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
+      "unitFieldName": "Unit",
+      "baseUnitPath": "Product.UnitOfMeasure",
+      "normalizedFieldName": "BaseQuantity",
       "metaId": "5c2d4e0b-7a1f-4b3c-8d4e-4f8a9b5c0d30",
       "name": "Quantity",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:31:26.0330861",
+      "modifiedDateTime": "2026-08-29T04:28:59.8972419"
+    },
+    {
+      "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
+      "fieldName": "Unit",
+      "caption": "Unit",
+      "caption_ar": "الوحدة",
+      "caption_ru": "Единица",
+      "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "3ab517ab-06c9-4d01-a85a-47bfd95fb528",
+      "name": "Unit",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "layerId": 2,
+      "createdDateTime": "2026-08-29T03:44:00.1147951",
+      "modifiedDateTime": "2026-08-29T03:44:00.1147951"
     }
   ],
   "subtypes": [
@@ -110,7 +166,9 @@
       "isReadOnly": false,
       "metaId": "7e4f6a2d-9c3b-4d5e-8f6a-6b0c1d7e2f50",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:31:26.0330925",
+      "modifiedDateTime": "2026-08-25T21:31:26.0330925"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
@@ -124,7 +182,9 @@
       "isReadOnly": true,
       "metaId": "8f5a7b3e-0d4c-4e6f-9a7b-7c1d2e8f3a60",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:31:26.0330985",
+      "modifiedDateTime": "2026-08-28T13:34:56.4298452"
     }
   ],
   "tableParts": [
@@ -135,7 +195,9 @@
       "metaId": "9a6b8c4f-1e5d-4f7a-8b8c-8d2e3f9a4b70",
       "name": "Components",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:31:26.0331023",
+      "modifiedDateTime": "2026-08-25T21:31:26.0331024"
     }
   ],
   "subtypeTransactionScripts": [
@@ -146,7 +208,9 @@
       "metaId": "4f1a3b9e-6d0c-4e2f-9a3b-3c7d8e4f9a20",
       "name": "",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:35:51.9724905",
+      "modifiedDateTime": "2026-08-25T21:35:51.9724905"
     },
     {
       "subtypeMetaId": "8f5a7b3e-0d4c-4e6f-9a7b-7c1d2e8f3a60",
@@ -155,7 +219,9 @@
       "metaId": "7d4e6f2a-8b1c-4d3e-9f5a-6c8d9e7f0a30",
       "name": "",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:35:51.9724946",
+      "modifiedDateTime": "2026-08-25T21:35:51.9724946"
     }
   ]
 }

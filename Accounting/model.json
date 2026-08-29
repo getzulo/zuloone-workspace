@@ -11,7 +11,9 @@
     "metaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "name": "Accounting",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:25:49.9385103",
+    "modifiedDateTime": "2026-08-27T18:37:51.1026979"
   },
   "dependencies": [
     {
@@ -21,7 +23,9 @@
       "metaId": "74a70870-99de-4f85-8ff2-3e8f1a08498f",
       "name": "Accounting->Common",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:25:49.938593",
+      "modifiedDateTime": "2026-08-25T15:25:49.9385931"
     },
     {
       "modelMetaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
@@ -30,7 +34,9 @@
       "metaId": "32304574-dfd9-4c3e-9cb2-32665f9bce86",
       "name": "Accounting->Organization",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:25:49.9385704",
+      "modifiedDateTime": "2026-08-25T15:25:49.9385704"
     }
   ]
 }

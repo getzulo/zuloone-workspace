@@ -9,6 +9,8 @@
     "metaId": "61c2bfe7-e9ee-44b8-93ce-2ebe8e55424d",
     "name": "SalesInvoiceSeq",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T17:57:10.8646421",
+    "modifiedDateTime": "2026-08-25T17:57:10.8646421"
   }
 }

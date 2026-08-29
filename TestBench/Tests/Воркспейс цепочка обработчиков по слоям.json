@@ -9,6 +9,8 @@
     "metaId": "4a01fbed-008a-433b-8e31-f2569083c2cd",
     "name": "Воркспейс: цепочка обработчиков по слоям",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.4555212",
+    "modifiedDateTime": "2026-08-28T11:06:22.4555212"
   }
 }

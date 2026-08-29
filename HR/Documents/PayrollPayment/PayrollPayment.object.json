@@ -15,7 +15,9 @@
     "metaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
     "name": "PayrollPayment",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:18:57.9561452",
+    "modifiedDateTime": "2026-08-25T21:18:57.9561452"
   },
   "headerFields": [
     {
@@ -36,7 +38,9 @@
       "metaId": "d6edce12-43ba-4755-bfc4-7f4252e7ebf2",
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:18:57.9769039",
+      "modifiedDateTime": "2026-08-25T21:18:57.9769042"
     }
   ],
   "subtypes": [
@@ -52,7 +56,9 @@
       "isReadOnly": true,
       "metaId": "aa119dda-7d3e-4c1a-9b2f-5a6e3d1c7b48",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:18:57.9561721",
+      "modifiedDateTime": "2026-08-28T13:34:56.4961401"
     },
     {
       "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
@@ -67,7 +73,9 @@
       "isReadOnly": false,
       "metaId": "dbb3ce31-5c7e-4a2d-8b1f-6e3a4c7d2f90",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:18:57.9561655",
+      "modifiedDateTime": "2026-08-25T21:18:57.9561655"
     }
   ],
   "tableParts": [
@@ -78,7 +86,9 @@
       "metaId": "b5478822-6c1e-4d9a-8b3f-7e4a2c6d1f53",
       "name": "Lines",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:18:57.9561761",
+      "modifiedDateTime": "2026-08-25T21:18:57.9561761"
     }
   ],
   "subtypeTransactionScripts": [
@@ -89,7 +99,9 @@
       "metaId": "297a7908-2b3c-4d5e-9f60-1a2b3c4d5e6f",
       "name": "",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:21:51.5709547",
+      "modifiedDateTime": "2026-08-25T21:21:51.5709547"
     }
   ]
 }

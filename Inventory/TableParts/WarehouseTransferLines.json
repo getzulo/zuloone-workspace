@@ -10,7 +10,9 @@
     "metaId": "a9b0c1d2-e3f4-4a5b-8c6d-7e8f9a0b1c23",
     "name": "WarehouseTransferLines",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-26T17:23:32.8022907",
+    "modifiedDateTime": "2026-08-26T17:23:32.8022907"
   },
   "properties": [
     {
@@ -28,7 +30,9 @@
       "metaId": "b0c1d2e3-f4a5-4b6c-9d7e-8f9a0b1c2d34",
       "name": "Item",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T17:23:32.802305",
+      "modifiedDateTime": "2026-08-26T17:23:32.802305"
     },
     {
       "tablePartTypeMetaId": "a9b0c1d2-e3f4-4a5b-8c6d-7e8f9a0b1c23",
@@ -45,7 +49,9 @@
       "metaId": "c1d2e3f4-a5b6-4c7d-8e8f-9a0b1c2d3e45",
       "name": "Quantity",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T17:23:32.8023132",
+      "modifiedDateTime": "2026-08-26T17:23:32.8023132"
     }
   ]
 }

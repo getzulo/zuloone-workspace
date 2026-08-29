@@ -12,6 +12,8 @@
     "metaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
     "name": "Money",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:26:03.2962905",
+    "modifiedDateTime": "2026-08-25T15:26:03.2962905"
   }
 }

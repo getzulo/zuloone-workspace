@@ -9,6 +9,8 @@
     "metaId": "f1bee6bc-6a82-479b-8d54-1cf1570cb8bd",
     "name": "GoodsReceiptPayableTx",
     "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:07:44.5039578",
+    "modifiedDateTime": "2026-08-29T04:00:55.2446826"
   }
 }

@@ -9,6 +9,8 @@
     "metaId": "723f4ad8-72a0-4f79-bbb7-22e5516b011c",
     "name": "Ядро: компилятор — валидный код и диагностика ошибок",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.3216138",
+    "modifiedDateTime": "2026-08-28T11:06:22.3216139"
   }
 }

@@ -10,6 +10,8 @@
     "metaId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
     "name": "Core",
     "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-21T06:39:50.4733333",
+    "modifiedDateTime": "2026-08-27T14:26:07.7685368"
   }
 }

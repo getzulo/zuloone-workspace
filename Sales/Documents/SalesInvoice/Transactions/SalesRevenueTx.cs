@@ -11,8 +11,8 @@ public partial class SalesRevenueTx
         foreach (var line in document.Lines)
         {
             transactions.Add(new RegisterMovementSpec("Revenue")
-                .An("Item", line.Item)
-                .An("Customer", document.Customer)
+                .An(Analytics.Revenue.Item, line.Item)
+                .An(Analytics.Revenue.Customer, document.Customer)
                 .Res("Amount", pricing.LineAmount(line.Quantity, line.UnitPrice)));
         }
     }

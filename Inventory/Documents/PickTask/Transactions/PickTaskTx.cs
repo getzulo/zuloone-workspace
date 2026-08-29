@@ -2,14 +2,19 @@
 
 // Хранение → отбор: на строку ДВЕ одиночные проводки Stock (одинарная запись) —
 // минус из ячейки хранения (FromCell, шапка), плюс в ячейку отбора (ToCell, строка).
+//
+// В регистр уходит BaseQuantity (базовая единица товара, считает платформа при
+// сохранении строки); ноль = «единица не указана, пересчёта не было» → введённое
+// количество и есть базовое. Обе ноги берут ОДНО значение.
 public partial class PickTaskTx
 {
     protected override void GetTransactions(PickTask document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
     {
         foreach (var line in document.Lines)
         {
-            transactions.Add(new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", document.FromCell).Res("Qty", -line.Quantity));
-            transactions.Add(new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", line.ToCell).Res("Qty", line.Quantity));
+            var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
+            transactions.Add(new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", document.FromCell).Res("Qty", -qty));
+            transactions.Add(new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", line.ToCell).Res("Qty", qty));
         }
     }
 }

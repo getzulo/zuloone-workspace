@@ -9,6 +9,8 @@
     "metaId": "5a417691-67a3-403f-951e-70249ed52ba3",
     "name": "SalesSettingsEventHandler",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-26T20:59:38.1760055",
+    "modifiedDateTime": "2026-08-26T20:59:38.1760055"
   }
 }

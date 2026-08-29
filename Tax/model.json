@@ -11,7 +11,9 @@
     "metaId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "name": "Tax",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T16:20:47.4795645",
+    "modifiedDateTime": "2026-08-27T18:30:50.8316093"
   },
   "dependencies": [
     {
@@ -21,7 +23,9 @@
       "metaId": "0a3da314-5395-4c1b-ac7b-2b622652945e",
       "name": "Tax->Accounting",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:20:47.4803418",
+      "modifiedDateTime": "2026-08-25T16:20:47.4803418"
     },
     {
       "modelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
@@ -30,7 +34,9 @@
       "metaId": "9239864d-8284-4836-addc-2922b7724543",
       "name": "Tax->Common",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:20:47.4803488",
+      "modifiedDateTime": "2026-08-25T16:20:47.4803488"
     },
     {
       "modelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
@@ -39,7 +45,9 @@
       "metaId": "773dcabe-9210-4367-9827-013a7a9be659",
       "name": "Tax->Organization",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:20:47.4801606",
+      "modifiedDateTime": "2026-08-25T16:20:47.4801607"
     }
   ]
 }

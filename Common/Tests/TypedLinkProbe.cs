@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
 public class TypedLinkProbe : IntegrationTestScriptBase

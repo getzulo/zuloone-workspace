@@ -11,7 +11,9 @@
     "metaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
     "name": "GLIntegration",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T22:30:43.6343189",
+    "modifiedDateTime": "2026-08-27T18:30:36.2244558"
   },
   "dependencies": [
     {
@@ -21,7 +23,9 @@
       "metaId": "4e8a1b05-7d3c-4f9e-8b6a-2c5d8f1e3b90",
       "name": "GLIntegration->Accounting",
       "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T22:30:43.6343376",
+      "modifiedDateTime": "2026-08-25T22:30:43.6343376"
     },
     {
       "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
@@ -30,7 +34,9 @@
       "metaId": "7b1d4e38-0a6f-4c2b-9e9d-5f8a1c4b6e20",
       "name": "GLIntegration->Inventory",
       "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T22:30:43.6343461",
+      "modifiedDateTime": "2026-08-25T22:30:43.6343461"
     },
     {
       "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
@@ -39,7 +45,9 @@
       "metaId": "6a0c3d27-9f5e-4b1a-8d8c-4e7f0b3a5d10",
       "name": "GLIntegration->Organization",
       "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T22:30:43.6343448",
+      "modifiedDateTime": "2026-08-25T22:30:43.6343448"
     },
     {
       "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
@@ -48,7 +56,9 @@
       "metaId": "c8d9e0f1-a2b3-4c4d-9e5f-6a7b8c9d0e12",
       "name": "GLIntegration->Purchasing",
       "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T12:41:15.5082857",
+      "modifiedDateTime": "2026-08-27T12:41:15.5082857"
     },
     {
       "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
@@ -57,7 +67,9 @@
       "metaId": "5f9b2c16-8e4d-4a0f-9c7b-3d6e9a2f4c00",
       "name": "GLIntegration->Sales",
       "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T22:30:43.6343433",
+      "modifiedDateTime": "2026-08-25T22:30:43.6343433"
     }
   ]
 }

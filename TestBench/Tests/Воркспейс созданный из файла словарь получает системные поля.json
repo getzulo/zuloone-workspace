@@ -9,6 +9,8 @@
     "metaId": "ce956f3d-9b33-45f9-86da-9f97bf0d4235",
     "name": "Воркспейс: созданный из файла словарь получает системные поля",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.4403855",
+    "modifiedDateTime": "2026-08-29T21:26:23.1290234"
   }
 }

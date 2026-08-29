@@ -11,7 +11,9 @@
     "metaId": "187c3b91-3133-46c2-8ed5-49adfe9ddf2f",
     "name": "JournalEntryLines",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:28:51.854682",
+    "modifiedDateTime": "2026-08-25T15:28:51.854682"
   },
   "properties": [
     {
@@ -30,7 +32,9 @@
       "metaId": "3b439969-bd4f-4842-92dd-a66ceca77195",
       "name": "Account",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:28:51.8552587",
+      "modifiedDateTime": "2026-08-25T15:28:51.8552587"
     },
     {
       "tablePartTypeMetaId": "187c3b91-3133-46c2-8ed5-49adfe9ddf2f",
@@ -48,7 +52,9 @@
       "metaId": "4e2ea35a-2ec9-4e2d-8e69-9c73844aff11",
       "name": "Credit",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:28:51.8555013",
+      "modifiedDateTime": "2026-08-25T15:28:51.8555013"
     },
     {
       "tablePartTypeMetaId": "187c3b91-3133-46c2-8ed5-49adfe9ddf2f",
@@ -66,7 +72,9 @@
       "metaId": "bc290e44-4121-4344-a125-9d6b2ba51023",
       "name": "Debit",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:28:51.8554982",
+      "modifiedDateTime": "2026-08-25T15:28:51.8554983"
     },
     {
       "tablePartTypeMetaId": "187c3b91-3133-46c2-8ed5-49adfe9ddf2f",
@@ -85,7 +93,9 @@
       "metaId": "97a4b2ea-91e0-4167-8d20-83c313bfdaef",
       "name": "Description",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:28:51.8555033",
+      "modifiedDateTime": "2026-08-25T15:28:51.8555033"
     }
   ]
 }

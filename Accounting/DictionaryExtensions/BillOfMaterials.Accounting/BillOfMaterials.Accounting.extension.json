@@ -6,7 +6,9 @@
     "metaId": "ab3aba51-293f-401c-bc34-7cd29124ff7a",
     "name": "BillOfMaterials.Accounting",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-27T12:47:54.0784003",
+    "modifiedDateTime": "2026-08-27T12:47:54.0784006"
   },
   "fields": [
     {
@@ -26,7 +28,9 @@
       "metaId": "f12d4d99-ca2c-4f5d-8079-8165694aa4e0",
       "name": "Test",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-27T12:47:54.0596981",
+      "modifiedDateTime": "2026-08-27T12:47:54.0596987"
     }
   ]
 }

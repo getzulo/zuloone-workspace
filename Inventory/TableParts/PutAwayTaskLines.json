@@ -11,9 +11,32 @@
     "metaId": "57100708-0000-4000-8000-000000000000",
     "name": "PutAwayTaskLines",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-27T21:45:40.2617648",
+    "modifiedDateTime": "2026-08-27T21:45:40.2617648"
   },
   "properties": [
+    {
+      "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
+      "fieldName": "BaseQuantity",
+      "caption": "Qty in base unit",
+      "caption_ar": "الكمية بالوحدة الأساسية",
+      "caption_ru": "Количество в базовой единице",
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "isRequired": false,
+      "isVisible": false,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 5,
+      "developerComments": "Заполняется платформой при сохранении: введённое количество, переведённое в базовую единицу товара. Руками не редактируется.",
+      "metaId": "5b864c54-ef86-4dcb-851d-b645382abd8e",
+      "name": "BaseQuantity",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-08-29T03:44:00.3153449",
+      "modifiedDateTime": "2026-08-29T03:44:00.3153449"
+    },
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
       "fieldName": "Item",
@@ -25,12 +48,17 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
+      "referenceName": "Item",
       "displayOrder": 1,
       "metaId": "57100709-0000-4000-8000-000000000000",
       "name": "Item",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T21:45:40.2617823",
+      "modifiedDateTime": "2026-08-29T03:44:00.3270773"
     },
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
@@ -45,10 +73,15 @@
       "isSystem": false,
       "isReference": false,
       "displayOrder": 2,
+      "unitFieldName": "Unit",
+      "baseUnitPath": "Item.UnitOfMeasure",
+      "normalizedFieldName": "BaseQuantity",
       "metaId": "5710070a-0000-4000-8000-000000000000",
       "name": "Quantity",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T21:45:40.2617918",
+      "modifiedDateTime": "2026-08-29T04:28:59.7891874"
     },
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
@@ -61,12 +94,40 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
+      "referenceName": "StoreCell",
       "displayOrder": 3,
       "metaId": "5710070b-0000-4000-8000-000000000000",
       "name": "ToCell",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T21:45:40.261794",
+      "modifiedDateTime": "2026-08-29T03:44:00.3304558"
+    },
+    {
+      "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
+      "fieldName": "Unit",
+      "caption": "Unit",
+      "caption_ar": "الوحدة",
+      "caption_ru": "Единица",
+      "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
+      "referenceName": "UnitOfMeasure",
+      "displayOrder": 4,
+      "metaId": "0b0a75a9-ce9a-4899-be5d-144b2557def6",
+      "name": "Unit",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-08-29T03:44:00.3153427",
+      "modifiedDateTime": "2026-08-29T03:44:00.3153427"
     }
   ]
 }

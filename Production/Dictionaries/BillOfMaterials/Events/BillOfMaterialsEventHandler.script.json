@@ -9,6 +9,8 @@
     "metaId": "e91510e0-1e02-430c-9259-cbffd5da449a",
     "name": "BillOfMaterialsEventHandler",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:50:44.2223634",
+    "modifiedDateTime": "2026-08-25T21:50:44.2223634"
   }
 }

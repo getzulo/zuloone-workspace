@@ -9,6 +9,8 @@
     "metaId": "8b9c0d1e-2f3a-4b4c-9d5e-7f8a9b0c1d2f",
     "name": "SalesReceivableTx",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-27T18:10:04.6492063",
+    "modifiedDateTime": "2026-08-29T04:00:55.321641"
   }
 }

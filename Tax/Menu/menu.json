@@ -10,7 +10,9 @@
       "metaId": "a5a9924f-9bbc-4f70-a7a8-1268263bb060",
       "name": "Tax",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9285031",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Dictionaries",
@@ -21,7 +23,9 @@
       "metaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
       "name": "Dictionaries",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9286583",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Documents",
@@ -33,7 +37,9 @@
       "metaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
       "name": "Documents",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:41:50.9647079",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Registers",
@@ -44,7 +50,9 @@
       "metaId": "c01c5d76-0073-47ef-91eb-eb6f61807188",
       "name": "Registers",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:41:50.9647097",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Settings",
@@ -55,7 +63,9 @@
       "metaId": "0dd22d55-1199-5094-aa04-dfe6d006374a",
       "name": "Settings",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:53.4344154",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Taxes",
@@ -68,7 +78,9 @@
       "metaId": "a49dd126-4488-4ac1-bbb8-48931bd8ce38",
       "name": "Tax",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9287521",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Tax calculations",
@@ -80,7 +92,9 @@
       "metaId": "b4ea2996-953a-4a48-9e4e-4bd589d1f7ac",
       "name": "TaxCalculation",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:41:50.9647113",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Tax ledger",
@@ -93,7 +107,9 @@
       "metaId": "87b1b988-b180-4208-9f3e-b7e9d70dde50",
       "name": "TaxLedger",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:41:50.9647131",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Tax settings",
@@ -105,7 +121,9 @@
       "metaId": "93514e1d-edda-559b-93dd-70f2ada5f0ec",
       "name": "TaxSettings",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:53.4344175",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Authority connections",
@@ -117,7 +135,9 @@
       "metaId": "0b2f0413-6fc5-45a9-b2ba-6ebc6076d865",
       "name": "TaxAuthorityConnection",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-29T04:26:12.2622831",
+      "modifiedDateTime": "2026-08-29T04:26:12.2622831"
     },
     {
       "caption": "Tax codes",
@@ -130,7 +150,9 @@
       "metaId": "584e1cab-48c1-4bfc-b84e-c1d4b40a4d31",
       "name": "TaxCode",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9288155",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Tax rates",
@@ -143,7 +165,9 @@
       "metaId": "9c479f9b-a8d5-48e4-ba08-a32160b874ee",
       "name": "TaxRate",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9288185",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Tax categories",
@@ -156,7 +180,9 @@
       "metaId": "f3a37397-6def-4272-912a-e3db43f9942f",
       "name": "TaxCategory",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9288208",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Taxes catalog",
@@ -168,7 +194,9 @@
       "metaId": "0aa440bb-ff0e-425c-b42a-ffaa58ef8386",
       "name": "TaxType",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9288228",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Tax authorities",
@@ -181,7 +209,9 @@
       "metaId": "f797c69d-6cd6-4865-9dcf-0c8e6a18490c",
       "name": "TaxAuthority",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9288247",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Tax jurisdictions",
@@ -194,7 +224,9 @@
       "metaId": "2f03d39a-ac88-4b52-810a-f56e3685e500",
       "name": "TaxJurisdiction",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9288292",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Tax directions",
@@ -207,7 +239,9 @@
       "metaId": "ffbf260d-ace8-408c-8ea7-451b79ecd5d8",
       "name": "TaxDirection",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9288314",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Tax recoverability",
@@ -220,7 +254,9 @@
       "metaId": "27d9e8ca-8416-4b1a-8fef-1c2efb9e9c88",
       "name": "TaxRecoverability",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:24:32.9288333",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     }
   ]
 }

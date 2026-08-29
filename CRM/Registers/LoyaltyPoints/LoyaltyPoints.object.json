@@ -12,7 +12,9 @@
     "metaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
     "name": "LoyaltyPoints",
     "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:55:49.8926187",
+    "modifiedDateTime": "2026-08-25T21:55:49.8926187"
   },
   "dimensions": [
     {
@@ -28,7 +30,9 @@
       "metaId": "08dc2b3b-6c8e-4f6c-91ac-da84ada11552",
       "name": "Customer",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T20:42:08.8106304",
+      "modifiedDateTime": "2026-08-27T20:42:08.8106304"
     }
   ],
   "resources": [
@@ -42,7 +46,9 @@
       "metaId": "0e3f8b76-2a1c-4d5e-9f6b-7c0d1e8f4a90",
       "name": "Points",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:55:49.8926359",
+      "modifiedDateTime": "2026-08-25T21:55:49.8926359"
     }
   ]
 }

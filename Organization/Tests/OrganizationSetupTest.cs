@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Runtime.Testing;
 

@@ -11,7 +11,9 @@
     "metaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
     "name": "TaxCalculationLines",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T16:26:59.5675923",
+    "modifiedDateTime": "2026-08-25T16:26:59.5675923"
   },
   "properties": [
     {
@@ -30,7 +32,9 @@
       "metaId": "4046c0cf-8dca-4440-916c-0816e778a7f3",
       "name": "Direction",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:26:59.5693052",
+      "modifiedDateTime": "2026-08-25T16:26:59.5693052"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -48,7 +52,9 @@
       "metaId": "ee3039b7-5097-405b-8b1b-16ce3c41091b",
       "name": "RateValue",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:26:59.5693016",
+      "modifiedDateTime": "2026-08-25T16:26:59.5693016"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -66,7 +72,9 @@
       "metaId": "a2b97f91-736d-44de-a939-7f1a7210b576",
       "name": "Recoverability",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:26:59.5693528",
+      "modifiedDateTime": "2026-08-25T16:26:59.5693529"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -83,7 +91,9 @@
       "metaId": "bd54fe1e-f523-48a0-85fe-c58a60e34c8b",
       "name": "RecoverablePct",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:26:59.5693555",
+      "modifiedDateTime": "2026-08-25T16:26:59.5693555"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -101,7 +111,9 @@
       "metaId": "8c4e3478-ba79-49bd-96dd-cf0603042171",
       "name": "TaxAmount",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:26:59.5693035",
+      "modifiedDateTime": "2026-08-25T16:26:59.5693035"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -118,7 +130,9 @@
       "metaId": "9e63fc58-1400-4650-b918-511b484370ba",
       "name": "TaxBase",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:26:59.5692993",
+      "modifiedDateTime": "2026-08-25T16:26:59.5692993"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -136,7 +150,9 @@
       "metaId": "36718f03-d792-456b-84fd-659350d93488",
       "name": "TaxCategory",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:26:59.5692946",
+      "modifiedDateTime": "2026-08-25T16:26:59.5692946"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -154,7 +170,9 @@
       "metaId": "ae960cbf-ad7d-4d2b-a14d-7e3e25dfc046",
       "name": "TaxCode",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:26:59.5691727",
+      "modifiedDateTime": "2026-08-25T16:26:59.5691727"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -171,7 +189,9 @@
       "metaId": "580a0a94-3abe-4617-a82a-f608d0b85d18",
       "name": "TaxRate",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:26:59.5692975",
+      "modifiedDateTime": "2026-08-25T16:26:59.5692975"
     }
   ]
 }

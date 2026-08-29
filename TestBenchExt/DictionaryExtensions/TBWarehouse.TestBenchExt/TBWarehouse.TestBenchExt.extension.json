@@ -6,7 +6,9 @@
     "metaId": "e8e8a959-99d2-42ea-9530-bdf4f5507c4d",
     "name": "TBWarehouse.TestBenchExt",
     "modelId": "390cbabb-1f33-47db-afd7-b78fb78afae9",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-28T11:06:19.0559558",
+    "modifiedDateTime": "2026-08-28T11:06:19.0559559"
   },
   "fields": [
     {
@@ -27,7 +29,9 @@
       "metaId": "dadf9619-48b4-4dfa-9120-df9c97d350a3",
       "name": "ExtNote",
       "modelId": "390cbabb-1f33-47db-afd7-b78fb78afae9",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T11:06:19.0412438",
+      "modifiedDateTime": "2026-08-28T11:06:19.0412439"
     }
   ]
 }

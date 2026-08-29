@@ -10,7 +10,9 @@
       "metaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
       "name": "CRM",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:59:14.67094",
+      "modifiedDateTime": "2026-08-25T21:59:14.67094"
     },
     {
       "caption": "Dictionaries",
@@ -21,7 +23,9 @@
       "metaId": "7ad8347e-39c8-4bf0-93a9-ba497f0e3cd3",
       "name": "Dictionaries",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T20:41:18.898362",
+      "modifiedDateTime": "2026-08-27T20:41:18.898362"
     },
     {
       "caption": "Documents",
@@ -33,7 +37,9 @@
       "metaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
       "name": "Documents",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:59:14.6709543",
+      "modifiedDateTime": "2026-08-25T21:59:14.6709543"
     },
     {
       "caption": "Registers",
@@ -44,7 +50,9 @@
       "metaId": "3f6a1c09-5b4d-4e8f-8a9c-0d3e4f1b7c20",
       "name": "Registers",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:59:14.6709571",
+      "modifiedDateTime": "2026-08-25T21:59:14.6709572"
     },
     {
       "caption": "Settings",
@@ -55,7 +63,9 @@
       "metaId": "337ec1e4-ee3c-5b75-b924-74d5eace80b5",
       "name": "Settings",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:53.3316528",
+      "modifiedDateTime": "2026-08-26T20:56:53.3316528"
     },
     {
       "caption": "CRM settings",
@@ -67,7 +77,9 @@
       "metaId": "ffa2b73e-5731-56c8-908b-c81b77ecdf65",
       "name": "CRMSettings",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:53.3316547",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Loyalty points",
@@ -79,7 +91,9 @@
       "metaId": "6c9d4f32-8e7a-4b0c-9d1e-2f5a6b3c9d40",
       "name": "LoyaltyPoints",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:59:14.6709606",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Loyalty redemption",
@@ -92,7 +106,9 @@
       "metaId": "5b8c3e21-7d6f-4a9b-8c0d-1e4f5a2b8c30",
       "name": "LoyaltyRedemption",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:59:14.6709586",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Loyalty tiers",
@@ -104,7 +120,9 @@
       "metaId": "6dc37caf-ff86-486b-96a0-a7b6b1f2f8b3",
       "name": "LoyaltyTier",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T20:41:18.8983638",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     }
   ]
 }

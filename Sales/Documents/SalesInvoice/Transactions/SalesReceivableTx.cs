@@ -14,7 +14,7 @@ public partial class SalesReceivableTx
         foreach (var line in document.Lines)
         {
             transactions.Add(new RegisterMovementSpec("Receivable")
-                .An("Customer", document.Customer)
+                .An(Analytics.Receivable.Customer, document.Customer)
                 .Res("Amount", pricing.LineAmount(line.Quantity, line.UnitPrice)));
         }
     }

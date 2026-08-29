@@ -11,6 +11,8 @@
     "metaId": "b7bf4172-a42d-4741-a6d4-d8d09aafc5b0",
     "name": "TBStockDocId",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:19.4928517",
+    "modifiedDateTime": "2026-08-28T11:06:19.4928518"
   }
 }

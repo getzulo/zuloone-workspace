@@ -15,7 +15,9 @@
     "metaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
     "name": "TaxCalculation",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T16:27:30.2416687",
+    "modifiedDateTime": "2026-08-25T16:27:30.2416687"
   },
   "headerFields": [
     {
@@ -35,7 +37,9 @@
       "metaId": "1f60e23c-7250-4dc2-95f5-baa35b82910d",
       "name": "Currency",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:30.2423508",
+      "modifiedDateTime": "2026-08-25T16:27:30.2423508"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -54,7 +58,9 @@
       "metaId": "be1084bf-2f7a-4d2b-b5c9-12de713b560c",
       "name": "DeterminationReason",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:30.2424297",
+      "modifiedDateTime": "2026-08-25T16:27:30.2424298"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -74,7 +80,9 @@
       "metaId": "abeb617a-0cbc-4ba9-aa38-ff13a4ad9f78",
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:30.325938",
+      "modifiedDateTime": "2026-08-25T16:27:30.3259382"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -93,7 +101,9 @@
       "metaId": "34c7e279-9523-49da-aa93-942ad23bd9e9",
       "name": "LegalEntity",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:30.2421029",
+      "modifiedDateTime": "2026-08-25T16:27:30.2421029"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -111,7 +121,9 @@
       "metaId": "ebf249af-687a-4bb8-b289-2a7c56179be5",
       "name": "TaxPointDate",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:30.2424279",
+      "modifiedDateTime": "2026-08-25T16:27:30.2424279"
     }
   ],
   "subtypes": [
@@ -127,7 +139,9 @@
       "isReadOnly": true,
       "metaId": "31a249a0-f86c-4062-867b-db3052fb9a9b",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:30.242799",
+      "modifiedDateTime": "2026-08-28T13:34:56.4071187"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -142,7 +156,9 @@
       "isReadOnly": false,
       "metaId": "3c95258c-d9fd-48b0-877c-46feb4fdf275",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:30.2425542",
+      "modifiedDateTime": "2026-08-25T16:27:30.2425542"
     }
   ],
   "tableParts": [
@@ -153,7 +169,9 @@
       "metaId": "49db0812-2766-4557-8d90-0741e8803d9e",
       "name": "Lines",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:30.2429531",
+      "modifiedDateTime": "2026-08-25T16:27:30.2429531"
     }
   ],
   "subtypeTransactionScripts": [
@@ -164,7 +182,9 @@
       "metaId": "f388d1a8-492c-4c51-ba76-896e640ef9c0",
       "name": "",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:47:30.1342083",
+      "modifiedDateTime": "2026-08-25T16:47:30.1342083"
     }
   ],
   "subtypeTransitions": [
@@ -174,7 +194,9 @@
       "metaId": "fa2e5df8-0d52-4017-ac1a-292c51e0a676",
       "name": "Draft->31a249a0f86c4062867bdb3052fb9a9b",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T13:35:29.8124295",
+      "modifiedDateTime": "2026-08-28T13:35:29.8124295"
     }
   ]
 }

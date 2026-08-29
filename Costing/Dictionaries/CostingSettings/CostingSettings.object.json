@@ -18,7 +18,9 @@
     "metaId": "dab95d48-61e1-56c4-b852-6964435dc152",
     "name": "CostingSettings",
     "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-26T20:56:53.2488621",
+    "modifiedDateTime": "2026-08-26T20:56:53.2488621"
   },
   "fields": [
     {
@@ -39,7 +41,9 @@
       "metaId": "6e2b6045-91b3-53e0-8acf-59e00352b7e8",
       "name": "CostingMethod",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:53.2488975",
+      "modifiedDateTime": "2026-08-26T20:56:53.2488975"
     },
     {
       "dictionaryMetaId": "dab95d48-61e1-56c4-b852-6964435dc152",
@@ -59,7 +63,9 @@
       "metaId": "b90811db-64af-4577-ada0-acc87232526c",
       "name": "ID",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:53.3004582",
+      "modifiedDateTime": "2026-08-26T20:56:53.3004582"
     },
     {
       "dictionaryMetaId": "dab95d48-61e1-56c4-b852-6964435dc152",
@@ -78,7 +84,9 @@
       "metaId": "e000c3cf-da4f-5182-91a5-4be183ad1962",
       "name": "RoundCosts",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:53.2489166",
+      "modifiedDateTime": "2026-08-26T20:56:53.2489166"
     }
   ]
 }

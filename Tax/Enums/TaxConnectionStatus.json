@@ -6,7 +6,9 @@
     "metaId": "97ab7203-5df0-4d95-a7b7-5179b6fc5050",
     "name": "TaxConnectionStatus",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-29T04:22:28.3380596",
+    "modifiedDateTime": "2026-08-29T04:22:28.3380596"
   },
   "values": [
     {
@@ -17,7 +19,9 @@
       "metaId": "fd448b66-fa0f-4b8b-b912-74c21e5cccda",
       "name": "Active",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-29T04:22:28.3380972",
+      "modifiedDateTime": "2026-08-29T04:22:28.3380972"
     },
     {
       "enumMetaId": "97ab7203-5df0-4d95-a7b7-5179b6fc5050",
@@ -27,7 +31,9 @@
       "metaId": "1483e0d0-9b81-4a31-8f62-db36f451fe16",
       "name": "NotOnboarded",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-29T04:22:28.3380854",
+      "modifiedDateTime": "2026-08-29T04:22:28.3380854"
     },
     {
       "enumMetaId": "97ab7203-5df0-4d95-a7b7-5179b6fc5050",
@@ -37,7 +43,9 @@
       "metaId": "50e64abb-8a12-4b72-9b90-b125cd4b7a2f",
       "name": "Onboarded",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-29T04:22:28.3380955",
+      "modifiedDateTime": "2026-08-29T04:22:28.3380955"
     }
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Decimal",
+    "precision": 18,
+    "scale": 4,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "362443e4-88c6-47e4-9006-4cacdc2c70a1",
+    "name": "BQ4bf3e4cfFr",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-08-29T14:03:34.121925",
+    "modifiedDateTime": "2026-08-29T14:03:34.121925"
+  }
+}

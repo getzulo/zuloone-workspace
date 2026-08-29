@@ -14,7 +14,9 @@
     "metaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
     "name": "TaxLedger",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T16:27:11.5240894",
+    "modifiedDateTime": "2026-08-25T16:27:11.5240895"
   },
   "resources": [
     {
@@ -27,7 +29,9 @@
       "metaId": "4c9c002d-ead1-4a53-9780-c911c9c3899b",
       "name": "TaxAmount",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:11.5249451",
+      "modifiedDateTime": "2026-08-25T16:27:11.5249451"
     },
     {
       "registerMetaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
@@ -39,7 +43,9 @@
       "metaId": "1c4d0b84-46aa-45ac-9a4f-7f5f78eec5fb",
       "name": "TaxBase",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:11.5245927",
+      "modifiedDateTime": "2026-08-25T16:27:11.5245927"
     }
   ],
   "analytics": [
@@ -51,7 +57,9 @@
       "metaId": "56b9b4bf-f613-425b-acb2-5d67faffe0b8",
       "name": "TaxLedger-Direction",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:11.5256244",
+      "modifiedDateTime": "2026-08-25T16:27:11.5256244"
     },
     {
       "registerMetaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
@@ -61,7 +69,9 @@
       "metaId": "5267f667-453c-4829-890e-f80ababb307e",
       "name": "TaxLedger-LegalEntity",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:11.5256265",
+      "modifiedDateTime": "2026-08-25T16:27:11.5256266"
     },
     {
       "registerMetaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
@@ -71,7 +81,9 @@
       "metaId": "48e4512c-92a7-49cf-9605-267b2580215f",
       "name": "TaxLedger-TaxCode",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:27:11.5251076",
+      "modifiedDateTime": "2026-08-25T16:27:11.5251076"
     }
   ]
 }

@@ -10,7 +10,9 @@
     "metaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
     "name": "SocialInsuranceAccrualLines",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-28T21:20:22.9499028",
+    "modifiedDateTime": "2026-08-28T21:20:22.9499028"
   },
   "properties": [
     {
@@ -28,7 +30,9 @@
       "metaId": "1a3e7b93-a62c-4df4-8987-4920bb5999f8",
       "name": "ContributoryBase",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:20:22.9499536",
+      "modifiedDateTime": "2026-08-28T21:20:22.9499537"
     },
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
@@ -45,7 +49,9 @@
       "metaId": "eff91a84-9128-47a4-a8cb-fe62f1af263d",
       "name": "Employee",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:20:22.949945",
+      "modifiedDateTime": "2026-08-28T21:20:22.949945"
     },
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
@@ -62,7 +68,9 @@
       "metaId": "f46b6b7a-418c-4192-aca2-4105f8ade8e6",
       "name": "EmployeeContribution",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:20:22.9499557",
+      "modifiedDateTime": "2026-08-28T21:20:22.9499557"
     },
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
@@ -79,7 +87,9 @@
       "metaId": "f98fa0a7-0f1e-43ec-8eb7-d2a04fa77d73",
       "name": "EmployerContribution",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:20:22.9499576",
+      "modifiedDateTime": "2026-08-28T21:20:22.9499576"
     }
   ]
 }

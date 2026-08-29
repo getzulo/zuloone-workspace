@@ -18,7 +18,9 @@
     "metaId": "970b6be9-ec41-5651-8ff3-51ab037cd79d",
     "name": "TaxSettings",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-26T20:56:54.100999",
+    "modifiedDateTime": "2026-08-26T20:56:54.100999"
   },
   "fields": [
     {
@@ -39,7 +41,9 @@
       "metaId": "93bb6784-d4d1-5311-86a4-dcaee1428b73",
       "name": "DefaultTaxCode",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:54.1010437",
+      "modifiedDateTime": "2026-08-26T20:56:54.1010437"
     },
     {
       "dictionaryMetaId": "970b6be9-ec41-5651-8ff3-51ab037cd79d",
@@ -59,7 +63,9 @@
       "metaId": "464364cd-a491-4498-8b3c-84c7d12a2522",
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:54.1311114",
+      "modifiedDateTime": "2026-08-26T20:56:54.1311114"
     },
     {
       "dictionaryMetaId": "970b6be9-ec41-5651-8ff3-51ab037cd79d",
@@ -78,7 +84,9 @@
       "metaId": "7242207d-98de-5ecd-8e67-7bb38328c5d5",
       "name": "PricesIncludeTax",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:54.1010304",
+      "modifiedDateTime": "2026-08-26T20:56:54.1010304"
     }
   ]
 }

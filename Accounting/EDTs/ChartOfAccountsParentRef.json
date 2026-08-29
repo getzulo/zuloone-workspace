@@ -11,6 +11,8 @@
     "metaId": "a697056e-c5a7-49c2-97b2-510e163e7672",
     "name": "ChartOfAccountsParentRef",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:27:04.7450466",
+    "modifiedDateTime": "2026-08-25T15:27:04.7450468"
   }
 }

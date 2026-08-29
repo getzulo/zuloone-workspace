@@ -14,7 +14,9 @@
     "metaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
     "name": "GL",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:28:35.948293",
+    "modifiedDateTime": "2026-08-26T21:03:25.676701"
   },
   "resources": [
     {
@@ -28,7 +30,9 @@
       "metaId": "5e0eb5d9-040d-469f-80b1-c63ab03c6032",
       "name": "Credit",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:28:35.9496304",
+      "modifiedDateTime": "2026-08-25T15:28:35.9496304"
     },
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
@@ -41,7 +45,9 @@
       "metaId": "adceee8e-2471-4ca6-8a8b-2fc301245637",
       "name": "Debit",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:28:35.949279",
+      "modifiedDateTime": "2026-08-25T15:28:35.949279"
     }
   ],
   "analytics": [
@@ -53,7 +59,9 @@
       "metaId": "96ade6c5-959b-4dc3-91c7-737b528de3b8",
       "name": "GL-Account",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:28:35.9498389",
+      "modifiedDateTime": "2026-08-25T15:28:35.949839"
     },
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
@@ -63,7 +71,9 @@
       "metaId": "cca02cdb-e9a6-4898-b9f6-21dfc4044de0",
       "name": "GL-FiscalPeriod",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:28:35.950213",
+      "modifiedDateTime": "2026-08-25T15:28:35.9502131"
     },
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
@@ -73,7 +83,9 @@
       "metaId": "330d5e3e-9878-48c1-8fc6-77c49643d07a",
       "name": "GL-LegalEntity",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:28:35.9502101",
+      "modifiedDateTime": "2026-08-25T15:28:35.9502101"
     }
   ]
 }

@@ -9,6 +9,8 @@
     "metaId": "168d3bca-6c0e-4cc0-baaa-114e21c90867",
     "name": "Ядро: синхронизатор схемы создаёт таблицу из метаданных",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.325907",
+    "modifiedDateTime": "2026-08-28T11:06:22.3259071"
   }
 }

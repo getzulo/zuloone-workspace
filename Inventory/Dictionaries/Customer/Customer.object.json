@@ -20,7 +20,9 @@
     "metaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
     "name": "Customer",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T17:30:51.1082779",
+    "modifiedDateTime": "2026-08-25T17:30:51.108278"
   },
   "fields": [
     {
@@ -42,7 +44,9 @@
       "metaId": "b7bf0735-ec78-4d5d-a941-49c0334d9e21",
       "name": "CustomerType",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:51.1083319",
+      "modifiedDateTime": "2026-08-25T17:30:51.1083319"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -63,7 +67,9 @@
       "metaId": "efc32090-49ab-4557-b7af-33cca9fa2843",
       "name": "Email",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:51.1083276",
+      "modifiedDateTime": "2026-08-25T17:30:51.1083277"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -84,7 +90,9 @@
       "metaId": "081a9e22-b149-41fa-8799-98a031c9ffcc",
       "name": "ID",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:51.1436326",
+      "modifiedDateTime": "2026-08-25T17:30:51.1436328"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -105,7 +113,9 @@
       "metaId": "9c9129ef-114b-4016-8438-a999b89a0c4b",
       "name": "Name",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:51.1083083",
+      "modifiedDateTime": "2026-08-25T17:30:51.1083083"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -126,7 +136,9 @@
       "metaId": "ac1d77b0-9ee9-454c-8021-817efcb306cb",
       "name": "Phone",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:51.1083248",
+      "modifiedDateTime": "2026-08-25T17:30:51.1083248"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -147,7 +159,9 @@
       "metaId": "a0d4ee5b-2432-4a45-b676-4fa939aa2967",
       "name": "TaxRegistrationNumber",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:30:51.1083297",
+      "modifiedDateTime": "2026-08-25T17:30:51.1083297"
     }
   ]
 }

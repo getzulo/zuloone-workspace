@@ -9,6 +9,8 @@
     "metaId": "2421974a-d39c-43f1-9d21-49f88605f5c7",
     "name": "LegalEntity",
     "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:10:19.2531815",
+    "modifiedDateTime": "2026-08-25T15:10:19.2531815"
   }
 }

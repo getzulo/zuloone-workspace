@@ -9,6 +9,8 @@
     "metaId": "05aca2bb-d754-4e48-9ad0-7bf89d684f62",
     "name": "Команды: команда списка документов получает выборку",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.3888837",
+    "modifiedDateTime": "2026-08-28T11:06:22.3888838"
   }
 }

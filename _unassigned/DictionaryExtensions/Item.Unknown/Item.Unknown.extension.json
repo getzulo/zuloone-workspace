@@ -6,7 +6,9 @@
     "metaId": "c5773b91-3d52-4f14-8047-b69ec82dcd55",
     "name": "Item.Unknown",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 0
+    "layerId": 0,
+    "createdDateTime": "2026-08-27T21:30:34.0687021",
+    "modifiedDateTime": "2026-08-27T21:30:34.0687021"
   },
   "fields": [
     {
@@ -27,7 +29,9 @@
       "metaId": "080d8f91-6dc1-4e0d-8003-4f080ea36daa",
       "name": "Barcode",
       "modelId": "00000000-0000-0000-0000-000000000000",
-      "layerId": 0
+      "layerId": 0,
+      "createdDateTime": "2026-08-27T21:30:34.0541302",
+      "modifiedDateTime": "2026-08-27T21:30:34.0541302"
     }
   ]
 }

@@ -12,6 +12,8 @@
     "metaId": "30bbd045-98c8-41ce-9421-2297d50170ce",
     "name": "Percent",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:26:03.3163565",
+    "modifiedDateTime": "2026-08-25T15:26:03.3163566"
   }
 }

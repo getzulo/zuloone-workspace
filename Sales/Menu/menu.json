@@ -10,7 +10,9 @@
       "metaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
       "name": "Sales",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:59:12.0512894",
+      "modifiedDateTime": "2026-08-25T17:59:12.0512894"
     },
     {
       "caption": "Documents",
@@ -22,7 +24,9 @@
       "metaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
       "name": "Documents",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:59:12.051299",
+      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
     },
     {
       "caption": "Registers",
@@ -33,7 +37,9 @@
       "metaId": "cad86e08-d829-485c-b79b-984c300fa847",
       "name": "Registers",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:59:12.0513018",
+      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
     },
     {
       "caption": "Settings",
@@ -44,7 +50,9 @@
       "metaId": "019d7614-3204-5496-90af-b58cacca2d58",
       "name": "Settings",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:53.6290751",
+      "modifiedDateTime": "2026-08-29T02:52:56.544203"
     },
     {
       "caption": "Revenue",
@@ -57,7 +65,9 @@
       "metaId": "ded980b5-c8a7-4b55-bdd8-0f339d1a5d05",
       "name": "Revenue",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:59:12.0513052",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Sales settings",
@@ -69,7 +79,9 @@
       "metaId": "f9cf15b4-f135-5be9-82c2-c5c918cfa59d",
       "name": "SalesSettings",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T20:56:53.6290772",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Receivable",
@@ -81,7 +93,9 @@
       "metaId": "3a4b5c6d-7e8f-4a9b-8c0d-2e3f4a5b6c7d",
       "name": "Receivable",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:11:55.8241955",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Sales invoices",
@@ -94,7 +108,9 @@
       "metaId": "c23f527a-3faa-4113-a084-743bfece09b0",
       "name": "SalesInvoice",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:59:12.0513032",
+      "modifiedDateTime": "2026-08-29T03:08:26.0953157"
     },
     {
       "caption": "Customer payment",
@@ -106,7 +122,9 @@
       "metaId": "5a6b7c8d-9e0f-4a1b-8c2d-4e5f6a7b8c9e",
       "name": "CustomerPayment",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:17:47.5864416",
+      "modifiedDateTime": "2026-08-29T03:08:26.0953157"
     }
   ]
 }

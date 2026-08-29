@@ -8,8 +8,8 @@ public partial class SocialInsuranceAccrualTx
             // работодатель одним платежом в фонд, но удержанная у работника часть
             // и часть за счёт компании ложатся в разные строки отчётности.
             transactions.Add(new RegisterMovementSpec("SocialInsurance")
-                .An("Employee", line.Employee)
-                .An("Division", document.Division)
+                .An(Analytics.SocialInsurance.Employee, line.Employee)
+                .An(Analytics.SocialInsurance.Division, document.Division)
                 .Res("EmployeeContribution", line.EmployeeContribution)
                 .Res("EmployerContribution", line.EmployerContribution));
         }

@@ -15,7 +15,9 @@
     "metaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
     "name": "TimeSheet",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-27T18:24:59.1895546",
+    "modifiedDateTime": "2026-08-27T18:24:59.1895546"
   },
   "headerFields": [
     {
@@ -34,7 +36,9 @@
       "metaId": "8b9c0d1e-2f3a-4b4c-8d5e-7f8a9b0c1d2a",
       "name": "Division",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:24:59.190312",
+      "modifiedDateTime": "2026-08-27T18:24:59.190312"
     },
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
@@ -53,7 +57,9 @@
       "metaId": "6374eb29-78ec-408a-af6f-8c8bfdfb3186",
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:24:59.2670775",
+      "modifiedDateTime": "2026-08-27T18:24:59.2670777"
     }
   ],
   "subtypes": [
@@ -69,7 +75,9 @@
       "isReadOnly": false,
       "metaId": "1a2b3c4d-5e6f-4a7b-9c8d-0e1f2a3b4c5a",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:24:59.1909972",
+      "modifiedDateTime": "2026-08-27T18:24:59.1909973"
     },
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
@@ -83,7 +91,9 @@
       "isReadOnly": false,
       "metaId": "2b3c4d5e-6f7a-4b8c-8d9e-1f2a3b4c5d6b",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:24:59.1912005",
+      "modifiedDateTime": "2026-08-27T18:24:59.1912005"
     }
   ],
   "tableParts": [
@@ -94,7 +104,9 @@
       "metaId": "3c4d5e6f-7a8b-4c9d-9e0f-2a3b4c5d6e7c",
       "name": "Lines",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:24:59.1913133",
+      "modifiedDateTime": "2026-08-27T18:24:59.1913133"
     }
   ]
 }

@@ -1,8 +1,9 @@
-#nullable enable
+﻿#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
@@ -50,7 +51,6 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     // so the engine no longer guards this; the check moves here (reads the location's
     // on-hand via IRegisterMovementService.GetBalanceAsync on the physical Item+Location
     // dimensions). Note: check-then-act, not atomic with posting.
-    private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
 
     public override async Task<EventResult> OnBeforePostAsync(SalesInvoice header, EventContext context)
     {
@@ -59,14 +59,21 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
         var lines = full?.Lines ?? header.Lines;
 
+        // Сравнивается с остатком регистра, а он в БАЗОВОЙ единице товара — значит и
+        // спрос считается по BaseQuantity. Ноль = единица не указана, пересчёта не было.
+        // Налоговая база ниже (OnAfterPostAsync) НАРОЧНО остаётся на введённом
+        // Quantity: цена задана за введённую единицу, продано 5 ящиков по цене за ящик.
         var demand = new Dictionary<Guid, decimal>();
         foreach (var line in lines)
-            demand[line.Item] = (demand.TryGetValue(line.Item, out var d) ? d : 0m) + line.Quantity;
+        {
+            var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
+            demand[line.Item] = (demand.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
+        }
 
-        var stock = context.GetService<IRegisterMovementService>();
+        var stock = context.GetService<ITotalsManager>();
         foreach (var kv in demand)
         {
-            var bal = await stock.GetBalanceAsync(StockRegister,
+            var bal = await stock.GetBalanceAsync("Stock",
                 new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = header.Location });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)

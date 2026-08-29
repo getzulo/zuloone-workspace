@@ -13,7 +13,9 @@
     "metaId": "4ae283e4-d6a7-45dc-ae4e-865c97ca2b34",
     "name": "Payable",
     "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:06:50.9528176",
+    "modifiedDateTime": "2026-08-25T21:06:50.9528176"
   },
   "resources": [
     {
@@ -27,7 +29,9 @@
       "metaId": "8d238b8f-7933-4b91-b52a-457be0fb4629",
       "name": "Amount",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:06:50.9528398",
+      "modifiedDateTime": "2026-08-25T21:06:50.9528398"
     }
   ],
   "analytics": [
@@ -39,7 +43,9 @@
       "metaId": "daebea1a-41b1-47ca-ae89-f6e275c8563a",
       "name": "Payable-Supplier",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:06:50.9528498",
+      "modifiedDateTime": "2026-08-25T21:06:50.9528498"
     }
   ]
 }

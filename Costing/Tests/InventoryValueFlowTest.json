@@ -9,6 +9,8 @@
     "metaId": "5a8d2f63-9c4b-4e7f-8a3d-6b9c2e5f8a40",
     "name": "InventoryValueFlowTest",
     "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T22:14:13.6812678",
+    "modifiedDateTime": "2026-08-29T04:04:30.4506191"
   }
 }

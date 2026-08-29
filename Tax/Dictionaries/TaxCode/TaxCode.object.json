@@ -21,7 +21,9 @@
     "metaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
     "name": "TaxCode",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T16:23:53.2075011",
+    "modifiedDateTime": "2026-08-25T16:23:53.2075011"
   },
   "fields": [
     {
@@ -43,7 +45,9 @@
       "metaId": "4cf82e5a-ed8c-4e5a-8ef1-2159b1d58ef4",
       "name": "Code",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:53.2075231",
+      "modifiedDateTime": "2026-08-25T16:23:53.2075231"
     },
     {
       "dictionaryMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
@@ -63,7 +67,9 @@
       "metaId": "bb45d6ee-fba1-4af0-9652-18398ae554d8",
       "name": "EffectiveFrom",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:53.2080245",
+      "modifiedDateTime": "2026-08-25T16:23:53.2080245"
     },
     {
       "dictionaryMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
@@ -83,7 +89,9 @@
       "metaId": "13fc13bb-d794-47ac-977a-8b01b1ffa2ef",
       "name": "EffectiveTo",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:53.2080308",
+      "modifiedDateTime": "2026-08-25T16:23:53.2080308"
     },
     {
       "dictionaryMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
@@ -104,7 +112,9 @@
       "metaId": "f951e927-df6a-492b-aec3-65389bec71de",
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:53.2287839",
+      "modifiedDateTime": "2026-08-25T16:23:53.228784"
     },
     {
       "dictionaryMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
@@ -125,7 +135,9 @@
       "metaId": "5d6ace4b-a348-47c4-9e3f-e0598e4dc7e6",
       "name": "Name",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:53.2075994",
+      "modifiedDateTime": "2026-08-25T16:23:53.2075994"
     },
     {
       "dictionaryMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
@@ -145,7 +157,9 @@
       "metaId": "696bfa5e-09f4-47b6-818c-7039ef3abff3",
       "name": "Tax",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:53.2076022",
+      "modifiedDateTime": "2026-08-25T16:23:53.2076023"
     },
     {
       "dictionaryMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
@@ -165,7 +179,9 @@
       "metaId": "9c8ffca1-7a02-4b5c-818a-ae37574962dd",
       "name": "TaxCategory",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:53.2076053",
+      "modifiedDateTime": "2026-08-25T16:23:53.2076053"
     },
     {
       "dictionaryMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
@@ -185,7 +201,9 @@
       "metaId": "21a867ce-345b-4efc-80bb-6b4f789f752a",
       "name": "TaxRate",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:53.2076073",
+      "modifiedDateTime": "2026-08-25T16:23:53.2076073"
     }
   ]
 }

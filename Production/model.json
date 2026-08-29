@@ -11,7 +11,9 @@
     "metaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
     "name": "Production",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:30:26.6908534",
+    "modifiedDateTime": "2026-08-27T18:37:51.0083975"
   },
   "dependencies": [
     {
@@ -21,7 +23,9 @@
       "metaId": "ab3c5d7e-9f1a-4b2c-8d3e-4f5a6b7c8d90",
       "name": "Production->Common",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T21:13:42.487972",
+      "modifiedDateTime": "2026-08-26T21:13:42.487972"
     },
     {
       "modelMetaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
@@ -30,7 +34,9 @@
       "metaId": "2b8c1f6a-4d7e-4a9b-8c3f-1e5a6d2b7c90",
       "name": "Production->Inventory",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:30:26.6908709",
+      "modifiedDateTime": "2026-08-25T21:30:26.690871"
     },
     {
       "modelMetaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
@@ -39,7 +45,9 @@
       "metaId": "9c1e5a72-3b8f-4d2e-8a5c-0f7b2d9e4a60",
       "name": "Production->Measurement",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T22:53:50.1111622",
+      "modifiedDateTime": "2026-08-25T22:53:50.1111623"
     }
   ]
 }

@@ -21,7 +21,7 @@ public partial class SalesVatTx
         var vat = tax.CalculateTax(baseAmount, rate);
         if (vat > 0m)
             transactions.Add(new RegisterMovementSpec("VatPayable")
-                .An("Customer", document.Customer)
+                .An(Analytics.VatPayable.Customer, document.Customer)
                 .Res("Amount", vat));
     }
 }

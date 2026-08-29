@@ -21,7 +21,9 @@
     "metaId": "b7b051bb-f3bb-4720-b7f6-7b7b8668d391",
     "name": "StoreCellType",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T17:31:08.7954988",
+    "modifiedDateTime": "2026-08-27T21:23:30.0336683"
   },
   "fields": [
     {
@@ -43,7 +45,9 @@
       "metaId": "6c42d94e-8f2d-443d-9b9e-431e9e4c9413",
       "name": "Code",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:31:08.7955361",
+      "modifiedDateTime": "2026-08-25T17:31:08.7955361"
     },
     {
       "dictionaryMetaId": "b7b051bb-f3bb-4720-b7f6-7b7b8668d391",
@@ -64,7 +68,9 @@
       "metaId": "24834c8b-fb5f-4c57-af67-691ea6eb6d25",
       "name": "ID",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:31:08.8120734",
+      "modifiedDateTime": "2026-08-25T17:31:08.8120737"
     },
     {
       "dictionaryMetaId": "b7b051bb-f3bb-4720-b7f6-7b7b8668d391",
@@ -85,7 +91,9 @@
       "metaId": "225ca2db-8952-40f5-b383-04cb1af7de6f",
       "name": "Name",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:31:08.7955576",
+      "modifiedDateTime": "2026-08-25T17:31:08.7955576"
     }
   ]
 }

@@ -9,6 +9,8 @@
     "metaId": "c11d4c0c-08b1-412e-8949-7409a6034ce3",
     "name": "JournalEntryEventHandler",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:31:50.2961824",
+    "modifiedDateTime": "2026-08-25T16:14:28.3231345"
   }
 }

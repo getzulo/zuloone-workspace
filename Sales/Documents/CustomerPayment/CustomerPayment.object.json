@@ -15,7 +15,9 @@
     "metaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
     "name": "CustomerPayment",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-27T18:16:38.0154519",
+    "modifiedDateTime": "2026-08-27T18:16:38.0154519"
   },
   "headerFields": [
     {
@@ -35,7 +37,9 @@
       "metaId": "68c52836-bbd8-468a-bbe8-f1a4b1ca820e",
       "name": "ID",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:16:38.0554432",
+      "modifiedDateTime": "2026-08-27T18:16:38.0554495"
     }
   ],
   "subtypes": [
@@ -51,7 +55,9 @@
       "isReadOnly": false,
       "metaId": "1c2d3e4f-5a6b-4c7d-9e8f-0a1b2c3d4e5f",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:16:38.0157442",
+      "modifiedDateTime": "2026-08-27T18:16:38.0157442"
     },
     {
       "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
@@ -65,7 +71,9 @@
       "isReadOnly": true,
       "metaId": "2d3e4f5a-6b7c-4d8e-8f9a-1b2c3d4e5f6a",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:16:38.0157584",
+      "modifiedDateTime": "2026-08-28T13:34:56.357813"
     }
   ],
   "tableParts": [
@@ -76,7 +84,9 @@
       "metaId": "3e4f5a6b-7c8d-4e9f-9a0b-2c3d4e5f6a7b",
       "name": "Lines",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-27T18:16:38.0157625",
+      "modifiedDateTime": "2026-08-27T18:16:38.0157625"
     }
   ]
 }

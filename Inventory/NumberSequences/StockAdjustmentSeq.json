@@ -9,6 +9,8 @@
     "metaId": "54ab1e3a-d460-492a-b2de-8c67dff56c29",
     "name": "StockAdjustmentSeq",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T17:35:49.1663801",
+    "modifiedDateTime": "2026-08-28T02:07:23.75"
   }
 }

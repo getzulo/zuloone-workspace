@@ -10,9 +10,9 @@ public partial class TaxLedgerTx
         foreach (var line in document.Lines)
         {
             transactions.Add(new RegisterMovementSpec("TaxLedger")
-                .An("TaxCode", line.TaxCode)
-                .An("TaxDirection", line.Direction)
-                .An("LegalEntity", document.LegalEntity)
+                .An(Analytics.TaxLedger.TaxCode, line.TaxCode)
+                .An(Analytics.TaxLedger.TaxDirection, line.Direction)
+                .An(Analytics.TaxLedger.LegalEntity, document.LegalEntity)
                 .Res("TaxBase", line.TaxBase)
                 .Res("TaxAmount", line.TaxAmount));
         }

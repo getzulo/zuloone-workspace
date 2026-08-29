@@ -1,0 +1,17 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "String",
+    "length": 50,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "d692eaea-3d3e-4681-80ba-794e25c1da57",
+    "name": "MS340aa871Mo",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-08-29T14:00:04.4022827",
+    "modifiedDateTime": "2026-08-29T14:00:04.4022828"
+  }
+}

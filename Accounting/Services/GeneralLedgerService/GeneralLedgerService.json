@@ -7,6 +7,8 @@
     "metaId": "a6b7c8d9-e0f1-4a2b-9c3d-4e5f6a7b8c90",
     "name": "GeneralLedgerService",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-27T12:38:42.7922429",
+    "modifiedDateTime": "2026-08-27T12:38:42.792243"
   }
 }

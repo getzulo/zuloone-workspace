@@ -9,6 +9,8 @@
     "metaId": "7fb35a80-4de3-4f0f-8d3a-32802c834366",
     "name": "JournalEntrySeq",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:25:58.968117",
+    "modifiedDateTime": "2026-08-25T15:25:58.968117"
   }
 }

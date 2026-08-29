@@ -9,6 +9,8 @@
     "metaId": "c20e9bef-20c5-44f9-9e98-ac340f038aa8",
     "name": "Команды: пользовательская команда выполняется",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.3529414",
+    "modifiedDateTime": "2026-08-28T11:06:22.3529416"
   }
 }

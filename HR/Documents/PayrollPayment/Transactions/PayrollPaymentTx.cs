@@ -8,7 +8,7 @@ public partial class PayrollPaymentTx
             // Регистр PayrollLiability запрещает отрицательный остаток —
             // переплата (выплата больше начисленного) будет отклонена движком.
             transactions.Add(new RegisterMovementSpec("PayrollLiability")
-                .An("Employee", line.Employee)
+                .An(Analytics.PayrollLiability.Employee, line.Employee)
                 .Res("Amount", -line.Amount));
         }
     }

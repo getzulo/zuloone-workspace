@@ -20,7 +20,9 @@
     "metaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
     "name": "BillOfMaterials",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T21:30:48.3941103",
+    "modifiedDateTime": "2026-08-25T21:30:48.3941103"
   },
   "fields": [
     {
@@ -42,7 +44,9 @@
       "metaId": "9b4c7b91-df31-4270-8290-7c9d398dbf6c",
       "name": "ID",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:30:48.4146526",
+      "modifiedDateTime": "2026-08-25T21:30:48.4146526"
     },
     {
       "dictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
@@ -63,7 +67,9 @@
       "metaId": "7a4b6c2f-9e3d-4f5a-8b6c-6d0e1f7a2b50",
       "name": "Name",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:30:48.3941409",
+      "modifiedDateTime": "2026-08-25T21:30:48.3941409"
     },
     {
       "dictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
@@ -83,7 +89,9 @@
       "metaId": "9c6d8e4b-1a5f-4b7c-8d8e-8f2a3b9c4d70",
       "name": "OutputQty",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:30:48.3941541",
+      "modifiedDateTime": "2026-08-25T21:30:48.3941541"
     },
     {
       "dictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
@@ -103,7 +111,9 @@
       "metaId": "8b5c7d3a-0f4e-4a6b-9c7d-7e1f2a8b3c60",
       "name": "Product",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T21:30:48.3941512",
+      "modifiedDateTime": "2026-08-25T21:30:48.3941512"
     }
   ]
 }

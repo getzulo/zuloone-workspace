@@ -21,7 +21,9 @@
     "metaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
     "name": "Address",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-22T02:02:11.0719773",
+    "modifiedDateTime": "2026-08-22T03:43:38.660526"
   },
   "fields": [
     {
@@ -43,7 +45,9 @@
       "metaId": "4258eeed-bb94-447e-883f-253508510032",
       "name": "Apartment",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.0720175",
+      "modifiedDateTime": "2026-08-22T03:43:38.67654"
     },
     {
       "dictionaryMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
@@ -64,7 +68,9 @@
       "metaId": "b944743d-7632-4856-ad78-1a3a6efe2a0f",
       "name": "Building",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.0720151",
+      "modifiedDateTime": "2026-08-22T03:43:38.6785928"
     },
     {
       "dictionaryMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
@@ -84,7 +90,9 @@
       "metaId": "9bf8be49-fe46-418a-b6de-b774af23bf20",
       "name": "City",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.0720416",
+      "modifiedDateTime": "2026-08-22T03:43:38.6798392"
     },
     {
       "dictionaryMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
@@ -105,7 +113,9 @@
       "metaId": "4c4b5918-7d09-4df9-92b9-51f570f39515",
       "name": "ID",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.1820014",
+      "modifiedDateTime": "2026-08-22T02:02:11.1820014"
     },
     {
       "dictionaryMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
@@ -126,7 +136,9 @@
       "metaId": "8c514b33-55af-40a3-bb03-b559636ed285",
       "name": "Name",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.0720376",
+      "modifiedDateTime": "2026-08-22T03:43:38.6816356"
     },
     {
       "dictionaryMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
@@ -147,7 +159,9 @@
       "metaId": "dbdf29d8-eead-44b9-8d5e-e2a9daa766f7",
       "name": "PostalCode",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.0720342",
+      "modifiedDateTime": "2026-08-22T03:43:38.6826737"
     },
     {
       "dictionaryMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
@@ -168,7 +182,9 @@
       "metaId": "8718e5fd-b75d-4389-b278-839f366bd8fc",
       "name": "Street",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.0720049",
+      "modifiedDateTime": "2026-08-22T03:43:38.6836177"
     }
   ]
 }

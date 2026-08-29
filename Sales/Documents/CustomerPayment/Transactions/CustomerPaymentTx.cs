@@ -12,7 +12,7 @@ public partial class CustomerPaymentTx
         foreach (var line in document.Lines)
         {
             transactions.Add(new RegisterMovementSpec("Receivable")
-                .An("Customer", line.Customer)
+                .An(Analytics.Receivable.Customer, line.Customer)
                 .Res("Amount", -line.Amount));
         }
     }

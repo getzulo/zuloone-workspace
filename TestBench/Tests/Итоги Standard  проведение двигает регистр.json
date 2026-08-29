@@ -9,6 +9,8 @@
     "metaId": "d98628dc-0b0d-45b2-983f-137476cdd3a9",
     "name": "Итоги: Standard — проведение двигает регистр",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:22.2207731",
+    "modifiedDateTime": "2026-08-28T11:06:22.2207735"
   }
 }

@@ -8,6 +8,8 @@
     "metaId": "5e08d0b1-5a2c-4d89-9bfa-4e71197951e1",
     "name": "TBChainQtyTx",
     "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T20:36:26.6891325",
+    "modifiedDateTime": "2026-08-28T20:36:26.6891326"
   }
 }

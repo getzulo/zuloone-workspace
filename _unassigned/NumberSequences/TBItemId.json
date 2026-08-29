@@ -11,6 +11,8 @@
     "metaId": "392eeb7e-c7c6-48ac-9885-57e9abf879ea",
     "name": "TBItemId",
     "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T20:36:36.9451504",
+    "modifiedDateTime": "2026-08-28T20:36:36.9451505"
   }
 }

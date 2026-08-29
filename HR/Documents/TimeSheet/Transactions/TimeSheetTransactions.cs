@@ -19,7 +19,7 @@ public partial class TimeSheetTransactionsScript
         // transactions.Add(new RegisterMovementSpec("SomeRegister")
         //     .Dim("Warehouse", document.Warehouse)   // физическое измерение
         //     .Dim("Товар", line.Item)                // привязанная аналитика — можно так
-        //     .An("ТипЦены", "розница")               // …или явно через .An
+        //     .An(Analytics.SomeRegister.ТипЦены, "розница")               // …или явно через .An
         //     .Res("Amount", line.Amount ?? 0m));
         //
         // У typed-строки (new SomeRegister { ... }) свойств-аналитик НЕТ — в
@@ -28,6 +28,6 @@ public partial class TimeSheetTransactionsScript
         // спеку через RegisterMovementSpec.From(...) и допишите .An(...):
         // transactions.Add(RegisterMovementSpec
         //     .From(new SomeRegister { Warehouse = document.Warehouse, Quantity = -(line.Quantity ?? 0m) })
-        //     .An("Товар", line.Item));
+        //     .An(Analytics.SomeRegister.Товар, line.Item));
     }
 }

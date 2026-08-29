@@ -12,7 +12,9 @@
     "metaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6",
     "name": "SocialInsurance",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-28T21:20:22.5639176",
+    "modifiedDateTime": "2026-08-28T21:20:22.5639176"
   },
   "resources": [
     {
@@ -26,7 +28,9 @@
       "metaId": "67659ede-da12-461c-97e8-6fd3da76815d",
       "name": "EmployeeContribution",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:20:22.5639334",
+      "modifiedDateTime": "2026-08-28T21:20:22.5639334"
     },
     {
       "registerMetaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6",
@@ -39,7 +43,9 @@
       "metaId": "158a6bf2-7ec7-4d6a-8133-85ce2d10d72e",
       "name": "EmployerContribution",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:20:22.5639409",
+      "modifiedDateTime": "2026-08-28T21:20:22.5639409"
     }
   ],
   "analytics": [
@@ -51,7 +57,9 @@
       "metaId": "2e32bca4-fa4f-4505-b8ea-37d98fbf6a74",
       "name": "SocialInsurance-Division",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:20:22.56395",
+      "modifiedDateTime": "2026-08-28T21:20:22.5639501"
     },
     {
       "registerMetaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6",
@@ -61,7 +69,9 @@
       "metaId": "722e1e63-642a-46c4-9ecf-41b274df117f",
       "name": "SocialInsurance-Employee",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:20:22.5639453",
+      "modifiedDateTime": "2026-08-28T21:20:22.5639453"
     }
   ]
 }

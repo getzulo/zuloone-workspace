@@ -18,7 +18,9 @@
     "metaId": "83321261-0387-519e-822b-5128b78e690e",
     "name": "CommonSettings",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-26T20:56:52.6195814",
+    "modifiedDateTime": "2026-08-27T21:12:27.9164172"
   },
   "fields": [
     {
@@ -38,7 +40,9 @@
       "metaId": "18bde3d4-8fcf-5c39-9e31-119015ee27da",
       "name": "DefaultCountryCode",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:52.6196026",
+      "modifiedDateTime": "2026-08-27T21:12:15.9002325"
     },
     {
       "dictionaryMetaId": "83321261-0387-519e-822b-5128b78e690e",
@@ -58,7 +62,9 @@
       "metaId": "541ef73b-edef-58e0-a2d9-ed1612146643",
       "name": "DefaultCurrencyCode",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:52.6196153",
+      "modifiedDateTime": "2026-08-27T21:12:27.9177165"
     },
     {
       "dictionaryMetaId": "83321261-0387-519e-822b-5128b78e690e",
@@ -78,7 +84,9 @@
       "metaId": "5077de21-4e95-4752-a4d3-8e57de6b8375",
       "name": "ID",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-26T20:56:52.6551751",
+      "modifiedDateTime": "2026-08-26T20:56:52.6551751"
     }
   ]
 }

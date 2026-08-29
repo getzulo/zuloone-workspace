@@ -11,7 +11,9 @@
     "metaId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "name": "Inventory",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T17:21:21.352483",
+    "modifiedDateTime": "2026-08-28T14:13:39.3677259"
   },
   "dependencies": [
     {
@@ -21,7 +23,9 @@
       "metaId": "af2165ca-ff16-46f7-b3a9-ee8c491c07b8",
       "name": "Inventory->Accounting",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:21:21.3533477",
+      "modifiedDateTime": "2026-08-25T17:21:21.3533478"
     },
     {
       "modelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
@@ -30,7 +34,9 @@
       "metaId": "4e793e52-bcdb-4327-bc69-50a9ff105aa7",
       "name": "Inventory->Common",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:21:21.3533455",
+      "modifiedDateTime": "2026-08-25T17:21:21.3533455"
     },
     {
       "modelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
@@ -39,7 +45,9 @@
       "metaId": "a1b2c3d4-e5f6-4a7b-8c9d-1a2b3c4d5e6f",
       "name": "Inventory->Measurement",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-26T01:19:59.9408578",
+      "modifiedDateTime": "2026-08-26T01:19:59.9408579"
     },
     {
       "modelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
@@ -48,7 +56,9 @@
       "metaId": "c82e1b83-9ed6-4c94-b832-39d8e49ae41f",
       "name": "Inventory->Organization",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:21:21.3531419",
+      "modifiedDateTime": "2026-08-25T17:21:21.3531419"
     }
   ]
 }

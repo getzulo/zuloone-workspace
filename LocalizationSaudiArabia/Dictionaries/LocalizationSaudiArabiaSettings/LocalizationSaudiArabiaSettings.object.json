@@ -18,7 +18,9 @@
     "metaId": "e2d38cb7-3c6b-54f9-97fa-4069ead80ea6",
     "name": "LocalizationSaudiArabiaSettings",
     "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
-    "layerId": 3
+    "layerId": 3,
+    "createdDateTime": "2026-08-26T20:56:53.1224743",
+    "modifiedDateTime": "2026-08-26T20:56:53.1224743"
   },
   "fields": [
     {
@@ -38,7 +40,9 @@
       "metaId": "b1ad7ee4-6bd8-56fd-bc71-d6ae81a6b289",
       "name": "EInvoiceEnabled",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
-      "layerId": 3
+      "layerId": 3,
+      "createdDateTime": "2026-08-26T20:56:53.1225438",
+      "modifiedDateTime": "2026-08-26T20:56:53.1225439"
     },
     {
       "dictionaryMetaId": "e2d38cb7-3c6b-54f9-97fa-4069ead80ea6",
@@ -58,7 +62,9 @@
       "metaId": "3ef605a4-f987-4081-b069-e6f186ed9793",
       "name": "ID",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
-      "layerId": 3
+      "layerId": 3,
+      "createdDateTime": "2026-08-26T20:56:53.1819265",
+      "modifiedDateTime": "2026-08-26T20:56:53.1819265"
     },
     {
       "dictionaryMetaId": "e2d38cb7-3c6b-54f9-97fa-4069ead80ea6",
@@ -78,7 +84,9 @@
       "metaId": "bd263f5c-1cc4-5259-847a-deb66cca5bf6",
       "name": "VatRegistrationNumber",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
-      "layerId": 3
+      "layerId": 3,
+      "createdDateTime": "2026-08-26T20:56:53.1225213",
+      "modifiedDateTime": "2026-08-26T20:56:53.1225214"
     }
   ]
 }

@@ -9,6 +9,8 @@
     "metaId": "44dee42b-3104-4bd6-bfb9-544dd7aa6915",
     "name": "TBWarehouseInfoScript",
     "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T20:36:24.6202568",
+    "modifiedDateTime": "2026-08-28T20:36:24.6202568"
   }
 }

@@ -10,6 +10,8 @@
     "metaId": "e5963100-d15f-4650-924b-0c35e26a233d",
     "name": "RefFiscalPeriod",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:26:12.4425821",
+    "modifiedDateTime": "2026-08-25T15:26:12.4425822"
   }
 }

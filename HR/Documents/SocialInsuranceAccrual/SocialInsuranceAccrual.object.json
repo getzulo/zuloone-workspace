@@ -14,7 +14,9 @@
     "metaId": "a0d03063-af77-4fd0-886b-223a9731f105",
     "name": "SocialInsuranceAccrual",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-28T21:23:56.4457648",
+    "modifiedDateTime": "2026-08-28T21:23:56.4457648"
   },
   "headerFields": [
     {
@@ -33,7 +35,9 @@
       "metaId": "c1613860-2772-49ba-bc22-9308f78099e7",
       "name": "Division",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:23:56.445783",
+      "modifiedDateTime": "2026-08-28T21:23:56.4457831"
     },
     {
       "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
@@ -51,7 +55,9 @@
       "metaId": "f165565b-37e4-4a8f-af8e-1e3940829025",
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:23:56.4726557",
+      "modifiedDateTime": "2026-08-28T21:23:56.4726557"
     }
   ],
   "subtypes": [
@@ -67,7 +73,9 @@
       "isReadOnly": false,
       "metaId": "476f82fa-43f5-42d0-9cdf-89afed3ebe4f",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:23:56.4457924",
+      "modifiedDateTime": "2026-08-28T21:23:56.4457924"
     },
     {
       "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
@@ -81,7 +89,9 @@
       "isReadOnly": true,
       "metaId": "e789d2a1-f54c-4ca0-a75d-eb9b96546e94",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:23:56.4457986",
+      "modifiedDateTime": "2026-08-28T21:23:56.4457987"
     }
   ],
   "tableParts": [
@@ -92,7 +102,9 @@
       "metaId": "620ce126-09e7-40de-82cd-3e0039efe4b1",
       "name": "Lines",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-28T21:23:56.4458024",
+      "modifiedDateTime": "2026-08-28T21:23:56.4458024"
     }
   ]
 }

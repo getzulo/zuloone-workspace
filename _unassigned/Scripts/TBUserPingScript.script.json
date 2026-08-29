@@ -9,6 +9,8 @@
     "metaId": "1ea61094-7c5b-474f-84c5-caaa3aeceb72",
     "name": "TBUserPingScript",
     "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T20:36:25.5311744",
+    "modifiedDateTime": "2026-08-28T20:36:25.5311744"
   }
 }

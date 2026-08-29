@@ -9,6 +9,8 @@
     "metaId": "bf5d2685-1d79-4288-bb6a-4c7e52c8314e",
     "name": "ChartOfAccountsEventHandler",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T15:27:40.641396",
+    "modifiedDateTime": "2026-08-27T20:27:59.0668341"
   }
 }

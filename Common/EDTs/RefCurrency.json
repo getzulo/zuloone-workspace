@@ -10,6 +10,8 @@
     "metaId": "8d2b209b-68a9-41ed-bf05-f069a12dbe2c",
     "name": "RefCurrency",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-22T02:01:49.9860124",
+    "modifiedDateTime": "2026-08-22T02:01:49.9860124"
   }
 }

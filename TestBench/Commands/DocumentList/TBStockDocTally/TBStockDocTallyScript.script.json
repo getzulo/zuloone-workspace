@@ -9,6 +9,8 @@
     "metaId": "f22de76e-4dbe-44b5-9d41-e44959a89fe1",
     "name": "TBStockDocTallyScript",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T11:06:19.8945008",
+    "modifiedDateTime": "2026-08-28T11:06:19.894501"
   }
 }

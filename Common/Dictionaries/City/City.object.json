@@ -21,7 +21,9 @@
     "metaId": "690564b8-f618-4f1d-9954-8d8d7b10452f",
     "name": "City",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-22T02:02:11.0720513",
+    "modifiedDateTime": "2026-08-22T03:43:38.9592653"
   },
   "fields": [
     {
@@ -42,7 +44,9 @@
       "metaId": "9df4bf42-0ea6-4435-9026-21a335c37d80",
       "name": "Country",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.0720641",
+      "modifiedDateTime": "2026-08-22T03:43:38.9603086"
     },
     {
       "dictionaryMetaId": "690564b8-f618-4f1d-9954-8d8d7b10452f",
@@ -63,7 +67,9 @@
       "metaId": "8cf29397-dea1-4214-9b6c-7180388b99ca",
       "name": "ID",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.1892164",
+      "modifiedDateTime": "2026-08-22T02:02:11.1892164"
     },
     {
       "dictionaryMetaId": "690564b8-f618-4f1d-9954-8d8d7b10452f",
@@ -84,7 +90,9 @@
       "metaId": "1e9ba826-dfee-40b2-9933-fabcef1f0492",
       "name": "Name",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.0720559",
+      "modifiedDateTime": "2026-08-22T03:43:38.9617722"
     },
     {
       "dictionaryMetaId": "690564b8-f618-4f1d-9954-8d8d7b10452f",
@@ -104,7 +112,9 @@
       "metaId": "e3c3afaa-8e84-4070-915e-602852e6f264",
       "name": "Region",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:02:11.0720599",
+      "modifiedDateTime": "2026-08-22T03:43:38.96244"
     }
   ]
 }

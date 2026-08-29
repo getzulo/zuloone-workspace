@@ -10,7 +10,9 @@
     "metaId": "0ccef7f9-6c81-4c02-9eff-3ba4577a4e76",
     "name": "TBParamEchoScript",
     "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T20:36:24.2486836",
+    "modifiedDateTime": "2026-08-28T20:36:24.2486836"
   },
   "parameters": [
     {
@@ -23,7 +25,9 @@
       "metaId": "33dca455-8264-4cce-b106-8133cccdf1a8",
       "name": "Note",
       "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T20:36:24.2486982",
+      "modifiedDateTime": "2026-08-28T20:36:24.2486982"
     },
     {
       "scriptMetaId": "0ccef7f9-6c81-4c02-9eff-3ba4577a4e76",
@@ -36,7 +40,9 @@
       "metaId": "2fb48c04-1bc3-4123-b912-ec3bec5aab41",
       "name": "Rate",
       "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T20:36:24.2487053",
+      "modifiedDateTime": "2026-08-28T20:36:24.2487053"
     },
     {
       "scriptMetaId": "0ccef7f9-6c81-4c02-9eff-3ba4577a4e76",
@@ -49,7 +55,9 @@
       "metaId": "a1f0fa53-09ba-43e5-92d4-5b08f2c369fb",
       "name": "Tag",
       "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T20:36:24.2487073",
+      "modifiedDateTime": "2026-08-28T20:36:24.2487073"
     }
   ]
 }

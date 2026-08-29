@@ -14,7 +14,9 @@
     "metaId": "103cdb23-2d49-4c42-9bf3-3c5a8ce46cdc",
     "name": "Revenue",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T17:57:18.5893575",
+    "modifiedDateTime": "2026-08-25T17:57:18.5893578"
   },
   "resources": [
     {
@@ -28,7 +30,9 @@
       "metaId": "4d7c4455-4ce1-4c5d-b581-d02d1a4d8a07",
       "name": "Amount",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:57:18.5893954",
+      "modifiedDateTime": "2026-08-25T17:57:18.5893954"
     }
   ],
   "analytics": [
@@ -40,7 +44,9 @@
       "metaId": "d0f6c80a-44cf-4998-a4c9-1a3310f0b9ed",
       "name": "Revenue-Customer",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:57:18.5894223",
+      "modifiedDateTime": "2026-08-25T17:57:18.5894223"
     },
     {
       "registerMetaId": "103cdb23-2d49-4c42-9bf3-3c5a8ce46cdc",
@@ -50,7 +56,9 @@
       "metaId": "102cd75a-2d85-4707-a54c-4e181d0c93d0",
       "name": "Revenue-Item",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T17:57:18.5894138",
+      "modifiedDateTime": "2026-08-25T17:57:18.5894139"
     }
   ]
 }

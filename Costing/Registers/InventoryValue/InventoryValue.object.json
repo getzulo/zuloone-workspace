@@ -13,7 +13,9 @@
     "metaId": "7e0b4d85-1a6f-4c9d-8e5b-8f1a4c7d0e60",
     "name": "InventoryValue",
     "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-08-25T22:13:26.4683147",
+    "modifiedDateTime": "2026-08-25T22:13:26.4683147"
   },
   "resources": [
     {
@@ -27,7 +29,9 @@
       "metaId": "9a2d6f07-3c8b-4e1f-8a7d-0b3c6e9f2a80",
       "name": "Qty",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T22:13:26.4683389",
+      "modifiedDateTime": "2026-08-25T22:13:26.4683389"
     },
     {
       "registerMetaId": "7e0b4d85-1a6f-4c9d-8e5b-8f1a4c7d0e60",
@@ -40,7 +44,9 @@
       "metaId": "8f1c5e96-2b7a-4d0e-9f6c-9a2b5d8e1f70",
       "name": "Value",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T22:13:26.4683311",
+      "modifiedDateTime": "2026-08-25T22:13:26.4683311"
     }
   ],
   "analytics": [
@@ -52,7 +58,9 @@
       "metaId": "0b3e7a18-4d9c-4f2a-9b8e-1c4d7f0a3b90",
       "name": "InventoryValue-Item",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2
+      "layerId": 2,
+      "createdDateTime": "2026-08-25T22:13:26.4683432",
+      "modifiedDateTime": "2026-08-25T22:13:26.4683432"
     }
   ]
 }

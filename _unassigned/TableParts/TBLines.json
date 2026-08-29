@@ -9,7 +9,9 @@
     "metaId": "ae4b738d-ae6d-42e0-9290-7aba025d9f02",
     "name": "TBLines",
     "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-28T20:36:33.3285431",
+    "modifiedDateTime": "2026-08-28T20:36:33.3285431"
   },
   "properties": [
     {
@@ -27,7 +29,9 @@
       "metaId": "510c54c9-fbff-48ae-b2a2-ecda1fd519d2",
       "name": "Amount",
       "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T20:36:33.3286081",
+      "modifiedDateTime": "2026-08-28T20:36:33.3286081"
     },
     {
       "tablePartTypeMetaId": "ae4b738d-ae6d-42e0-9290-7aba025d9f02",
@@ -42,7 +46,9 @@
       "metaId": "c82dd095-5c1d-4cac-bdf4-2fc121647e19",
       "name": "Item",
       "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T20:36:33.3286188",
+      "modifiedDateTime": "2026-08-28T20:36:33.3286189"
     },
     {
       "tablePartTypeMetaId": "ae4b738d-ae6d-42e0-9290-7aba025d9f02",
@@ -59,7 +65,9 @@
       "metaId": "3bf9c7e9-0365-428e-a3ec-bd5cbb795574",
       "name": "Quantity",
       "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-28T20:36:33.3286217",
+      "modifiedDateTime": "2026-08-28T20:36:33.3286217"
     }
   ]
 }

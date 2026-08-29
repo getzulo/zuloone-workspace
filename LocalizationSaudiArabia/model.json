@@ -11,7 +11,9 @@
     "metaId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
     "name": "LocalizationSaudiArabia",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 3
+    "layerId": 3,
+    "createdDateTime": "2026-08-25T22:04:49.1419308",
+    "modifiedDateTime": "2026-08-27T18:30:50.9400205"
   },
   "dependencies": [
     {
@@ -21,7 +23,9 @@
       "metaId": "0f4b7c63-1e8d-4a5b-8c9f-3d6e8a4b1c70",
       "name": "LocalizationSaudiArabia->Inventory",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
-      "layerId": 3
+      "layerId": 3,
+      "createdDateTime": "2026-08-25T22:04:49.1419564",
+      "modifiedDateTime": "2026-08-25T22:04:49.1419564"
     },
     {
       "modelMetaId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
@@ -30,7 +34,9 @@
       "metaId": "9e3a6b52-0d7c-4f4a-9b8e-2c5d7f3a0b60",
       "name": "LocalizationSaudiArabia->Sales",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
-      "layerId": 3
+      "layerId": 3,
+      "createdDateTime": "2026-08-25T22:04:49.1419504",
+      "modifiedDateTime": "2026-08-25T22:04:49.1419504"
     },
     {
       "modelMetaId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
@@ -39,7 +45,9 @@
       "metaId": "b4c5d6e7-f8a9-4b0c-8d1e-4f5a6b7c8d90",
       "name": "LocalizationSaudiArabia->Tax",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
-      "layerId": 3
+      "layerId": 3,
+      "createdDateTime": "2026-08-26T01:40:00.7711971",
+      "modifiedDateTime": "2026-08-26T01:40:00.7711971"
     }
   ]
 }

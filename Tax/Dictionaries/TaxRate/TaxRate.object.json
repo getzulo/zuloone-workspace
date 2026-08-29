@@ -21,7 +21,9 @@
     "metaId": "eee8ebb7-d2fd-420f-93ed-7073cc870230",
     "name": "TaxRate",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1
+    "layerId": 1,
+    "createdDateTime": "2026-08-25T16:23:20.5780821",
+    "modifiedDateTime": "2026-08-25T16:23:20.5780821"
   },
   "fields": [
     {
@@ -43,7 +45,9 @@
       "metaId": "ea115f14-a992-4f51-9364-eb279a52a698",
       "name": "Code",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:20.5781141",
+      "modifiedDateTime": "2026-08-25T16:23:20.5781141"
     },
     {
       "dictionaryMetaId": "eee8ebb7-d2fd-420f-93ed-7073cc870230",
@@ -63,7 +67,9 @@
       "metaId": "c87dbc1f-d4a2-41cd-a924-8a841faf7920",
       "name": "EffectiveFrom",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:20.5781229",
+      "modifiedDateTime": "2026-08-25T16:23:20.5781229"
     },
     {
       "dictionaryMetaId": "eee8ebb7-d2fd-420f-93ed-7073cc870230",
@@ -83,7 +89,9 @@
       "metaId": "f64140dc-e0a6-4b48-b2fa-afb4e3fd3a9d",
       "name": "EffectiveTo",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:20.5781246",
+      "modifiedDateTime": "2026-08-25T16:23:20.5781246"
     },
     {
       "dictionaryMetaId": "eee8ebb7-d2fd-420f-93ed-7073cc870230",
@@ -104,7 +112,9 @@
       "metaId": "d9513f62-1024-4f33-b2fc-1ce2916e1419",
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:20.6008143",
+      "modifiedDateTime": "2026-08-25T16:23:20.6008143"
     },
     {
       "dictionaryMetaId": "eee8ebb7-d2fd-420f-93ed-7073cc870230",
@@ -124,7 +134,9 @@
       "metaId": "36e8889b-cfae-4ffa-871d-984c2188b2ad",
       "name": "Rate",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:20.5781208",
+      "modifiedDateTime": "2026-08-25T16:23:20.5781208"
     },
     {
       "dictionaryMetaId": "eee8ebb7-d2fd-420f-93ed-7073cc870230",
@@ -144,7 +156,9 @@
       "metaId": "c45d5c2c-1588-416b-ae05-13c466dac66f",
       "name": "Tax",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T16:23:20.5781056",
+      "modifiedDateTime": "2026-08-25T16:23:20.5781056"
     }
   ]
 }

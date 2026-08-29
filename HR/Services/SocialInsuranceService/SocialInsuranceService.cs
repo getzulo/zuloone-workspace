@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
 // Соцстрах: взносы с фонда оплаты труда. Ставки и потолок базы — НАСТРОЙКИ

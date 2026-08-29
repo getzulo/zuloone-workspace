@@ -1,7 +1,8 @@
-#nullable enable
+﻿#nullable enable
 using System;
 using System.Collections.Generic;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 
 namespace ZuloOne.Runtime.Generated;
 
@@ -46,22 +47,26 @@ public partial class StockAdjustmentEventHandler : TypedDocumentEventHandler<Sto
     // Before posting: reject a write-off that would drive a bin negative (Stock is a
     // double-entry ledger with allowNegativeBalance:true, so the engine no longer
     // guards this). Check on-hand at document.Location for each negative line.
-    private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
 
     public override async Task<EventResult> OnBeforePostAsync(StockAdjustment header, EventContext context)
     {
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<StockAdjustment>(header.MetaId);
         var lines = full?.Lines ?? header.Lines;
 
+        // Сравнивается с остатком регистра, а он в БАЗОВОЙ единице товара — значит и
+        // списание считается по BaseQuantity. Ноль = единица не указана, пересчёта не было.
         var writeOff = new Dictionary<Guid, decimal>();
         foreach (var line in lines)
-            if (line.Quantity < 0m)
-                writeOff[line.Item] = (writeOff.TryGetValue(line.Item, out var d) ? d : 0m) + (-line.Quantity);
+        {
+            var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
+            if (qty < 0m)
+                writeOff[line.Item] = (writeOff.TryGetValue(line.Item, out var d) ? d : 0m) + (-qty);
+        }
 
-        var stock = context.GetService<IRegisterMovementService>();
+        var stock = context.GetService<ITotalsManager>();
         foreach (var kv in writeOff)
         {
-            var bal = await stock.GetBalanceAsync(StockRegister,
+            var bal = await stock.GetBalanceAsync("Stock",
                 new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = header.Cell });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)

@@ -6,13 +6,13 @@ public partial class PayrollAccrualTx
         {
             // Начисленный ФОТ по подразделению и сотруднику (затратный регистр).
             transactions.Add(new RegisterMovementSpec("Payroll")
-                .An("Division", document.Division)
-                .An("Employee", line.Employee)
+                .An(Analytics.Payroll.Division, document.Division)
+                .An(Analytics.Payroll.Employee, line.Employee)
                 .Res("Amount", line.Amount));
 
             // Задолженность перед сотрудником — растёт на сумму начисления.
             transactions.Add(new RegisterMovementSpec("PayrollLiability")
-                .An("Employee", line.Employee)
+                .An(Analytics.PayrollLiability.Employee, line.Employee)
                 .Res("Amount", line.Amount));
         }
     }
