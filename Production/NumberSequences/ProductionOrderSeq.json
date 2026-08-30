@@ -4,13 +4,13 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1002,
+    "nextValue": 1001,
     "resetPolicy": "None",
     "metaId": "5e2f4a9d-7c1b-4d3e-9f6a-4b8c9d5e0f30",
     "name": "ProductionOrderSeq",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
     "layerId": 2,
-    "createdDateTime": "2026-08-25T21:30:33.5950901",
-    "modifiedDateTime": "2026-08-29T04:35:26.86"
+    "createdDateTime": "2026-08-29T02:03:06.781788",
+    "modifiedDateTime": "2026-08-29T02:03:06.781788"
   }
 }

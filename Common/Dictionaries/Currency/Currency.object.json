@@ -22,8 +22,8 @@
     "name": "Currency",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
-    "createdDateTime": "2026-08-22T02:01:50.0177621",
-    "modifiedDateTime": "2026-08-22T03:43:39.1410821"
+    "createdDateTime": "2026-08-29T02:03:06.844035",
+    "modifiedDateTime": "2026-08-29T02:03:06.844035"
   },
   "fields": [
     {
@@ -46,8 +46,8 @@
       "name": "Code",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:50.0177954",
-      "modifiedDateTime": "2026-08-22T03:43:39.1423174"
+      "createdDateTime": "2026-08-29T02:03:06.84404",
+      "modifiedDateTime": "2026-08-29T02:03:06.84404"
     },
     {
       "dictionaryMetaId": "f90a6b92-f04d-4454-8de5-362a8893d34e",
@@ -69,8 +69,8 @@
       "name": "ID",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:50.0288491",
-      "modifiedDateTime": "2026-08-22T02:01:50.0288491"
+      "createdDateTime": "2026-08-29T02:03:06.844044",
+      "modifiedDateTime": "2026-08-29T02:03:06.844044"
     },
     {
       "dictionaryMetaId": "f90a6b92-f04d-4454-8de5-362a8893d34e",
@@ -92,8 +92,8 @@
       "name": "Name",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:50.0177857",
-      "modifiedDateTime": "2026-08-22T03:43:39.1438481"
+      "createdDateTime": "2026-08-29T02:03:06.844048",
+      "modifiedDateTime": "2026-08-29T02:03:06.844048"
     },
     {
       "dictionaryMetaId": "f90a6b92-f04d-4454-8de5-362a8893d34e",
@@ -115,8 +115,8 @@
       "name": "Symbol",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:50.0177978",
-      "modifiedDateTime": "2026-08-22T03:43:39.1444839"
+      "createdDateTime": "2026-08-29T02:03:06.844053",
+      "modifiedDateTime": "2026-08-29T02:03:06.844053"
     }
   ]
 }

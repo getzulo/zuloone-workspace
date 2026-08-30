@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
-using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
 // Единый резолвинг ячеек склада (MIQS). Склад выводится из ячейки через зону

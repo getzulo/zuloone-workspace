@@ -3,26 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
-using ZuloOne.Managers;
 
 // Виртуальный итог считает поверх TR_ без собственных таблиц: движение по
 // TBStock видно через TBCombinedStock со своей группой и переменной Qty.
-//
-// Движение кладётся менеджером (ITotalsManager.PostMovementAsync — движение без
-// документа, ровно тот редкий случай, ради которого метод и существует).
-// Компиляция и счёт DSL остаются на харнессе: у движка виртуальных итогов нет
-// менеджерского фасада, и именно ЕГО поведение здесь и проверяется — виртуальный
-// итог не имеет своих TB_-таблиц, он считается запросом поверх сырых TR_.
 public class VirtualTotalDslTest : IntegrationTestScriptBase
 {
-    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
-
     [IntegrationTest("Virtual totals: DSL computes over TR_")]
     public async Task DslComputesRows()
     {
         var wh = Db.NewId();
         var item = Db.NewId();
-        await TotalsManager.PostMovementAsync("TBStock", null, new DateTime(2026, 3, 1),
+        await Db.PostMovementAsync("TBStock", new DateTime(2026, 3, 1),
             new Dictionary<string, object?> { ["Warehouse"] = wh, ["Item"] = item },
             new Dictionary<string, decimal> { ["Quantity"] = 7m });
 

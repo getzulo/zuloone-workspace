@@ -11,8 +11,8 @@
     "name": "WarehouseTransferLines",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-08-26T17:23:32.8022907",
-    "modifiedDateTime": "2026-08-26T17:23:32.8022907"
+    "createdDateTime": "2026-08-29T02:03:06.983053",
+    "modifiedDateTime": "2026-08-29T02:03:06.983054"
   },
   "properties": [
     {
@@ -25,14 +25,17 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
+      "referenceName": "Item",
       "displayOrder": 1,
       "metaId": "b0c1d2e3-f4a5-4b6c-9d7e-8f9a0b1c2d34",
       "name": "Item",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-26T17:23:32.802305",
-      "modifiedDateTime": "2026-08-26T17:23:32.802305"
+      "createdDateTime": "2026-08-29T02:03:06.983056",
+      "modifiedDateTime": "2026-08-30T14:00:29.522408"
     },
     {
       "tablePartTypeMetaId": "a9b0c1d2-e3f4-4a5b-8c6d-7e8f9a0b1c23",
@@ -50,8 +53,8 @@
       "name": "Quantity",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-26T17:23:32.8023132",
-      "modifiedDateTime": "2026-08-26T17:23:32.8023132"
+      "createdDateTime": "2026-08-29T02:03:06.983058",
+      "modifiedDateTime": "2026-08-29T02:03:06.983058"
     }
   ]
 }

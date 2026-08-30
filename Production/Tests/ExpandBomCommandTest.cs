@@ -3,143 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
-using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
-// The generated entity classes (Item, ProductionOrder, …TablePartRow). A test
-// script does NOT get this namespace as a global using, so it must be named.
-using ZuloOne.Runtime.Generated;
 
 // Покрытие команды «Развернуть спецификацию»: на черновике она наполняет
 // табличную часть Components потребностью из BOM, а на подтипе Finished
 // платформа её не пускает (команда привязана только к Draft).
-//
-// Мастер-данные, заказ и его строки — типизированными сущностями через
-// менеджеры. На Db остаются только выполнение команды и генерация id: менеджера
-// семейства команд в платформе нет, а Db.FindCommandIdAsync/
-// ExecuteDocumentCommandAsync зовут тот же CommandFamilyService.ExecuteAsync, что
-// и /api/commands2/execute — вместе с проверкой IsEnabled и привязкой к подтипу,
-// которую тест и проверяет.
 public class ExpandBomCommandTest : IntegrationTestScriptBase
 {
-    private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
-    private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
-    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
-
-    private async Task<Func<string, Task<Item>>> ItemFactoryAsync()
+    private async Task<Func<string, Task<object>>> ItemFactoryAsync()
     {
-        var uom = DictionaryManager.NewRecord<UnitOfMeasure>();
-        uom.Name = "Piece";
-        uom.Code = "PCS";
-        uom = await DictionaryManager.SaveRecordAsync(uom);
-
-        var group = DictionaryManager.NewRecord<ItemGroup>();
-        group.Code = "MAT";
-        group.Name = "Materials";
-        group = await DictionaryManager.SaveRecordAsync(group);
-
-        var uomId = uom.MetaId;
-        var groupId = group.MetaId;
-        return async name =>
-        {
-            var item = DictionaryManager.NewRecord<Item>();
-            item.Name = name;
-            item.ItemGroup = groupId;
-            item.UnitOfMeasure = uomId;
-            return await DictionaryManager.SaveRecordAsync(item);
-        };
+        var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?> { ["Name"] = "Piece", ["Code"] = "PCS" });
+        var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?> { ["Code"] = "MAT", ["Name"] = "Materials" });
+        return async name => await Db.InsertAsync("Item",
+            new Dictionary<string, object?> { ["Name"] = name, ["ItemGroup"] = group, ["UnitOfMeasure"] = uom });
     }
 
-    private async Task<Guid> NewLocationAsync()
+    private async Task<object> NewLocationAsync()
     {
         // Подразделение обязано принадлежать юрлицу (проверяется событием), а
         // юрлицо — стране и валюте: цепочку приходится сеять целиком.
-        var currency = DictionaryManager.NewRecord<Currency>();
-        currency.Name = "Euro";
-        currency.Code = "EUR";
-        currency.Symbol = "€";
-        currency = await DictionaryManager.SaveRecordAsync(currency);
-
-        var country = DictionaryManager.NewRecord<Country>();
-        country.Name = "Germany";
-        country.CodeISO2 = "DE";
-        country.CodeISO3 = "DEU";
-        country.PhoneCode = "49";
-        country = await DictionaryManager.SaveRecordAsync(country);
-
-        var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
-        legalEntity.Name = "ACME GmbH";
-        legalEntity.RegistrationNumber = "REG-BOM-1";
-        legalEntity.Country = country.MetaId;
-        legalEntity.Currency = currency.MetaId;
-        legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
-
-        var divisionType = DictionaryManager.NewRecord<DivisionType>();
-        divisionType.Code = "PRD";
-        divisionType.Name = "Production";
-        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
-
-        var division = DictionaryManager.NewRecord<Division>();
-        division.Name = "Цех";
-        division.LegalEntity = legalEntity.MetaId;
-        division.DivisionType = divisionType.MetaId;
-        division = await DictionaryManager.SaveRecordAsync(division);
-
+        var currency = await Db.InsertAsync("Currency", new Dictionary<string, object?> { ["Name"] = "Euro", ["Code"] = "EUR", ["Symbol"] = "€" });
+        var country = await Db.InsertAsync("Country", new Dictionary<string, object?> { ["Name"] = "Germany", ["CodeISO2"] = "DE", ["CodeISO3"] = "DEU", ["PhoneCode"] = "49" });
+        var le = await Db.InsertAsync("LegalEntity", new Dictionary<string, object?>
+            { ["Name"] = "ACME GmbH", ["RegistrationNumber"] = "REG-BOM-1", ["Country"] = country, ["Currency"] = currency });
+        var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?> { ["Code"] = "PRD", ["Name"] = "Production" });
+        var div = await Db.InsertAsync("Division", new Dictionary<string, object?> { ["Name"] = "Цех", ["LegalEntity"] = le, ["DivisionType"] = dt });
         // Склад переименован: Warehouse → Store, WarehouseLocation → StoreCell
         // (metaId сохранены, поэтому ссылки живы), LocationType → StoreCellType.
-        // Иерархия трёхуровневая: Store → StoreZone → StoreCell, ячейка знает
-        // только свою зону и свои координаты (стеллаж/полка/линия/ячейка).
-        var store = DictionaryManager.NewRecord<Store>();
-        store.Name = "Склад цеха";
-        store.Division = division.MetaId;
-        store.IsSimple = true;
-        store = await DictionaryManager.SaveRecordAsync(store);
-
-        var zone = DictionaryManager.NewRecord<StoreZone>();
-        zone.Name = "Зона цеха";
-        zone.Store = store.MetaId;
-        zone.IsBarcodeTracking = false;
-        zone = await DictionaryManager.SaveRecordAsync(zone);
-
-        var cellType = DictionaryManager.NewRecord<StoreCellType>();
-        cellType.Code = $"PRD-{Db.NewId():N}"[..12];
-        cellType.Name = "Production";
-        cellType = await DictionaryManager.SaveRecordAsync(cellType);
-
-        var cell = DictionaryManager.NewRecord<StoreCell>();
-        cell.StoreZone = zone.MetaId;
-        cell.Type = cellType.MetaId;
-        cell.Name = "P-01";
-        cell.RackNumber = 1;
-        cell.ShelfNumber = 1;
-        cell.LineNumber = 1;
-        cell.CellNumber = 1;
-        cell = await DictionaryManager.SaveRecordAsync(cell);
-        return cell.MetaId;
+        // Структура стала глубже: ячейка обязана лежать в зоне и знать свои
+        // координаты (стеллаж/полка/линия/ячейка).
+        // Иерархия теперь трёхуровневая: Store → StoreZone → StoreCell, ячейка
+        // знает только свою зону; тип ячейки — Type.
+        var store = await Db.InsertAsync("Store", new Dictionary<string, object?>
+            { ["Name"] = "Склад цеха", ["Division"] = div, ["IsSimple"] = true });
+        var zone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?>
+            { ["Name"] = "Зона цеха", ["Store"] = store, ["IsBarcodeTracking"] = false });
+        var ct = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?>
+            { ["Code"] = $"PRD-{Db.NewId():N}"[..12], ["Name"] = "Production" });
+        return await Db.InsertAsync("StoreCell", new Dictionary<string, object?>
+        {
+            ["StoreZone"] = zone, ["Type"] = ct, ["Name"] = "P-01",
+            ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1,
+        });
     }
-
-    private async Task<Guid> NewBomAsync(string name, Guid product, decimal outputQty)
-    {
-        var bom = DictionaryManager.NewRecord<BillOfMaterials>();
-        bom.Name = name;
-        bom.Product = product;
-        bom.OutputQty = outputQty;
-        bom = await DictionaryManager.SaveRecordAsync(bom);
-        return bom.MetaId;
-    }
-
-    private async Task AddComponentAsync(Guid bom, Guid component, decimal qtyPer, Guid unit = default)
-    {
-        var row = DictionaryManager.NewRecord<BomComponent>();
-        row.Bom = bom;
-        row.Component = component;
-        row.QtyPer = qtyPer;
-        row.Unit = unit;
-        await DictionaryManager.SaveRecordAsync(row);
-    }
-
-    /// <summary>Строки заказа, перечитанные из базы: команда и событие пишут их мимо нашего экземпляра.</summary>
-    private async Task<List<ProductionOrderComponentsTablePartRow>> ComponentsAsync(Guid orderId)
-        => (await DocumentManager.GetDocumentAsync<ProductionOrder>(orderId))!.Components;
 
     [IntegrationTest("Команда разворачивает спецификацию в компоненты заказа")]
     public async Task CommandFillsComponents()
@@ -150,34 +56,28 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
         var c2 = await newItem("Булка");
         var loc = await NewLocationAsync();
 
-        var bom = await NewBomAsync("BOM-бутерброд", product.MetaId, 1m);
-        await AddComponentAsync(bom, c1.MetaId, 2m);
-        await AddComponentAsync(bom, c2.MetaId, 1m);
+        var bom = await Db.InsertAsync("BillOfMaterials",
+            new Dictionary<string, object?> { ["Name"] = "BOM-бутерброд", ["Product"] = product, ["OutputQty"] = 1m });
+        await Db.InsertAsync("BomComponent", new Dictionary<string, object?> { ["Bom"] = bom, ["Component"] = c1, ["QtyPer"] = 2m });
+        await Db.InsertAsync("BomComponent", new Dictionary<string, object?> { ["Bom"] = bom, ["Component"] = c2, ["QtyPer"] = 1m });
 
-        // Заказ создаётся БЕЗ строк — их и должна проставить команда. Подтип не
-        // передаём: документ заводится в НАЧАЛЬНОМ подтипе типа (Draft), а
-        // команда привязана именно к нему.
-        var order = await DocumentManager.NewDocumentAsync<ProductionOrder>();
-        order.Product = product.MetaId;
-        order.Quantity = 10m;
-        order.Location = loc;
-        await DocumentManager.SaveDocumentAsync(order);
-
-        // Пустой заказ ДО команды: без этой проверки утверждения ниже проходят и
-        // тогда, когда строки проставила не команда, а что-то ещё.
-        Assert.IsTrue((await ComponentsAsync(order.MetaId)).Count == 0,
-            "до команды заказ должен быть без компонентов");
+        // Заказ создаётся БЕЗ строк — их и должна проставить команда.
+        // Подтип задаётся явно: команда привязана к Draft, а без указания
+        // документ создаётся с пустым подтипом и привязка не совпадает.
+        var order = await Db.CreateDocumentAsync("ProductionOrder",
+            new Dictionary<string, object?> { ["Product"] = product, ["Quantity"] = 10m, ["Location"] = loc },
+            null, subtype: "Draft");
 
         var commandId = await Db.FindCommandIdAsync("document", "ExpandBom");
-        var run = await Db.ExecuteDocumentCommandAsync(commandId, order.MetaId);
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, (Guid)order);
         Assert.IsTrue(run.Success, "команда должна выполниться: {0}", run.Message ?? "");
 
-        var rows = await ComponentsAsync(order.MetaId);
+        var rows = await Db.QueryAsync("TP_ProductionOrderComponents", $"OwnerMetaId = '{order}'");
         Assert.IsTrue(rows.Count == 2, "развёрнуто 2 строки, факт {0}", rows.Count);
 
-        decimal Qty(Item item) => rows
-            .Where(r => r.Component == item.MetaId)
-            .Select(r => r.QtyRequired).FirstOrDefault();
+        decimal Qty(object item) => rows
+            .Where(r => Convert.ToString(r["Component"]) == Convert.ToString(item))
+            .Select(r => Convert.ToDecimal(r["QtyRequired"])).FirstOrDefault();
 
         Assert.IsTrue(Qty(c1) == 20m, "Колбаса: 2 × 10 = 20, факт {0}", Qty(c1));
         Assert.IsTrue(Qty(c2) == 10m, "Булка: 1 × 10 = 10, факт {0}", Qty(c2));
@@ -191,27 +91,23 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
         var comp = await newItem("Компонент-Б");
         var loc = await NewLocationAsync();
 
-        var bom = await NewBomAsync("BOM-Б", product.MetaId, 1m);
-        await AddComponentAsync(bom, comp.MetaId, 1m);
+        var bom = await Db.InsertAsync("BillOfMaterials",
+            new Dictionary<string, object?> { ["Name"] = "BOM-Б", ["Product"] = product, ["OutputQty"] = 1m });
+        await Db.InsertAsync("BomComponent", new Dictionary<string, object?> { ["Bom"] = bom, ["Component"] = comp, ["QtyPer"] = 1m });
 
         // Заказ со строкой и остатком — чтобы перевод в Finished прошёл.
-        var order = await DocumentManager.NewDocumentAsync<ProductionOrder>();
-        order.Product = product.MetaId;
-        order.Quantity = 1m;
-        order.Location = loc;
-        order.Components.Add(new ProductionOrderComponentsTablePartRow { Component = comp.MetaId, QtyRequired = 1m });
-        await DocumentManager.SaveDocumentAsync(order);
+        var order = await Db.CreateDocumentAsync("ProductionOrder",
+            new Dictionary<string, object?> { ["Product"] = product, ["Quantity"] = 1m, ["Location"] = loc },
+            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
+            { ["Components"] = new[] { new Dictionary<string, object?> { ["Component"] = comp, ["QtyRequired"] = 1m } } });
 
-        // Движение вне цепочки документа — хозяина у него нет.
-        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
-            new Dictionary<string, object?> { ["Cell"] = loc, ["Item"] = comp.MetaId },
+        await Db.PostMovementAsync("Stock", DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Cell"] = loc, ["Item"] = comp },
             new Dictionary<string, decimal> { ["Qty"] = 5m });
-
-        order.Subtype = ProductionOrder.Subtypes.Finished;
-        await DocumentManager.SaveDocumentAsync(order);
+        await Db.ChangeSubtypeAsync("ProductionOrder", order, "Finished");
 
         var commandId = await Db.FindCommandIdAsync("document", "ExpandBom");
-        var rejected = await Db.ExecuteDocumentCommandAsync(commandId, order.MetaId);
+        var rejected = await Db.ExecuteDocumentCommandAsync(commandId, (Guid)order);
         Assert.IsFalse(rejected.Success, "на подтипе Finished команда обязана быть отклонена привязкой");
     }
 
@@ -223,69 +119,42 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
         // заказ в 10 штук — 0.020 кг. Две ошибки, которые тест обязан ловить:
         // умножить на заказ вместо деления на выход (было бы 200) и посчитать
         // граммы килограммами (было бы 20).
-        var kg = DictionaryManager.NewRecord<UnitOfMeasure>();
-        kg.Name = "Kilogram";
-        kg.Code = "KG";
-        kg.DecimalPlaces = 3;
-        kg = await DictionaryManager.SaveRecordAsync(kg);
+        var kg = await Db.InsertAsync("UnitOfMeasure",
+            new Dictionary<string, object?> { ["Name"] = "Kilogram", ["Code"] = "KG", ["DecimalPlaces"] = 3 });
+        var g = await Db.InsertAsync("UnitOfMeasure",
+            new Dictionary<string, object?> { ["Name"] = "Gram", ["Code"] = "G", ["DecimalPlaces"] = 0 });
+        var pcs = await Db.InsertAsync("UnitOfMeasure",
+            new Dictionary<string, object?> { ["Name"] = "Piece", ["Code"] = "PCS", ["DecimalPlaces"] = 0 });
+        await Db.InsertAsync("UnitConversion",
+            new Dictionary<string, object?> { ["FromUnit"] = kg, ["ToUnit"] = g, ["Factor"] = 1000m });
 
-        var g = DictionaryManager.NewRecord<UnitOfMeasure>();
-        g.Name = "Gram";
-        g.Code = "G";
-        g.DecimalPlaces = 0;
-        g = await DictionaryManager.SaveRecordAsync(g);
+        var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?> { ["Code"] = "MAT", ["Name"] = "Materials" });
+        var product = await Db.InsertAsync("Item",
+            new Dictionary<string, object?> { ["Name"] = "Бутерброд", ["ItemGroup"] = group, ["UnitOfMeasure"] = pcs });
+        var sausage = await Db.InsertAsync("Item",
+            new Dictionary<string, object?> { ["Name"] = "Колбаса", ["ItemGroup"] = group, ["UnitOfMeasure"] = kg });
+        var bun = await Db.InsertAsync("Item",
+            new Dictionary<string, object?> { ["Name"] = "Булка", ["ItemGroup"] = group, ["UnitOfMeasure"] = pcs });
 
-        var pcs = DictionaryManager.NewRecord<UnitOfMeasure>();
-        pcs.Name = "Piece";
-        pcs.Code = "PCS";
-        pcs.DecimalPlaces = 0;
-        pcs = await DictionaryManager.SaveRecordAsync(pcs);
-
-        var conversion = DictionaryManager.NewRecord<UnitConversion>();
-        conversion.FromUnit = kg.MetaId;
-        conversion.ToUnit = g.MetaId;
-        conversion.Factor = 1000m;
-        await DictionaryManager.SaveRecordAsync(conversion);
-
-        var group = DictionaryManager.NewRecord<ItemGroup>();
-        group.Code = "MAT";
-        group.Name = "Materials";
-        group = await DictionaryManager.SaveRecordAsync(group);
-
-        var product = DictionaryManager.NewRecord<Item>();
-        product.Name = "Бутерброд";
-        product.ItemGroup = group.MetaId;
-        product.UnitOfMeasure = pcs.MetaId;
-        product = await DictionaryManager.SaveRecordAsync(product);
-
-        var sausage = DictionaryManager.NewRecord<Item>();
-        sausage.Name = "Колбаса";
-        sausage.ItemGroup = group.MetaId;
-        sausage.UnitOfMeasure = kg.MetaId;
-        sausage = await DictionaryManager.SaveRecordAsync(sausage);
-
-        var bun = DictionaryManager.NewRecord<Item>();
-        bun.Name = "Булка";
-        bun.ItemGroup = group.MetaId;
-        bun.UnitOfMeasure = pcs.MetaId;
-        bun = await DictionaryManager.SaveRecordAsync(bun);
-
-        var bom = await NewBomAsync("BOM-партия", product.MetaId, 10m);
-        await AddComponentAsync(bom, sausage.MetaId, 20m, g.MetaId);
-        await AddComponentAsync(bom, bun.MetaId, 10m, pcs.MetaId);
+        var bom = await Db.InsertAsync("BillOfMaterials",
+            new Dictionary<string, object?> { ["Name"] = "BOM-партия", ["Product"] = product, ["OutputQty"] = 10m });
+        await Db.InsertAsync("BomComponent", new Dictionary<string, object?>
+            { ["Bom"] = bom, ["Component"] = sausage, ["QtyPer"] = 20m, ["Unit"] = g });
+        await Db.InsertAsync("BomComponent", new Dictionary<string, object?>
+            { ["Bom"] = bom, ["Component"] = bun, ["QtyPer"] = 10m, ["Unit"] = pcs });
 
         var bomService = GetService<IBomService>();
-        var need = await bomService.ExpandByProductAsync(product.MetaId, 10m);
+        var need = await bomService.ExpandByProductAsync((Guid)product, 10m);
 
-        Assert.IsTrue(need[sausage.MetaId] == 0.020m,
-            "20 г на партию из 10 при заказе 10 = 0.020 кг, факт {0}", need[sausage.MetaId]);
-        Assert.IsTrue(need[bun.MetaId] == 10m,
-            "булки уже в штуках: 10 на партию из 10 при заказе 10 = 10, факт {0}", need[bun.MetaId]);
+        Assert.IsTrue(need[(Guid)sausage] == 0.020m,
+            "20 г на партию из 10 при заказе 10 = 0.020 кг, факт {0}", need[(Guid)sausage]);
+        Assert.IsTrue(need[(Guid)bun] == 10m,
+            "булки уже в штуках: 10 на партию из 10 при заказе 10 = 10, факт {0}", need[(Guid)bun]);
 
         // Удвоенный заказ — удвоенная потребность: нормировка линейна.
-        var doubled = await bomService.ExpandByProductAsync(product.MetaId, 20m);
-        Assert.IsTrue(doubled[sausage.MetaId] == 0.040m,
-            "на 20 бутербродов нужно 0.040 кг, факт {0}", doubled[sausage.MetaId]);
+        var doubled = await bomService.ExpandByProductAsync((Guid)product, 20m);
+        Assert.IsTrue(doubled[(Guid)sausage] == 0.040m,
+            "на 20 бутербродов нужно 0.040 кг, факт {0}", doubled[(Guid)sausage]);
     }
 
     [IntegrationTest("Настройка AutoExpandBom разворачивает спецификацию сама")]
@@ -296,30 +165,25 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
         var c1 = await newItem("Колбаса");
         var loc = await NewLocationAsync();
 
-        var bom = await NewBomAsync("BOM-авто", product.MetaId, 1m);
-        await AddComponentAsync(bom, c1.MetaId, 3m);
+        var bom = await Db.InsertAsync("BillOfMaterials",
+            new Dictionary<string, object?> { ["Name"] = "BOM-авто", ["Product"] = product, ["OutputQty"] = 1m });
+        await Db.InsertAsync("BomComponent",
+            new Dictionary<string, object?> { ["Bom"] = bom, ["Component"] = c1, ["QtyPer"] = 3m });
 
         // Настройки модуля — одиночный справочник; без записи настройка выключена,
         // поэтому остальные тесты создают заказы без автоподстановки.
-        var settings = DictionaryManager.NewRecord<ProductionSettings>();
-        settings.AutoExpandBom = true;
-        await DictionaryManager.SaveRecordAsync(settings);
+        await Db.InsertAsync("ProductionSettings", new Dictionary<string, object?> { ["AutoExpandBom"] = true });
 
-        // Заказ создаётся ТОЙ ЖЕ типизированной дверью, что и везде: строки
-        // проставит обработчик OnAfterSave, и пустая коллекция в памяти их больше
-        // не затирает — на пути СОЗДАНИЯ табличная часть не переписывается.
-        var order = await DocumentManager.NewDocumentAsync<ProductionOrder>();
-        order.Product = product.MetaId;
-        order.Quantity = 4m;
-        order.Location = loc;
-        await DocumentManager.SaveDocumentAsync(order);
+        var order = await Db.CreateDocumentAsync("ProductionOrder",
+            new Dictionary<string, object?> { ["Product"] = product, ["Quantity"] = 4m, ["Location"] = loc },
+            null, subtype: "Draft");
 
         // Команду НЕ вызываем: строки должно проставить событие создания. Это же и
         // проверка платформенного фикса — чтение второго справочника в after-insert.
-        var rows = await ComponentsAsync(order.MetaId);
+        var rows = await Db.QueryAsync("TP_ProductionOrderComponents", $"OwnerMetaId = '{order}'");
         Assert.IsTrue(rows.Count == 1, "автоподстановка должна дать 1 строку, факт {0}", rows.Count);
-        Assert.IsTrue(rows[0].QtyRequired == 12m,
-            "3 на изделие × 4 = 12, факт {0}", rows[0].QtyRequired);
+        Assert.IsTrue(Convert.ToDecimal(rows[0]["QtyRequired"]) == 12m,
+            "3 на изделие × 4 = 12, факт {0}", rows[0]["QtyRequired"]);
     }
 
     [IntegrationTest("Без записи настроек автоподстановка не срабатывает")]
@@ -330,16 +194,16 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
         var c1 = await newItem("Колбаса");
         var loc = await NewLocationAsync();
 
-        var bom = await NewBomAsync("BOM-ручной", product.MetaId, 1m);
-        await AddComponentAsync(bom, c1.MetaId, 3m);
+        var bom = await Db.InsertAsync("BillOfMaterials",
+            new Dictionary<string, object?> { ["Name"] = "BOM-ручной", ["Product"] = product, ["OutputQty"] = 1m });
+        await Db.InsertAsync("BomComponent",
+            new Dictionary<string, object?> { ["Bom"] = bom, ["Component"] = c1, ["QtyPer"] = 3m });
 
-        var order = await DocumentManager.NewDocumentAsync<ProductionOrder>();
-        order.Product = product.MetaId;
-        order.Quantity = 4m;
-        order.Location = loc;
-        await DocumentManager.SaveDocumentAsync(order);
+        var order = await Db.CreateDocumentAsync("ProductionOrder",
+            new Dictionary<string, object?> { ["Product"] = product, ["Quantity"] = 4m, ["Location"] = loc },
+            null, subtype: "Draft");
 
-        var rows = await ComponentsAsync(order.MetaId);
+        var rows = await Db.QueryAsync("TP_ProductionOrderComponents", $"OwnerMetaId = '{order}'");
         Assert.IsTrue(rows.Count == 0, "без настройки строки не подставляются, факт {0}", rows.Count);
     }
 }

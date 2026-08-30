@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
-using ZuloOne.Managers;
 
 // Команда «Начислить ФОТ» на утверждённом табеле: превращает отработанные часы в
 // документ начисления по ставке должности сотрудника (часы × HourlyRate).

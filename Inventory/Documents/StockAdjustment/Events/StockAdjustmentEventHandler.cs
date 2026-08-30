@@ -1,8 +1,7 @@
-﻿#nullable enable
+#nullable enable
 using System;
 using System.Collections.Generic;
 using ZuloOne.Core.Services;
-using ZuloOne.Managers;
 
 namespace ZuloOne.Runtime.Generated;
 
@@ -47,6 +46,7 @@ public partial class StockAdjustmentEventHandler : TypedDocumentEventHandler<Sto
     // Before posting: reject a write-off that would drive a bin negative (Stock is a
     // double-entry ledger with allowNegativeBalance:true, so the engine no longer
     // guards this). Check on-hand at document.Location for each negative line.
+    private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
 
     public override async Task<EventResult> OnBeforePostAsync(StockAdjustment header, EventContext context)
     {
@@ -63,10 +63,10 @@ public partial class StockAdjustmentEventHandler : TypedDocumentEventHandler<Sto
                 writeOff[line.Item] = (writeOff.TryGetValue(line.Item, out var d) ? d : 0m) + (-qty);
         }
 
-        var stock = context.GetService<ITotalsManager>();
+        var stock = context.GetService<IRegisterMovementService>();
         foreach (var kv in writeOff)
         {
-            var bal = await stock.GetBalanceAsync("Stock",
+            var bal = await stock.GetBalanceAsync(StockRegister,
                 new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = header.Cell });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)

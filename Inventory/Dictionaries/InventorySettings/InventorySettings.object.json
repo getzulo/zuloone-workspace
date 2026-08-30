@@ -19,8 +19,8 @@
     "name": "InventorySettings",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-08-26T20:42:56.2167979",
-    "modifiedDateTime": "2026-08-26T20:42:56.216798"
+    "createdDateTime": "2026-08-29T02:03:06.844553",
+    "modifiedDateTime": "2026-08-29T02:03:06.844553"
   },
   "fields": [
     {
@@ -41,8 +41,50 @@
       "name": "DefaultReceivingLocation",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-26T20:42:56.2173809",
-      "modifiedDateTime": "2026-08-26T20:42:56.217381"
+      "createdDateTime": "2026-08-29T02:03:06.844558",
+      "modifiedDateTime": "2026-08-29T02:03:06.844558"
+    },
+    {
+      "dictionaryMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
+      "fieldName": "DefaultUnit",
+      "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Default unit of measure",
+      "caption_ru": "Единица измерения по умолчанию",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "5f6a7b8c-9d0e-4f1a-8b2c-4d5e6f7a8b89",
+      "name": "DefaultUnit",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-08-29T02:03:06.844562",
+      "modifiedDateTime": "2026-08-29T02:03:06.844562"
+    },
+    {
+      "dictionaryMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
+      "fieldName": "EnforceUnitConversion",
+      "baseType": "Boolean",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Enforce unit conversion",
+      "caption_ru": "Требовать конвертацию единиц",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7b8c9d0e-1f2a-4b3c-8d4e-6f7a8b9c0d01",
+      "name": "EnforceUnitConversion",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-08-29T02:03:06.844567",
+      "modifiedDateTime": "2026-08-29T02:03:06.844567"
     },
     {
       "dictionaryMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
@@ -63,8 +105,8 @@
       "name": "ID",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-26T20:42:56.2545141",
-      "modifiedDateTime": "2026-08-26T20:42:56.2545142"
+      "createdDateTime": "2026-08-29T02:03:06.844571",
+      "modifiedDateTime": "2026-08-29T02:03:06.844571"
     }
   ]
 }

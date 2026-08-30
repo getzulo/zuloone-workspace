@@ -4,13 +4,13 @@
     "padLength": 0,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 1,
+    "nextValue": 2,
     "resetPolicy": "None",
     "metaId": "1f2a3b4c-5d6e-4f7a-8b8c-0d1e2f3a4b45",
     "name": "InventorySettingsSeq",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-08-26T20:42:27.0023283",
-    "modifiedDateTime": "2026-08-26T20:42:27.0023284"
+    "createdDateTime": "2026-08-29T02:03:06.781697",
+    "modifiedDateTime": "2026-08-30T19:46:13.494954"
   }
 }

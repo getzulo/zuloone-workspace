@@ -19,8 +19,8 @@
     "name": "AccountingSettings",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
-    "createdDateTime": "2026-08-26T20:56:52.7355827",
-    "modifiedDateTime": "2026-08-27T12:57:00.6495638"
+    "createdDateTime": "2026-08-29T02:03:06.841559",
+    "modifiedDateTime": "2026-08-29T02:03:06.841559"
   },
   "fields": [
     {
@@ -43,8 +43,8 @@
       "name": "ArAccountCode",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.5257346",
-      "modifiedDateTime": "2026-08-27T12:25:20.5257346"
+      "createdDateTime": "2026-08-29T02:03:06.842529",
+      "modifiedDateTime": "2026-08-29T02:03:06.842529"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -64,8 +64,8 @@
       "name": "AutoPostJournal",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:52.7356082",
-      "modifiedDateTime": "2026-08-26T20:56:52.7356082"
+      "createdDateTime": "2026-08-29T02:03:06.84344",
+      "modifiedDateTime": "2026-08-29T02:03:06.84344"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -86,8 +86,8 @@
       "name": "DefaultCurrencyCode",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:52.7356194",
-      "modifiedDateTime": "2026-08-26T20:56:52.7356194"
+      "createdDateTime": "2026-08-29T02:03:06.843445",
+      "modifiedDateTime": "2026-08-29T02:03:06.843445"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -108,8 +108,8 @@
       "name": "ID",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:52.7735206",
-      "modifiedDateTime": "2026-08-26T20:56:52.7735206"
+      "createdDateTime": "2026-08-29T02:03:06.843449",
+      "modifiedDateTime": "2026-08-29T02:03:06.843449"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -131,8 +131,8 @@
       "name": "InventoryAccountCode",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.5257446",
-      "modifiedDateTime": "2026-08-27T12:25:20.5257446"
+      "createdDateTime": "2026-08-29T02:03:06.843452",
+      "modifiedDateTime": "2026-08-29T02:03:06.843452"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -154,8 +154,8 @@
       "name": "PayableAccountCode",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.525749",
-      "modifiedDateTime": "2026-08-27T12:25:20.5257491"
+      "createdDateTime": "2026-08-29T02:03:06.843455",
+      "modifiedDateTime": "2026-08-29T02:03:06.843455"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -177,8 +177,8 @@
       "name": "PayrollExpenseAccountCode",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.5257511",
-      "modifiedDateTime": "2026-08-27T12:25:20.5257511"
+      "createdDateTime": "2026-08-29T02:03:06.843458",
+      "modifiedDateTime": "2026-08-29T02:03:06.843458"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -200,8 +200,8 @@
       "name": "PayrollLiabilityAccountCode",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.525753",
-      "modifiedDateTime": "2026-08-27T12:25:20.525753"
+      "createdDateTime": "2026-08-29T02:03:06.84346",
+      "modifiedDateTime": "2026-08-29T02:03:06.84346"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -223,8 +223,8 @@
       "name": "RevenueAccountCode",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.5257415",
-      "modifiedDateTime": "2026-08-27T12:25:20.5257415"
+      "createdDateTime": "2026-08-29T02:03:06.843463",
+      "modifiedDateTime": "2026-08-29T02:03:06.843463"
     }
   ]
 }

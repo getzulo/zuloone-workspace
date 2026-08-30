@@ -16,8 +16,8 @@
     "name": "PayrollPayment",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
-    "createdDateTime": "2026-08-25T21:18:57.9561452",
-    "modifiedDateTime": "2026-08-25T21:18:57.9561452"
+    "createdDateTime": "2026-08-29T02:03:07.268107",
+    "modifiedDateTime": "2026-08-29T02:03:07.268107"
   },
   "headerFields": [
     {
@@ -39,8 +39,8 @@
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-25T21:18:57.9769039",
-      "modifiedDateTime": "2026-08-25T21:18:57.9769042"
+      "createdDateTime": "2026-08-29T02:03:07.26811",
+      "modifiedDateTime": "2026-08-29T02:03:07.26811"
     }
   ],
   "subtypes": [
@@ -57,8 +57,8 @@
       "metaId": "aa119dda-7d3e-4c1a-9b2f-5a6e3d1c7b48",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-25T21:18:57.9561721",
-      "modifiedDateTime": "2026-08-28T13:34:56.4961401"
+      "createdDateTime": "2026-08-29T02:03:07.268113",
+      "modifiedDateTime": "2026-08-29T02:03:07.268113"
     },
     {
       "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
@@ -69,13 +69,13 @@
       "subtypeCaption": "Draft",
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
-      "isInitial": true,
+      "isInitial": false,
       "isReadOnly": false,
       "metaId": "dbb3ce31-5c7e-4a2d-8b1f-6e3a4c7d2f90",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-25T21:18:57.9561655",
-      "modifiedDateTime": "2026-08-30T03:13:39.9056536"
+      "createdDateTime": "2026-08-29T02:03:07.268115",
+      "modifiedDateTime": "2026-08-29T02:03:07.268115"
     }
   ],
   "tableParts": [
@@ -87,8 +87,8 @@
       "name": "Lines",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-25T21:18:57.9561761",
-      "modifiedDateTime": "2026-08-25T21:18:57.9561761"
+      "createdDateTime": "2026-08-29T02:03:07.268118",
+      "modifiedDateTime": "2026-08-29T02:03:07.268118"
     }
   ],
   "subtypeTransactionScripts": [
@@ -100,8 +100,8 @@
       "name": "",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-25T21:21:51.5709547",
-      "modifiedDateTime": "2026-08-25T21:21:51.5709547"
+      "createdDateTime": "2026-08-29T02:03:07.26812",
+      "modifiedDateTime": "2026-08-29T02:03:07.26812"
     }
   ]
 }

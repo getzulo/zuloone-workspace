@@ -21,8 +21,8 @@
     "name": "TaxAuthorityConnection",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T04:23:03.0915982",
-    "modifiedDateTime": "2026-08-29T04:27:56.3543211"
+    "createdDateTime": "2026-08-29T04:23:05.09607",
+    "modifiedDateTime": "2026-08-29T04:27:57.466184"
   },
   "fields": [
     {
@@ -43,8 +43,8 @@
       "name": "Authority",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916415",
-      "modifiedDateTime": "2026-08-29T04:23:03.0916415"
+      "createdDateTime": "2026-08-29T04:23:05.096099",
+      "modifiedDateTime": "2026-08-29T04:23:05.096099"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -65,8 +65,8 @@
       "name": "BaseUrl",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916455",
-      "modifiedDateTime": "2026-08-29T04:27:56.3585039"
+      "createdDateTime": "2026-08-29T04:23:05.096103",
+      "modifiedDateTime": "2026-08-29T04:27:57.47085"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -87,8 +87,8 @@
       "name": "Code",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T04:27:56.3533013",
-      "modifiedDateTime": "2026-08-29T04:27:56.3533014"
+      "createdDateTime": "2026-08-29T04:27:57.464341",
+      "modifiedDateTime": "2026-08-29T04:27:57.464341"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -109,8 +109,8 @@
       "name": "CredentialRef",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916528",
-      "modifiedDateTime": "2026-08-29T04:27:56.3599168"
+      "createdDateTime": "2026-08-29T04:23:05.09611",
+      "modifiedDateTime": "2026-08-29T04:27:57.472031"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -130,8 +130,8 @@
       "name": "Environment",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916437",
-      "modifiedDateTime": "2026-08-29T04:27:56.3615403"
+      "createdDateTime": "2026-08-29T04:23:05.096101",
+      "modifiedDateTime": "2026-08-29T04:27:57.473069"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -148,12 +148,12 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "84d9fffd-90c9-4a30-9c27-07e6724be915",
+      "metaId": "b096a157-650d-4312-9197-d2e36ea1ec6e",
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.1236222",
-      "modifiedDateTime": "2026-08-29T04:27:56.3632167"
+      "createdDateTime": "2026-08-29T04:23:05.116259",
+      "modifiedDateTime": "2026-08-29T04:27:57.474625"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -173,8 +173,8 @@
       "name": "LegalEntity",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916309",
-      "modifiedDateTime": "2026-08-29T04:27:56.3650379"
+      "createdDateTime": "2026-08-29T04:23:05.096091",
+      "modifiedDateTime": "2026-08-29T04:27:57.475259"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -194,8 +194,8 @@
       "name": "MaxRetries",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.091651",
-      "modifiedDateTime": "2026-08-29T04:27:56.3668"
+      "createdDateTime": "2026-08-29T04:23:05.096108",
+      "modifiedDateTime": "2026-08-29T04:27:57.475854"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -215,8 +215,8 @@
       "name": "Status",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916548",
-      "modifiedDateTime": "2026-08-29T04:27:56.3689721"
+      "createdDateTime": "2026-08-29T04:23:05.096112",
+      "modifiedDateTime": "2026-08-29T04:27:57.476425"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -236,8 +236,8 @@
       "name": "TimeoutSeconds",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916489",
-      "modifiedDateTime": "2026-08-29T04:27:56.3701156"
+      "createdDateTime": "2026-08-29T04:23:05.096106",
+      "modifiedDateTime": "2026-08-29T04:27:57.47705"
     }
   ]
 }

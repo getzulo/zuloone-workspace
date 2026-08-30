@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
-using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 // ЯВНЫЙ using, хотя ZuloOne.Runtime.Services уже есть в global usings скриптов:
 // сгенерированный исходник контракта копирует только НЕ-глобальные using'и файла,

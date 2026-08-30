@@ -1,0 +1,16 @@
+{
+  "kind": "TotalDriver",
+  "object": {
+    "caption": "Costing valuation",
+    "baseClassName": "FifoTotalDriver",
+    "baseEngine": "FIFO",
+    "isKernel": false,
+    "description": "Оценка выбытия по методу из CostingSettings: FIFO (старейшие лоты) или AVG (средневзвешенная по открытым лотам); RoundCosts округляет себестоимость.",
+    "metaId": "234e5e4a-eb4b-4402-8c29-23c8bb168ec2",
+    "name": "CostingValuation",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+    "layerId": 2,
+    "createdDateTime": "2026-08-30T14:06:52.8596549",
+    "modifiedDateTime": "2026-08-30T14:06:52.859655"
+  }
+}

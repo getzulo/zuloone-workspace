@@ -11,8 +11,8 @@
     "name": "TimeSheetLines",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
-    "createdDateTime": "2026-08-27T18:24:46.0122809",
-    "modifiedDateTime": "2026-08-27T18:24:46.0122809"
+    "createdDateTime": "2026-08-29T02:03:06.982804",
+    "modifiedDateTime": "2026-08-29T02:03:06.982804"
   },
   "properties": [
     {
@@ -25,14 +25,17 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "referenceName": "Employee",
       "displayOrder": 1,
       "metaId": "8d9e0f1a-2b3c-4d4e-8f5a-7b8c9d0e1f2d",
       "name": "Employee",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-27T18:24:46.0126341",
-      "modifiedDateTime": "2026-08-27T18:24:46.0126341"
+      "createdDateTime": "2026-08-29T02:03:06.982806",
+      "modifiedDateTime": "2026-08-30T14:00:32.231915"
     },
     {
       "tablePartTypeMetaId": "7c8d9e0f-1a2b-4c3d-9e4f-6a7b8c9d0e1c",
@@ -52,8 +55,8 @@
       "name": "Hours",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-27T18:24:46.0129397",
-      "modifiedDateTime": "2026-08-27T18:24:46.0129397"
+      "createdDateTime": "2026-08-29T02:03:06.982808",
+      "modifiedDateTime": "2026-08-29T02:03:06.982808"
     }
   ]
 }

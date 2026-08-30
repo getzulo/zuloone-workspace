@@ -7,13 +7,6 @@ using ZuloOne.Runtime.Testing;
 // Validate ничего не пишет: чистый экспорт не блокируется и ничего не создаст;
 // даунгрейд версии модели (стенд 1.2.0, пакет 0.9.0) блокируется; апгрейд
 // проходит и виден направлением; висячая metaId-ссылка блокирует пакет.
-//
-// НАМЕРЕННО целиком на харнессе. Здесь нечего переводить на менеджеры: тест не
-// трогает бизнес-данные вообще, он проверяет платформенный конвейер воркспейса
-// (export → validate → apply) над МЕТАданными, а менеджера у этого конвейера нет.
-// Db.ExportWorkspaceAsync / ValidateWorkspaceAsync / ApplyWorkspaceFileAsync — его
-// единственный фасад; альтернатива — доставать из DI сами WorkspaceExportService
-// и WorkspaceValidationService, то есть спускаться НИЖЕ харнесса, а не выше.
 public class WorkspaceValidateTest : IntegrationTestScriptBase
 {
     [IntegrationTest("Workspace: validate gates the package")]

@@ -12,8 +12,8 @@
     "name": "Sales",
     "modelId": "00000000-0000-0000-0000-000000000000",
     "layerId": 2,
-    "createdDateTime": "2026-08-25T17:57:08.868338",
-    "modifiedDateTime": "2026-08-27T18:37:50.9858853"
+    "createdDateTime": "2026-08-29T02:03:06.608184",
+    "modifiedDateTime": "2026-08-30T19:07:59.631167"
   },
   "dependencies": [
     {
@@ -24,8 +24,8 @@
       "name": "Sales->Accounting",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-25T17:57:08.8683694",
-      "modifiedDateTime": "2026-08-25T17:57:08.8683694"
+      "createdDateTime": "2026-08-29T02:03:06.60819",
+      "modifiedDateTime": "2026-08-29T02:03:06.60819"
     },
     {
       "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -35,8 +35,8 @@
       "name": "Sales->Common",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:49.1499908",
-      "modifiedDateTime": "2026-08-29T03:44:49.1499908"
+      "createdDateTime": "2026-08-29T03:44:50.154592",
+      "modifiedDateTime": "2026-08-29T03:44:50.154592"
     },
     {
       "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -46,8 +46,8 @@
       "name": "Sales->Inventory",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-25T17:57:08.8683622",
-      "modifiedDateTime": "2026-08-25T17:57:08.8683622"
+      "createdDateTime": "2026-08-29T02:03:06.608192",
+      "modifiedDateTime": "2026-08-29T02:03:06.608192"
     },
     {
       "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -57,8 +57,8 @@
       "name": "Sales->Tax",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-28T20:46:10.3802681",
-      "modifiedDateTime": "2026-08-28T20:46:10.3802681"
+      "createdDateTime": "2026-08-29T02:03:06.608194",
+      "modifiedDateTime": "2026-08-29T02:03:06.608194"
     }
   ]
 }

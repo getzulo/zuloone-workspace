@@ -22,8 +22,8 @@
     "name": "UnitOfMeasure",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
-    "createdDateTime": "2026-08-22T02:01:49.6937917",
-    "modifiedDateTime": "2026-08-22T03:43:38.8695752"
+    "createdDateTime": "2026-08-29T02:03:06.844092",
+    "modifiedDateTime": "2026-08-29T02:03:06.844092"
   },
   "fields": [
     {
@@ -46,8 +46,8 @@
       "name": "Code",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.6938454",
-      "modifiedDateTime": "2026-08-22T03:43:38.8706518"
+      "createdDateTime": "2026-08-29T02:03:06.844098",
+      "modifiedDateTime": "2026-08-29T02:03:06.844098"
     },
     {
       "dictionaryMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
@@ -68,8 +68,8 @@
       "name": "DecimalPlaces",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-26T21:12:46.9797394",
-      "modifiedDateTime": "2026-08-26T21:12:46.9797394"
+      "createdDateTime": "2026-08-29T02:03:06.844101",
+      "modifiedDateTime": "2026-08-29T02:03:06.844101"
     },
     {
       "dictionaryMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
@@ -91,8 +91,8 @@
       "name": "ID",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.7104045",
-      "modifiedDateTime": "2026-08-22T02:01:49.7104106"
+      "createdDateTime": "2026-08-29T02:03:06.844107",
+      "modifiedDateTime": "2026-08-29T02:03:06.844107"
     },
     {
       "dictionaryMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
@@ -114,8 +114,8 @@
       "name": "Name",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.6938302",
-      "modifiedDateTime": "2026-08-22T03:43:38.8742477"
+      "createdDateTime": "2026-08-29T02:03:06.844112",
+      "modifiedDateTime": "2026-08-29T02:03:06.844112"
     }
   ]
 }

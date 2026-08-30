@@ -12,8 +12,8 @@
     "name": "TaxCalculationLines",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
-    "createdDateTime": "2026-08-25T16:26:59.5675923",
-    "modifiedDateTime": "2026-08-25T16:26:59.5675923"
+    "createdDateTime": "2026-08-29T02:03:06.983098",
+    "modifiedDateTime": "2026-08-29T02:03:06.983098"
   },
   "properties": [
     {
@@ -27,14 +27,17 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "4969cf4b-d049-4d50-b611-1942cee7fc20",
+      "referenceName": "TaxDirection",
       "displayOrder": 8,
       "metaId": "4046c0cf-8dca-4440-916c-0816e778a7f3",
       "name": "Direction",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:26:59.5693052",
-      "modifiedDateTime": "2026-08-25T16:26:59.5693052"
+      "createdDateTime": "2026-08-29T02:03:06.9831",
+      "modifiedDateTime": "2026-08-30T14:00:24.261057"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -53,8 +56,8 @@
       "name": "RateValue",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:26:59.5693016",
-      "modifiedDateTime": "2026-08-25T16:26:59.5693016"
+      "createdDateTime": "2026-08-29T02:03:06.983102",
+      "modifiedDateTime": "2026-08-29T02:03:06.983102"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -67,14 +70,17 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "c9831a46-480a-45c4-be44-5ef6138514b9",
+      "referenceName": "TaxRecoverability",
       "displayOrder": 9,
       "metaId": "a2b97f91-736d-44de-a939-7f1a7210b576",
       "name": "Recoverability",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:26:59.5693528",
-      "modifiedDateTime": "2026-08-25T16:26:59.5693529"
+      "createdDateTime": "2026-08-29T02:03:06.983104",
+      "modifiedDateTime": "2026-08-30T14:00:24.263689"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -92,8 +98,8 @@
       "name": "RecoverablePct",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:26:59.5693555",
-      "modifiedDateTime": "2026-08-25T16:26:59.5693555"
+      "createdDateTime": "2026-08-29T02:03:06.983106",
+      "modifiedDateTime": "2026-08-29T02:03:06.983106"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -112,8 +118,8 @@
       "name": "TaxAmount",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:26:59.5693035",
-      "modifiedDateTime": "2026-08-25T16:26:59.5693035"
+      "createdDateTime": "2026-08-29T02:03:06.983108",
+      "modifiedDateTime": "2026-08-29T02:03:06.983108"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -131,8 +137,8 @@
       "name": "TaxBase",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:26:59.5692993",
-      "modifiedDateTime": "2026-08-25T16:26:59.5692993"
+      "createdDateTime": "2026-08-29T02:03:06.98311",
+      "modifiedDateTime": "2026-08-29T02:03:06.98311"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -145,14 +151,17 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
+      "referenceName": "TaxCategory",
       "displayOrder": 3,
       "metaId": "36718f03-d792-456b-84fd-659350d93488",
       "name": "TaxCategory",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:26:59.5692946",
-      "modifiedDateTime": "2026-08-25T16:26:59.5692946"
+      "createdDateTime": "2026-08-29T02:03:06.983112",
+      "modifiedDateTime": "2026-08-30T14:00:24.268031"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -165,14 +174,17 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
+      "referenceName": "TaxCode",
       "displayOrder": 2,
       "metaId": "ae960cbf-ad7d-4d2b-a14d-7e3e25dfc046",
       "name": "TaxCode",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:26:59.5691727",
-      "modifiedDateTime": "2026-08-25T16:26:59.5691727"
+      "createdDateTime": "2026-08-29T02:03:06.983114",
+      "modifiedDateTime": "2026-08-30T14:00:24.269152"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -184,14 +196,17 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "eee8ebb7-d2fd-420f-93ed-7073cc870230",
+      "referenceName": "TaxRate",
       "displayOrder": 4,
       "metaId": "580a0a94-3abe-4617-a82a-f608d0b85d18",
       "name": "TaxRate",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:26:59.5692975",
-      "modifiedDateTime": "2026-08-25T16:26:59.5692975"
+      "createdDateTime": "2026-08-29T02:03:06.983116",
+      "modifiedDateTime": "2026-08-30T14:00:24.270045"
     }
   ]
 }

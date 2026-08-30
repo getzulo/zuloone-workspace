@@ -1,9 +1,8 @@
-﻿#nullable enable
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZuloOne.Core.Services;
-using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
@@ -51,6 +50,7 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     // so the engine no longer guards this; the check moves here (reads the location's
     // on-hand via IRegisterMovementService.GetBalanceAsync on the physical Item+Location
     // dimensions). Note: check-then-act, not atomic with posting.
+    private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
 
     public override async Task<EventResult> OnBeforePostAsync(SalesInvoice header, EventContext context)
     {
@@ -70,10 +70,10 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
             demand[line.Item] = (demand.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
         }
 
-        var stock = context.GetService<ITotalsManager>();
+        var stock = context.GetService<IRegisterMovementService>();
         foreach (var kv in demand)
         {
-            var bal = await stock.GetBalanceAsync("Stock",
+            var bal = await stock.GetBalanceAsync(StockRegister,
                 new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = header.Location });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)

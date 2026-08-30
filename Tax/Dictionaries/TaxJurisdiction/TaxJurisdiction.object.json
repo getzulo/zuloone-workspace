@@ -22,8 +22,8 @@
     "name": "TaxJurisdiction",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
-    "createdDateTime": "2026-08-25T16:22:45.1650397",
-    "modifiedDateTime": "2026-08-25T16:22:45.1650397"
+    "createdDateTime": "2026-08-29T02:03:06.844957",
+    "modifiedDateTime": "2026-08-29T02:03:06.844957"
   },
   "fields": [
     {
@@ -46,8 +46,8 @@
       "name": "Code",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:45.1650736",
-      "modifiedDateTime": "2026-08-25T16:22:45.1650736"
+      "createdDateTime": "2026-08-29T02:03:06.84496",
+      "modifiedDateTime": "2026-08-29T02:03:06.84496"
     },
     {
       "dictionaryMetaId": "e1fe83cc-7d21-4724-9871-017178727e91",
@@ -69,8 +69,8 @@
       "name": "CountryCode",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:45.1650886",
-      "modifiedDateTime": "2026-08-25T16:22:45.1650886"
+      "createdDateTime": "2026-08-29T02:03:06.844963",
+      "modifiedDateTime": "2026-08-29T02:03:06.844963"
     },
     {
       "dictionaryMetaId": "e1fe83cc-7d21-4724-9871-017178727e91",
@@ -92,8 +92,8 @@
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:45.1890289",
-      "modifiedDateTime": "2026-08-25T16:22:45.1890289"
+      "createdDateTime": "2026-08-29T02:03:06.844965",
+      "modifiedDateTime": "2026-08-29T02:03:06.844965"
     },
     {
       "dictionaryMetaId": "e1fe83cc-7d21-4724-9871-017178727e91",
@@ -114,8 +114,8 @@
       "name": "Level",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:45.1650904",
-      "modifiedDateTime": "2026-08-25T16:25:29.8666188"
+      "createdDateTime": "2026-08-29T02:03:06.844967",
+      "modifiedDateTime": "2026-08-29T02:03:06.844967"
     },
     {
       "dictionaryMetaId": "e1fe83cc-7d21-4724-9871-017178727e91",
@@ -137,8 +137,8 @@
       "name": "Name",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:45.1650862",
-      "modifiedDateTime": "2026-08-25T16:22:45.1650862"
+      "createdDateTime": "2026-08-29T02:03:06.844969",
+      "modifiedDateTime": "2026-08-29T02:03:06.844969"
     },
     {
       "dictionaryMetaId": "e1fe83cc-7d21-4724-9871-017178727e91",
@@ -159,8 +159,8 @@
       "name": "ParentId",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:45.2035397",
-      "modifiedDateTime": "2026-08-25T16:22:45.2035398"
+      "createdDateTime": "2026-08-29T02:03:06.844971",
+      "modifiedDateTime": "2026-08-29T02:03:06.844971"
     }
   ]
 }

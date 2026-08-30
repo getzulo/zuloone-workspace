@@ -1,9 +1,8 @@
-﻿#nullable enable
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZuloOne.Core.Services;
-using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
@@ -20,6 +19,7 @@ namespace ZuloOne.Runtime.Generated;
 // Stock — ledger, allowNegativeBalance=true).
 public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<ProductionOrder>
 {
+    private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
 
     public override async Task<EventResult> OnAfterSaveAsync(ProductionOrder header, bool isNew, EventContext context)
     {
@@ -74,10 +74,10 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
             demand[line.Component] = (demand.TryGetValue(line.Component, out var d) ? d : 0m) + qty;
         }
 
-        var stock = context.GetService<ITotalsManager>();
+        var stock = context.GetService<IRegisterMovementService>();
         foreach (var kv in demand)
         {
-            var bal = await stock.GetBalanceAsync("Stock",
+            var bal = await stock.GetBalanceAsync(StockRegister,
                 new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = location });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)

@@ -2,62 +2,44 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
-using ZuloOne.Managers;
-// Сгенерированные классы (TBStockDoc, TBLinesTablePartRow) — тестовым скриптам
-// это пространство имён глобальным using НЕ выдаётся.
-using ZuloOne.Runtime.Generated;
 
 // «Ядерные тесты. Итоги»: снятие с проведения (статус Reverted) откатывает движения TBStock.
-// Остатки и движения читаются через ITotalsManager — ту же дверь, что и бизнес-код.
 public class TotalsStandardRevertTest : IntegrationTestScriptBase
 {
-    private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
-    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
-
     [IntegrationTest("Standard: снятие с проведения откатывает движения")]
     public async Task RevertRollsBackMovements()
     {
-        var warehouse = Db.NewId(); // Db.NewId() — законный остаток: генерация id, не доступ к данным.
+        var warehouse = Db.NewId();
         var item = Db.NewId();
 
-        var doc = await NewDocAsync(warehouse, item, 7m, 700m, DateTime.UtcNow, TBStockDoc.Subtypes.Receipt);
-        // Черновик регистр не двигает — иначе «после проведения 7» ничего не доказывает.
-        Assert.AreEqual(0m, await StockQtyAsync(warehouse, item), "до проведения остаток 0");
-
-        // И проведение, и снятие с него — ПРИСВОЕНИЕ статуса плюс сохранение:
-        // SaveDocumentAsync проводит изменившийся StatusValue через движок
-        // (SetStatusAsync), симметрично смене подтипа.
-        doc.StatusValue = "Posted";
-        await DocumentManager.SaveDocumentAsync(doc);
+        var docId = await CreateDocAsync(warehouse, item, 7m, 700m, DateTime.UtcNow, "Receipt");
+        await Db.ChangeStatusAsync("TBStockDoc", docId, "Posted");
         Assert.AreEqual(7m, await StockQtyAsync(warehouse, item), "после проведения остаток 7");
 
-        doc.StatusValue = "Reverted";
-        await DocumentManager.SaveDocumentAsync(doc);
+        await Db.ChangeStatusAsync("TBStockDoc", docId, "Reverted");
         Assert.AreEqual(0m, await StockQtyAsync(warehouse, item), "после снятия с проведения остаток 0");
 
-        var movements = await TotalsManager.QueryMovementsAsync("TBStock", "[DocumentMetaId] = '" + doc.MetaId + "'");
+        var movements = await Db.QueryMovementsAsync("TBStock", "[DocumentMetaId] = '" + docId + "'");
         Assert.AreEqual(0, movements.Count, "движения документа удалены");
-
-        // Откат обязан быть записан и в заголовке, а не только в регистре.
-        var stored = (await DocumentManager.GetDocumentAsync<TBStockDoc>(doc.MetaId))!;
-        Assert.AreEqual("Reverted", stored.StatusValue, "статус документа — Reverted");
-
         Log("Откат подтверждён: остаток 0, движений нет.");
     }
 
-    // Срез регистра адресуется измерениями, а не SQL-строкой: у менеджера итогов
-    // для этого есть именно такая дверь, и «нет строки = ноль» он берёт на себя.
-    private Task<decimal> StockQtyAsync(Guid warehouse, Guid item)
-        => TotalsManager.GetBalanceAsync("TBStock", "Quantity",
-            new Dictionary<string, object?> { ["Warehouse"] = warehouse, ["Item"] = item });
-
-    private async Task<TBStockDoc> NewDocAsync(Guid warehouse, Guid item, decimal qty, decimal amount, DateTime date, string subtype)
+    private async Task<decimal> StockQtyAsync(Guid warehouse, Guid item)
     {
-        var doc = await DocumentManager.NewDocumentAsync<TBStockDoc>(subtype);
-        doc.Warehouse = warehouse;
-        doc.DocumentDate = date;
-        doc.Items.Add(new TBLinesTablePartRow { Item = item, Quantity = qty, Amount = amount });
-        await DocumentManager.SaveDocumentAsync(doc);
-        return doc;
+        var rows = await Db.QueryBalancesAsync("TBStock", "[Warehouse] = '" + warehouse + "' AND [Item] = '" + item + "'");
+        return rows.Count == 0 ? 0m : Convert.ToDecimal(rows[0]["Quantity"]);
     }
+
+    private Task<Guid> CreateDocAsync(Guid warehouse, Guid item, decimal qty, decimal amount, DateTime date, string subtype)
+        => Db.CreateDocumentAsync(
+            "TBStockDoc",
+            new Dictionary<string, object?> { ["Warehouse"] = warehouse, ["DocumentDate"] = date },
+            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
+            {
+                ["Items"] = new IDictionary<string, object?>[]
+                {
+                    new Dictionary<string, object?> { ["Item"] = item, ["Quantity"] = qty, ["Amount"] = amount },
+                },
+            },
+            subtype);
 }

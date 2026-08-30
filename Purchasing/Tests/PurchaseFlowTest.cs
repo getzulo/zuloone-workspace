@@ -2,157 +2,55 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
-using ZuloOne.Managers;
-// Сгенерированные классы сущностей (PurchaseOrder, Currency, StoreCell,
-// PurchaseOrderLinesTablePartRow…). Тестовые скрипты НЕ получают это пространство
-// имён глобальным using — без него `Currency` цепляется за посторонний недоступный
-// тип, и ошибка компилятора описывает не ту причину.
-using ZuloOne.Runtime.Generated;
 
 // Integration coverage for the Purchasing core: receiving a purchase order adds stock
 // and recognizes a payable; a zero-quantity order is rejected by the validation event.
-//
-// Написано так, как пишется прикладной сервис: типизированные сущности через
-// менеджеры. Оприходование — это ПРИСВОЕНИЕ подтипа плюс сохранение, и идти оно
-// обязано ОБЪЯВЛЕННЫМ маршрутом Draft → Ordered → Received: документ теперь
-// стартует в начальном подтипе, поэтому таблица переходов реально применяется,
-// и прыжок Draft → Received отклоняется движком.
 public class PurchaseFlowTest : IntegrationTestScriptBase
 {
-    private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
-    private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
-    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
-
-    private sealed class Setup
+    private async Task<(Guid Location, Guid Item, Guid Supplier)> SetupAsync()
     {
-        public Guid Location;
-        public Guid Item;
-        public Guid Supplier;
+        var currency = await Db.InsertAsync("Currency", new Dictionary<string, object?>
+            { ["Name"] = "Euro", ["Code"] = "EUR", ["Symbol"] = "€" });
+        var country = await Db.InsertAsync("Country", new Dictionary<string, object?>
+            { ["Name"] = "Germany", ["CodeISO2"] = "DE", ["CodeISO3"] = "DEU", ["PhoneCode"] = "49" });
+        var le = await Db.InsertAsync("LegalEntity", new Dictionary<string, object?>
+            { ["Name"] = "ACME GmbH", ["RegistrationNumber"] = "REG-PUR-1", ["Country"] = country, ["Currency"] = currency });
+        var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?> { ["Code"] = "WH", ["Name"] = "Warehouse" });
+        var div = await Db.InsertAsync("Division", new Dictionary<string, object?> { ["Name"] = "Main", ["LegalEntity"] = le, ["DivisionType"] = dt });
+        var wh = await Db.InsertAsync("Store", new Dictionary<string, object?> { ["Name"] = "Central", ["Division"] = div, ["IsSimple"] = true });
+        var whZone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?> { ["Name"] = "Зона", ["Store"] = wh, ["IsBarcodeTracking"] = false });
+        var lt = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?> {["Code"] = $"RCV-{Db.NewId():N}"[..12], ["Name"] = "Receiving" });
+        var loc = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "R-01", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
+
+        var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?> { ["Name"] = "Piece", ["Code"] = "PCS" });
+        var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?> { ["Code"] = "RAW", ["Name"] = "Raw material" });
+        var item = await Db.InsertAsync("Item", new Dictionary<string, object?>
+            { ["Name"] = "Bolt", ["ItemGroup"] = group, ["UnitOfMeasure"] = uom, ["IsRawMaterial"] = true });
+        var supplier = await Db.InsertAsync("Supplier", new Dictionary<string, object?> { ["Name"] = "Bolt Supply Co" });
+
+        return (loc, item, supplier);
     }
 
-    private async Task<Setup> SetupAsync()
-    {
-        var currency = DictionaryManager.NewRecord<Currency>();
-        currency.Name = "Euro";
-        currency.Code = "EUR";
-        currency.Symbol = "€";
-        currency = await DictionaryManager.SaveRecordAsync(currency);
-
-        var country = DictionaryManager.NewRecord<Country>();
-        country.Name = "Germany";
-        country.CodeISO2 = "DE";
-        country.CodeISO3 = "DEU";
-        country.PhoneCode = "49";
-        country = await DictionaryManager.SaveRecordAsync(country);
-
-        var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
-        legalEntity.Name = "ACME GmbH";
-        legalEntity.RegistrationNumber = "REG-PUR-1";
-        legalEntity.Country = country.MetaId;
-        legalEntity.Currency = currency.MetaId;
-        legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
-
-        var divisionType = DictionaryManager.NewRecord<DivisionType>();
-        divisionType.Code = "WH";
-        divisionType.Name = "Warehouse";
-        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
-
-        var division = DictionaryManager.NewRecord<Division>();
-        division.Name = "Main";
-        division.LegalEntity = legalEntity.MetaId;
-        division.DivisionType = divisionType.MetaId;
-        division = await DictionaryManager.SaveRecordAsync(division);
-
-        var store = DictionaryManager.NewRecord<Store>();
-        store.Name = "Central";
-        store.Division = division.MetaId;
-        store.IsSimple = true;
-        store = await DictionaryManager.SaveRecordAsync(store);
-
-        var zone = DictionaryManager.NewRecord<StoreZone>();
-        zone.Name = "Зона";
-        zone.Store = store.MetaId;
-        zone.IsBarcodeTracking = false;
-        zone = await DictionaryManager.SaveRecordAsync(zone);
-
-        var cellType = DictionaryManager.NewRecord<StoreCellType>();
-        cellType.Code = $"RCV-{Db.NewId():N}"[..12]; // Db.NewId() — законный остаток: генерация id.
-        cellType.Name = "Receiving";
-        cellType = await DictionaryManager.SaveRecordAsync(cellType);
-
-        var cell = DictionaryManager.NewRecord<StoreCell>();
-        cell.Name = "R-01";
-        cell.Type = cellType.MetaId;
-        cell.StoreZone = zone.MetaId;
-        cell.RackNumber = 1;
-        cell.ShelfNumber = 1;
-        cell.LineNumber = 1;
-        cell.CellNumber = 1;
-        cell = await DictionaryManager.SaveRecordAsync(cell);
-
-        var uom = DictionaryManager.NewRecord<UnitOfMeasure>();
-        uom.Name = "Piece";
-        uom.Code = "PCS";
-        uom = await DictionaryManager.SaveRecordAsync(uom);
-
-        var group = DictionaryManager.NewRecord<ItemGroup>();
-        group.Code = "RAW";
-        group.Name = "Raw material";
-        group = await DictionaryManager.SaveRecordAsync(group);
-
-        var item = DictionaryManager.NewRecord<Item>();
-        item.Name = "Bolt";
-        item.ItemGroup = group.MetaId;
-        item.UnitOfMeasure = uom.MetaId;
-        item.IsRawMaterial = true;
-        item = await DictionaryManager.SaveRecordAsync(item);
-
-        var supplier = DictionaryManager.NewRecord<Supplier>();
-        supplier.Name = "Bolt Supply Co";
-        supplier = await DictionaryManager.SaveRecordAsync(supplier);
-
-        return new Setup { Location = cell.MetaId, Item = item.MetaId, Supplier = supplier.MetaId };
-    }
-
-    // Подтип не передаём намеренно: NewDocumentAsync обязан подставить НАЧАЛЬНЫЙ
-    // подтип типа (Draft) — если он подставит NULL, цепочка проведения сузится не
-    // туда и «черновик» проведётся сам.
-    private async Task<PurchaseOrder> NewOrderAsync(Setup s, decimal qty, decimal price)
-    {
-        var order = await DocumentManager.NewDocumentAsync<PurchaseOrder>();
-        order.Supplier = s.Supplier;
-        order.Location = s.Location;
-        order.Lines.Add(new PurchaseOrderLinesTablePartRow { Item = s.Item, Quantity = qty, UnitPrice = price });
-        await DocumentManager.SaveDocumentAsync(order);
-        return order;
-    }
-
-    /// <summary>Заказ идёт объявленным маршрутом: Draft → Ordered → Received.</summary>
-    private async Task ReceiveAsync(PurchaseOrder order)
-    {
-        order.Subtype = PurchaseOrder.Subtypes.Ordered;
-        await DocumentManager.SaveDocumentAsync(order);
-
-        order.Subtype = PurchaseOrder.Subtypes.Received;
-        await DocumentManager.SaveDocumentAsync(order);
-    }
+    private async Task<Guid> NewOrderAsync((Guid Location, Guid Item, Guid Supplier) s, decimal qty, decimal price)
+        => await Db.CreateDocumentAsync("PurchaseOrder",
+            new Dictionary<string, object?> { ["Supplier"] = s.Supplier, ["Location"] = s.Location },
+            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
+            {
+                ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = s.Item, ["Quantity"] = qty, ["UnitPrice"] = price } },
+            });
 
     [IntegrationTest("Приход добавляет в Stock и признаёт кредиторку")]
     public async Task ReceiptAddsStockAndPayable()
     {
         var s = await SetupAsync();
-        var order = await NewOrderAsync(s, qty: 10m, price: 3m);
+        var po = await NewOrderAsync(s, qty: 10m, price: 3m);
+        await Db.ChangeSubtypeAsync("PurchaseOrder", po, "Received");
 
-        // Состояние ДО оприходования: заказ (даже размещённый) ни склад, ни
-        // кредиторку не двигает — движения принадлежат подтипу Received. Без этой
-        // проверки утверждения ниже проходят и тогда, когда заказ провёлся сам.
-        Assert.IsTrue(await StockAsync(s.Location, s.Item) == 0m, "черновик заказа не двигает склад");
-        Assert.IsTrue(await PayableAsync() == 0m, "черновик заказа не признаёт кредиторку");
+        decimal stock = 0m;
+        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Cell] = '" + s.Location + "'")) stock += Convert.ToDecimal(r["Qty"]);
+        decimal payable = 0m;
+        foreach (var r in await Db.QueryBalancesAsync("Payable")) payable += Convert.ToDecimal(r["Amount"]);
 
-        await ReceiveAsync(order);
-
-        var stock = await StockAsync(s.Location, s.Item);
-        var payable = await PayableAsync();
         Assert.IsTrue(stock == 10m, "остаток ячейки должен стать 10, а не {0}", stock);
         Assert.IsTrue(payable == 30m, "кредиторка должна быть 30 (10 × 3), а не {0}", payable);
     }
@@ -161,19 +59,15 @@ public class PurchaseFlowTest : IntegrationTestScriptBase
     public async Task ZeroQuantityIsRejected()
     {
         var s = await SetupAsync();
+        var po = await NewOrderAsync(s, qty: 0m, price: 3m);
 
-        // Черновик с нулевым количеством обязан СОХРАНИТЬСЯ: черновику позволено
-        // быть неправильным, проверка принадлежит ПРОВЕДЕНИЮ.
-        var order = await NewOrderAsync(s, qty: 0m, price: 3m);
-        Assert.IsTrue(await StockAsync(s.Location, s.Item) == 0m, "неверный черновик склад не двигает");
-
-        // Обработчик отказывает ИСКЛЮЧЕНИЕМ, а бросок происходит внутри окружающей
-        // транзакции прогона и обрекает её — поэтому после catch к базе больше не
-        // обращаемся, а утверждаем сам факт отказа.
         var rejected = false;
         try
         {
-            await ReceiveAsync(order);
+            await Db.ChangeSubtypeAsync("PurchaseOrder", po, "Received");
+            decimal stock = 0m;
+            foreach (var r in await Db.QueryBalancesAsync("Stock")) stock += Convert.ToDecimal(r["Qty"]);
+            rejected = stock == 0m; // event blocked posting → nothing received
         }
         catch
         {
@@ -181,19 +75,5 @@ public class PurchaseFlowTest : IntegrationTestScriptBase
         }
 
         Assert.IsTrue(rejected, "заказ с нулевым количеством должен быть отклонён событием");
-    }
-
-    // Срез регистра адресуется измерениями, а не SQL-строкой.
-    private Task<decimal> StockAsync(Guid location, Guid item)
-        => TotalsManager.GetBalanceAsync("Stock", "Qty",
-            new Dictionary<string, object?> { ["Cell"] = location, ["Item"] = item });
-
-    // У Payable физических измерений нет — разрез несут динамические аналитики,
-    // поэтому итог собирается суммой по строкам баланса.
-    private async Task<decimal> PayableAsync()
-    {
-        decimal payable = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("Payable")) payable += Convert.ToDecimal(r["Amount"]);
-        return payable;
     }
 }

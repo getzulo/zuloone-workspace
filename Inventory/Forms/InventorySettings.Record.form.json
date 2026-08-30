@@ -1,0 +1,15 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":1,\"borderStyle\":\"dashed\",\"items\":[{\"type\":\"field\",\"name\":\"ID\"},{\"type\":\"field\",\"name\":\"DefaultUnit\"},{\"type\":\"field\",\"name\":\"DefaultReceivingLocation\"},{\"type\":\"field\",\"name\":\"EnforceUnitConversion\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[]}",
+    "metaId": "08033ab9-cb38-4756-bdd9-816631fdba2f",
+    "name": "InventorySettings.Record",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-08-30T19:46:06.163033",
+    "modifiedDateTime": "2026-08-30T19:46:06.185257"
+  }
+}

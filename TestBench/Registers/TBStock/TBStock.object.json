@@ -12,8 +12,8 @@
     "name": "TBStock",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1,
-    "createdDateTime": "2026-08-28T11:06:19.1695317",
-    "modifiedDateTime": "2026-08-28T11:06:19.1695318"
+    "createdDateTime": "2026-08-29T02:03:09.294282",
+    "modifiedDateTime": "2026-08-29T02:03:09.294282"
   },
   "dimensions": [
     {
@@ -30,8 +30,8 @@
       "name": "Item",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-28T11:06:19.2306861",
-      "modifiedDateTime": "2026-08-28T11:06:19.2306862"
+      "createdDateTime": "2026-08-29T02:03:09.294284",
+      "modifiedDateTime": "2026-08-29T02:03:09.294284"
     },
     {
       "registerMetaId": "2015c2a5-ff9f-4b15-9f2c-7239158a5a25",
@@ -47,8 +47,8 @@
       "name": "Warehouse",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-28T11:06:19.2141588",
-      "modifiedDateTime": "2026-08-28T11:06:19.2141589"
+      "createdDateTime": "2026-08-29T02:03:09.294286",
+      "modifiedDateTime": "2026-08-29T02:03:09.294286"
     }
   ],
   "resources": [
@@ -63,8 +63,8 @@
       "name": "Quantity",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-28T11:06:19.2466663",
-      "modifiedDateTime": "2026-08-28T11:06:19.2466664"
+      "createdDateTime": "2026-08-29T02:03:09.294288",
+      "modifiedDateTime": "2026-08-29T02:03:09.294288"
     }
   ]
 }

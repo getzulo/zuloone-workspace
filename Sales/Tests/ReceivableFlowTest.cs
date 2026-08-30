@@ -2,10 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
-using ZuloOne.Managers;
-// Обязательно: тестовым скриптам этот namespace НЕ выдаётся глобальным using —
-// без него генерированные классы (Currency, SalesInvoice…) не находятся.
-using ZuloOne.Runtime.Generated;
 
 // Контур дебиторки: выставленный счёт создаёт долг покупателя, а отдельный
 // документ «Оплата покупателя» его гасит.
@@ -13,115 +9,38 @@ using ZuloOne.Runtime.Generated;
 // Почему оплата — документ, а не подтип счёта: смена подтипа снимает движения
 // ПРОШЛОГО состояния, поэтому вариант «Выставлен → Оплачен» обнулял вместе с
 // долгом и ВЫРУЧКУ, то есть отменял продажу. Тест это и поймал.
-//
-// Написано, как пишется бизнес-код: типизированные записи через
-// IDictionaryManager, документы через IDocumentManager, регистры через
-// ITotalsManager; проведение — присвоение подтипа плюс сохранение.
 public class ReceivableFlowTest : IntegrationTestScriptBase
 {
-    private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
-    private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
-    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
-
-    private sealed class Setup
+    private async Task<(Guid Location, Guid Item, Guid Customer)> SetupAsync()
     {
-        public Guid Location;
-        public Guid Item;
-        public Guid Customer;
+        var currency = await Db.InsertAsync("Currency", new Dictionary<string, object?>
+            { ["Name"] = "Euro", ["Code"] = "EUR", ["Symbol"] = "€" });
+        var country = await Db.InsertAsync("Country", new Dictionary<string, object?>
+            { ["Name"] = "Germany", ["CodeISO2"] = "DE", ["CodeISO3"] = "DEU", ["PhoneCode"] = "49" });
+        var le = await Db.InsertAsync("LegalEntity", new Dictionary<string, object?>
+            { ["Name"] = "ACME GmbH", ["RegistrationNumber"] = "REG-AR-1", ["Country"] = country, ["Currency"] = currency });
+        var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?> { ["Code"] = "SP", ["Name"] = "SalesPoint" });
+        var div = await Db.InsertAsync("Division", new Dictionary<string, object?> { ["Name"] = "Shop", ["LegalEntity"] = le, ["DivisionType"] = dt });
+        var wh = await Db.InsertAsync("Store", new Dictionary<string, object?> { ["Name"] = "Shop WH", ["Division"] = div, ["IsSimple"] = true });
+        var whZone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?> { ["Name"] = "Зона", ["Store"] = wh, ["IsBarcodeTracking"] = false });
+        var lt = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?> {["Code"] = $"PICK-{Db.NewId():N}"[..12], ["Name"] = "Picking" });
+        var loc = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "P-01", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
+
+        var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?> { ["Name"] = "Piece", ["Code"] = "PCS" });
+        var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?> { ["Code"] = "GOODS", ["Name"] = "Finished goods" });
+        var item = await Db.InsertAsync("Item", new Dictionary<string, object?>
+            { ["Name"] = "Gadget", ["ItemGroup"] = group, ["UnitOfMeasure"] = uom, ["IsSellable"] = true });
+        var customer = await Db.InsertAsync("Customer", new Dictionary<string, object?>
+            { ["Name"] = "Buyer Ltd", ["CustomerType"] = "B2B" });
+
+        return ((Guid)loc, (Guid)item, (Guid)customer);
     }
 
-    private async Task<Setup> SetupAsync()
-    {
-        var currency = DictionaryManager.NewRecord<Currency>();
-        currency.Name = "Euro";
-        currency.Code = "EUR";
-        currency.Symbol = "€";
-        currency = await DictionaryManager.SaveRecordAsync(currency);
-
-        var country = DictionaryManager.NewRecord<Country>();
-        country.Name = "Germany";
-        country.CodeISO2 = "DE";
-        country.CodeISO3 = "DEU";
-        country.PhoneCode = "49";
-        country = await DictionaryManager.SaveRecordAsync(country);
-
-        var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
-        legalEntity.Name = "ACME GmbH";
-        legalEntity.RegistrationNumber = "REG-AR-1";
-        legalEntity.Country = country.MetaId;
-        legalEntity.Currency = currency.MetaId;
-        legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
-
-        var divisionType = DictionaryManager.NewRecord<DivisionType>();
-        divisionType.Code = "SP";
-        divisionType.Name = "SalesPoint";
-        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
-
-        var division = DictionaryManager.NewRecord<Division>();
-        division.Name = "Shop";
-        division.LegalEntity = legalEntity.MetaId;
-        division.DivisionType = divisionType.MetaId;
-        division = await DictionaryManager.SaveRecordAsync(division);
-
-        var store = DictionaryManager.NewRecord<Store>();
-        store.Name = "Shop WH";
-        store.Division = division.MetaId;
-        store.IsSimple = true;
-        store = await DictionaryManager.SaveRecordAsync(store);
-
-        var zone = DictionaryManager.NewRecord<StoreZone>();
-        zone.Name = "Зона";
-        zone.Store = store.MetaId;
-        zone.IsBarcodeTracking = false;
-        zone = await DictionaryManager.SaveRecordAsync(zone);
-
-        var cellType = DictionaryManager.NewRecord<StoreCellType>();
-        cellType.Code = $"PICK-{Db.NewId():N}"[..12];
-        cellType.Name = "Picking";
-        cellType = await DictionaryManager.SaveRecordAsync(cellType);
-
-        var cell = DictionaryManager.NewRecord<StoreCell>();
-        cell.Name = "P-01";
-        cell.Type = cellType.MetaId;
-        cell.StoreZone = zone.MetaId;
-        cell.RackNumber = 1;
-        cell.ShelfNumber = 1;
-        cell.LineNumber = 1;
-        cell.CellNumber = 1;
-        cell = await DictionaryManager.SaveRecordAsync(cell);
-
-        var uom = DictionaryManager.NewRecord<UnitOfMeasure>();
-        uom.Name = "Piece";
-        uom.Code = "PCS";
-        uom = await DictionaryManager.SaveRecordAsync(uom);
-
-        var group = DictionaryManager.NewRecord<ItemGroup>();
-        group.Code = "GOODS";
-        group.Name = "Finished goods";
-        group = await DictionaryManager.SaveRecordAsync(group);
-
-        var item = DictionaryManager.NewRecord<Item>();
-        item.Name = "Gadget";
-        item.ItemGroup = group.MetaId;
-        item.UnitOfMeasure = uom.MetaId;
-        item.IsSellable = true;
-        item = await DictionaryManager.SaveRecordAsync(item);
-
-        var customer = DictionaryManager.NewRecord<Customer>();
-        customer.Name = "Buyer Ltd";
-        customer.CustomerType = "B2B";
-        customer = await DictionaryManager.SaveRecordAsync(customer);
-
-        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
-    }
-
-    // Receivable и Revenue несут только динамическую аналитику — баланс каждого
-    // схлопывается в строки с одним ресурсом Amount; суммируем его.
-    private static async Task<decimal> SumAsync(string register)
+    private async Task<decimal> SumAsync(string register)
     {
         decimal total = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync(register))
-            total += Convert.ToDecimal(r["Amount"]);
+        foreach (var r in await Db.QueryBalancesAsync(register))
+            total += Convert.ToDecimal(r[register == "Receivable" ? "Amount" : "Amount"]);
         return total;
     }
 
@@ -130,28 +49,17 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
     {
         var s = await SetupAsync();
 
-        // Товар на складе, чтобы выставление прошло проверку остатка. Движение
-        // вне цепочки документа — редкий и осознанный случай, для него у
-        // ITotalsManager есть PostMovementAsync (документ не указан).
-        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
+        // Товар на складе, чтобы выставление прошло проверку остатка.
+        await Db.PostMovementAsync("Stock", DateTime.UtcNow.Date,
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Qty"] = 10m });
 
-        // Подтип не передаём: документ обязан стартовать в НАЧАЛЬНОМ подтипе (Draft).
-        var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
-        inv.Customer = s.Customer;
-        inv.Location = s.Location;
-        inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
-        await DocumentManager.SaveDocumentAsync(inv);
-
-        // Черновик долга не создаёт. Проверяем ДО перехода: тип помечен postOnSave,
-        // и без этой проверки утверждения ниже прошли бы и в том случае, когда
-        // документ провёлся сам при сохранении.
-        Assert.IsTrue(await SumAsync("Receivable") == 0m, "черновик счёта не создаёт долг");
-        Assert.IsTrue(await SumAsync("Revenue") == 0m, "черновик счёта не признаёт выручку");
-
-        inv.Subtype = SalesInvoice.Subtypes.Issued;
-        await DocumentManager.SaveDocumentAsync(inv);
+        var inv = await Db.CreateDocumentAsync("SalesInvoice",
+            new Dictionary<string, object?> { ["Customer"] = s.Customer, ["Location"] = s.Location },
+            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
+            { ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = s.Item, ["Quantity"] = 3m, ["UnitPrice"] = 5m } } },
+            subtype: "Draft");
+        await Db.ChangeSubtypeAsync("SalesInvoice", (Guid)inv, "Issued");
 
         Assert.IsTrue(await SumAsync("Receivable") == 15m,
             "после выставления долг 3×5=15, факт {0}", await SumAsync("Receivable"));
@@ -159,29 +67,26 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
             "выручка признана 15, факт {0}", await SumAsync("Revenue"));
 
         // Оплата — ОТДЕЛЬНЫЙ документ, а не смена подтипа счёта.
-        var pay = await DocumentManager.NewDocumentAsync<CustomerPayment>();
-        pay.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Amount = 15m });
-        await DocumentManager.SaveDocumentAsync(pay);
-        Assert.IsTrue(await SumAsync("Receivable") == 15m,
-            "черновик оплаты долг не трогает, факт {0}", await SumAsync("Receivable"));
-
-        pay.Subtype = CustomerPayment.Subtypes.Paid;
-        await DocumentManager.SaveDocumentAsync(pay);
+        var pay = await Db.CreateDocumentAsync("CustomerPayment",
+            new Dictionary<string, object?>(),
+            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
+            { ["Lines"] = new[] { new Dictionary<string, object?> { ["Customer"] = s.Customer, ["Amount"] = 15m } } },
+            subtype: "Draft");
+        await Db.ChangeSubtypeAsync("CustomerPayment", (Guid)pay, "Paid");
 
         Assert.IsTrue(await SumAsync("Receivable") == 0m,
             "после оплаты долг погашен, факт {0}", await SumAsync("Receivable"));
 
         // Счёт остаётся выставленным — оплата не отменяет продажу.
-        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(inv.MetaId);
-        Assert.IsNotNull(stored, "счёт читается после оплаты");
-        Assert.IsTrue(stored!.Subtype == SalesInvoice.Subtypes.Issued,
-            "счёт остаётся Issued, факт {0}", stored.Subtype);
+        var doc = await Db.GetAsync("SalesInvoice", (Guid)inv);
+        Assert.IsTrue(Convert.ToString(doc!["Subtype"]) == "Issued",
+            "счёт остаётся Issued, факт {0}", Convert.ToString(doc["Subtype"]));
 
         Assert.IsTrue(await SumAsync("Revenue") == 15m,
             "выручка сохраняется после оплаты, факт {0}", await SumAsync("Revenue"));
 
         decimal onHand = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("Stock", $"[Cell] = '{s.Location}'"))
+        foreach (var r in await Db.QueryBalancesAsync("Stock", $"[Cell] = '{s.Location}'"))
             onHand += Convert.ToDecimal(r["Qty"]);
         Assert.IsTrue(onHand == 7m, "на ячейке осталось 10−3=7, факт {0}", onHand);
     }

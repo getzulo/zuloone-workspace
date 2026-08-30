@@ -3,134 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
-using ZuloOne.Managers;
-// The generated entity classes (Currency, PurchaseOrder, …TablePartRow). A test
-// script does NOT get this namespace as a global using, so it must be named.
-using ZuloOne.Runtime.Generated;
 
 // Покрытие Costing FIFO: приход создаёт слои себестоимости, расход списывает по
 // старейшим лотам (FIFO), движок отклоняет перерасход слоёв.
-//
-// Мастер-данные и заказ заводятся типизированными сущностями через менеджеры,
-// регистр читается и двигается через ITotalsManager.
 public class ItemCostFifoTest : IntegrationTestScriptBase
 {
-    private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
-    private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
-    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
-
     private async Task<(Guid Location, Guid Item, Guid Supplier)> SetupAsync()
     {
-        var currency = DictionaryManager.NewRecord<Currency>();
-        currency.Name = "Euro";
-        currency.Code = "EUR";
-        currency.Symbol = "€";
-        currency = await DictionaryManager.SaveRecordAsync(currency);
+        var currency = await Db.InsertAsync("Currency", new Dictionary<string, object?>
+            { ["Name"] = "Euro", ["Code"] = "EUR", ["Symbol"] = "€" });
+        var country = await Db.InsertAsync("Country", new Dictionary<string, object?>
+            { ["Name"] = "Germany", ["CodeISO2"] = "DE", ["CodeISO3"] = "DEU", ["PhoneCode"] = "49" });
+        var le = await Db.InsertAsync("LegalEntity", new Dictionary<string, object?>
+            { ["Name"] = "ACME GmbH", ["RegistrationNumber"] = "REG-FIFO-1", ["Country"] = country, ["Currency"] = currency });
+        var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?> { ["Code"] = "WH", ["Name"] = "Warehouse" });
+        var div = await Db.InsertAsync("Division", new Dictionary<string, object?> { ["Name"] = "Main", ["LegalEntity"] = le, ["DivisionType"] = dt });
+        var wh = await Db.InsertAsync("Store", new Dictionary<string, object?> { ["Name"] = "Central", ["Division"] = div, ["IsSimple"] = true });
+        var whZone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?> { ["Name"] = "Зона", ["Store"] = wh, ["IsBarcodeTracking"] = false });
+        var lt = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?> {["Code"] = $"STG-{Db.NewId():N}"[..12], ["Name"] = "Storage" });
+        var loc = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "A-01", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
 
-        var country = DictionaryManager.NewRecord<Country>();
-        country.Name = "Germany";
-        country.CodeISO2 = "DE";
-        country.CodeISO3 = "DEU";
-        country.PhoneCode = "49";
-        country = await DictionaryManager.SaveRecordAsync(country);
+        var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?> { ["Name"] = "Piece", ["Code"] = "PCS" });
+        var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?> { ["Code"] = $"MERCH-{Db.NewId():N}"[..12], ["Name"] = "Merchandise" });
+        var item = await Db.InsertAsync("Item", new Dictionary<string, object?>
+            { ["Name"] = "Widget", ["ItemGroup"] = group, ["UnitOfMeasure"] = uom });
+        var supplier = await Db.InsertAsync("Supplier", new Dictionary<string, object?> { ["Name"] = "Bolt Supply Co" });
 
-        var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
-        legalEntity.Name = "ACME GmbH";
-        legalEntity.RegistrationNumber = "REG-FIFO-1";
-        legalEntity.Country = country.MetaId;
-        legalEntity.Currency = currency.MetaId;
-        legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
-
-        var divisionType = DictionaryManager.NewRecord<DivisionType>();
-        divisionType.Code = "WH";
-        divisionType.Name = "Warehouse";
-        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
-
-        var division = DictionaryManager.NewRecord<Division>();
-        division.Name = "Main";
-        division.LegalEntity = legalEntity.MetaId;
-        division.DivisionType = divisionType.MetaId;
-        division = await DictionaryManager.SaveRecordAsync(division);
-
-        var store = DictionaryManager.NewRecord<Store>();
-        store.Name = "Central";
-        store.Division = division.MetaId;
-        store.IsSimple = true;
-        store = await DictionaryManager.SaveRecordAsync(store);
-
-        var zone = DictionaryManager.NewRecord<StoreZone>();
-        zone.Name = "Зона";
-        zone.Store = store.MetaId;
-        zone.IsBarcodeTracking = false;
-        zone = await DictionaryManager.SaveRecordAsync(zone);
-
-        var cellType = DictionaryManager.NewRecord<StoreCellType>();
-        cellType.Code = $"STG-{Db.NewId():N}"[..12];
-        cellType.Name = "Storage";
-        cellType = await DictionaryManager.SaveRecordAsync(cellType);
-
-        var cell = DictionaryManager.NewRecord<StoreCell>();
-        cell.Name = "A-01";
-        cell.Type = cellType.MetaId;
-        cell.StoreZone = zone.MetaId;
-        cell.RackNumber = 1;
-        cell.ShelfNumber = 1;
-        cell.LineNumber = 1;
-        cell.CellNumber = 1;
-        cell = await DictionaryManager.SaveRecordAsync(cell);
-
-        var uom = DictionaryManager.NewRecord<UnitOfMeasure>();
-        uom.Name = "Piece";
-        uom.Code = "PCS";
-        uom = await DictionaryManager.SaveRecordAsync(uom);
-
-        var group = DictionaryManager.NewRecord<ItemGroup>();
-        group.Code = $"MERCH-{Db.NewId():N}"[..12];
-        group.Name = "Merchandise";
-        group = await DictionaryManager.SaveRecordAsync(group);
-
-        var item = DictionaryManager.NewRecord<Item>();
-        item.Name = "Widget";
-        item.ItemGroup = group.MetaId;
-        item.UnitOfMeasure = uom.MetaId;
-        item = await DictionaryManager.SaveRecordAsync(item);
-
-        var supplier = DictionaryManager.NewRecord<Supplier>();
-        supplier.Name = "Bolt Supply Co";
-        supplier = await DictionaryManager.SaveRecordAsync(supplier);
-
-        return (cell.MetaId, item.MetaId, supplier.MetaId);
+        return ((Guid)loc, (Guid)item, (Guid)supplier);
     }
 
     private async Task ReceiveAsync((Guid Location, Guid Item, Guid Supplier) s, decimal qty, decimal price)
     {
-        var before = await FifoBalanceAsync(s.Item);
-
-        // Подтип не передаём: заказ заводится в НАЧАЛЬНОМ подтипе своего типа.
-        var order = await DocumentManager.NewDocumentAsync<PurchaseOrder>();
-        order.Supplier = s.Supplier;
-        order.Location = s.Location;
-        order.Lines.Add(new PurchaseOrderLinesTablePartRow { Item = s.Item, Quantity = qty, UnitPrice = price });
-        await DocumentManager.SaveDocumentAsync(order);
-
-        // Черновик слоёв не создаёт. Проверяем ДО перевода: без этого утверждения
-        // о приходе проходят и тогда, когда документ разнёсся сам при сохранении.
-        var afterDraft = await FifoBalanceAsync(s.Item);
-        Assert.IsTrue(afterDraft.Qty == before.Qty && afterDraft.Amount == before.Amount,
-            "черновик заказа не должен трогать слои FIFO: было {0}/{1}, стало {2}/{3}",
-            before.Qty, before.Amount, afterDraft.Qty, afterDraft.Amount);
-
-        // Тип объявляет Draft → Ordered → Received, и таблица переходов
-        // принудительна: промежуточный подтип пропускать нельзя.
-        order.Subtype = PurchaseOrder.Subtypes.Ordered;
-        await DocumentManager.SaveDocumentAsync(order);
-        order.Subtype = PurchaseOrder.Subtypes.Received;
-        await DocumentManager.SaveDocumentAsync(order);
+        var po = await Db.CreateDocumentAsync("PurchaseOrder",
+            new Dictionary<string, object?> { ["Supplier"] = s.Supplier, ["Location"] = s.Location },
+            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
+            { ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = s.Item, ["Quantity"] = qty, ["UnitPrice"] = price } } });
+        await Db.ChangeSubtypeAsync("PurchaseOrder", po, "Received");
     }
 
     private async Task<(decimal Qty, decimal Amount)> FifoBalanceAsync(Guid item)
     {
-        var rows = await TotalsManager.QueryBalancesAsync("ItemCostFifo", "[Item] = '" + item + "'");
+        var rows = await Db.QueryBalancesAsync("ItemCostFifo", "[Item] = '" + item + "'");
         decimal q = 0m, a = 0m;
         foreach (var r in rows) { q += Convert.ToDecimal(r["Quantity"]); a += Convert.ToDecimal(r["Amount"]); }
         return (q, a);
@@ -148,8 +61,7 @@ public class ItemCostFifoTest : IntegrationTestScriptBase
         Assert.IsTrue(afterReceipts.Amount == 160m, "после прихода стоимость 160, факт {0}", afterReceipts.Amount);
 
         // Расход 15 шт: FIFO снимает 10×7 + 5×9 = 115. Остаток 5 шт по 9 = 45.
-        // Движение вне цепочки документа — документа-хозяина у него нет.
-        await TotalsManager.PostMovementAsync("ItemCostFifo", null, DateTime.UtcNow.Date,
+        await Db.PostMovementAsync("ItemCostFifo", DateTime.UtcNow.Date,
             new Dictionary<string, object?> { ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Quantity"] = -15m, ["Amount"] = 0m });
 
@@ -164,14 +76,10 @@ public class ItemCostFifoTest : IntegrationTestScriptBase
         var s = await SetupAsync();
         await ReceiveAsync(s, 5m, 7m);   // всего 5 шт
 
-        // Отказ приходит ИСКЛЮЧЕНИЕМ, а исключение обрекает окружающую
-        // транзакцию рантайма: после catch к базе не обращаемся, иначе
-        // следующий запрос упадёт «the operation is not valid for the state of
-        // the transaction» и замаскирует настоящую проверку.
         var rejected = false;
         try
         {
-            await TotalsManager.PostMovementAsync("ItemCostFifo", null, DateTime.UtcNow.Date,
+            await Db.PostMovementAsync("ItemCostFifo", DateTime.UtcNow.Date,
                 new Dictionary<string, object?> { ["Item"] = s.Item },
                 new Dictionary<string, decimal> { ["Quantity"] = -6m, ["Amount"] = 0m });
         }

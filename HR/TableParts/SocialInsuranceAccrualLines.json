@@ -11,8 +11,8 @@
     "name": "SocialInsuranceAccrualLines",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
-    "createdDateTime": "2026-08-28T21:20:22.9499028",
-    "modifiedDateTime": "2026-08-28T21:20:22.9499028"
+    "createdDateTime": "2026-08-29T02:03:06.982789",
+    "modifiedDateTime": "2026-08-29T02:03:06.982789"
   },
   "properties": [
     {
@@ -31,8 +31,8 @@
       "name": "ContributoryBase",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-28T21:20:22.9499536",
-      "modifiedDateTime": "2026-08-28T21:20:22.9499537"
+      "createdDateTime": "2026-08-29T02:03:06.982794",
+      "modifiedDateTime": "2026-08-29T02:03:06.982794"
     },
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
@@ -44,14 +44,17 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "referenceName": "Employee",
       "displayOrder": 1,
       "metaId": "eff91a84-9128-47a4-a8cb-fe62f1af263d",
       "name": "Employee",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-28T21:20:22.949945",
-      "modifiedDateTime": "2026-08-28T21:20:22.949945"
+      "createdDateTime": "2026-08-29T02:03:06.982797",
+      "modifiedDateTime": "2026-08-30T14:00:29.541147"
     },
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
@@ -69,8 +72,8 @@
       "name": "EmployeeContribution",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-28T21:20:22.9499557",
-      "modifiedDateTime": "2026-08-28T21:20:22.9499557"
+      "createdDateTime": "2026-08-29T02:03:06.982799",
+      "modifiedDateTime": "2026-08-29T02:03:06.982799"
     },
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
@@ -88,8 +91,8 @@
       "name": "EmployerContribution",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-28T21:20:22.9499576",
-      "modifiedDateTime": "2026-08-28T21:20:22.9499576"
+      "createdDateTime": "2026-08-29T02:03:06.982801",
+      "modifiedDateTime": "2026-08-29T02:03:06.982801"
     }
   ]
 }

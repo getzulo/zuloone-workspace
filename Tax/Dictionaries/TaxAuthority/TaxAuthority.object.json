@@ -22,8 +22,8 @@
     "name": "TaxAuthority",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
-    "createdDateTime": "2026-08-25T16:22:23.8455834",
-    "modifiedDateTime": "2026-08-25T16:22:23.8455834"
+    "createdDateTime": "2026-08-29T02:03:06.844893",
+    "modifiedDateTime": "2026-08-29T02:03:06.844893"
   },
   "fields": [
     {
@@ -46,8 +46,8 @@
       "name": "Code",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:23.8459519",
-      "modifiedDateTime": "2026-08-25T16:22:23.8459519"
+      "createdDateTime": "2026-08-29T02:03:06.844896",
+      "modifiedDateTime": "2026-08-29T02:03:06.844896"
     },
     {
       "dictionaryMetaId": "62952a21-be30-46b7-b3db-6f014094a15f",
@@ -69,8 +69,8 @@
       "name": "CountryCode",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:23.8460111",
-      "modifiedDateTime": "2026-08-25T16:22:23.8460112"
+      "createdDateTime": "2026-08-29T02:03:06.844898",
+      "modifiedDateTime": "2026-08-29T02:03:06.844898"
     },
     {
       "dictionaryMetaId": "62952a21-be30-46b7-b3db-6f014094a15f",
@@ -92,8 +92,8 @@
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:23.8674207",
-      "modifiedDateTime": "2026-08-25T16:22:23.8674207"
+      "createdDateTime": "2026-08-29T02:03:06.8449",
+      "modifiedDateTime": "2026-08-29T02:03:06.8449"
     },
     {
       "dictionaryMetaId": "62952a21-be30-46b7-b3db-6f014094a15f",
@@ -114,8 +114,8 @@
       "name": "IsActive",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:23.8460213",
-      "modifiedDateTime": "2026-08-25T16:22:23.8460213"
+      "createdDateTime": "2026-08-29T02:03:06.844903",
+      "modifiedDateTime": "2026-08-29T02:03:06.844903"
     },
     {
       "dictionaryMetaId": "62952a21-be30-46b7-b3db-6f014094a15f",
@@ -137,8 +137,8 @@
       "name": "Name",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T16:22:23.845968",
-      "modifiedDateTime": "2026-08-25T16:22:23.8459681"
+      "createdDateTime": "2026-08-29T02:03:06.844905",
+      "modifiedDateTime": "2026-08-29T02:03:06.844905"
     }
   ]
 }

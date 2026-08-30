@@ -13,8 +13,8 @@
     "name": "ItemCostFifo",
     "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
     "layerId": 2,
-    "createdDateTime": "2026-08-25T22:20:20.064993",
-    "modifiedDateTime": "2026-08-25T22:20:20.064993"
+    "createdDateTime": "2026-08-29T02:03:09.293518",
+    "modifiedDateTime": "2026-08-29T02:03:09.293518"
   },
   "dimensions": [
     {
@@ -33,8 +33,8 @@
       "name": "Item",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "layerId": 2,
-      "createdDateTime": "2026-08-25T22:20:20.0650503",
-      "modifiedDateTime": "2026-08-25T22:20:20.0650503"
+      "createdDateTime": "2026-08-29T02:03:09.293664",
+      "modifiedDateTime": "2026-08-29T02:03:09.293664"
     }
   ],
   "resources": [
@@ -50,8 +50,8 @@
       "name": "Amount",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "layerId": 2,
-      "createdDateTime": "2026-08-25T22:20:20.0651072",
-      "modifiedDateTime": "2026-08-25T22:20:20.0651072"
+      "createdDateTime": "2026-08-29T02:03:09.294028",
+      "modifiedDateTime": "2026-08-29T02:03:09.294028"
     },
     {
       "registerMetaId": "2f6a9c41-5d8e-4b3f-9a1c-6e2d5f8a3b60",
@@ -65,8 +65,8 @@
       "name": "Quantity",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "layerId": 2,
-      "createdDateTime": "2026-08-25T22:20:20.0651013",
-      "modifiedDateTime": "2026-08-25T22:20:20.0651013"
+      "createdDateTime": "2026-08-29T02:03:09.294031",
+      "modifiedDateTime": "2026-08-29T02:03:09.294032"
     }
   ]
 }

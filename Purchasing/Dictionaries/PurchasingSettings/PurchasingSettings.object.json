@@ -19,8 +19,8 @@
     "name": "PurchasingSettings",
     "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
     "layerId": 2,
-    "createdDateTime": "2026-08-26T20:56:52.2930769",
-    "modifiedDateTime": "2026-08-26T20:56:52.293077"
+    "createdDateTime": "2026-08-29T02:03:06.844847",
+    "modifiedDateTime": "2026-08-29T02:03:06.844847"
   },
   "fields": [
     {
@@ -41,8 +41,8 @@
       "name": "AutoReceiveOnOrder",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:52.293103",
-      "modifiedDateTime": "2026-08-26T20:56:52.293103"
+      "createdDateTime": "2026-08-29T02:03:06.844849",
+      "modifiedDateTime": "2026-08-29T02:03:06.844849"
     },
     {
       "dictionaryMetaId": "e8c8174d-fd25-5eb9-b255-2209f294e1bf",
@@ -62,8 +62,8 @@
       "name": "DefaultPaymentTermDays",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:52.2931144",
-      "modifiedDateTime": "2026-08-26T20:56:52.2931144"
+      "createdDateTime": "2026-08-29T02:03:06.844852",
+      "modifiedDateTime": "2026-08-29T02:03:06.844852"
     },
     {
       "dictionaryMetaId": "e8c8174d-fd25-5eb9-b255-2209f294e1bf",
@@ -84,8 +84,8 @@
       "name": "ID",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:52.3768241",
-      "modifiedDateTime": "2026-08-26T20:56:52.3768241"
+      "createdDateTime": "2026-08-29T02:03:06.844854",
+      "modifiedDateTime": "2026-08-29T02:03:06.844854"
     }
   ]
 }

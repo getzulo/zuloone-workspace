@@ -12,8 +12,8 @@
     "name": "JournalEntryLines",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
-    "createdDateTime": "2026-08-25T15:28:51.854682",
-    "modifiedDateTime": "2026-08-25T15:28:51.854682"
+    "createdDateTime": "2026-08-29T02:03:06.981753",
+    "modifiedDateTime": "2026-08-29T02:03:06.981753"
   },
   "properties": [
     {
@@ -27,14 +27,17 @@
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
+      "referenceName": "ChartOfAccounts",
       "displayOrder": 1,
       "metaId": "3b439969-bd4f-4842-92dd-a66ceca77195",
       "name": "Account",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T15:28:51.8552587",
-      "modifiedDateTime": "2026-08-25T15:28:51.8552587"
+      "createdDateTime": "2026-08-29T02:03:06.982296",
+      "modifiedDateTime": "2026-08-30T14:00:31.257936"
     },
     {
       "tablePartTypeMetaId": "187c3b91-3133-46c2-8ed5-49adfe9ddf2f",
@@ -53,8 +56,8 @@
       "name": "Credit",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T15:28:51.8555013",
-      "modifiedDateTime": "2026-08-25T15:28:51.8555013"
+      "createdDateTime": "2026-08-29T02:03:06.982644",
+      "modifiedDateTime": "2026-08-29T02:03:06.982644"
     },
     {
       "tablePartTypeMetaId": "187c3b91-3133-46c2-8ed5-49adfe9ddf2f",
@@ -73,8 +76,8 @@
       "name": "Debit",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T15:28:51.8554982",
-      "modifiedDateTime": "2026-08-25T15:28:51.8554983"
+      "createdDateTime": "2026-08-29T02:03:06.982648",
+      "modifiedDateTime": "2026-08-29T02:03:06.982648"
     },
     {
       "tablePartTypeMetaId": "187c3b91-3133-46c2-8ed5-49adfe9ddf2f",
@@ -94,8 +97,8 @@
       "name": "Description",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T15:28:51.8555033",
-      "modifiedDateTime": "2026-08-25T15:28:51.8555033"
+      "createdDateTime": "2026-08-29T02:03:06.982651",
+      "modifiedDateTime": "2026-08-29T02:03:06.982651"
     }
   ]
 }

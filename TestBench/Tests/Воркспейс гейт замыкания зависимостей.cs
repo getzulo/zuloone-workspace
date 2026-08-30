@@ -8,11 +8,6 @@ using ZuloOne.Runtime.Testing;
 // TestBench → validate репортит dependencyViolation (нестрогий режим —
 // warnings, не blocked). Та же ссылка из TestBenchExt (зависимость
 // задекларирована) — чисто.
-//
-// ОСОЗНАННОЕ ИСКЛЮЧЕНИЕ: тест целиком остаётся на Db. Здесь нет ни записей, ни
-// документов, ни движений — предмет проверки это ИНСТРУМЕНТ воркспейса
-// (export-all + validate над каталогом файлов), которого нет ни у одного
-// менеджера: менеджеры работают с бизнес-данными, а не с пакетом метаданных.
 public class WorkspaceDependencyGateTest : IntegrationTestScriptBase
 {
     [IntegrationTest("Workspace: dependency closure gate")]

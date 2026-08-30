@@ -19,8 +19,8 @@
     "name": "ProductionSettings",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
     "layerId": 2,
-    "createdDateTime": "2026-08-26T20:56:53.6835088",
-    "modifiedDateTime": "2026-08-26T20:56:53.6835089"
+    "createdDateTime": "2026-08-29T02:03:06.844836",
+    "modifiedDateTime": "2026-08-29T02:03:06.844836"
   },
   "fields": [
     {
@@ -41,8 +41,8 @@
       "name": "AutoExpandBom",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:53.683606",
-      "modifiedDateTime": "2026-08-26T20:56:53.683606"
+      "createdDateTime": "2026-08-29T02:03:06.844839",
+      "modifiedDateTime": "2026-08-29T02:03:06.844839"
     },
     {
       "dictionaryMetaId": "bd0fccd2-d075-5de8-b054-dd7ba806c280",
@@ -63,8 +63,8 @@
       "name": "DefaultOutputLocationCode",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:53.6836213",
-      "modifiedDateTime": "2026-08-26T20:56:53.6836213"
+      "createdDateTime": "2026-08-29T02:03:06.844841",
+      "modifiedDateTime": "2026-08-29T02:03:06.844841"
     },
     {
       "dictionaryMetaId": "bd0fccd2-d075-5de8-b054-dd7ba806c280",
@@ -85,8 +85,8 @@
       "name": "ID",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:53.7152042",
-      "modifiedDateTime": "2026-08-26T20:56:53.7152042"
+      "createdDateTime": "2026-08-29T02:03:06.844843",
+      "modifiedDateTime": "2026-08-29T02:03:06.844843"
     }
   ]
 }

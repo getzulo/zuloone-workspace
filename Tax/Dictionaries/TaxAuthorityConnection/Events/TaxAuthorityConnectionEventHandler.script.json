@@ -6,11 +6,11 @@
     "objectName": "TaxAuthorityConnection",
     "objectMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
     "executionOrder": 0,
-    "metaId": "b03a2297-abf0-4e61-9fea-bccf3f972255",
+    "metaId": "2628a8ac-2ee7-47a6-80e8-39b59cbdb28f",
     "name": "TaxAuthorityConnectionEventHandler",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T04:33:06.0227069",
-    "modifiedDateTime": "2026-08-29T04:33:06.022713"
+    "createdDateTime": "2026-08-30T13:59:30.331325",
+    "modifiedDateTime": "2026-08-30T13:59:30.331332"
   }
 }

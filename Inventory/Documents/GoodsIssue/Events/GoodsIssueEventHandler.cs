@@ -1,8 +1,7 @@
-﻿#nullable enable
+#nullable enable
 using System;
 using System.Collections.Generic;
 using ZuloOne.Core.Services;
-using ZuloOne.Managers;
 
 namespace ZuloOne.Runtime.Generated;
 
@@ -12,6 +11,7 @@ namespace ZuloOne.Runtime.Generated;
 // Stock movement (see GoodsIssueTx); here we only guard against over-shipping.
 public partial class GoodsIssueEventHandler : TypedDocumentEventHandler<GoodsIssue>
 {
+    private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
 
     // Before posting: reject a shipment that would drive a bin negative. Stock is a
     // single-entry register with allowNegativeBalance:true, so the engine will not
@@ -32,10 +32,10 @@ public partial class GoodsIssueEventHandler : TypedDocumentEventHandler<GoodsIss
                 need[line.Item] = (need.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
         }
 
-        var stock = context.GetService<ITotalsManager>();
+        var stock = context.GetService<IRegisterMovementService>();
         foreach (var kv in need)
         {
-            var bal = await stock.GetBalanceAsync("Stock",
+            var bal = await stock.GetBalanceAsync(StockRegister,
                 new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = header.FromCell });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)

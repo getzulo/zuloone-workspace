@@ -3,129 +3,66 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
-using ZuloOne.Managers;
-// The generated entity classes (Currency, PayrollAccrual, …TablePartRow). A test
-// script does NOT get this namespace as a global using, so it must be named.
-using ZuloOne.Runtime.Generated;
 
 // Соцстрах: проведённое начисление ФОТ порождает начисление взносов.
 // Проверяем арифметику (ставки работника/работодателя), потолок базы,
 // разные ставки для граждан и иностранцев и необязательность контура.
-//
-// Всё — типизированными сущностями через менеджеры: справочник это
-// NewRecord<T> → заполнить → SaveRecordAsync, документ — NewDocumentAsync<T> →
-// заполнить Lines → SaveDocumentAsync, проведение — присваивание подтипа плюс
-// сохранение.
 public class SocialInsuranceTest : IntegrationTestScriptBase
 {
-    private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
-    private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
-    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
-
     private async Task<(Guid Division, Guid Home, Guid Foreign)> SetupAsync()
     {
-        var currency = DictionaryManager.NewRecord<Currency>();
-        currency.Name = "Saudi Riyal";
-        currency.Code = "SAR";
-        currency.Symbol = "﷼";
-        currency = await DictionaryManager.SaveRecordAsync(currency);
+        var currency = await Db.InsertAsync("Currency", new Dictionary<string, object?>
+            { ["Name"] = "Saudi Riyal", ["Code"] = "SAR", ["Symbol"] = "﷼" });
+        var home = await Db.InsertAsync("Country", new Dictionary<string, object?>
+            { ["Name"] = "Saudi Arabia", ["CodeISO2"] = "SA", ["CodeISO3"] = "SAU", ["PhoneCode"] = "966" });
+        var foreign = await Db.InsertAsync("Country", new Dictionary<string, object?>
+            { ["Name"] = "Egypt", ["CodeISO2"] = "EG", ["CodeISO3"] = "EGY", ["PhoneCode"] = "20" });
+        var le = await Db.InsertAsync("LegalEntity", new Dictionary<string, object?>
+            { ["Name"] = "ACME KSA", ["RegistrationNumber"] = "REG-SI-1", ["Country"] = home, ["Currency"] = currency });
+        var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?>
+            { ["Code"] = $"HQ-{Db.NewId():N}"[..12], ["Name"] = "Head office" });
+        var div = await Db.InsertAsync("Division", new Dictionary<string, object?>
+            { ["Name"] = "HQ", ["LegalEntity"] = le, ["DivisionType"] = dt });
 
-        var home = DictionaryManager.NewRecord<Country>();
-        home.Name = "Saudi Arabia";
-        home.CodeISO2 = "SA";
-        home.CodeISO3 = "SAU";
-        home.PhoneCode = "966";
-        home = await DictionaryManager.SaveRecordAsync(home);
-
-        var foreign = DictionaryManager.NewRecord<Country>();
-        foreign.Name = "Egypt";
-        foreign.CodeISO2 = "EG";
-        foreign.CodeISO3 = "EGY";
-        foreign.PhoneCode = "20";
-        foreign = await DictionaryManager.SaveRecordAsync(foreign);
-
-        var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
-        legalEntity.Name = "ACME KSA";
-        legalEntity.RegistrationNumber = "REG-SI-1";
-        legalEntity.Country = home.MetaId;
-        legalEntity.Currency = currency.MetaId;
-        legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
-
-        var divisionType = DictionaryManager.NewRecord<DivisionType>();
-        divisionType.Code = $"HQ-{Db.NewId():N}"[..12];
-        divisionType.Name = "Head office";
-        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
-
-        var division = DictionaryManager.NewRecord<Division>();
-        division.Name = "HQ";
-        division.LegalEntity = legalEntity.MetaId;
-        division.DivisionType = divisionType.MetaId;
-        division = await DictionaryManager.SaveRecordAsync(division);
-
-        return (division.MetaId, home.MetaId, foreign.MetaId);
+        return ((Guid)div, (Guid)home, (Guid)foreign);
     }
 
     /// <summary>Ставки КСА (GOSI): 9.75% работник, 11.75% работодатель, 2% за иностранцев, потолок 45 000.</summary>
     private async Task ConfigureAsync(Guid home, decimal ceiling = 45000m)
-    {
-        var settings = DictionaryManager.NewRecord<HRSettings>();
-        settings.PayrollRunDay = 25;
-        settings.WorkHoursPerDay = 8m;
-        settings.HomeCountry = home;
-        settings.SocialInsuranceEmployeeRate = 0.0975m;
-        settings.SocialInsuranceEmployerRate = 0.1175m;
-        settings.SocialInsuranceForeignEmployerRate = 0.02m;
-        settings.SocialInsuranceWageCeiling = ceiling;
-        await DictionaryManager.SaveRecordAsync(settings);
-    }
+        => await Db.InsertAsync("HRSettings", new Dictionary<string, object?>
+        {
+            ["PayrollRunDay"] = 25,
+            ["WorkHoursPerDay"] = 8m,
+            ["HomeCountry"] = home,
+            ["SocialInsuranceEmployeeRate"] = 0.0975m,
+            ["SocialInsuranceEmployerRate"] = 0.1175m,
+            ["SocialInsuranceForeignEmployerRate"] = 0.02m,
+            ["SocialInsuranceWageCeiling"] = ceiling,
+        });
 
-    private async Task<Guid> NewEmployeeAsync(Guid division, Guid nationality, string name)
+    private async Task<Guid> NewEmployeeAsync(Guid division, Guid? nationality, string name)
     {
-        var position = DictionaryManager.NewRecord<Position>();
-        position.Name = $"Dev-{Db.NewId():N}"[..12];
-        position.HourlyRate = 50m;
-        position = await DictionaryManager.SaveRecordAsync(position);
-
-        var employee = DictionaryManager.NewRecord<Employee>();
-        employee.Name = name;
-        employee.Division = division;
-        employee.Position = position.MetaId;
-        employee.HireDate = new DateTime(2024, 1, 1);
-        employee.IsActive = true;
-        employee.Nationality = nationality;
-        employee = await DictionaryManager.SaveRecordAsync(employee);
-        return employee.MetaId;
+        var pos = await Db.InsertAsync("Position", new Dictionary<string, object?>
+            { ["Name"] = $"Dev-{Db.NewId():N}"[..12], ["HourlyRate"] = 50m });
+        var fields = new Dictionary<string, object?>
+            { ["Name"] = name, ["Division"] = division, ["Position"] = pos, ["HireDate"] = new DateTime(2024, 1, 1), ["IsActive"] = true };
+        if (nationality.HasValue) fields["Nationality"] = nationality.Value;
+        return (Guid)await Db.InsertAsync("Employee", fields);
     }
 
     // Создаём в исходном подтипе и переводим отдельным шагом: подтип Posted
     // заперт (isReadOnly), строки в него сразу записать нельзя.
-    private async Task<PayrollAccrual> AccrueAsync(Guid division, IEnumerable<(Guid Employee, decimal Amount)> lines)
+    private async Task<Guid> AccrueAsync(Guid division, IEnumerable<(Guid Employee, decimal Amount)> lines)
     {
-        var accrual = await DocumentManager.NewDocumentAsync<PayrollAccrual>();
-        accrual.Division = division;
-        foreach (var line in lines)
-            accrual.Lines.Add(new PayrollAccrualLinesTablePartRow { Employee = line.Employee, Amount = line.Amount });
-        await DocumentManager.SaveDocumentAsync(accrual);
-
-        // Черновик взносов не порождает. Проверяем ДО перевода: без этого
-        // утверждения ниже проходят и тогда, когда начисление взносов создало
-        // сохранение, а не проведение.
-        Assert.IsTrue(await DocumentManager.CountDocumentsAsync<SocialInsuranceAccrual>() == 0,
-            "черновик ФОТ не должен порождать начисление взносов");
-
-        accrual.Subtype = PayrollAccrual.Subtypes.Posted;
-        await DocumentManager.SaveDocumentAsync(accrual);
-        return accrual;
-    }
-
-    /// <summary>Единственное начисление взносов вместе с его строками.</summary>
-    private async Task<SocialInsuranceAccrual> TheContributionAsync()
-    {
-        var all = await DocumentManager.QueryDocumentsAsync<SocialInsuranceAccrual>();
-        Assert.IsTrue(all.Count == 1, "должно появиться одно начисление взносов, факт {0}", all.Count);
-        // Списки документов приходят ЗАГОЛОВКАМИ — строки грузит только чтение
-        // одного документа.
-        return (await DocumentManager.GetDocumentAsync<SocialInsuranceAccrual>(all[0].MetaId))!;
+        var doc = await Db.CreateDocumentAsync("PayrollAccrual",
+            new Dictionary<string, object?> { ["Division"] = division },
+            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
+            {
+                ["Lines"] = lines.Select(l => new Dictionary<string, object?>
+                    { ["Employee"] = l.Employee, ["Amount"] = l.Amount }).ToArray(),
+            });
+        await Db.ChangeSubtypeAsync("PayrollAccrual", doc, "Posted");
+        return (Guid)doc;
     }
 
     [IntegrationTest("Начисление ФОТ порождает взносы по ставкам гражданина")]
@@ -138,16 +75,19 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
         // 10 000 × 9.75% = 975 работник; × 11.75% = 1175 работодатель.
         var pa = await AccrueAsync(s.Division, new[] { (emp, 10000m) });
 
-        var si = await TheContributionAsync();
-        Assert.IsTrue(si.Lines.Count == 1, "одна строка взносов, факт {0}", si.Lines.Count);
-        Assert.IsTrue(si.Lines[0].EmployeeContribution == 975m,
-            "взнос работника = 10000 × 9.75% = 975, факт {0}", si.Lines[0].EmployeeContribution);
-        Assert.IsTrue(si.Lines[0].EmployerContribution == 1175m,
-            "взнос работодателя = 10000 × 11.75% = 1175, факт {0}", si.Lines[0].EmployerContribution);
+        var si = await Db.QueryAsync("SocialInsuranceAccrual", null);
+        Assert.IsTrue(si.Count == 1, "должно появиться одно начисление взносов, факт {0}", si.Count);
+
+        var lines = await Db.QueryAsync("TP_SocialInsuranceAccrualLines", $"OwnerMetaId = '{si[0]["MetaId"]}'");
+        Assert.IsTrue(lines.Count == 1, "одна строка взносов, факт {0}", lines.Count);
+        Assert.IsTrue(Convert.ToDecimal(lines[0]["EmployeeContribution"]) == 975m,
+            "взнос работника = 10000 × 9.75% = 975, факт {0}", lines[0]["EmployeeContribution"]);
+        Assert.IsTrue(Convert.ToDecimal(lines[0]["EmployerContribution"]) == 1175m,
+            "взнос работодателя = 10000 × 11.75% = 1175, факт {0}", lines[0]["EmployerContribution"]);
 
         // Взносы проведены в регистр, а не остались черновиком.
         decimal regEmployee = 0m, regEmployer = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("SocialInsurance"))
+        foreach (var r in await Db.QueryBalancesAsync("SocialInsurance"))
         {
             regEmployee += Convert.ToDecimal(r["EmployeeContribution"]);
             regEmployer += Convert.ToDecimal(r["EmployerContribution"]);
@@ -155,8 +95,8 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
         Assert.IsTrue(regEmployee == 975m, "регистр: взнос работника 975, факт {0}", regEmployee);
         Assert.IsTrue(regEmployer == 1175m, "регистр: взнос работодателя 1175, факт {0}", regEmployer);
 
-        var family = await DocumentManager.GetDocumentFamilyAsync(pa.MetaId);
-        Assert.IsTrue(family.Edges.Count > 0, "взносы связаны с начислением ФОТ");
+        var edges = await Db.GetDocumentFamilyEdgesAsync(pa);
+        Assert.IsTrue(edges.Count > 0, "взносы связаны с начислением ФОТ");
     }
 
     [IntegrationTest("За иностранца платит только работодатель и по своей ставке")]
@@ -168,11 +108,12 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
 
         await AccrueAsync(s.Division, new[] { (emp, 10000m) });
 
-        var si = await TheContributionAsync();
-        Assert.IsTrue(si.Lines[0].EmployeeContribution == 0m,
-            "с иностранца взнос работника не удерживается, факт {0}", si.Lines[0].EmployeeContribution);
-        Assert.IsTrue(si.Lines[0].EmployerContribution == 200m,
-            "взнос работодателя = 10000 × 2% = 200, факт {0}", si.Lines[0].EmployerContribution);
+        var si = await Db.QueryAsync("SocialInsuranceAccrual", null);
+        var lines = await Db.QueryAsync("TP_SocialInsuranceAccrualLines", $"OwnerMetaId = '{si[0]["MetaId"]}'");
+        Assert.IsTrue(Convert.ToDecimal(lines[0]["EmployeeContribution"]) == 0m,
+            "с иностранца взнос работника не удерживается, факт {0}", lines[0]["EmployeeContribution"]);
+        Assert.IsTrue(Convert.ToDecimal(lines[0]["EmployerContribution"]) == 200m,
+            "взнос работодателя = 10000 × 2% = 200, факт {0}", lines[0]["EmployerContribution"]);
     }
 
     [IntegrationTest("Потолок базы ограничивает взнос, дробление строк его не обходит")]
@@ -186,12 +127,13 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
         // считается с суммы, ограниченной потолком: 45 000 × 9.75% = 4387.5.
         await AccrueAsync(s.Division, new[] { (emp, 30000m), (emp, 30000m) });
 
-        var si = await TheContributionAsync();
-        Assert.IsTrue(si.Lines.Count == 1, "строки одного сотрудника схлопываются в одну, факт {0}", si.Lines.Count);
-        Assert.IsTrue(si.Lines[0].ContributoryBase == 45000m,
-            "база ограничена потолком 45000, факт {0}", si.Lines[0].ContributoryBase);
-        Assert.IsTrue(si.Lines[0].EmployeeContribution == 4387.5m,
-            "взнос работника = 45000 × 9.75% = 4387.5, факт {0}", si.Lines[0].EmployeeContribution);
+        var si = await Db.QueryAsync("SocialInsuranceAccrual", null);
+        var lines = await Db.QueryAsync("TP_SocialInsuranceAccrualLines", $"OwnerMetaId = '{si[0]["MetaId"]}'");
+        Assert.IsTrue(lines.Count == 1, "строки одного сотрудника схлопываются в одну, факт {0}", lines.Count);
+        Assert.IsTrue(Convert.ToDecimal(lines[0]["ContributoryBase"]) == 45000m,
+            "база ограничена потолком 45000, факт {0}", lines[0]["ContributoryBase"]);
+        Assert.IsTrue(Convert.ToDecimal(lines[0]["EmployeeContribution"]) == 4387.5m,
+            "взнос работника = 45000 × 9.75% = 4387.5, факт {0}", lines[0]["EmployeeContribution"]);
     }
 
     [IntegrationTest("Без настроек соцстраха начисление ФОТ проводится как раньше")]
@@ -203,16 +145,15 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
 
         var pa = await AccrueAsync(s.Division, new[] { (emp, 10000m) });
 
-        var stored = await DocumentManager.GetDocumentAsync<PayrollAccrual>(pa.MetaId);
-        Assert.IsTrue(stored?.Subtype == PayrollAccrual.Subtypes.Posted,
-            "ФОТ проведён несмотря на ненастроенный соцстрах, факт {0}", stored?.Subtype);
-        Assert.IsTrue(await DocumentManager.CountDocumentsAsync<SocialInsuranceAccrual>() == 0,
+        var doc = await Db.GetAsync("PayrollAccrual", pa);
+        Assert.IsTrue((doc?["Subtype"] as string) == "Posted",
+            "ФОТ проведён несмотря на ненастроенный соцстрах, факт {0}", doc?["Subtype"]);
+        Assert.IsTrue((await Db.QueryAsync("SocialInsuranceAccrual", null)).Count == 0,
             "начисление взносов не создано");
 
         // И сам ФОТ отработал: задолженность перед сотрудником признана.
         decimal liability = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("PayrollLiability"))
-            liability += Convert.ToDecimal(r["Amount"]);
+        foreach (var r in await Db.QueryBalancesAsync("PayrollLiability")) liability += Convert.ToDecimal(r["Amount"]);
         Assert.IsTrue(liability == 10000m, "задолженность 10000, факт {0}", liability);
     }
 }

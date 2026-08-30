@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using System.Linq;
 
 namespace ZuloOne.Runtime.Generated;
@@ -17,6 +17,7 @@ namespace ZuloOne.Runtime.Generated;
 // I<Сервис> этой модели (контракты собираются после её скриптов).
 public partial class LoyaltyRedemptionEventHandler : TypedDocumentEventHandler<LoyaltyRedemption>
 {
+    private static readonly Guid LoyaltyPointsRegister = Guid.Parse("9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80");
 
     public override async Task<EventResult> OnBeforePostAsync(LoyaltyRedemption header, EventContext context)
     {
@@ -26,8 +27,8 @@ public partial class LoyaltyRedemptionEventHandler : TypedDocumentEventHandler<L
         if (requested <= 0m)
             return EventResult.Cancel("Списывать нечего: количество баллов должно быть положительным.");
 
-        var movements = context.GetService<ITotalsManager>();
-        var balance = await movements.GetBalanceAsync("LoyaltyPoints",
+        var movements = context.GetService<IRegisterMovementService>();
+        var balance = await movements.GetBalanceAsync(LoyaltyPointsRegister,
             new Dictionary<string, object?> { ["Customer"] = header.Customer });
         var available = balance != null && balance.TryGetValue("Points", out var raw) && raw != null
             ? Convert.ToDecimal(raw)

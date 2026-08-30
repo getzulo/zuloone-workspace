@@ -1,0 +1,15 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "83321261-0387-519e-822b-5128b78e690e",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":3,\"borderStyle\":\"dashed\",\"items\":[{\"type\":\"field\",\"name\":\"ID\"},{\"type\":\"field\",\"name\":\"DefaultCountryCode\",\"col\":1},{\"type\":\"field\",\"name\":\"DefaultCurrencyCode\",\"col\":1}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[]}",
+    "metaId": "47702ce1-0875-4a95-8737-1782b29fb487",
+    "name": "CommonSettings.Record",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1,
+    "createdDateTime": "2026-08-30T19:47:30.884397",
+    "modifiedDateTime": "2026-08-30T19:48:28.756956"
+  }
+}
