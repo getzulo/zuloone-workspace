@@ -119,13 +119,13 @@
       "caption": "ReceiptChain",
       "subtypeValue": "ReceiptChain",
       "displayOrder": 3,
-      "isInitial": false,
+      "isInitial": true,
       "isReadOnly": false,
       "metaId": "0129f466-ae1d-4ca3-b844-bb8264f89d21",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
       "createdDateTime": "2026-08-28T11:06:19.6312009",
-      "modifiedDateTime": "2026-08-28T11:06:19.631201"
+      "modifiedDateTime": "2026-08-30T03:13:39.790106"
     },
     {
       "documentTypeMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",

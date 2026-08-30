@@ -1,8 +1,23 @@
 // «Ядерные тесты.Иерархия»: IsHierarchical материализуется системным
 // self-reference полем ParentId (легаси Dictionary.ParentPropertyID) — на нём
 // строится форма-дерево; каскадное удаление не блокируется собственным EDT.
+//
+// ГРАНИЦА ПЕРЕПИСЫВАНИЯ НА МЕНЕДЖЕРЫ. Справочник здесь РОЖДАЕТСЯ ВНУТРИ теста,
+// поэтому генерённого класса TBTreeSandbox* не существует и типизированная
+// дверь (NewRecord<T>/GetRecordsAsync<T>) физически недоступна. Строки поэтому
+// пишутся и читаются через ПО-ИМЕННУЮ поверхность IDictionaryManager — это тот
+// же менеджер, просто его нетипизированная половина.
+// На харнессе намеренно остаются три вещи, у которых менеджера в платформе нет
+// вовсе, потому что предмет проверки — сама метадата и DDL, а не бизнес-данные:
+//   * CreateDictionaryAsync / SyncSchemaAsync — конструктор метаданных и DDL;
+//   * QueryAsync по MetaDictionaryProperties / MetaEDTs — прямая проба
+//     платформенных таблиц метаданных (они не справочники, и звать над ними
+//     менеджер справочников было бы враньём об их природе);
+//   * GetDeleteImpactAsync / CascadeDeleteMetadataAsync — каскад метаданных.
 public partial class TbHierarchyTests
 {
+    private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
+
     [IntegrationTest("иерархический справочник получает системный ParentId")]
     public async Task ParentFieldMaterializes()
     {
@@ -25,17 +40,23 @@ public partial class TbHierarchyTests
             new Dictionary<string, string> { ["Note"] = "String" }, isHierarchical: true);
         await Db.SyncSchemaAsync();
 
-        var root = await Db.InsertAsync("TBTreeSandbox2", new Dictionary<string, object?> { ["Note"] = "root" });
-        var childA = await Db.InsertAsync("TBTreeSandbox2", new Dictionary<string, object?> { ["Note"] = "a", ["ParentId"] = root });
-        await Db.InsertAsync("TBTreeSandbox2", new Dictionary<string, object?> { ["Note"] = "b", ["ParentId"] = root });
-        await Db.InsertAsync("TBTreeSandbox2", new Dictionary<string, object?> { ["Note"] = "aa", ["ParentId"] = childA });
+        var root = await NewNodeAsync("root", null);
+        var childA = await NewNodeAsync("a", root);
+        await NewNodeAsync("b", root);
+        await NewNodeAsync("aa", childA);
 
-        var children = await Db.QueryAsync("TBTreeSandbox2", "[ParentId] = '" + root + "'");
+        var children = await DictionaryManager.GetRecordsAsync("TBTreeSandbox2", "[ParentId] = '" + root + "'");
         Assert.AreEqual(2, children.Count, "у корня два прямых потомка");
-        var roots = await Db.QueryAsync("TBTreeSandbox2", "[ParentId] IS NULL");
+        var roots = await DictionaryManager.GetRecordsAsync("TBTreeSandbox2", "[ParentId] IS NULL");
         Assert.AreEqual(1, roots.Count, "корневая запись одна");
         Log("Дерево из четырёх записей собирается фильтрами по ParentId.");
     }
+
+    /// <summary>Узел дерева через менеджер справочников: класса у только что
+    /// созданного справочника нет, поэтому поля идут мешком по имени.</summary>
+    private static Task<System.Guid> NewNodeAsync(string note, System.Guid? parent)
+        => DictionaryManager.SaveRecordAsync("TBTreeSandbox2",
+            new Dictionary<string, object?> { ["Note"] = note, ["ParentId"] = parent });
 
     [IntegrationTest("каскадное удаление уносит собственный ParentRef EDT")]
     public async Task CascadeTakesSelfReferenceEdt()

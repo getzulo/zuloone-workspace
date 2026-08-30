@@ -162,13 +162,13 @@
       "subtypeCaption": "Draft",
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
-      "isInitial": false,
+      "isInitial": true,
       "isReadOnly": false,
       "metaId": "7e4f6a2d-9c3b-4d5e-8f6a-6b0c1d7e2f50",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
       "createdDateTime": "2026-08-25T21:31:26.0330925",
-      "modifiedDateTime": "2026-08-25T21:31:26.0330925"
+      "modifiedDateTime": "2026-08-30T03:13:39.8175011"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
