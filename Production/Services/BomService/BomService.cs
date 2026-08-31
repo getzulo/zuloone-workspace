@@ -52,7 +52,11 @@ public partial class BomService
         // иначе деление на ноль уронило бы проведение.
         var batches = bom.OutputQty > 0m ? qty / bom.OutputQty : qty;
 
-        var conversion = ScriptServices.Get<IUnitConversionService>();
+        // Товарный конвертер, а не общий: «2 коробки компонента» теперь означают
+        // коробку ИМЕННО этого компонента (у одного товара 12 штук, у другого 6),
+        // тогда как прежнее глобальное правило «коробка = 12» врало для всех
+        // остальных товаров.
+        var conversion = ScriptServices.Get<IItemQuantityConverter>();
 
         foreach (var comp in await _components.GetRecordsAsync($"Bom = '{bom.MetaId}'"))
         {
@@ -62,10 +66,11 @@ public partial class BomService
             if (item != null && comp.Unit != Guid.Empty && comp.Unit != item.UnitOfMeasure)
             {
                 // Правила перевода нет — молча считать граммы килограммами нельзя.
-                need = await conversion.ConvertRoundedAsync(need, comp.Unit, item.UnitOfMeasure)
+                need = await conversion.ToBaseRoundedAsync(comp.Component, need, comp.Unit)
                     ?? throw new InvalidOperationException(
                         $"Нет правила перевода единиц для компонента спецификации «{bom.Name}»: "
-                        + "количество задано в одной единице, а номенклатура хранится в другой.");
+                        + "количество задано в одной единице, а номенклатура хранится в другой. "
+                        + "Заведите упаковку товара или коэффициент к базовой единице.");
             }
 
             result[comp.Component] = (result.TryGetValue(comp.Component, out var acc) ? acc : 0m) + need;

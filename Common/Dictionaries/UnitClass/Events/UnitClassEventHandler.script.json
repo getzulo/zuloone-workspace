@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "UnitClass",
+    "objectMetaId": "977785ef-79fe-4128-894d-36f13e1f5a59",
+    "executionOrder": 0,
+    "metaId": "002ac74c-875d-417f-913f-98aaee882563",
+    "name": "UnitClassEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1,
+    "createdDateTime": "2026-08-31T02:43:42.366092",
+    "modifiedDateTime": "2026-08-31T02:43:42.366098"
+  }
+}

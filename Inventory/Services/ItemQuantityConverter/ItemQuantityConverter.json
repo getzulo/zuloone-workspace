@@ -1,0 +1,14 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Пересчёт количества строки в базовую единицу товара: сначала упаковка товара, затем вид величины. Реализует платформенный IQuantityConverter.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "7d8421e4-6779-4463-b362-cb6265b50f3c",
+    "metaId": "1cac739c-5d38-4d8d-923e-0e63614411dd",
+    "name": "ItemQuantityConverter",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-08-31T02:45:18.737347",
+    "modifiedDateTime": "2026-08-31T02:45:18.737347"
+  }
+}

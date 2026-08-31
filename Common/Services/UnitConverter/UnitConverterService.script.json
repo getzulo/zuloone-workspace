@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "UnitConverter",
+    "executionOrder": 0,
+    "metaId": "671cbb0d-38ca-4023-948f-17486f231ebd",
+    "name": "UnitConverterService",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1,
+    "createdDateTime": "2026-08-31T02:41:35.6162416",
+    "modifiedDateTime": "2026-08-31T02:42:37.8812509"
+  }
+}

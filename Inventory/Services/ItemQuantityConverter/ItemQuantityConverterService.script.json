@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "ItemQuantityConverter",
+    "executionOrder": 0,
+    "metaId": "7d8421e4-6779-4463-b362-cb6265b50f3c",
+    "name": "ItemQuantityConverterService",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-08-31T02:45:18.6840542",
+    "modifiedDateTime": "2026-08-31T02:51:13.9270658"
+  }
+}

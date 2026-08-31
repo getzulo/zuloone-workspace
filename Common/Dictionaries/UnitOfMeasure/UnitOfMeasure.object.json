@@ -22,7 +22,7 @@
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-22T02:01:49.6937917",
-    "modifiedDateTime": "2026-08-22T03:43:38.8695752"
+    "modifiedDateTime": "2026-08-31T02:45:46.2498099"
   },
   "fields": [
     {
@@ -106,7 +106,7 @@
       "caption": "Name",
       "caption_ar": "الاسم",
       "caption_ru": "Наименование",
-      "isTranslatable": false,
+      "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,
       "metaId": "4e543475-787f-40c2-bd4c-aee00a1aaa71",
@@ -114,7 +114,7 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-22T02:01:49.6938302",
-      "modifiedDateTime": "2026-08-22T03:43:38.8742477"
+      "modifiedDateTime": "2026-08-31T02:45:33.026866"
     },
     {
       "dictionaryMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",

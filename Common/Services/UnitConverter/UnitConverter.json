@@ -1,0 +1,14 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Перевод количеств между единицами ОДНОГО вида величины по коэффициенту к базовой единице; округление по точности единицы",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "671cbb0d-38ca-4023-948f-17486f231ebd",
+    "metaId": "8e69a5c0-4a52-4d0a-b38a-09dcba6d2260",
+    "name": "UnitConverter",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1,
+    "createdDateTime": "2026-08-31T02:41:36.1352818",
+    "modifiedDateTime": "2026-08-31T02:41:36.1352818"
+  }
+}

@@ -140,18 +140,13 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         var main = await NewWarehouseAsync("MAIN", division.MetaId, cellType.MetaId, cellNumber: 1);
         var shop = await NewWarehouseAsync("SHOP", division.MetaId, cellType.MetaId, cellNumber: 2);
 
-        // Единицы и ПРАВИЛО между ними. Правило создаётся внутри отката раннера
-        // намеренно: платформа читает его через соединение, которое уже держит,
+        // Единицы. Сколько штук в ящике — свойство ТОВАРА, поэтому упаковка
+        // заводится ниже, после него. Создаётся она внутри отката раннера
+        // намеренно: платформа читает её через соединение, которое уже держит,
         // внутри транзакции вызывающего — конвертер со своим соединением этих
         // строк не увидел бы вовсе.
         var piece = await NewUnitAsync("Piece", "PCS", 0);
         var box = await NewUnitAsync("Box", "BOX", 0);
-
-        var rule = DictionaryManager.NewRecord<UnitConversion>();
-        rule.FromUnit = box;
-        rule.ToUnit = piece;
-        rule.Factor = BoxFactor;
-        await DictionaryManager.SaveRecordAsync(rule);
 
         var group = DictionaryManager.NewRecord<ItemGroup>();
         group.Code = $"MERCH-{Db.NewId():N}"[..12];
@@ -164,6 +159,13 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         item.UnitOfMeasure = piece;      // базовая единица — цель пересчёта
         item.IsSellable = true;
         item = await DictionaryManager.SaveRecordAsync(item);
+
+        // Упаковка этого товара: 1 ящик = BoxFactor штук.
+        var pack = DictionaryManager.NewRecord<ItemUnit>();
+        pack.Item = item.MetaId;
+        pack.Unit = box;
+        pack.QtyInBaseUnit = BoxFactor;
+        await DictionaryManager.SaveRecordAsync(pack);
 
         var supplier = DictionaryManager.NewRecord<Supplier>();
         supplier.Name = "Water Supply Co";

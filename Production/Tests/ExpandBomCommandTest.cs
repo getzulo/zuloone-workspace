@@ -223,16 +223,28 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
         // заказ в 10 штук — 0.020 кг. Две ошибки, которые тест обязан ловить:
         // умножить на заказ вместо деления на выход (было бы 200) и посчитать
         // граммы килограммами (было бы 20).
+        // Грамм и килограмм — одна ВЕЛИЧИНА (масса), выраженная через базовую
+        // единицу: коэффициент, а не попарное правило. Поэтому «килограмм в грамм»
+        // считается само, а «килограмм в метр» невыразим в принципе.
+        var mass = DictionaryManager.NewRecord<UnitClass>();
+        mass.Code = $"MASS-{Db.NewId():N}"[..12];
+        mass.Name = "Mass";
+        mass = await DictionaryManager.SaveRecordAsync(mass);
+
         var kg = DictionaryManager.NewRecord<UnitOfMeasure>();
         kg.Name = "Kilogram";
         kg.Code = "KG";
         kg.DecimalPlaces = 3;
+        kg.UnitClass = mass.MetaId;
+        kg.RatioToBase = 1000m;            // 1 кг = 1000 базовых (граммов)
         kg = await DictionaryManager.SaveRecordAsync(kg);
 
         var g = DictionaryManager.NewRecord<UnitOfMeasure>();
         g.Name = "Gram";
         g.Code = "G";
         g.DecimalPlaces = 0;
+        g.UnitClass = mass.MetaId;
+        g.RatioToBase = 1m;                // базовая единица массы
         g = await DictionaryManager.SaveRecordAsync(g);
 
         var pcs = DictionaryManager.NewRecord<UnitOfMeasure>();
@@ -240,12 +252,6 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
         pcs.Code = "PCS";
         pcs.DecimalPlaces = 0;
         pcs = await DictionaryManager.SaveRecordAsync(pcs);
-
-        var conversion = DictionaryManager.NewRecord<UnitConversion>();
-        conversion.FromUnit = kg.MetaId;
-        conversion.ToUnit = g.MetaId;
-        conversion.Factor = 1000m;
-        await DictionaryManager.SaveRecordAsync(conversion);
 
         var group = DictionaryManager.NewRecord<ItemGroup>();
         group.Code = "MAT";

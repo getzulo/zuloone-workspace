@@ -1,14 +1,14 @@
 #nullable enable
 namespace ZuloOne.Runtime.Generated;
 
-// Strongly-typed lifecycle handler for UnitConversion records (MIQS DictionaryEventHandlerBase<T>).
-// `record` is a typed UnitConversion entity — access fields directly (record.SomeField).
+// Strongly-typed lifecycle handler for UnitClass records (MIQS DictionaryEventHandlerBase<T>).
+// `record` is a typed UnitClass entity — access fields directly (record.SomeField).
 // Cancel with EventResult.Cancel("reason"); replace a DB error with EventResult.Error("...");
 // show UI feedback with context.AddClientAction(ClientAction.Message("...", "success")).
-public partial class UnitConversionEventHandler : TypedDictionaryEventHandler<UnitConversion>
+public partial class UnitClassEventHandler : TypedDictionaryEventHandler<UnitClass>
 {
     // Building a new record server-side: seed default field values here.
-    public override Task<EventResult> OnBeforeCreateAsync(UnitConversion record, EventContext context)
+    public override Task<EventResult> OnBeforeCreateAsync(UnitClass record, EventContext context)
     {
         // record.CreatedOn = DateTime.UtcNow;
         return Task.FromResult(EventResult.Ok());
@@ -16,7 +16,7 @@ public partial class UnitConversionEventHandler : TypedDictionaryEventHandler<Un
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew == true) or update.
     // Put shared validation / computed fields here.
-    public override Task<EventResult> OnBeforeSaveAsync(UnitConversion record, bool isNew, EventContext context)
+    public override Task<EventResult> OnBeforeSaveAsync(UnitClass record, bool isNew, EventContext context)
     {
         // if (string.IsNullOrEmpty(record.Name))
         //     return Task.FromResult(EventResult.Cancel("Name is required"));
@@ -25,18 +25,18 @@ public partial class UnitConversionEventHandler : TypedDictionaryEventHandler<Un
     }
 
     // MIQS AfterSave: runs after ANY save (insert or update).
-    public override Task<EventResult> OnAfterSaveAsync(UnitConversion record, bool isNew, EventContext context)
+    public override Task<EventResult> OnAfterSaveAsync(UnitClass record, bool isNew, EventContext context)
         => Task.FromResult(EventResult.Ok());
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
-    //public override Task<EventResult> OnBeforeInsertAsync(UnitConversion record, EventContext context)
+    //public override Task<EventResult> OnBeforeInsertAsync(UnitClass record, EventContext context)
     //    => Task.FromResult(EventResult.Ok());
-    //public override Task<EventResult> OnAfterInsertAsync(UnitConversion record, EventContext context)
+    //public override Task<EventResult> OnAfterInsertAsync(UnitClass record, EventContext context)
     //    => Task.FromResult(EventResult.Ok());
-    //public override Task<EventResult> OnBeforeUpdateAsync(UnitConversion record, EventContext context)
+    //public override Task<EventResult> OnBeforeUpdateAsync(UnitClass record, EventContext context)
     //    => Task.FromResult(EventResult.Ok());
-    //public override Task<EventResult> OnAfterUpdateAsync(UnitConversion record, EventContext context)
+    //public override Task<EventResult> OnAfterUpdateAsync(UnitClass record, EventContext context)
     //    => Task.FromResult(EventResult.Ok());
 
     // Just before a record is deleted. Cancel to block the delete.
@@ -48,19 +48,19 @@ public partial class UnitConversionEventHandler : TypedDictionaryEventHandler<Un
         => Task.FromResult(EventResult.Ok());
 
     // Before inserting a clone: reset unique values (codes, numbers).
-    public override Task<EventResult> OnBeforeCloneAsync(UnitConversion record, EventContext context)
+    public override Task<EventResult> OnBeforeCloneAsync(UnitClass record, EventContext context)
         => Task.FromResult(EventResult.Ok());
 
     // After a record is loaded: compute transient/derived property values.
-    public override Task<EventResult> OnAfterLoadAsync(UnitConversion record, EventContext context)
+    public override Task<EventResult> OnAfterLoadAsync(UnitClass record, EventContext context)
         => Task.FromResult(EventResult.Ok());
 
     // Validate a single field (name + current value).
-    public override Task<EventResult> OnValidateFieldAsync(UnitConversion record, string fieldName, object? value, EventContext context)
+    public override Task<EventResult> OnValidateFieldAsync(UnitClass record, string fieldName, object? value, EventContext context)
         => Task.FromResult(EventResult.Ok());
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
-    public override Task<EventResult> OnSaveFailedAsync(UnitConversion record, string errorMessage, EventContext context)
+    public override Task<EventResult> OnSaveFailedAsync(UnitClass record, string errorMessage, EventContext context)
         => Task.FromResult(EventResult.Ok());
 
     // A delete failed: same friendly-message translation as OnSaveFailed.

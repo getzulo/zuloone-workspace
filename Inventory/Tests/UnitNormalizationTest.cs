@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Managers;
-// Генерённые классы (UnitOfMeasure, UnitConversion, Item, StockAdjustment,
+// Генерённые классы (UnitOfMeasure, ItemUnit, Item, StockAdjustment,
 // StockAdjustmentLinesTablePartRow…). Тест-скрипты НЕ получают это пространство
 // имён глобальным using'ом — без строки ниже каждый из них CS0246.
 using ZuloOne.Runtime.Generated;
@@ -113,15 +113,11 @@ public class UnitNormalizationTest : IntegrationTestScriptBase
         cell = await DictionaryManager.SaveRecordAsync(cell);
 
         // «Штука / ящик из 12 / …» — ровно та настройка, которую пользователь
-        // хотел уметь задавать: две единицы и ОДНО правило между ними.
+        // хотел уметь задавать. Ящик — не единица измерения с глобальным
+        // коэффициентом: сколько в нём штук, зависит от ТОВАРА, поэтому правило
+        // заводится ниже, после товара, как его упаковка.
         var piece = await NewUnitAsync("Piece", "PCS", 0);
         var box = await NewUnitAsync("Box", "BOX", 0);
-
-        var rule = DictionaryManager.NewRecord<UnitConversion>();
-        rule.FromUnit = box;
-        rule.ToUnit = piece;
-        rule.Factor = 12m;                 // 1 ящик = 12 штук
-        await DictionaryManager.SaveRecordAsync(rule);
 
         var group = DictionaryManager.NewRecord<ItemGroup>();
         group.Code = $"MERCH-{Db.NewId():N}"[..12];
@@ -133,6 +129,13 @@ public class UnitNormalizationTest : IntegrationTestScriptBase
         item.ItemGroup = group.MetaId;
         item.UnitOfMeasure = piece;        // БАЗОВАЯ единица товара — цель пересчёта
         item = await DictionaryManager.SaveRecordAsync(item);
+
+        // Упаковка ИМЕННО этого товара: 1 ящик = 12 штук.
+        var pack = DictionaryManager.NewRecord<ItemUnit>();
+        pack.Item = item.MetaId;
+        pack.Unit = box;
+        pack.QtyInBaseUnit = 12m;
+        await DictionaryManager.SaveRecordAsync(pack);
 
         return new Setup { Cell = cell.MetaId, Item = item.MetaId, Piece = piece, Box = box };
     }
