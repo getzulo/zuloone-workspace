@@ -1,6 +1,6 @@
 ---
 name: zuloone-new-register
-description: Создать регистр накопления ZuloOne — ресурсы, ДИНАМИЧЕСКИЕ АНАЛИТИКИ из переиспользуемого каталога, движок/драйвер итогов. Use when adding an accumulation register (stock, money, cost) to a ZuloOne model.
+description: Создать регистр накопления ZuloOne — ресурсы, ДИНАМИЧЕСКИЕ АНАЛИТИКИ из переиспользуемого каталога, движок/драйвер итогов; §7 — кросс-регистровые отчёты через Virtual Total. Use when adding an accumulation register (stock, money, cost) to a ZuloOne model.
 ---
 
 # Новый регистр
@@ -181,3 +181,66 @@ transactions.Add(new RegisterMovementSpec("<Имя>")
 дата, {"Warehouse": wh, "Item": item}, {"Qty": 5m})` и сверка
 `QueryMovementsAsync`/`QueryBalancesAsync`; обязательная аналитика без
 значения должна отклоняться; для драйвера — сценарий на его алгоритм.
+
+## 7. Кросс-регистровые отчёты — виртуальный итог (Virtual Total)
+
+Нужно смержить НЕСКОЛЬКО регистров в один отчёт (склад по Item+Cell и
+себестоимость по Item под одной шапкой) — не пиши сервис-джойнер с нуля,
+если хватает декларативного `VirtualTotal`: `dim`/`var` задают общую схему
+отчёта, `group` мержит источники.
+
+Файл — та же пара-конвенция, что `.script.json`+`.cs`: `<Имя>.json`
+(`kind: "VirtualTotal"`, только caption/язык/metaId) + сосед `<Имя>.vt` —
+сам текст DSL:
+
+```
+dim Item(Item): en(Item)
+var Qty: en(Quantity)
+var Value: en(Value)
+predicate NamedWh(WAREHOUSE): TBWarehouseByName
+group StockQty: en(Stock quantity)
+  var Qty
+    total Stock: Qty
+end
+group CostValue: en(Cost value)
+  var Value
+    total InventoryValue: Value
+end
+group All: en(Everything)
+  children: StockQty, CostValue
+end
+```
+
+Ключевое поведение (проверено в `VirtualTotalCompiler`/`VirtualTotalLanguage`):
+- Компилируется в ОДИН `UNION ALL` по СЫРЫМ таблицам движений `TR_<Регистр>`
+  источников — это движения, не остатки; баланс = `SUM(...)` по результату,
+  как у любого регистра.
+- Каждый `total <Регистр>: <Ресурс>` сам решает, какие СВОИ измерения
+  замэппить в общую `dim`-схему (`dim Target: SourceDim`, или неявно — по
+  совпадению имени). Разные наборы измерений у источников (у одного —
+  физические Cell+Item, у другого — только динамическая аналитика Item) —
+  НЕ проблема: несовпавшее измерение просто NULL в этой строке.
+- **Это UNION, а не JOIN.** Строка результата приходит РОВНО из одного
+  источника и несёт значение только СВОЕЙ переменной — остальные `var` в
+  этой строке нулевые. `Qty`-из-Stock и `Value`-из-InventoryValue лягут в
+  РАЗНЫЕ строки одной группы, не в одну колонку рядом. Чтобы получить цену
+  (`Value/Qty`) в ОДНОЙ строке отчёта — после `QueryVirtualTotalAsync` нужен
+  ещё `GROUP BY dim, SUM(Qty), SUM(Value)` и деление в коде (сервис/отчёт);
+  сам DSL арифметики между переменными не считает (только знак и
+  `.Add/.Sub/.Debit/.Credit` фильтр значения).
+- `predicate Имя(Аргументы): СистемноеИмя` — именованный переиспользуемый
+  SQL (`kind: "VirtualTotalPredicate"`, поля `sqlQuery`+`arguments`), в DSL
+  — `filter [not] Имя(измерения)` → `EXISTS`/`NOT EXISTS` по этому SQL.
+- `group`-ы регенерируются из DSL при каждой компиляции
+  (`MetaVirtualTotalGroup`), иерархия — через `children: A, B`; руками
+  строки групп не редактировать.
+- Тестовый доступ: `Db.CompileVirtualTotalAsync("Имя")` (`.Success`,
+  `.Errors`, `.GroupCount`) и `Db.QueryVirtualTotalAsync("Имя")` → строки со
+  служебными `GroupMetaId`/`MovementDate`/`DocumentMetaId` + колонки
+  dim/var.
+
+**Не путать с `registerEngineType: "Virtual"`** (тот же корень слова, другой
+механизм) — это ОДИН регистр БЕЗ физической таблицы, чей остаток целиком
+считает скрипт-драйвер (`VirtualTotalScriptBase.GetBalancesAsync`,
+кернел-драйвер `Core/TotalDrivers/VirtualTotalDriver`), а не декларативный
+мердж НЕСКОЛЬКИХ регистров в отчёт.
