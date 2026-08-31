@@ -2,12 +2,12 @@
   "kind": "VirtualTotal",
   "object": {
     "caption": "Combined stock (virtual)",
-    "language": "en",
+    "language": "ru",
     "metaId": "31828623-b12e-4481-8729-7eeb28b7e807",
     "name": "TBCombinedStock",
     "modelId": "4cb5a85c-c9a3-476f-8a11-8f8420030775",
     "layerId": 1,
     "createdDateTime": "2026-08-28T20:36:33.3021969",
-    "modifiedDateTime": "2026-08-28T20:36:33.302197"
+    "modifiedDateTime": "2026-08-31T19:50:48.1656857"
   }
 }

@@ -2,14 +2,14 @@
   "kind": "FormLayout",
   "object": {
     "objectType": "Dictionary",
-    "objectMetaId": "691d6211-b6eb-477d-9d79-5c273fba9fc1",
+    "objectMetaId": "a05cda81-0cf8-4a5a-b8ce-b6cd8197dd99",
     "formKind": "List",
     "layoutJson": "{\"rowRules\":[{\"when\":\"Stock < 1\",\"color\":\"red\"}],\"summary\":{\"version\":4,\"nodes\":[]}}",
-    "metaId": "0d5f7a0e-8989-47fe-af1c-6cb7da3f9e37",
-    "name": "LfDict52b5608c.List",
+    "metaId": "929dd5ae-5c39-4c33-ba44-dd3bf6fecc18",
+    "name": "LfDict5c586cfa.List",
     "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
     "layerId": 1,
-    "createdDateTime": "2026-08-30T19:10:01.665128",
-    "modifiedDateTime": "2026-08-30T19:10:01.665191"
+    "createdDateTime": "2026-08-31T03:09:53.0039845",
+    "modifiedDateTime": "2026-08-31T03:09:53.0040258"
   }
 }

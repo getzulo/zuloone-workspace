@@ -12,8 +12,8 @@
     "name": "TaxReturnLines",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
-    "createdDateTime": "2026-08-31T16:02:58.187976",
-    "modifiedDateTime": "2026-08-31T16:02:58.187976"
+    "createdDateTime": "2026-08-31T16:02:58.1879767",
+    "modifiedDateTime": "2026-08-31T16:02:58.1879767"
   },
   "properties": [
     {
@@ -36,8 +36,8 @@
       "name": "Direction",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-31T16:02:58.188023",
-      "modifiedDateTime": "2026-08-31T16:02:58.188023"
+      "createdDateTime": "2026-08-31T16:02:58.1880235",
+      "modifiedDateTime": "2026-08-31T16:02:58.1880236"
     },
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
@@ -56,8 +56,8 @@
       "name": "TaxAmount",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-31T16:02:58.18803",
-      "modifiedDateTime": "2026-08-31T16:02:58.18803"
+      "createdDateTime": "2026-08-31T16:02:58.1880308",
+      "modifiedDateTime": "2026-08-31T16:02:58.1880308"
     },
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
@@ -76,8 +76,8 @@
       "name": "TaxBase",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-31T16:02:58.188027",
-      "modifiedDateTime": "2026-08-31T16:02:58.188027"
+      "createdDateTime": "2026-08-31T16:02:58.1880273",
+      "modifiedDateTime": "2026-08-31T16:02:58.1880274"
     },
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
@@ -99,8 +99,8 @@
       "name": "TaxCode",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-31T16:02:58.188011",
-      "modifiedDateTime": "2026-08-31T16:02:58.188011"
+      "createdDateTime": "2026-08-31T16:02:58.1880117",
+      "modifiedDateTime": "2026-08-31T16:02:58.1880118"
     }
   ]
 }
