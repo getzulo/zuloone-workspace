@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "UnitConversion",
+    "objectMetaId": "6c7d8e9f-0a1b-4c2d-9e3f-4a5b6c7d8e90",
+    "executionOrder": 0,
+    "metaId": "3af9c4b4-605c-4afa-87d1-faeea602a446",
+    "name": "UnitConversionEventHandler",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-08-29T02:03:08.220758",
+    "modifiedDateTime": "2026-08-29T02:03:08.220759"
+  }
+}
