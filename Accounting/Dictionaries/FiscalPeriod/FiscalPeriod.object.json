@@ -12,7 +12,6 @@
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "defaultSearchProperty": "Code",
     "displayFormat": "{Code}",
     "isKernel": false,
@@ -22,8 +21,8 @@
     "name": "FiscalPeriod",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T02:03:06.843816",
-    "modifiedDateTime": "2026-08-29T02:03:06.843816"
+    "createdDateTime": "2026-08-25T15:27:31.749415",
+    "modifiedDateTime": "2026-08-25T15:27:31.7494151"
   },
   "fields": [
     {
@@ -46,8 +45,8 @@
       "name": "Code",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843833",
-      "modifiedDateTime": "2026-08-29T02:03:06.843833"
+      "createdDateTime": "2026-08-25T15:27:31.7494601",
+      "modifiedDateTime": "2026-08-25T15:27:31.7494601"
     },
     {
       "dictionaryMetaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
@@ -68,8 +67,8 @@
       "name": "FiscalYear",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843841",
-      "modifiedDateTime": "2026-08-29T02:03:06.843841"
+      "createdDateTime": "2026-08-25T15:27:31.749449",
+      "modifiedDateTime": "2026-08-25T15:27:31.749449"
     },
     {
       "dictionaryMetaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
@@ -90,8 +89,8 @@
       "name": "FromDate",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843848",
-      "modifiedDateTime": "2026-08-29T02:03:06.843848"
+      "createdDateTime": "2026-08-25T15:27:31.7494663",
+      "modifiedDateTime": "2026-08-25T15:27:31.7494663"
     },
     {
       "dictionaryMetaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
@@ -113,8 +112,8 @@
       "name": "ID",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843854",
-      "modifiedDateTime": "2026-08-29T02:03:06.843854"
+      "createdDateTime": "2026-08-25T15:27:31.767066",
+      "modifiedDateTime": "2026-08-25T15:27:31.7670663"
     },
     {
       "dictionaryMetaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
@@ -136,8 +135,8 @@
       "name": "Status",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843861",
-      "modifiedDateTime": "2026-08-29T02:03:06.843861"
+      "createdDateTime": "2026-08-25T15:27:31.74947",
+      "modifiedDateTime": "2026-08-25T15:27:31.74947"
     },
     {
       "dictionaryMetaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
@@ -158,8 +157,8 @@
       "name": "ToDate",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843868",
-      "modifiedDateTime": "2026-08-29T02:03:06.843868"
+      "createdDateTime": "2026-08-25T15:27:31.7494682",
+      "modifiedDateTime": "2026-08-25T15:27:31.7494682"
     }
   ]
 }

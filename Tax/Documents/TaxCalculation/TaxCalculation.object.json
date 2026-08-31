@@ -16,8 +16,8 @@
     "name": "TaxCalculation",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T02:03:07.268406",
-    "modifiedDateTime": "2026-08-29T02:03:07.268406"
+    "createdDateTime": "2026-08-25T16:27:30.2416687",
+    "modifiedDateTime": "2026-08-25T16:27:30.2416687"
   },
   "headerFields": [
     {
@@ -38,8 +38,8 @@
       "name": "Currency",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268408",
-      "modifiedDateTime": "2026-08-29T02:03:07.268408"
+      "createdDateTime": "2026-08-25T16:27:30.2423508",
+      "modifiedDateTime": "2026-08-25T16:27:30.2423508"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -59,8 +59,8 @@
       "name": "DeterminationReason",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268411",
-      "modifiedDateTime": "2026-08-29T02:03:07.268411"
+      "createdDateTime": "2026-08-25T16:27:30.2424297",
+      "modifiedDateTime": "2026-08-25T16:27:30.2424298"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -81,8 +81,8 @@
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268413",
-      "modifiedDateTime": "2026-08-29T02:03:07.268413"
+      "createdDateTime": "2026-08-25T16:27:30.325938",
+      "modifiedDateTime": "2026-08-25T16:27:30.3259382"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -102,8 +102,8 @@
       "name": "LegalEntity",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268416",
-      "modifiedDateTime": "2026-08-29T02:03:07.268416"
+      "createdDateTime": "2026-08-25T16:27:30.2421029",
+      "modifiedDateTime": "2026-08-25T16:27:30.2421029"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -122,8 +122,8 @@
       "name": "TaxPointDate",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268418",
-      "modifiedDateTime": "2026-08-29T02:03:07.268418"
+      "createdDateTime": "2026-08-25T16:27:30.2424279",
+      "modifiedDateTime": "2026-08-25T16:27:30.2424279"
     }
   ],
   "subtypes": [
@@ -140,8 +140,8 @@
       "metaId": "31a249a0-f86c-4062-867b-db3052fb9a9b",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268421",
-      "modifiedDateTime": "2026-08-29T02:03:07.268421"
+      "createdDateTime": "2026-08-25T16:27:30.242799",
+      "modifiedDateTime": "2026-08-28T13:34:56.4071187"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -157,8 +157,8 @@
       "metaId": "3c95258c-d9fd-48b0-877c-46feb4fdf275",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268423",
-      "modifiedDateTime": "2026-08-29T02:03:07.268423"
+      "createdDateTime": "2026-08-25T16:27:30.2425542",
+      "modifiedDateTime": "2026-08-25T16:27:30.2425542"
     }
   ],
   "tableParts": [
@@ -170,8 +170,8 @@
       "name": "Lines",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268425",
-      "modifiedDateTime": "2026-08-29T02:03:07.268425"
+      "createdDateTime": "2026-08-25T16:27:30.2429531",
+      "modifiedDateTime": "2026-08-25T16:27:30.2429531"
     }
   ],
   "subtypeTransactionScripts": [
@@ -183,8 +183,8 @@
       "name": "",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268427",
-      "modifiedDateTime": "2026-08-29T02:03:07.268427"
+      "createdDateTime": "2026-08-25T16:47:30.1342083",
+      "modifiedDateTime": "2026-08-25T16:47:30.1342083"
     }
   ],
   "subtypeTransitions": [
@@ -195,8 +195,8 @@
       "name": "Draft->31a249a0f86c4062867bdb3052fb9a9b",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268429",
-      "modifiedDateTime": "2026-08-29T02:03:07.268429"
+      "createdDateTime": "2026-08-28T13:35:29.8124295",
+      "modifiedDateTime": "2026-08-28T13:35:29.8124295"
     }
   ]
 }

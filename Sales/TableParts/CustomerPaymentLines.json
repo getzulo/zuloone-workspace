@@ -11,8 +11,8 @@
     "name": "CustomerPaymentLines",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.983078",
-    "modifiedDateTime": "2026-08-29T02:03:06.983078"
+    "createdDateTime": "2026-08-27T18:16:26.2158789",
+    "modifiedDateTime": "2026-08-27T18:16:26.2158789"
   },
   "properties": [
     {
@@ -31,8 +31,8 @@
       "name": "Amount",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.983081",
-      "modifiedDateTime": "2026-08-29T02:03:06.983081"
+      "createdDateTime": "2026-08-27T18:16:26.2166596",
+      "modifiedDateTime": "2026-08-27T18:16:26.2166596"
     },
     {
       "tablePartTypeMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
@@ -53,8 +53,8 @@
       "name": "Customer",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.983083",
-      "modifiedDateTime": "2026-08-30T14:00:24.595271"
+      "createdDateTime": "2026-08-27T18:16:26.2163294",
+      "modifiedDateTime": "2026-08-30T13:59:57.5351019"
     }
   ]
 }

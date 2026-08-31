@@ -13,8 +13,8 @@
       "name": "Customer",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.52572",
-      "modifiedDateTime": "2026-08-29T03:07:54.350938"
+      "createdDateTime": "2026-08-25T17:32:29.9259165",
+      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
     },
     {
       "caption": "Goods issue",
@@ -28,8 +28,8 @@
       "name": "GoodsIssue",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525725",
-      "modifiedDateTime": "2026-08-29T03:08:27.382901"
+      "createdDateTime": "2026-08-28T14:12:31.0911115",
+      "modifiedDateTime": "2026-08-29T03:08:32.9259936"
     },
     {
       "caption": "Inventory",
@@ -41,8 +41,8 @@
       "name": "Inventory",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525656",
-      "modifiedDateTime": "2026-08-29T02:03:10.525656"
+      "createdDateTime": "2026-08-25T17:32:29.9258831",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Dictionaries",
@@ -54,8 +54,8 @@
       "name": "Dictionaries",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525657",
-      "modifiedDateTime": "2026-08-29T02:03:10.525657"
+      "createdDateTime": "2026-08-25T17:32:29.9258993",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Documents",
@@ -68,8 +68,8 @@
       "name": "Documents",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525659",
-      "modifiedDateTime": "2026-08-29T02:03:10.52566"
+      "createdDateTime": "2026-08-25T17:53:45.0421708",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Registers",
@@ -81,8 +81,8 @@
       "name": "Registers",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525661",
-      "modifiedDateTime": "2026-08-29T02:03:10.525661"
+      "createdDateTime": "2026-08-25T17:53:45.0421724",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Settings",
@@ -94,8 +94,8 @@
       "name": "Settings",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525662",
-      "modifiedDateTime": "2026-08-29T02:03:10.525662"
+      "createdDateTime": "2026-08-26T20:45:14.6313913",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Dispatch tower",
@@ -109,8 +109,8 @@
       "name": "WarehouseDispatcher",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525664",
-      "modifiedDateTime": "2026-08-29T02:53:22.656872"
+      "createdDateTime": "2026-08-28T03:03:10.296244",
+      "modifiedDateTime": "2026-08-29T02:52:56.544203"
     },
     {
       "caption": "Inventory settings",
@@ -123,8 +123,8 @@
       "name": "InventorySettings",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525707",
-      "modifiedDateTime": "2026-08-29T02:03:10.525707"
+      "createdDateTime": "2026-08-26T20:45:14.631393",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Items",
@@ -138,8 +138,8 @@
       "name": "Item",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525709",
-      "modifiedDateTime": "2026-08-29T02:03:10.525709"
+      "createdDateTime": "2026-08-25T17:32:29.925908",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Stock",
@@ -153,8 +153,8 @@
       "name": "Stock",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525711",
-      "modifiedDateTime": "2026-08-29T02:03:10.525711"
+      "createdDateTime": "2026-08-25T17:53:45.0421767",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Stock adjustments",
@@ -168,8 +168,8 @@
       "name": "StockAdjustment",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525712",
-      "modifiedDateTime": "2026-08-29T02:03:10.525712"
+      "createdDateTime": "2026-08-25T17:53:45.0421738",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Item groups",
@@ -183,8 +183,8 @@
       "name": "ItemGroup",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525714",
-      "modifiedDateTime": "2026-08-29T02:03:10.525714"
+      "createdDateTime": "2026-08-25T17:32:29.9259106",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Stock transfers",
@@ -198,8 +198,8 @@
       "name": "StockTransfer",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525715",
-      "modifiedDateTime": "2026-08-29T02:03:10.525715"
+      "createdDateTime": "2026-08-25T17:53:45.0421753",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Put-away tasks",
@@ -213,8 +213,8 @@
       "name": "PutAwayTask",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525717",
-      "modifiedDateTime": "2026-08-29T02:03:10.525717"
+      "createdDateTime": "2026-08-27T21:50:35.1369953",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Suppliers",
@@ -228,8 +228,8 @@
       "name": "Supplier",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525718",
-      "modifiedDateTime": "2026-08-29T02:03:10.525718"
+      "createdDateTime": "2026-08-25T17:32:29.9259122",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Pick tasks",
@@ -243,8 +243,8 @@
       "name": "PickTask",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525721",
-      "modifiedDateTime": "2026-08-29T02:03:10.525721"
+      "createdDateTime": "2026-08-27T21:50:35.1369969",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Stores",
@@ -258,8 +258,8 @@
       "name": "Store",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525724",
-      "modifiedDateTime": "2026-08-29T03:07:54.361904"
+      "createdDateTime": "2026-08-25T17:32:29.9259182",
+      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
     },
     {
       "caption": "Stock counts",
@@ -273,8 +273,8 @@
       "name": "StockCount",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525722",
-      "modifiedDateTime": "2026-08-29T02:03:10.525722"
+      "createdDateTime": "2026-08-27T21:50:35.1369983",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Store zones",
@@ -288,8 +288,8 @@
       "name": "StoreZone",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525727",
-      "modifiedDateTime": "2026-08-29T03:07:54.363112"
+      "createdDateTime": "2026-08-27T21:50:35.1369846",
+      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
     },
     {
       "caption": "Store cells",
@@ -303,8 +303,8 @@
       "name": "StoreCell",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525728",
-      "modifiedDateTime": "2026-08-29T03:07:54.364277"
+      "createdDateTime": "2026-08-25T17:32:29.9259213",
+      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
     },
     {
       "caption": "Store cell types",
@@ -318,8 +318,8 @@
       "name": "StoreCellType",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525759",
-      "modifiedDateTime": "2026-08-29T03:07:54.364818"
+      "createdDateTime": "2026-08-25T17:32:29.9259197",
+      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
     },
     {
       "caption": "Unit conversions",
@@ -332,8 +332,20 @@
       "name": "UnitConversion",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525768",
-      "modifiedDateTime": "2026-08-29T03:07:54.365315"
+      "createdDateTime": "2026-08-26T20:45:14.6313894",
+      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
+    },
+    {
+      "caption": "Item units",
+      "caption_ru": "Упаковки товара",
+      "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
+      "displayOrder": 8,
+      "targetType": "Dictionary",
+      "targetMetaId": "94a2d817-d01b-4c54-bdbc-d8d17e5dbf7b",
+      "metaId": "04dd8257-376c-441c-a3b0-90d5b1a7140b",
+      "name": "ItemUnit",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
     }
   ]
 }

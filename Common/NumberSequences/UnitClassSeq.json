@@ -1,0 +1,16 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "nextValue": 1004,
+    "resetPolicy": "None",
+    "metaId": "2e4f1d4d-d3f5-4622-9f88-6b7f5d979cc9",
+    "name": "UnitClassSeq",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1,
+    "createdDateTime": "2026-08-31T02:37:55.0814006",
+    "modifiedDateTime": "2026-08-31T02:39:37.5066667"
+  }
+}

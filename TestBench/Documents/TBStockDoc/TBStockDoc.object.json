@@ -14,8 +14,8 @@
     "name": "TBStockDoc",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T02:03:07.268432",
-    "modifiedDateTime": "2026-08-29T02:03:07.268432"
+    "createdDateTime": "2026-08-28T11:06:19.4565546",
+    "modifiedDateTime": "2026-08-28T11:06:19.4565547"
   },
   "headerFields": [
     {
@@ -36,8 +36,8 @@
       "name": "ID",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268435",
-      "modifiedDateTime": "2026-08-29T02:03:07.268435"
+      "createdDateTime": "2026-08-28T11:06:19.4749807",
+      "modifiedDateTime": "2026-08-28T11:06:19.4749807"
     },
     {
       "documentTypeMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",
@@ -55,8 +55,8 @@
       "name": "Warehouse",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268437",
-      "modifiedDateTime": "2026-08-29T02:03:07.268437"
+      "createdDateTime": "2026-08-28T11:06:19.5151016",
+      "modifiedDateTime": "2026-08-28T11:06:19.5151017"
     }
   ],
   "statuses": [
@@ -74,8 +74,8 @@
       "name": "Draft",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268541",
-      "modifiedDateTime": "2026-08-29T02:03:07.268541"
+      "createdDateTime": "2026-08-28T11:06:19.5568823",
+      "modifiedDateTime": "2026-08-28T11:06:19.5568823"
     },
     {
       "documentTypeMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",
@@ -91,8 +91,8 @@
       "name": "Posted",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268819",
-      "modifiedDateTime": "2026-08-29T02:03:07.268819"
+      "createdDateTime": "2026-08-28T11:06:19.5916908",
+      "modifiedDateTime": "2026-08-28T11:06:19.591691"
     },
     {
       "documentTypeMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",
@@ -108,8 +108,8 @@
       "name": "Reverted",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268823",
-      "modifiedDateTime": "2026-08-29T02:03:07.268823"
+      "createdDateTime": "2026-08-28T11:06:19.5963669",
+      "modifiedDateTime": "2026-08-28T11:06:19.5963669"
     }
   ],
   "subtypes": [
@@ -119,13 +119,13 @@
       "caption": "ReceiptChain",
       "subtypeValue": "ReceiptChain",
       "displayOrder": 3,
-      "isInitial": false,
+      "isInitial": true,
       "isReadOnly": false,
       "metaId": "0129f466-ae1d-4ca3-b844-bb8264f89d21",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268904",
-      "modifiedDateTime": "2026-08-29T02:03:07.268904"
+      "createdDateTime": "2026-08-28T11:06:19.6312009",
+      "modifiedDateTime": "2026-08-30T14:17:46.7062388"
     },
     {
       "documentTypeMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",
@@ -138,8 +138,8 @@
       "metaId": "91395484-b4cf-45ac-b1f2-46239fe8d8fe",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268909",
-      "modifiedDateTime": "2026-08-29T02:03:07.268909"
+      "createdDateTime": "2026-08-28T11:06:19.6259615",
+      "modifiedDateTime": "2026-08-28T11:06:19.6259615"
     },
     {
       "documentTypeMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",
@@ -152,8 +152,8 @@
       "metaId": "e5523145-7e40-4b80-8ce4-10bf41c97a52",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268911",
-      "modifiedDateTime": "2026-08-29T02:03:07.268911"
+      "createdDateTime": "2026-08-28T11:06:19.6110579",
+      "modifiedDateTime": "2026-08-28T11:06:19.611058"
     }
   ],
   "tableParts": [
@@ -166,8 +166,8 @@
       "name": "Items",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:07.268914",
-      "modifiedDateTime": "2026-08-29T02:03:07.268914"
+      "createdDateTime": "2026-08-28T11:06:19.5365411",
+      "modifiedDateTime": "2026-08-28T11:06:19.5365412"
     }
   ]
 }

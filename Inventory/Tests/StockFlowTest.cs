@@ -2,67 +2,157 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
+using ZuloOne.Managers;
+// Генерённые классы (Currency, StockAdjustment, StockAdjustmentLinesTablePartRow…).
+// Тест-скрипты НЕ получают это пространство имён глобальным using — без него
+// генерённые классы не находятся, а Currency вдобавок связывается с посторонним
+// недоступным типом, и ошибка (CS0122) описывает не ту причину.
+using ZuloOne.Runtime.Generated;
 
 // Integration coverage for the single-entry Stock ledger (MIQS-style): an
 // adjustment brings stock in as one positive movement (no External counterparty),
 // a transfer moves it between two cells as a balanced pair, and a write-off beyond
 // on-hand is rejected by the StockAdjustment precheck. On-hand is read per
 // (Cell,Item); the register sums to the real on-hand quantity.
+//
+// Написано так, как пишется сервис MIQS — типизированными сущностями через
+// менеджеры: справочник это NewRecord<T> → поля → SaveRecordAsync, документ —
+// NewDocumentAsync<T> → Lines → SaveDocumentAsync, а проведение — присваивание:
+//
+//     doc.Subtype = StockAdjustment.Subtypes.Posted;
+//     await DocumentManager.SaveDocumentAsync(doc);
+//
+// Остатки и движения читаются ITotalsManager'ом — тем же, что зовут обработчики
+// событий Inventory.
 public class StockFlowTest : IntegrationTestScriptBase
 {
+    private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
+    private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
+    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
+
     private async Task<(Guid Loc1, Guid Loc2, Guid Item)> SetupAsync()
     {
-        var currency = await Db.InsertAsync("Currency", new Dictionary<string, object?>
-            { ["Name"] = "Euro", ["Code"] = "EUR", ["Symbol"] = "€" });
-        var country = await Db.InsertAsync("Country", new Dictionary<string, object?>
-            { ["Name"] = "Germany", ["CodeISO2"] = "DE", ["CodeISO3"] = "DEU", ["PhoneCode"] = "49" });
-        var le = await Db.InsertAsync("LegalEntity", new Dictionary<string, object?>
-            { ["Name"] = "ACME GmbH", ["RegistrationNumber"] = "REG-INV-1", ["Country"] = country, ["Currency"] = currency });
-        var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?>
-            { ["Code"] = "WH", ["Name"] = "Warehouse" });
-        var div = await Db.InsertAsync("Division", new Dictionary<string, object?>
-            { ["Name"] = "Main", ["LegalEntity"] = le, ["DivisionType"] = dt });
+        var currency = DictionaryManager.NewRecord<Currency>();
+        currency.Name = "Euro";
+        currency.Code = "EUR";
+        currency.Symbol = "€";
+        currency = await DictionaryManager.SaveRecordAsync(currency);
 
-        var wh = await Db.InsertAsync("Store", new Dictionary<string, object?> { ["Name"] = "Central", ["Division"] = div, ["IsSimple"] = true });
-        var whZone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?> { ["Name"] = "Зона", ["Store"] = wh, ["IsBarcodeTracking"] = false });
-        var lt = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?> {["Code"] = $"STG-{Db.NewId():N}"[..12], ["Name"] = "Storage" });
-        var loc1 = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "A-01", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
-        var loc2 = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "A-02", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 2 });
+        var country = DictionaryManager.NewRecord<Country>();
+        country.Name = "Germany";
+        country.CodeISO2 = "DE";
+        country.CodeISO3 = "DEU";
+        country.PhoneCode = "49";
+        country = await DictionaryManager.SaveRecordAsync(country);
 
-        var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?>
-            { ["Name"] = "Piece", ["Code"] = "PCS" });
-        var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?>
-            { ["Code"] = $"MERCH-{Db.NewId():N}"[..12], ["Name"] = "Merchandise" });
-        var item = await Db.InsertAsync("Item", new Dictionary<string, object?>
-            { ["Name"] = "Widget", ["ItemGroup"] = group, ["UnitOfMeasure"] = uom });
+        var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
+        legalEntity.Name = "ACME GmbH";
+        legalEntity.RegistrationNumber = "REG-INV-1";
+        legalEntity.Country = country.MetaId;
+        legalEntity.Currency = currency.MetaId;
+        legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
 
-        return ((Guid)loc1, (Guid)loc2, (Guid)item);
+        var divisionType = DictionaryManager.NewRecord<DivisionType>();
+        divisionType.Code = "WH";
+        divisionType.Name = "Warehouse";
+        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
+
+        var division = DictionaryManager.NewRecord<Division>();
+        division.Name = "Main";
+        division.LegalEntity = legalEntity.MetaId;
+        division.DivisionType = divisionType.MetaId;
+        division = await DictionaryManager.SaveRecordAsync(division);
+
+        var store = DictionaryManager.NewRecord<Store>();
+        store.Name = "Central";
+        store.Division = division.MetaId;
+        store.IsSimple = true;
+        store = await DictionaryManager.SaveRecordAsync(store);
+
+        var zone = DictionaryManager.NewRecord<StoreZone>();
+        zone.Name = "Зона";
+        zone.Store = store.MetaId;
+        zone.IsBarcodeTracking = false;
+        zone = await DictionaryManager.SaveRecordAsync(zone);
+
+        var cellType = DictionaryManager.NewRecord<StoreCellType>();
+        cellType.Code = $"STG-{Db.NewId():N}"[..12];
+        cellType.Name = "Storage";
+        cellType = await DictionaryManager.SaveRecordAsync(cellType);
+
+        var loc1 = await NewCellAsync("A-01", cellType.MetaId, zone.MetaId, cellNumber: 1);
+        var loc2 = await NewCellAsync("A-02", cellType.MetaId, zone.MetaId, cellNumber: 2);
+
+        var uom = DictionaryManager.NewRecord<UnitOfMeasure>();
+        uom.Name = "Piece";
+        uom.Code = "PCS";
+        uom = await DictionaryManager.SaveRecordAsync(uom);
+
+        var group = DictionaryManager.NewRecord<ItemGroup>();
+        group.Code = $"MERCH-{Db.NewId():N}"[..12];
+        group.Name = "Merchandise";
+        group = await DictionaryManager.SaveRecordAsync(group);
+
+        var item = DictionaryManager.NewRecord<Item>();
+        item.Name = "Widget";
+        item.ItemGroup = group.MetaId;
+        item.UnitOfMeasure = uom.MetaId;
+        item = await DictionaryManager.SaveRecordAsync(item);
+
+        return (loc1.MetaId, loc2.MetaId, item.MetaId);
+    }
+
+    private static async Task<StoreCell> NewCellAsync(string name, Guid type, Guid zone, int cellNumber)
+    {
+        var cell = DictionaryManager.NewRecord<StoreCell>();
+        cell.Name = name;
+        cell.Type = type;
+        cell.StoreZone = zone;
+        cell.RackNumber = 1;
+        cell.ShelfNumber = 1;
+        cell.LineNumber = 1;
+        cell.CellNumber = cellNumber;
+        return await DictionaryManager.SaveRecordAsync(cell);
+    }
+
+    /// <summary>Черновик корректировки на одну строку — ещё НЕ проведён.</summary>
+    private static async Task<StockAdjustment> NewAdjustmentAsync(Guid location, Guid item, decimal qty)
+    {
+        // Подтип не передаём: NewDocumentAsync обязан взять НАЧАЛЬНЫЙ подтип типа
+        // документа (Draft) сам.
+        var doc = await DocumentManager.NewDocumentAsync<StockAdjustment>();
+        doc.Cell = location;
+        doc.Lines.Add(new StockAdjustmentLinesTablePartRow { Item = item, Quantity = qty });
+        await DocumentManager.SaveDocumentAsync(doc);
+        return doc;
     }
 
     private async Task PostAdjustmentAsync(Guid location, Guid item, decimal qty)
     {
-        var doc = await Db.CreateDocumentAsync("StockAdjustment",
-            new Dictionary<string, object?> { ["Cell"] = location },
-            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
-            {
-                ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = item, ["Quantity"] = qty } },
-            });
-        await Db.ChangeSubtypeAsync("StockAdjustment", doc, "Posted");
+        var doc = await NewAdjustmentAsync(location, item, qty);
+        doc.Subtype = StockAdjustment.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(doc);
     }
 
-    private async Task<decimal> OnHandAsync(Guid location, Guid item)
-    {
-        decimal q = 0m;
-        foreach (var r in await Db.QueryBalancesAsync("Stock", "[Cell] = '" + location + "' AND [Item] = '" + item + "'"))
-            q += Convert.ToDecimal(r["Qty"]);
-        return q;
-    }
+    /// <summary>Остаток по паре (ячейка, товар): у Stock ровно эти два физических
+    /// измерения, так что срез задаётся полным ключом.</summary>
+    private static Task<decimal> OnHandAsync(Guid location, Guid item)
+        => TotalsManager.GetBalanceAsync("Stock", "Qty",
+            new Dictionary<string, object?> { ["Cell"] = location, ["Item"] = item });
 
     [IntegrationTest("Корректировка вводит остаток на склад")]
     public async Task AdjustmentAddsStock()
     {
         var s = await SetupAsync();
-        await PostAdjustmentAsync(s.Loc1, s.Item, 10m);
+
+        // Состояние ДО перехода: черновик остатка не создаёт. Без этого проверка
+        // ниже проходит и тогда, когда документ разнёсся сам при сохранении, — и
+        // о переходе Draft → Posted тест не говорит ничего.
+        var draft = await NewAdjustmentAsync(s.Loc1, s.Item, 10m);
+        Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 0m, "черновик корректировки не должен двигать остаток");
+
+        draft.Subtype = StockAdjustment.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(draft);
 
         Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 10m, "на ячейке должно быть 10");
     }
@@ -73,13 +163,18 @@ public class StockFlowTest : IntegrationTestScriptBase
         var s = await SetupAsync();
         await PostAdjustmentAsync(s.Loc1, s.Item, 10m);
 
-        var doc = await Db.CreateDocumentAsync("StockTransfer",
-            new Dictionary<string, object?> { ["FromCell"] = s.Loc1, ["ToCell"] = s.Loc2 },
-            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
-            {
-                ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = s.Item, ["Quantity"] = 4m } },
-            });
-        await Db.ChangeSubtypeAsync("StockTransfer", doc, "Posted");
+        var doc = await DocumentManager.NewDocumentAsync<StockTransfer>();
+        doc.FromCell = s.Loc1;
+        doc.ToCell = s.Loc2;
+        doc.Lines.Add(new StockTransferLinesTablePartRow { Item = s.Item, Quantity = 4m });
+        await DocumentManager.SaveDocumentAsync(doc);
+
+        // Черновик перемещения ничего не переносит — остаток пока весь на Loc1.
+        Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 10m, "до проведения весь остаток на исходной ячейке");
+        Assert.IsTrue(await OnHandAsync(s.Loc2, s.Item) == 0m, "до проведения целевая ячейка пуста");
+
+        doc.Subtype = StockTransfer.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(doc);
 
         Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 6m, "на исходной ячейке осталось 6");
         Assert.IsTrue(await OnHandAsync(s.Loc2, s.Item) == 4m, "на целевой ячейке 4");
@@ -88,7 +183,7 @@ public class StockFlowTest : IntegrationTestScriptBase
         // (Loc1 −4 / Loc2 +4). Считаем ТОЛЬКО движения по своему товару: регистр
         // общий, и незакрытые строки соседних прогонов попадут в безусловный
         // QueryMovementsAsync.
-        var moves = await Db.QueryMovementsAsync("Stock", $"[Item] = '{s.Item}'");
+        var moves = await TotalsManager.QueryMovementsAsync("Stock", $"[Item] = '{s.Item}'");
         decimal sum = 0m;
         foreach (var m in moves) sum += Convert.ToDecimal(m["Qty"]);
         Assert.IsTrue(moves.Count == 3, "ожидалось 3 движения (приход + пара перемещения), а не {0}", moves.Count);
@@ -101,17 +196,19 @@ public class StockFlowTest : IntegrationTestScriptBase
         var s = await SetupAsync();
         await PostAdjustmentAsync(s.Loc1, s.Item, 5m);
 
-        var wo = await Db.CreateDocumentAsync("StockAdjustment",
-            new Dictionary<string, object?> { ["Cell"] = s.Loc1 },
-            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
-            {
-                ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = s.Item, ["Quantity"] = -8m } },
-            });
+        // Списание сверх наличия обязано СОХРАНИТЬСЯ черновиком — черновику
+        // позволено быть неверным. Запрет принадлежит ПРОВЕДЕНИЮ.
+        var wo = await NewAdjustmentAsync(s.Loc1, s.Item, -8m);
+        Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 5m, "черновик списания не должен трогать остаток");
 
+        // После пойманного отказа к БД НЕ обращаемся: событие отказывает
+        // исключением, а исключение рушит окружающую транзакцию раннера —
+        // следующий запрос упал бы вместо самой проверки.
         var rejected = false;
         try
         {
-            await Db.ChangeSubtypeAsync("StockAdjustment", wo, "Posted");
+            wo.Subtype = StockAdjustment.Subtypes.Posted;
+            await DocumentManager.SaveDocumentAsync(wo);
         }
         catch
         {

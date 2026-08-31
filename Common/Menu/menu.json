@@ -11,8 +11,8 @@
       "name": "Common",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525584",
-      "modifiedDateTime": "2026-08-29T02:03:10.525584"
+      "createdDateTime": "2026-08-22T02:01:49.929175",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Dictionaries",
@@ -25,8 +25,8 @@
       "name": "Dictionaries",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525586",
-      "modifiedDateTime": "2026-08-29T02:03:10.525586"
+      "createdDateTime": "2026-08-22T11:52:31.1444916",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Settings",
@@ -38,8 +38,8 @@
       "name": "Settings",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525588",
-      "modifiedDateTime": "2026-08-29T02:03:10.525588"
+      "createdDateTime": "2026-08-26T20:56:53.8484411",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Common settings",
@@ -52,8 +52,8 @@
       "name": "CommonSettings",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525591",
-      "modifiedDateTime": "2026-08-29T02:03:10.525591"
+      "createdDateTime": "2026-08-26T20:56:53.8484429",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Gender",
@@ -67,8 +67,8 @@
       "name": "Gender",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525593",
-      "modifiedDateTime": "2026-08-29T02:03:10.525593"
+      "createdDateTime": "2026-08-22T02:01:49.9293893",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Countries",
@@ -82,8 +82,8 @@
       "name": "Country",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525595",
-      "modifiedDateTime": "2026-08-29T02:03:10.525595"
+      "createdDateTime": "2026-08-22T02:01:49.9294391",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Regions",
@@ -97,8 +97,8 @@
       "name": "Region",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525597",
-      "modifiedDateTime": "2026-08-29T02:03:10.525597"
+      "createdDateTime": "2026-08-22T02:01:49.9294424",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Cities",
@@ -112,8 +112,8 @@
       "name": "City",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525598",
-      "modifiedDateTime": "2026-08-29T02:03:10.525598"
+      "createdDateTime": "2026-08-22T02:01:49.9294448",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Addresses",
@@ -127,8 +127,8 @@
       "name": "Address",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525599",
-      "modifiedDateTime": "2026-08-29T02:03:10.525599"
+      "createdDateTime": "2026-08-22T02:01:49.9294472",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Units of measure",
@@ -142,8 +142,8 @@
       "name": "UnitOfMeasure",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525601",
-      "modifiedDateTime": "2026-08-29T02:03:10.525601"
+      "createdDateTime": "2026-08-22T02:01:49.9294518",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Currencies",
@@ -157,8 +157,22 @@
       "name": "Currency",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:10.525603",
-      "modifiedDateTime": "2026-08-29T02:03:10.525603"
+      "createdDateTime": "2026-08-22T02:01:49.9294494",
+      "modifiedDateTime": "2026-08-22T11:52:31.1514893"
+    },
+    {
+      "caption": "Unit classes",
+      "caption_ru": "Виды величин",
+      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "displayOrder": 7,
+      "targetType": "Dictionary",
+      "targetMetaId": "977785ef-79fe-4128-894d-36f13e1f5a59",
+      "metaId": "276740f4-f36a-4ed0-a252-1075361724d0",
+      "name": "UnitClass",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1,
+      "createdDateTime": "2026-08-31T02:37:55.1076088",
+      "modifiedDateTime": "2026-08-31T02:37:55.1076088"
     }
   ]
 }

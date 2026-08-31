@@ -11,7 +11,6 @@
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
@@ -21,8 +20,8 @@
     "name": "Supplier",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.844709",
-    "modifiedDateTime": "2026-08-29T02:03:06.844709"
+    "createdDateTime": "2026-08-25T17:30:38.4260496",
+    "modifiedDateTime": "2026-08-25T17:30:38.4260496"
   },
   "fields": [
     {
@@ -45,8 +44,8 @@
       "name": "Email",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844712",
-      "modifiedDateTime": "2026-08-29T02:03:06.844712"
+      "createdDateTime": "2026-08-25T17:30:38.4261152",
+      "modifiedDateTime": "2026-08-25T17:30:38.4261152"
     },
     {
       "dictionaryMetaId": "d1f4e8dc-6454-4a20-b116-132053950800",
@@ -68,8 +67,8 @@
       "name": "ID",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844714",
-      "modifiedDateTime": "2026-08-29T02:03:06.844714"
+      "createdDateTime": "2026-08-25T17:30:38.4501527",
+      "modifiedDateTime": "2026-08-25T17:30:38.4501529"
     },
     {
       "dictionaryMetaId": "d1f4e8dc-6454-4a20-b116-132053950800",
@@ -91,8 +90,8 @@
       "name": "Name",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844716",
-      "modifiedDateTime": "2026-08-29T02:03:06.844716"
+      "createdDateTime": "2026-08-25T17:30:38.4260905",
+      "modifiedDateTime": "2026-08-25T17:30:38.4260906"
     },
     {
       "dictionaryMetaId": "d1f4e8dc-6454-4a20-b116-132053950800",
@@ -114,8 +113,8 @@
       "name": "Phone",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844719",
-      "modifiedDateTime": "2026-08-29T02:03:06.844719"
+      "createdDateTime": "2026-08-25T17:30:38.4261133",
+      "modifiedDateTime": "2026-08-25T17:30:38.4261133"
     },
     {
       "dictionaryMetaId": "d1f4e8dc-6454-4a20-b116-132053950800",
@@ -137,8 +136,8 @@
       "name": "TaxRegistrationNumber",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844721",
-      "modifiedDateTime": "2026-08-29T02:03:06.844721"
+      "createdDateTime": "2026-08-25T17:30:38.4261168",
+      "modifiedDateTime": "2026-08-25T17:30:38.4261168"
     }
   ]
 }

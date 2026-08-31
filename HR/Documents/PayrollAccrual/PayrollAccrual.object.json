@@ -15,8 +15,8 @@
     "name": "PayrollAccrual",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:07.268086",
-    "modifiedDateTime": "2026-08-29T02:03:07.268086"
+    "createdDateTime": "2026-08-25T21:18:50.3228401",
+    "modifiedDateTime": "2026-08-25T21:18:50.3228401"
   },
   "headerFields": [
     {
@@ -37,8 +37,8 @@
       "name": "Division",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268088",
-      "modifiedDateTime": "2026-08-29T02:03:07.268088"
+      "createdDateTime": "2026-08-25T21:18:50.3228564",
+      "modifiedDateTime": "2026-08-25T21:18:50.3228565"
     },
     {
       "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
@@ -59,8 +59,8 @@
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268091",
-      "modifiedDateTime": "2026-08-29T02:03:07.268091"
+      "createdDateTime": "2026-08-25T21:18:50.344394",
+      "modifiedDateTime": "2026-08-25T21:18:50.3443942"
     }
   ],
   "subtypes": [
@@ -78,8 +78,8 @@
       "metaId": "4629fcca-6d1e-4b8a-9c3f-5a7e2d1c4b86",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268094",
-      "modifiedDateTime": "2026-08-29T02:03:07.268094"
+      "createdDateTime": "2026-08-25T21:18:50.3228717",
+      "modifiedDateTime": "2026-08-28T13:34:56.4532557"
     },
     {
       "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
@@ -90,13 +90,13 @@
       "subtypeCaption": "Draft",
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
-      "isInitial": false,
+      "isInitial": true,
       "isReadOnly": false,
       "metaId": "6a17b68b-3e5c-4d2a-8f1b-7c4a6e2d9b53",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268096",
-      "modifiedDateTime": "2026-08-29T02:03:07.268096"
+      "createdDateTime": "2026-08-25T21:18:50.3228663",
+      "modifiedDateTime": "2026-08-30T14:17:50.6772131"
     }
   ],
   "tableParts": [
@@ -108,8 +108,8 @@
       "name": "Lines",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268099",
-      "modifiedDateTime": "2026-08-29T02:03:07.268099"
+      "createdDateTime": "2026-08-25T21:18:50.3228753",
+      "modifiedDateTime": "2026-08-25T21:18:50.3228754"
     }
   ],
   "subtypeTransactionScripts": [
@@ -121,8 +121,8 @@
       "name": "",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268102",
-      "modifiedDateTime": "2026-08-29T02:03:07.268102"
+      "createdDateTime": "2026-08-25T21:21:39.9579982",
+      "modifiedDateTime": "2026-08-25T21:21:39.9579982"
     }
   ],
   "subtypeTransitions": [
@@ -133,8 +133,8 @@
       "name": "Draft->4629fcca6d1e4b8a9c3f5a7e2d1c4b86",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268104",
-      "modifiedDateTime": "2026-08-29T02:03:07.268104"
+      "createdDateTime": "2026-08-28T13:35:29.7612028",
+      "modifiedDateTime": "2026-08-28T13:35:29.7612028"
     }
   ]
 }

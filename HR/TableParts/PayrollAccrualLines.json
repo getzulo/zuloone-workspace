@@ -11,8 +11,8 @@
     "name": "PayrollAccrualLines",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.982768",
-    "modifiedDateTime": "2026-08-29T02:03:06.982768"
+    "createdDateTime": "2026-08-25T21:18:30.912221",
+    "modifiedDateTime": "2026-08-25T21:18:30.9122211"
   },
   "properties": [
     {
@@ -32,8 +32,8 @@
       "name": "Amount",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.982773",
-      "modifiedDateTime": "2026-08-29T02:03:06.982773"
+      "createdDateTime": "2026-08-25T21:18:30.9122551",
+      "modifiedDateTime": "2026-08-25T21:18:30.9122551"
     },
     {
       "tablePartTypeMetaId": "b56a4082-9c3e-4d1f-8a7b-2e6f5c1d3a90",
@@ -55,8 +55,8 @@
       "name": "Employee",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.982776",
-      "modifiedDateTime": "2026-08-30T14:00:28.943234"
+      "createdDateTime": "2026-08-25T21:18:30.9122431",
+      "modifiedDateTime": "2026-08-30T13:59:55.7849231"
     }
   ]
 }

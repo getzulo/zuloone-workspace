@@ -2,7 +2,7 @@
   "kind": "Model",
   "object": {
     "modelType": "Custom",
-    "description": "Себестоимость (core): оценка запасов по стоимости прихода (FIFO/COGS через драйвер — отложено)",
+    "description": "Себестоимость (core): оценка запасов по стоимости прихода; выбытие (COGS) списывает драйвер итогов CostingIssue по чистому движению склада, метод оценки (FIFO/AVG) и округление — в CostingSettings",
     "isSystem": false,
     "isSealed": false,
     "isEnabled": true,
@@ -12,8 +12,8 @@
     "name": "Costing",
     "modelId": "00000000-0000-0000-0000-000000000000",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.607916",
-    "modifiedDateTime": "2026-08-30T19:07:59.716083"
+    "createdDateTime": "2026-08-25T22:13:17.276151",
+    "modifiedDateTime": "2026-08-30T17:32:29.4157202"
   },
   "dependencies": [
     {
@@ -24,8 +24,8 @@
       "name": "Costing->Inventory",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.607918",
-      "modifiedDateTime": "2026-08-29T02:03:06.607918"
+      "createdDateTime": "2026-08-25T22:13:17.2761653",
+      "modifiedDateTime": "2026-08-25T22:13:17.2761653"
     },
     {
       "modelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
@@ -35,8 +35,8 @@
       "name": "Costing->Measurement",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.607921",
-      "modifiedDateTime": "2026-08-29T02:03:06.607921"
+      "createdDateTime": "2026-08-25T22:50:01.4213524",
+      "modifiedDateTime": "2026-08-25T22:50:01.4213524"
     },
     {
       "modelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
@@ -46,8 +46,8 @@
       "name": "Costing->Purchasing",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.607922",
-      "modifiedDateTime": "2026-08-29T02:03:06.607922"
+      "createdDateTime": "2026-08-25T22:13:17.2761706",
+      "modifiedDateTime": "2026-08-25T22:13:17.2761706"
     }
   ]
 }

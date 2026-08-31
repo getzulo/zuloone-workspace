@@ -12,7 +12,6 @@
     "isCached": true,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
@@ -22,8 +21,8 @@
     "name": "StoreCellType",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.844685",
-    "modifiedDateTime": "2026-08-29T02:03:06.844685"
+    "createdDateTime": "2026-08-25T17:31:08.7954988",
+    "modifiedDateTime": "2026-08-27T21:23:30.0336683"
   },
   "fields": [
     {
@@ -46,8 +45,8 @@
       "name": "Code",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844688",
-      "modifiedDateTime": "2026-08-29T02:03:06.844688"
+      "createdDateTime": "2026-08-25T17:31:08.7955361",
+      "modifiedDateTime": "2026-08-25T17:31:08.7955361"
     },
     {
       "dictionaryMetaId": "b7b051bb-f3bb-4720-b7f6-7b7b8668d391",
@@ -69,8 +68,8 @@
       "name": "ID",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.84469",
-      "modifiedDateTime": "2026-08-29T02:03:06.84469"
+      "createdDateTime": "2026-08-25T17:31:08.8120734",
+      "modifiedDateTime": "2026-08-25T17:31:08.8120737"
     },
     {
       "dictionaryMetaId": "b7b051bb-f3bb-4720-b7f6-7b7b8668d391",
@@ -92,8 +91,8 @@
       "name": "Name",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844692",
-      "modifiedDateTime": "2026-08-29T02:03:06.844692"
+      "createdDateTime": "2026-08-25T17:31:08.7955576",
+      "modifiedDateTime": "2026-08-25T17:31:08.7955576"
     }
   ]
 }

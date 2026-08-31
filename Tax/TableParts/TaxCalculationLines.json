@@ -12,8 +12,8 @@
     "name": "TaxCalculationLines",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T02:03:06.983098",
-    "modifiedDateTime": "2026-08-29T02:03:06.983098"
+    "createdDateTime": "2026-08-25T16:26:59.5675923",
+    "modifiedDateTime": "2026-08-25T16:26:59.5675923"
   },
   "properties": [
     {
@@ -36,8 +36,8 @@
       "name": "Direction",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.9831",
-      "modifiedDateTime": "2026-08-30T14:00:24.261057"
+      "createdDateTime": "2026-08-25T16:26:59.5693052",
+      "modifiedDateTime": "2026-08-30T13:59:56.904386"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -56,8 +56,8 @@
       "name": "RateValue",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.983102",
-      "modifiedDateTime": "2026-08-29T02:03:06.983102"
+      "createdDateTime": "2026-08-25T16:26:59.5693016",
+      "modifiedDateTime": "2026-08-25T16:26:59.5693016"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -79,8 +79,8 @@
       "name": "Recoverability",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.983104",
-      "modifiedDateTime": "2026-08-30T14:00:24.263689"
+      "createdDateTime": "2026-08-25T16:26:59.5693528",
+      "modifiedDateTime": "2026-08-30T13:59:56.9072287"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -98,8 +98,8 @@
       "name": "RecoverablePct",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.983106",
-      "modifiedDateTime": "2026-08-29T02:03:06.983106"
+      "createdDateTime": "2026-08-25T16:26:59.5693555",
+      "modifiedDateTime": "2026-08-25T16:26:59.5693555"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -118,8 +118,8 @@
       "name": "TaxAmount",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.983108",
-      "modifiedDateTime": "2026-08-29T02:03:06.983108"
+      "createdDateTime": "2026-08-25T16:26:59.5693035",
+      "modifiedDateTime": "2026-08-25T16:26:59.5693035"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -137,8 +137,8 @@
       "name": "TaxBase",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.98311",
-      "modifiedDateTime": "2026-08-29T02:03:06.98311"
+      "createdDateTime": "2026-08-25T16:26:59.5692993",
+      "modifiedDateTime": "2026-08-25T16:26:59.5692993"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -160,8 +160,8 @@
       "name": "TaxCategory",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.983112",
-      "modifiedDateTime": "2026-08-30T14:00:24.268031"
+      "createdDateTime": "2026-08-25T16:26:59.5692946",
+      "modifiedDateTime": "2026-08-30T13:59:56.9124831"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -183,8 +183,8 @@
       "name": "TaxCode",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.983114",
-      "modifiedDateTime": "2026-08-30T14:00:24.269152"
+      "createdDateTime": "2026-08-25T16:26:59.5691727",
+      "modifiedDateTime": "2026-08-30T13:59:56.9136409"
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
@@ -205,8 +205,8 @@
       "name": "TaxRate",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.983116",
-      "modifiedDateTime": "2026-08-30T14:00:24.270045"
+      "createdDateTime": "2026-08-25T16:26:59.5692975",
+      "modifiedDateTime": "2026-08-30T13:59:56.9145402"
     }
   ]
 }

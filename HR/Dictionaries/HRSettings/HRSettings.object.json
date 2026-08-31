@@ -11,7 +11,6 @@
     "isCached": true,
     "isSingleton": true,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
@@ -19,8 +18,8 @@
     "name": "HRSettings",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.844462",
-    "modifiedDateTime": "2026-08-29T02:03:06.844462"
+    "createdDateTime": "2026-08-26T20:56:52.491305",
+    "modifiedDateTime": "2026-08-26T20:56:52.4913051"
   },
   "fields": [
     {
@@ -41,8 +40,8 @@
       "name": "HomeCountry",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844467",
-      "modifiedDateTime": "2026-08-29T02:03:06.844467"
+      "createdDateTime": "2026-08-28T21:20:17.5476378",
+      "modifiedDateTime": "2026-08-28T21:20:17.5476379"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -63,8 +62,8 @@
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844471",
-      "modifiedDateTime": "2026-08-29T02:03:06.844471"
+      "createdDateTime": "2026-08-26T20:56:52.5305059",
+      "modifiedDateTime": "2026-08-26T20:56:52.5305059"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -84,8 +83,8 @@
       "name": "PayrollRunDay",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844475",
-      "modifiedDateTime": "2026-08-29T02:03:06.844475"
+      "createdDateTime": "2026-08-26T20:56:52.4913438",
+      "modifiedDateTime": "2026-08-26T20:56:52.4913438"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -107,8 +106,8 @@
       "name": "SocialInsuranceEmployeeRate",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844478",
-      "modifiedDateTime": "2026-08-29T02:03:06.844479"
+      "createdDateTime": "2026-08-28T21:20:17.547652",
+      "modifiedDateTime": "2026-08-28T21:20:17.5476521"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -130,8 +129,8 @@
       "name": "SocialInsuranceEmployerRate",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844483",
-      "modifiedDateTime": "2026-08-29T02:03:06.844483"
+      "createdDateTime": "2026-08-28T21:20:17.5476576",
+      "modifiedDateTime": "2026-08-28T21:20:17.5476576"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -153,8 +152,8 @@
       "name": "SocialInsuranceForeignEmployerRate",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844487",
-      "modifiedDateTime": "2026-08-29T02:03:06.844487"
+      "createdDateTime": "2026-08-28T21:20:17.5476606",
+      "modifiedDateTime": "2026-08-28T21:20:17.5476607"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -174,8 +173,8 @@
       "name": "SocialInsuranceWageCeiling",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844491",
-      "modifiedDateTime": "2026-08-29T02:03:06.844491"
+      "createdDateTime": "2026-08-28T21:20:17.5476636",
+      "modifiedDateTime": "2026-08-28T21:20:17.5476636"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -197,8 +196,8 @@
       "name": "WorkHoursPerDay",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844495",
-      "modifiedDateTime": "2026-08-29T02:03:06.844495"
+      "createdDateTime": "2026-08-26T20:56:52.4913586",
+      "modifiedDateTime": "2026-08-26T20:56:52.4913586"
     }
   ]
 }

@@ -11,8 +11,8 @@
       "name": "Sales",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525825",
-      "modifiedDateTime": "2026-08-29T02:03:10.525825"
+      "createdDateTime": "2026-08-25T17:59:12.0512894",
+      "modifiedDateTime": "2026-08-25T17:59:12.0512894"
     },
     {
       "caption": "Documents",
@@ -25,8 +25,8 @@
       "name": "Documents",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525826",
-      "modifiedDateTime": "2026-08-29T03:07:54.382934"
+      "createdDateTime": "2026-08-25T17:59:12.051299",
+      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
     },
     {
       "caption": "Registers",
@@ -38,8 +38,8 @@
       "name": "Registers",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525828",
-      "modifiedDateTime": "2026-08-29T03:07:54.38379"
+      "createdDateTime": "2026-08-25T17:59:12.0513018",
+      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
     },
     {
       "caption": "Settings",
@@ -51,8 +51,8 @@
       "name": "Settings",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525829",
-      "modifiedDateTime": "2026-08-29T02:53:22.686373"
+      "createdDateTime": "2026-08-26T20:56:53.6290751",
+      "modifiedDateTime": "2026-08-29T02:52:56.544203"
     },
     {
       "caption": "Revenue",
@@ -66,8 +66,8 @@
       "name": "Revenue",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.52583",
-      "modifiedDateTime": "2026-08-29T02:03:10.525831"
+      "createdDateTime": "2026-08-25T17:59:12.0513052",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Sales settings",
@@ -80,8 +80,8 @@
       "name": "SalesSettings",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525834",
-      "modifiedDateTime": "2026-08-29T02:03:10.525834"
+      "createdDateTime": "2026-08-26T20:56:53.6290772",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Receivable",
@@ -94,8 +94,8 @@
       "name": "Receivable",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525837",
-      "modifiedDateTime": "2026-08-29T02:03:10.525837"
+      "createdDateTime": "2026-08-27T18:11:55.8241955",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
       "caption": "Sales invoices",
@@ -109,8 +109,8 @@
       "name": "SalesInvoice",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525832",
-      "modifiedDateTime": "2026-08-29T03:08:46.433521"
+      "createdDateTime": "2026-08-25T17:59:12.0513032",
+      "modifiedDateTime": "2026-08-29T03:08:26.0953157"
     },
     {
       "caption": "Customer payment",
@@ -123,8 +123,8 @@
       "name": "CustomerPayment",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:10.525836",
-      "modifiedDateTime": "2026-08-29T03:08:46.433914"
+      "createdDateTime": "2026-08-27T18:17:47.5864416",
+      "modifiedDateTime": "2026-08-29T03:08:26.0953157"
     }
   ]
 }

@@ -11,7 +11,6 @@
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "defaultSearchProperty": "Component",
     "isKernel": false,
     "isObsolete": false,
@@ -20,8 +19,8 @@
     "name": "BomComponent",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.844819",
-    "modifiedDateTime": "2026-08-29T02:03:06.844819"
+    "createdDateTime": "2026-08-25T21:30:56.0126173",
+    "modifiedDateTime": "2026-08-25T21:30:56.0126174"
   },
   "fields": [
     {
@@ -43,8 +42,8 @@
       "name": "Bom",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844821",
-      "modifiedDateTime": "2026-08-29T02:03:06.844821"
+      "createdDateTime": "2026-08-25T21:30:56.01265",
+      "modifiedDateTime": "2026-08-25T21:30:56.0126501"
     },
     {
       "dictionaryMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
@@ -65,8 +64,8 @@
       "name": "Component",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844824",
-      "modifiedDateTime": "2026-08-29T02:03:06.844824"
+      "createdDateTime": "2026-08-25T21:30:56.012665",
+      "modifiedDateTime": "2026-08-25T21:30:56.0126651"
     },
     {
       "dictionaryMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
@@ -88,8 +87,8 @@
       "name": "ID",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844826",
-      "modifiedDateTime": "2026-08-29T02:03:06.844826"
+      "createdDateTime": "2026-08-25T21:30:56.0284525",
+      "modifiedDateTime": "2026-08-25T21:30:56.0284525"
     },
     {
       "dictionaryMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
@@ -110,8 +109,8 @@
       "name": "QtyPer",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844829",
-      "modifiedDateTime": "2026-08-29T02:03:06.844829"
+      "createdDateTime": "2026-08-25T21:30:56.0126672",
+      "modifiedDateTime": "2026-08-25T21:30:56.0126672"
     },
     {
       "dictionaryMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
@@ -132,8 +131,8 @@
       "name": "Unit",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844831",
-      "modifiedDateTime": "2026-08-29T02:03:06.844831"
+      "createdDateTime": "2026-08-26T21:13:19.01446",
+      "modifiedDateTime": "2026-08-26T21:13:19.01446"
     }
   ]
 }

@@ -7,6 +7,7 @@
     "isObsolete": false,
     "hotkey": "Ctrl+Shift+E",
     "registerEngineType": "Standard",
+    "totalDriverMetaId": "11aaff03-c273-4d2f-8a94-2a590d1501e3",
     "isDoubleEntry": false,
     "allowNegativeBalance": true,
     "useBalanceTable": true,
@@ -15,8 +16,8 @@
     "name": "Stock",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:09.294083",
-    "modifiedDateTime": "2026-08-29T02:03:09.294083"
+    "createdDateTime": "2026-08-26T20:01:49.828327",
+    "modifiedDateTime": "2026-08-30T17:22:28.3767054"
   },
   "dimensions": [
     {
@@ -34,8 +35,8 @@
       "name": "Cell",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:09.294133",
-      "modifiedDateTime": "2026-08-29T02:03:09.294133"
+      "createdDateTime": "2026-08-26T20:01:49.8283498",
+      "modifiedDateTime": "2026-08-27T21:37:53.5295676"
     },
     {
       "registerMetaId": "83559331-ac7f-46da-87a8-7da599ef6f41",
@@ -52,8 +53,8 @@
       "name": "Item",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:09.294136",
-      "modifiedDateTime": "2026-08-29T02:03:09.294136"
+      "createdDateTime": "2026-08-26T20:01:49.8283419",
+      "modifiedDateTime": "2026-08-26T20:01:49.8283419"
     }
   ],
   "resources": [
@@ -68,8 +69,8 @@
       "name": "Qty",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:09.294139",
-      "modifiedDateTime": "2026-08-29T02:03:09.294139"
+      "createdDateTime": "2026-08-26T20:01:49.8283539",
+      "modifiedDateTime": "2026-08-26T20:01:49.8283539"
     }
   ]
 }

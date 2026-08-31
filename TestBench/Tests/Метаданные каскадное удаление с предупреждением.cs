@@ -1,8 +1,16 @@
 // «Ядерные тесты.Метаданные»: удаление метаданных с полным каскадом (MIQS
 // dependent-object warning) — превью импакта, блокеры входящих ссылок,
 // снос физической таблицы вместе с объектом.
+//
+// Предмет теста — ПЛАТФОРМЕННАЯ операция удаления метаданных, менеджера у неё
+// нет: GetDeleteImpactAsync / CascadeDeleteMetadataAsync / CreateDictionaryAsync
+// / SyncSchemaAsync остаются на Db осознанно. Всё остальное переведено на
+// нормальные двери: словарь ищется через IMetadataService, а запись песочницы
+// пишется именованной поверхностью IDictionaryManager.
 public partial class TbMetadataDeleteTests
 {
+    private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
+
     [IntegrationTest("импакт перечисляет зависимости и блокеры")]
     public async Task ImpactListsDependents()
     {
@@ -34,7 +42,9 @@ public partial class TbMetadataDeleteTests
     {
         var id = await Db.CreateDictionaryAsync("TBDelSandbox", new Dictionary<string, string> { ["Note"] = "String" });
         await Db.SyncSchemaAsync();
-        await Db.InsertAsync("TBDelSandbox", new Dictionary<string, object?> { ["Note"] = "x" });
+        // Словарь заведён ПРЯМО СЕЙЧАС, сгенерированного класса под него нет —
+        // поэтому именованная поверхность менеджера, а не типизированная.
+        await DictionaryManager.SaveRecordAsync("TBDelSandbox", new Dictionary<string, object?> { ["Note"] = "x" });
 
         var impact = await Db.GetDeleteImpactAsync("Dictionary", id);
         Assert.IsTrue(impact.Tables.Contains("TBDelSandbox"), "импакт видит физическую таблицу");
@@ -49,8 +59,12 @@ public partial class TbMetadataDeleteTests
 
     private async Task<Guid> WarehouseIdAsync()
     {
-        var rows = await Db.QueryAsync("MetaDictionaries", "[Name] = 'TBWarehouse'");
-        Assert.AreEqual(1, rows.Count, "стендовый TBWarehouse существует");
-        return (Guid)rows[0]["MetaId"]!;
+        // Справочник ищется через IMetadataService: Meta*-таблицы — это хранилище,
+        // а сервис метаданных — та дверь, которой пользуется сама платформа.
+        var found = (await GetService<IMetadataService>().GetAllDictionariesAsync())
+            .Where(d => string.Equals(d.Name, "TBWarehouse", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+        Assert.AreEqual(1, found.Count, "стендовый TBWarehouse существует");
+        return found[0].MetaId;
     }
 }

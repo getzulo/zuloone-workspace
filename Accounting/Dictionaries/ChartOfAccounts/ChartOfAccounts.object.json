@@ -12,7 +12,6 @@
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "defaultSearchProperty": "Name",
     "displayFormat": "{Code} {Name}",
     "isKernel": false,
@@ -22,8 +21,8 @@
     "name": "ChartOfAccounts",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T02:03:06.843523",
-    "modifiedDateTime": "2026-08-29T02:03:06.843523"
+    "createdDateTime": "2026-08-25T15:27:04.7162312",
+    "modifiedDateTime": "2026-08-26T20:31:45.6469047"
   },
   "fields": [
     {
@@ -45,8 +44,8 @@
       "name": "AccountType",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843601",
-      "modifiedDateTime": "2026-08-29T02:03:06.843601"
+      "createdDateTime": "2026-08-25T15:27:04.7162805",
+      "modifiedDateTime": "2026-08-27T20:27:23.8609331"
     },
     {
       "dictionaryMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
@@ -68,8 +67,8 @@
       "name": "Code",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843668",
-      "modifiedDateTime": "2026-08-29T02:03:06.843668"
+      "createdDateTime": "2026-08-25T15:27:04.7162645",
+      "modifiedDateTime": "2026-08-25T15:27:04.7162645"
     },
     {
       "dictionaryMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
@@ -90,8 +89,8 @@
       "name": "Currency",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843673",
-      "modifiedDateTime": "2026-08-29T02:03:06.843673"
+      "createdDateTime": "2026-08-25T15:27:04.7162843",
+      "modifiedDateTime": "2026-08-25T15:27:04.7162844"
     },
     {
       "dictionaryMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
@@ -113,8 +112,8 @@
       "name": "ID",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843761",
-      "modifiedDateTime": "2026-08-29T02:03:06.843761"
+      "createdDateTime": "2026-08-25T15:27:04.7359245",
+      "modifiedDateTime": "2026-08-25T15:27:04.7359247"
     },
     {
       "dictionaryMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
@@ -135,8 +134,8 @@
       "name": "IsPostable",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843779",
-      "modifiedDateTime": "2026-08-29T02:03:06.843779"
+      "createdDateTime": "2026-08-25T15:27:04.7162824",
+      "modifiedDateTime": "2026-08-25T15:27:04.7162824"
     },
     {
       "dictionaryMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
@@ -158,8 +157,8 @@
       "name": "Name",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843787",
-      "modifiedDateTime": "2026-08-29T02:03:06.843787"
+      "createdDateTime": "2026-08-25T15:27:04.7162784",
+      "modifiedDateTime": "2026-08-25T15:27:04.7162784"
     },
     {
       "dictionaryMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
@@ -180,8 +179,8 @@
       "name": "ParentId",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.843793",
-      "modifiedDateTime": "2026-08-29T02:03:06.843793"
+      "createdDateTime": "2026-08-25T15:27:04.7451265",
+      "modifiedDateTime": "2026-08-25T15:27:04.7451265"
     }
   ]
 }

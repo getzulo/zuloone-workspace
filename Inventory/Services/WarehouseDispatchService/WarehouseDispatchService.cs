@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
 // Диспетчерская склада: server-side агрегатор для дашборда «пульт диспетчера».
@@ -15,23 +16,22 @@ using ZuloOne.Runtime.Generated;
 // записи из занятости/ленты исключаем. Всё это только чтение — фронт рисует.
 public partial class WarehouseDispatchService
 {
-    private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
     private static readonly Guid External = Guid.Parse("e0000000-0000-4000-8000-0000000000e1");
 
-    private readonly IRegisterMovementService _stock;
+    private readonly ITotalsManager _totals;
     private readonly IDictionaryManager<StoreCell> _cells;
     private readonly IDictionaryManager<StoreZone> _zones;
     private readonly IDictionaryManager<Item> _items;
     private readonly IDataService _data;
 
     public WarehouseDispatchService(
-        IRegisterMovementService stock,
+        ITotalsManager totals,
         IDictionaryManager<StoreCell> cells,
         IDictionaryManager<StoreZone> zones,
         IDictionaryManager<Item> items,
         IDataService data)
     {
-        _stock = stock;
+        _totals = totals;
         _cells = cells;
         _zones = zones;
         _items = items;
@@ -47,7 +47,7 @@ public partial class WarehouseDispatchService
 
         // Занятость по ячейке = сумма Qty баланса (External исключаем).
         var occByCell = new Dictionary<Guid, decimal>();
-        foreach (var b in await _stock.QueryBalancesAsync(StockRegister))
+        foreach (var b in await _totals.QueryBalancesAsync("Stock"))
         {
             var cellId = AsGuid(b, "Cell");
             if (cellId == External || cellId == Guid.Empty) continue;
@@ -59,7 +59,7 @@ public partial class WarehouseDispatchService
         decimal inQty = 0m, outQty = 0m;
         var thrByCell = new Dictionary<Guid, decimal>();
         var recent = new List<object>();
-        foreach (var m in await _stock.QueryMovementsAsync(StockRegister, orderBy: "[MovementDate] DESC", take: 300))
+        foreach (var m in await _totals.QueryMovementsAsync("Stock", orderBy: "[MovementDate] DESC", take: 300))
         {
             var cellId = AsGuid(m, "Cell");
             if (cellId == External) continue;

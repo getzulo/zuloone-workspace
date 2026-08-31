@@ -12,7 +12,6 @@
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
@@ -22,8 +21,8 @@
     "name": "StoreCell",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.844659",
-    "modifiedDateTime": "2026-08-29T02:03:06.844659"
+    "createdDateTime": "2026-08-25T17:31:18.7527467",
+    "modifiedDateTime": "2026-08-27T21:23:10.8002597"
   },
   "fields": [
     {
@@ -45,8 +44,8 @@
       "name": "CellNumber",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844662",
-      "modifiedDateTime": "2026-08-29T02:03:06.844662"
+      "createdDateTime": "2026-08-27T21:23:10.7986589",
+      "modifiedDateTime": "2026-08-27T21:23:10.798659"
     },
     {
       "dictionaryMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
@@ -68,8 +67,8 @@
       "name": "ID",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844665",
-      "modifiedDateTime": "2026-08-29T02:03:06.844665"
+      "createdDateTime": "2026-08-25T17:31:18.7732309",
+      "modifiedDateTime": "2026-08-25T17:31:18.7732311"
     },
     {
       "dictionaryMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
@@ -90,8 +89,8 @@
       "name": "IsPickable",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844667",
-      "modifiedDateTime": "2026-08-29T02:03:06.844667"
+      "createdDateTime": "2026-08-25T17:31:18.7533497",
+      "modifiedDateTime": "2026-08-27T21:23:10.8098475"
     },
     {
       "dictionaryMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
@@ -112,8 +111,8 @@
       "name": "LineNumber",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844669",
-      "modifiedDateTime": "2026-08-29T02:03:06.844669"
+      "createdDateTime": "2026-08-27T21:23:10.7986526",
+      "modifiedDateTime": "2026-08-27T21:23:10.7986527"
     },
     {
       "dictionaryMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
@@ -134,8 +133,8 @@
       "name": "MaxQty",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844671",
-      "modifiedDateTime": "2026-08-29T02:03:06.844671"
+      "createdDateTime": "2026-08-28T01:35:34.3778629",
+      "modifiedDateTime": "2026-08-28T01:35:34.3778629"
     },
     {
       "dictionaryMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
@@ -157,8 +156,8 @@
       "name": "Name",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844673",
-      "modifiedDateTime": "2026-08-29T02:03:06.844673"
+      "createdDateTime": "2026-08-25T17:31:18.7533366",
+      "modifiedDateTime": "2026-08-25T17:31:18.7533367"
     },
     {
       "dictionaryMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
@@ -179,8 +178,8 @@
       "name": "RackNumber",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844675",
-      "modifiedDateTime": "2026-08-29T02:03:06.844675"
+      "createdDateTime": "2026-08-27T21:23:10.798655",
+      "modifiedDateTime": "2026-08-27T21:23:10.7986551"
     },
     {
       "dictionaryMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
@@ -201,8 +200,8 @@
       "name": "ShelfNumber",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844677",
-      "modifiedDateTime": "2026-08-29T02:03:06.844677"
+      "createdDateTime": "2026-08-27T21:23:10.7986571",
+      "modifiedDateTime": "2026-08-27T21:23:10.7986571"
     },
     {
       "dictionaryMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
@@ -223,8 +222,8 @@
       "name": "StoreZone",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844679",
-      "modifiedDateTime": "2026-08-29T02:03:06.844679"
+      "createdDateTime": "2026-08-27T21:23:10.7986448",
+      "modifiedDateTime": "2026-08-27T21:23:10.7986448"
     },
     {
       "dictionaryMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
@@ -245,8 +244,8 @@
       "name": "Type",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844682",
-      "modifiedDateTime": "2026-08-29T02:03:06.844682"
+      "createdDateTime": "2026-08-25T17:31:18.7533471",
+      "modifiedDateTime": "2026-08-27T21:23:10.8046327"
     }
   ]
 }

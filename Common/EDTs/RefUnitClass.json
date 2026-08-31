@@ -1,0 +1,18 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "description": "Ссылка на вид измеряемой величины",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "977785ef-79fe-4128-894d-36f13e1f5a59",
+    "isRequired": false,
+    "metaId": "4b451700-9b9b-4ab5-86a3-bc3cdcb5a235",
+    "name": "RefUnitClass",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1,
+    "createdDateTime": "2026-08-31T02:37:55.0434217",
+    "modifiedDateTime": "2026-08-31T02:37:55.0434218"
+  }
+}

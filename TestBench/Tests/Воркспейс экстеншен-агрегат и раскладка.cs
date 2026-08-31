@@ -8,6 +8,11 @@ using ZuloOne.Runtime.Testing;
 // экспорт кладёт его в TestBenchExt/DictionaryExtensions/TBWarehouse.TestBenchExt/
 // *.extension.json, а object.json владельца поля НЕ содержит; папка Core
 // девственно чиста. Повторный импорт идемпотентен (round-trip тест).
+//
+// НАМЕРЕННО на харнессе: единственный вызов платформы здесь —
+// Db.ExportWorkspaceAsync, и проверяется РАСКЛАДКА выгруженных файлов, то есть
+// сам экспорт метаданных. Бизнес-данных тест не создаёт, менеджеру тут нечего
+// делать, а менеджерского фасада у конвейера воркспейса и не существует.
 public class ExtensionLayoutTest : IntegrationTestScriptBase
 {
     [IntegrationTest("Workspace: extension aggregate layout")]

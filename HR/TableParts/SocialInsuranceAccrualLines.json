@@ -11,8 +11,8 @@
     "name": "SocialInsuranceAccrualLines",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.982789",
-    "modifiedDateTime": "2026-08-29T02:03:06.982789"
+    "createdDateTime": "2026-08-28T21:20:22.9499028",
+    "modifiedDateTime": "2026-08-28T21:20:22.9499028"
   },
   "properties": [
     {
@@ -31,8 +31,8 @@
       "name": "ContributoryBase",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.982794",
-      "modifiedDateTime": "2026-08-29T02:03:06.982794"
+      "createdDateTime": "2026-08-28T21:20:22.9499536",
+      "modifiedDateTime": "2026-08-28T21:20:22.9499537"
     },
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
@@ -53,8 +53,8 @@
       "name": "Employee",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.982797",
-      "modifiedDateTime": "2026-08-30T14:00:29.541147"
+      "createdDateTime": "2026-08-28T21:20:22.949945",
+      "modifiedDateTime": "2026-08-30T13:59:59.8334273"
     },
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
@@ -72,8 +72,8 @@
       "name": "EmployeeContribution",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.982799",
-      "modifiedDateTime": "2026-08-29T02:03:06.982799"
+      "createdDateTime": "2026-08-28T21:20:22.9499557",
+      "modifiedDateTime": "2026-08-28T21:20:22.9499557"
     },
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
@@ -91,8 +91,8 @@
       "name": "EmployerContribution",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.982801",
-      "modifiedDateTime": "2026-08-29T02:03:06.982801"
+      "createdDateTime": "2026-08-28T21:20:22.9499576",
+      "modifiedDateTime": "2026-08-28T21:20:22.9499576"
     }
   ]
 }

@@ -11,7 +11,6 @@
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
@@ -21,8 +20,8 @@
     "name": "Employee",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.844423",
-    "modifiedDateTime": "2026-08-29T02:03:06.844424"
+    "createdDateTime": "2026-08-25T21:15:26.1190251",
+    "modifiedDateTime": "2026-08-25T21:15:26.1190251"
   },
   "fields": [
     {
@@ -44,8 +43,8 @@
       "name": "Division",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844429",
-      "modifiedDateTime": "2026-08-29T02:03:06.844429"
+      "createdDateTime": "2026-08-25T21:15:26.1191086",
+      "modifiedDateTime": "2026-08-25T21:15:26.1191086"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -66,8 +65,8 @@
       "name": "HireDate",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844433",
-      "modifiedDateTime": "2026-08-29T02:03:06.844433"
+      "createdDateTime": "2026-08-25T21:15:26.1191179",
+      "modifiedDateTime": "2026-08-25T21:15:26.1191179"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -89,8 +88,8 @@
       "name": "ID",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844437",
-      "modifiedDateTime": "2026-08-29T02:03:06.844437"
+      "createdDateTime": "2026-08-25T21:15:26.138548",
+      "modifiedDateTime": "2026-08-25T21:15:26.1385483"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -111,8 +110,8 @@
       "name": "IsActive",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844441",
-      "modifiedDateTime": "2026-08-29T02:03:06.844441"
+      "createdDateTime": "2026-08-25T21:15:26.1191205",
+      "modifiedDateTime": "2026-08-25T21:15:26.1191205"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -134,8 +133,8 @@
       "name": "Name",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844445",
-      "modifiedDateTime": "2026-08-29T02:03:06.844445"
+      "createdDateTime": "2026-08-25T21:15:26.1190766",
+      "modifiedDateTime": "2026-08-25T21:15:26.1190766"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -155,8 +154,8 @@
       "name": "Nationality",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.84445",
-      "modifiedDateTime": "2026-08-29T02:03:06.84445"
+      "createdDateTime": "2026-08-28T21:20:17.6085703",
+      "modifiedDateTime": "2026-08-28T21:20:17.6085704"
     },
     {
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
@@ -177,8 +176,8 @@
       "name": "Position",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844454",
-      "modifiedDateTime": "2026-08-29T02:03:06.844454"
+      "createdDateTime": "2026-08-25T21:15:26.1191151",
+      "modifiedDateTime": "2026-08-25T21:15:26.1191151"
     }
   ]
 }

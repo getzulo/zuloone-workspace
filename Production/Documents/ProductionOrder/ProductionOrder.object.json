@@ -16,8 +16,8 @@
     "name": "ProductionOrder",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:07.26832",
-    "modifiedDateTime": "2026-08-29T02:03:07.26832"
+    "createdDateTime": "2026-08-25T21:31:26.0330582",
+    "modifiedDateTime": "2026-08-25T21:31:26.0330583"
   },
   "headerFields": [
     {
@@ -39,8 +39,8 @@
       "name": "BaseQuantity",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:00.869361",
-      "modifiedDateTime": "2026-08-29T03:44:00.869361"
+      "createdDateTime": "2026-08-29T03:44:00.114801",
+      "modifiedDateTime": "2026-08-29T03:44:00.1148011"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
@@ -61,8 +61,8 @@
       "name": "ID",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268322",
-      "modifiedDateTime": "2026-08-29T02:03:07.268322"
+      "createdDateTime": "2026-08-25T21:31:26.0610257",
+      "modifiedDateTime": "2026-08-25T21:31:26.0610257"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
@@ -82,8 +82,8 @@
       "name": "Location",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268324",
-      "modifiedDateTime": "2026-08-29T02:03:07.268324"
+      "createdDateTime": "2026-08-25T21:31:26.033088",
+      "modifiedDateTime": "2026-08-25T21:31:26.033088"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
@@ -103,8 +103,8 @@
       "name": "Product",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268326",
-      "modifiedDateTime": "2026-08-29T02:03:07.268326"
+      "createdDateTime": "2026-08-25T21:31:26.0330778",
+      "modifiedDateTime": "2026-08-25T21:31:26.0330778"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
@@ -120,12 +120,15 @@
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
+      "unitFieldName": "Unit",
+      "baseUnitPath": "Product.UnitOfMeasure",
+      "normalizedFieldName": "BaseQuantity",
       "metaId": "5c2d4e0b-7a1f-4b3c-8d4e-4f8a9b5c0d30",
       "name": "Quantity",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268328",
-      "modifiedDateTime": "2026-08-29T04:27:50.433476"
+      "createdDateTime": "2026-08-25T21:31:26.0330861",
+      "modifiedDateTime": "2026-08-30T14:17:51.6878219"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
@@ -145,8 +148,8 @@
       "name": "Unit",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:00.869357",
-      "modifiedDateTime": "2026-08-29T03:44:00.869357"
+      "createdDateTime": "2026-08-29T03:44:00.1147951",
+      "modifiedDateTime": "2026-08-29T03:44:00.1147951"
     }
   ],
   "subtypes": [
@@ -159,13 +162,13 @@
       "subtypeCaption": "Draft",
       "subtypeCaption_ru": "Черновик",
       "displayOrder": 1,
-      "isInitial": false,
+      "isInitial": true,
       "isReadOnly": false,
       "metaId": "7e4f6a2d-9c3b-4d5e-8f6a-6b0c1d7e2f50",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268331",
-      "modifiedDateTime": "2026-08-29T02:03:07.268331"
+      "createdDateTime": "2026-08-25T21:31:26.0330925",
+      "modifiedDateTime": "2026-08-30T14:17:51.6889772"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
@@ -180,8 +183,8 @@
       "metaId": "8f5a7b3e-0d4c-4e6f-9a7b-7c1d2e8f3a60",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268333",
-      "modifiedDateTime": "2026-08-29T02:03:07.268333"
+      "createdDateTime": "2026-08-25T21:31:26.0330985",
+      "modifiedDateTime": "2026-08-28T13:34:56.4298452"
     }
   ],
   "tableParts": [
@@ -193,8 +196,8 @@
       "name": "Components",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268335",
-      "modifiedDateTime": "2026-08-29T02:03:07.268335"
+      "createdDateTime": "2026-08-25T21:31:26.0331023",
+      "modifiedDateTime": "2026-08-25T21:31:26.0331024"
     }
   ],
   "subtypeTransactionScripts": [
@@ -206,8 +209,8 @@
       "name": "",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268337",
-      "modifiedDateTime": "2026-08-29T02:03:07.268337"
+      "createdDateTime": "2026-08-25T21:35:51.9724905",
+      "modifiedDateTime": "2026-08-25T21:35:51.9724905"
     },
     {
       "subtypeMetaId": "8f5a7b3e-0d4c-4e6f-9a7b-7c1d2e8f3a60",
@@ -217,8 +220,8 @@
       "name": "",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:07.268338",
-      "modifiedDateTime": "2026-08-29T02:03:07.268338"
+      "createdDateTime": "2026-08-25T21:35:51.9724946",
+      "modifiedDateTime": "2026-08-25T21:35:51.9724946"
     }
   ]
 }

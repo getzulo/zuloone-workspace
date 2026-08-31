@@ -12,8 +12,8 @@
     "name": "CRM",
     "modelId": "00000000-0000-0000-0000-000000000000",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.607925",
-    "modifiedDateTime": "2026-08-30T19:07:59.654511"
+    "createdDateTime": "2026-08-25T21:55:34.1109516",
+    "modifiedDateTime": "2026-08-27T18:36:57.4844675"
   },
   "dependencies": [
     {
@@ -24,8 +24,8 @@
       "name": "CRM->Inventory",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.608004",
-      "modifiedDateTime": "2026-08-29T02:03:06.608004"
+      "createdDateTime": "2026-08-25T21:55:34.1110393",
+      "modifiedDateTime": "2026-08-25T21:55:34.1110393"
     },
     {
       "modelMetaId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
@@ -35,8 +35,8 @@
       "name": "CRM->Sales",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.608006",
-      "modifiedDateTime": "2026-08-29T02:03:06.608006"
+      "createdDateTime": "2026-08-25T21:55:34.1110746",
+      "modifiedDateTime": "2026-08-25T21:55:34.1110746"
     }
   ]
 }

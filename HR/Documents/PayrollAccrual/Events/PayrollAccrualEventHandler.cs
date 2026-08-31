@@ -1,6 +1,7 @@
 #nullable enable
 using System.Collections.Generic;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;

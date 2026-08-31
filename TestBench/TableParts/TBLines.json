@@ -10,8 +10,8 @@
     "name": "TBLines",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T02:03:06.983121",
-    "modifiedDateTime": "2026-08-29T02:03:06.983121"
+    "createdDateTime": "2026-08-28T11:06:19.3869945",
+    "modifiedDateTime": "2026-08-28T11:06:19.3869945"
   },
   "properties": [
     {
@@ -31,8 +31,8 @@
       "name": "Amount",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.983123",
-      "modifiedDateTime": "2026-08-29T02:03:06.983123"
+      "createdDateTime": "2026-08-28T11:06:19.4432881",
+      "modifiedDateTime": "2026-08-28T11:06:19.4432881"
     },
     {
       "tablePartTypeMetaId": "805782c2-f366-4e7b-846b-81c7b1984076",
@@ -52,8 +52,8 @@
       "name": "Item",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.983126",
-      "modifiedDateTime": "2026-08-30T14:00:24.226373"
+      "createdDateTime": "2026-08-28T11:06:19.4151211",
+      "modifiedDateTime": "2026-08-30T13:59:56.8361123"
     },
     {
       "tablePartTypeMetaId": "805782c2-f366-4e7b-846b-81c7b1984076",
@@ -72,8 +72,8 @@
       "name": "Quantity",
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.983128",
-      "modifiedDateTime": "2026-08-29T02:03:06.983128"
+      "createdDateTime": "2026-08-28T11:06:19.4362238",
+      "modifiedDateTime": "2026-08-28T11:06:19.4362243"
     }
   ]
 }

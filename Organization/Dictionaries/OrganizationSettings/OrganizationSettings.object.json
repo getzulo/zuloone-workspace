@@ -11,7 +11,6 @@
     "isCached": true,
     "isSingleton": true,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
@@ -19,8 +18,8 @@
     "name": "OrganizationSettings",
     "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T02:03:06.844797",
-    "modifiedDateTime": "2026-08-29T02:03:06.844797"
+    "createdDateTime": "2026-08-26T20:56:52.8258619",
+    "modifiedDateTime": "2026-08-26T20:56:52.8258619"
   },
   "fields": [
     {
@@ -42,8 +41,8 @@
       "name": "DefaultLegalEntityCode",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.8448",
-      "modifiedDateTime": "2026-08-29T02:03:06.8448"
+      "createdDateTime": "2026-08-26T20:56:52.8258949",
+      "modifiedDateTime": "2026-08-26T20:56:52.8258949"
     },
     {
       "dictionaryMetaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
@@ -64,8 +63,8 @@
       "name": "ID",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.844802",
-      "modifiedDateTime": "2026-08-29T02:03:06.844802"
+      "createdDateTime": "2026-08-26T20:56:52.9114579",
+      "modifiedDateTime": "2026-08-26T20:56:52.9114579"
     }
   ]
 }

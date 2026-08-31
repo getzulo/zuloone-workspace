@@ -3,81 +3,220 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
+using ZuloOne.Managers;
+// Сгенерированные классы сущностей (PurchaseOrder, TaxCalculation, TaxCode,
+// Currency…). Тестовые скрипты НЕ получают это пространство имён глобальным
+// using — без него `Currency` цепляется за посторонний недоступный тип, и ошибка
+// компилятора описывает не ту причину.
+using ZuloOne.Runtime.Generated;
 
 // Оприходование заказа порождает расчёт ВХОДНОГО налога — зеркало выходного
 // у счёта продажи. Проверяем направление (INPUT, а не OUTPUT: перепутанное
 // направление молча превратит возмещаемый налог в налог к уплате) и то, что
 // налоговый контур остаётся необязательным.
+//
+// Всё — типизированными сущностями через менеджеры. Оприходование идёт
+// ОБЪЯВЛЕННЫМ маршрутом Draft → Ordered → Received: документ стартует в начальном
+// подтипе, поэтому таблица переходов реально применяется и прыжок
+// Draft → Received движок отклоняет.
 public class PurchaseInputTaxTest : IntegrationTestScriptBase
 {
-    private async Task<(Guid Location, Guid Item, Guid Supplier)> SetupAsync()
+    private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
+    private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
+    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
+
+    private sealed class Setup
     {
-        var currency = await Db.InsertAsync("Currency", new Dictionary<string, object?>
-            { ["Name"] = "Saudi Riyal", ["Code"] = "SAR", ["Symbol"] = "﷼" });
-        var country = await Db.InsertAsync("Country", new Dictionary<string, object?>
-            { ["Name"] = "Saudi Arabia", ["CodeISO2"] = "SA", ["CodeISO3"] = "SAU", ["PhoneCode"] = "966" });
-        var le = await Db.InsertAsync("LegalEntity", new Dictionary<string, object?>
-            { ["Name"] = "ACME KSA", ["RegistrationNumber"] = "REG-IN-1", ["Country"] = country, ["Currency"] = currency });
-        var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?>
-            { ["Code"] = $"WH-{Db.NewId():N}"[..12], ["Name"] = "Warehouse" });
-        var div = await Db.InsertAsync("Division", new Dictionary<string, object?>
-            { ["Name"] = "Main", ["LegalEntity"] = le, ["DivisionType"] = dt });
-        var store = await Db.InsertAsync("Store", new Dictionary<string, object?>
-            { ["Name"] = "Central", ["Division"] = div, ["IsSimple"] = true });
-        var zone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?>
-            { ["Name"] = "Зона", ["Store"] = store, ["IsBarcodeTracking"] = false });
-        var ct = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?>
-            { ["Code"] = $"RCV-{Db.NewId():N}"[..12], ["Name"] = "Receiving" });
-        var loc = await Db.InsertAsync("StoreCell", new Dictionary<string, object?>
-            { ["Name"] = "R-01", ["Type"] = ct, ["StoreZone"] = zone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
-
-        var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?>
-            { ["Name"] = "Piece", ["Code"] = $"PCS-{Db.NewId():N}"[..12] });
-        var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?>
-            { ["Code"] = $"RAW-{Db.NewId():N}"[..12], ["Name"] = "Raw material" });
-        var item = await Db.InsertAsync("Item", new Dictionary<string, object?>
-            { ["Name"] = "Bolt", ["ItemGroup"] = group, ["UnitOfMeasure"] = uom, ["IsRawMaterial"] = true });
-        var supplier = await Db.InsertAsync("Supplier", new Dictionary<string, object?> { ["Name"] = "Bolt Supply Co" });
-
-        return ((Guid)loc, (Guid)item, (Guid)supplier);
+        public Guid Location;
+        public Guid Item;
+        public Guid Supplier;
     }
 
-    /// <summary>Налоговый контур: справочники, ОБА направления и код по умолчанию.</summary>
-    private async Task<Guid> ConfigureTaxAsync()
+    private async Task<Setup> SetupAsync()
+    {
+        var currency = DictionaryManager.NewRecord<Currency>();
+        currency.Name = "Saudi Riyal";
+        currency.Code = "SAR";
+        currency.Symbol = "﷼";
+        currency = await DictionaryManager.SaveRecordAsync(currency);
+
+        var country = DictionaryManager.NewRecord<Country>();
+        country.Name = "Saudi Arabia";
+        country.CodeISO2 = "SA";
+        country.CodeISO3 = "SAU";
+        country.PhoneCode = "966";
+        country = await DictionaryManager.SaveRecordAsync(country);
+
+        var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
+        legalEntity.Name = "ACME KSA";
+        legalEntity.RegistrationNumber = "REG-IN-1";
+        legalEntity.Country = country.MetaId;
+        legalEntity.Currency = currency.MetaId;
+        legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
+
+        var divisionType = DictionaryManager.NewRecord<DivisionType>();
+        divisionType.Code = $"WH-{Db.NewId():N}"[..12]; // Db.NewId() — законный остаток: генерация id.
+        divisionType.Name = "Warehouse";
+        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
+
+        var division = DictionaryManager.NewRecord<Division>();
+        division.Name = "Main";
+        division.LegalEntity = legalEntity.MetaId;
+        division.DivisionType = divisionType.MetaId;
+        division = await DictionaryManager.SaveRecordAsync(division);
+
+        var store = DictionaryManager.NewRecord<Store>();
+        store.Name = "Central";
+        store.Division = division.MetaId;
+        store.IsSimple = true;
+        store = await DictionaryManager.SaveRecordAsync(store);
+
+        var zone = DictionaryManager.NewRecord<StoreZone>();
+        zone.Name = "Зона";
+        zone.Store = store.MetaId;
+        zone.IsBarcodeTracking = false;
+        zone = await DictionaryManager.SaveRecordAsync(zone);
+
+        var cellType = DictionaryManager.NewRecord<StoreCellType>();
+        cellType.Code = $"RCV-{Db.NewId():N}"[..12];
+        cellType.Name = "Receiving";
+        cellType = await DictionaryManager.SaveRecordAsync(cellType);
+
+        var cell = DictionaryManager.NewRecord<StoreCell>();
+        cell.Name = "R-01";
+        cell.Type = cellType.MetaId;
+        cell.StoreZone = zone.MetaId;
+        cell.RackNumber = 1;
+        cell.ShelfNumber = 1;
+        cell.LineNumber = 1;
+        cell.CellNumber = 1;
+        cell = await DictionaryManager.SaveRecordAsync(cell);
+
+        var uom = DictionaryManager.NewRecord<UnitOfMeasure>();
+        uom.Name = "Piece";
+        uom.Code = $"PCS-{Db.NewId():N}"[..12];
+        uom = await DictionaryManager.SaveRecordAsync(uom);
+
+        var group = DictionaryManager.NewRecord<ItemGroup>();
+        group.Code = $"RAW-{Db.NewId():N}"[..12];
+        group.Name = "Raw material";
+        group = await DictionaryManager.SaveRecordAsync(group);
+
+        var item = DictionaryManager.NewRecord<Item>();
+        item.Name = "Bolt";
+        item.ItemGroup = group.MetaId;
+        item.UnitOfMeasure = uom.MetaId;
+        item.IsRawMaterial = true;
+        item = await DictionaryManager.SaveRecordAsync(item);
+
+        var supplier = DictionaryManager.NewRecord<Supplier>();
+        supplier.Name = "Bolt Supply Co";
+        supplier = await DictionaryManager.SaveRecordAsync(supplier);
+
+        return new Setup { Location = cell.MetaId, Item = item.MetaId, Supplier = supplier.MetaId };
+    }
+
+    /// <summary>Налоговый контур: справочники, ОБА направления и код по умолчанию.
+    /// <para>
+    /// Окно ставки задаётся параметром. По умолчанию <paramref name="rateTo"/> НЕ
+    /// заполняется: окно открыто справа, поле необязательное, генерируется как
+    /// DateTime? и уходит в базу NULL. Окна налога и кода всегда открыты —
+    /// предметом проверки здесь является ставка.
+    /// </para></summary>
+    private async Task<Guid> ConfigureTaxAsync(DateTime? rateTo = null)
     {
         var from = new DateTime(2020, 1, 1);
-        var authority = await Db.InsertAsync("TaxAuthority", new Dictionary<string, object?>
-            { ["Code"] = $"ZAT-{Db.NewId():N}"[..10], ["Name"] = "ZATCA", ["CountryCode"] = "SA", ["IsActive"] = true });
-        var type = await Db.InsertAsync("TaxType", new Dictionary<string, object?>
-            { ["Code"] = $"VAT-{Db.NewId():N}"[..10], ["Name"] = "Value added tax", ["Category"] = "VAT" });
-        var jur = await Db.InsertAsync("TaxJurisdiction", new Dictionary<string, object?>
-            { ["Code"] = $"SA-{Db.NewId():N}"[..10], ["Name"] = "Saudi Arabia", ["CountryCode"] = "SA", ["Level"] = 0 });
-        var tax = await Db.InsertAsync("Tax", new Dictionary<string, object?>
-            { ["Code"] = $"VT-{Db.NewId():N}"[..10], ["Name"] = "Saudi VAT", ["TaxType"] = type, ["Authority"] = authority, ["Jurisdiction"] = jur, ["EffectiveFrom"] = from });
-        var rate = await Db.InsertAsync("TaxRate", new Dictionary<string, object?>
-            { ["Tax"] = tax, ["Code"] = $"R-{Db.NewId():N}"[..10], ["Rate"] = 0.15m, ["EffectiveFrom"] = from });
-        var category = await Db.InsertAsync("TaxCategory", new Dictionary<string, object?>
-            { ["Tax"] = tax, ["Code"] = $"STD-{Db.NewId():N}"[..10], ["Treatment"] = "STANDARD" });
 
-        var codeValue = $"IN-{Db.NewId():N}"[..10];
-        await Db.InsertAsync("TaxCode", new Dictionary<string, object?>
-            { ["Code"] = codeValue, ["Name"] = "Standard 15%", ["Tax"] = tax, ["TaxCategory"] = category, ["TaxRate"] = rate, ["EffectiveFrom"] = from });
-        var input = await Db.InsertAsync("TaxDirection", new Dictionary<string, object?>
-            { ["Code"] = "INPUT", ["Name"] = "Input" });
-        await Db.InsertAsync("TaxDirection", new Dictionary<string, object?>
-            { ["Code"] = "OUTPUT", ["Name"] = "Output" });
-        await Db.InsertAsync("TaxSettings", new Dictionary<string, object?>
-            { ["DefaultTaxCode"] = codeValue, ["PricesIncludeTax"] = false });
-        return (Guid)input;
+        var authority = DictionaryManager.NewRecord<TaxAuthority>();
+        authority.Code = $"ZAT-{Db.NewId():N}"[..10];
+        authority.Name = "ZATCA";
+        authority.CountryCode = "SA";
+        authority.IsActive = true;
+        authority = await DictionaryManager.SaveRecordAsync(authority);
+
+        var taxType = DictionaryManager.NewRecord<TaxType>();
+        taxType.Code = $"VAT-{Db.NewId():N}"[..10];
+        taxType.Name = "Value added tax";
+        taxType.Category = "VAT";
+        taxType = await DictionaryManager.SaveRecordAsync(taxType);
+
+        var jurisdiction = DictionaryManager.NewRecord<TaxJurisdiction>();
+        jurisdiction.Code = $"SA-{Db.NewId():N}"[..10];
+        jurisdiction.Name = "Saudi Arabia";
+        jurisdiction.CountryCode = "SA";
+        jurisdiction.Level = 0;
+        jurisdiction = await DictionaryManager.SaveRecordAsync(jurisdiction);
+
+        var tax = DictionaryManager.NewRecord<Tax>();
+        tax.Code = $"VT-{Db.NewId():N}"[..10];
+        tax.Name = "Saudi VAT";
+        tax.TaxType = taxType.MetaId;
+        tax.Authority = authority.MetaId;
+        tax.Jurisdiction = jurisdiction.MetaId;
+        tax.EffectiveFrom = from;
+        tax = await DictionaryManager.SaveRecordAsync(tax);
+
+        var rate = DictionaryManager.NewRecord<TaxRate>();
+        rate.Tax = tax.MetaId;
+        rate.Code = $"R-{Db.NewId():N}"[..10];
+        rate.Rate = 0.15m;
+        rate.EffectiveFrom = from;
+        rate.EffectiveTo = rateTo;
+        rate = await DictionaryManager.SaveRecordAsync(rate);
+
+        var category = DictionaryManager.NewRecord<TaxCategory>();
+        category.Tax = tax.MetaId;
+        category.Code = $"STD-{Db.NewId():N}"[..10];
+        category.Treatment = "STANDARD";
+        category = await DictionaryManager.SaveRecordAsync(category);
+
+        var code = DictionaryManager.NewRecord<TaxCode>();
+        code.Code = $"IN-{Db.NewId():N}"[..10];
+        code.Name = "Standard 15%";
+        code.Tax = tax.MetaId;
+        code.TaxCategory = category.MetaId;
+        code.TaxRate = rate.MetaId;
+        code.EffectiveFrom = from;
+        code = await DictionaryManager.SaveRecordAsync(code);
+
+        var input = DictionaryManager.NewRecord<TaxDirection>();
+        input.Code = "INPUT";
+        input.Name = "Input";
+        input = await DictionaryManager.SaveRecordAsync(input);
+
+        var output = DictionaryManager.NewRecord<TaxDirection>();
+        output.Code = "OUTPUT";
+        output.Name = "Output";
+        output = await DictionaryManager.SaveRecordAsync(output);
+
+        var settings = DictionaryManager.NewRecord<TaxSettings>();
+        settings.DefaultTaxCode = code.Code;
+        settings.PricesIncludeTax = false;
+        settings = await DictionaryManager.SaveRecordAsync(settings);
+
+        return input.MetaId;
     }
 
-    private async Task<Guid> NewOrderAsync((Guid Location, Guid Item, Guid Supplier) s, decimal qty, decimal price)
-        => (Guid)await Db.CreateDocumentAsync("PurchaseOrder",
-            new Dictionary<string, object?> { ["Supplier"] = s.Supplier, ["Location"] = s.Location },
-            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
-            {
-                ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = s.Item, ["Quantity"] = qty, ["UnitPrice"] = price } },
-            });
+    // Подтип не передаём: NewDocumentAsync подставит НАЧАЛЬНЫЙ (Draft).
+    private async Task<PurchaseOrder> NewOrderAsync(Setup s, decimal qty, decimal price)
+    {
+        var order = await DocumentManager.NewDocumentAsync<PurchaseOrder>();
+        order.Supplier = s.Supplier;
+        order.Location = s.Location;
+        order.Lines.Add(new PurchaseOrderLinesTablePartRow { Item = s.Item, Quantity = qty, UnitPrice = price });
+        await DocumentManager.SaveDocumentAsync(order);
+        return order;
+    }
+
+    /// <summary>Заказ идёт объявленным маршрутом: Draft → Ordered → Received.</summary>
+    private async Task ReceiveAsync(PurchaseOrder order)
+    {
+        order.Subtype = PurchaseOrder.Subtypes.Ordered;
+        await DocumentManager.SaveDocumentAsync(order);
+
+        order.Subtype = PurchaseOrder.Subtypes.Received;
+        await DocumentManager.SaveDocumentAsync(order);
+    }
 
     [IntegrationTest("Оприходование порождает расчёт входного налога")]
     public async Task ReceiptCreatesInputTax()
@@ -86,26 +225,30 @@ public class PurchaseInputTaxTest : IntegrationTestScriptBase
         var input = await ConfigureTaxAsync();
 
         // 10 × 3 = 30 базы, ставка 15% → налог 4.5.
-        var po = await NewOrderAsync(s, qty: 10m, price: 3m);
-        await Db.ChangeSubtypeAsync("PurchaseOrder", po, "Received");
+        var order = await NewOrderAsync(s, qty: 10m, price: 3m);
 
-        var calcs = await Db.QueryAsync("TaxCalculation", null);
+        // Состояние ДО оприходования: налоговый расчёт порождает именно приход.
+        Assert.IsTrue((await DocumentManager.CountDocumentsAsync<TaxCalculation>()) == 0,
+            "до прихода налоговых расчётов быть не должно");
+
+        await ReceiveAsync(order);
+
+        var calcs = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
         Assert.IsTrue(calcs.Count == 1, "приход должен породить один расчёт налога, факт {0}", calcs.Count);
 
-        var lines = await Db.QueryAsync("TP_TaxCalculationLines", $"OwnerMetaId = '{calcs[0]["MetaId"]}'");
-        Assert.IsTrue(lines.Count == 1, "одна строка налога, факт {0}", lines.Count);
-        Assert.IsTrue(Convert.ToDecimal(lines[0]["TaxBase"]) == 30m,
-            "база = 10 × 3 = 30, факт {0}", lines[0]["TaxBase"]);
-        Assert.IsTrue(Convert.ToDecimal(lines[0]["TaxAmount"]) == 4.5m,
-            "налог = 30 × 15% = 4.5, факт {0}", lines[0]["TaxAmount"]);
+        // Строки берём вместе с документом: у менеджера список отдаёт только шапки.
+        var calc = await DocumentManager.GetDocumentAsync<TaxCalculation>(calcs[0].MetaId);
+        Assert.IsNotNull(calc, "расчёт налога читается");
+        Assert.IsTrue(calc!.Lines.Count == 1, "одна строка налога, факт {0}", calc.Lines.Count);
+        Assert.IsTrue(calc.Lines[0].TaxBase == 30m, "база = 10 × 3 = 30, факт {0}", calc.Lines[0].TaxBase);
+        Assert.IsTrue(calc.Lines[0].TaxAmount == 4.5m, "налог = 30 × 15% = 4.5, факт {0}", calc.Lines[0].TaxAmount);
 
         // Направление именно ВХОДНОЕ: перепутанное молча превратит возмещаемый
         // налог в налог к уплате, и декларация сойдётся с обратным знаком.
-        Assert.IsTrue((Guid)lines[0]["Direction"]! == input,
-            "направление расчёта должно быть INPUT");
+        Assert.IsTrue(calc.Lines[0].Direction == input, "направление расчёта должно быть INPUT");
 
-        var edges = await Db.GetDocumentFamilyEdgesAsync(po);
-        Assert.IsTrue(edges.Count > 0, "расчёт налога связан с заказом");
+        var family = await DocumentManager.GetDocumentFamilyAsync(order.MetaId);
+        Assert.IsTrue(family.Edges.Count > 0, "расчёт налога связан с заказом");
     }
 
     [IntegrationTest("Без настроенного налога приход проводится как раньше")]
@@ -114,17 +257,52 @@ public class PurchaseInputTaxTest : IntegrationTestScriptBase
         var s = await SetupAsync();
         // ConfigureTaxAsync НЕ вызываем: кода налога по умолчанию нет.
 
-        var po = await NewOrderAsync(s, qty: 4m, price: 5m);
-        await Db.ChangeSubtypeAsync("PurchaseOrder", po, "Received");
+        var order = await NewOrderAsync(s, qty: 4m, price: 5m);
+        Assert.IsTrue(await StockAsync(s.Location, s.Item) == 0m, "черновик заказа склад не двигает");
 
-        var doc = await Db.GetAsync("PurchaseOrder", po);
-        Assert.IsTrue((doc?["Subtype"] as string) == "Received",
-            "приход проведён несмотря на ненастроенный налог, факт {0}", doc?["Subtype"]);
-        Assert.IsTrue((await Db.QueryAsync("TaxCalculation", null)).Count == 0, "расчёт налога не создан");
+        await ReceiveAsync(order);
+
+        var stored = await DocumentManager.GetDocumentAsync<PurchaseOrder>(order.MetaId);
+        Assert.IsTrue(stored?.Subtype == PurchaseOrder.Subtypes.Received,
+            "приход проведён несмотря на ненастроенный налог, факт {0}", stored?.Subtype);
+        Assert.IsTrue((await DocumentManager.CountDocumentsAsync<TaxCalculation>()) == 0, "расчёт налога не создан");
 
         // И сам приход при этом отработал полностью.
-        decimal stock = 0m;
-        foreach (var r in await Db.QueryBalancesAsync("Stock", $"[Cell] = '{s.Location}'")) stock += Convert.ToDecimal(r["Qty"]);
+        var stock = await StockAsync(s.Location, s.Item);
         Assert.IsTrue(stock == 4m, "остаток ячейки 4, факт {0}", stock);
     }
+
+    [IntegrationTest("Истёкшая на дату прихода ставка не даёт оприходовать заказ")]
+    public async Task ExpiredRateBlocksReceipt()
+    {
+        var s = await SetupAsync();
+        // Контур НАСТРОЕН, но ставка закрыта в 2020 году, а приход датируется сегодня.
+        // Зеркало проверки у счёта продажи: возмещаемый входной налог не должен
+        // пропадать молча (ср. NoTaxConfigStillReceives — там налогов просто нет).
+        await ConfigureTaxAsync(rateTo: new DateTime(2020, 12, 31));
+
+        var order = await NewOrderAsync(s, qty: 10m, price: 3m);
+
+        // Отказ приходит ИСКЛЮЧЕНИЕМ, а бросок обрекает окружающую транзакцию
+        // прогона — после catch к базе не обращаемся. Причина проверяется НАРОЧНО:
+        // «что-то бросило» прошло бы и от любой другой проверки прихода.
+        var reason = "";
+        try
+        {
+            await ReceiveAsync(order);
+        }
+        catch (Exception ex)
+        {
+            for (Exception? e = ex; e is not null; e = e.InnerException) reason += e.Message + " | ";
+        }
+
+        Assert.IsTrue(reason.Length > 0, "приход без действующей на его дату ставки должен быть отклонён");
+        Assert.IsTrue(reason.Contains("действующей ставки"),
+            "отказ должен быть именно про отсутствие действующей ставки, факт: {0}", reason);
+    }
+
+    // Срез регистра адресуется измерениями, а не SQL-строкой.
+    private Task<decimal> StockAsync(Guid location, Guid item)
+        => TotalsManager.GetBalanceAsync("Stock", "Qty",
+            new Dictionary<string, object?> { ["Cell"] = location, ["Item"] = item });
 }

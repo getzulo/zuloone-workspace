@@ -3,54 +3,153 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
+using ZuloOne.Managers;
+// Генерённые классы (Currency, Item, SalesInvoice, SalesInvoiceLinesTablePartRow…).
+// Тестовым скриптам этот namespace НЕ приходит глобальным using'ом.
+using ZuloOne.Runtime.Generated;
 
 // Покрытие локализации КСА: выставление Sales-инвойса начисляет НДС 15% в
 // регистр VatPayable (ставка берётся из глобальной константы SaudiVatRate).
+//
+// Данные строятся типизированно через менеджеры: справочники — NewRecord<T> →
+// SaveRecordAsync, счёт — NewDocumentAsync<SalesInvoice> → SalesInvoiceLinesTablePartRow
+// → SaveDocumentAsync, выставление — присваивание подтипа плюс сохранение.
 public class SaudiVatFlowTest : IntegrationTestScriptBase
 {
-    private async Task<(Guid Location, Guid Item, Guid Customer)> SetupAsync()
+    private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
+    private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
+    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
+
+    private sealed class Setup
     {
-        var currency = await Db.InsertAsync("Currency", new Dictionary<string, object?>
-            { ["Name"] = "Riyal", ["Code"] = "SAR", ["Symbol"] = "﷼" });
-        var country = await Db.InsertAsync("Country", new Dictionary<string, object?>
-            { ["Name"] = "Saudi Arabia", ["CodeISO2"] = "SA", ["CodeISO3"] = "SAU", ["PhoneCode"] = "966" });
-        var le = await Db.InsertAsync("LegalEntity", new Dictionary<string, object?>
-            { ["Name"] = "Riyadh Trading", ["RegistrationNumber"] = "REG-SA-1", ["Country"] = country, ["Currency"] = currency });
-        var dt = await Db.InsertAsync("DivisionType", new Dictionary<string, object?> { ["Code"] = "SP", ["Name"] = "SalesPoint" });
-        var div = await Db.InsertAsync("Division", new Dictionary<string, object?> { ["Name"] = "Shop", ["LegalEntity"] = le, ["DivisionType"] = dt });
-        var wh = await Db.InsertAsync("Store", new Dictionary<string, object?> { ["Name"] = "Shop WH", ["Division"] = div, ["IsSimple"] = true });
-        var whZone = await Db.InsertAsync("StoreZone", new Dictionary<string, object?> { ["Name"] = "Зона", ["Store"] = wh, ["IsBarcodeTracking"] = false });
-        var lt = await Db.InsertAsync("StoreCellType", new Dictionary<string, object?> {["Code"] = $"PICK-{Db.NewId():N}"[..12], ["Name"] = "Picking" });
-        var loc = await Db.InsertAsync("StoreCell", new Dictionary<string, object?> { ["Name"] = "P-01", ["Type"] = lt, ["StoreZone"] = whZone, ["RackNumber"] = 1, ["ShelfNumber"] = 1, ["LineNumber"] = 1, ["CellNumber"] = 1 });
+        public Guid Location;
+        public Guid Item;
+        public Guid Customer;
+    }
 
-        var uom = await Db.InsertAsync("UnitOfMeasure", new Dictionary<string, object?> { ["Name"] = "Piece", ["Code"] = "PCS" });
-        var group = await Db.InsertAsync("ItemGroup", new Dictionary<string, object?> { ["Code"] = "GOODS", ["Name"] = "Finished goods" });
-        var item = await Db.InsertAsync("Item", new Dictionary<string, object?>
-            { ["Name"] = "Gadget", ["ItemGroup"] = group, ["UnitOfMeasure"] = uom, ["IsSellable"] = true });
-        var customer = await Db.InsertAsync("Customer", new Dictionary<string, object?>
-            { ["Name"] = "Buyer Ltd", ["CustomerType"] = "B2B" });
+    private async Task<Setup> SetupAsync()
+    {
+        var currency = DictionaryManager.NewRecord<Currency>();
+        currency.Name = "Riyal";
+        currency.Code = "SAR";
+        currency.Symbol = "﷼";
+        currency = await DictionaryManager.SaveRecordAsync(currency);
 
-        return ((Guid)loc, (Guid)item, (Guid)customer);
+        var country = DictionaryManager.NewRecord<Country>();
+        country.Name = "Saudi Arabia";
+        country.CodeISO2 = "SA";
+        country.CodeISO3 = "SAU";
+        country.PhoneCode = "966";
+        country = await DictionaryManager.SaveRecordAsync(country);
+
+        var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
+        legalEntity.Name = "Riyadh Trading";
+        legalEntity.RegistrationNumber = "REG-SA-1";
+        legalEntity.Country = country.MetaId;
+        legalEntity.Currency = currency.MetaId;
+        legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
+
+        var divisionType = DictionaryManager.NewRecord<DivisionType>();
+        divisionType.Code = "SP";
+        divisionType.Name = "SalesPoint";
+        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
+
+        var division = DictionaryManager.NewRecord<Division>();
+        division.Name = "Shop";
+        division.LegalEntity = legalEntity.MetaId;
+        division.DivisionType = divisionType.MetaId;
+        division = await DictionaryManager.SaveRecordAsync(division);
+
+        var store = DictionaryManager.NewRecord<Store>();
+        store.Name = "Shop WH";
+        store.Division = division.MetaId;
+        store.IsSimple = true;
+        store = await DictionaryManager.SaveRecordAsync(store);
+
+        var zone = DictionaryManager.NewRecord<StoreZone>();
+        zone.Name = "Зона";
+        zone.Store = store.MetaId;
+        zone.IsBarcodeTracking = false;
+        zone = await DictionaryManager.SaveRecordAsync(zone);
+
+        var cellType = DictionaryManager.NewRecord<StoreCellType>();
+        cellType.Code = $"PICK-{Guid.NewGuid():N}"[..12];
+        cellType.Name = "Picking";
+        cellType = await DictionaryManager.SaveRecordAsync(cellType);
+
+        var cell = DictionaryManager.NewRecord<StoreCell>();
+        cell.Name = "P-01";
+        cell.Type = cellType.MetaId;
+        cell.StoreZone = zone.MetaId;
+        cell.RackNumber = 1;
+        cell.ShelfNumber = 1;
+        cell.LineNumber = 1;
+        cell.CellNumber = 1;
+        cell = await DictionaryManager.SaveRecordAsync(cell);
+
+        var unit = DictionaryManager.NewRecord<UnitOfMeasure>();
+        unit.Name = "Piece";
+        unit.Code = "PCS";
+        unit = await DictionaryManager.SaveRecordAsync(unit);
+
+        var group = DictionaryManager.NewRecord<ItemGroup>();
+        group.Code = "GOODS";
+        group.Name = "Finished goods";
+        group = await DictionaryManager.SaveRecordAsync(group);
+
+        var item = DictionaryManager.NewRecord<Item>();
+        item.Name = "Gadget";
+        item.ItemGroup = group.MetaId;
+        item.UnitOfMeasure = unit.MetaId;
+        item.IsSellable = true;
+        item = await DictionaryManager.SaveRecordAsync(item);
+
+        var customer = DictionaryManager.NewRecord<Customer>();
+        customer.Name = "Buyer Ltd";
+        customer.CustomerType = "B2B";
+        customer = await DictionaryManager.SaveRecordAsync(customer);
+
+        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
+    }
+
+    // VatPayable несёт одну динамическую аналитику (Customer) и ни одного
+    // физического измерения — баланс рассыпается по аналитическим строкам, поэтому
+    // суммируем.
+    private static async Task<decimal> VatAsync()
+    {
+        decimal sum = 0m;
+        foreach (var r in await TotalsManager.QueryBalancesAsync("VatPayable")) sum += Convert.ToDecimal(r["Amount"]);
+        return sum;
     }
 
     [IntegrationTest("Выставление счёта начисляет НДС 15% в VatPayable")]
     public async Task IssueAccruesVat()
     {
         var s = await SetupAsync();
-        await Db.PostMovementAsync("Stock", DateTime.UtcNow.Date,
+
+        // Остаток заводится движением ВНЕ документа — это осознанный срез: тест про
+        // налог, а не про приход. ITotalsManager требует назвать владельца движения
+        // явно, и null здесь означает «ничей», ровно как было.
+        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Qty"] = 20m });
 
-        var inv = await Db.CreateDocumentAsync("SalesInvoice",
-            new Dictionary<string, object?> { ["Customer"] = s.Customer, ["Location"] = s.Location },
-            new Dictionary<string, IEnumerable<IDictionary<string, object?>>>
-            { ["Lines"] = new[] { new Dictionary<string, object?> { ["Item"] = s.Item, ["Quantity"] = 10m, ["UnitPrice"] = 10m } } });
-        await Db.ChangeSubtypeAsync("SalesInvoice", inv, "Issued");
+        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        invoice.Customer = s.Customer;
+        invoice.Location = s.Location;
+        invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 10m, UnitPrice = 10m });
+        await DocumentManager.SaveDocumentAsync(invoice);
 
-        // База 10 × 10 = 100; НДС 15% = 15. VatPayable несёт одну динамическую
-        // аналитику (Customer) — баланс схлопывается в одну строку, суммируем.
-        decimal vat = 0m;
-        foreach (var r in await Db.QueryBalancesAsync("VatPayable")) vat += Convert.ToDecimal(r["Amount"]);
+        // Черновик налога не начисляет. Проверка ДО перехода обязательна:
+        // SalesInvoice объявлен postOnSave, и без неё «НДС 15» ниже подтвердилось бы
+        // даже если переход Draft → Issued не сделал ничего.
+        Assert.IsTrue(await VatAsync() == 0m, "черновик счёта не должен начислять НДС, факт {0}", await VatAsync());
+
+        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(invoice);
+
+        // База 10 × 10 = 100; НДС 15% = 15.
+        var vat = await VatAsync();
         Assert.IsTrue(vat == 15m, "НДС 15 при базе 100, факт {0}", vat);
     }
 }

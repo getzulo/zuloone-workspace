@@ -12,7 +12,6 @@
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
@@ -22,8 +21,8 @@
     "name": "UnitOfMeasure",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T02:03:06.844092",
-    "modifiedDateTime": "2026-08-29T02:03:06.844092"
+    "createdDateTime": "2026-08-22T02:01:49.6937917",
+    "modifiedDateTime": "2026-08-22T03:43:38.8695752"
   },
   "fields": [
     {
@@ -46,8 +45,8 @@
       "name": "Code",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.844098",
-      "modifiedDateTime": "2026-08-29T02:03:06.844098"
+      "createdDateTime": "2026-08-22T02:01:49.6938454",
+      "modifiedDateTime": "2026-08-22T03:43:38.8706518"
     },
     {
       "dictionaryMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
@@ -68,8 +67,8 @@
       "name": "DecimalPlaces",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.844101",
-      "modifiedDateTime": "2026-08-29T02:03:06.844101"
+      "createdDateTime": "2026-08-26T21:12:46.9797394",
+      "modifiedDateTime": "2026-08-26T21:12:46.9797394"
     },
     {
       "dictionaryMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
@@ -91,8 +90,8 @@
       "name": "ID",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.844107",
-      "modifiedDateTime": "2026-08-29T02:03:06.844107"
+      "createdDateTime": "2026-08-22T02:01:49.7104045",
+      "modifiedDateTime": "2026-08-22T02:01:49.7104106"
     },
     {
       "dictionaryMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
@@ -114,8 +113,54 @@
       "name": "Name",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.844112",
-      "modifiedDateTime": "2026-08-29T02:03:06.844112"
+      "createdDateTime": "2026-08-22T02:01:49.6938302",
+      "modifiedDateTime": "2026-08-22T03:43:38.8742477"
+    },
+    {
+      "dictionaryMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
+      "fieldName": "RatioToBase",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 9,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "description": "Сколько БАЗОВЫХ единиц вида величины в одной этой. У базовой единицы = 1 (грамм=1, килограмм=1000, тонна=1000000). Перевод внутри вида — qty × from.RatioToBase / to.RatioToBase, поэтому транзитивность бесплатна и попарные правила не нужны. Пусто у единиц вроде «коробка»: их коэффициент зависит от товара и живёт в справочнике упаковок.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Ratio to base unit",
+      "caption_ru": "Коэффициент к базовой единице",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "253e6d77-cd7e-46c2-b193-1c6221bcc692",
+      "name": "RatioToBase",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1,
+      "createdDateTime": "2026-08-31T02:39:10.0902939",
+      "modifiedDateTime": "2026-08-31T02:39:10.090294"
+    },
+    {
+      "dictionaryMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
+      "fieldName": "UnitClass",
+      "edtMetaId": "4b451700-9b9b-4ab5-86a3-bc3cdcb5a235",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "description": "Что измеряет единица. Перевод возможен только внутри одного вида величины.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Unit class",
+      "caption_ru": "Вид величины",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "afde0467-3b2c-499c-b4fc-e8ac060d8984",
+      "name": "UnitClass",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1,
+      "createdDateTime": "2026-08-31T02:39:10.090291",
+      "modifiedDateTime": "2026-08-31T02:39:10.090291"
     }
   ]
 }

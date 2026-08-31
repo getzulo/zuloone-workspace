@@ -11,7 +11,6 @@
     "isCached": true,
     "isSingleton": true,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
@@ -19,8 +18,8 @@
     "name": "TaxSettings",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T02:03:06.845004",
-    "modifiedDateTime": "2026-08-29T02:03:06.845004"
+    "createdDateTime": "2026-08-26T20:56:54.100999",
+    "modifiedDateTime": "2026-08-26T20:56:54.100999"
   },
   "fields": [
     {
@@ -42,8 +41,8 @@
       "name": "DefaultTaxCode",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.845007",
-      "modifiedDateTime": "2026-08-29T02:03:06.845007"
+      "createdDateTime": "2026-08-26T20:56:54.1010437",
+      "modifiedDateTime": "2026-08-26T20:56:54.1010437"
     },
     {
       "dictionaryMetaId": "970b6be9-ec41-5651-8ff3-51ab037cd79d",
@@ -64,8 +63,8 @@
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.845009",
-      "modifiedDateTime": "2026-08-29T02:03:06.845009"
+      "createdDateTime": "2026-08-26T20:56:54.1311114",
+      "modifiedDateTime": "2026-08-26T20:56:54.1311114"
     },
     {
       "dictionaryMetaId": "970b6be9-ec41-5651-8ff3-51ab037cd79d",
@@ -85,8 +84,8 @@
       "name": "PricesIncludeTax",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.845011",
-      "modifiedDateTime": "2026-08-29T02:03:06.845011"
+      "createdDateTime": "2026-08-26T20:56:54.1010304",
+      "modifiedDateTime": "2026-08-26T20:56:54.1010304"
     }
   ]
 }

@@ -79,8 +79,29 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
             if (kv.Value > onHand)
                 return EventResult.Cancel($"Недостаточно остатка на ячейке: требуется {kv.Value}, в наличии {onHand}");
         }
+
+        // Налоговый контур НАСТРОЕН, но на дату счёта действующей ставки нет —
+        // счёт не выставляется. Это не «налоги выключены» (тогда кода по умолчанию
+        // просто нет и проверка молчит), а порванная настройка: счёт, молча ушедший
+        // клиенту без НДС, обнаружится у налогового органа.
+        //
+        // Проверка стоит ЗДЕСЬ, в отменяемом событии, а не рядом с порождением
+        // расчёта в OnAfterPost: OnAfterPost платформа объявляет неотменяемым и
+        // превращает исключение обработчика в предупреждение в логе — документ всё
+        // равно проводится, и потеря налога снова становится молчаливой.
+        var tax = context.GetService<ITaxService>();
+        var taxCode = await tax.ResolveDefaultTaxCodeAsync();
+        if (taxCode is not null && await tax.ResolveRateAsync(taxCode.Value, TaxPointOf(header)) is null)
+            return EventResult.Cancel(
+                $"Налоговый код настроен, но действующей ставки на {TaxPointOf(header):yyyy-MM-dd} нет — счёт не выставляется");
+
         return EventResult.Ok();
     }
+
+    /// <summary>Дата налогового события — дата документа; незаполненная датируется
+    /// сегодняшним днём ровно так же, как её проставляет IDocumentManager при создании.</summary>
+    private static DateTime TaxPointOf(SalesInvoice header)
+        => header.DocumentDate == default ? DateTime.UtcNow.Date : header.DocumentDate.Date;
 
     // Выставленный счёт порождает расчёт ВЫХОДНОГО налога: отдельный документ
     // TaxCalculation, связанный со счётом через граф документов. Отдельный
@@ -105,9 +126,12 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         var pricing = context.GetService<IPricingService>();
         var taxBase = invoice.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
 
-        // Контур необязателен: не настроен — сервис вернёт null, счёт выставлен как раньше.
+        // Контур необязателен: не настроен — сервис вернёт null, счёт выставлен как
+        // раньше. Ставка подбирается на ДАТУ СЧЁТА, не на сегодня: иначе счёт и его
+        // налог датировались бы по-разному, а задним числом выставленный документ
+        // посчитался бы по сегодняшней ставке.
         var calc = await context.GetService<ITaxService>()
-            .CreateCalculationAsync(legalEntity.Value, "OUTPUT", taxBase, $"Sales invoice {header.Number}");
+            .CreateCalculationAsync(legalEntity.Value, "OUTPUT", taxBase, $"Sales invoice {header.Number}", TaxPointOf(header));
         if (calc.HasValue)
             await docs.AddLinkAsync(header.MetaId, calc.Value);
 

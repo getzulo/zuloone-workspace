@@ -11,7 +11,6 @@
     "isCached": true,
     "isSingleton": true,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
@@ -19,8 +18,8 @@
     "name": "SalesSettings",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.844859",
-    "modifiedDateTime": "2026-08-29T02:03:06.844859"
+    "createdDateTime": "2026-08-26T20:56:54.0115009",
+    "modifiedDateTime": "2026-08-26T20:56:54.0115009"
   },
   "fields": [
     {
@@ -41,8 +40,8 @@
       "name": "AllowBackorder",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844861",
-      "modifiedDateTime": "2026-08-29T02:03:06.844861"
+      "createdDateTime": "2026-08-26T20:56:54.011535",
+      "modifiedDateTime": "2026-08-26T20:56:54.0115351"
     },
     {
       "dictionaryMetaId": "f330a37a-a4d4-5565-9969-3f689aae5730",
@@ -62,8 +61,8 @@
       "name": "DefaultPaymentTermDays",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844863",
-      "modifiedDateTime": "2026-08-29T02:03:06.844863"
+      "createdDateTime": "2026-08-26T20:56:54.0115472",
+      "modifiedDateTime": "2026-08-26T20:56:54.0115472"
     },
     {
       "dictionaryMetaId": "f330a37a-a4d4-5565-9969-3f689aae5730",
@@ -84,8 +83,8 @@
       "name": "ID",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844865",
-      "modifiedDateTime": "2026-08-29T02:03:06.844865"
+      "createdDateTime": "2026-08-26T20:56:54.0410619",
+      "modifiedDateTime": "2026-08-26T20:56:54.0410619"
     }
   ]
 }

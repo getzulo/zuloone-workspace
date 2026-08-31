@@ -12,7 +12,6 @@
     "isCached": true,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
@@ -22,8 +21,8 @@
     "name": "TaxRecoverability",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
-    "createdDateTime": "2026-08-29T02:03:06.844994",
-    "modifiedDateTime": "2026-08-29T02:03:06.844994"
+    "createdDateTime": "2026-08-25T16:22:12.0784676",
+    "modifiedDateTime": "2026-08-25T16:22:12.0784676"
   },
   "fields": [
     {
@@ -46,8 +45,8 @@
       "name": "Code",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.844996",
-      "modifiedDateTime": "2026-08-29T02:03:06.844996"
+      "createdDateTime": "2026-08-25T16:22:12.0784952",
+      "modifiedDateTime": "2026-08-25T16:22:12.0784952"
     },
     {
       "dictionaryMetaId": "c9831a46-480a-45c4-be44-5ef6138514b9",
@@ -69,8 +68,8 @@
       "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.844998",
-      "modifiedDateTime": "2026-08-29T02:03:06.844998"
+      "createdDateTime": "2026-08-25T16:22:12.0956729",
+      "modifiedDateTime": "2026-08-25T16:22:12.0956731"
     },
     {
       "dictionaryMetaId": "c9831a46-480a-45c4-be44-5ef6138514b9",
@@ -92,8 +91,8 @@
       "name": "Name",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
-      "createdDateTime": "2026-08-29T02:03:06.845",
-      "modifiedDateTime": "2026-08-29T02:03:06.845001"
+      "createdDateTime": "2026-08-25T16:22:12.0785056",
+      "modifiedDateTime": "2026-08-25T16:22:12.0785057"
     }
   ]
 }

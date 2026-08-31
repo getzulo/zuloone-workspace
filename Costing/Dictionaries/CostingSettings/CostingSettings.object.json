@@ -11,7 +11,6 @@
     "isCached": true,
     "isSingleton": true,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
@@ -19,8 +18,8 @@
     "name": "CostingSettings",
     "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.844118",
-    "modifiedDateTime": "2026-08-29T02:03:06.844118"
+    "createdDateTime": "2026-08-26T20:56:53.2488621",
+    "modifiedDateTime": "2026-08-26T20:56:53.2488621"
   },
   "fields": [
     {
@@ -42,8 +41,8 @@
       "name": "CostingMethod",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844124",
-      "modifiedDateTime": "2026-08-29T02:03:06.844124"
+      "createdDateTime": "2026-08-26T20:56:53.2488975",
+      "modifiedDateTime": "2026-08-26T20:56:53.2488975"
     },
     {
       "dictionaryMetaId": "dab95d48-61e1-56c4-b852-6964435dc152",
@@ -64,8 +63,8 @@
       "name": "ID",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844128",
-      "modifiedDateTime": "2026-08-29T02:03:06.844128"
+      "createdDateTime": "2026-08-26T20:56:53.3004582",
+      "modifiedDateTime": "2026-08-26T20:56:53.3004582"
     },
     {
       "dictionaryMetaId": "dab95d48-61e1-56c4-b852-6964435dc152",
@@ -85,8 +84,8 @@
       "name": "RoundCosts",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844132",
-      "modifiedDateTime": "2026-08-29T02:03:06.844132"
+      "createdDateTime": "2026-08-26T20:56:53.2489166",
+      "modifiedDateTime": "2026-08-26T20:56:53.2489166"
     }
   ]
 }

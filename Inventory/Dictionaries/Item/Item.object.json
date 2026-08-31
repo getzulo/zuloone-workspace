@@ -7,12 +7,12 @@
     "description": "Any item: raw material, semi-finished, finished good, merchandise",
     "isLogged": true,
     "isHierarchical": false,
+    "groupingFieldName": "ItemGroup",
     "numberSequenceMetaId": "1fd2ab5d-7cc7-46c1-8e1e-7ba29811e0d4",
     "isVersioned": false,
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
@@ -22,8 +22,8 @@
     "name": "Item",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.844578",
-    "modifiedDateTime": "2026-08-29T02:03:06.844578"
+    "createdDateTime": "2026-08-25T17:30:30.9277695",
+    "modifiedDateTime": "2026-08-30T19:30:08.8333181"
   },
   "fields": [
     {
@@ -46,8 +46,8 @@
       "name": "Barcode",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844584",
-      "modifiedDateTime": "2026-08-29T02:03:06.844584"
+      "createdDateTime": "2026-08-27T21:35:40.3271268",
+      "modifiedDateTime": "2026-08-27T21:35:40.3271268"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -68,8 +68,8 @@
       "name": "DefaultPurchasePrice",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844588",
-      "modifiedDateTime": "2026-08-29T02:03:06.844588"
+      "createdDateTime": "2026-08-25T17:30:30.9285043",
+      "modifiedDateTime": "2026-08-27T21:35:40.345912"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -90,8 +90,8 @@
       "name": "DefaultSalePrice",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844592",
-      "modifiedDateTime": "2026-08-29T02:03:06.844592"
+      "createdDateTime": "2026-08-25T17:30:30.928506",
+      "modifiedDateTime": "2026-08-27T21:35:40.348094"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -113,8 +113,8 @@
       "name": "ID",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844596",
-      "modifiedDateTime": "2026-08-29T02:03:06.844596"
+      "createdDateTime": "2026-08-25T17:30:30.9672905",
+      "modifiedDateTime": "2026-08-25T17:30:30.9672909"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -135,8 +135,8 @@
       "name": "IsRawMaterial",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.8446",
-      "modifiedDateTime": "2026-08-29T02:03:06.8446"
+      "createdDateTime": "2026-08-25T17:30:30.9285008",
+      "modifiedDateTime": "2026-08-25T17:30:30.9285008"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -157,8 +157,8 @@
       "name": "IsSellable",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844603",
-      "modifiedDateTime": "2026-08-29T02:03:06.844604"
+      "createdDateTime": "2026-08-25T17:30:30.9285025",
+      "modifiedDateTime": "2026-08-25T17:30:30.9285025"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -179,8 +179,8 @@
       "name": "ItemGroup",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844607",
-      "modifiedDateTime": "2026-08-29T02:03:06.844607"
+      "createdDateTime": "2026-08-25T17:30:30.9282514",
+      "modifiedDateTime": "2026-08-25T17:30:30.9282515"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -202,8 +202,8 @@
       "name": "Name",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844611",
-      "modifiedDateTime": "2026-08-29T02:03:06.844611"
+      "createdDateTime": "2026-08-25T17:30:30.9282343",
+      "modifiedDateTime": "2026-08-25T17:30:30.9282344"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -225,8 +225,8 @@
       "name": "TaxProductCategory",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844615",
-      "modifiedDateTime": "2026-08-29T02:03:06.844615"
+      "createdDateTime": "2026-08-25T17:30:30.9285076",
+      "modifiedDateTime": "2026-08-27T21:35:40.353701"
     },
     {
       "dictionaryMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
@@ -247,8 +247,8 @@
       "name": "UnitOfMeasure",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844619",
-      "modifiedDateTime": "2026-08-29T02:03:06.844619"
+      "createdDateTime": "2026-08-25T17:30:30.9284983",
+      "modifiedDateTime": "2026-08-25T17:30:30.9284983"
     }
   ]
 }

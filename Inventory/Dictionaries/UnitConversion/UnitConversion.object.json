@@ -11,7 +11,6 @@
     "isCached": true,
     "isSingleton": false,
     "notificationEnabled": false,
-    "transparentTranslation": false,
     "displayFormat": "{FromUnit} → {ToUnit}",
     "isKernel": false,
     "isObsolete": false,
@@ -20,8 +19,8 @@
     "name": "UnitConversion",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.844725",
-    "modifiedDateTime": "2026-08-29T02:03:06.844725"
+    "createdDateTime": "2026-08-26T20:42:39.7180687",
+    "modifiedDateTime": "2026-08-26T20:42:39.7180687"
   },
   "fields": [
     {
@@ -44,8 +43,8 @@
       "name": "Factor",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844728",
-      "modifiedDateTime": "2026-08-29T02:03:06.844728"
+      "createdDateTime": "2026-08-26T20:42:39.7201089",
+      "modifiedDateTime": "2026-08-26T20:42:39.7201089"
     },
     {
       "dictionaryMetaId": "6c7d8e9f-0a1b-4c2d-9e3f-4a5b6c7d8e90",
@@ -65,8 +64,8 @@
       "name": "FromUnit",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844731",
-      "modifiedDateTime": "2026-08-29T02:03:06.844731"
+      "createdDateTime": "2026-08-26T20:42:39.7196296",
+      "modifiedDateTime": "2026-08-26T20:42:39.7196296"
     },
     {
       "dictionaryMetaId": "6c7d8e9f-0a1b-4c2d-9e3f-4a5b6c7d8e90",
@@ -87,8 +86,8 @@
       "name": "ID",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844733",
-      "modifiedDateTime": "2026-08-29T02:03:06.844733"
+      "createdDateTime": "2026-08-26T20:42:39.881026",
+      "modifiedDateTime": "2026-08-26T20:42:39.8810326"
     },
     {
       "dictionaryMetaId": "6c7d8e9f-0a1b-4c2d-9e3f-4a5b6c7d8e90",
@@ -108,8 +107,8 @@
       "name": "ToUnit",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.844736",
-      "modifiedDateTime": "2026-08-29T02:03:06.844736"
+      "createdDateTime": "2026-08-26T20:42:39.7201009",
+      "modifiedDateTime": "2026-08-26T20:42:39.720101"
     }
   ]
 }
