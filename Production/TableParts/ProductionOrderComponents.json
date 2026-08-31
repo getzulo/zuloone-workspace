@@ -12,8 +12,8 @@
     "name": "ProductionOrderComponents",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.983061",
-    "modifiedDateTime": "2026-08-29T02:03:06.983061"
+    "createdDateTime": "2026-08-25T21:31:12.2906326",
+    "modifiedDateTime": "2026-08-25T21:31:12.2906326"
   },
   "properties": [
     {
@@ -34,8 +34,8 @@
       "name": "BaseQuantity",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:00.684167",
-      "modifiedDateTime": "2026-08-29T03:44:00.684167"
+      "createdDateTime": "2026-08-29T03:43:59.9098687",
+      "modifiedDateTime": "2026-08-29T03:43:59.9098687"
     },
     {
       "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
@@ -57,8 +57,8 @@
       "name": "Component",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.983063",
-      "modifiedDateTime": "2026-08-29T03:44:00.692666"
+      "createdDateTime": "2026-08-25T21:31:12.2906558",
+      "modifiedDateTime": "2026-08-29T03:43:59.9210584"
     },
     {
       "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
@@ -73,12 +73,15 @@
       "isSystem": false,
       "isReference": false,
       "displayOrder": 2,
+      "unitFieldName": "Unit",
+      "baseUnitPath": "Component.UnitOfMeasure",
+      "normalizedFieldName": "BaseQuantity",
       "metaId": "2d9e1f7c-4b8a-4c0d-9e1f-1a5b6c2d7e00",
       "name": "QtyRequired",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.983066",
-      "modifiedDateTime": "2026-08-29T04:27:50.364501"
+      "createdDateTime": "2026-08-25T21:31:12.2906684",
+      "modifiedDateTime": "2026-08-30T14:17:52.7614171"
     },
     {
       "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
@@ -100,8 +103,8 @@
       "name": "Unit",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:00.684165",
-      "modifiedDateTime": "2026-08-29T03:44:00.684165"
+      "createdDateTime": "2026-08-29T03:43:59.9098589",
+      "modifiedDateTime": "2026-08-29T03:43:59.909859"
     }
   ]
 }

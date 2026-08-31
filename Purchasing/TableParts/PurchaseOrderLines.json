@@ -12,8 +12,8 @@
     "name": "PurchaseOrderLines",
     "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
     "layerId": 2,
-    "createdDateTime": "2026-08-29T02:03:06.983069",
-    "modifiedDateTime": "2026-08-29T02:03:06.983069"
+    "createdDateTime": "2026-08-25T21:06:58.2461407",
+    "modifiedDateTime": "2026-08-25T21:06:58.2461407"
   },
   "properties": [
     {
@@ -34,8 +34,8 @@
       "name": "BaseQuantity",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:01.04665",
-      "modifiedDateTime": "2026-08-29T03:44:01.04665"
+      "createdDateTime": "2026-08-29T03:43:59.7823793",
+      "modifiedDateTime": "2026-08-29T03:43:59.7823793"
     },
     {
       "tablePartTypeMetaId": "aafabd76-4419-4cdf-9223-8c4f97c906d0",
@@ -57,8 +57,8 @@
       "name": "Item",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.983071",
-      "modifiedDateTime": "2026-08-29T03:44:01.052494"
+      "createdDateTime": "2026-08-25T21:06:58.2461538",
+      "modifiedDateTime": "2026-08-29T03:43:59.7961752"
     },
     {
       "tablePartTypeMetaId": "aafabd76-4419-4cdf-9223-8c4f97c906d0",
@@ -73,12 +73,15 @@
       "isSystem": false,
       "isReference": false,
       "displayOrder": 2,
+      "unitFieldName": "Unit",
+      "baseUnitPath": "Item.UnitOfMeasure",
+      "normalizedFieldName": "BaseQuantity",
       "metaId": "7d68ec46-72c6-4b42-b3a5-8e2fa10ef336",
       "name": "Quantity",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.983073",
-      "modifiedDateTime": "2026-08-29T04:27:50.286488"
+      "createdDateTime": "2026-08-25T21:06:58.2461608",
+      "modifiedDateTime": "2026-08-30T14:17:51.5852682"
     },
     {
       "tablePartTypeMetaId": "aafabd76-4419-4cdf-9223-8c4f97c906d0",
@@ -100,8 +103,8 @@
       "name": "Unit",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:01.046648",
-      "modifiedDateTime": "2026-08-29T03:44:01.046648"
+      "createdDateTime": "2026-08-29T03:43:59.7823773",
+      "modifiedDateTime": "2026-08-29T03:43:59.7823773"
     },
     {
       "tablePartTypeMetaId": "aafabd76-4419-4cdf-9223-8c4f97c906d0",
@@ -120,8 +123,8 @@
       "name": "UnitPrice",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
-      "createdDateTime": "2026-08-29T02:03:06.983075",
-      "modifiedDateTime": "2026-08-29T02:03:06.983075"
+      "createdDateTime": "2026-08-25T21:06:58.2461626",
+      "modifiedDateTime": "2026-08-25T21:06:58.2461626"
     }
   ]
 }
