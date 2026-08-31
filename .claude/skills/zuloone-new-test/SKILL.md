@@ -125,6 +125,20 @@ public class GoodsFlowTest : IntegrationTestScriptBase
 | Сервисы | `GetService<T>()` — корневые менеджеры и контракты `I<Имя>`, как в любом скрипте; в самодостаточном тесте добавь `using ZuloOne.Core.Services;` |
 | Точки отката | `SavepointAsync / RollbackToSavepointAsync` |
 
+**`IDocumentManager` в тесте не объявлен** — заведи его сам и возьми ПРАВИЛЬНОЕ
+пространство имён: `using ZuloOne.Managers;` (не `ZuloOne.Core.Services` — там
+лежит одноимённый ЛЕГАСИ-интерфейс на `long`-идентификаторах, и с ним будет
+`CS0246`):
+
+```csharp
+using ZuloOne.Managers;
+private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
+```
+
+Проверяй РЕЗУЛЬТАТ, а не возврат метода: если сервис создаёт документ, перечитай
+его `GetDocumentAsync<T>(id)` и сверяй поля и строки документа — иначе тест
+подтверждает лишь то, что сервис что-то посчитал, но не то, что это сохранилось.
+
 `Assert.IsTrue(условие, "сообщение с {0}", значение)`; провал кейса не мешает
 остальным.
 

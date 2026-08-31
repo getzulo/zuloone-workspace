@@ -1,0 +1,14 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Сводка налогового леджера за период: база и сумма по коду и направлению, налог к уплате = выход − вход",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "f9573038-959e-4ba0-802f-e425aee3479c",
+    "metaId": "5754aba2-76d6-46b7-b05d-5c8a4ec70ef7",
+    "name": "TaxReturnService",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1,
+    "createdDateTime": "2026-08-31T15:49:57.281668",
+    "modifiedDateTime": "2026-08-31T15:49:57.281669"
+  }
+}
