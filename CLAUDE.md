@@ -89,8 +89,10 @@ live**: сохранил файл → через 2–4 секунды он пр�
   и сослаться `numberSequenceMetaId`.
 - **EDT-first**: ссылочные поля типизируются через EDT (`edtType: "Reference"` +
   `referenceDictionaryMetaId`), скаляры — EDT или инлайн `baseType`
-  (`String`/`Int`/`Long`/`Decimal`/`DateTime`/`Boolean`/`Guid`) с
-  `length`/`precision`/`scale`.
+  (`String`/`Integer`/`Long`/`Decimal`/`DateTime`/`Boolean`/`Guid`) с
+  `length`/`precision`/`scale`. Целое — именно `Integer`: `Int` каталог типов не
+  принимает, и падает не импорт, а `schema/sync` («Base type 'Int' is not in the
+  catalog») — объект в базе уже есть, а таблицы под него нет.
 - **Один `fieldName` — одна колонка** в пределах модели. **Имена классов
   скриптов уникальны во всём воркспейсе** — все модели попадают в один
   IDE-проект: первый обработчик объекта называется конвенционально

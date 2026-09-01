@@ -55,8 +55,16 @@ description: Создать новый справочник ZuloOne в ворк�
 
 - Системное поле `ID` НЕ пиши — его (и `ParentId` для `isHierarchical: true`)
   создаст сервер при применении файла.
-- Скалярное поле: `baseType` `String|Int|Long|Decimal|DateTime|Boolean|Guid`
-  (+ `length` / `precision`+`scale`).
+- Скалярное поле: `baseType` `String|Integer|Long|Decimal|DateTime|Boolean|Guid`
+  (+ `length` / `precision`+`scale`). Целое — `Integer`, НЕ `Int`: импорт `Int`
+  проглотит молча, а споткнётся `schema/sync` («Base type 'Int' is not in the
+  catalog») — объект в базе уже есть, таблицы под него нет.
+- **Необязательный `Boolean` генерится НЕ-nullable**, то есть незаполненный
+  признак равен `false`. Поэтому имя флага выбирается так, чтобы РАБОЧИМ было
+  именно `false`: `IsDisabled`, а не `IsActive`. Иначе запись, заведённая без
+  галки, молча не участвует в логике — а выглядит нормальной. Проверять это
+  событием-умолчанием нельзя: `NewRecord<T>()` строится в памяти вызывающего, и
+  запись, собранная кодом или API, до события не доходит.
 - Ссылка на другой справочник: сначала EDT (шаг 3), затем в поле `edtMetaId`
   вместо `baseType`.
 - Один `fieldName` — один раз.
