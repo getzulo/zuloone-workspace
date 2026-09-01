@@ -1,0 +1,26 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "configJson": "{\"variables\":[{\"id\":\"v13_64893\",\"columnType\":\"variable\",\"caption\":\"Входящий остаток\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\",\"resource\":\"Quantity\"},{\"id\":\"v14_654\",\"columnType\":\"variable\",\"caption\":\"Приход\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\",\"resource\":\"Quantity\"},{\"id\":\"v5_78805\",\"columnType\":\"variable\",\"caption\":\"Расход\",\"resource\":\"Quantity\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"v6_14566\",\"columnType\":\"variable\",\"caption\":\"Исходящий остаток\",\"resource\":\"Quantity\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"nonZeroTurnover\":false,\"nonZeroBalance\":false}",
+    "metaId": "3e35128d-ef6d-4dec-95ac-26b719cd3b16",
+    "name": "Quantity",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 1,
+    "createdDateTime": "2026-09-01T02:55:37.3138649",
+    "modifiedDateTime": "2026-09-01T10:56:07.6670345"
+  },
+  "bindings": [
+    {
+      "metaId": "12ebe48c-a2b5-4b0e-83ce-862c77e8c642",
+      "reportViewMetaId": "3e35128d-ef6d-4dec-95ac-26b719cd3b16",
+      "ownerType": "VirtualTotal",
+      "ownerMetaId": "0a0a29b4-7f9f-454e-a0c7-1bad2891325d"
+    },
+    {
+      "metaId": "8303db7f-952e-4604-bd33-78a4c8b18ce9",
+      "reportViewMetaId": "3e35128d-ef6d-4dec-95ac-26b719cd3b16",
+      "ownerType": "Register",
+      "ownerMetaId": "83559331-ac7f-46da-87a8-7da599ef6f41"
+    }
+  ]
+}
