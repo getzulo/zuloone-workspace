@@ -131,11 +131,62 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         // налог датировались бы по-разному, а задним числом выставленный документ
         // посчитался бы по сегодняшней ставке.
         var calc = await context.GetService<ITaxService>()
-            .CreateCalculationAsync(legalEntity.Value, "OUTPUT", taxBase, $"Sales invoice {header.Number}", TaxPointOf(header));
+            .CreateCalculationAsync(legalEntity.Value, "OUTPUT", taxBase, $"Sales invoice {header.Number}",
+                TaxPointOf(header), await TaxContextAsync(invoice, taxBase, context));
         if (calc.HasValue)
             await docs.AddLinkAsync(header.MetaId, calc.Value);
 
         return EventResult.Ok();
+    }
+
+    /// <summary>
+    /// КОНТЕКСТ СДЕЛКИ для движка правил налога: плоские пути → значения. Что
+    /// именно продали, кому и на сколько — по этому набору правило и выбирает код,
+    /// вместо единственного кода по умолчанию из настроек.
+    ///
+    /// Словарь, а не типизированный класс, — сознательно: движок развязан с
+    /// документом (Purchasing кладёт сюда своё) и переживает границу сборки
+    /// контрактов, которая типов из скриптов не видит.
+    ///
+    /// Набор путей — ДОГОВОР с теми, кто заводит правила, поэтому он узкий и
+    /// расширяется по мере надобности, а не «на всякий случай»: путь, которого
+    /// никто не кладёт, в правиле выглядит рабочим, а молча не срабатывает.
+    /// Однородность строки не требуется — в счёте могут быть товары разных групп,
+    /// поэтому item.group кладётся ТОЛЬКО когда он у всех строк один; иначе пути
+    /// нет вовсе, и правило по нему честно не сработает (оператор NotExists это
+    /// увидит). Налог по строкам — задача построчного расчёта, он отложен.
+    /// </summary>
+    private static async Task<Dictionary<string, object?>> TaxContextAsync(
+        SalesInvoice invoice, decimal taxBase, EventContext context)
+    {
+        var ctx = new Dictionary<string, object?>
+        {
+            ["document.type"] = "SalesInvoice",
+            ["direction"] = "OUTPUT",
+            ["amount"] = taxBase,
+        };
+
+        var customer = await context.GetService<IDictionaryManager<Customer>>().GetRecordAsync(invoice.Customer);
+        if (customer is not null)
+        {
+            ctx["buyer.type"] = customer.CustomerType;
+            ctx["buyer.name"] = customer.Name;
+        }
+
+        var items = context.GetService<IDictionaryManager<Item>>();
+        var groups = new HashSet<Guid>();
+        foreach (var line in invoice.Lines)
+        {
+            var item = await items.GetRecordAsync(line.Item);
+            if (item is not null) groups.Add(item.ItemGroup);
+        }
+        if (groups.Count == 1)
+        {
+            var group = await context.GetService<IDictionaryManager<ItemGroup>>().GetRecordAsync(groups.First());
+            if (group is not null) ctx["item.group"] = group.Code;
+        }
+
+        return ctx;
     }
 
     // Before unpost/cancel: about to reverse the document's movements.

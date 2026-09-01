@@ -1,0 +1,147 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "Оператор условия правила определения налога",
+    "isExtension": false,
+    "metaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+    "name": "TaxRuleOperator",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1,
+    "createdDateTime": "2026-09-01T00:00:00",
+    "modifiedDateTime": "2026-09-01T00:00:00"
+  },
+  "values": [
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 8,
+      "displayOrder": 8,
+      "description": "В диапазоне включительно (два числа через запятую)",
+      "metaId": "e4c581a6-d3b7-4259-8ae4-71b36fa234c9",
+      "name": "Between",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 0,
+      "displayOrder": 0,
+      "description": "Равно",
+      "metaId": "6c4d0f28-5b39-4a71-8e6c-9f3b8d2a5c41",
+      "name": "Eq",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 9,
+      "displayOrder": 9,
+      "description": "Значение в контексте задано и непусто",
+      "metaId": "f5d692b7-e4c8-436a-9bf5-82c470a345da",
+      "name": "Exists",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 4,
+      "displayOrder": 4,
+      "description": "Больше (число)",
+      "metaId": "a0814d62-9f73-4e15-8ca0-3d7f2b6e9085",
+      "name": "Gt",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 5,
+      "displayOrder": 5,
+      "description": "Больше или равно (число)",
+      "metaId": "b1925e73-a084-4f26-9db1-4e803c7f0196",
+      "name": "Gte",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 2,
+      "displayOrder": 2,
+      "description": "Входит в список (значения через запятую)",
+      "metaId": "8e6f2b40-7d51-4c93-8a8e-1b5d0f4c7e63",
+      "name": "In",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 6,
+      "displayOrder": 6,
+      "description": "Меньше (число)",
+      "metaId": "c2a36f84-b195-4037-8ec2-5f914d8012a7",
+      "name": "Lt",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 7,
+      "displayOrder": 7,
+      "description": "Меньше или равно (число)",
+      "metaId": "d3b47095-c2a6-4148-9fd3-60a25e9123b8",
+      "name": "Lte",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 1,
+      "displayOrder": 1,
+      "description": "Не равно",
+      "metaId": "7d5e1a39-6c40-4b82-9f7d-0a4c9e3b6d52",
+      "name": "Neq",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 10,
+      "displayOrder": 10,
+      "description": "Значение в контексте не задано или пусто",
+      "metaId": "06e7a3c8-f5d9-447b-8a06-93d581b456eb",
+      "name": "NotExists",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+      "value": 3,
+      "displayOrder": 3,
+      "description": "Не входит в список (значения через запятую)",
+      "metaId": "9f703c51-8e62-4d04-9b9f-2c6e1a5d8f74",
+      "name": "NotIn",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    }
+  ]
+}

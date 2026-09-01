@@ -267,6 +267,88 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
             "расчёт налога один, сколько бы раз ни сработало after-post, факт {0}", calcs.Count);
     }
 
+    [IntegrationTest("Правило определения перебивает код по умолчанию на реальной продаже")]
+    public async Task RuleDecidesTaxOnIssuedInvoice()
+    {
+        var s = await SetupAsync();
+        await ConfigureTaxAsync();   // код по умолчанию со ставкой 15%
+
+        // Правило на тип покупателя. SetupAsync заводит B2B-клиента, значит контекст,
+        // который счёт кладёт в движок, обязан сюда попасть — иначе правило молчит и
+        // тест провалится на числе.
+        var reducedCode = await NewReducedRateCodeAsync(0.05m);
+        var rule = await NewRecordAsync<TaxRule>(r =>
+        {
+            r.Code = $"B2B-{Db.NewId():N}"[..12];
+            r.Name = "Пониженная ставка для B2B";
+            r.Priority = 10;
+            r.TaxCode = reducedCode;
+            r.EffectiveFrom = new DateTime(2020, 1, 1);
+        });
+        await NewRecordAsync<TaxRuleCondition>(c =>
+        {
+            c.TaxRule = rule;
+            c.Field = "buyer.type";
+            c.Operator = TaxRuleOperator.Eq;
+            c.Value = "B2B";
+            c.ConditionGroup = 0;
+        });
+
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 4m, 25m);
+        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(inv);
+
+        var calcs = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
+        Assert.IsTrue(calcs.Count == 1, "один расчёт налога, факт {0}", calcs.Count);
+
+        var calc = await DocumentManager.GetDocumentAsync<TaxCalculation>(calcs[0].MetaId);
+        Assert.IsTrue(calc!.MatchedRule == rule,
+            "расчёт помнит правило, которое определило код");
+        // 100 × 5% = 5 по правилу против 100 × 15% = 15 по умолчанию. Разница чисел
+        // и есть доказательство, что решило правило, а не настройка.
+        Assert.IsTrue(calc.Lines[0].TaxAmount == 5m,
+            "налог по ставке правила: 100 × 5% = 5, факт {0} (умолчание дало бы 15)", calc.Lines[0].TaxAmount);
+    }
+
+    /// <summary>Отдельный налоговый код с пониженной ставкой — цель правила.</summary>
+    private async Task<Guid> NewReducedRateCodeAsync(decimal rate)
+    {
+        var uniq = $"{Db.NewId():N}"[..8];
+        var from = new DateTime(2020, 1, 1);
+
+        var tax = await NewRecordAsync<Tax>(t =>
+        {
+            t.Code = $"RT-{uniq}";
+            t.Name = "Reduced tax";
+            t.TaxType = Db.NewId();
+            t.Authority = Db.NewId();
+            t.Jurisdiction = Db.NewId();
+            t.EffectiveFrom = from;
+        });
+        var rateId = await NewRecordAsync<TaxRate>(r =>
+        {
+            r.Tax = tax;
+            r.Code = $"RR-{uniq}";
+            r.Rate = rate;
+            r.EffectiveFrom = from;
+        });
+        var category = await NewRecordAsync<TaxCategory>(c =>
+        {
+            c.Tax = tax;
+            c.Code = $"RED-{uniq}";
+            c.Treatment = "STANDARD";
+        });
+        return await NewRecordAsync<TaxCode>(c =>
+        {
+            c.Code = $"RED-{uniq}";
+            c.Name = "Reduced rate";
+            c.Tax = tax;
+            c.TaxCategory = category;
+            c.TaxRate = rateId;
+            c.EffectiveFrom = from;
+        });
+    }
+
     [IntegrationTest("Без настроенного налога счёт выставляется как раньше")]
     public async Task NoTaxConfigStillIssues()
     {

@@ -1,0 +1,18 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "description": "Оператор условия правила определения налога",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "5b3c9e17-4a28-4f60-9d5b-8e2a7c1f4b30",
+    "isRequired": false,
+    "metaId": "17f8b4d9-2e6a-4c53-9b81-3f7d0a6e2c94",
+    "name": "TaxRuleOperatorEdt",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1,
+    "createdDateTime": "2026-09-01T00:00:00",
+    "modifiedDateTime": "2026-09-01T00:00:00"
+  }
+}

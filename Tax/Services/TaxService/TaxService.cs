@@ -38,6 +38,8 @@ public partial class TaxService
     private readonly IDictionaryManager<TaxSettings> _settings;
     private readonly IDictionaryManager<TaxDirection> _directions;
     private readonly IDictionaryManager<LegalEntity> _legalEntities;
+    private readonly IDictionaryManager<TaxRule> _rules;
+    private readonly IDictionaryManager<TaxRuleCondition> _ruleConditions;
     private readonly IDocumentManager _documents;
     private readonly IDocumentPostingService _posting;
 
@@ -48,6 +50,8 @@ public partial class TaxService
         IDictionaryManager<TaxSettings> settings,
         IDictionaryManager<TaxDirection> directions,
         IDictionaryManager<LegalEntity> legalEntities,
+        IDictionaryManager<TaxRule> rules,
+        IDictionaryManager<TaxRuleCondition> ruleConditions,
         IDocumentManager documents,
         IDocumentPostingService posting)
     {
@@ -57,6 +61,8 @@ public partial class TaxService
         _settings = settings;
         _directions = directions;
         _legalEntities = legalEntities;
+        _rules = rules;
+        _ruleConditions = ruleConditions;
         _documents = documents;
         _posting = posting;
     }
@@ -92,6 +98,140 @@ public partial class TaxService
     }
 
     /// <summary>
+    /// ДВИЖОК ПРАВИЛ: какое правило определения налога срабатывает на этот контекст
+    /// сделки и эту дату. Возвращает САМО ПРАВИЛО, а не только код, — вызывающему
+    /// нужен и код (<c>TaxCode</c>), и объяснение (<c>Code</c>/<c>Name</c>), иначе
+    /// «почему тут 15%» становится вопросом без ответа. Null — не сработало ни одно.
+    ///
+    /// КОНТЕКСТ — СЛОВАРЬ, А НЕ КЛАСС. Контракты сервисов собираются отдельной
+    /// сборкой, которая не видит типов, объявленных в скриптах: класс
+    /// TaxTransactionContext в публичной сигнатуре сломал бы контракты ВСЕХ
+    /// сервисов стенда. Словарь плоских путей («buyer.type», «item.group»,
+    /// «amount») эту границу переживает — и заодно оставляет движок развязанным с
+    /// документом: Sales кладёт своё, Purchasing своё, а движок про них не знает.
+    ///
+    /// ПОРЯДОК РАЗБОРА. Правила сортируются по Priority (меньше — раньше), при
+    /// равенстве — по более позднему EffectiveFrom, затем по числу условий: из двух
+    /// одинаково приоритетных выигрывает БОЛЕЕ СПЕЦИФИЧНОЕ. Иначе исход зависел бы
+    /// от порядка строк в таблице, то есть был бы случайным.
+    /// </summary>
+    public async Task<TaxRule?> ResolveRuleAsync(Dictionary<string, object?> context, DateTime? taxPointDate = null)
+    {
+        var taxPoint = (taxPointDate ?? DateTime.UtcNow).Date;
+
+        var candidates = (await _rules.GetRecordsAsync("1 = 1"))
+            .Where(r => !r.IsDisabled && IsEffectiveOn(r.EffectiveFrom, r.EffectiveTo, taxPoint))
+            .ToList();
+        if (candidates.Count == 0) return null;
+
+        // Условия читаются ОДНИМ запросом на все правила-кандидаты, а не по запросу
+        // на правило: каждый вызов менеджера — это обращение к БД внутри уже идущей
+        // транзакции проведения, и лишние round-trip'ы толкают её к повышению до
+        // распределённой (см. GeneralLedgerService).
+        var conditions = (await _ruleConditions.GetRecordsAsync("1 = 1"))
+            .GroupBy(c => c.TaxRule)
+            .ToDictionary(g => g.Key, g => g.ToList());
+
+        var ordered = candidates
+            .OrderBy(r => r.Priority)
+            .ThenByDescending(r => r.EffectiveFrom)
+            .ThenByDescending(r => conditions.TryGetValue(r.MetaId, out var cs) ? cs.Count : 0);
+
+        foreach (var rule in ordered)
+        {
+            var own = conditions.TryGetValue(rule.MetaId, out var cs) ? cs : new List<TaxRuleCondition>();
+            if (Matches(own, context)) return rule;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Условия ОДНОЙ группы соединяются И, разные группы — ИЛИ: «(A и B) или (C)».
+    /// Правило БЕЗ условий срабатывает всегда — это законный «общий случай»,
+    /// который ставят последним приоритетом вместо кода по умолчанию.
+    /// </summary>
+    private static bool Matches(List<TaxRuleCondition> conditions, Dictionary<string, object?> context)
+    {
+        if (conditions.Count == 0) return true;
+
+        return conditions
+            .GroupBy(c => c.ConditionGroup)
+            .Any(group => group.All(c => Evaluate(c, context)));
+    }
+
+    /// <summary>
+    /// Одно условие: значение из контекста против эталона, оператором из
+    /// перечисления. Набор операторов ЗАКРЫТ и живёт в метаданных
+    /// (<c>TaxRuleOperator</c>), а не белым списком строк в этом коде: правило с
+    /// опечаткой в операторе невозможно завести в принципе.
+    ///
+    /// Сравнение строк — регистронезависимое и без пробелов по краям: коды в
+    /// справочниках и в правилах заводят руками, и «B2B» против «b2b » не должно
+    /// решать судьбу налога.
+    /// </summary>
+    private static bool Evaluate(TaxRuleCondition condition, Dictionary<string, object?> context)
+    {
+        context.TryGetValue(condition.Field ?? string.Empty, out var raw);
+        var actual = raw?.ToString();
+        var expected = condition.Value;
+
+        switch (condition.Operator)
+        {
+            case TaxRuleOperator.Exists:
+                return !string.IsNullOrWhiteSpace(actual);
+            case TaxRuleOperator.NotExists:
+                return string.IsNullOrWhiteSpace(actual);
+            case TaxRuleOperator.Eq:
+                return SameText(actual, expected);
+            case TaxRuleOperator.Neq:
+                return !SameText(actual, expected);
+            case TaxRuleOperator.In:
+                return Split(expected).Any(v => SameText(actual, v));
+            case TaxRuleOperator.NotIn:
+                return !Split(expected).Any(v => SameText(actual, v));
+        }
+
+        // Числовые операторы. Значение, которое числом не читается, условие не
+        // выполняет — молча, а не исключением: одно кривое правило не должно
+        // ронять проведение документа, к которому оно даже не относится.
+        if (!TryNumber(actual, out var left)) return false;
+
+        if (condition.Operator == TaxRuleOperator.Between)
+        {
+            var bounds = Split(expected);
+            if (bounds.Count != 2) return false;
+            if (!TryNumber(bounds[0], out var lo) || !TryNumber(bounds[1], out var hi)) return false;
+            if (lo > hi) (lo, hi) = (hi, lo);
+            return left >= lo && left <= hi;
+        }
+
+        if (!TryNumber(expected, out var right)) return false;
+
+        return condition.Operator switch
+        {
+            TaxRuleOperator.Gt => left > right,
+            TaxRuleOperator.Gte => left >= right,
+            TaxRuleOperator.Lt => left < right,
+            TaxRuleOperator.Lte => left <= right,
+            _ => false,
+        };
+    }
+
+    private static bool SameText(string? a, string? b)
+        => string.Equals(a?.Trim() ?? string.Empty, b?.Trim() ?? string.Empty, StringComparison.OrdinalIgnoreCase);
+
+    private static List<string> Split(string? value)
+        => (value ?? string.Empty).Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+
+    /// <summary>Инвариантная культура: правило «сумма &gt; 1000.50» обязано читаться
+    /// одинаково на любом стенде, а не зависеть от локали сервера.</summary>
+    private static bool TryNumber(string? text, out decimal value)
+        => decimal.TryParse((text ?? string.Empty).Trim(),
+            System.Globalization.NumberStyles.Any,
+            System.Globalization.CultureInfo.InvariantCulture, out value);
+
+    /// <summary>
     /// Порождает ПРОВЕДЁННЫЙ расчёт налога на заданную базу и возвращает его id.
     /// <paramref name="taxPointDate"/> — дата налогового события (дата документа-
     /// источника); по ней же подбирается ставка, иначе документ и его налог
@@ -108,7 +248,8 @@ public partial class TaxService
     /// им нельзя: и то и другое попадает в один леджер и одну декларацию.
     /// </summary>
     public async Task<Guid?> CreateCalculationAsync(
-        Guid legalEntity, string directionCode, decimal taxBase, string reason, DateTime? taxPointDate = null)
+        Guid legalEntity, string directionCode, decimal taxBase, string reason,
+        DateTime? taxPointDate = null, Dictionary<string, object?>? context = null)
     {
         if (taxBase <= 0m || legalEntity == Guid.Empty) return null;
 
@@ -129,8 +270,15 @@ public partial class TaxService
 
         var taxPoint = (taxPointDate ?? DateTime.UtcNow).Date;
 
-        var taxCode = await ResolveDefaultTaxCodeAsync();
-        if (taxCode is null) return null;
+        // КОД ОПРЕДЕЛЯЕТ ПРАВИЛО, а настройка — только когда правила молчат.
+        // Порядок именно такой: правила — это данные, которые заводит бухгалтер под
+        // свою страну и свои сделки, а DefaultTaxCode — одна строка на весь стенд.
+        // Обратная совместимость при этом полная: контекст не передали (или правил
+        // нет) — поведение ровно прежнее, поэтому включение движка не трогает уже
+        // работающие стенды.
+        var matchedRule = context is null ? null : await ResolveRuleAsync(context, taxPoint);
+        var taxCode = matchedRule?.TaxCode ?? await ResolveDefaultTaxCodeAsync();
+        if (taxCode is null || taxCode == Guid.Empty) return null;
 
         var rate = await RequireRateAsync(taxCode.Value, taxPoint);
 
@@ -146,6 +294,9 @@ public partial class TaxService
             ["Currency"] = le.Currency,
             ["TaxPointDate"] = taxPoint,
             ["DeterminationReason"] = reason,
+            // Сработавшее правило пишется НА РАСЧЁТ: правило потом отредактируют или
+            // выключат, а расчёт неизменен и обязан сам объяснять свою ставку.
+            ["MatchedRule"] = matchedRule?.MetaId,
         });
 
         calc.Lines.Add(new TaxCalculationLinesTablePartRow
