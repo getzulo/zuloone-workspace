@@ -1,4 +1,10 @@
 #nullable enable
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
+
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for PutAwayTask documents.
@@ -39,12 +45,63 @@ public partial class PutAwayTaskEventHandler : TypedDocumentEventHandler<PutAway
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
         => Task.FromResult(EventResult.Ok());
 
-    // Before posting: validate the whole document; cancel to block posting.
-    public override Task<EventResult> OnBeforePostAsync(PutAwayTask header, EventContext context)
+    // Раскладка принятого: приёмка → хранение. Две проверки разной природы, и их
+    // НЕЛЬЗЯ смешивать.
+    //
+    // Первая — физика: нельзя разложить больше, чем лежит в ячейке приёмки. Она
+    // работает ВСЕГДА, флагом не выключается. Регистр Stock допускает
+    // отрицательный остаток (allowNegativeBalance), поэтому движок здесь не
+    // помощник — проверка обязана стоять тут.
+    //
+    // Вторая — политика: приёмка это приёмка, а хранение это хранение. Она
+    // включается настройкой EnforceWarehouseTasks, потому что до сих пор ячейки
+    // были свободными, и разом запретить произвольную ячейку значит сломать все
+    // существующие документы.
+    //
+    // Политика живёт в StoreCellService, хотя он в ЭТОЙ ЖЕ модели: обращение
+    // модели к собственному контракту сервиса когда-то ломало сборку контрактов,
+    // но платформа это починила — проверено компиляцией и тестами. Поэтому здесь
+    // тонкая оркестровка, а знание «какая ячейка для чего» — в одном месте, и
+    // приход с продажей спрашивают то же самое.
+    public override async Task<EventResult> OnBeforePostAsync(PutAwayTask header, EventContext context)
     {
-        // if (header.Number == null)
-        //     return Task.FromResult(EventResult.Cancel("Number is required before posting"));
-        return Task.FromResult(EventResult.Ok());
+        if (header.Subtype != "Confirmed") return EventResult.Ok();
+
+        var full = await context.GetService<IDocumentManager>().GetDocumentAsync<PutAwayTask>(header.MetaId);
+        var lines = full?.Lines ?? header.Lines;
+        var fromCell = full?.FromCell ?? header.FromCell;
+
+        if (lines.Count == 0)
+            return EventResult.Cancel("Заполните строки задания");
+
+        var cells = context.GetService<IStoreCellService>();
+        var enforcing = await cells.IsWarehouseDisciplineOnAsync();
+        if (enforcing && !await cells.IsCellAllowedForAsync(fromCell, StoreCellPurpose.Receiving))
+            return EventResult.Cancel("Раскладка забирает товар из ячейки ПРИЁМКИ — у выбранной ячейки другое назначение");
+
+        // Спрос считается по BaseQuantity — регистр хранит базовую единицу товара.
+        // Ноль означает «единица не указана, пересчёта не было».
+        var demand = new Dictionary<Guid, decimal>();
+        foreach (var line in lines)
+        {
+            if (enforcing && !await cells.IsCellAllowedForAsync(line.ToCell, StoreCellPurpose.Storage))
+                return EventResult.Cancel("Раскладка кладёт товар в ячейку ХРАНЕНИЯ — у выбранной ячейки другое назначение");
+
+            var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
+            if (qty <= 0m) return EventResult.Cancel("Количество в строке должно быть больше нуля");
+            demand[line.Item] = (demand.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
+        }
+
+        var totals = context.GetService<ITotalsManager>();
+        foreach (var kv in demand)
+        {
+            var onHand = await totals.GetBalanceAsync("Stock", "Qty",
+                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = fromCell });
+            if (kv.Value > onHand)
+                return EventResult.Cancel($"Недостаточно товара в ячейке приёмки: требуется {kv.Value}, в наличии {onHand}");
+        }
+
+        return EventResult.Ok();
     }
 
     // After the document was posted (register movements are written).

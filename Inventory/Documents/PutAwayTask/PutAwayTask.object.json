@@ -92,7 +92,7 @@
       "subtypeCaption_ru": "Подтверждено",
       "displayOrder": 2,
       "isInitial": false,
-      "isReadOnly": false,
+      "isReadOnly": true,
       "metaId": "57100705-0000-4000-8000-000000000000",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
@@ -124,6 +124,28 @@
       "layerId": 2,
       "createdDateTime": "2026-08-27T21:51:30.7337111",
       "modifiedDateTime": "2026-08-27T21:51:30.7337111"
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "57100704-0000-4000-8000-000000000000",
+      "toSubtypeMetaId": "57100705-0000-4000-8000-000000000000",
+      "metaId": "4b026cc9-1e35-4687-9e44-a3d15f92c0b8",
+      "name": "Draft->Confirmed",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "fromSubtypeMetaId": "57100705-0000-4000-8000-000000000000",
+      "toSubtypeMetaId": "57100704-0000-4000-8000-000000000000",
+      "metaId": "5c137dda-2f46-4798-8f55-b4e260a3d1c9",
+      "name": "Confirmed->Draft",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
     }
   ]
 }

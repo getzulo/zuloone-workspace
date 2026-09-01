@@ -32,6 +32,16 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
         // документ проводится, а возмещаемый входной налог пропадает молча.
         if (document.Subtype == "Received")
         {
+            // Адресная дисциплина: принимать положено в ячейку ПРИЁМКИ, а дальше
+            // товар переносит задание раскладки. Проверка спрашивает Inventory, а
+            // не сравнивает имя типа ячейки: набор ролей лежит в метаданных.
+            // Дисциплина выключена (умолчание) — сервис отвечает «годится любая»,
+            // и приход ведёт себя как раньше.
+            var cells = context.GetService<IStoreCellService>();
+            if (!await cells.IsCellAllowedForAsync(document.Location, StoreCellPurpose.Receiving))
+                return EventResult.Cancel(
+                    "Приход оформляется в ячейку ПРИЁМКИ — у выбранной ячейки другое назначение");
+
             var tax = context.GetService<ITaxService>();
             var taxCode = await tax.ResolveDefaultTaxCodeAsync();
             if (taxCode is not null && await tax.ResolveRateAsync(taxCode.Value, TaxPointOf(document)) is null)
@@ -74,6 +84,71 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
         if (calc.HasValue)
             await docs.AddLinkAsync(document.MetaId, calc.Value);
 
+        await SpawnPutAwayTaskAsync(order, context);
+
         return EventResult.Ok();
     }
+
+    /// <summary>
+    /// Принятый товар лежит в ячейке приёмки и должен уехать на хранение — это
+    /// работа кладовщика, а не бухгалтера, поэтому приход сам заводит ей ЧЕРНОВИК
+    /// задания раскладки. Черновик, а не проведённое: физически товар ещё не
+    /// переставили, подтверждает человек.
+    ///
+    /// ИДЕМПОТЕНТНОСТЬ ОБЯЗАТЕЛЬНА. Событие after-post исполняется заново при
+    /// КАЖДОМ проведении, а приход перепроводят буднично — правка накладной.
+    /// Без проверки второе проведение заводило бы второе задание на тот же товар
+    /// (проверено: со снятой проверкой тест видит два). Отдельно замечу, что
+    /// удвоение, которым страдают ПРОДАЖИ (драйвер себестоимости дописывает
+    /// движения и заставляет событие сработать дважды за одно проведение), здесь
+    /// ни при чём: приход увеличивает склад, драйвер срабатывает на чистом
+    /// минусе, вторичных движений нет.
+    ///
+    /// Ключ — ГРАФ ДОКУМЕНТОВ, а не колонка с id: указатель документа на документ
+    /// в этой платформе выражается связью.
+    ///
+    /// Best-effort, как разноска в GL: нет ячейки хранения — задания нет, приход
+    /// проводится. Иначе незаполненная настройка склада роняла бы закупку.
+    /// </summary>
+    private static async Task SpawnPutAwayTaskAsync(PurchaseOrder order, EventContext context)
+    {
+        var cells = context.GetService<IStoreCellService>();
+        if (!await cells.IsWarehouseDisciplineOnAsync()) return;
+
+        var docs = context.GetService<IDocumentManager>();
+
+        // Ребро несёт только id концов, тип — у узла: сопоставляем одно с другим.
+        // Ищется именно РЕБРО от этого заказа, а не любой родственник типа
+        // «раскладка» в графе: семья обходит связи в обе стороны на восемь шагов,
+        // и чужое задание, попавшее в неё окольным путём, отменило бы создание
+        // своего.
+        var family = await docs.GetDocumentFamilyAsync(order.MetaId);
+        var putAwayIds = new HashSet<Guid>(
+            family.Nodes.Where(n => n.DocTypeMetaId == PutAwayTaskType).Select(n => n.DocId));
+        if (family.Edges.Any(e => e.ParentDocId == order.MetaId && putAwayIds.Contains(e.ChildDocId))) return;
+
+        var store = await cells.GetStoreAsync(order.Location);
+        if (store is null) return;
+        var storageCell = await cells.SuggestStorageCellAsync(store.Value);
+        if (storageCell is null) return;
+
+        var task = await docs.NewDocumentAsync<PutAwayTask>("Draft", new Dictionary<string, object?>
+        {
+            ["FromCell"] = order.Location,
+        });
+        foreach (var line in order.Lines)
+            task.Lines.Add(new PutAwayTaskLinesTablePartRow
+            {
+                Item = line.Item,
+                Quantity = line.Quantity,
+                Unit = line.Unit,
+                ToCell = storageCell.Value,
+            });
+
+        await docs.SaveDocumentAsync(task);
+        await docs.AddLinkAsync(order.MetaId, task.MetaId);
+    }
+
+    /// <summary>Тип документа «раскладка» — по нему ищется уже созданное задание.</summary>
+    private static readonly Guid PutAwayTaskType = Guid.Parse("57100701-0000-4000-8000-000000000000");
 }

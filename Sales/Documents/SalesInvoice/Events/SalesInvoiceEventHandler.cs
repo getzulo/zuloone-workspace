@@ -62,6 +62,15 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
         var lines = full?.Lines ?? header.Lines;
 
+        // Адресная дисциплина: отгружать положено из ячейки ОТБОРА, куда товар
+        // принесло задание отбора. Проверка спрашивает Inventory, а не сравнивает
+        // имя типа ячейки. Дисциплина выключена (умолчание) — годится любая
+        // ячейка, и счёт выставляется как раньше.
+        if (!await context.GetService<IStoreCellService>()
+                .IsCellAllowedForAsync(full?.Location ?? header.Location, StoreCellPurpose.Picking))
+            return EventResult.Cancel(
+                "Отгрузка идёт из ячейки ОТБОРА — у выбранной ячейки другое назначение");
+
         // ЮРЛИЦО ПРОДАВЦА ФИКСИРУЕТСЯ НА ДОКУМЕНТЕ, а не резолвится каждым, кому
         // оно понадобилось. Причина техническая и жёсткая: налоговый леджер разрезан
         // юрлицом, а пишет в него ТРАНЗАКЦИОННЫЙ скрипт — синхронный, и цепочку
