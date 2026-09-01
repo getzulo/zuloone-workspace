@@ -190,6 +190,43 @@ public class StockFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(sum == 10m, "одинарная запись: сумма движений равна остатку (10), а не {0}", sum);
     }
 
+    [IntegrationTest("Балансовая строка разрезана ЯЧЕЙКОЙ, а не только товаром")]
+    public async Task BalanceRowsArePartitionedByCell()
+    {
+        var s = await SetupAsync();
+
+        // Один и тот же товар в двух ячейках разными количествами. Числа выбраны
+        // так, чтобы схлопывание было ВИДНО: 7 и 3 схлопнутся в 10, и ни одна
+        // проверка «остаток положительный» этого не заметит.
+        await PostAdjustmentAsync(s.Loc1, s.Item, 7m);
+        await PostAdjustmentAsync(s.Loc2, s.Item, 3m);
+
+        // Точечный срез по полному ключу и так работал — здесь проверяется ДРУГОЕ:
+        // что адресность есть в самой балансовой таблице, то есть её можно читать
+        // списком и фильтровать SQL-ом. Именно от этого зависит адресный склад:
+        // «что лежит в этой ячейке» и «в каких ячейках лежит этот товар» — запросы
+        // к балансу, а не перебор движений.
+        var rows = await TotalsManager.QueryBalancesAsync("Stock", $"[Item] = '{s.Item}'");
+        Assert.IsTrue(rows.Count == 2,
+            "две ячейки — две балансовые строки, факт {0} (одна строка означала бы схлопывание по товару)", rows.Count);
+
+        var byCell = new Dictionary<Guid, decimal>();
+        foreach (var row in rows)
+            byCell[Guid.Parse(row["Cell"]!.ToString()!)] = Convert.ToDecimal(row["Qty"]);
+
+        Assert.IsTrue(byCell.TryGetValue(s.Loc1, out var first) && first == 7m,
+            "в первой ячейке 7, факт {0}", byCell.TryGetValue(s.Loc1, out var f) ? f : -1m);
+        Assert.IsTrue(byCell.TryGetValue(s.Loc2, out var second) && second == 3m,
+            "во второй ячейке 3, факт {0}", byCell.TryGetValue(s.Loc2, out var sec) ? sec : -1m);
+
+        // И обратный разрез: «что лежит в этой ячейке» — фильтр по ячейке отдаёт
+        // только её строку.
+        var inCell = await TotalsManager.QueryBalancesAsync("Stock", $"[Cell] = '{s.Loc1}' AND [Item] = '{s.Item}'");
+        Assert.IsTrue(inCell.Count == 1, "фильтр по ячейке отдаёт одну строку, факт {0}", inCell.Count);
+        Assert.IsTrue(Convert.ToDecimal(inCell[0]["Qty"]) == 7m,
+            "и это остаток именно первой ячейки, факт {0}", Convert.ToDecimal(inCell[0]["Qty"]));
+    }
+
     [IntegrationTest("Списание сверх наличия отклоняется")]
     public async Task OverWithdrawIsRejected()
     {
