@@ -1,6 +1,6 @@
 ---
 name: zuloone-new-register
-description: Создать регистр накопления ZuloOne — ресурсы, ДИНАМИЧЕСКИЕ АНАЛИТИКИ из переиспользуемого каталога, движок/драйвер итогов; §7 — кросс-регистровые отчёты через Virtual Total. Use when adding an accumulation register (stock, money, cost) to a ZuloOne model.
+description: Создать регистр накопления ZuloOne — ресурсы, ДИНАМИЧЕСКИЕ АНАЛИТИКИ из переиспользуемого каталога, движок/драйвер итогов; §7 — кросс-регистровые отчёты через Virtual Total, §8 — отчёт поверх произвольного SQL (Custom Report). Use when adding an accumulation register (stock, money, cost) to a ZuloOne model, or when deciding how to build a report.
 ---
 
 # Новый регистр
@@ -244,3 +244,75 @@ end
 считает скрипт-драйвер (`VirtualTotalScriptBase.GetBalancesAsync`,
 кернел-драйвер `Core/TotalDrivers/VirtualTotalDriver`), а не декларативный
 мердж НЕСКОЛЬКИХ регистров в отчёт.
+
+## 8. Отчёт поверх ПРОИЗВОЛЬНОГО SQL — пользовательский отчёт (Custom Report)
+
+Третий (и последний) способ отчитаться. Выбор между тремя:
+
+| Что нужно | Чем делать |
+|---|---|
+| Периоды по ОДНОМУ регистру | ничего не заводить — у регистра уже есть форма отчёта |
+| Смержить НЕСКОЛЬКО регистров | виртуальный итог, §7 |
+| Источник — НЕ регистр (join справочников, чужая таблица, хитрый SELECT) | пользовательский отчёт |
+
+Файлы — `<Модель>/Reports/<Имя>/`: `<Имя>.report.json` (`kind: "CustomReport"`)
+плюс РЯДОМ пара скрипта `<Имя>DataSource.script.json` + `.cs`
+(`scriptType: "CustomReport"`). Сервер создаёт отчёт и его скрипт одной
+транзакцией — отчёт без скрипта не «наполовину создан», а сломан.
+
+Скрипт — партиал от `CustomReportDataSourceBase`, шесть методов (MIQS
+`IReportDataSource`), базу генерит платформа:
+
+```csharp
+public partial class CustomReport<Имя>
+{
+    // ОБЯЗАТЕЛЬНЫЕ
+    public override string GetTransactionsSql() => @"SELECT MovementDate, Item, Qty FROM [TR_Stock]";
+    public override IEnumerable<TotalColumn> GetReportColumns() => new TotalColumn[]
+    {
+        new DateTotalColumn     { Name = "TransactionDate", DatabaseName = "MovementDate" },
+        new DocumentTotalColumn { Name = "Document", DatabaseName = "DocumentMetaId" },
+        new SpaceTotalColumn    { Name = "Item", DatabaseName = "Item", DictionaryName = "Item" },
+        new VariableTotalColumn { Name = "Quantity", DatabaseName = "Qty" },
+    };
+
+    // НЕОБЯЗАТЕЛЬНЫЕ — но каждый реально работает, не заглушка
+    public override string? GetBalanceSql() => @"SELECT Item, SUM(Qty) AS Qty FROM [TR_Stock] GROUP BY Item";
+    public override IEnumerable<string> GetSortOrderColumns() => new[] { "Item" };
+    public override DateTime? GetCalculatedTransactionsDate() => null;
+    public override DateTime? GetActualTransactionsDate() => null;
+}
+```
+
+Что важно знать:
+- **`GetReportColumns()` — ЭТО и есть источник списка переменных** в
+  предотчётной форме («Имя переменной»). У регистра туда идут ресурсы, у
+  виртуального итога — объявления `var` DSL, у кастомного отчёта —
+  `VariableTotalColumn`-ы отсюда. Не видно переменной в форме — смотри сюда.
+- Периоды считает платформа, не ты: `In` (входящий) / `Add` (приход) /
+  `Sub` (расход, положительный) / `Out` (исходящий) — из `MovementDate` и
+  выбранного пользователем периода.
+- **`GetBalanceSql()` — про скорость, и он опасен.** Верни ТЕКУЩИЕ остатки
+  (те же измерения и переменные, но БЕЗ даты и документа) — и платформа
+  посчитает входящий/исходящий, откручивая остаток НАЗАД по движениям
+  периода, вместо суммирования всей истории. Условие, которое никто не
+  проверит: сумма этого запроса обязана совпадать с суммой всех движений по
+  той же комбинации измерений. Разъехались — остатки тихо врут, разность
+  сумм себя не проверяет. Не уверен — верни `null`.
+- Группировка по дате/документу (`TransactionsOnly`) с остаточным запросом
+  несовместима: у строки остатка нет ни даты, ни документа. Платформа сама
+  откатится на движения — молча, но правильно.
+- Строка фильтра умеет искать по **Коду / Наименованию**, а не только по
+  ключу — но только у `SpaceTotalColumn` с заполненным `DictionaryName`.
+  Без него комбо «Код» не покажется.
+- Свои имена колонок попадают в SQL: только буквы/цифры/`_`, и не начинать
+  с `__` (зарезервировано движком).
+- Строковая безопасность: у отчёта есть свой предикат row-security
+  (`ObjectType: "CustomReport"`), пишется по ИМЕНАМ его колонок.
+
+**Наборы переменных («виды отчёта») общие для всех трёх.** Один
+`MetaReportView` привязывается сразу к регистру, виртуальному итогу и
+кастомному отчёту; в дизайнере каждого из них — одна и та же панель. Поэтому
+«удалить» набор из формы отчёта = ОТВЯЗАТЬ его от этого объекта; сам набор
+исчезает только вместе с последней привязкой.
+

@@ -1,0 +1,12 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "configJson": "{\"variables\":[{\"id\":\"v13_64893\",\"columnType\":\"variable\",\"caption\":\"Входящий остаток\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"v14_654\",\"columnType\":\"variable\",\"caption\":\"Исходящий остаток\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"nonZeroTurnover\":false,\"nonZeroBalance\":false}",
+    "metaId": "3e35128d-ef6d-4dec-95ac-26b719cd3b16",
+    "name": "Тест",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 1,
+    "createdDateTime": "2026-09-01T02:55:37.3138649",
+    "modifiedDateTime": "2026-09-01T02:56:49.9648062"
+  }
+}
