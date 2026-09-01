@@ -9,6 +9,9 @@ using ZuloOne.Managers;
 // генерённые классы не находятся, а Currency вдобавок связывается с посторонним
 // недоступным типом, и ошибка (CS0122) описывает не ту причину.
 using ZuloOne.Runtime.Generated;
+// Контракты сервисов (IStoreCellService) — тест-скриптам тоже НЕ приходят
+// глобальным using'ом.
+using ZuloOne.Services.Contracts;
 
 // Выставление счёта порождает расчёт ВЫХОДНОГО налога отдельным документом,
 // связанным со счётом. Проверяем и сам факт порождения, и то, что налоговый
@@ -347,6 +350,66 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
             c.TaxRate = rateId;
             c.EffectiveFrom = from;
         });
+    }
+
+    [IntegrationTest("Выставление фиксирует на счёте юрлицо продавца")]
+    public async Task IssueStampsSellingLegalEntity()
+    {
+        var s = await SetupAsync();
+
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 2m, 10m);
+        var draft = await DocumentManager.GetDocumentAsync<SalesInvoice>(inv.MetaId);
+        Assert.IsTrue(draft!.LegalEntity == Guid.Empty,
+            "у черновика юрлица ещё нет — его проставляет именно выставление");
+
+        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(inv);
+
+        // Читается из БАЗЫ, а не из объекта в памяти: проверяется в том числе то,
+        // что присваивание в OnBeforePost доезжает до записи, а не остаётся в
+        // экземпляре обработчика.
+        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(inv.MetaId);
+        Assert.IsTrue(stored!.LegalEntity != Guid.Empty,
+            "юрлицо продавца проставлено по цепочке от ячейки отгрузки");
+
+        // И это ИМЕННО то юрлицо, которому принадлежит ячейка, а не какое-нибудь.
+        var expected = await GetService<IStoreCellService>().GetLegalEntityAsync(s.Cell);
+        Assert.IsTrue(stored.LegalEntity == expected,
+            "юрлицо совпадает с владельцем ячейки: ожидали {0}, факт {1}", expected, stored.LegalEntity);
+    }
+
+    [IntegrationTest("Заполненное вручную юрлицо не перезаписывается по ячейке")]
+    public async Task ManualLegalEntitySurvivesIssue()
+    {
+        var s = await SetupAsync();
+
+        // Второе юрлицо — то, которому ячейка НЕ принадлежит. Продажа со склада
+        // одного юрлица от имени другого — законный случай (комиссия, агентская
+        // схема), и автоподстановка не имеет права его затирать.
+        var country = DictionaryManager.NewRecord<Country>();
+        country.Name = "Bahrain";
+        country.CodeISO2 = "BH";
+        country.CodeISO3 = "BHR";
+        country.PhoneCode = "973";
+        country = await DictionaryManager.SaveRecordAsync(country);
+
+        var other = DictionaryManager.NewRecord<LegalEntity>();
+        other.Name = "Agent LLC";
+        other.RegistrationNumber = $"REG-AG-{Db.NewId():N}"[..16];
+        other.Country = country.MetaId;
+        other.Currency = s.Currency;
+        other = await DictionaryManager.SaveRecordAsync(other);
+
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 2m, 10m);
+        inv.LegalEntity = other.MetaId;
+        await DocumentManager.SaveDocumentAsync(inv);
+
+        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(inv);
+
+        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(inv.MetaId);
+        Assert.IsTrue(stored!.LegalEntity == other.MetaId,
+            "указанное вручную юрлицо сохраняется, факт {0}", stored.LegalEntity);
     }
 
     [IntegrationTest("Без настроенного налога счёт выставляется как раньше")]

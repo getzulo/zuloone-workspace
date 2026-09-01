@@ -82,6 +82,28 @@
       "layerId": 2,
       "createdDateTime": "2026-08-25T17:57:40.2023999",
       "modifiedDateTime": "2026-08-25T17:57:40.2023999"
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "fieldName": "LegalEntity",
+      "caption": "Selling legal entity",
+      "caption_ar": "الكيان القانوني البائع",
+      "caption_ru": "Юрлицо продавца",
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "description": "Кто продаёт. Заполняется автоматически при выставлении — по цепочке Ячейка → Зона → Склад → Подразделение → Юрлицо. Поле нужно ИМЕННО НА ДОКУМЕНТЕ, потому что налоговый леджер разрезан юрлицом, а транзакционный скрипт синхронный и пройти эту цепочку не может. Заполнено вручную — цепочка не переписывает: ячейка отгрузки и продавец совпадают не всегда.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "5e3a7c81-9b24-4d06-8f57-1c9e2b6a4d38",
+      "name": "LegalEntity",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
     }
   ],
   "subtypes": [

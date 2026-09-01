@@ -52,12 +52,46 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     // dimensions). Note: check-then-act, not atomic with posting.
     private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
 
+    /// <summary>Тип документа — цель точечного обновления шапки.</summary>
+    private static readonly Guid SalesInvoiceType = Guid.Parse("34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3");
+
     public override async Task<EventResult> OnBeforePostAsync(SalesInvoice header, EventContext context)
     {
         if (header.Subtype != "Issued") return EventResult.Ok();
 
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
         var lines = full?.Lines ?? header.Lines;
+
+        // ЮРЛИЦО ПРОДАВЦА ФИКСИРУЕТСЯ НА ДОКУМЕНТЕ, а не резолвится каждым, кому
+        // оно понадобилось. Причина техническая и жёсткая: налоговый леджер разрезан
+        // юрлицом, а пишет в него ТРАНЗАКЦИОННЫЙ скрипт — синхронный, и цепочку
+        // Ячейка → Зона → Склад → Подразделение → Юрлицо он пройти не может (это
+        // четыре асинхронных чтения справочников). Здесь, на пути проведения, они
+        // работают штатно.
+        //
+        // Причина учётная не слабее: оргструктуру потом переподчинят, а счёт
+        // неизменен — он обязан помнить, КТО продал, а не пересчитывать это по
+        // сегодняшнему дереву. Поэтому заполненное вручную значение не
+        // перезаписывается: ячейка отгрузки и продавец совпадают не всегда.
+        //
+        // Пишется ТОЧЕЧНЫМ обновлением шапки, а не присваиванием в header:
+        // экземпляр, приехавший в событие, до базы не доезжает (проверено —
+        // IssueStampsSellingLegalEntity падал именно на этом). SaveDocumentAsync
+        // здесь тоже не годится: он переписывает ВСЕ строки документа посреди его
+        // же проведения.
+        var current = full?.LegalEntity ?? header.LegalEntity;
+        if (current == Guid.Empty)
+        {
+            var resolved = await context.GetService<IStoreCellService>()
+                .GetLegalEntityAsync(full?.Location ?? header.Location);
+            if (resolved.HasValue)
+            {
+                header.LegalEntity = resolved.Value;
+                await context.GetService<IDocumentManager>().UpdateDocumentAsync(
+                    SalesInvoiceType, header.MetaId,
+                    new Dictionary<string, object?> { ["LegalEntity"] = resolved.Value });
+            }
+        }
 
         // Сравнивается с остатком регистра, а он в БАЗОВОЙ единице товара — значит и
         // спрос считается по BaseQuantity. Ноль = единица не указана, пересчёта не было.
@@ -118,10 +152,12 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         var invoice = await docs.GetDocumentAsync<SalesInvoice>(header.MetaId);
         if (invoice is null || invoice.Lines.Count == 0) return EventResult.Ok();
 
-        // Юрлицо продавца — по ячейке отгрузки; база — та же сумма строк, от
-        // которой считается выручка, чтобы налог и выручка не разъезжались.
-        var legalEntity = await context.GetService<IStoreCellService>().GetLegalEntityAsync(invoice.Location);
-        if (legalEntity is null) return EventResult.Ok();
+        // Юрлицо продавца УЖЕ зафиксировано на документе (OnBeforePost) — читается
+        // оттуда, а не резолвится заново по ячейке. Так налог и сам счёт по
+        // построению говорят об одном и том же продавце, даже если оргструктуру
+        // переподчинят между проведением и перепроведением.
+        var legalEntity = invoice.LegalEntity;
+        if (legalEntity == Guid.Empty) return EventResult.Ok();
 
         var pricing = context.GetService<IPricingService>();
         var taxBase = invoice.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
@@ -131,7 +167,7 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         // налог датировались бы по-разному, а задним числом выставленный документ
         // посчитался бы по сегодняшней ставке.
         var calc = await context.GetService<ITaxService>()
-            .CreateCalculationAsync(legalEntity.Value, "OUTPUT", taxBase, $"Sales invoice {header.Number}",
+            .CreateCalculationAsync(legalEntity, "OUTPUT", taxBase, $"Sales invoice {header.Number}",
                 TaxPointOf(header), await TaxContextAsync(invoice, taxBase, context));
         if (calc.HasValue)
             await docs.AddLinkAsync(header.MetaId, calc.Value);

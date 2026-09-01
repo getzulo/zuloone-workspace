@@ -72,7 +72,7 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
         // работает). Округление то же, что у PricingService.
         var total = inv.Lines.Sum(l => Math.Round(l.Quantity * l.UnitPrice, 2, MidpointRounding.AwayFromZero));
 
-        var le = await ResolveLegalEntityAsync(inv.Location, context);
+        var le = await ResolveLegalEntityAsync(inv, context);
         if (le == null) return null;
 
         return await gl.PostAsync(
@@ -116,7 +116,7 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
         var inv = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
         if (inv == null) return null;
 
-        var le = await ResolveLegalEntityAsync(inv.Location, context);
+        var le = await ResolveLegalEntityAsync(inv, context);
         if (le == null) return null;
 
         return await gl.PostAsync(
@@ -126,19 +126,16 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
             "Себестоимость продажи", "Выбытие запасов");
     }
 
-    /// <summary>Юрлицо продавца — по цепочке Ячейка → Зона → Склад → Подразделение
-    /// → Юрлицо. Звено, которого нет, обрывает разноску: это настройка оргструктуры,
-    /// а не ошибка счёта.</summary>
-    private static async Task<LegalEntity?> ResolveLegalEntityAsync(Guid location, EventContext context)
+    /// <summary>Юрлицо продавца — с самого счёта: его фиксирует выставление
+    /// (<c>SalesInvoiceEventHandler.OnBeforePost</c>) по цепочке Ячейка → Зона →
+    /// Склад → Подразделение → Юрлицо. Читать поле, а не проходить цепочку заново,
+    /// важно не ради экономии четырёх чтений: счёт мог быть выставлен от имени
+    /// другого юрлица (агентская продажа со чужого склада), и проводка обязана
+    /// попасть туда же, куда налог и сам счёт. Пусто — оргструктура не заполнена,
+    /// разноска тихо пропускается.</summary>
+    private static async Task<LegalEntity?> ResolveLegalEntityAsync(SalesInvoice invoice, EventContext context)
     {
-        var loc = await context.GetService<IDictionaryManager<StoreCell>>().GetRecordAsync(location);
-        if (loc == null) return null;
-        var zone = await context.GetService<IDictionaryManager<StoreZone>>().GetRecordAsync(loc.StoreZone);
-        if (zone == null) return null;
-        var wh = await context.GetService<IDictionaryManager<Store>>().GetRecordAsync(zone.Store);
-        if (wh == null) return null;
-        var div = await context.GetService<IDictionaryManager<Division>>().GetRecordAsync(wh.Division);
-        if (div == null) return null;
-        return await context.GetService<IDictionaryManager<LegalEntity>>().GetRecordAsync(div.LegalEntity);
+        if (invoice.LegalEntity == Guid.Empty) return null;
+        return await context.GetService<IDictionaryManager<LegalEntity>>().GetRecordAsync(invoice.LegalEntity);
     }
 }
