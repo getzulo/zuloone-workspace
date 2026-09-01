@@ -84,13 +84,35 @@ public partial class GeneralLedgerService
     }
 
     /// <summary>Разнести сбалансированную проводку Dr/Cr по КОДАМ счетов из профиля.
-    /// Возвращает id проводки или null, если разноска невозможна.</summary>
+    /// Возвращает id проводки или null, если разноска невозможна ИЛИ этот факт уже
+    /// разнесён.</summary>
     public async Task<Guid?> PostAsync(
         DateTime date, Guid legalEntity, Guid currency, decimal amount,
         string debitAccountCode, string creditAccountCode,
         string description, string debitLineText, string creditLineText)
     {
         if (amount <= 0m || legalEntity == Guid.Empty) return null;
+
+        // ОДНО ОПИСАНИЕ — ОДНА ПРОВОДКА. Описание несёт id документа-источника и
+        // назначение ("Sales invoice <id>", "Cost of sales <id>", "Purchase order
+        // <id>"), поэтому повтор означает повторную разноску ТОГО ЖЕ факта, а не
+        // второй факт.
+        //
+        // Защита не теоретическая: событие after-post документа выполняется ДВАЖДЫ,
+        // когда его же проведение дописывает движения через менеджер — так делает
+        // драйвер CostingIssue, списывая себестоимость проданного. Без этой
+        // проверки любая продажа товара, у которого есть слои себестоимости,
+        // удваивала в книге и выручку, и себестоимость (поймано тестом
+        // CostOfSalesGLTest; старый SalesGLPostingTest этого не видел, потому что
+        // заводит остаток прямым движением регистра — списывать нечего, и события
+        // хватало одного).
+        //
+        // Отмена и перепроведение документа сюда тоже приходят: и там повтор
+        // блокировать ПРАВИЛЬНО — первую проводку никто не сторнировал, она
+        // осталась в книге.
+        var alreadyPosted = await _documents.CountDocumentsAsync<JournalEntry>(
+            $"Description = '{description.Replace("'", "''")}'");
+        if (alreadyPosted > 0) return null;
 
         var (debit, credit) = await ResolvePairAsync(debitAccountCode, creditAccountCode);
         if (debit == null || credit == null) return null;
