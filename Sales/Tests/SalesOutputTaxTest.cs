@@ -239,6 +239,34 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
             "ребро ведёт от счёта к расчёту налога");
     }
 
+    [IntegrationTest("Товар со слоями себестоимости порождает РОВНО ОДИН расчёт налога")]
+    public async Task CostLayersDoNotDuplicateOutputTax()
+    {
+        var s = await SetupAsync();
+        await ConfigureTaxAsync();
+
+        // ЕДИНСТВЕННОЕ отличие от IssueCreatesOutputTax — у товара есть партия
+        // себестоимости. Значит проведение счёта запустит драйвер CostingIssue, и
+        // тот допишет документу ВТОРИЧНЫЕ движения (списание себестоимости).
+        //
+        // Именно на таких данных вылезло удвоение разноски в GL: побочный эффект
+        // after-post исполнялся дважды. Тест закрывает вопрос, тянется ли то же
+        // удвоение на порождение налогового расчёта, — а заодно охраняет от него
+        // впредь. Обычные тесты этого не видят: они заводят остаток прямым
+        // движением регистра, списывать нечего, вторичных движений нет.
+        await TotalsManager.PostMovementAsync("ItemCostFifo", null, DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Item"] = s.Item },
+            new Dictionary<string, decimal> { ["Quantity"] = 100m, ["Amount"] = 700m });
+
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 4m, 25m);
+        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(inv);
+
+        var calcs = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
+        Assert.IsTrue(calcs.Count == 1,
+            "расчёт налога один, сколько бы раз ни сработало after-post, факт {0}", calcs.Count);
+    }
+
     [IntegrationTest("Без настроенного налога счёт выставляется как раньше")]
     public async Task NoTaxConfigStillIssues()
     {

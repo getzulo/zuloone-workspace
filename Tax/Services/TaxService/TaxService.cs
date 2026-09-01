@@ -112,6 +112,21 @@ public partial class TaxService
     {
         if (taxBase <= 0m || legalEntity == Guid.Empty) return null;
 
+        // ОДНА ПРИЧИНА — ОДИН РАСЧЁТ. reason несёт документ-источник ("Sales invoice
+        // <номер>"), поэтому повтор означает повторное определение ТОГО ЖЕ налога.
+        //
+        // Защита обязательна, а не на всякий случай: событие after-post
+        // документа-источника выполняется ДВАЖДЫ, когда его же проведение дописывает
+        // движения через менеджер, — а именно это делает драйвер CostingIssue,
+        // списывая себестоимость проданного. Без проверки КАЖДАЯ продажа товара со
+        // слоями себестоимости заводила два расчёта, удваивая выходной налог и в
+        // леджере, и в декларации (поймано SalesOutputTaxTest —
+        // CostLayersDoNotDuplicateOutputTax; обычные тесты этого не видят, потому
+        // что заводят остаток прямым движением регистра, и списывать нечего).
+        var already = await _documents.CountDocumentsAsync<TaxCalculation>(
+            $"DeterminationReason = '{reason.Replace("'", "''")}'");
+        if (already > 0) return null;
+
         var taxPoint = (taxPointDate ?? DateTime.UtcNow).Date;
 
         var taxCode = await ResolveDefaultTaxCodeAsync();
