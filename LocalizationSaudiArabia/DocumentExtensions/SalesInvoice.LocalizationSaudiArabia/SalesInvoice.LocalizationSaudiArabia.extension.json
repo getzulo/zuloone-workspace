@@ -1,0 +1,13 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "description": "Расширение счёта продажи страновым пакетом КСА: начисление НДС в собственный регистр локализации",
+    "metaId": "5d0c8a37-2b91-4e46-8f73-1a6c4e9b0d52",
+    "name": "SalesInvoice.LocalizationSaudiArabia",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+    "layerId": 3,
+    "createdDateTime": "2026-09-01T00:00:00",
+    "modifiedDateTime": "2026-09-01T00:00:00"
+  }
+}
