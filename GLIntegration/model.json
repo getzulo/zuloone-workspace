@@ -70,6 +70,17 @@
       "layerId": 2,
       "createdDateTime": "2026-08-25T22:30:43.6343433",
       "modifiedDateTime": "2026-08-25T22:30:43.6343433"
+    },
+    {
+      "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "dependsOnModelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "minVersion": "1.0.0",
+      "metaId": "8f2e0c59-4d13-4a68-9b95-3c8e6f1d2a74",
+      "name": "GLIntegration->Costing",
+      "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "layerId": 2,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
     }
   ]
 }
