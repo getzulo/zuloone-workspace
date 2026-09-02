@@ -138,6 +138,27 @@
       "layerId": 2,
       "createdDateTime": "2026-08-25T17:30:38.4261168",
       "modifiedDateTime": "2026-08-25T17:30:38.4261168"
+    },
+    {
+      "dictionaryMetaId": "d1f4e8dc-6454-4a20-b116-132053950800",
+      "fieldName": "PriceList",
+      "edtMetaId": "057be1a2-80d8-4dcb-a625-3933368ece82",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "description": "Прайс-лист закупки у этого поставщика. Пусто — цена берётся из умолчания товара.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Price list",
+      "caption_ru": "Прайс-лист",
+      "caption_ar": "قائمة الأسعار",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d6ffed40-3274-4f87-902e-a20b2e7c7818",
+      "name": "PriceList",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
     }
   ]
 }

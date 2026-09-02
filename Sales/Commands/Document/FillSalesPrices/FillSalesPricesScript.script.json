@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "FillSalesPrices",
+    "objectMetaId": "a2c4e6f8-0b1d-4a3c-8f5e-4d6b7c8e9f0a",
+    "executionOrder": 0,
+    "metaId": "b3d5f7a9-1c2e-4b4d-9a6f-5e7c8d9a0b1c",
+    "name": "FillSalesPricesScript",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:00:00",
+    "modifiedDateTime": "2026-09-02T11:00:00"
+  }
+}

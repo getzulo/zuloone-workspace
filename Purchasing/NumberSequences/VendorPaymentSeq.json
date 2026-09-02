@@ -1,0 +1,16 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "nextValue": 1000,
+    "resetPolicy": "None",
+    "metaId": "248ec066-f881-4693-9030-541d487f3125",
+    "name": "VendorPaymentSeq",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T09:32:51.4533746",
+    "modifiedDateTime": "2026-09-02T09:32:51.4533746"
+  }
+}

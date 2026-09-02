@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Fill prices",
+    "caption_ar": "تعبئة الأسعار",
+    "caption_ru": "Заполнить цены",
+    "scriptMetaId": "e8a0c2d4-6f7b-4e9a-8c1d-2b3e4f5a6c7d",
+    "parameterMode": "None",
+    "displayOrder": 2,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "d6f8a0b2-4e5c-4d7f-9a3b-1c2d3e4f5a6b",
+    "name": "FillPurchasePrices",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:00:00",
+    "modifiedDateTime": "2026-09-02T11:00:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "f9b1d3e5-7a8c-4f0b-8d2e-3c4d5e6f7a8b",
+      "documentCommandMetaId": "d6f8a0b2-4e5c-4d7f-9a3b-1c2d3e4f5a6b",
+      "documentSubtypeMetaId": "3a55ddfb-7d19-433b-93d6-5be9e5fdb6c6"
+    }
+  ]
+}

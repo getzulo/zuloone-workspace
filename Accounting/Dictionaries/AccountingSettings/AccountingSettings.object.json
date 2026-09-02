@@ -24,6 +24,27 @@
   "fields": [
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "CashAccountCode",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 12,
+      "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Cash account code",
+      "caption_ru": "Счёт денежных средств",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "272907d6-4e07-44ef-b930-22efad84840e",
+      "name": "CashAccountCode",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "fieldName": "ArAccountCode",
       "baseType": "String",
       "length": 32,

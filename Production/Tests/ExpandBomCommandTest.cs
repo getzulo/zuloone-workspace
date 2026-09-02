@@ -348,4 +348,78 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
         var rows = await ComponentsAsync(order.MetaId);
         Assert.IsTrue(rows.Count == 0, "без настройки строки не подставляются, факт {0}", rows.Count);
     }
+
+    [IntegrationTest("Заказ в неосновной единице разворачивается по базовому количеству")]
+    public async Task NonBaseUnitOrderExpandsByBaseQuantity()
+    {
+        // Разворот обязан идти по BaseQuantity, а не по введённому Quantity: рецепт
+        // нормирован на складскую единицу изделия, а в шапке количество может быть в
+        // любой (ящик = 12 штук). Заказ «2 ящика» — это 24 изделия, значит булок надо
+        // 48, а не 4. Пока разворот брал сырое Quantity, потребность занижалась ровно
+        // в boxFactor раз, а выпуск при этом оприходовался верно (ProductionOutputTx
+        // уже считал по BaseQuantity) — расхождение было молчаливым.
+        const decimal boxFactor = 12m;
+
+        var pcs = DictionaryManager.NewRecord<UnitOfMeasure>();
+        pcs.Name = "Piece";
+        pcs.Code = "PCS";
+        pcs.DecimalPlaces = 0;
+        pcs = await DictionaryManager.SaveRecordAsync(pcs);
+
+        var box = DictionaryManager.NewRecord<UnitOfMeasure>();
+        box.Name = "Box";
+        box.Code = "BOX";
+        box.DecimalPlaces = 0;
+        box = await DictionaryManager.SaveRecordAsync(box);
+
+        var group = DictionaryManager.NewRecord<ItemGroup>();
+        group.Code = $"MAT-{Db.NewId():N}"[..12];
+        group.Name = "Materials";
+        group = await DictionaryManager.SaveRecordAsync(group);
+
+        var product = DictionaryManager.NewRecord<Item>();
+        product.Name = "Бутерброд";
+        product.ItemGroup = group.MetaId;
+        product.UnitOfMeasure = pcs.MetaId;
+        product = await DictionaryManager.SaveRecordAsync(product);
+
+        var bun = DictionaryManager.NewRecord<Item>();
+        bun.Name = "Булка";
+        bun.ItemGroup = group.MetaId;
+        bun.UnitOfMeasure = pcs.MetaId;
+        bun = await DictionaryManager.SaveRecordAsync(bun);
+
+        // Упаковка ИМЕННО этого изделия: 1 ящик = 12 штук.
+        var pack = DictionaryManager.NewRecord<ItemUnit>();
+        pack.Item = product.MetaId;
+        pack.Unit = box.MetaId;
+        pack.QtyInBaseUnit = boxFactor;
+        await DictionaryManager.SaveRecordAsync(pack);
+
+        var loc = await NewLocationAsync();
+        var bom = await NewBomAsync("BOM-ящик", product.MetaId, 1m);
+        await AddComponentAsync(bom, bun.MetaId, 2m, pcs.MetaId);
+
+        var order = await DocumentManager.NewDocumentAsync<ProductionOrder>();
+        order.Product = product.MetaId;
+        order.Quantity = 2m;
+        order.Unit = box.MetaId;
+        order.Location = loc;
+        await DocumentManager.SaveDocumentAsync(order);
+
+        // Нормализатор обязан был посчитать базовое количество на записи — без этого
+        // проверка ниже проверяла бы совсем не то, что заявлено.
+        var stored = (await DocumentManager.GetDocumentAsync<ProductionOrder>(order.MetaId))!;
+        Assert.IsTrue(stored.BaseQuantity == 2m * boxFactor,
+            "2 ящика по {0} = {1} штук, факт {2}", boxFactor, 2m * boxFactor, stored.BaseQuantity);
+
+        var commandId = await Db.FindCommandIdAsync("document", "ExpandBom");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, order.MetaId);
+        Assert.IsTrue(run.Success, "команда должна выполниться: {0}", run.Message ?? "");
+
+        var rows = await ComponentsAsync(order.MetaId);
+        Assert.IsTrue(rows.Count == 1, "развёрнута 1 строка, факт {0}", rows.Count);
+        Assert.IsTrue(rows[0].QtyRequired == 48m,
+            "2 булки × 24 изделия = 48 (по сырому Quantity вышло бы 4), факт {0}", rows[0].QtyRequired);
+    }
 }

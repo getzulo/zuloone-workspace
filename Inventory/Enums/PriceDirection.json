@@ -1,0 +1,43 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "Сторона сделки, для которой действует прайс-лист. Закрытый набор живёт в метаданных, а не в проверке обработчика: список направлений — часть модели, и добавить третье значение должно быть правкой метаданных, а не кода.",
+    "isExtension": false,
+    "metaId": "ce18c5cd-4768-45e2-a6c7-718fd05d059e",
+    "name": "PriceDirection",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T09:23:29.8894203",
+    "modifiedDateTime": "2026-09-02T09:23:29.8894204"
+  },
+  "values": [
+    {
+      "enumMetaId": "ce18c5cd-4768-45e2-a6c7-718fd05d059e",
+      "value": 1,
+      "caption": "Purchase",
+      "caption_ru": "Закупка",
+      "displayOrder": 1,
+      "description": "Цена закупки у поставщика",
+      "metaId": "b7e2c9a5-84d6-4f13-8b60-2a9e5d3c1f74",
+      "name": "Purchase",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T09:23:29.8899183",
+      "modifiedDateTime": "2026-09-02T09:23:29.8899184"
+    },
+    {
+      "enumMetaId": "ce18c5cd-4768-45e2-a6c7-718fd05d059e",
+      "value": 0,
+      "caption": "Sale",
+      "caption_ru": "Продажа",
+      "displayOrder": 0,
+      "description": "Цена продажи покупателю",
+      "metaId": "d0a4f2b8-6c31-4e75-9a08-3f5b1c7d2e91",
+      "name": "Sale",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T09:23:29.8895328",
+      "modifiedDateTime": "2026-09-02T09:23:29.8895328"
+    }
+  ]
+}

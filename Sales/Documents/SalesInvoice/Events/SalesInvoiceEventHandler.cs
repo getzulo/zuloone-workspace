@@ -169,7 +169,7 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         if (legalEntity == Guid.Empty) return EventResult.Ok();
 
         var pricing = context.GetService<IPricingService>();
-        var taxBase = invoice.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
+        var taxBase = invoice.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice, invoice.DiscountPercent));
 
         // Контур необязателен: не настроен — сервис вернёт null, счёт выставлен как
         // раньше. Ставка подбирается на ДАТУ СЧЁТА, не на сегодня: иначе счёт и его

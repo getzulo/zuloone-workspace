@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "PriceListItem",
+    "objectMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
+    "executionOrder": 0,
+    "metaId": "ac0e7139-13c3-4376-921f-e2f4aadc2d35",
+    "name": "PriceListItemEventHandler",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T09:23:41.4784819",
+    "modifiedDateTime": "2026-09-02T09:23:41.4784819"
+  }
+}

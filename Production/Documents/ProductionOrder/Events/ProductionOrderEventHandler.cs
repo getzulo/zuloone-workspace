@@ -42,7 +42,10 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         var full = await docs.GetDocumentAsync<ProductionOrder>(header.MetaId);
         if (full == null || full.Components.Count > 0) return EventResult.Ok();
 
-        var need = await context.GetService<IBomService>().ExpandByProductAsync(header.Product, header.Quantity);
+        // По БАЗОВОМУ количеству и из перечитанного документа: спецификация нормирована
+        // на складскую единицу изделия, а в шапке количество может быть в любой.
+        var outputQty = full.BaseQuantity != 0m ? full.BaseQuantity : full.Quantity;
+        var need = await context.GetService<IBomService>().ExpandByProductAsync(full.Product, outputQty);
         if (need.Count == 0) return EventResult.Ok();
 
         foreach (var kv in need)

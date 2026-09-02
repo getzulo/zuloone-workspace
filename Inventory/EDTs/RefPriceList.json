@@ -1,0 +1,17 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "6b27b46e-2358-4f1f-9b42-b98737eb931b",
+    "isRequired": false,
+    "metaId": "057be1a2-80d8-4dcb-a625-3933368ece82",
+    "name": "RefPriceList",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T09:23:30.761817",
+    "modifiedDateTime": "2026-09-02T09:23:30.761817"
+  }
+}

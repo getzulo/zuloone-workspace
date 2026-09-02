@@ -104,6 +104,28 @@
       "layerId": 2,
       "createdDateTime": "2026-09-01T00:00:00",
       "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "fieldName": "DiscountPercent",
+      "caption": "Discount, %",
+      "caption_ar": "الخصم، ٪",
+      "caption_ru": "Скидка, %",
+      "edtMetaId": "30bbd045-98c8-41ce-9421-2297d50170ce",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "description": "Скидка на весь документ в ПРОЦЕНТАХ (15 = 15%), а не долей — так же, как LoyaltyTier.DiscountPercent, откуда она и приходит. Не путать с налоговой ставкой: та хранится долей (0.15). Поле живёт на документе, а не выводится при расчёте, потому что скидку обязаны видеть ВСЕ денежные ноги — дебиторка, выручка, НДС и баллы — и видеть ОДНУ И ТУ ЖЕ: посчитай их от разных баз, и леджер разъедется. Штампуется CRM при выставлении по уровню лояльности клиента; заполненная вручную не переписывается.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "9c4d1e73-5a86-4b29-8f0d-3e7a2c5b1d84",
+      "name": "DiscountPercent",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T11:40:00",
+      "modifiedDateTime": "2026-09-02T11:40:00"
     }
   ],
   "subtypes": [

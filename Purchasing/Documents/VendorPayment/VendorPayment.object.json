@@ -1,0 +1,104 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Vendor payment",
+    "caption_ru": "Оплата поставщику",
+    "description": "Погашение кредиторки: отдельный документ, а не подтип заказа — заказ остаётся оприходованным, склад и кредиторка прошлого состояния не трогаются. Зеркало CustomerPayment в продажах и PayrollPayment в HR.",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "248ec066-f881-4693-9030-541d487f3125",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
+    "name": "VendorPayment",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T09:32:51.5208651",
+    "modifiedDateTime": "2026-09-02T09:32:51.5208652"
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
+      "fieldName": "ID",
+      "caption": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "a5d02657-6ac1-4ccd-9e03-173bef3d4e6c",
+      "name": "ID",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T09:32:51.5208866",
+      "modifiedDateTime": "2026-09-02T09:32:51.5208866"
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
+      "name": "Draft",
+      "caption": "Draft",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "4b43781f-2bfc-46a5-a7a1-de1ef5c080f5",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T09:32:51.5209001",
+      "modifiedDateTime": "2026-09-02T09:32:51.5209001"
+    },
+    {
+      "documentTypeMetaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
+      "name": "Paid",
+      "caption": "Paid",
+      "subtypeValue": "Paid",
+      "subtypeCaption": "Paid",
+      "subtypeCaption_ru": "Оплачено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "e1e26bfb-8bba-44cb-9428-3f40f8b4df26",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T09:32:51.5209225",
+      "modifiedDateTime": "2026-09-02T09:32:51.5209225"
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
+      "tablePartTypeMetaId": "0c84bba6-3b2c-40b2-ad4b-7741de111447",
+      "isCloneable": true,
+      "metaId": "96e8b6ce-054a-4e6b-91a7-ed830948a3bb",
+      "name": "Lines",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T09:32:51.5209278",
+      "modifiedDateTime": "2026-09-02T09:32:51.5209278"
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "4b43781f-2bfc-46a5-a7a1-de1ef5c080f5",
+      "toSubtypeMetaId": "e1e26bfb-8bba-44cb-9428-3f40f8b4df26",
+      "metaId": "e9e46506-a4cd-47d8-b95b-6f9069c352e8",
+      "name": "Draft->Paid",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T09:32:51.5209336",
+      "modifiedDateTime": "2026-09-02T09:32:51.5209337"
+    }
+  ]
+}

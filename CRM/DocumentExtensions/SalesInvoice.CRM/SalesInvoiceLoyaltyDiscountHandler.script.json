@@ -1,0 +1,17 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "9a3f1d6a-5e24-4b79-8ca6-4d9f7e2c3b85",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SalesInvoice",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "executionOrder": 20,
+    "metaId": "4b8e2f61-9d35-4a07-8c6b-7f1a3d5e9c28",
+    "name": "SalesInvoiceLoyaltyDiscountHandler",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:50:00",
+    "modifiedDateTime": "2026-09-02T11:50:00"
+  }
+}

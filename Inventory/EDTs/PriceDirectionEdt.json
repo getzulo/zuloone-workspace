@@ -1,0 +1,18 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "description": "Направление прайс-листа (продажа/закупка). Поле не может ссылаться на перечисление напрямую — нужна пара Enum + EDT.",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "ce18c5cd-4768-45e2-a6c7-718fd05d059e",
+    "isRequired": false,
+    "metaId": "91a0b4b5-fde4-4f1c-8488-4c7350737100",
+    "name": "PriceDirectionEdt",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T09:23:30.1024864",
+    "modifiedDateTime": "2026-09-02T09:23:30.1024864"
+  }
+}

@@ -13,7 +13,7 @@ public partial class SalesLoyaltyTx
 
         decimal points = 0m;
         foreach (var line in document.Lines)
-            points += pricing.LineAmount(line.Quantity, line.UnitPrice);
+            points += pricing.LineAmount(line.Quantity, line.UnitPrice, document.DiscountPercent);
 
         if (points > 0m)
             transactions.Add(new RegisterMovementSpec("LoyaltyPoints")

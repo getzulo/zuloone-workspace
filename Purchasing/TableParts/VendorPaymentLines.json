@@ -1,0 +1,60 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "VendorPaymentLinesTablePartRow",
+    "caption": "Lines",
+    "caption_ru": "Строки",
+    "tableName": "TP_VendorPaymentLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "0c84bba6-3b2c-40b2-ad4b-7741de111447",
+    "name": "VendorPaymentLines",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T09:32:51.4701381",
+    "modifiedDateTime": "2026-09-02T09:32:51.4701382"
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "0c84bba6-3b2c-40b2-ad4b-7741de111447",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "caption_ru": "Сумма",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "1c3906b2-c641-45d0-9f58-7abccaef7761",
+      "name": "Amount",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T09:32:51.470167",
+      "modifiedDateTime": "2026-09-02T09:32:51.470167"
+    },
+    {
+      "tablePartTypeMetaId": "0c84bba6-3b2c-40b2-ad4b-7741de111447",
+      "fieldName": "Supplier",
+      "caption": "Supplier",
+      "caption_ru": "Поставщик",
+      "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "d1f4e8dc-6454-4a20-b116-132053950800",
+      "referenceName": "Supplier",
+      "displayOrder": 1,
+      "metaId": "1b9fe879-6c55-4211-a8e6-56cfcc2de390",
+      "name": "Supplier",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T09:32:51.4701559",
+      "modifiedDateTime": "2026-09-02T09:32:51.4701559"
+    }
+  ]
+}

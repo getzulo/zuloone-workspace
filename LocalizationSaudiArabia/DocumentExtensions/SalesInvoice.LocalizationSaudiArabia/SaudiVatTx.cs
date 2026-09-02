@@ -34,7 +34,7 @@ public partial class SaudiVatTx
 
         decimal baseAmount = 0m;
         foreach (var line in document.Lines)
-            baseAmount += pricing.LineAmount(line.Quantity, line.UnitPrice);
+            baseAmount += pricing.LineAmount(line.Quantity, line.UnitPrice, document.DiscountPercent);
 
         var vat = tax.CalculateTax(baseAmount, rate);
         if (vat > 0m)

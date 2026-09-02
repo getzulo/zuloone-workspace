@@ -1,0 +1,13 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+    "description": "Extension of PayrollPayment by model GLIntegration",
+    "metaId": "b21b0e75-273d-4a24-9c2d-9234e69b9b3f",
+    "name": "PayrollPayment.GLIntegration",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T09:38:01.470259",
+    "modifiedDateTime": "2026-09-02T09:38:01.470259"
+  }
+}

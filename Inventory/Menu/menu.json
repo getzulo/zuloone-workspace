@@ -348,6 +348,32 @@
       "layerId": 2,
       "createdDateTime": "2026-08-31T02:40:31.0518968",
       "modifiedDateTime": "2026-08-31T02:40:31.0518968"
+    },
+    {
+      "caption": "Price lists",
+      "caption_ar": "قوائم الأسعار",
+      "caption_ru": "Прайс-листы",
+      "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
+      "displayOrder": 9,
+      "targetType": "Dictionary",
+      "targetMetaId": "6b27b46e-2358-4f1f-9b42-b98737eb931b",
+      "metaId": "d270893d-3797-42e3-9f75-566c44f0b22c",
+      "name": "PriceList",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "caption": "Price list rows",
+      "caption_ar": "بنود قائمة الأسعار",
+      "caption_ru": "Строки прайс-листа",
+      "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
+      "displayOrder": 10,
+      "targetType": "Dictionary",
+      "targetMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
+      "metaId": "83f5d158-e670-4a20-a5ca-66fd06d29ee1",
+      "name": "PriceListItem",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "kind": "Widget",
+  "object": {
+    "widgetType": "total",
+    "configJson": "{\"sourceKind\":\"Register\",\"sourceId\":\"83559331-ac7f-46da-87a8-7da599ef6f41\",\"variables\":[{\"id\":\"v5_78805\",\"columnType\":\"variable\",\"caption\":\"Исходящий остаток\",\"resource\":\"Qty\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"range\":\"today\",\"customFrom\":null,\"customTo\":null,\"mode\":\"number\",\"bucketUnit\":\"day\",\"bucketCount\":14,\"refreshSeconds\":5}",
+    "width": 3,
+    "height": 4,
+    "metaId": "bd1f6c1f-b911-4b52-bb66-ff0fad5063fd",
+    "name": "Остатки",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1,
+    "createdDateTime": "2026-09-02T02:32:28.026096",
+    "modifiedDateTime": "2026-09-02T02:32:56.3613898"
+  }
+}

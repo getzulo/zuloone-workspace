@@ -1,0 +1,18 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "b21b0e75-273d-4a24-9c2d-9234e69b9b3f",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "PayrollPayment",
+    "objectMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 10,
+    "metaId": "6b3a8b9b-0dd9-4093-a2fa-71c25b4bb1fa",
+    "name": "PayrollPaymentGLEventHandler",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T09:38:01.4906141",
+    "modifiedDateTime": "2026-09-02T09:38:01.4906141"
+  }
+}
