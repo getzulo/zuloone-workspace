@@ -159,6 +159,26 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
         Assert.IsTrue(family.Edges.Count > 0, "взносы связаны с начислением ФОТ");
     }
 
+    [IntegrationTest("Удержание взноса уменьшает задолженность перед сотрудником до нетто")]
+    public async Task WithholdingReducesLiabilityToNet()
+    {
+        var s = await SetupAsync();
+        await ConfigureAsync(s.Home);
+        var emp = await NewEmployeeAsync(s.Division, s.Home, "Fatima");
+
+        // Gross 10000, взнос работника 975 — сотруднику причитается нетто 9025.
+        // PayrollAccrualTx признал gross, SocialInsuranceAccrualTx удержал долю
+        // работника — регистр обязан отражать итог обеих проводок.
+        await AccrueAsync(s.Division, new[] { (emp, 10000m) });
+        await TheContributionAsync();
+
+        decimal liability = 0m;
+        foreach (var r in await TotalsManager.QueryBalancesAsync("PayrollLiability"))
+            liability += Convert.ToDecimal(r["Amount"]);
+        Assert.IsTrue(liability == 9025m,
+            "задолженность = gross 10000 − удержано 975 = 9025, факт {0}", liability);
+    }
+
     [IntegrationTest("За иностранца платит только работодатель и по своей ставке")]
     public async Task ForeignStaffPaysEmployerRateOnly()
     {

@@ -81,6 +81,17 @@
       "layerId": 2,
       "createdDateTime": "2026-09-01T00:00:00",
       "modifiedDateTime": "2026-09-01T00:00:00"
+    },
+    {
+      "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "dependsOnModelMetaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "minVersion": "1.0.0",
+      "metaId": "64143466-0bd9-41bd-901a-8aab0044239b",
+      "name": "GLIntegration->HR",
+      "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
     }
   ]
 }

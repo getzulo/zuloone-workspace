@@ -1,0 +1,18 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "8ca1fb40-b03c-4a84-8ae0-259be3c65df1",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SocialInsuranceAccrual",
+    "objectMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 10,
+    "metaId": "1d9010d1-9188-486c-8e19-ee235c76b236",
+    "name": "SocialInsuranceGLEventHandler",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T00:00:00",
+    "modifiedDateTime": "2026-09-02T00:00:00"
+  }
+}

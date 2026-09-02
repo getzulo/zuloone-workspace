@@ -12,6 +12,12 @@ public partial class SocialInsuranceAccrualTx
                 .An(Analytics.SocialInsurance.Division, document.Division)
                 .Res("EmployeeContribution", line.EmployeeContribution)
                 .Res("EmployerContribution", line.EmployerContribution));
+
+            // Удержание: сотруднику причитается нетто, не gross — доля взноса,
+            // удержанная в его пользу фондом, уменьшает задолженность перед ним.
+            transactions.Add(new RegisterMovementSpec("PayrollLiability")
+                .An(Analytics.PayrollLiability.Employee, line.Employee)
+                .Res("Amount", -line.EmployeeContribution));
         }
     }
 }
