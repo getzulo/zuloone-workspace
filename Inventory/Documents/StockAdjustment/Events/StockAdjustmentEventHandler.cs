@@ -45,8 +45,8 @@ public partial class StockAdjustmentEventHandler : TypedDocumentEventHandler<Sto
         => Task.FromResult(EventResult.Ok());
 
     // Before posting: reject a write-off that would drive a bin negative (Stock is a
-    // double-entry ledger with allowNegativeBalance:true, so the engine no longer
-    // guards this). Check on-hand at document.Location for each negative line.
+    // single-entry register with allowNegativeBalance:true, so the engine does not
+    // guard this). Check on-hand at document.Cell for each negative line.
 
     public override async Task<EventResult> OnBeforePostAsync(StockAdjustment header, EventContext context)
     {

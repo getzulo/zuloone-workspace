@@ -369,4 +369,63 @@ public class SurplusCostingTest : IntegrationTestScriptBase
         Assert.IsTrue(value1 - value0 == 14m,
             "стоимость запаса выросла ровно на найденные 2 × 7 = 14, факт {0}", value1 - value0);
     }
+
+    [IntegrationTest("Партия излишка инвентаризации датируется CountDate, не сегодня")]
+    public async Task StockCountSurplusLayerUsesCountDate()
+    {
+        var s = await SetupAsync();
+        await ReceiveAsync(s, 10m, 7m);
+
+        var countDate = DateTime.UtcNow.Date.AddDays(-10);
+        var count = await DocumentManager.NewDocumentAsync<StockCount>();
+        count.Cell = s.Cell;
+        count.CountDate = countDate;
+        count.Lines.Add(new StockCountLinesTablePartRow { Item = s.Item, CountedQty = 13m });
+        await DocumentManager.SaveDocumentAsync(count);
+
+        count.Subtype = StockCount.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(count);
+
+        var dated = 0;
+        foreach (var row in await TotalsManager.QueryMovementsAsync(
+            "ItemCostFifo", $"[DocumentMetaId] = '{count.MetaId}'"))
+        {
+            if (row["Amount"] is null || Convert.ToDecimal(row["Amount"]) <= 0m) continue;
+            var movementDate = Convert.ToDateTime(row["MovementDate"]).Date;
+            Assert.IsTrue(movementDate == countDate,
+                "слой излишка обязан лечь на CountDate {0}, факт {1}", countDate, movementDate);
+            dated++;
+        }
+        Assert.IsTrue(dated > 0, "инвентаризация вверх обязана завести партию");
+    }
+
+    [IntegrationTest("Партия излишка корректировки датируется DocumentDate, не сегодня")]
+    public async Task StockAdjustmentSurplusLayerUsesDocumentDate()
+    {
+        var s = await SetupAsync();
+        await ReceiveAsync(s, 10m, 7m);
+
+        var docDate = DateTime.UtcNow.Date.AddDays(-7);
+        var doc = await DocumentManager.NewDocumentAsync<StockAdjustment>();
+        doc.Cell = s.Cell;
+        doc.DocumentDate = docDate;
+        doc.Reason = "Found";
+        doc.Lines.Add(new StockAdjustmentLinesTablePartRow { Item = s.Item, Quantity = 3m });
+        await DocumentManager.SaveDocumentAsync(doc);
+
+        doc.Subtype = StockAdjustment.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(doc);
+
+        var dated = 0;
+        foreach (var row in await TotalsManager.QueryMovementsAsync(
+            "ItemCostFifo", $"[DocumentMetaId] = '{doc.MetaId}'"))
+        {
+            if (row["Amount"] is null || Convert.ToDecimal(row["Amount"]) <= 0m) continue;
+            var movementDate = Convert.ToDateTime(row["MovementDate"]).Date;
+            Assert.IsTrue(movementDate == docDate,
+                "слой излишка обязан лечь на DocumentDate {0}, факт {1}", docDate, movementDate);
+            dated++;
+        }
+        Assert.IsTrue(dated > 0, "корректировка вверх обязана завести партию");
+    }
 }

@@ -56,10 +56,10 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         => Task.FromResult(EventResult.Ok());
 
     // Before posting: reject overselling — a line cannot ship more than is on hand
-    // at the sale location. Stock is a double-entry ledger (allowNegativeBalance:true),
-    // so the engine no longer guards this; the check moves here (reads the location's
-    // on-hand via IRegisterMovementService.GetBalanceAsync on the physical Item+Location
-    // dimensions). Note: check-then-act, not atomic with posting.
+    // at the sale location. Stock is a single-entry register (allowNegativeBalance:true),
+    // so the engine does not guard this; the check lives here (reads on-hand via
+    // IRegisterMovementService.GetBalanceAsync on the physical Item+Cell dimensions).
+    // Note: check-then-act, not atomic with posting.
     private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
 
     /// <summary>Тип документа — цель точечного обновления шапки.</summary>
@@ -69,13 +69,13 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     {
         // ПОДТИП «ОПЛАЧЕН» НЕДОСТИЖИМ НАМЕРЕННО, И ЭТО НАДО ЗАЩИЩАТЬ ЯВНО.
         //
-        // Он объявлен, и переход Issued→Paid объявлен тоже — то есть доступен из
-        // формы документа одним выбором в списке. Но к подтипу Issued привязаны ТРИ
-        // транзакционных скрипта: дебиторка (Sales), баллы лояльности (CRM) и
-        // страновой НДС (LocalizationSaudiArabia). Переход снимает движения
-        // покидаемого состояния — значит один клик снял бы долг БЕЗ оплаты, сжёг бы
-        // баллы клиента и обнулил обязательство по налогу. Документ при этом
-        // замёрз бы: Paid помечен isReadOnly.
+        // Подтип объявлен (исторические документы и отчёты), но ребра Issued→Paid
+        // в карте переходов больше нет — форма его не предлагает. Замок здесь
+        // на случай прямого API. К Issued привязаны ТРИ транзакционных скрипта:
+        // дебиторка (Sales), баллы лояльности (CRM) и страновой НДС
+        // (LocalizationSaudiArabia). Переход снял бы движения покидаемого
+        // состояния — долг БЕЗ оплаты, баллы и обязательство по налогу. Paid
+        // помечен isReadOnly, выйти из него было бы нельзя.
         //
         // Оплата в этой системе — ОТДЕЛЬНЫЙ документ (CustomerPayment), гасящий
         // регистр Receivable и не трогающий счёт. Платёжный статус читается из
@@ -219,21 +219,27 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         // оттуда, а не резолвится заново по ячейке. Так налог и сам счёт по
         // построению говорят об одном и том же продавце, даже если оргструктуру
         // переподчинят между проведением и перепроведением.
-        var legalEntity = invoice.LegalEntity;
-        if (legalEntity == Guid.Empty) return EventResult.Ok();
-
         var pricing = context.GetService<IPricingService>();
-        var taxBase = invoice.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice, invoice.DiscountPercent));
+        var legalEntity = invoice.LegalEntity;
+        if (legalEntity != Guid.Empty)
+        {
+            var taxBase = invoice.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice, invoice.DiscountPercent));
 
-        // Контур необязателен: не настроен — сервис вернёт null, счёт выставлен как
-        // раньше. Ставка подбирается на ДАТУ СЧЁТА, не на сегодня: иначе счёт и его
-        // налог датировались бы по-разному, а задним числом выставленный документ
-        // посчитался бы по сегодняшней ставке.
-        var calc = await context.GetService<ITaxService>()
-            .CreateCalculationAsync(legalEntity, "OUTPUT", taxBase, $"Sales invoice {header.Number}",
-                TaxPointOf(header), await TaxContextAsync(invoice, taxBase, context));
-        if (calc.HasValue)
-            await docs.AddLinkAsync(header.MetaId, calc.Value);
+            // Контур необязателен: не настроен — сервис вернёт null, счёт выставлен
+            // как раньше. Ставка подбирается на ДАТУ СЧЁТА, не на сегодня: иначе
+            // счёт и его налог датировались бы по-разному, а задним числом
+            // выставленный документ посчитался бы по сегодняшней ставке.
+            var calc = await context.GetService<ITaxService>()
+                .CreateCalculationAsync(legalEntity, "OUTPUT", taxBase, $"Sales invoice {header.Number}",
+                    TaxPointOf(header), await TaxContextAsync(invoice, taxBase, context));
+            if (calc.HasValue)
+                await docs.AddLinkAsync(header.MetaId, calc.Value);
+        }
+
+        // Захват цены в историю — самостоятельная забота: срабатывает даже без
+        // юрлица. Одна и та же (Item,Unit) на двух строках — выигрывает последняя.
+        foreach (var line in invoice.Lines)
+            await pricing.CaptureSalePriceAsync(line.Item, line.Unit, invoice.Customer, line.UnitPrice, TaxPointOf(header));
 
         return EventResult.Ok();
     }

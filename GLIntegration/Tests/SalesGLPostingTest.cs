@@ -186,4 +186,154 @@ public class SalesGLPostingTest : IntegrationTestScriptBase
         Assert.IsTrue(credit == 15m, "кредит GL = 15 (выручка), факт {0}", credit);
         Assert.IsTrue(debit == credit, "проводка сбалансирована: дебет {0} = кредит {1}", debit, credit);
     }
+
+    [IntegrationTest("Скидка на счёте попадает в GL той же суммой, что в регистры")]
+    public async Task IssuePostsDiscountedAmountToGL()
+    {
+        // Регистры считают LineAmount(qty, price, DiscountPercent). Книга раньше
+        // писала qty × price без скидки — при 20% дебиторка 80, проводка 100.
+        var today = DateTime.UtcNow.Date;
+
+        var currency = DictionaryManager.NewRecord<Currency>();
+        currency.Name = "Euro";
+        currency.Code = "EUR";
+        currency.Symbol = "€";
+        currency = await DictionaryManager.SaveRecordAsync(currency);
+
+        var country = DictionaryManager.NewRecord<Country>();
+        country.Name = "Germany";
+        country.CodeISO2 = "DE";
+        country.CodeISO3 = "DEU";
+        country.PhoneCode = "49";
+        country = await DictionaryManager.SaveRecordAsync(country);
+
+        var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
+        legalEntity.Name = "ACME GmbH";
+        legalEntity.RegistrationNumber = $"REG-GL-D-{Db.NewId():N}"[..16];
+        legalEntity.Country = country.MetaId;
+        legalEntity.Currency = currency.MetaId;
+        legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
+
+        var divisionType = DictionaryManager.NewRecord<DivisionType>();
+        divisionType.Code = "SP";
+        divisionType.Name = "SalesPoint";
+        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
+
+        var division = DictionaryManager.NewRecord<Division>();
+        division.Name = "Shop";
+        division.LegalEntity = legalEntity.MetaId;
+        division.DivisionType = divisionType.MetaId;
+        division = await DictionaryManager.SaveRecordAsync(division);
+
+        var store = DictionaryManager.NewRecord<Store>();
+        store.Name = "Shop WH";
+        store.Division = division.MetaId;
+        store.IsSimple = true;
+        store = await DictionaryManager.SaveRecordAsync(store);
+
+        var zone = DictionaryManager.NewRecord<StoreZone>();
+        zone.Name = "Зона";
+        zone.Store = store.MetaId;
+        zone.IsBarcodeTracking = false;
+        zone = await DictionaryManager.SaveRecordAsync(zone);
+
+        var cellType = DictionaryManager.NewRecord<StoreCellType>();
+        cellType.Code = $"PICK-{Db.NewId():N}"[..12];
+        cellType.Name = "Picking";
+        cellType = await DictionaryManager.SaveRecordAsync(cellType);
+
+        var cell = DictionaryManager.NewRecord<StoreCell>();
+        cell.Name = "P-01";
+        cell.Type = cellType.MetaId;
+        cell.StoreZone = zone.MetaId;
+        cell.RackNumber = 1;
+        cell.ShelfNumber = 1;
+        cell.LineNumber = 1;
+        cell.CellNumber = 1;
+        cell = await DictionaryManager.SaveRecordAsync(cell);
+
+        var uom = DictionaryManager.NewRecord<UnitOfMeasure>();
+        uom.Name = "Piece";
+        uom.Code = "PCS";
+        uom = await DictionaryManager.SaveRecordAsync(uom);
+
+        var group = DictionaryManager.NewRecord<ItemGroup>();
+        group.Code = "GOODS";
+        group.Name = "Finished goods";
+        group = await DictionaryManager.SaveRecordAsync(group);
+
+        var item = DictionaryManager.NewRecord<Item>();
+        item.Name = "Gadget";
+        item.ItemGroup = group.MetaId;
+        item.UnitOfMeasure = uom.MetaId;
+        item.IsSellable = true;
+        item = await DictionaryManager.SaveRecordAsync(item);
+
+        var customer = DictionaryManager.NewRecord<Customer>();
+        customer.Name = "Buyer Ltd";
+        customer.CustomerType = "B2B";
+        customer = await DictionaryManager.SaveRecordAsync(customer);
+
+        var receivable = DictionaryManager.NewRecord<ChartOfAccounts>();
+        receivable.Code = "1200";
+        receivable.Name = "Accounts receivable";
+        receivable.AccountType = AccountType.Asset;
+        receivable.IsPostable = true;
+        receivable.Currency = currency.MetaId;
+        receivable = await DictionaryManager.SaveRecordAsync(receivable);
+
+        var revenue = DictionaryManager.NewRecord<ChartOfAccounts>();
+        revenue.Code = "4000";
+        revenue.Name = "Sales revenue";
+        revenue.AccountType = AccountType.Income;
+        revenue.IsPostable = true;
+        revenue.Currency = currency.MetaId;
+        revenue = await DictionaryManager.SaveRecordAsync(revenue);
+
+        var settings = DictionaryManager.NewRecord<AccountingSettings>();
+        settings.ArAccountCode = "1200";
+        settings.RevenueAccountCode = "4000";
+        settings.InventoryAccountCode = "1400";
+        settings.PayableAccountCode = "2000";
+        settings = await DictionaryManager.SaveRecordAsync(settings);
+
+        var fiscalYear = DictionaryManager.NewRecord<FiscalYear>();
+        fiscalYear.Code = "FY";
+        fiscalYear.StartDate = today.AddMonths(-6);
+        fiscalYear.EndDate = today.AddMonths(6);
+        fiscalYear.IsClosed = false;
+        fiscalYear = await DictionaryManager.SaveRecordAsync(fiscalYear);
+
+        var period = DictionaryManager.NewRecord<FiscalPeriod>();
+        period.Code = "P1";
+        period.FiscalYear = fiscalYear.MetaId;
+        period.FromDate = today.AddDays(-15);
+        period.ToDate = today.AddDays(15);
+        period.Status = "Open";
+        period = await DictionaryManager.SaveRecordAsync(period);
+
+        await TotalsManager.PostMovementAsync("Stock", null, today,
+            new Dictionary<string, object?> { ["Cell"] = cell.MetaId, ["Item"] = item.MetaId },
+            new Dictionary<string, decimal> { ["Qty"] = 10m });
+
+        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        invoice.Customer = customer.MetaId;
+        invoice.Location = cell.MetaId;
+        invoice.DiscountPercent = 20m;
+        invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = item.MetaId, Quantity = 10m, UnitPrice = 10m });
+        await DocumentManager.SaveDocumentAsync(invoice);
+
+        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(invoice);
+
+        decimal debit = 0m, credit = 0m;
+        foreach (var r in await TotalsManager.QueryBalancesAsync("GL"))
+        {
+            debit += Convert.ToDecimal(r["Debit"]);
+            credit += Convert.ToDecimal(r["Credit"]);
+        }
+        Assert.IsTrue(debit == 80m, "дебет GL = 80 (10×10 − 20%), факт {0}", debit);
+        Assert.IsTrue(credit == 80m, "кредит GL = 80, факт {0}", credit);
+        Assert.IsTrue(debit == credit, "проводка сбалансирована: дебет {0} = кредит {1}", debit, credit);
+    }
 }

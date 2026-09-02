@@ -29,29 +29,24 @@ namespace ZuloOne.Runtime.Generated;
 // собственный обработчик с проверкой остатка.
 //
 // Событие тонкое: сумма, юрлицо — и вызов GeneralLedgerService, где живёт вся
-// механика проводки. Разноска best-effort: не настроены счета/период — тихо мимо.
+// механика проводки. Ненастроенный профиль — GetSettingsAsync вернёт null, и
+// ноги просто не будет. Настоящий сбой разноски ловить нельзя: OnAfterPost
+// и так не откатывает документ, а пустой catch прятал причину из лога.
 public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoice>
 {
     public override async Task<EventResult> OnAfterPostAsync(SalesInvoice document, EventContext context)
     {
         if (document.Subtype != "Issued") return EventResult.Ok();
 
-        try
-        {
-            var docs = context.GetService<IDocumentManager>();
+        var docs = context.GetService<IDocumentManager>();
 
-            var jeId = await PostToLedgerAsync(document, context);
-            if (jeId.HasValue)
-                await docs.AddLinkAsync(document.MetaId, jeId.Value);
+        var jeId = await PostToLedgerAsync(document, context);
+        if (jeId.HasValue)
+            await docs.AddLinkAsync(document.MetaId, jeId.Value);
 
-            var cogsId = await PostCostOfSalesAsync(document, context);
-            if (cogsId.HasValue)
-                await docs.AddLinkAsync(document.MetaId, cogsId.Value);
-        }
-        catch
-        {
-            // Разноска GL зависит от настройки и не должна ронять проведение счёта.
-        }
+        var cogsId = await PostCostOfSalesAsync(document, context);
+        if (cogsId.HasValue)
+            await docs.AddLinkAsync(document.MetaId, cogsId.Value);
 
         return EventResult.Ok();
     }
@@ -66,11 +61,11 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
         var inv = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
         if (inv == null) return null;
 
-        // Сумма считается здесь, а не общим PricingService: в скомпилированном
-        // обработчике событий его контракт приходит из другой версии сборки
-        // ZuloOne.Services.Contracts и не кастится (в транзакционных скриптах —
-        // работает). Округление то же, что у PricingService.
-        var total = inv.Lines.Sum(l => Math.Round(l.Quantity * l.UnitPrice, 2, MidpointRounding.AwayFromZero));
+        // Та же формула, что у дебиторки, выручки, НДС и баллов: иначе скидка
+        // на счёте разъедет регистры с книгой. Контракт IPricingService больше
+        // не ломается на границе сборок — перекос версий контрактов закрыт.
+        var pricing = context.GetService<IPricingService>();
+        var total = inv.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice, inv.DiscountPercent));
 
         var le = await ResolveLegalEntityAsync(inv, context);
         if (le == null) return null;

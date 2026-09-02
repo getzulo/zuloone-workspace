@@ -70,6 +70,81 @@ public partial class PricingService
         => await ResolveAsync(item, unit, await PriceListOfAsync(supplier, sale: false), onDate, sale: false);
 
     /// <summary>
+    /// Захватывает фактическую цену строки продажи в историю (PriceListItem) типа
+    /// цен клиента, если тот Base. Вызывается при проведении счёта — см.
+    /// <see cref="CapturePriceAsync"/>.
+    /// </summary>
+    public Task CaptureSalePriceAsync(Guid item, Guid unit, Guid? customer, decimal price, DateTime onDate)
+        => CapturePriceAsync(item, unit, customer, sale: true, price, onDate);
+
+    /// <summary>Зеркало <see cref="CaptureSalePriceAsync"/> для закупки.</summary>
+    public Task CapturePurchasePriceAsync(Guid item, Guid unit, Guid? supplier, decimal price, DateTime onDate)
+        => CapturePriceAsync(item, unit, supplier, sale: false, price, onDate);
+
+    /// <summary>
+    /// Строит настоящую историю цен из проведённых документов: закрывает
+    /// действовавшую строку днём раньше и открывает новую с EffectiveFrom = onDate.
+    /// Работает только для типа цен Kind == Base — Calculated строк не хранит.
+    ///
+    /// Прошлое НИКОГДА не переписывается: попадание в уже закрытую (EffectiveTo
+    /// заполнен) строку с другой ценой молча пропускается, без лога — тот же
+    /// best-effort, что и у SpawnPutAwayTaskAsync в Purchasing. Повторный захват в
+    /// тот же день правит строку на месте (идемпотентность при перепроведении),
+    /// а не плодит нулевые окна.
+    /// </summary>
+    private async Task CapturePriceAsync(Guid item, Guid unit, Guid? party, bool sale, decimal price, DateTime onDate)
+    {
+        // Unit на строке документа необязателен — пустая единица или
+        // нулевая/отрицательная цена значит «в этой строке писать нечего».
+        if (item == Guid.Empty || unit == Guid.Empty || price <= 0m) return;
+
+        var priceTypeId = await PriceListOfAsync(party, sale);
+        if (priceTypeId is not Guid listId) return;
+
+        var priceType = await _lists.GetRecordAsync(listId);
+        // PriceListOfAsync проверяет IsDisabled/Direction, но не Kind — Calculated
+        // строк не хранит вовсе (PriceListItemEventHandler отклонит запись под ним).
+        if (priceType == null || priceType.Kind != PriceListKind.Base) return;
+
+        var rows = await _rows.GetRecordsAsync($"PriceList = '{listId}' AND Item = '{item}' AND Unit = '{unit}'");
+        var onDateOnly = onDate.Date;
+        var covering = rows.FirstOrDefault(r => Covers(r, onDateOnly));
+
+        if (covering != null)
+        {
+            if (covering.Price == price) return; // уже эта цена — нечего писать
+
+            if (covering.EffectiveTo != null) return; // запечатанная история — прошлое не трогаем
+
+            if ((covering.EffectiveFrom ?? DateTime.MinValue).Date == onDateOnly)
+            {
+                // тот же день (перепроведение или второй документ в тот же день) —
+                // правим строку на месте, а не плодим нулевые окна
+                covering.Price = price;
+                await _rows.SaveRecordAsync(covering);
+                return;
+            }
+
+            covering.EffectiveTo = onDateOnly.AddDays(-1);
+            await _rows.SaveRecordAsync(covering);
+        }
+
+        // Сиблинги гарантированно непересекающиеся (инвариант проверяется на
+        // сохранении в PriceListItemEventHandler) — "next" здесь единственный
+        // кандидат, столкновения с ним не будет никогда.
+        var next = rows.Where(r => r.EffectiveFrom > onDateOnly).OrderBy(r => r.EffectiveFrom).FirstOrDefault();
+        await _rows.SaveRecordAsync(new PriceListItem
+        {
+            PriceList = listId,
+            Item = item,
+            Unit = unit,
+            Price = price,
+            EffectiveFrom = onDateOnly,
+            EffectiveTo = next?.EffectiveFrom?.Date.AddDays(-1),
+        });
+    }
+
+    /// <summary>
     /// Прайс-лист контрагента, если он назначен, действует и заведён на нужную
     /// сторону сделки. Прайс продажи не имеет права подставиться в закупку —
     /// поэтому направление проверяется здесь, а не полагается на дисциплину.

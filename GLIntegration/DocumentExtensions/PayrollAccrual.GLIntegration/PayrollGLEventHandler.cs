@@ -20,17 +20,9 @@ public partial class PayrollGLEventHandler : TypedDocumentEventHandler<PayrollAc
     {
         if (document.Subtype != "Posted") return EventResult.Ok();
 
-        try
-        {
-            var jeId = await PostToLedgerAsync(document, context);
-            if (jeId.HasValue)
-                await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
-        }
-        catch
-        {
-            // Разноска GL зависит от настройки счетов и не должна ронять начисление:
-            // на стенде без заполненного профиля ФОТ обязан начисляться как прежде.
-        }
+        var jeId = await PostToLedgerAsync(document, context);
+        if (jeId.HasValue)
+            await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
 
         return EventResult.Ok();
     }

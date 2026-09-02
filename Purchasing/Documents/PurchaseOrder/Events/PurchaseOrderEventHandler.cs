@@ -70,21 +70,28 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
         var order = await docs.GetDocumentAsync<PurchaseOrder>(document.MetaId);
         if (order is null || order.Lines.Count == 0) return EventResult.Ok();
 
-        var legalEntity = await context.GetService<IStoreCellService>().GetLegalEntityAsync(order.Location);
-        if (legalEntity is null) return EventResult.Ok();
-
         var pricing = context.GetService<IPricingService>();
-        var taxBase = order.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
+        var legalEntity = await context.GetService<IStoreCellService>().GetLegalEntityAsync(order.Location);
+        if (legalEntity is not null)
+        {
+            var taxBase = order.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
 
-        // Ставка подбирается на ДАТУ ПРИХОДА, не на сегодня: иначе документ и его
-        // налог датировались бы по-разному, а оприходование задним числом
-        // посчиталось бы по сегодняшней ставке.
-        var calc = await context.GetService<ITaxService>()
-            .CreateCalculationAsync(legalEntity.Value, "INPUT", taxBase, $"Purchase order {document.Number}", TaxPointOf(document));
-        if (calc.HasValue)
-            await docs.AddLinkAsync(document.MetaId, calc.Value);
+            // Ставка подбирается на ДАТУ ПРИХОДА, не на сегодня: иначе документ и
+            // его налог датировались бы по-разному, а оприходование задним числом
+            // посчиталось бы по сегодняшней ставке.
+            var calc = await context.GetService<ITaxService>()
+                .CreateCalculationAsync(legalEntity.Value, "INPUT", taxBase, $"Purchase order {document.Number}", TaxPointOf(document));
+            if (calc.HasValue)
+                await docs.AddLinkAsync(document.MetaId, calc.Value);
 
-        await SpawnPutAwayTaskAsync(order, context);
+            await SpawnPutAwayTaskAsync(order, context);
+        }
+
+        // Захват цены в историю — самостоятельная забота: срабатывает даже если
+        // юрлицо не резолвится. Одна и та же (Item,Unit) на двух строках —
+        // выигрывает последняя (порядок вызовов — порядок строк документа).
+        foreach (var line in order.Lines)
+            await pricing.CapturePurchasePriceAsync(line.Item, line.Unit, order.Supplier, line.UnitPrice, TaxPointOf(document));
 
         return EventResult.Ok();
     }

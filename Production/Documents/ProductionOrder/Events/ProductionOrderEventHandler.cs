@@ -22,7 +22,7 @@ namespace ZuloOne.Runtime.Generated;
 // Компоненты и количество перечитываются через IDocumentManager (событие
 // заголовка не несёт табличную часть). Проверка остатка — по физическим
 // измерениям Stock через ITotalsManager (движковой проверки нет: Stock —
-// ledger, allowNegativeBalance=true).
+// односторонний регистр, allowNegativeBalance=true).
 public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<ProductionOrder>
 {
 
@@ -130,7 +130,9 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
             if (amount < 0m) totalCost += -amount;
         }
 
-        var movementDate = DateTime.UtcNow.Date;
+        var movementDate = (full?.DocumentDate ?? document.DocumentDate) == default
+            ? DateTime.UtcNow.Date
+            : (full?.DocumentDate ?? document.DocumentDate).Date;
         var outputKey = new Dictionary<string, object?> { ["Item"] = product };
         await totals.PostMovementAsync("ItemCostFifo", document.MetaId, movementDate, outputKey,
             new Dictionary<string, decimal> { ["Quantity"] = outputQty, ["Amount"] = totalCost });

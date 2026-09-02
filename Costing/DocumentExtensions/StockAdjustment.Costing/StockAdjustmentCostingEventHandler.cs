@@ -14,14 +14,16 @@ namespace ZuloOne.Runtime.Generated;
 // К этому моменту складские движения уже записаны, и сервис считает нетто по ним.
 //
 // Недостача (чистый минус) сюда не попадает: её списывает драйвер CostingIssue.
+// Дата партии — DocumentDate документа, не день нажатия «Провести».
 public partial class StockAdjustmentCostingEventHandler : TypedDocumentEventHandler<StockAdjustment>
 {
     public override async Task<EventResult> OnAfterPostAsync(StockAdjustment document, EventContext context)
     {
         if (document.Subtype != "Posted") return EventResult.Ok();
 
+        var date = document.DocumentDate == default ? DateTime.UtcNow.Date : document.DocumentDate.Date;
         await context.GetService<ISurplusCostingService>()
-            .CaptureSurplusAsync(document.MetaId, DateTime.UtcNow.Date);
+            .CaptureSurplusAsync(document.MetaId, date);
 
         return EventResult.Ok();
     }

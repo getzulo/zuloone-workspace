@@ -26,16 +26,9 @@ public partial class VendorPaymentGLEventHandler : TypedDocumentEventHandler<Ven
     {
         if (document.Subtype != "Paid") return EventResult.Ok();
 
-        try
-        {
-            var jeId = await PostToLedgerAsync(document, context);
-            if (jeId.HasValue)
-                await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
-        }
-        catch
-        {
-            // Разноска GL зависит от настройки счетов и не должна ронять оплату.
-        }
+        var jeId = await PostToLedgerAsync(document, context);
+        if (jeId.HasValue)
+            await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
 
         return EventResult.Ok();
     }

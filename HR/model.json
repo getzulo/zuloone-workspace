@@ -18,6 +18,17 @@
   "dependencies": [
     {
       "modelMetaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "minVersion": "1.0.0",
+      "metaId": "b4d6f8a2-3c5e-4f7b-9d1e-2a4c6d8e0f3a",
+      "name": "HR->Common",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
+    },
+    {
+      "modelMetaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "dependsOnModelMetaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "minVersion": "1.0.0",
       "metaId": "6ce1089b-1e5a-4107-933a-bcfc1383175e",

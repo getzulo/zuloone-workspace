@@ -19,16 +19,9 @@ public partial class PurchaseGLEventHandler : TypedDocumentEventHandler<Purchase
     {
         if (document.Subtype != "Received") return EventResult.Ok();
 
-        try
-        {
-            var jeId = await PostToLedgerAsync(document, context);
-            if (jeId.HasValue)
-                await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
-        }
-        catch
-        {
-            // Разноска GL зависит от настройки и не должна ронять оприходование.
-        }
+        var jeId = await PostToLedgerAsync(document, context);
+        if (jeId.HasValue)
+            await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
 
         return EventResult.Ok();
     }
@@ -41,9 +34,8 @@ public partial class PurchaseGLEventHandler : TypedDocumentEventHandler<Purchase
 
         var order = await context.GetService<IDocumentManager>().GetDocumentAsync<PurchaseOrder>(header.MetaId);
         if (order == null) return null;
-        // См. примечание в SalesGLEventHandler: контракт PricingService не кастится
-        // внутри обработчика событий, поэтому сумма считается на месте.
-        var total = order.Lines.Sum(l => Math.Round(l.Quantity * l.UnitPrice, 2, MidpointRounding.AwayFromZero));
+        var pricing = context.GetService<IPricingService>();
+        var total = order.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
 
         // Юрлицо — по цепочке Ячейка → Зона → Склад → Подразделение → Юрлицо.
         var loc = await context.GetService<IDictionaryManager<StoreCell>>().GetRecordAsync(order.Location);

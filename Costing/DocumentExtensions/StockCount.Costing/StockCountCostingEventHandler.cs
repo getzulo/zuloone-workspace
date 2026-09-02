@@ -15,14 +15,17 @@ namespace ZuloOne.Runtime.Generated;
 // одинаково работает с обоими способами.
 //
 // Пересчёт ВНИЗ (недостача) сюда не попадает: его списывает драйвер CostingIssue.
+// Дата партии — CountDate, та же, которой документ датирует движения Stock.
+// UtcNow здесь клал слой в сегодняшний день при инвентаризации задним числом.
 public partial class StockCountCostingEventHandler : TypedDocumentEventHandler<StockCount>
 {
     public override async Task<EventResult> OnAfterPostAsync(StockCount document, EventContext context)
     {
         if (document.Subtype != "Posted") return EventResult.Ok();
 
+        var date = document.CountDate == default ? DateTime.UtcNow.Date : document.CountDate.Date;
         await context.GetService<ISurplusCostingService>()
-            .CaptureSurplusAsync(document.MetaId, DateTime.UtcNow.Date);
+            .CaptureSurplusAsync(document.MetaId, date);
 
         return EventResult.Ok();
     }

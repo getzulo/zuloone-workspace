@@ -20,16 +20,7 @@ public partial class SocialInsuranceGLEventHandler : TypedDocumentEventHandler<S
     {
         if (document.Subtype != "Posted") return EventResult.Ok();
 
-        try
-        {
-            await PostToLedgerAsync(document, context);
-        }
-        catch
-        {
-            // Разноска GL зависит от настройки счетов и не должна ронять начисление
-            // взносов: на стенде без заполненного профиля соцстрах обязан
-            // начисляться как прежде.
-        }
+        await PostToLedgerAsync(document, context);
 
         return EventResult.Ok();
     }

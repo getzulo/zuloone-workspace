@@ -18,6 +18,17 @@
   "dependencies": [
     {
       "modelMetaId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "minVersion": "1.0.0",
+      "metaId": "a3c5e7f1-2b4d-4e6a-8c0d-1f3a5b7c9d2e",
+      "name": "Measurement->Common",
+      "modelId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
+      "layerId": 1,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
+    },
+    {
+      "modelMetaId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d",
       "dependsOnModelMetaId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
       "metaId": "6abb3680-2302-4db7-9257-d0979caa959c",
       "name": "Measurement->Core",

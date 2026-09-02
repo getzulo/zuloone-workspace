@@ -30,17 +30,9 @@ public partial class PayrollPaymentGLEventHandler : TypedDocumentEventHandler<Pa
     {
         if (document.Subtype != "Paid") return EventResult.Ok();
 
-        try
-        {
-            var docs = context.GetService<IDocumentManager>();
-            foreach (var jeId in await PostToLedgerAsync(document, context))
-                await docs.AddLinkAsync(document.MetaId, jeId);
-        }
-        catch
-        {
-            // Разноска GL зависит от настройки счетов и не должна ронять выплату:
-            // на стенде без заполненного профиля ФОТ обязан выплачиваться как прежде.
-        }
+        var docs = context.GetService<IDocumentManager>();
+        foreach (var jeId in await PostToLedgerAsync(document, context))
+            await docs.AddLinkAsync(document.MetaId, jeId);
 
         return EventResult.Ok();
     }

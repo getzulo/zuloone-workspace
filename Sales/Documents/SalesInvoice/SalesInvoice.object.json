@@ -251,16 +251,6 @@
     },
     {
       "fromSubtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
-      "toSubtypeMetaId": "7a8b9c0d-1e2f-4a3b-8c4d-6e7f8a9b0c1e",
-      "metaId": "99e16a78-6eea-41d6-b4f1-86b7f06452c3",
-      "name": "Issued->7a8b9c0d1e2f4a3b8c4d6e7f8a9b0c1e",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-28T13:35:29.7997918",
-      "modifiedDateTime": "2026-08-28T13:35:29.7997919"
-    },
-    {
-      "fromSubtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
       "toSubtypeMetaId": "8b4cca89-693a-4364-85d8-a6fcb3c9116b",
       "metaId": "0d2dfa65-8c37-4e6b-8e46-b4293e006d1f",
       "name": "Issued->8b4cca89693a436485d8a6fcb3c9116b",

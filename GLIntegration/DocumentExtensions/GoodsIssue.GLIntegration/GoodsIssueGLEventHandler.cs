@@ -18,18 +18,11 @@ public partial class GoodsIssueGLEventHandler : TypedDocumentEventHandler<GoodsI
     {
         if (document.Subtype != "Posted") return EventResult.Ok();
 
-        try
-        {
-            var jeId = await context.GetService<IInventoryWriteOffGLService>()
-                .PostAsync(document.MetaId, document.FromCell, document.DocumentDate,
-                           "Goods issue " + document.MetaId);
-            if (jeId.HasValue)
-                await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
-        }
-        catch
-        {
-            // Разноска GL зависит от настройки счетов и не должна ронять отпуск.
-        }
+        var jeId = await context.GetService<IInventoryWriteOffGLService>()
+            .PostAsync(document.MetaId, document.FromCell, document.DocumentDate,
+                       "Goods issue " + document.MetaId);
+        if (jeId.HasValue)
+            await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
 
         return EventResult.Ok();
     }

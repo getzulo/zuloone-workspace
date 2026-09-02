@@ -32,21 +32,12 @@ public partial class StockCountGLEventHandler : TypedDocumentEventHandler<StockC
     {
         if (document.Subtype != "Posted") return EventResult.Ok();
 
-        try
-        {
-            var date = document.CountDate == default ? DateTime.UtcNow.Date : document.CountDate;
-            var jeId = await context.GetService<IInventoryWriteOffGLService>()
-                .PostAsync(document.MetaId, document.Cell, date,
-                           "Stock count " + document.MetaId);
-            if (jeId.HasValue)
-                await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
-        }
-        catch
-        {
-            // Разноска GL зависит от настройки счетов и не должна ронять
-            // инвентаризацию: без заполненного профиля пересчёт обязан
-            // проводиться как прежде.
-        }
+        var date = document.CountDate == default ? DateTime.UtcNow.Date : document.CountDate;
+        var jeId = await context.GetService<IInventoryWriteOffGLService>()
+            .PostAsync(document.MetaId, document.Cell, date,
+                       "Stock count " + document.MetaId);
+        if (jeId.HasValue)
+            await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
 
         return EventResult.Ok();
     }

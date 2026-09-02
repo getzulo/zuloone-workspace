@@ -2,7 +2,8 @@ using System;
 
 // Сервис "MeasurementService": контракт IMeasurementService. Единая точка
 // округления количеств, весов и денежных сумм по настроенной точности
-// (глобальные константы QuantityScale / WeightScale / AmountScale). Любой
+// (константы QuantityScale / WeightScale / AmountScale живут в Common —
+// их читают и Tax, и HR, и сам UnitConverter). Любой
 // складской/производственный расчёт округляет здесь, а не «магическими» вызовами
 // Math.Round с разбросанными по коду разрядами.
 public partial class MeasurementService
