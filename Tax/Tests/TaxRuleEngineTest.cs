@@ -38,7 +38,6 @@ public class TaxRuleEngineTest : IntegrationTestScriptBase
         {
             t.Code = $"T-{uniq}";
             t.Name = "Rule engine tax";
-            t.TaxType = Db.NewId();
             t.Authority = Db.NewId();
             t.Jurisdiction = Db.NewId();
             t.EffectiveFrom = Origin;

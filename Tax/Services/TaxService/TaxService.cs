@@ -362,6 +362,42 @@ public partial class TaxService
         return applicable[0].Rate;
     }
 
+    /// <summary>
+    /// Ставка ТОГО ЖЕ налога, чьё окно действия пересекается с заданным, — или
+    /// null, если пересечения нет. <paramref name="excludeRate"/> исключает саму
+    /// проверяемую запись, чтобы редактирование существующей ставки не считало
+    /// пересечением её саму (при заведении новой — <c>Guid.Empty</c>).
+    ///
+    /// ПОЧЕМУ ПРАВИЛО ЖИВЁТ ЗДЕСЬ, А НЕ В ОБРАБОТЧИКЕ СПРАВОЧНИКА. Условие, по
+    /// которому <see cref="ResolveRateAsync"/> ОТКАЗЫВАЕТСЯ считать («подошло
+    /// больше одной ставки»), и условие, по которому вторую ставку не дают
+    /// завести, — это одно и то же условие. Разъедься их определения хоть на
+    /// день границы окна, и справочник начал бы принимать расстановку, на которой
+    /// расчёт налога падает, — то есть ошибку ввода снова ловил бы выпуск счёта.
+    ///
+    /// Две двери остаются обе и это не дублирование: обработчик не даёт создать
+    /// порчу, а отказ в ResolveRateAsync — последний рубеж для данных, залитых в
+    /// обход событий (импорт, миграция, прямой SQL).
+    /// </summary>
+    public async Task<TaxRate?> FindOverlappingRateAsync(
+        Guid tax, Guid excludeRate, DateTime from, DateTime? to)
+    {
+        if (tax == Guid.Empty) return null;
+
+        // Отбор по налогу уходит в SQL, окна сравниваются в памяти — по той же
+        // причине, что и в ResolveRateAsync: датный литерал в строке-фильтре
+        // зависел бы от диалекта БД и языковых настроек сервера.
+        return (await _rates.GetRecordsAsync($"Tax = '{tax}'"))
+            .FirstOrDefault(r => r.MetaId != excludeRate
+                && WindowsOverlap(from, to, r.EffectiveFrom, r.EffectiveTo));
+    }
+
+    /// <summary>Пересекаются ли два окна действия. Пустая дата окончания означает
+    /// окно, открытое справа: «с этой даты и далее».</summary>
+    private static bool WindowsOverlap(DateTime aFrom, DateTime? aTo, DateTime bFrom, DateTime? bTo)
+        => aFrom.Date <= (bTo?.Date ?? DateTime.MaxValue)
+        && bFrom.Date <= (aTo?.Date ?? DateTime.MaxValue);
+
     /// <summary>Сумма налога по коду на дату: подбирает действующую ставку и считает.
     /// Ставки на дату нет — ОТКАЗ, а не ноль (ноль неотличим от «не облагается»).</summary>
     public async Task<decimal> CalculateByCodeAsync(decimal baseAmount, Guid taxCodeId, DateTime? onDate = null)

@@ -181,28 +181,6 @@
       "layerId": 1,
       "createdDateTime": "2026-08-25T16:23:06.4761183",
       "modifiedDateTime": "2026-08-25T16:23:06.4761183"
-    },
-    {
-      "dictionaryMetaId": "59cf0fba-776e-4223-943f-f8ab2d8ef203",
-      "fieldName": "TaxType",
-      "edtMetaId": "f9ffc888-a115-402d-96be-9fd7dc938229",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 3,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": "Tax type",
-      "caption_ar": "الضريبة النوع",
-      "caption_ru": "Тип налога",
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "13dc25c0-5d3a-4dfe-b504-186a80aa2647",
-      "name": "TaxType",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:06.4761214",
-      "modifiedDateTime": "2026-08-25T16:23:06.4761215"
     }
   ]
 }

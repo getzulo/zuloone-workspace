@@ -150,8 +150,15 @@ public class SocialInsurancePaymentTest : IntegrationTestScriptBase
 
         // Платёж в фонд не должен возвращать сотруднику удержанное: начисление
         // взносов уменьшило задолженность по ФОТ, и это уменьшение остаётся.
-        var payroll = await TotalsManager.GetBalanceAsync("PayrollLiability", "Amount",
-            new Dictionary<string, object?> { ["Employee"] = emp });
+        //
+        // Сумма по ВСЕМУ регистру, а не срез по сотруднику: у PayrollLiability нет
+        // физических измерений, Employee там динамическая аналитика, и ключ в
+        // GetBalanceAsync по ней молча игнорируется — вернулся бы тот же итог, но
+        // с видом персонального среза. В кейсе сотрудник один, поэтому итог и есть
+        // его остаток.
+        decimal payroll = 0m;
+        foreach (var r in await TotalsManager.QueryBalancesAsync("PayrollLiability"))
+            payroll += Convert.ToDecimal(r["Amount"]);
         Assert.IsTrue(payroll == 10000m - 975m,
             "задолженность по ФОТ остаётся нетто 9025, факт {0}", payroll);
     }

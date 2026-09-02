@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
@@ -21,6 +22,26 @@ public partial class AccruePayrollCommand
         var docs = context.GetService<IDocumentManager>();
         var sheet = await docs.GetDocumentAsync<TimeSheet>(document.MetaId);
         if (sheet == null) return;
+
+        // НАЧИСЛЯЕМ РОВНО ОДИН РАЗ НА ТАБЕЛЬ. Кнопку можно нажать дважды, и без
+        // этой отсечки второе нажатие создаёт ВТОРОЕ начисление — а оно по цепочке
+        // порождает второй документ взносов, удваивая и обязательство перед фондом,
+        // и удержание у сотрудника, и обе проводки в главной книге. Здесь триггер —
+        // повторное действие пользователя, а не перезапуск цепочки проведения, но
+        // класс ошибки и лекарство те же, что у PayrollAccrualEventHandler и
+        // PurchaseOrderEventHandler.
+        //
+        // Ребро несёт только id концов, тип — у узла: сопоставляем одно с другим.
+        // Ищется именно РЕБРО от этого табеля, а не любой родственник типа
+        // «начисление» в графе.
+        var family = await docs.GetDocumentFamilyAsync(sheet.MetaId);
+        var accrualIds = new HashSet<Guid>(
+            family.Nodes.Where(n => n.DocTypeMetaId == PayrollAccrualType).Select(n => n.DocId));
+        if (family.Edges.Any(e => e.ParentDocId == sheet.MetaId && accrualIds.Contains(e.ChildDocId)))
+        {
+            context.AddClientAction(ClientAction.Message("По этому табелю уже начислено."));
+            return;
+        }
 
         if (sheet.Lines.Count == 0)
         {

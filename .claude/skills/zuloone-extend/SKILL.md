@@ -179,6 +179,48 @@ public class ReceiptTx_WMS : ReceiptTx
 с `AmountScale`/`QuantityScale` у `Measurement`), значит не три потребителя
 неправы, а константа лежит не в той модели — её место ниже, там, где её видят все.
 
+## 5. Удаление объекта: только через API, и порядок задан правилом блокировки
+
+Удаление файлов НЕ распространяется (кроме пунктов `Menu/menu.json`), поэтому
+снос — это всегда «правка файлов ПЛЮС явный вызов API».
+
+**Сначала сухой прогон.** `GET /api/metadata/delete-impact?objectType=Dictionary&id={metaId}`
+возвращает `blockers`, `cascade`, `physicalTables`, **`dataRows`** и `canDelete`.
+Он read-only и это ЕДИНСТВЕННЫЙ достоверный ответ на «есть ли за объектом
+данные».
+
+**«Ссылок в коде нет» — это НЕ «мёртв».** Реальный случай: справочник выглядел
+полностью мёртвым по всему воркспейсу (ноль ссылок, пустая заглушка
+обработчика), а в нём лежала настроенная строка, и читал его код ПЛАТФОРМЫ
+(`ZuloOne.Core/Services/Integration/…`). Прежде чем сносить — `grep` ещё и по
+`d:\Sources\zulo.one\src`, и посмотри `dataRows`.
+
+**Порядок диктует одно правило:** EDT, указывающий на справочник, блокирует
+удаление ТОЛЬКО пока им пользуется что-то СНАРУЖИ справочника — поле другого
+справочника, поле шапки документа, измерение регистра или **свойство табличной
+части**. Значит: сперва удаляешь поля-потребители, потом сам справочник, а EDT
+уезжает каскадом вместе с ним. **EDT руками не удаляй** — `DELETE /api/metadata/edts/{id}`
+ничем не защищён, и вызов не в том порядке даёт 500 от внешнего ключа.
+
+```bash
+B=http://localhost:5257/api
+curl -s -X DELETE "$B/metadata/dictionaries/{dictId}/fields/{fieldId}"           # поле справочника
+curl -s -X DELETE "$B/metadata/tableparttypes/{typeId}/properties/{propId}"      # свойство табличной части
+curl -s -X DELETE "$B/metadata/dictionaries/{dictId}"                            # сам справочник (EDT каскадом)
+curl -s -X DELETE "$B/metadata/numbersequences/{seqId}"                          # НЕ каскадится
+curl -s -X DELETE "$B/metadata/menu/{itemId}"                                    # НЕ каскадится
+```
+
+Осиротевшие пункты меню ищутся по `targetMetaId` в `GET /api/metadata/menu`.
+
+**После удаления поля маппинг сущности остаётся старым.** Колонку из таблицы
+уже убрали, а вставка падает с `SqlException: Invalid column name '<Поле>'` —
+до `docker restart zuloone-core-1`. Тот же класс несвежести, что у новых
+справочников и полей документа.
+
+Порядок проверки после сноса: restart → `schema/sync` → `models/compile` →
+`tests/run-all`.
+
 ## 5. Проверка
 
 `zuloone-verify` полностью, плюс специфика:

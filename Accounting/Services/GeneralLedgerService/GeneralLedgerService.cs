@@ -61,6 +61,39 @@ public partial class GeneralLedgerService
         return (await accounts.GetRecordsAsync($"Code = '{code}'")).FirstOrDefault()?.MetaId;
     }
 
+    /// <summary>
+    /// Причина, по которой код счёта НЕ годится для проводок, — или null, если
+    /// годится.
+    ///
+    /// ЧТО СЧИТАЕТСЯ ПРОБЛЕМОЙ, А ЧТО НЕТ. Пустой код и код НЕСУЩЕСТВУЮЩЕГО
+    /// счёта означают одно: «эта нога ещё не настроена». Это законное состояние —
+    /// профиль заполняют до того, как достроен план счетов, а разноска такую
+    /// ногу тихо пропускает, как и раньше. Ругаться на это значит запретить
+    /// сохранить профиль, пока не заведён каждый счёт из двенадцати.
+    ///
+    /// Проблема — код СУЩЕСТВУЮЩЕГО счёта, который помечен НЕпроводимым. Это уже
+    /// не «не настроено», а настроено НЕВЕРНО: поле выглядит заполненным, счёт в
+    /// плане есть, а проводки на него не будет никогда. Именно этот случай надо
+    /// поймать там, где человек видит поле.
+    ///
+    /// ОДНО ПРАВИЛО НА ДВЕ ДВЕРИ: сохранение профиля настроек и сама разноска
+    /// (ResolvePairAsync отсеивает непроводимые счета тем же признаком).
+    /// Проводки принимают только ЛИСТЬЯ: у счёта-группы собственный остаток
+    /// обязан быть суммой подчинённых, и прямая проводка на него её ломает.
+    /// Ставить IsPostable группе не даёт ChartOfAccountsEventHandler.
+    /// </summary>
+    public async Task<string?> AccountCodeProblemAsync(string code)
+    {
+        if (string.IsNullOrWhiteSpace(code)) return null;
+
+        var account = (await _accounts.GetRecordsAsync($"Code = '{code}'")).FirstOrDefault();
+        if (account is null) return null;   // счёта ещё нет — «не настроено», не ошибка
+        if (!account.IsPostable)
+            return $"счёт «{code}» ({account.Name}) не проводимый — это группа, "
+                 + "проводки принимают только конечные счета";
+        return null;
+    }
+
     /// <summary>Пара счетов ОДНИМ запросом. Каждый вызов менеджера — это два
     /// обращения к БД (метаданные таблицы + данные), а каждое берёт соединение из
     /// пула и вступает в транзакцию проведения; лишние round-trip'ы толкают её к
@@ -70,18 +103,49 @@ public partial class GeneralLedgerService
         if (string.IsNullOrWhiteSpace(debitCode) || string.IsNullOrWhiteSpace(creditCode)) return (null, null);
         var accounts = _accounts;
         var found = await accounts.GetRecordsAsync($"Code = '{debitCode}' OR Code = '{creditCode}'");
-        return (found.FirstOrDefault(a => a.Code == debitCode)?.MetaId,
-                found.FirstOrDefault(a => a.Code == creditCode)?.MetaId);
+        // Непроводимый счёт (группа) отсеивается здесь же: для вызывающего это
+        // неотличимо от «счёта нет», и это верно — разносить не на что в обоих
+        // случаях. Настройку с таким кодом ловит обработчик профиля, где отказ
+        // виден человеку.
+        return (found.FirstOrDefault(a => a.Code == debitCode && a.IsPostable)?.MetaId,
+                found.FirstOrDefault(a => a.Code == creditCode && a.IsPostable)?.MetaId);
     }
 
     /// <summary>Учётный период, покрывающий дату; null, если такого периода нет.</summary>
     public async Task<Guid?> ResolvePeriodAsync(DateTime date)
+        => (await ResolvePeriodRecordAsync(date))?.MetaId;
+
+    /// <summary>
+    /// Запись учётного периода, покрывающего дату. НЕСКОЛЬКО подходящих периодов —
+    /// порча мастер-данных: отчётность за месяц зависела бы от порядка строк в
+    /// справочнике. Это не разрешается молча «взять первый» — отказ называет оба
+    /// периода, чтобы настройку можно было починить (ровно как TaxService
+    /// поступает с пересекающимися ставками).
+    /// </summary>
+    private async Task<FiscalPeriod?> ResolvePeriodRecordAsync(DateTime date)
     {
         var d = date.Date;
         var periods = _periods;
-        return (await periods.GetRecordsAsync())
-            .FirstOrDefault(p => d >= p.FromDate.Date && d <= p.ToDate.Date)?.MetaId;
+        var matching = (await periods.GetRecordsAsync())
+            .Where(p => d >= p.FromDate.Date && d <= p.ToDate.Date)
+            .ToList();
+
+        if (matching.Count == 0) return null;
+        if (matching.Count > 1)
+            throw new InvalidOperationException(
+                $"На {d:yyyy-MM-dd} приходится больше одного учётного периода (" +
+                string.Join(", ", matching.Select(p => p.Code)) +
+                "). Окна периодов пересекаться не должны.");
+
+        return matching[0];
     }
+
+    /// <summary>Признак закрытого периода. Статус — строка (закрытый набор, который
+    /// метаданными пока не выражен), поэтому сравнение регистронезависимое и по
+    /// принципу «всё, что не Open, — закрыто»: опечатка в статусе обязана
+    /// ЗАПРЕЩАТЬ проводку, а не разрешать её.</summary>
+    private static bool IsPeriodOpen(FiscalPeriod period)
+        => string.Equals(period.Status, "Open", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>Разнести сбалансированную проводку Dr/Cr по КОДАМ счетов из профиля.
     /// Возвращает id проводки или null, если разноска невозможна ИЛИ этот факт уже
@@ -117,8 +181,23 @@ public partial class GeneralLedgerService
         var (debit, credit) = await ResolvePairAsync(debitAccountCode, creditAccountCode);
         if (debit == null || credit == null) return null;
 
-        var period = await ResolvePeriodAsync(date);
+        var period = await ResolvePeriodRecordAsync(date);
         if (period == null) return null;
+
+        // ЗАКРЫТЫЙ ПЕРИОД НЕ ПРИНИМАЕТ НОВЫХ ФАКТОВ. Проверка появилась вместе с
+        // тем, что проводка стала датироваться датой ДОКУМЕНТА: до этого попасть
+        // в прошлый месяц было нельзя вовсе, а теперь можно — и закрытый месяц
+        // надо защищать явно.
+        //
+        // ГРАНИЦА ЗДЕСЬ НЕ ЕДИНСТВЕННАЯ И НЕ САМАЯ СИЛЬНАЯ. У платформы есть своя,
+        // глобальная (IAccountingPeriodService.ClosedPeriod): её проверяет
+        // DocumentPostingService на КАЖДОМ проведении, то есть она держит и те
+        // документы, у которых ноги в главную книгу нет вовсе. Выставляется она
+        // оператором через /api/accounting-periods — под именованным правом и с
+        // записью в аудит, — и автоматически из статуса периода НЕ выводится:
+        // одна дата не выражает «февраль закрыт, январь открыт», а право на её
+        // сдвиг умышленно отделено от права редактировать справочник.
+        if (!IsPeriodOpen(period)) return null;
 
         // Проводка создаётся типизированным менеджером документов: он сам выдаёт
         // MetaId и номер из нумератора, исполняет OnBeforeCreate/OnBeforeInsert и
@@ -129,7 +208,7 @@ public partial class GeneralLedgerService
         {
             ["DocumentDate"] = date.Date,
             ["LegalEntity"] = legalEntity,
-            ["FiscalPeriod"] = period.Value,
+            ["FiscalPeriod"] = period.MetaId,
             ["Currency"] = currency,
             ["Description"] = description,
         });

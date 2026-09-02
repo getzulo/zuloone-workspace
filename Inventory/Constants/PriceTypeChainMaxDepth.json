@@ -1,0 +1,18 @@
+{
+  "kind": "GlobalConstant",
+  "object": {
+    "caption": "Price type chain — max depth",
+    "caption_ru": "Цепочка типов цены — максимальная глубина",
+    "groupMetaId": "ab0d39e1-47ae-4aef-8bb2-8f3f7773672f",
+    "constantType": "Integer",
+    "numberValue": 20.00,
+    "value": 20,
+    "displayValue": "20",
+    "metaId": "0fa0e33d-5b6b-4ba8-a52d-a5a285946629",
+    "name": "PriceTypeChainMaxDepth",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T12:00:00",
+    "modifiedDateTime": "2026-09-02T12:00:00"
+  }
+}

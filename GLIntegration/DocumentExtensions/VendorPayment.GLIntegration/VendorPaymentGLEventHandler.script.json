@@ -1,0 +1,18 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "58c0c978-1727-4e7a-a3fd-4016127ca609",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "VendorPayment",
+    "objectMetaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 10,
+    "metaId": "bb59f9eb-920f-43b0-9fd3-dfc6cdd39100",
+    "name": "VendorPaymentGLEventHandler",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T14:27:57.4761782",
+    "modifiedDateTime": "2026-09-02T14:27:57.4761783"
+  }
+}

@@ -15,12 +15,14 @@ public partial class LoyaltyTierEventHandler : TypedDictionaryEventHandler<Loyal
     }
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew == true) or update.
-    // Put shared validation / computed fields here.
+    // DiscountPercent штампуется в SalesInvoice и там же попадает во ВСЕ денежные
+    // ноги через PricingService.LineAmount — вне [0, 100] она либо ничего не значит
+    // (отрицательная — это наценка, а не скидка), либо переворачивает знак суммы
+    // строки (>100%), и это должно быть отклонено здесь, а не на счёте.
     public override Task<EventResult> OnBeforeSaveAsync(LoyaltyTier record, bool isNew, EventContext context)
     {
-        // if (string.IsNullOrEmpty(record.Name))
-        //     return Task.FromResult(EventResult.Cancel("Name is required"));
-        // context.AddClientAction(ClientAction.Message("Saved", "success"));
+        if (record.DiscountPercent < 0m || record.DiscountPercent > 100m)
+            return Task.FromResult(EventResult.Cancel("Скидка уровня должна быть в диапазоне от 0 до 100%"));
         return Task.FromResult(EventResult.Ok());
     }
 

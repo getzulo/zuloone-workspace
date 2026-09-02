@@ -77,12 +77,6 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
         authority.IsActive = true;
         authority = await DictionaryManager.SaveRecordAsync(authority);
 
-        var taxType = DictionaryManager.NewRecord<TaxType>();
-        taxType.Code = "VAT";
-        taxType.Name = "Value added tax";
-        taxType.Category = "VAT";
-        taxType = await DictionaryManager.SaveRecordAsync(taxType);
-
         var jurisdiction = DictionaryManager.NewRecord<TaxJurisdiction>();
         jurisdiction.Code = "SA";
         jurisdiction.Name = "Saudi Arabia";
@@ -97,7 +91,6 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
         var tax = DictionaryManager.NewRecord<Tax>();
         tax.Code = "SA-VAT";
         tax.Name = "Saudi VAT";
-        tax.TaxType = taxType.MetaId;
         tax.Authority = authority.MetaId;
         tax.Jurisdiction = jurisdiction.MetaId;
         tax.EffectiveFrom = from;

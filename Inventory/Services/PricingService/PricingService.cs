@@ -18,8 +18,9 @@ using ZuloOne.Runtime.Generated;
 public partial class PricingService
 {
     // Defense-in-depth рядом с проверкой цикла на сохранении (PriceListEventHandler) —
-    // та уже не даёт сохранить зацикленную цепочку, здесь только страховка.
-    private const int MaxPriceTypeChainDepth = 20;
+    // та уже не даёт сохранить зацикленную цепочку, здесь только страховка. Одна и
+    // та же константа GlobalConstants.Pricing.PriceTypeChainMaxDepth — там же.
+    private static int MaxPriceTypeChainDepth => GlobalConstants.Get<int?>("PriceTypeChainMaxDepth") ?? 20;
 
     private readonly IDictionaryManager<PriceList> _lists;
     private readonly IDictionaryManager<PriceListItem> _rows;
@@ -156,13 +157,22 @@ public partial class PricingService
             var exact = rows.FirstOrDefault(r => r.Unit == unit);
             if (exact != null) return exact.Price;
 
+            // Несколько строк на РАЗНЫЕ единицы этого товара — обычная настройка
+            // (ящик и паллета оценены отдельно, не пропорционально). Если все, что
+            // удалось перевести в запрошенную единицу, сходятся в одну цену —
+            // отдаём её; если расходятся, порядок строк из базы ничем не
+            // гарантирован, и угадывать одну из них молча нельзя — честный ответ
+            // здесь «цена неоднозначна», то есть null, как и при отсутствии цены.
+            decimal? found = null;
             foreach (var row in rows)
             {
                 var converted = await ConvertPriceAsync(item, row.Price, row.Unit, unit);
-                if (converted != null) return converted;
+                if (converted == null) continue;
+                if (found != null && found.Value != converted.Value) return null;
+                found ??= converted;
             }
 
-            return null;
+            return found;
         }
 
         // Kind == Calculated: цена базового типа, к ней применяется наценка.
@@ -174,7 +184,15 @@ public partial class PricingService
         if (basePrice == null) return null;
 
         var marked = basePrice.Value * (1m + priceType.MarkupPercent / 100m);
-        return Math.Round(marked, GlobalConstants.Get<int?>("AmountScale") ?? 2, MidpointRounding.AwayFromZero);
+        var rounded = Math.Round(marked, GlobalConstants.Get<int?>("AmountScale") ?? 2, MidpointRounding.AwayFromZero);
+
+        // Наценка вплотную к -100% (разрешена — floor на сохранении режет только
+        // <= -100%) на уже маленькой базовой цене может обнулиться ИМЕННО
+        // округлением этой ступени, а не по вине конкретных чисел где-то ещё.
+        // Отдать 0 как «цену» — продать по нулю молча; честный ответ здесь тот
+        // же, что и при отсутствии цены вовсе, — пусть лестница уйдёт на
+        // следующую ступень (умолчание товара), а не остановится на нуле.
+        return rounded > 0m ? rounded : (decimal?)null;
     }
 
     /// <summary>Действует ли строка прайса на дату. Пустая граница — открытый конец.</summary>

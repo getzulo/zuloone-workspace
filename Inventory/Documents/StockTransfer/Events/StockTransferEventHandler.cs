@@ -1,4 +1,9 @@
 #nullable enable
+using System;
+using System.Collections.Generic;
+using ZuloOne.Core.Services;
+using ZuloOne.Managers;
+
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for StockTransfer documents.
@@ -40,11 +45,51 @@ public partial class StockTransferEventHandler : TypedDocumentEventHandler<Stock
         => Task.FromResult(EventResult.Ok());
 
     // Before posting: validate the whole document; cancel to block posting.
-    public override Task<EventResult> OnBeforePostAsync(StockTransfer header, EventContext context)
+    //
+    // ЗАЩИТА ОТ УХОДА В МИНУС. Регистр Stock объявлен allowNegativeBalance=true —
+    // движок минус не отклоняет, поэтому проверка обязана быть здесь. Она есть у
+    // всех прочих расходных документов (списание, отпуск, отбор, раскладка,
+    // продажа, выпуск), а у перемещения её не было.
+    //
+    // Почему это опаснее обычного ухода в минус: перемещение — ПАРА проводок по
+    // одному товару, нетто ноль, поэтому драйвер себестоимости на него не смотрит
+    // вовсе. Переместив 100 при остатке 5, получаем −95 в исходной ячейке и +100
+    // в целевой БЕЗ слоя себестоимости, и последующая отгрузка из целевой съест
+    // слои чужого, реально существующего товара.
+    //
+    // Потребность считается по BaseQuantity: остаток регистра ведётся в базовой
+    // единице, и «2 ящика» иначе прошли бы проверку против 12 штук на полке.
+    // Строки одного товара складываются — дроблением по строкам проверка не
+    // обходится.
+    public override async Task<EventResult> OnBeforePostAsync(StockTransfer header, EventContext context)
     {
-        // if (header.Number == null)
-        //     return Task.FromResult(EventResult.Cancel("Number is required before posting"));
-        return Task.FromResult(EventResult.Ok());
+        if (header.Subtype != "Posted")
+            return EventResult.Ok();
+
+        var full = await context.GetService<IDocumentManager>().GetDocumentAsync<StockTransfer>(header.MetaId);
+        var lines = full?.Lines ?? header.Lines;
+        var from = full?.FromCell ?? header.FromCell;
+
+        var need = new Dictionary<Guid, decimal>();
+        foreach (var line in lines)
+        {
+            var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
+            if (qty <= 0m)
+                return EventResult.Cancel("Количество перемещения должно быть больше нуля");
+            need[line.Item] = (need.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
+        }
+
+        var stock = context.GetService<ITotalsManager>();
+        foreach (var kv in need)
+        {
+            var bal = await stock.GetBalanceAsync("Stock",
+                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = from });
+            var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
+            if (kv.Value > onHand)
+                return EventResult.Cancel($"Перемещение сверх остатка: перемещается {kv.Value}, в наличии {onHand}");
+        }
+
+        return EventResult.Ok();
     }
 
     // After the document was posted (register movements are written).

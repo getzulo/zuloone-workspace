@@ -56,7 +56,14 @@ public partial class InventoryWriteOffGLService
     /// Разнести списанную документом себестоимость. Возвращает id проводки или
     /// null, если списывать нечего либо счета не настроены.
     /// </summary>
-    public async Task<Guid?> PostAsync(Guid documentMetaId, Guid cell, string description)
+    /// <param name="date">Дата ДОКУМЕНТА, а не дня разноски. По ней
+    /// <see cref="IGeneralLedgerService.PostAsync"/> выбирает учётный период,
+    /// поэтому документ, проведённый задним числом, обязан унести в книгу свою
+    /// собственную дату — иначе движения регистров лягут в один период, а
+    /// проводка в другой, и сверка за период разойдётся. Параметр обязателен
+    /// намеренно: подстановка текущей даты по умолчанию — ровно та ошибка,
+    /// которую он призван исключить.</param>
+    public async Task<Guid?> PostAsync(Guid documentMetaId, Guid cell, DateTime date, string description)
     {
         var gl = ScriptServices.Get<IGeneralLedgerService>();
         var settings = await gl.GetSettingsAsync();
@@ -76,7 +83,7 @@ public partial class InventoryWriteOffGLService
         if (le == null) return null;
 
         return await gl.PostAsync(
-            DateTime.UtcNow.Date, le.MetaId, le.Currency, cost,
+            date, le.MetaId, le.Currency, cost,
             settings.InventoryWriteOffAccountCode, settings.InventoryAccountCode,
             description,
             "Списание запасов", "Выбытие запасов");

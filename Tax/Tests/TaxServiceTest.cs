@@ -31,7 +31,7 @@ public class TaxServiceTest : IntegrationTestScriptBase
     private string Uniq() => $"{Db.NewId():N}"[..8];
 
     /// <summary>
-    /// Налог + категория. Ссылки на тип/орган/юрисдикцию заполняются сгенерированными
+    /// Налог + категория. Ссылки на орган и юрисдикцию заполняются сгенерированными
     /// id: справочники в них не участвуют, а обязательность поля соблюдена.
     /// </summary>
     private async Task<Guid> NewTaxAsync(string uniq, DateTime from, DateTime? to = null)
@@ -39,7 +39,6 @@ public class TaxServiceTest : IntegrationTestScriptBase
         {
             t.Code = $"T-{uniq}";
             t.Name = "Test tax";
-            t.TaxType = Db.NewId();
             t.Authority = Db.NewId();
             t.Jurisdiction = Db.NewId();
             t.EffectiveFrom = from;
@@ -223,21 +222,61 @@ public class TaxServiceTest : IntegrationTestScriptBase
     {
         var uniq = Uniq();
         var taxId = await NewTaxAsync(uniq, new DateTime(2020, 1, 1));
-        // Старую ставку забыли закрыть — окна пересекаются с 2025 года.
+        // Старую ставку не закрыли: окно открыто справа, «с 2020 и далее».
         var open = await NewRateAsync(taxId, $"R15-{uniq}", 0.15m, new DateTime(2020, 1, 1));
-        await NewRateAsync(taxId, $"R20-{uniq}", 0.20m, new DateTime(2025, 1, 1));
         var code = await NewCodeAsync(taxId, uniq, open, new DateTime(2020, 1, 1));
 
-        // До пересечения ответ однозначен — значит отказ ниже вызван именно
+        // Пока ставка одна, ответ однозначен — значит отказ ниже вызван именно
         // пересечением, а не сломанной расстановкой.
         Assert.IsTrue(await RateOnAsync(code, new DateTime(2024, 6, 1)) == 0.15m,
-            "до 2025 подходит ровно одна ставка");
+            "при одной ставке расчёт однозначен");
 
-        // Последним действием кейса: после отказа к базе не обращаемся.
+        // Прямой вопрос сервису: окно «с 2025» пересекается с открытым справа.
+        var clash = await Svc.FindOverlappingRateAsync(
+            taxId, Guid.Empty, new DateTime(2025, 1, 1), null);
+        Assert.IsNotNull(clash, "сервис обязан увидеть пересечение с открытой ставкой");
+        Assert.IsTrue(clash!.Code == $"R15-{uniq}",
+            "названа должна быть именно пересекающаяся ставка, факт {0}", clash.Code);
+
+        // И ту же ставку НЕ ДАЮТ ЗАВЕСТИ: обработчик справочника спрашивает то же
+        // самое правило. Раньше эта проверка стояла только в ResolveRateAsync и
+        // срабатывала при выпуске счёта — то есть ошибку ввода ловила операция.
         var ex = await Assert.ThrowsAsync<InvalidOperationException>(
-            () => Svc.ResolveRateAsync(code, new DateTime(2025, 6, 1)),
-            "две ставки на одну дату — порча данных, а не повод выбрать любую");
-        Assert.IsTrue(ex.Message.Contains($"R15-{uniq}") && ex.Message.Contains($"R20-{uniq}"),
-            "отказ должен назвать обе пересекающиеся ставки, факт: {0}", ex.Message);
+            () => NewRateAsync(taxId, $"R20-{uniq}", 0.20m, new DateTime(2025, 1, 1)),
+            "вторую ставку с пересекающимся окном заводить нельзя");
+        Assert.IsTrue(ex.Message.Contains($"R15-{uniq}"),
+            "отказ должен назвать ставку, с которой вышло пересечение, факт: {0}", ex.Message);
+
+        // Отказ ResolveRateAsync при двух подходящих ставках остаётся в силе как
+        // последний рубеж для данных, залитых в обход событий (импорт, миграция,
+        // прямой SQL). Интеграционным тестом он больше НЕ покрыт: создать такую
+        // расстановку через поддерживаемые API теперь невозможно — IDataService
+        // и IDictionaryManager оба поднимают события. Это не пробел, а следствие
+        // того, что дверь закрыли раньше по потоку.
+    }
+
+    [IntegrationTest("Смежные окна ставок пересечением не считаются")]
+    public async Task AdjacentRatesDoNotOverlap()
+    {
+        // Обратная сторона правила: закрыл предыдущую ставку — следующую заводить
+        // можно. Без этой проверки «пересечением» можно было бы объявить что
+        // угодно, и тест выше прошёл бы на сломанном сравнении окон.
+        var uniq = Uniq();
+        var taxId = await NewTaxAsync(uniq, new DateTime(2020, 1, 1));
+        await NewRateAsync(taxId, $"R15-{uniq}", 0.15m,
+            new DateTime(2020, 1, 1), new DateTime(2024, 12, 31));
+
+        Assert.IsNull(
+            await Svc.FindOverlappingRateAsync(taxId, Guid.Empty, new DateTime(2025, 1, 1), null),
+            "окно, начинающееся на следующий день после закрытия предыдущего, пересечением не является");
+
+        var next = await NewRateAsync(taxId, $"R20-{uniq}", 0.20m, new DateTime(2025, 1, 1));
+        var code = await NewCodeAsync(taxId, uniq, next, new DateTime(2020, 1, 1));
+
+        // И смена ставки действительно работает: до границы старая, после — новая.
+        Assert.IsTrue(await RateOnAsync(code, new DateTime(2024, 6, 1)) == 0.15m,
+            "до границы действует прежняя ставка");
+        Assert.IsTrue(await RateOnAsync(code, new DateTime(2025, 6, 1)) == 0.20m,
+            "после границы действует новая ставка");
     }
 }

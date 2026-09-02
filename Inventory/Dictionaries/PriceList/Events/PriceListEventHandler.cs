@@ -8,7 +8,9 @@ namespace ZuloOne.Runtime.Generated;
 // здесь только сам заголовок.
 public partial class PriceListEventHandler : TypedDictionaryEventHandler<PriceList>
 {
-    private const int MaxPriceTypeChainDepth = 20;
+    // Одна и та же константа GlobalConstants.Pricing.PriceTypeChainMaxDepth —
+    // используется и здесь, и в PricingService.MaxPriceTypeChainDepth.
+    private static int MaxPriceTypeChainDepth => GlobalConstants.Get<int?>("PriceTypeChainMaxDepth") ?? 20;
 
     public override async Task<EventResult> OnBeforeSaveAsync(PriceList record, bool isNew, EventContext context)
     {
@@ -34,9 +36,33 @@ public partial class PriceListEventHandler : TypedDictionaryEventHandler<PriceLi
         if (record.BasePriceType == Guid.Empty)
             return EventResult.Cancel("Динамический тип цены обязан ссылаться на базовый тип цены (Base price type)");
 
-        // MetaId у записи присвоен конструктором сущности ДО первого
-        // сохранения (MetadataRecordBase), поэтому сид визитед-сета self-ом
-        // безопасен и для isNew — ловит и прямую само-ссылку, и транзитивный цикл.
+        // -100% и меньше даёт множитель (1 + MarkupPercent/100) <= 0 — цена базового
+        // типа обнулилась бы или ушла в минус независимо от того, какой она окажется.
+        // Проверка статическая и не зависит от цепочки: множитель > -100 остаётся
+        // положительным на любом числе шагов, поэтому одной ступени достаточно.
+        if (record.MarkupPercent <= -100m)
+            return EventResult.Cancel("Наценка не может быть -100% или меньше — цена базового типа обнулится или уйдёт в минус");
+
+        // Симметрично PriceListItemEventHandler: у Calculated не должно быть
+        // строк цены. Актуально при переключении уже существующего Base-типа,
+        // под которым строки успели завестись, — иначе они молча становятся
+        // мёртвыми данными, которые лестница подбора больше не читает. Для
+        // ещё не сохранённой записи record.MetaId — одноразовый Guid (см. ниже),
+        // под ним заведомо не может быть ни одной строки, ложных срабатываний нет.
+        var existingRows = await context.GetService<IDictionaryManager<PriceListItem>>()
+            .GetRecordsAsync($"PriceList = '{record.MetaId}'");
+        if (existingRows.Any())
+            return EventResult.Cancel(
+                "У этого типа цены уже есть строки (Price type rows) — удали их перед переключением в Calculated, "
+                + "иначе они станут мёртвыми данными, которые лестница подбора цены не читает");
+
+        // На isNew record.MetaId здесь — одноразовый Guid материализации хука,
+        // не тот, что попадёт в БД (см. zuloone-new-dictionary §2б), поэтому
+        // само-ссылку это не ловит на первой вставке — но и не должно: сослаться
+        // на ещё не существующую запись неоткуда, UI-пикер не выберет то, чего
+        // ещё нет. Само-ссылка достижима только обновлением уже сохранённой
+        // записи, а там MetaId уже реальный — тот же обход корректно ловит и её,
+        // и транзитивный цикл.
         var visited = new HashSet<Guid> { record.MetaId };
         var currentId = record.BasePriceType;
         var depth = 0;

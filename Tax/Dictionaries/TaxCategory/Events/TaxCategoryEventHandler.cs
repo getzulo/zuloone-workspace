@@ -1,10 +1,23 @@
 #nullable enable
+using System;
+
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for TaxCategory records (MIQS DictionaryEventHandlerBase<T>).
 // `record` is a typed TaxCategory entity — access fields directly (record.SomeField).
 // Cancel with EventResult.Cancel("reason"); replace a DB error with EventResult.Error("...");
 // show UI feedback with context.AddClientAction(ClientAction.Message("...", "success")).
+//
+// Категория обязана принадлежать налогу: именно по паре «налог + категория» код
+// налога получает режим обложения, и категория без налога делает эту пару
+// неполной — код с ней завести можно, а что она означает, не определено.
+//
+// ЧЕГО ЗДЕСЬ СОЗНАТЕЛЬНО НЕТ: проверки поля Treatment по списку допустимых
+// значений (STANDARD / ZERO_RATED / EXEMPT / …). Это закрытый набор, и его место
+// в МЕТАДАННЫХ — перечисление плюс EDT, как уже сделано для TaxRuleOperator в
+// этой же модели. Белый список в обработчике выглядит проверкой, но новое
+// значение придётся дописывать в код вместо справочника, а UI всё равно будет
+// предлагать свободный ввод. Оставлено как есть до перевода поля в перечисление.
 public partial class TaxCategoryEventHandler : TypedDictionaryEventHandler<TaxCategory>
 {
     // Building a new record server-side: seed default field values here.
@@ -18,9 +31,9 @@ public partial class TaxCategoryEventHandler : TypedDictionaryEventHandler<TaxCa
     // Put shared validation / computed fields here.
     public override Task<EventResult> OnBeforeSaveAsync(TaxCategory record, bool isNew, EventContext context)
     {
-        // if (string.IsNullOrEmpty(record.Name))
-        //     return Task.FromResult(EventResult.Cancel("Name is required"));
-        // context.AddClientAction(ClientAction.Message("Saved", "success"));
+        if (record.Tax == Guid.Empty)
+            return Task.FromResult(EventResult.Cancel("Укажите налог, к которому относится категория"));
+
         return Task.FromResult(EventResult.Ok());
     }
 

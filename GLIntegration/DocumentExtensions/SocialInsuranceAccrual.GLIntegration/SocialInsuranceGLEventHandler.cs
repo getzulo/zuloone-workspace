@@ -53,7 +53,7 @@ public partial class SocialInsuranceGLEventHandler : TypedDocumentEventHandler<S
         var le = await context.GetService<IDictionaryManager<LegalEntity>>().GetRecordAsync(div.LegalEntity);
         if (le == null) return;
 
-        var date = DateTime.UtcNow.Date;
+        var date = accrual.DocumentDate;
         var documentManager = context.GetService<IDocumentManager>();
 
         if (employee > 0m)

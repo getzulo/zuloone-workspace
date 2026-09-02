@@ -76,7 +76,7 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
         if (le == null) return null;
 
         return await gl.PostAsync(
-            DateTime.UtcNow.Date, le.MetaId, le.Currency, total,
+            inv.DocumentDate, le.MetaId, le.Currency, total,
             settings.ArAccountCode, settings.RevenueAccountCode,
             "Sales invoice " + header.MetaId,
             "Дебиторка по продаже", "Выручка от продажи");
@@ -120,7 +120,7 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
         if (le == null) return null;
 
         return await gl.PostAsync(
-            DateTime.UtcNow.Date, le.MetaId, le.Currency, cost,
+            inv.DocumentDate, le.MetaId, le.Currency, cost,
             settings.CogsAccountCode, settings.InventoryAccountCode,
             "Cost of sales " + header.MetaId,
             "Себестоимость продажи", "Выбытие запасов");

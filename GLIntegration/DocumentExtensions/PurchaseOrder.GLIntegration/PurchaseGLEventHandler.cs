@@ -59,7 +59,7 @@ public partial class PurchaseGLEventHandler : TypedDocumentEventHandler<Purchase
         if (le == null) return null;
 
         return await gl.PostAsync(
-            DateTime.UtcNow.Date, le.MetaId, le.Currency, total,
+            order.DocumentDate, le.MetaId, le.Currency, total,
             settings.InventoryAccountCode, settings.PayableAccountCode,
             "Purchase order " + header.MetaId,
             "Запасы по приходу", "Кредиторка перед поставщиком");

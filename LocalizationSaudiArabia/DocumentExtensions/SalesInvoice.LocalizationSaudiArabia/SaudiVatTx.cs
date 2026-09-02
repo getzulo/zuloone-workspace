@@ -24,13 +24,27 @@ using ZuloOne.Services.Contracts;
 // База строки — общий PricingService, САМ налог — TaxService.CalculateTax (база
 // × ставка с округлением): налоговый расчёт живёт в налоговом сервисе, а не
 // размазан по проводкам.
+//
+// СТАВКА БЕРЁТСЯ С ДОКУМЕНТА, а не из константы. Раньше здесь стояло
+// `GlobalConstants.Get<decimal>("SaudiVatRate")` — плоское 0.15 БЕЗ ДАТЫ, второй
+// источник истины рядом с датированным справочником TaxRate. Пока ставка не
+// менялась, разницы не было; в день изменения TaxLedger пошёл бы по новой
+// ставке, а VatPayable остался бы на старой, и расходились бы они молча. Счёт,
+// выставленный задним числом, и вовсе считался бы здесь по сегодняшней ставке,
+// а в универсальном контуре — по действовавшей.
+//
+// Теперь `TaxRateApplied` фиксирует на счёте ставку, подобранную налоговым
+// контуром на дату документа (SalesInvoiceEventHandler.OnBeforePost). Ноль
+// означает, что налоговый контур не настроен, — тогда проводки просто нет, как
+// и раньше при отсутствующей константе.
 public partial class SaudiVatTx
 {
     protected override void GetTransactions(SalesInvoice document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
     {
         var pricing = GetService<IPricingService>();
         var tax = GetService<ITaxService>();
-        var rate = GlobalConstants.Get<decimal>("SaudiVatRate");
+        var rate = document.TaxRateApplied;
+        if (rate <= 0m) return;
 
         decimal baseAmount = 0m;
         foreach (var line in document.Lines)

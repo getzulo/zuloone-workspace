@@ -34,7 +34,6 @@ public class TaxReturnTest : IntegrationTestScriptBase
         {
             t.Code = $"T-{uniq}";
             t.Name = "Test tax";
-            t.TaxType = Db.NewId();
             t.Authority = Db.NewId();
             t.Jurisdiction = Db.NewId();
             t.EffectiveFrom = from;

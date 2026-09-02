@@ -22,6 +22,25 @@
   "headerFields": [
     {
       "documentTypeMetaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
+      "fieldName": "LegalEntity",
+      "caption": "Legal entity",
+      "caption_ru": "Юрлицо",
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 1,
+      "description": "Юрлицо, от имени которого идёт платёж — адресат проводки в главной книге. Не задано — платёж проводится по регистру как прежде, проводки нет.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "8b722083-fe01-4364-a0d1-aa5d5a04a857",
+      "name": "LegalEntity",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2
+    },
+    {
+      "documentTypeMetaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
       "fieldName": "ID",
       "caption": "ID",
       "baseType": "String",

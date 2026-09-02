@@ -28,8 +28,18 @@ public partial class GoodsIssueEventHandler : TypedDocumentEventHandler<GoodsIss
         foreach (var line in lines)
         {
             var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
-            if (qty > 0m)
-                need[line.Item] = (need.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
+
+            // Отрицательная строка ОТКЛОНЯЕТСЯ, а не пропускается. Раньше здесь
+            // стояло `if (qty > 0m)` — минусовые строки не попадали в потребность
+            // и проверку остатка не проходили вовсе. При этом транзакционный
+            // скрипт проводит −qty, то есть минус в строке превращался в ПЛЮС на
+            // складе: строка «−5» приходовала пять единиц, которых никто не
+            // покупал, и притом без слоя себестоимости — положительное нетто
+            // драйвер Costing не оценивает.
+            if (qty <= 0m)
+                return EventResult.Cancel("Количество отпуска должно быть больше нуля");
+
+            need[line.Item] = (need.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
         }
 
         var stock = context.GetService<ITotalsManager>();

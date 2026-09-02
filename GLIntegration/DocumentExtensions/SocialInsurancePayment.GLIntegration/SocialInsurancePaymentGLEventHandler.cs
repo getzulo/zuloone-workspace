@@ -59,7 +59,7 @@ public partial class SocialInsurancePaymentGLEventHandler : TypedDocumentEventHa
         if (le == null) return null;
 
         return await gl.PostAsync(
-            DateTime.UtcNow.Date, le.MetaId, le.Currency, total,
+            payment.DocumentDate, le.MetaId, le.Currency, total,
             settings.SocialInsurancePayableAccountCode, settings.CashAccountCode,
             "Social insurance payment " + header.MetaId,
             "Задолженность перед фондом соцстраха", "Денежные средства");

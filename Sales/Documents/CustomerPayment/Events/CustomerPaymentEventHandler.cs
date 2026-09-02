@@ -40,11 +40,30 @@ public partial class CustomerPaymentEventHandler : TypedDocumentEventHandler<Cus
         => Task.FromResult(EventResult.Ok());
 
     // Before posting: validate the whole document; cancel to block posting.
-    public override Task<EventResult> OnBeforePostAsync(CustomerPayment header, EventContext context)
+    //
+    // Зеркало VendorPaymentEventHandler в закупках. Дебиторка (Receivable) заведена
+    // с allowNegativeBalance=true — авансы покупателя законны, поэтому движковой
+    // отсечки по остатку здесь нет и быть не должно; проверяется только
+    // осмысленность самого документа. Без этого оплата с ОТРИЦАТЕЛЬНОЙ суммой
+    // проводилась и НАРАЩИВАЛА долг вместо погашения.
+    //
+    // Строки перечитываются через IDocumentManager: в событие заголовка табличная
+    // часть не приезжает.
+    public override async Task<EventResult> OnBeforePostAsync(CustomerPayment header, EventContext context)
     {
-        // if (header.Number == null)
-        //     return Task.FromResult(EventResult.Cancel("Number is required before posting"));
-        return Task.FromResult(EventResult.Ok());
+        if (header.Subtype != "Paid")
+            return EventResult.Ok();
+
+        var full = await context.GetService<IDocumentManager>().GetDocumentAsync<CustomerPayment>(header.MetaId);
+        var lines = full?.Lines ?? header.Lines;
+
+        if (lines.Count == 0)
+            return EventResult.Cancel("Заполните строки оплаты");
+
+        if (System.Linq.Enumerable.Any(lines, l => l.Amount <= 0m))
+            return EventResult.Cancel("Сумма оплаты должна быть больше нуля");
+
+        return EventResult.Ok();
     }
 
     // After the document was posted (register movements are written).

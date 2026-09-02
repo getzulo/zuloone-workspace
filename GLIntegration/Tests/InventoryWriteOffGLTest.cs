@@ -33,6 +33,8 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
         public Guid InventoryAccount;
         public Guid WriteOffAccount;
         public Guid PayableAccount;
+        public Guid CashAccount;
+        public Guid LegalEntity;
     }
 
     private async Task<Setup> SetupAsync(bool configureWriteOffAccount = true)
@@ -126,6 +128,7 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
         var inventoryAccount = await NewAccountAsync("1400", "Inventory", AccountType.Asset, currency.MetaId);
         var writeOffAccount = await NewAccountAsync("7100", "Inventory write-off", AccountType.Expense, currency.MetaId);
         var payableAccount = await NewAccountAsync("2000", "Accounts payable", AccountType.Liability, currency.MetaId);
+        var cashAccount = await NewAccountAsync("1000", "Cash", AccountType.Asset, currency.MetaId);
 
         // Настройки — ОДИНОЧНЫЙ и КЭШИРУЕМЫЙ справочник: правим существующую
         // запись, если она есть, иначе заводим. Слепой NewRecord делает тест
@@ -135,6 +138,7 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
         settings.InventoryAccountCode = "1400";
         settings.PayableAccountCode = "2000";
         settings.InventoryWriteOffAccountCode = configureWriteOffAccount ? "7100" : null;
+        settings.CashAccountCode = "1000";
         await DictionaryManager.SaveRecordAsync(settings);
 
         var fiscalYear = DictionaryManager.NewRecord<FiscalYear>();
@@ -161,6 +165,8 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
             InventoryAccount = inventoryAccount,
             WriteOffAccount = writeOffAccount,
             PayableAccount = payableAccount,
+            CashAccount = cashAccount,
+            LegalEntity = legalEntity.MetaId,
         };
     }
 
@@ -307,6 +313,74 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
         var payable = await AccountAsync(order.MetaId, s.PayableAccount);
         Assert.IsTrue(payable.Credit == 70m,
             "и кредитует кредиторку на ту же сумму, факт {0}", payable.Credit);
+    }
+
+    [IntegrationTest("Оплата поставщику дебетует кредиторку — счёт в книге закрывается")]
+    public async Task VendorPaymentClosesPayableInLedger()
+    {
+        // ДЫРА, ОСТАВЛЕННАЯ ВМЕСТЕ С САМИМ ДОКУМЕНТОМ ОПЛАТЫ. Оприходование
+        // кредитует счёт кредиторки, а дебетовать его было нечем: в регистре
+        // Payable долг гасился, в книге рос бесконечно. Та же пара уже сделана у
+        // выплаты ФОТ и у платежа в фонд — здесь она закрывает закупочный контур.
+        var s = await SetupAsync();
+
+        var order = await DocumentManager.NewDocumentAsync<PurchaseOrder>();
+        order.Supplier = s.Supplier;
+        order.Location = s.Cell;
+        order.Lines.Add(new PurchaseOrderLinesTablePartRow { Item = s.Item, Quantity = 10m, UnitPrice = 7m });
+        await DocumentManager.SaveDocumentAsync(order);
+        order.Subtype = PurchaseOrder.Subtypes.Ordered;
+        await DocumentManager.SaveDocumentAsync(order);
+        order.Subtype = PurchaseOrder.Subtypes.Received;
+        await DocumentManager.SaveDocumentAsync(order);
+
+        var accrued = await AccountAsync(order.MetaId, s.PayableAccount);
+        Assert.IsTrue(accrued.Credit == 70m, "приход признал долг в книге, факт {0}", accrued.Credit);
+
+        var payment = await DocumentManager.NewDocumentAsync<VendorPayment>();
+        payment.LegalEntity = s.LegalEntity;
+        payment.Lines.Add(new VendorPaymentLinesTablePartRow { Supplier = s.Supplier, Amount = 70m });
+        await DocumentManager.SaveDocumentAsync(payment);
+
+        // Черновик оплаты книгу не трогает.
+        Assert.IsTrue((await AccountAsync(payment.MetaId, s.PayableAccount)).Debit == 0m,
+            "черновик оплаты не дебетует кредиторку");
+
+        payment.Subtype = VendorPayment.Subtypes.Paid;
+        await DocumentManager.SaveDocumentAsync(payment);
+
+        var paid = await AccountAsync(payment.MetaId, s.PayableAccount);
+        Assert.IsTrue(paid.Debit == 70m,
+            "оплата дебетует кредиторку на 70, факт {0}", paid.Debit);
+
+        var cash = await AccountAsync(payment.MetaId, s.CashAccount);
+        Assert.IsTrue(cash.Credit == 70m,
+            "и кредитует денежные средства на ту же сумму, факт {0}", cash.Credit);
+
+        // Итог: счёт кредиторки в книге нетто-ноль, как и регистр Payable.
+        Assert.IsTrue(accrued.Credit - paid.Debit == 0m,
+            "счёт кредиторки закрыт: 70 − 70 = 0, факт {0}", accrued.Credit - paid.Debit);
+    }
+
+    [IntegrationTest("Оплата поставщику без юрлица проводится, но в книгу не идёт")]
+    public async Task VendorPaymentWithoutLegalEntitySkipsLedger()
+    {
+        // Юрлицо у платежа необязательно: вывести его не из чего (у поставщика
+        // связи с юрлицом нет), поэтому не задано — разноски нет, а сам платёж
+        // обязан пройти. Та же best-effort политика, что у прочих ног.
+        var s = await SetupAsync();
+
+        var payment = await DocumentManager.NewDocumentAsync<VendorPayment>();
+        payment.Lines.Add(new VendorPaymentLinesTablePartRow { Supplier = s.Supplier, Amount = 70m });
+        await DocumentManager.SaveDocumentAsync(payment);
+        payment.Subtype = VendorPayment.Subtypes.Paid;
+        await DocumentManager.SaveDocumentAsync(payment);
+
+        var stored = await DocumentManager.GetDocumentAsync<VendorPayment>(payment.MetaId);
+        Assert.IsTrue(stored?.Subtype == VendorPayment.Subtypes.Paid,
+            "платёж проведён, факт {0}", stored?.Subtype);
+        Assert.IsTrue((await AccountAsync(payment.MetaId, s.PayableAccount)).Debit == 0m,
+            "без юрлица проводки нет");
     }
 
     [IntegrationTest("Без настроенного счёта списания документ проводится как прежде")]

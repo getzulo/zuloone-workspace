@@ -315,6 +315,26 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
             "при выключенной лояльности баллы не начисляются, факт {0}", await PointsBalanceAsync(s.Customer));
     }
 
+    [IntegrationTest("Запись настроек без заданного курса не выключает лояльность")]
+    public async Task SettingsWithoutRateKeepLoyaltyOn()
+    {
+        // ЛОВУШКА НЕОБЯЗАТЕЛЬНОГО BOOLEAN. LoyaltyEnabled не nullable: «не
+        // заполнено» неотличимо от «выключено». Записи CRMSettings заводились до
+        // того, как флаг начал читаться, поэтому у всех существующих он false.
+        // Доверяй код флагу буквально — начисление молча пропало бы на каждом
+        // стенде, где кто-то однажды сохранил форму настроек CRM.
+        //
+        // Здесь именно этот случай: запись есть, курс не задан, флаг false по
+        // умолчанию. Модуль лояльности никто не настраивал — значит работаем как
+        // раньше.
+        await ConfigureLoyaltyAsync(enabled: false, pointsPerCurrencyUnit: 0m);
+
+        var s = await IssueInvoiceAsync();
+
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 15m,
+            "ненастроенный модуль начисляет как раньше: 15, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
     [IntegrationTest("Без записи настроек начисление работает как раньше — 1:1")]
     public async Task NoSettingsKeepsLegacyRate()
     {

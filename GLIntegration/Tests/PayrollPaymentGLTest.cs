@@ -175,9 +175,21 @@ public class PayrollPaymentGLTest : IntegrationTestScriptBase
         return (debit, credit);
     }
 
-    private static async Task<decimal> LiabilityRegisterAsync(Guid employee)
-        => await TotalsManager.GetBalanceAsync("PayrollLiability", "Amount",
-            new Dictionary<string, object?> { ["Employee"] = employee });
+    /// <summary>
+    /// Остаток задолженности по ФОТ СУММОЙ ПО ВСЕМУ РЕГИСТРУ, а не по сотруднику.
+    /// У PayrollLiability нет физических измерений — Employee там динамическая
+    /// аналитика, и ключ в GetBalanceAsync по ней молча игнорируется: вернётся
+    /// тот же итог по регистру, но с видом персонального среза. В прогоне кейса
+    /// сотрудник один, поэтому итог и есть его остаток — но называть это срезом
+    /// нельзя, иначе тест обещает больше, чем проверяет.
+    /// </summary>
+    private static async Task<decimal> LiabilityRegisterAsync()
+    {
+        decimal total = 0m;
+        foreach (var r in await TotalsManager.QueryBalancesAsync("PayrollLiability"))
+            total += Convert.ToDecimal(r["Amount"]);
+        return total;
+    }
 
     [IntegrationTest("Выплата ФОТ дебетует задолженность и кредитует денежные средства")]
     public async Task PaymentPostsToLedger()
@@ -227,7 +239,7 @@ public class PayrollPaymentGLTest : IntegrationTestScriptBase
             "после выплаты счёт задолженности нетто-ноль, факт {0}", netLiability);
 
         // И регистр HR говорит то же самое.
-        var register = await LiabilityRegisterAsync(s.Employee);
+        var register = await LiabilityRegisterAsync();
         Assert.IsTrue(register == 0m, "регистр PayrollLiability обнулён, факт {0}", register);
     }
 
@@ -259,7 +271,7 @@ public class PayrollPaymentGLTest : IntegrationTestScriptBase
 
         // Книга и регистр расходиться не должны и на промежуточной сумме:
         // начислено 700 − выплачено 300 = 400 непогашенного долга в обоих.
-        var register = await LiabilityRegisterAsync(s.Employee);
+        var register = await LiabilityRegisterAsync();
         Assert.IsTrue(register == 400m, "регистр PayrollLiability = 400, факт {0}", register);
     }
 }

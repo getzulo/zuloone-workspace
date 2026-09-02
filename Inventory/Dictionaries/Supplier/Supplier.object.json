@@ -146,7 +146,7 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 5,
-      "description": "Прайс-лист закупки у этого поставщика. Пусто — цена берётся из умолчания товара.",
+      "description": "Тип цены закупки у этого поставщика (базовый или расчётный). Пусто — цена берётся из умолчания товара.",
       "isIndexed": false,
       "isUnique": false,
       "caption": "Price type",

@@ -55,7 +55,7 @@ public partial class PayrollGLEventHandler : TypedDocumentEventHandler<PayrollAc
         if (le == null) return null;
 
         return await gl.PostAsync(
-            DateTime.UtcNow.Date, le.MetaId, le.Currency, total,
+            accrual.DocumentDate, le.MetaId, le.Currency, total,
             settings.PayrollExpenseAccountCode, settings.PayrollLiabilityAccountCode,
             "Payroll accrual " + header.MetaId,
             "Расход на оплату труда", "Задолженность перед сотрудниками");

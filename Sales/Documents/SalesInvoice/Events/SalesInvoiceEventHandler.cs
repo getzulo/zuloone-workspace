@@ -19,8 +19,18 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         => Task.FromResult(EventResult.Ok());
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
+    // DiscountPercent вне [0, 100] переворачивает знак LineAmount (>100%) или значит
+    // не скидку, а наценку (<0) — оба случая ловятся здесь, а не только у источника
+    // (LoyaltyTier), потому что поле пишется и напрямую рукой на форме документа.
+    // На точечном обновлении подтипа (SetSubtypeAsync) header — частичный экземпляр,
+    // и DiscountPercent в нём ноль (см. SalesInvoiceLoyaltyDiscountHandler) — в
+    // диапазоне, проверка безвредна.
     public override Task<EventResult> OnBeforeSaveAsync(SalesInvoice header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+    {
+        if (header.DiscountPercent < 0m || header.DiscountPercent > 100m)
+            return Task.FromResult(EventResult.Cancel("Скидка на счёте должна быть в диапазоне от 0 до 100%"));
+        return Task.FromResult(EventResult.Ok());
+    }
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(SalesInvoice header, bool isNew, EventContext context)
@@ -154,9 +164,33 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         // равно проводится, и потеря налога снова становится молчаливой.
         var tax = context.GetService<ITaxService>();
         var taxCode = await tax.ResolveDefaultTaxCodeAsync();
-        if (taxCode is not null && await tax.ResolveRateAsync(taxCode.Value, TaxPointOf(header)) is null)
+        if (taxCode is null) return EventResult.Ok();
+
+        var taxPoint = TaxPointOf(header);
+        var rate = await tax.ResolveRateAsync(taxCode.Value, taxPoint);
+        if (rate is null)
             return EventResult.Cancel(
-                $"Налоговый код настроен, но действующей ставки на {TaxPointOf(header):yyyy-MM-dd} нет — счёт не выставляется");
+                $"Налоговый код настроен, но действующей ставки на {taxPoint:yyyy-MM-dd} нет — счёт не выставляется");
+
+        // СТАВКА ФИКСИРУЕТСЯ НА ДОКУМЕНТЕ — по той же причине, что юрлицо выше:
+        // страновые проводки (НДС КСА в регистр VatPayable) синхронны и подобрать
+        // датированную ставку сами не могут. Раньше локализация брала её из плоской
+        // константы SaudiVatRate, у которой нет даты вовсе: при любом изменении
+        // ставки страновой регистр расходился с TaxLedger, а счёт задним числом
+        // считался по сегодняшней ставке. Теперь источник один — справочник TaxRate,
+        // подобранный на дату счёта ровно тем же вызовом, которым воспользуется
+        // расчёт налога в OnAfterPost.
+        //
+        // Точечным обновлением, а не присваиванием: экземпляр из события до базы
+        // не доезжает (см. примечание к LegalEntity). Заполненное вручную не
+        // перезаписывается — счёт мог быть выставлен по согласованной ставке.
+        if (header.TaxRateApplied == 0m && (full?.TaxRateApplied ?? 0m) == 0m)
+        {
+            header.TaxRateApplied = rate.Value;
+            await context.GetService<IDocumentManager>().UpdateDocumentAsync(
+                SalesInvoiceType, header.MetaId,
+                new Dictionary<string, object?> { ["TaxRateApplied"] = rate.Value });
+        }
 
         return EventResult.Ok();
     }

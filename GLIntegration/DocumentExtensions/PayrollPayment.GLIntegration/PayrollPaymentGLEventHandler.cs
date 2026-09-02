@@ -85,7 +85,7 @@ public partial class PayrollPaymentGLEventHandler : TypedDocumentEventHandler<Pa
             // Описание несёт и документ, и юрлицо: идемпотентность GeneralLedgerService
             // построена на нём, а на одну выплату проводок может быть несколько.
             var jeId = await gl.PostAsync(
-                DateTime.UtcNow.Date, le.MetaId, le.Currency, kv.Value,
+                payment.DocumentDate, le.MetaId, le.Currency, kv.Value,
                 settings.PayrollLiabilityAccountCode, settings.CashAccountCode,
                 $"Payroll payment {header.MetaId} / {le.MetaId}",
                 "Задолженность перед сотрудниками", "Денежные средства");

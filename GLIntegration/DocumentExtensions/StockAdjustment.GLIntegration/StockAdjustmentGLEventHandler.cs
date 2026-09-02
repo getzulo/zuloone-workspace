@@ -38,7 +38,8 @@ public partial class StockAdjustmentGLEventHandler : TypedDocumentEventHandler<S
         try
         {
             var jeId = await context.GetService<IInventoryWriteOffGLService>()
-                .PostAsync(document.MetaId, document.Cell, "Stock adjustment " + document.MetaId);
+                .PostAsync(document.MetaId, document.Cell, document.DocumentDate,
+                           "Stock adjustment " + document.MetaId);
             if (jeId.HasValue)
                 await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
         }

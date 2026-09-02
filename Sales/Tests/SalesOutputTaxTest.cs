@@ -137,12 +137,6 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         authority.IsActive = true;
         authority = await DictionaryManager.SaveRecordAsync(authority);
 
-        var type = DictionaryManager.NewRecord<TaxType>();
-        type.Code = $"VAT-{Db.NewId():N}"[..10];
-        type.Name = "Value added tax";
-        type.Category = "VAT";
-        type = await DictionaryManager.SaveRecordAsync(type);
-
         var jurisdiction = DictionaryManager.NewRecord<TaxJurisdiction>();
         jurisdiction.Code = $"SA-{Db.NewId():N}"[..10];
         jurisdiction.Name = "Saudi Arabia";
@@ -153,7 +147,6 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         var tax = DictionaryManager.NewRecord<Tax>();
         tax.Code = $"VT-{Db.NewId():N}"[..10];
         tax.Name = "Saudi VAT";
-        tax.TaxType = type.MetaId;
         tax.Authority = authority.MetaId;
         tax.Jurisdiction = jurisdiction.MetaId;
         tax.EffectiveFrom = from;
@@ -323,7 +316,6 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         {
             t.Code = $"RT-{uniq}";
             t.Name = "Reduced tax";
-            t.TaxType = Db.NewId();
             t.Authority = Db.NewId();
             t.Jurisdiction = Db.NewId();
             t.EffectiveFrom = from;

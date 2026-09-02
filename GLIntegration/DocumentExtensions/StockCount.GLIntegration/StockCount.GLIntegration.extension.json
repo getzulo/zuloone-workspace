@@ -1,0 +1,13 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "57100901-0000-4000-8000-000000000000",
+    "description": "Расширение инвентаризации моделью GLIntegration: посчитанная недостача попадает в главную книгу тем же путём, что списание и отпуск",
+    "metaId": "849209ce-2b41-431c-8016-7ad7c4931685",
+    "name": "StockCount.GLIntegration",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T00:00:00",
+    "modifiedDateTime": "2026-09-02T00:00:00"
+  }
+}

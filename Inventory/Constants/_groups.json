@@ -1,0 +1,15 @@
+{
+  "kind": "ConstantGroups",
+  "items": [
+    {
+      "caption": "Pricing",
+      "caption_ru": "Ценообразование",
+      "metaId": "ab0d39e1-47ae-4aef-8bb2-8f3f7773672f",
+      "name": "Pricing",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T12:00:00",
+      "modifiedDateTime": "2026-09-02T12:00:00"
+    }
+  ]
+}

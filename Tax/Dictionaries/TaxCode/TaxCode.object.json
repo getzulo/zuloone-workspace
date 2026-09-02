@@ -187,7 +187,7 @@
       "fieldName": "TaxRate",
       "edtMetaId": "43a28d72-d7cc-4042-9176-92690d7f00ed",
       "isSystem": false,
-      "isRequired": true,
+      "isRequired": false,
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
@@ -202,7 +202,8 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
       "createdDateTime": "2026-08-25T16:23:53.2076073",
-      "modifiedDateTime": "2026-08-25T16:23:53.2076073"
+      "modifiedDateTime": "2026-08-25T16:23:53.2076073",
+      "description": "ИСТОРИЧЕСКАЯ привязка кода к ставке. Расчёт её НЕ читает: действующая ставка подбирается по налогу и дате из истории TaxRate (см. TaxService.ResolveRateAsync), иначе смена ставки требовала бы заводить новый код налога. Поле оставлено необязательным для совместимости; если заполнено — обязано указывать на ставку ТОГО ЖЕ налога."
     }
   ]
 }

@@ -31,6 +31,8 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         public Guid Customer;
         public Guid ArAccount;
         public Guid VatAccount;
+        public Guid CashAccount;
+        public Guid LegalEntity;
     }
 
     private async Task<Setup> SetupAsync(bool configureVatAccount = true)
@@ -124,6 +126,7 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         var arAccount = await NewAccountAsync("1200", "Accounts receivable", AccountType.Asset, currency.MetaId);
         var vatAccount = await NewAccountAsync("2300", "VAT payable", AccountType.Liability, currency.MetaId);
         await NewAccountAsync("4000", "Revenue", AccountType.Income, currency.MetaId);
+        var cashAccount = await NewAccountAsync("1000", "Cash", AccountType.Asset, currency.MetaId);
 
         // Настройки — ОДИНОЧНЫЙ и КЭШИРУЕМЫЙ справочник: правим существующую
         // запись, если она есть, иначе заводим. Слепой NewRecord делает тест
@@ -134,6 +137,7 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         settings.ArAccountCode = "1200";
         settings.RevenueAccountCode = "4000";
         settings.VatPayableAccountCode = configureVatAccount ? "2300" : null;
+        settings.CashAccountCode = "1000";
         await DictionaryManager.SaveRecordAsync(settings);
 
         var fiscalYear = DictionaryManager.NewRecord<FiscalYear>();
@@ -160,6 +164,8 @@ public class OutputVatGLTest : IntegrationTestScriptBase
             Customer = customer.MetaId,
             ArAccount = arAccount,
             VatAccount = vatAccount,
+            CashAccount = cashAccount,
+            LegalEntity = legalEntity.MetaId,
         };
     }
 
@@ -186,12 +192,6 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         authority.IsActive = true;
         authority = await DictionaryManager.SaveRecordAsync(authority);
 
-        var type = DictionaryManager.NewRecord<TaxType>();
-        type.Code = $"VAT-{Db.NewId():N}"[..10];
-        type.Name = "Value added tax";
-        type.Category = "VAT";
-        type = await DictionaryManager.SaveRecordAsync(type);
-
         var jurisdiction = DictionaryManager.NewRecord<TaxJurisdiction>();
         jurisdiction.Code = $"SA-{Db.NewId():N}"[..10];
         jurisdiction.Name = "Saudi Arabia";
@@ -202,7 +202,6 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         var tax = DictionaryManager.NewRecord<Tax>();
         tax.Code = $"VT-{Db.NewId():N}"[..10];
         tax.Name = "Saudi VAT";
-        tax.TaxType = type.MetaId;
         tax.Authority = authority.MetaId;
         tax.Jurisdiction = jurisdiction.MetaId;
         tax.EffectiveFrom = from;
@@ -332,5 +331,74 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         foreach (var r in await TotalsManager.QueryBalancesAsync("TaxLedger"))
             ledger += Convert.ToDecimal(r["TaxAmount"]);
         Assert.IsTrue(ledger == 15m, "налог начислен в TaxLedger, факт {0}", ledger);
+    }
+
+    [IntegrationTest("Оплата покупателя кредитует дебиторку — счёт в книге закрывается вместе с налогом")]
+    public async Task CustomerPaymentClosesReceivableInLedger()
+    {
+        // САМАЯ ДОРОГАЯ ПОЛОВИНА РАСХОЖДЕНИЯ. Счёт дебетует дебиторку на сумму без
+        // налога, проводка НДС добавляет к ней налог — а кредитовать её было нечем.
+        // Счёт дебиторки в книге рос на всю выручку с налогом за историю, тогда как
+        // регистр Receivable гасился оплатой.
+        //
+        // 4 × 25 = 100 базы + 15% = 15 налога → покупатель должен 115, и ровно 115
+        // закрывают счёт в книге.
+        var s = await SetupAsync();
+
+        var invoice = await IssueAsync(s, 4m, 25m);
+        var calc = await TheCalculationAsync();
+
+        var fromInvoice = await AccountAsync(invoice.MetaId, s.ArAccount);
+        var fromTax = await AccountAsync(calc.MetaId, s.ArAccount);
+        Assert.IsTrue(fromInvoice.Debit + fromTax.Debit == 115m,
+            "дебиторка в книге 100 + 15 = 115, факт {0}", fromInvoice.Debit + fromTax.Debit);
+
+        var payment = await DocumentManager.NewDocumentAsync<CustomerPayment>();
+        payment.LegalEntity = s.LegalEntity;
+        payment.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Amount = 115m });
+        await DocumentManager.SaveDocumentAsync(payment);
+
+        Assert.IsTrue((await AccountAsync(payment.MetaId, s.ArAccount)).Credit == 0m,
+            "черновик оплаты не кредитует дебиторку");
+
+        payment.Subtype = CustomerPayment.Subtypes.Paid;
+        await DocumentManager.SaveDocumentAsync(payment);
+
+        var paid = await AccountAsync(payment.MetaId, s.ArAccount);
+        Assert.IsTrue(paid.Credit == 115m,
+            "оплата кредитует дебиторку на 115, факт {0}", paid.Credit);
+
+        var cash = await AccountAsync(payment.MetaId, s.CashAccount);
+        Assert.IsTrue(cash.Debit == 115m,
+            "и дебетует денежные средства на ту же сумму, факт {0}", cash.Debit);
+
+        Assert.IsTrue(fromInvoice.Debit + fromTax.Debit - paid.Credit == 0m,
+            "счёт дебиторки закрыт: 115 − 115 = 0, факт {0}",
+            fromInvoice.Debit + fromTax.Debit - paid.Credit);
+    }
+
+    [IntegrationTest("Оплата покупателя с неположительной суммой отклоняется")]
+    public async Task NonPositiveCustomerPaymentRejected()
+    {
+        // Без этой проверки оплата с ОТРИЦАТЕЛЬНОЙ суммой проводилась и НАРАЩИВАЛА
+        // долг вместо погашения: Receivable заведён с allowNegativeBalance=true,
+        // движок такое не ловит. Зеркало проверки у оплаты поставщику.
+        var s = await SetupAsync();
+
+        var payment = await DocumentManager.NewDocumentAsync<CustomerPayment>();
+        payment.LegalEntity = s.LegalEntity;
+        payment.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Amount = -500m });
+        await DocumentManager.SaveDocumentAsync(payment);
+
+        var reason = string.Empty;
+        try
+        {
+            payment.Subtype = CustomerPayment.Subtypes.Paid;
+            await DocumentManager.SaveDocumentAsync(payment);
+        }
+        catch (Exception ex) { reason = ex.Message; }
+
+        Assert.IsTrue(reason.Contains("больше нуля"),
+            "отрицательная оплата обязана быть отклонена с внятной причиной, факт: {0}", reason);
     }
 }

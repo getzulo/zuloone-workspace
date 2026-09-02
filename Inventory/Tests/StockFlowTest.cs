@@ -254,4 +254,68 @@ public class StockFlowTest : IntegrationTestScriptBase
 
         Assert.IsTrue(rejected, "списание 8 при остатке 5 должно быть отклонено событием");
     }
+
+    [IntegrationTest("Перемещение сверх остатка отклоняется")]
+    public async Task OverTransferIsRejected()
+    {
+        // ЕДИНСТВЕННЫЙ РАСХОДНЫЙ ДОКУМЕНТ СКЛАДА БЕЗ ЗАЩИТЫ ОТ МИНУСА. Регистр
+        // Stock объявлен allowNegativeBalance=true, движок минус не ловит, поэтому
+        // проверка обязана быть в событии — она есть у списания, отпуска, отбора,
+        // раскладки, продажи и выпуска, а у перемещения её не было.
+        //
+        // Опаснее, чем обычный уход в минус: перемещение — это ПАРА проводок по
+        // одному товару, нетто ноль, поэтому драйвер себестоимости на него не
+        // смотрит вовсе. Переместив 100 при остатке 5, мы получаем −95 в исходной
+        // ячейке и +100 в целевой БЕЗ себестоимости, и последующая отгрузка из
+        // целевой съест слои чужого, реально существующего товара.
+        var s = await SetupAsync();
+        await PostAdjustmentAsync(s.Loc1, s.Item, 5m);
+
+        var doc = await DocumentManager.NewDocumentAsync<StockTransfer>();
+        doc.FromCell = s.Loc1;
+        doc.ToCell = s.Loc2;
+        doc.Lines.Add(new StockTransferLinesTablePartRow { Item = s.Item, Quantity = 100m });
+        await DocumentManager.SaveDocumentAsync(doc);
+
+        Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 5m, "черновик перемещения остаток не трогает");
+
+        var reason = string.Empty;
+        try
+        {
+            doc.Subtype = StockTransfer.Subtypes.Posted;
+            await DocumentManager.SaveDocumentAsync(doc);
+        }
+        catch (Exception ex) { reason = ex.Message; }
+
+        Assert.IsTrue(reason.Contains("5"),
+            "отказ обязан назвать фактический остаток, факт: {0}", reason);
+    }
+
+    [IntegrationTest("Отпуск с отрицательным количеством отклоняется, а не создаёт товар")]
+    public async Task NegativeGoodsIssueIsRejected()
+    {
+        // Проверка остатка у отпуска собирает потребность условием qty > 0 —
+        // отрицательные строки в неё не попадали и проверку не проходили вовсе.
+        // При этом транзакционный скрипт проводит −qty, то есть минус в строке
+        // превращается в ПЛЮС на складе: строка «−5» приходовала пять единиц,
+        // которых никто не покупал, и притом без слоя себестоимости.
+        var s = await SetupAsync();
+        await PostAdjustmentAsync(s.Loc1, s.Item, 5m);
+
+        var issue = await DocumentManager.NewDocumentAsync<GoodsIssue>();
+        issue.FromCell = s.Loc1;
+        issue.Lines.Add(new GoodsIssueLinesTablePartRow { Item = s.Item, Quantity = -5m });
+        await DocumentManager.SaveDocumentAsync(issue);
+
+        var reason = string.Empty;
+        try
+        {
+            issue.Subtype = GoodsIssue.Subtypes.Posted;
+            await DocumentManager.SaveDocumentAsync(issue);
+        }
+        catch (Exception ex) { reason = ex.Message; }
+
+        Assert.IsTrue(reason.Contains("больше нуля"),
+            "отрицательный отпуск обязан быть отклонён с внятной причиной, факт: {0}", reason);
+    }
 }

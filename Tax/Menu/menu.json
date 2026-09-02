@@ -185,20 +185,6 @@
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
-      "caption": "Taxes catalog",
-      "caption_ru": "Виды налогов",
-      "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
-      "displayOrder": 4,
-      "targetType": "Dictionary",
-      "targetMetaId": "8678bccf-6178-4c03-bfba-226ccf3a0f75",
-      "metaId": "0aa440bb-ff0e-425c-b42a-ffaa58ef8386",
-      "name": "TaxType",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:24:32.9288228",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
-    },
-    {
       "caption": "Tax authorities",
       "caption_ar": "سلطات الضريبة",
       "caption_ru": "Налоговые органы",
@@ -241,21 +227,6 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
       "createdDateTime": "2026-08-25T16:24:32.9288314",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
-    },
-    {
-      "caption": "Tax recoverability",
-      "caption_ar": "الضريبة قابلية الاسترجاع",
-      "caption_ru": "Возмещаемость",
-      "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
-      "displayOrder": 8,
-      "targetType": "Dictionary",
-      "targetMetaId": "c9831a46-480a-45c4-be44-5ef6138514b9",
-      "metaId": "27d9e8ca-8416-4b1a-8fef-1c2efb9e9c88",
-      "name": "TaxRecoverability",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:24:32.9288333",
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {

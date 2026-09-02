@@ -1,0 +1,18 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "84183540-e97c-4529-aa64-899268b1c174",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "CustomerPayment",
+    "objectMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 10,
+    "metaId": "28f40700-370e-4824-aacc-67a287113faa",
+    "name": "CustomerPaymentGLEventHandler",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T14:27:57.6459162",
+    "modifiedDateTime": "2026-09-02T14:27:57.6459162"
+  }
+}

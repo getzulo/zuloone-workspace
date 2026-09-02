@@ -169,7 +169,7 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 5,
-      "description": "Прайс-лист продажи для этого клиента. Пусто — цена берётся из умолчания товара.",
+      "description": "Тип цены продажи для этого клиента (базовый или расчётный). Пусто — цена берётся из умолчания товара.",
       "isIndexed": false,
       "isUnique": false,
       "caption": "Price type",

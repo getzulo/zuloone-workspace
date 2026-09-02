@@ -515,4 +515,240 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         Assert.IsTrue(message.Contains("не задаётся строками"),
             "ожидался отказ по Calculated-типу, факт: {0}", message);
     }
+
+    [IntegrationTest("Тип цены с уже существующими строками нельзя переключить в Calculated")]
+    public async Task SwitchingToCalculatedWithExistingRowsIsRejected()
+    {
+        var s = await SeedAsync();
+        await PriceAsync(s, s.Piece, 100m);
+
+        var basePriceType = DictionaryManager.NewRecord<PriceList>();
+        basePriceType.Name = $"NeedsBase {Db.NewId():N}"[..16];
+        basePriceType.Direction = PriceDirection.Sale;
+        basePriceType = await DictionaryManager.SaveRecordAsync(basePriceType);
+
+        var message = await RejectedAsync(async () =>
+        {
+            var list = await DictionaryManager.GetRecordAsync<PriceList>(s.PriceList);
+            list.Kind = PriceListKind.Calculated;
+            list.BasePriceType = basePriceType.MetaId;
+            list.MarkupPercent = 10m;
+            await DictionaryManager.SaveRecordAsync(list);
+        }, "переключение в Calculated при существующих строках обязано быть отклонено");
+        Assert.IsTrue(message.Contains("уже есть строки"),
+            "ожидался отказ по существующим строкам, факт: {0}", message);
+    }
+
+    [IntegrationTest("Наценка -100% и меньше у Calculated отклоняется на сохранении")]
+    public async Task MarkupAtOrBelowMinus100PercentIsRejected()
+    {
+        var s = await SeedAsync();
+        var message = await RejectedAsync(async () =>
+        {
+            var calc = DictionaryManager.NewRecord<PriceList>();
+            calc.Name = $"ZeroFloor {Db.NewId():N}"[..16];
+            calc.Direction = PriceDirection.Sale;
+            calc.Kind = PriceListKind.Calculated;
+            calc.BasePriceType = s.PriceList;
+            calc.MarkupPercent = -100m;
+            await DictionaryManager.SaveRecordAsync(calc);
+        }, "наценка -100% обнуляет цену базового типа и обязана быть отклонена");
+        Assert.IsTrue(message.Contains("обнулится или уйдёт в минус"),
+            "ожидался отказ по наценке -100% и ниже, факт: {0}", message);
+    }
+
+    [IntegrationTest("Наценка чуть выше -100% всё ещё разрешена и даёт малую положительную цену")]
+    public async Task MarkupJustAboveMinus100PercentResolvesToSmallPositivePrice()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        await PriceAsync(s, s.Piece, 100m);
+
+        var almostFree = DictionaryManager.NewRecord<PriceList>();
+        almostFree.Name = $"AlmostFree {Db.NewId():N}"[..20];
+        almostFree.Direction = PriceDirection.Sale;
+        almostFree.Kind = PriceListKind.Calculated;
+        almostFree.BasePriceType = s.PriceList;
+        almostFree.MarkupPercent = -99m;
+        almostFree = await DictionaryManager.SaveRecordAsync(almostFree);
+
+        var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
+        customer.PriceList = almostFree.MetaId;
+        await DictionaryManager.SaveRecordAsync(customer);
+
+        var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(price == 1m, "100 − 99% = 1, факт {0}", price);
+    }
+
+    [IntegrationTest("Несколько строк на разные единицы товара, сходящиеся после пересчёта: цена разрешается")]
+    public async Task MultipleConvertibleUnitRowsThatAgreeResolve()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+
+        var palletClass = DictionaryManager.NewRecord<UnitClass>();
+        palletClass.Code = $"PC{Db.NewId():N}"[..10];
+        palletClass.Name = "PalletClass";
+        palletClass = await DictionaryManager.SaveRecordAsync(palletClass);
+
+        var pallet = DictionaryManager.NewRecord<UnitOfMeasure>();
+        pallet.Name = "Pallet";
+        pallet.Code = $"PL{Db.NewId():N}"[..8];
+        pallet.DecimalPlaces = 0;
+        pallet.UnitClass = palletClass.MetaId;
+        pallet = await DictionaryManager.SaveRecordAsync(pallet);
+
+        var pack = DictionaryManager.NewRecord<ItemUnit>();
+        pack.Item = s.Item;
+        pack.Unit = pallet.MetaId;
+        pack.QtyInBaseUnit = 120m; // 10 ящиков
+        await DictionaryManager.SaveRecordAsync(pack);
+
+        // Ни одной строки на штуку — только ящик и паллета, обе дают одну и ту же
+        // цену за штуку после пересчёта: 120/12 = 1200/120 = 10.
+        await PriceAsync(s, s.Box, 120m);
+        await PriceAsync(s, pallet.MetaId, 1200m);
+
+        var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(price == 10m, "ящик и паллета согласованно дают 10 за штуку, факт {0}", price);
+    }
+
+    [IntegrationTest("Несколько строк на разные единицы товара, расходящиеся после пересчёта: цена не подбирается (null), а не угадывается")]
+    public async Task MultipleConvertibleUnitRowsThatDisagreeReturnNull()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+
+        var palletClass = DictionaryManager.NewRecord<UnitClass>();
+        palletClass.Code = $"PC{Db.NewId():N}"[..10];
+        palletClass.Name = "PalletClass";
+        palletClass = await DictionaryManager.SaveRecordAsync(palletClass);
+
+        var pallet = DictionaryManager.NewRecord<UnitOfMeasure>();
+        pallet.Name = "Pallet";
+        pallet.Code = $"PL{Db.NewId():N}"[..8];
+        pallet.DecimalPlaces = 0;
+        pallet.UnitClass = palletClass.MetaId;
+        pallet = await DictionaryManager.SaveRecordAsync(pallet);
+
+        var pack = DictionaryManager.NewRecord<ItemUnit>();
+        pack.Item = s.Item;
+        pack.Unit = pallet.MetaId;
+        pack.QtyInBaseUnit = 120m;
+        await DictionaryManager.SaveRecordAsync(pack);
+
+        // Ящик 120 (10/шт) и паллета 1300 (10.83/шт, объёмная наценка) —
+        // расходятся. Порядок строк из базы ничем не гарантирован: угадывать
+        // одну из них молча нельзя, честный ответ — null, как при отсутствии цены.
+        await PriceAsync(s, s.Box, 120m);
+        await PriceAsync(s, pallet.MetaId, 1300m);
+
+        var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(price == null, "расходящиеся цены за разные единицы не подбираются, факт {0}", price);
+    }
+
+    [IntegrationTest("Наценка, обнулившая цену после округления, не выдаётся как 0 — лестница уходит на следующую ступень")]
+    public async Task MarkupRoundingToZeroFallsThroughToItemDefault()
+    {
+        var s = await SeedAsync(defaultSalePrice: 5m);
+        var pricing = GetService<IPricingService>();
+        await PriceAsync(s, s.Piece, 0.03m);
+
+        var nearlyFree = DictionaryManager.NewRecord<PriceList>();
+        nearlyFree.Name = $"NearlyFree {Db.NewId():N}"[..18];
+        nearlyFree.Direction = PriceDirection.Sale;
+        nearlyFree.Kind = PriceListKind.Calculated;
+        nearlyFree.BasePriceType = s.PriceList;
+        nearlyFree.MarkupPercent = -91m;
+        nearlyFree = await DictionaryManager.SaveRecordAsync(nearlyFree);
+
+        var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
+        customer.PriceList = nearlyFree.MetaId;
+        await DictionaryManager.SaveRecordAsync(customer);
+
+        // 0.03 × 0.09 = 0.0027 → округление до 0.00 — цена схлопнулась в ноль
+        // самим округлением этой ступени, а не по вине конкретных чисел где-то
+        // ещё, и это не значит «ступень ответила 0», а значит «не ответила».
+        var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(price == 5m,
+            "цена, обнулившаяся округлением, обязана уступить умолчанию товара 5, факт {0}", price);
+    }
+
+    [IntegrationTest("Округление на КАЖДОЙ ступени цепочки — не то же самое, что округлить один раз в конце")]
+    public async Task ChainRoundsAtEveryStepNotOnlyAtTheEnd()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        await PriceAsync(s, s.Piece, 1.00m);
+
+        var stepOne = DictionaryManager.NewRecord<PriceList>();
+        stepOne.Name = $"Step1 {Db.NewId():N}"[..18];
+        stepOne.Direction = PriceDirection.Sale;
+        stepOne.Kind = PriceListKind.Calculated;
+        stepOne.BasePriceType = s.PriceList;
+        stepOne.MarkupPercent = 0.5m; // 1.00 -> 1.005 -> округляется здесь же до 1.01
+        stepOne = await DictionaryManager.SaveRecordAsync(stepOne);
+
+        var stepTwo = DictionaryManager.NewRecord<PriceList>();
+        stepTwo.Name = $"Step2 {Db.NewId():N}"[..18];
+        stepTwo.Direction = PriceDirection.Sale;
+        stepTwo.Kind = PriceListKind.Calculated;
+        stepTwo.BasePriceType = stepOne.MetaId;
+        stepTwo.MarkupPercent = 0.5m;
+        stepTwo = await DictionaryManager.SaveRecordAsync(stepTwo);
+
+        var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
+        customer.PriceList = stepTwo.MetaId;
+        await DictionaryManager.SaveRecordAsync(customer);
+
+        // Пошагово: 1.00 →+0.5%→ 1.005 →округл.→ 1.01 →+0.5%→ 1.01505 →округл.→
+        // 1.02. Если бы наценки сначала перемножили (1.005×1.005=1.010025) и
+        // округлили один раз в конце, получилось бы 1.01 — на цент меньше. Тест
+        // ловит именно эту развилку, а не то, что цепочка вообще посчиталась.
+        var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(price == 1.02m,
+            "пошаговое округление обязано дать 1.02 (не 1.01 от умножения одним разом), факт {0}", price);
+    }
+
+    [IntegrationTest("Отключённый тип цены В СЕРЕДИНЕ цепочки (не тот, что назначен клиенту напрямую) даёт null")]
+    public async Task DisabledBasePriceTypeMidChainResolvesToNull()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        await PriceAsync(s, s.Piece, 100m);
+
+        var wholesale = DictionaryManager.NewRecord<PriceList>();
+        wholesale.Name = $"Wholesale {Db.NewId():N}"[..18];
+        wholesale.Direction = PriceDirection.Sale;
+        wholesale.Kind = PriceListKind.Calculated;
+        wholesale.BasePriceType = s.PriceList;
+        wholesale.MarkupPercent = 20m;
+        wholesale = await DictionaryManager.SaveRecordAsync(wholesale);
+
+        var dealer = DictionaryManager.NewRecord<PriceList>();
+        dealer.Name = $"Dealer {Db.NewId():N}"[..18];
+        dealer.Direction = PriceDirection.Sale;
+        dealer.Kind = PriceListKind.Calculated;
+        dealer.BasePriceType = wholesale.MetaId;
+        dealer.MarkupPercent = -5m;
+        dealer = await DictionaryManager.SaveRecordAsync(dealer);
+
+        var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
+        customer.PriceList = dealer.MetaId; // клиенту назначена верхушка, не Wholesale
+        await DictionaryManager.SaveRecordAsync(customer);
+
+        var before = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(before == 114m, "цепочка исправна до отключения звена, факт {0}", before);
+
+        // Wholesale выключается НЕ у клиента напрямую (это уже ловит
+        // DisabledPriceListIsIgnored), а как промежуточное звено, куда
+        // PriceListOfAsync вообще не заглядывает, — проверка внутри
+        // ResolvePriceForTypeAsync обязана поймать его сама.
+        wholesale.IsDisabled = true;
+        await DictionaryManager.SaveRecordAsync(wholesale);
+
+        var afterDisable = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(afterDisable == null,
+            "отключение звена в середине цепочки обязано дать null, а не старую или нулевую цену, факт {0}", afterDisable);
+    }
 }

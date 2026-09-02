@@ -21,7 +21,8 @@ public partial class GoodsIssueGLEventHandler : TypedDocumentEventHandler<GoodsI
         try
         {
             var jeId = await context.GetService<IInventoryWriteOffGLService>()
-                .PostAsync(document.MetaId, document.FromCell, "Goods issue " + document.MetaId);
+                .PostAsync(document.MetaId, document.FromCell, document.DocumentDate,
+                           "Goods issue " + document.MetaId);
             if (jeId.HasValue)
                 await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
         }

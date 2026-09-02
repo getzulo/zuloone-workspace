@@ -176,6 +176,12 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        // НАЛОГОВЫЙ КОНТУР. Нужен потому, что страновой НДС КСА больше не берёт
+        // ставку из плоской константы: выставление счёта фиксирует на документе
+        // ставку, подобранную по налоговому коду и ДАТЕ счёта. Без контура ставки
+        // нет, и НДС не начисляется — ровно как раньше без заведённой константы.
+        await TaxCircuitAsync();
+
         return new Setup
         {
             MainCell = main.Cell, ShopCell = shop.Cell,
@@ -183,6 +189,70 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
             Item = item.MetaId, Piece = piece, Box = box,
             Supplier = supplier.MetaId, Customer = customer.MetaId,
         };
+    }
+
+    /// <summary>Налог → ставка 15% → код → настройки: минимальный контур, из
+    /// которого выставление счёта берёт действующую на дату счёта ставку.</summary>
+    private async Task TaxCircuitAsync()
+    {
+        var from = new DateTime(2020, 1, 1);
+
+        var authority = DictionaryManager.NewRecord<TaxAuthority>();
+        authority.Code = $"AU-{Db.NewId():N}"[..10];
+        authority.Name = "ZATCA";
+        authority.CountryCode = "SA";
+        authority.IsActive = true;
+        authority = await DictionaryManager.SaveRecordAsync(authority);
+
+        var jurisdiction = DictionaryManager.NewRecord<TaxJurisdiction>();
+        jurisdiction.Code = $"JU-{Db.NewId():N}"[..10];
+        jurisdiction.Name = "Saudi Arabia";
+        jurisdiction.CountryCode = "SA";
+        jurisdiction.Level = 0;
+        jurisdiction = await DictionaryManager.SaveRecordAsync(jurisdiction);
+
+        var tax = DictionaryManager.NewRecord<Tax>();
+        tax.Code = $"VT-{Db.NewId():N}"[..10];
+        tax.Name = "Saudi VAT";
+        tax.Authority = authority.MetaId;
+        tax.Jurisdiction = jurisdiction.MetaId;
+        tax.EffectiveFrom = from;
+        tax = await DictionaryManager.SaveRecordAsync(tax);
+
+        var rate = DictionaryManager.NewRecord<TaxRate>();
+        rate.Tax = tax.MetaId;
+        rate.Code = $"R-{Db.NewId():N}"[..10];
+        rate.Rate = 0.15m;
+        rate.EffectiveFrom = from;
+        rate = await DictionaryManager.SaveRecordAsync(rate);
+
+        var category = DictionaryManager.NewRecord<TaxCategory>();
+        category.Tax = tax.MetaId;
+        category.Code = $"STD-{Db.NewId():N}"[..10];
+        category.Treatment = "STANDARD";
+        category = await DictionaryManager.SaveRecordAsync(category);
+
+        var code = DictionaryManager.NewRecord<TaxCode>();
+        code.Code = $"OUT-{Db.NewId():N}"[..10];
+        code.Name = "Standard 15%";
+        code.Tax = tax.MetaId;
+        code.TaxCategory = category.MetaId;
+        code.TaxRate = rate.MetaId;
+        code.EffectiveFrom = from;
+        code = await DictionaryManager.SaveRecordAsync(code);
+
+        var direction = DictionaryManager.NewRecord<TaxDirection>();
+        direction.Code = "OUTPUT";
+        direction.Name = "Output";
+        await DictionaryManager.SaveRecordAsync(direction);
+
+        // Настройки налога — ОДИНОЧНЫЙ и КЭШИРУЕМЫЙ справочник: кэш переживает
+        // откат кейса, поэтому правим существующую запись, а не заводим слепо.
+        var rows = await DictionaryManager.GetRecordsAsync<TaxSettings>(null, 1);
+        var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<TaxSettings>();
+        settings.DefaultTaxCode = code.Code;
+        settings.PricesIncludeTax = false;
+        await DictionaryManager.SaveRecordAsync(settings);
     }
 
     // ───────────────────────────── чтение регистров ──────────────────────────
@@ -402,10 +472,17 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         Assert.IsTrue(receivable == 300m, "дебиторка = 1 ящик × 300 = 300, а не {0}", receivable);
         Assert.IsTrue(revenue == 300m, "выручка = 300, а не {0}", revenue);
 
-        // НДС КСА 15% от той же базы (ставка — глобальная константа SaudiVatRate).
-        // Регистр читается по ИМЕНИ через ITotalsManager: типовой зависимости от
-        // модели локализации это не создаёт.
-        var vatRate = GlobalConstants.Get<decimal>("SaudiVatRate");
+        // НДС КСА от той же базы. Ставка читается С ДОКУМЕНТА, а не из глобальной
+        // константы: страновой скрипт берёт её из поля TaxRateApplied, куда
+        // выставление счёта записывает ставку, действовавшую на дату документа.
+        // Раньше тест сверялся с ТЕМ ЖЕ плоским числом, что и код, и потому
+        // повторял его ошибку: после смены ставки оба брали новую — включая
+        // счета за прошлый период. Регистр читается по ИМЕНИ через ITotalsManager:
+        // типовой зависимости от модели локализации это не создаёт.
+        var issued = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
+        var vatRate = issued?.TaxRateApplied ?? 0m;
+        Assert.IsTrue(vatRate > 0m,
+            "выставление обязано зафиксировать на счёте действующую ставку налога, факт {0}", vatRate);
         var vat = await TotalAsync("VatPayable", "Amount") - vat0;
         Assert.IsTrue(vat == Math.Round(300m * vatRate, 2, MidpointRounding.AwayFromZero),
             "НДС = 300 × {0} , а не {1}", vatRate, vat);

@@ -126,6 +126,28 @@
       "layerId": 2,
       "createdDateTime": "2026-09-02T11:40:00",
       "modifiedDateTime": "2026-09-02T11:40:00"
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "fieldName": "TaxRateApplied",
+      "caption": "Applied tax rate",
+      "caption_ar": "معدل الضريبة المطبق",
+      "caption_ru": "Применённая ставка налога",
+      "edtMetaId": "713835c7-1701-4c43-9cf7-c754519dc5d4",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "description": "Ставка налога, действовавшая на ДАТУ СЧЁТА; фиксируется при выставлении (OnBeforePost подбирает её через TaxService). Хранится долей (0.15 = 15%). Поле нужно на документе потому же, почему LegalEntity: страновые проводки синхронны и датированную ставку сами не подберут. Раньше НДС КСА считался от константы без даты и расходился с TaxLedger.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "24d6b07f-8a62-467d-a74d-b3e413494060",
+      "name": "TaxRateApplied",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
     }
   ],
   "subtypes": [

@@ -87,7 +87,7 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
         if (le == null) return null;
 
         return await gl.PostAsync(
-            DateTime.UtcNow.Date, le.MetaId, le.Currency, tax,
+            calc.DocumentDate, le.MetaId, le.Currency, tax,
             settings.ArAccountCode, settings.VatPayableAccountCode,
             "Output VAT " + header.MetaId,
             "Дебиторка (налог с покупателя)", "НДС к уплате");

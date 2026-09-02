@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
+using ZuloOne.Services.Contracts;
 
 // Скидка уровня лояльности на счёте продажи.
 //
@@ -28,6 +29,7 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
     {
         public Guid Location;
         public Guid Item;
+        public Guid Unit;
         public Guid Customer;
     }
 
@@ -117,7 +119,7 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
             new Dictionary<string, object?> { ["Cell"] = cell.MetaId, ["Item"] = item.MetaId },
             new Dictionary<string, decimal> { ["Qty"] = 100m });
 
-        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
+        return new Setup { Location = cell.MetaId, Item = item.MetaId, Unit = unit.MetaId, Customer = customer.MetaId };
     }
 
     private static async Task TierAsync(string name, decimal minPoints, decimal discountPercent)
@@ -221,5 +223,113 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
             "недостигнутый уровень скидки не даёт, факт {0}", stored.DiscountPercent);
         Assert.IsTrue(await SumAsync("Revenue") == 1000m,
             "выручка без скидки 1000, факт {0}", await SumAsync("Revenue"));
+    }
+
+    private static async Task<string> RejectedAsync(Func<Task> action, string because)
+    {
+        try
+        {
+            await action();
+        }
+        catch (Exception ex)
+        {
+            return ex.Message;
+        }
+        Assert.IsTrue(false, "сохранение обязано быть отклонено: {0}", because);
+        return string.Empty;
+    }
+
+    [IntegrationTest("Скидка уровня вне диапазона 0..100% отклоняется на сохранении")]
+    public async Task TierDiscountOutOfRangeIsRejected()
+    {
+        var overMessage = await RejectedAsync(async () =>
+            await TierAsync($"Over-{Db.NewId():N}"[..14], 0m, 150m),
+            "скидка уровня 150% обязана быть отклонена");
+        Assert.IsTrue(overMessage.Contains("от 0 до 100"),
+            "ожидался отказ по верхней границе, факт: {0}", overMessage);
+
+        var negMessage = await RejectedAsync(async () =>
+            await TierAsync($"Neg-{Db.NewId():N}"[..14], 0m, -5m),
+            "отрицательная скидка уровня обязана быть отклонена");
+        Assert.IsTrue(negMessage.Contains("от 0 до 100"),
+            "ожидался отказ по нижней границе, факт: {0}", negMessage);
+    }
+
+    [IntegrationTest("Скидка на счёте вне диапазона 0..100%, введённая вручную, отклоняется на сохранении")]
+    public async Task ManualInvoiceDiscountOutOfRangeIsRejected()
+    {
+        var s = await SetupAsync();
+        var message = await RejectedAsync(
+            () => IssueAsync(s, qty: 1m, price: 100m, manualDiscount: 120m),
+            "ручная скидка 120% обязана быть отклонена");
+        Assert.IsTrue(message.Contains("от 0 до 100"),
+            "ожидался отказ по диапазону скидки счёта, факт: {0}", message);
+    }
+
+    [IntegrationTest("Скидка ровно 100% обнуляет все денежные ноги, не ломая проведение")]
+    public async Task ManualDiscountOfExactly100PercentZeroesMoneyLegs()
+    {
+        var s = await SetupAsync();
+        var invoice = await IssueAsync(s, qty: 10m, price: 100m, manualDiscount: 100m);
+
+        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
+        Assert.IsTrue(stored.DiscountPercent == 100m, "скидка 100% сохраняется, факт {0}", stored.DiscountPercent);
+        Assert.IsTrue(await SumAsync("Receivable") == 0m, "долг при скидке 100% — 0, факт {0}", await SumAsync("Receivable"));
+        Assert.IsTrue(await SumAsync("Revenue") == 0m, "выручка при скидке 100% — 0, факт {0}", await SumAsync("Revenue"));
+        Assert.IsTrue(await PointsAsync(s.Customer) == 0m, "баллы при скидке 100% не начисляются, факт {0}", await PointsAsync(s.Customer));
+    }
+
+    [IntegrationTest("Цена из Calculated-цепочки и скидка уровня лояльности одновременно доходят до всех денежных ног")]
+    public async Task CalculatedPriceAndTierDiscountBothApply()
+    {
+        var s = await SetupAsync();
+        var pricing = GetService<IPricingService>();
+
+        var basePriceType = DictionaryManager.NewRecord<PriceList>();
+        basePriceType.Name = $"Base-{Db.NewId():N}"[..14];
+        basePriceType.Direction = PriceDirection.Sale;
+        basePriceType = await DictionaryManager.SaveRecordAsync(basePriceType);
+
+        var row = DictionaryManager.NewRecord<PriceListItem>();
+        row.PriceList = basePriceType.MetaId;
+        row.Item = s.Item;
+        row.Unit = s.Unit;
+        row.Price = 100m;
+        await DictionaryManager.SaveRecordAsync(row);
+
+        var calculated = DictionaryManager.NewRecord<PriceList>();
+        calculated.Name = $"Retail-{Db.NewId():N}"[..14];
+        calculated.Direction = PriceDirection.Sale;
+        calculated.Kind = PriceListKind.Calculated;
+        calculated.BasePriceType = basePriceType.MetaId;
+        calculated.MarkupPercent = 20m;
+        calculated = await DictionaryManager.SaveRecordAsync(calculated);
+
+        var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
+        customer.PriceList = calculated.MetaId;
+        await DictionaryManager.SaveRecordAsync(customer);
+
+        var resolvedPrice = await pricing.ResolveSalePriceAsync(s.Item, s.Unit, s.Customer, DateTime.UtcNow.Date);
+        Assert.IsTrue(resolvedPrice == 120m, "100 + 20% = 120, факт {0}", resolvedPrice);
+
+        await TierAsync($"Silver-{Db.NewId():N}"[..14], 100m, 10m);
+        await TotalsManager.PostMovementAsync("LoyaltyPoints", null, DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Customer"] = s.Customer },
+            new Dictionary<string, decimal> { ["Points"] = 500m });
+
+        // Цена строки — то, что реально вернула бы команда «Заполнить цены» по
+        // Calculated-цепочке (120), а не число, придуманное для теста скидки.
+        var invoice = await IssueAsync(s, qty: 10m, price: resolvedPrice!.Value);
+
+        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
+        Assert.IsTrue(stored.DiscountPercent == 10m, "уровень Silver даёт 10%, в документе {0}", stored.DiscountPercent);
+        // 10 × 120 = 1200, минус 10% = 1080 — обе фичи (цепочка наценок и скидка
+        // уровня) обязаны сойтись в ОДНОЙ базе, как и везде в этом документе.
+        Assert.IsTrue(await SumAsync("Receivable") == 1080m,
+            "долг с ценой из цепочки и скидкой уровня 1080, факт {0}", await SumAsync("Receivable"));
+        Assert.IsTrue(await SumAsync("Revenue") == 1080m,
+            "выручка 1080, факт {0}", await SumAsync("Revenue"));
+        Assert.IsTrue(await PointsAsync(s.Customer) == 1580m,
+            "баллы 500 + 1080 = 1580, факт {0}", await PointsAsync(s.Customer));
     }
 }

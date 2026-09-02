@@ -276,6 +276,30 @@ public class SurplusCostingTest : IntegrationTestScriptBase
             "стоимость запаса выросла на 3 × 7 = 21, факт {0}", value1 - value0);
     }
 
+    [IntegrationTest("Черновик инвентаризации склад не двигает")]
+    public async Task StockCountDraftDoesNotMoveStock()
+    {
+        // РЕГРЕССИЯ, ВОЗМОЖНАЯ ИМЕННО ПОСЛЕ ПЕРЕВОДА ДОКУМЕНТА НА postOnSave.
+        // С postOnSave: true цикл проведения запускается на КАЖДОМ сохранении, в
+        // том числе черновика. Обработчик, пишущий движения без проверки подтипа,
+        // подвинет склад ещё до проведения: кладовщик вбил факт, нажал «Сохранить»,
+        // передумал — а остаток уже испорчен, и снять движения нечем, потому что
+        // подтип не менялся.
+        var s = await SetupAsync();
+        await ReceiveAsync(s, 10m, 7m);
+
+        var count = await DocumentManager.NewDocumentAsync<StockCount>();
+        count.Cell = s.Cell;
+        count.CountDate = DateTime.UtcNow.Date;
+        count.Lines.Add(new StockCountLinesTablePartRow { Item = s.Item, CountedQty = 13m });
+        await DocumentManager.SaveDocumentAsync(count);
+
+        var stock = await TotalsManager.GetBalanceAsync("Stock", "Qty",
+            new Dictionary<string, object?> { ["Item"] = s.Item, ["Cell"] = s.Cell });
+        Assert.IsTrue(stock == 10m,
+            "черновик пересчёта не должен двигать склад: остаётся 10, факт {0}", stock);
+    }
+
     [IntegrationTest("Пересчёт в неосновной единице не создаёт фиктивной недостачи")]
     public async Task StockCountInNonBaseUnitUsesBaseQuantity()
     {

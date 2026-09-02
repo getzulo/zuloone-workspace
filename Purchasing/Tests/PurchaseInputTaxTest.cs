@@ -134,12 +134,6 @@ public class PurchaseInputTaxTest : IntegrationTestScriptBase
         authority.IsActive = true;
         authority = await DictionaryManager.SaveRecordAsync(authority);
 
-        var taxType = DictionaryManager.NewRecord<TaxType>();
-        taxType.Code = $"VAT-{Db.NewId():N}"[..10];
-        taxType.Name = "Value added tax";
-        taxType.Category = "VAT";
-        taxType = await DictionaryManager.SaveRecordAsync(taxType);
-
         var jurisdiction = DictionaryManager.NewRecord<TaxJurisdiction>();
         jurisdiction.Code = $"SA-{Db.NewId():N}"[..10];
         jurisdiction.Name = "Saudi Arabia";
@@ -150,7 +144,6 @@ public class PurchaseInputTaxTest : IntegrationTestScriptBase
         var tax = DictionaryManager.NewRecord<Tax>();
         tax.Code = $"VT-{Db.NewId():N}"[..10];
         tax.Name = "Saudi VAT";
-        tax.TaxType = taxType.MetaId;
         tax.Authority = authority.MetaId;
         tax.Jurisdiction = jurisdiction.MetaId;
         tax.EffectiveFrom = from;
