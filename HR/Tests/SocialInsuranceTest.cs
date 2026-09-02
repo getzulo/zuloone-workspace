@@ -235,4 +235,42 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
             liability += Convert.ToDecimal(r["Amount"]);
         Assert.IsTrue(liability == 10000m, "задолженность 10000, факт {0}", liability);
     }
+
+    [IntegrationTest("Повторное проведение не удваивает взносы")]
+    public async Task RepostDoesNotDuplicateContributions()
+    {
+        var s = await SetupAsync();
+        await ConfigureAsync(s.Home);
+        var emp = await NewEmployeeAsync(s.Division, s.Home, "Omar");
+
+        var pa = await AccrueAsync(s.Division, new[] { (emp, 10000m) });
+        Assert.IsTrue(await DocumentManager.CountDocumentsAsync<SocialInsuranceAccrual>() == 1,
+            "после первого проведения ровно одно начисление взносов");
+
+        // Откат и повторное проведение — ровно тот случай, в котором цепочка
+        // OnAfterPost проходит по документу второй раз. Без гарда идемпотентности
+        // здесь появился бы ВТОРОЙ документ взносов, удвоив и обязательство перед
+        // фондом, и удержание у сотрудника.
+        var stored = (await DocumentManager.GetDocumentAsync<PayrollAccrual>(pa.MetaId))!;
+        stored.Subtype = PayrollAccrual.Subtypes.Draft;
+        await DocumentManager.SaveDocumentAsync(stored);
+
+        stored.Subtype = PayrollAccrual.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(stored);
+
+        Assert.IsTrue(await DocumentManager.CountDocumentsAsync<SocialInsuranceAccrual>() == 1,
+            "после повторного проведения взносы по-прежнему одни, факт {0}",
+            await DocumentManager.CountDocumentsAsync<SocialInsuranceAccrual>());
+
+        // Главное — не количество документов, а суммы: обязательство перед фондом
+        // должно остаться одинарным.
+        decimal employee = 0m, employer = 0m;
+        foreach (var r in await TotalsManager.QueryBalancesAsync("SocialInsurance"))
+        {
+            employee += Convert.ToDecimal(r["EmployeeContribution"]);
+            employer += Convert.ToDecimal(r["EmployerContribution"]);
+        }
+        Assert.IsTrue(employee == 975m, "взнос работника не удвоился: 975, факт {0}", employee);
+        Assert.IsTrue(employer == 1175m, "взнос работодателя не удвоился: 1175, факт {0}", employer);
+    }
 }

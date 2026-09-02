@@ -350,9 +350,9 @@
       "modifiedDateTime": "2026-08-31T02:40:31.0518968"
     },
     {
-      "caption": "Price lists",
-      "caption_ar": "قوائم الأسعار",
-      "caption_ru": "Прайс-листы",
+      "caption": "Price types",
+      "caption_ar": "أنواع الأسعار",
+      "caption_ru": "Типы цен",
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 9,
       "targetType": "Dictionary",
@@ -363,9 +363,9 @@
       "layerId": 2
     },
     {
-      "caption": "Price list rows",
-      "caption_ar": "بنود قائمة الأسعار",
-      "caption_ru": "Строки прайс-листа",
+      "caption": "Price type rows",
+      "caption_ar": "بنود نوع السعر",
+      "caption_ru": "Строки типа цен",
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 10,
       "targetType": "Dictionary",

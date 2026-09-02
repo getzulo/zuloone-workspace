@@ -1,5 +1,6 @@
 #nullable enable
 using System.Collections.Generic;
+using System.Linq;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
@@ -68,6 +69,22 @@ public partial class PayrollAccrualEventHandler : TypedDocumentEventHandler<Payr
         var accrual = await docs.GetDocumentAsync<PayrollAccrual>(header.MetaId);
         if (accrual is null || accrual.Lines.Count == 0) return EventResult.Ok();
 
+        // Взносы начисляются РОВНО ОДИН РАЗ на начисление ФОТ. Проведение может
+        // прогнаться повторно — драйвер итогов, пишущий движения во время
+        // проведения самого документа, перезапускает цепочку, — и без этой
+        // отсечки второй проход создал бы ещё один документ взносов, удвоив и
+        // обязательство перед фондом, и удержание у сотрудника.
+        //
+        // Ребро несёт только id концов, тип — у узла: сопоставляем одно с другим.
+        // Ищется именно РЕБРО от этого начисления, а не любой родственник типа
+        // «взносы» в графе: семья обходит связи в обе стороны, и чужой документ,
+        // попавший в неё окольным путём, отменил бы создание своего.
+        var family = await docs.GetDocumentFamilyAsync(header.MetaId);
+        var contributionIds = new HashSet<Guid>(
+            family.Nodes.Where(n => n.DocTypeMetaId == SocialInsuranceAccrualType).Select(n => n.DocId));
+        if (family.Edges.Any(e => e.ParentDocId == header.MetaId && contributionIds.Contains(e.ChildDocId)))
+            return EventResult.Ok();
+
         // Один сотрудник может встречаться в нескольких строках — взнос берётся
         // с СУММЫ начислений, иначе потолок базы обходится дроблением строк.
         var gross = new Dictionary<Guid, decimal>();
@@ -81,6 +98,8 @@ public partial class PayrollAccrualEventHandler : TypedDocumentEventHandler<Payr
 
         return EventResult.Ok();
     }
+
+    private static readonly Guid SocialInsuranceAccrualType = Guid.Parse("a0d03063-af77-4fd0-886b-223a9731f105");
 
     // Before unpost/cancel: about to reverse the document's movements.
     public override Task<EventResult> OnBeforeUnpostAsync(PayrollAccrual header, EventContext context)

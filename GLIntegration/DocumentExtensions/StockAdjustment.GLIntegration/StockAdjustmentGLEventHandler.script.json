@@ -1,0 +1,18 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "d9b467ef-f77d-46df-bbe7-6255f7ff1603",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "StockAdjustment",
+    "objectMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 20,
+    "metaId": "bf03f068-74b2-422a-9207-8f1ac0fc6141",
+    "name": "StockAdjustmentGLEventHandler",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:49:24.1835437",
+    "modifiedDateTime": "2026-09-02T11:49:24.1835437"
+  }
+}

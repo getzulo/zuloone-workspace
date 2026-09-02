@@ -289,4 +289,230 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         Assert.IsTrue(pricing.LineAmount(3m, 5m) == pricing.LineAmount(3m, 5m, 0m),
             "перегрузки разошлись: {0} против {1}", pricing.LineAmount(3m, 5m), pricing.LineAmount(3m, 5m, 0m));
     }
+
+    [IntegrationTest("Динамический тип цены: положительная наценка над базовым")]
+    public async Task CalculatedTypeAppliesPositiveMarkup()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        await PriceAsync(s, s.Piece, 100m);
+
+        var retail = DictionaryManager.NewRecord<PriceList>();
+        retail.Name = $"Retail+20 {Db.NewId():N}"[..20];
+        retail.Direction = PriceDirection.Sale;
+        retail.Kind = PriceListKind.Calculated;
+        retail.BasePriceType = s.PriceList;
+        retail.MarkupPercent = 20m;
+        retail = await DictionaryManager.SaveRecordAsync(retail);
+
+        var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
+        customer.PriceList = retail.MetaId;
+        await DictionaryManager.SaveRecordAsync(customer);
+
+        var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(price == 120m, "100 + 20% = 120, факт {0}", price);
+    }
+
+    [IntegrationTest("Динамический тип цены: отрицательная наценка работает как скидка")]
+    public async Task CalculatedTypeAppliesNegativeMarkupAsDiscount()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        await PriceAsync(s, s.Piece, 100m);
+
+        var discounted = DictionaryManager.NewRecord<PriceList>();
+        discounted.Name = $"Discount-10 {Db.NewId():N}"[..20];
+        discounted.Direction = PriceDirection.Sale;
+        discounted.Kind = PriceListKind.Calculated;
+        discounted.BasePriceType = s.PriceList;
+        discounted.MarkupPercent = -10m;
+        discounted = await DictionaryManager.SaveRecordAsync(discounted);
+
+        var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
+        customer.PriceList = discounted.MetaId;
+        await DictionaryManager.SaveRecordAsync(customer);
+
+        var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(price == 90m, "100 − 10% = 90, факт {0}", price);
+    }
+
+    [IntegrationTest("Цепочка из нескольких Calculated считается по шагам, а не суммой процентов")]
+    public async Task ChainOfCalculatedTypesResolvesThroughMultipleLevels()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        await PriceAsync(s, s.Piece, 100m);
+
+        var wholesale = DictionaryManager.NewRecord<PriceList>();
+        wholesale.Name = $"Wholesale {Db.NewId():N}"[..20];
+        wholesale.Direction = PriceDirection.Sale;
+        wholesale.Kind = PriceListKind.Calculated;
+        wholesale.BasePriceType = s.PriceList;
+        wholesale.MarkupPercent = 20m; // 100 -> 120
+        wholesale = await DictionaryManager.SaveRecordAsync(wholesale);
+
+        var dealer = DictionaryManager.NewRecord<PriceList>();
+        dealer.Name = $"Dealer {Db.NewId():N}"[..20];
+        dealer.Direction = PriceDirection.Sale;
+        dealer.Kind = PriceListKind.Calculated;
+        dealer.BasePriceType = wholesale.MetaId;
+        dealer.MarkupPercent = -5m; // 120 -> 114 (не 115 — считаем по шагам, а не суммой процентов)
+        dealer = await DictionaryManager.SaveRecordAsync(dealer);
+
+        var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
+        customer.PriceList = dealer.MetaId;
+        await DictionaryManager.SaveRecordAsync(customer);
+
+        var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(price == 114m, "100 →+20%→ 120 →−5%→ 114 (не 115), факт {0}", price);
+    }
+
+    [IntegrationTest("Динамический тип цены без базового отклоняется на сохранении")]
+    public async Task CalculatedTypeWithoutBaseIsRejected()
+    {
+        var message = await RejectedAsync(async () =>
+        {
+            var calc = DictionaryManager.NewRecord<PriceList>();
+            calc.Name = $"NoBase {Db.NewId():N}"[..16];
+            calc.Direction = PriceDirection.Sale;
+            calc.Kind = PriceListKind.Calculated;
+            await DictionaryManager.SaveRecordAsync(calc);
+        }, "Calculated без BasePriceType обязан быть отклонён");
+        Assert.IsTrue(message.Contains("обязан ссылаться на базовый тип цены"),
+            "ожидался отказ по отсутствию базового типа, факт: {0}", message);
+    }
+
+    [IntegrationTest("Цикл в цепочке базовых типов цены отклоняется")]
+    public async Task CycleInBaseChainIsRejected()
+    {
+        var a = DictionaryManager.NewRecord<PriceList>();
+        a.Name = $"ChainA {Db.NewId():N}"[..16];
+        a.Direction = PriceDirection.Sale;
+        a = await DictionaryManager.SaveRecordAsync(a);
+
+        var b = DictionaryManager.NewRecord<PriceList>();
+        b.Name = $"ChainB {Db.NewId():N}"[..16];
+        b.Direction = PriceDirection.Sale;
+        b.Kind = PriceListKind.Calculated;
+        b.BasePriceType = a.MetaId;
+        b.MarkupPercent = 5m;
+        b = await DictionaryManager.SaveRecordAsync(b);
+
+        // A уже базовый для B; попытка сделать A calculated-от-B замыкает A→B→A.
+        var message = await RejectedAsync(async () =>
+        {
+            a.Kind = PriceListKind.Calculated;
+            a.BasePriceType = b.MetaId;
+            a.MarkupPercent = 3m;
+            await DictionaryManager.SaveRecordAsync(a);
+        }, "A→B→A обязан быть отклонён как цикл");
+        Assert.IsTrue(message.Contains("зациклилась"),
+            "ожидался отказ по циклу, факт: {0}", message);
+    }
+
+    [IntegrationTest("Тип цены не может ссылаться сам на себя")]
+    public async Task SelfReferenceIsRejected()
+    {
+        // Само-ссылка на ЕЩЁ НЕ сохранённую запись непроверяема (и недостижима
+        // через UI: справочник-пикер не может выбрать не существующую пока
+        // запись) — self.MetaId до первого SaveRecordAsync ещё не тот Guid,
+        // что окажется в БД. Поэтому сценарий тот же, что у цикла A→B→A выше:
+        // сначала обычное сохранение, затем апдейт со ссылкой на самого себя.
+        var self = DictionaryManager.NewRecord<PriceList>();
+        self.Name = $"SelfRef {Db.NewId():N}"[..16];
+        self.Direction = PriceDirection.Sale;
+        self = await DictionaryManager.SaveRecordAsync(self);
+
+        var message = await RejectedAsync(async () =>
+        {
+            self.Kind = PriceListKind.Calculated;
+            self.BasePriceType = self.MetaId;
+            self.MarkupPercent = 10m;
+            await DictionaryManager.SaveRecordAsync(self);
+        }, "self-reference обязан быть отклонён");
+        Assert.IsTrue(message.Contains("зациклилась"),
+            "ожидался отказ по циклу (self-reference), факт: {0}", message);
+    }
+
+    [IntegrationTest("Базовый тип цены не может ссылаться на другой тип цены")]
+    public async Task BaseTypeWithBasePriceTypeIsRejected()
+    {
+        var s = await SeedAsync();
+        var message = await RejectedAsync(async () =>
+        {
+            var invalid = DictionaryManager.NewRecord<PriceList>();
+            invalid.Name = $"BadBase {Db.NewId():N}"[..16];
+            invalid.Direction = PriceDirection.Sale;
+            invalid.Kind = PriceListKind.Base;
+            invalid.BasePriceType = s.PriceList;
+            await DictionaryManager.SaveRecordAsync(invalid);
+        }, "Base с BasePriceType обязан быть отклонён");
+        Assert.IsTrue(message.Contains("не может ссылаться на другой тип цены"),
+            "ожидался отказ по несогласованности Base, факт: {0}", message);
+    }
+
+    [IntegrationTest("Базовый тип цены не может иметь наценку")]
+    public async Task BaseTypeWithNonZeroMarkupIsRejected()
+    {
+        var message = await RejectedAsync(async () =>
+        {
+            var invalid = DictionaryManager.NewRecord<PriceList>();
+            invalid.Name = $"BadMarkup {Db.NewId():N}"[..16];
+            invalid.Direction = PriceDirection.Sale;
+            invalid.Kind = PriceListKind.Base;
+            invalid.MarkupPercent = 5m;
+            await DictionaryManager.SaveRecordAsync(invalid);
+        }, "Base с ненулевой наценкой обязан быть отклонён");
+        Assert.IsTrue(message.Contains("не может иметь наценку"),
+            "ожидался отказ по наценке у Base, факт: {0}", message);
+    }
+
+    [IntegrationTest("Динамический тип цены вправе считаться от базового с ДРУГИМ направлением")]
+    public async Task CalculatedTypeMayBaseOnDifferentDirection()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+
+        // Закупочный базовый тип с ценой 50 у ЭТОГО ЖЕ товара.
+        var purchaseBase = DictionaryManager.NewRecord<PriceList>();
+        purchaseBase.Name = $"PurchBase {Db.NewId():N}"[..20];
+        purchaseBase.Direction = PriceDirection.Purchase;
+        purchaseBase = await DictionaryManager.SaveRecordAsync(purchaseBase);
+        await PriceAsync(s, s.Piece, 50m, list: purchaseBase.MetaId);
+
+        // Дилерская цена ПРОДАЖИ считается от закупочной — ключевой сценарий фичи.
+        var dealerSale = DictionaryManager.NewRecord<PriceList>();
+        dealerSale.Name = $"DealerSale {Db.NewId():N}"[..20];
+        dealerSale.Direction = PriceDirection.Sale;
+        dealerSale.Kind = PriceListKind.Calculated;
+        dealerSale.BasePriceType = purchaseBase.MetaId;
+        dealerSale.MarkupPercent = 20m;
+        dealerSale = await DictionaryManager.SaveRecordAsync(dealerSale);
+
+        var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
+        customer.PriceList = dealerSale.MetaId;
+        await DictionaryManager.SaveRecordAsync(customer);
+
+        var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
+        Assert.IsTrue(price == 60m, "закупочная 50 + 20% = 60 для дилерской продажи, факт {0}", price);
+    }
+
+    [IntegrationTest("Строку цены нельзя завести у расчётного (Calculated) типа цены")]
+    public async Task PriceListItemUnderCalculatedTypeIsRejected()
+    {
+        var s = await SeedAsync();
+        var calc = DictionaryManager.NewRecord<PriceList>();
+        calc.Name = $"CalcOnly {Db.NewId():N}"[..16];
+        calc.Direction = PriceDirection.Sale;
+        calc.Kind = PriceListKind.Calculated;
+        calc.BasePriceType = s.PriceList;
+        calc.MarkupPercent = 10m;
+        calc = await DictionaryManager.SaveRecordAsync(calc);
+
+        var message = await RejectedAsync(
+            () => PriceAsync(s, s.Piece, 50m, list: calc.MetaId),
+            "строка цены под Calculated-типом обязана быть отклонена");
+        Assert.IsTrue(message.Contains("не задаётся строками"),
+            "ожидался отказ по Calculated-типу, факт: {0}", message);
+    }
 }

@@ -185,4 +185,46 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
             onHand += Convert.ToDecimal(r["Qty"]);
         Assert.IsTrue(onHand == 7m, "на ячейке осталось 10−3=7, факт {0}", onHand);
     }
+
+    [IntegrationTest("Ручной перевод счёта в Paid отклоняется, долг и баллы остаются на месте")]
+    public async Task ManualPaidTransitionIsRejected()
+    {
+        // ПОЧЕМУ ЭТО ВАЖНЕЕ, ЧЕМ «ОТЧЁТЫ ПО СТАТУСУ ВРУТ». Подтип Paid объявлен, и
+        // переход Issued→Paid объявлен тоже — значит он доступен из формы документа
+        // одним выбором в списке. А к подтипу Issued привязаны ТРИ транзакционных
+        // скрипта: дебиторка (Sales), баллы лояльности (CRM) и страновой НДС
+        // (LocalizationSaudiArabia). Переход снимает движения покидаемого состояния,
+        // поэтому один клик снёс бы долг БЕЗ всякой оплаты, баллы клиента и
+        // обязательство по налогу — и документ замёрз бы в этом виде, потому что
+        // Paid помечен isReadOnly.
+        //
+        // Оплата в этой системе — ОТДЕЛЬНЫЙ документ (CustomerPayment), а платёжный
+        // статус читается из регистра Receivable, а не из подтипа счёта.
+        var s = await SetupAsync();
+
+        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
+            new Dictionary<string, decimal> { ["Qty"] = 10m });
+
+        var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        inv.Customer = s.Customer;
+        inv.Location = s.Location;
+        inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
+        await DocumentManager.SaveDocumentAsync(inv);
+
+        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(inv);
+        Assert.IsTrue(await SumAsync("Receivable") == 15m, "долг признан выставлением");
+
+        var reason = string.Empty;
+        try
+        {
+            inv.Subtype = SalesInvoice.Subtypes.Paid;
+            await DocumentManager.SaveDocumentAsync(inv);
+        }
+        catch (Exception ex) { reason = ex.Message; }
+
+        Assert.IsTrue(reason.Contains("CustomerPayment"),
+            "отказ обязан назвать правильный путь — оплату отдельным документом; факт: {0}", reason);
+    }
 }

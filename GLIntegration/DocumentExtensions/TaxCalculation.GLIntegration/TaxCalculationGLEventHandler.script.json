@@ -1,0 +1,18 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "af1c3f9d-47f5-47e2-a5c7-9da0e207b761",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "TaxCalculation",
+    "objectMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 10,
+    "metaId": "ff85e103-de0d-4889-8a86-307524a28b42",
+    "name": "TaxCalculationGLEventHandler",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T12:17:03.5392659",
+    "modifiedDateTime": "2026-09-02T12:18:56.0869302"
+  }
+}

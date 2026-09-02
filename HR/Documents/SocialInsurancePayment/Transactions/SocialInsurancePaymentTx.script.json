@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "SocialInsurancePayment",
+    "objectMetaId": "cbfe306f-9fe7-4288-a6e5-f291b793cc98",
+    "executionOrder": 1,
+    "metaId": "44dfbbaf-1905-49e3-8142-10eef4b44e70",
+    "name": "SocialInsurancePaymentTx",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:03:42.0811465",
+    "modifiedDateTime": "2026-09-02T11:03:42.0811466"
+  }
+}

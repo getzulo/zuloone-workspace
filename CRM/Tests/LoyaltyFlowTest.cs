@@ -192,14 +192,21 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
 
         var redemption = await NewRedemptionAsync(customer, 20m);
 
-        var rejected = false;
+        // Причина проверяется по тексту, а не просто «что-то упало». Голый
+        // catch (Exception) зеленел бы от ЛЮБОЙ поломки — несуществующего
+        // клиента, опечатки в имени регистра, падения внутри события — и
+        // подтверждал бы защиту баланса, которой могло не быть вовсе.
+        var reason = string.Empty;
         try
         {
             redemption.Subtype = LoyaltyRedemption.Subtypes.Redeemed;
             await DocumentManager.SaveDocumentAsync(redemption);
         }
-        catch (Exception) { rejected = true; }
-        Assert.IsTrue(rejected, "списание 20 при балансе 15 должно быть отклонено");
+        catch (Exception ex) { reason = ex.Message; }
+
+        Assert.IsTrue(reason.Length > 0, "списание 20 при балансе 15 должно быть отклонено");
+        Assert.IsTrue(reason.Contains("15") && reason.Contains("20"),
+            "отказ обязан назвать и остаток, и запрошенное, факт: {0}", reason);
     }
 
     [IntegrationTest("Уровень ограничивает списание за один документ")]
@@ -251,5 +258,71 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
 
         Assert.IsTrue(await PointsBalanceAsync(customer) == 450m,
             "ровно лимит уровня списывается: 500 − 50 = 450, факт {0}", await PointsBalanceAsync(customer));
+    }
+
+    /// <summary>Настройки модуля — singleton: правим запись, если она есть, иначе заводим.</summary>
+    private static async Task ConfigureLoyaltyAsync(bool enabled, decimal pointsPerCurrencyUnit)
+    {
+        var rows = await DictionaryManager.GetRecordsAsync<CRMSettings>(null, 1);
+        var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<CRMSettings>();
+        settings.LoyaltyEnabled = enabled;
+        settings.PointsPerCurrencyUnit = pointsPerCurrencyUnit;
+        await DictionaryManager.SaveRecordAsync(settings);
+    }
+
+    /// <summary>Счёт на 3 × 5 = 15 единиц выручки, проведённый по-настоящему.</summary>
+    private async Task<Setup> IssueInvoiceAsync()
+    {
+        var s = await SetupAsync();
+        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
+            new Dictionary<string, decimal> { ["Qty"] = 10m });
+
+        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        invoice.Customer = s.Customer;
+        invoice.Location = s.Location;
+        invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
+        await DocumentManager.SaveDocumentAsync(invoice);
+
+        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(invoice);
+        return s;
+    }
+
+    [IntegrationTest("Курс начисления берётся из настроек, а не зашит в код")]
+    public async Task EarnRateComesFromSettings()
+    {
+        // Два балла за единицу валюты. Пока PointsPerCurrencyUnit не читался,
+        // ответ был бы 15 при любом значении настройки.
+        await ConfigureLoyaltyAsync(enabled: true, pointsPerCurrencyUnit: 2m);
+
+        var s = await IssueInvoiceAsync();
+
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 30m,
+            "3 × 5 × курс 2 = 30 баллов, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
+    [IntegrationTest("Выключенная лояльность не начисляет баллы")]
+    public async Task DisabledLoyaltyEarnsNothing()
+    {
+        // Рубильник обязан выключать начисление. Пока LoyaltyEnabled не читался,
+        // баллы начислялись независимо от него.
+        await ConfigureLoyaltyAsync(enabled: false, pointsPerCurrencyUnit: 1m);
+
+        var s = await IssueInvoiceAsync();
+
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 0m,
+            "при выключенной лояльности баллы не начисляются, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
+    [IntegrationTest("Без записи настроек начисление работает как раньше — 1:1")]
+    public async Task NoSettingsKeepsLegacyRate()
+    {
+        // Совместимость: ненастроенный модуль не должен молча перестать
+        // начислять баллы на стендах, где записи настроек никогда не заводили.
+        var s = await IssueInvoiceAsync();
+
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 15m,
+            "без настроек 1 балл за единицу валюты: 15, факт {0}", await PointsBalanceAsync(s.Customer));
     }
 }

@@ -1,0 +1,13 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+    "description": "Расширение корректировки остатков моделью Costing: излишек заводит партию себестоимости по текущей средней",
+    "metaId": "5718f610-9237-4bd7-ac58-f8efa2a90b7b",
+    "name": "StockAdjustment.Costing",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:11:42.2610303",
+    "modifiedDateTime": "2026-09-02T11:11:42.2610303"
+  }
+}

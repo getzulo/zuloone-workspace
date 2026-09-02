@@ -91,31 +91,43 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
     }
 
     // Списание компонентов Costing уже провёл (Stock-нетто отрицательный —
-    // выбытие). Изделию партии нет: заводим её сама, средней стоимостью
-    // потреблённых компонентов (Amount/Quantity в ItemCostFifo на момент выпуска —
-    // компонент без партий стоит 0, ровно как и при обычном списании).
+    // выбытие). Изделию партии нет: заводим её сами — ФАКТИЧЕСКОЙ стоимостью
+    // списанных компонентов.
+    //
+    // ПОЧЕМУ ФАКТ, А НЕ СРЕДНЯЯ. Раньше здесь считалась средняя Amount/Quantity по
+    // ItemCostFifo. Она врала дважды. Во-первых, драйвер к этому моменту УЖЕ
+    // списал компоненты (его EndDocument отрабатывает внутри проведения), так что
+    // средняя бралась по остатку ПОСЛЕ списания, а не по тому, что ушло в
+    // производство. Во-вторых, средняя расходится с FIFO на нескольких партиях
+    // разной цены — а списывает драйвер именно по методу из настроек.
+    //
+    // Факт лежит там же, где его читает разноска себестоимости продаж: движения
+    // ItemCostFifo, помеченные этим документом. Отрицательные суммы в них — ровно
+    // то, что движок снял с партий. Беря их, выпуск оценивается тем же методом,
+    // каким оценено списание, и стоимость запаса остаётся value-neutral при любой
+    // настройке — по построению, а не по совпадению.
     public override async Task<EventResult> OnAfterPostAsync(ProductionOrder document, EventContext context)
     {
         if (document.Subtype != "Finished")
             return EventResult.Ok();
 
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<ProductionOrder>(document.MetaId);
-        var components = full?.Components ?? document.Components;
         var product = full?.Product ?? document.Product;
         var quantity = full?.Quantity ?? document.Quantity;
         var baseQuantity = full?.BaseQuantity ?? document.BaseQuantity;
         var outputQty = baseQuantity != 0m ? baseQuantity : quantity;
 
         var totals = context.GetService<ITotalsManager>();
-        var totalCost = 0m;
-        foreach (var kv in ComponentDemand(components))
-        {
-            var key = new Dictionary<string, object?> { ["Item"] = kv.Key };
-            var qtyOnHand = await totals.GetBalanceAsync("ItemCostFifo", "Quantity", key);
-            if (qtyOnHand <= 0m) continue;
 
-            var amtOnHand = await totals.GetBalanceAsync("ItemCostFifo", "Amount", key);
-            totalCost += Math.Round(amtOnHand / qtyOnHand * kv.Value, 2, MidpointRounding.AwayFromZero);
+        // Только отрицательные суммы: партию выпуска мы ещё не завели, но фильтр
+        // оставлен явным — он же защищает от повторного прочтения собственной
+        // проводки, если порядок хуков когда-нибудь изменится.
+        var totalCost = 0m;
+        foreach (var row in await totals.QueryMovementsAsync(
+            "ItemCostFifo", $"[DocumentMetaId] = '{document.MetaId}'"))
+        {
+            var amount = row["Amount"] is null ? 0m : Convert.ToDecimal(row["Amount"]);
+            if (amount < 0m) totalCost += -amount;
         }
 
         var movementDate = DateTime.UtcNow.Date;

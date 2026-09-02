@@ -1,0 +1,124 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Social insurance payment",
+    "caption_ru": "Платёж в фонд соцстраха",
+    "description": "Погашение обязательства перед фондом соцстраха: отдельный документ, а не подтип начисления — начисленные взносы и удержание у работника остаются на месте. Зеркало PayrollPayment по зарплате и VendorPayment по кредиторке.",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "e8db82e5-09c4-431f-8c61-0f87ebb62c60",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
+    "name": "SocialInsurancePayment",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:03:42.0059829",
+    "modifiedDateTime": "2026-09-02T11:03:42.0059829"
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
+      "fieldName": "Division",
+      "caption": "Division",
+      "caption_ru": "Подразделение",
+      "edtMetaId": "ff85f4a4-ab90-41f8-9bf9-32367aab94a1",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "14d40f8f-9296-4a3c-b4a5-0437bd2b824b",
+      "name": "Division",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T11:03:42.0060288",
+      "modifiedDateTime": "2026-09-02T11:03:42.0060288"
+    },
+    {
+      "documentTypeMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
+      "fieldName": "ID",
+      "caption": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "0548835a-dbf6-4634-943e-5da50acf8ffb",
+      "name": "ID",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T11:03:42.0060124",
+      "modifiedDateTime": "2026-09-02T11:03:42.0060125"
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
+      "name": "Draft",
+      "caption": "Draft",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "0ec1f595-8215-4487-ab94-724ec64a8845",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T11:03:42.0060899",
+      "modifiedDateTime": "2026-09-02T11:03:42.00609"
+    },
+    {
+      "documentTypeMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
+      "name": "Paid",
+      "caption": "Paid",
+      "subtypeValue": "Paid",
+      "subtypeCaption": "Paid",
+      "subtypeCaption_ru": "Оплачено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "cbfe306f-9fe7-4288-a6e5-f291b793cc98",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T11:03:42.0061746",
+      "modifiedDateTime": "2026-09-02T11:03:42.0061746"
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
+      "tablePartTypeMetaId": "f271cb4a-c8a1-44c5-bdbc-bced07fc08e8",
+      "isCloneable": true,
+      "metaId": "620f9ae3-24c3-4fe3-89ae-2ed95417ae3c",
+      "name": "Lines",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T11:03:42.006184",
+      "modifiedDateTime": "2026-09-02T11:03:42.0061841"
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "0ec1f595-8215-4487-ab94-724ec64a8845",
+      "toSubtypeMetaId": "cbfe306f-9fe7-4288-a6e5-f291b793cc98",
+      "metaId": "5de00b2b-cf2e-4432-9bae-ba778395d1dd",
+      "name": "Draft->Paid",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T11:03:42.0061982",
+      "modifiedDateTime": "2026-09-02T11:03:42.0061982"
+    }
+  ]
+}

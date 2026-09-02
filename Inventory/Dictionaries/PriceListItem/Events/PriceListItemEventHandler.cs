@@ -23,6 +23,18 @@ public partial class PriceListItemEventHandler : TypedDictionaryEventHandler<Pri
         if (record.Price <= 0m)
             return EventResult.Cancel("Цена должна быть больше нуля");
 
+        var priceType = await context.GetService<IDictionaryManager<PriceList>>().GetRecordAsync(record.PriceList);
+        if (priceType == null)
+            return EventResult.Cancel("Тип цены не найден");
+
+        // Строка — это Base-механизм (цена вводится вручную). У Calculated-типа
+        // цену считает PricingService от BasePriceType; строка под таким типом
+        // была бы мёртвыми данными, которые лестница подбора никогда не читает.
+        if (priceType.Kind == PriceListKind.Calculated)
+            return EventResult.Cancel(
+                $"Тип цены «{priceType.Name}» — расчётный (Calculated): цена вычисляется от базового типа, "
+                + "а не задаётся строками. Строки заводятся только у базовых типов цены (Kind = Base)");
+
         // Пустая граница — открытый конец интервала, а не «сегодня»: цена без
         // EffectiveFrom действует с начала времён, без EffectiveTo — бессрочно.
         var from = record.EffectiveFrom ?? DateTime.MinValue;

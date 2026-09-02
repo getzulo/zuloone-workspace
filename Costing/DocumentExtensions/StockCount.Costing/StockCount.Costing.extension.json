@@ -1,0 +1,13 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "57100901-0000-4000-8000-000000000000",
+    "description": "Расширение инвентаризации моделью Costing: пересчёт вверх заводит партию себестоимости по текущей средней",
+    "metaId": "0161bcbe-4953-442a-90c6-59879f3c2f87",
+    "name": "StockCount.Costing",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:11:42.4308219",
+    "modifiedDateTime": "2026-09-02T11:11:42.430822"
+  }
+}

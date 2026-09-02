@@ -17,6 +17,10 @@ using ZuloOne.Runtime.Generated;
 // MeasurementService).
 public partial class PricingService
 {
+    // Defense-in-depth рядом с проверкой цикла на сохранении (PriceListEventHandler) —
+    // та уже не даёт сохранить зацикленную цепочку, здесь только страховка.
+    private const int MaxPriceTypeChainDepth = 20;
+
     private readonly IDictionaryManager<PriceList> _lists;
     private readonly IDictionaryManager<PriceListItem> _rows;
     private readonly IDictionaryManager<Item> _items;
@@ -96,10 +100,9 @@ public partial class PricingService
     /// Лестница поиска цены. Порядок повторяет ItemQuantityConverter — от самого
     /// точного к самому общему, с остановкой на первом ответе:
     ///
-    ///   1. строка прайса ровно на эту единицу — цена задана как есть;
-    ///   2. строка прайса на другую единицу того же товара — пересчёт;
-    ///   3. умолчание товара (оно за базовую единицу) — пересчёт;
-    ///   4. null.
+    ///   1. тип цены (с учётом Kind — см. ResolvePriceForTypeAsync);
+    ///   2. умолчание товара (оно за базовую единицу) — пересчёт;
+    ///   3. null.
     ///
     /// null — это «цена не задана», а НЕ ошибка: заполнение цен не обязано
     /// находить её для каждой строки.
@@ -108,20 +111,8 @@ public partial class PricingService
     {
         if (priceList is Guid listId)
         {
-            // По (прайс, товар) фильтруем в базе, а окно дат — в памяти:
-            // сравнение дат строкой фильтра хрупко, а строк на один товар единицы.
-            var rows = (await _rows.GetRecordsAsync($"PriceList = '{listId}' AND Item = '{item}'"))
-                .Where(r => Covers(r, onDate))
-                .ToList();
-
-            var exact = rows.FirstOrDefault(r => r.Unit == unit);
-            if (exact != null) return exact.Price;
-
-            foreach (var row in rows)
-            {
-                var converted = await ConvertPriceAsync(item, row.Price, row.Unit, unit);
-                if (converted != null) return converted;
-            }
+            var resolved = await ResolvePriceForTypeAsync(item, unit, listId, onDate, depth: 0);
+            if (resolved != null) return resolved;
         }
 
         var card = await _items.GetRecordAsync(item);
@@ -136,6 +127,54 @@ public partial class PricingService
         return unit == card.UnitOfMeasure
             ? fallback
             : await ConvertPriceAsync(item, fallback, card.UnitOfMeasure, unit);
+    }
+
+    /// <summary>
+    /// Цена по конкретному ТИПУ ЦЕНЫ. Base — строка PriceListItem ровно на эту
+    /// единицу, иначе на другую единицу того же товара с пересчётом. Calculated —
+    /// рекурсивно цена базового типа (BasePriceType) с применённой наценкой
+    /// (MarkupPercent, может быть отрицательной). Умолчание товара сюда
+    /// НЕ включено: оно крайняя ступень лестницы в ResolveAsync, а не часть
+    /// разрешения типа — иначе два разных Calculated-типа без собственной цены в
+    /// базовом тихо сошлись бы к одному умолчанию товара мимо своих наценок.
+    /// </summary>
+    private async Task<decimal?> ResolvePriceForTypeAsync(Guid item, Guid unit, Guid priceTypeId, DateTime onDate, int depth)
+    {
+        if (depth > MaxPriceTypeChainDepth) return null;
+
+        var priceType = await _lists.GetRecordAsync(priceTypeId);
+        if (priceType == null || priceType.IsDisabled) return null;
+
+        if (priceType.Kind == PriceListKind.Base)
+        {
+            // По (тип цены, товар) фильтруем в базе, а окно дат — в памяти:
+            // сравнение дат строкой фильтра хрупко, а строк на один товар единицы.
+            var rows = (await _rows.GetRecordsAsync($"PriceList = '{priceTypeId}' AND Item = '{item}'"))
+                .Where(r => Covers(r, onDate))
+                .ToList();
+
+            var exact = rows.FirstOrDefault(r => r.Unit == unit);
+            if (exact != null) return exact.Price;
+
+            foreach (var row in rows)
+            {
+                var converted = await ConvertPriceAsync(item, row.Price, row.Unit, unit);
+                if (converted != null) return converted;
+            }
+
+            return null;
+        }
+
+        // Kind == Calculated: цена базового типа, к ней применяется наценка.
+        // Direction базового типа намеренно не проверяется — дилерская цена
+        // продажи вправе считаться от закупочной, это ключевой сценарий фичи.
+        if (priceType.BasePriceType == Guid.Empty) return null;
+
+        var basePrice = await ResolvePriceForTypeAsync(item, unit, priceType.BasePriceType, onDate, depth + 1);
+        if (basePrice == null) return null;
+
+        var marked = basePrice.Value * (1m + priceType.MarkupPercent / 100m);
+        return Math.Round(marked, GlobalConstants.Get<int?>("AmountScale") ?? 2, MidpointRounding.AwayFromZero);
     }
 
     /// <summary>Действует ли строка прайса на дату. Пустая граница — открытый конец.</summary>

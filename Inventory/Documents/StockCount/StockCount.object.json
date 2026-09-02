@@ -8,7 +8,7 @@
     "isCloneable": true,
     "numberSequenceMetaId": "57100204-0000-4000-8000-000000000000",
     "requiresPosting": true,
-    "postOnSave": false,
+    "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
     "isObsolete": false,
     "isExtension": false,

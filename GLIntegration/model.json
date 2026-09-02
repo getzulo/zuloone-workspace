@@ -92,6 +92,15 @@
       "layerId": 2,
       "createdDateTime": "2026-09-02T00:00:00",
       "modifiedDateTime": "2026-09-02T00:00:00"
+    },
+    {
+      "modelMetaId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "minVersion": "1.0.0",
+      "metaId": "285e2cbd-75ac-4a1e-84a2-721e3196855c",
+      "name": "GLIntegration->Tax",
+      "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+      "layerId": 2
     }
   ]
 }

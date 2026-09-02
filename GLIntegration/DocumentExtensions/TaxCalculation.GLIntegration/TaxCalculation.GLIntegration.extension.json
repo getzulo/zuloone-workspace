@@ -1,0 +1,13 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
+    "description": "Расширение налогового расчёта моделью GLIntegration: исходящий НДС становится обязательством в главной книге",
+    "metaId": "af1c3f9d-47f5-47e2-a5c7-9da0e207b761",
+    "name": "TaxCalculation.GLIntegration",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T12:17:03.518373",
+    "modifiedDateTime": "2026-09-02T12:17:03.518373"
+  }
+}

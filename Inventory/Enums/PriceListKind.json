@@ -1,0 +1,43 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "Способ получения цены типа цен. Базовый — цена вводится вручную по строкам (PriceListItem). Динамический — цена вычисляется от другого типа цены (BasePriceType) с наценкой в процентах (MarkupPercent). Закрытый набор живёт в метаданных, а не в проверке обработчика.",
+    "isExtension": false,
+    "metaId": "c5c80a37-5d51-4ee7-9a4e-075d5017824d",
+    "name": "PriceListKind",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:58:13.811",
+    "modifiedDateTime": "2026-09-02T11:58:13.811"
+  },
+  "values": [
+    {
+      "enumMetaId": "c5c80a37-5d51-4ee7-9a4e-075d5017824d",
+      "value": 0,
+      "caption": "Base",
+      "caption_ru": "Базовый",
+      "displayOrder": 0,
+      "description": "Цена вводится вручную по строкам прайса (PriceListItem)",
+      "metaId": "84c8f137-2576-449e-bd77-7f6736ed3af4",
+      "name": "Base",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T11:58:13.811",
+      "modifiedDateTime": "2026-09-02T11:58:13.811"
+    },
+    {
+      "enumMetaId": "c5c80a37-5d51-4ee7-9a4e-075d5017824d",
+      "value": 1,
+      "caption": "Calculated",
+      "caption_ru": "Динамический",
+      "displayOrder": 1,
+      "description": "Цена вычисляется от BasePriceType с наценкой MarkupPercent",
+      "metaId": "e5f68209-3df7-49d3-bf0f-4b3b19f29398",
+      "name": "Calculated",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T11:58:13.811",
+      "modifiedDateTime": "2026-09-02T11:58:13.811"
+    }
+  ]
+}

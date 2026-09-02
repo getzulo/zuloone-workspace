@@ -1,0 +1,14 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Разноска выбытия запасов мимо продажи (списание, бой, отпуск) в главную книгу: Dr списание запасов / Cr запасы по фактически списанной себестоимости",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "6657d9b2-96fd-42a4-bb3b-7b4926f1757b",
+    "metaId": "f4c9cdda-f1db-403b-8776-9ff3732ad5b0",
+    "name": "InventoryWriteOffGLService",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:49:24.144101",
+    "modifiedDateTime": "2026-09-02T11:49:24.144101"
+  }
+}

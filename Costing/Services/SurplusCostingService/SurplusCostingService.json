@@ -1,0 +1,14 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Себестоимость безвозмездного прихода: излишек и инвентаризационный пересчёт вверх заводят партию по текущей средней цене товара",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "33c5a8e3-37b2-46cf-95d9-4fe28dc5ec7c",
+    "metaId": "5db32436-826e-468c-8e71-804854ac40af",
+    "name": "SurplusCostingService",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:11:52.6994686",
+    "modifiedDateTime": "2026-09-02T11:11:52.6994686"
+  }
+}

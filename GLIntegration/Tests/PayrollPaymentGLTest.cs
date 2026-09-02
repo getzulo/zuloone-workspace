@@ -106,7 +106,11 @@ public class PayrollPaymentGLTest : IntegrationTestScriptBase
         cashAccount.Currency = currency.MetaId;
         cashAccount = await DictionaryManager.SaveRecordAsync(cashAccount);
 
-        var settings = DictionaryManager.NewRecord<AccountingSettings>();
+        // Настройки — ОДИНОЧНЫЙ и КЭШИРУЕМЫЙ справочник: правим существующую
+        // запись, если она есть, иначе заводим. Слепой NewRecord делает тест
+        // зависимым от порядка прогона.
+        var accRows = await DictionaryManager.GetRecordsAsync<AccountingSettings>(null, 1);
+        var settings = accRows.Count > 0 ? accRows[0] : DictionaryManager.NewRecord<AccountingSettings>();
         settings.ArAccountCode = "1200";
         settings.RevenueAccountCode = "4000";
         settings.InventoryAccountCode = "1400";

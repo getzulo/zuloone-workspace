@@ -57,6 +57,26 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
 
     public override async Task<EventResult> OnBeforePostAsync(SalesInvoice header, EventContext context)
     {
+        // ПОДТИП «ОПЛАЧЕН» НЕДОСТИЖИМ НАМЕРЕННО, И ЭТО НАДО ЗАЩИЩАТЬ ЯВНО.
+        //
+        // Он объявлен, и переход Issued→Paid объявлен тоже — то есть доступен из
+        // формы документа одним выбором в списке. Но к подтипу Issued привязаны ТРИ
+        // транзакционных скрипта: дебиторка (Sales), баллы лояльности (CRM) и
+        // страновой НДС (LocalizationSaudiArabia). Переход снимает движения
+        // покидаемого состояния — значит один клик снял бы долг БЕЗ оплаты, сжёг бы
+        // баллы клиента и обнулил обязательство по налогу. Документ при этом
+        // замёрз бы: Paid помечен isReadOnly.
+        //
+        // Оплата в этой системе — ОТДЕЛЬНЫЙ документ (CustomerPayment), гасящий
+        // регистр Receivable и не трогающий счёт. Платёжный статус читается из
+        // регистра, а не из подтипа. Тот же урок записан в отключённой команде
+        // MarkPaid; здесь он закрыт на замок, а не только объяснён комментарием.
+        if (header.Subtype == "Paid")
+            return EventResult.Cancel(
+                "Счёт нельзя перевести в «Оплачен» вручную: это снимет дебиторку без оплаты, "
+                + "баллы лояльности и начисленный НДС. Проведите оплату документом CustomerPayment — "
+                + "он погасит долг, а счёт останется выставленным.");
+
         if (header.Subtype != "Issued") return EventResult.Ok();
 
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);

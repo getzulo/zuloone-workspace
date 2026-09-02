@@ -1,0 +1,18 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "0161bcbe-4953-442a-90c6-59879f3c2f87",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "StockCount",
+    "objectMetaId": "57100901-0000-4000-8000-000000000000",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 10,
+    "metaId": "cd6d2848-691e-443f-b7fb-e1b2979473fb",
+    "name": "StockCountCostingEventHandler",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T11:11:42.4516299",
+    "modifiedDateTime": "2026-09-02T11:11:42.4516299"
+  }
+}

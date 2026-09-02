@@ -156,6 +156,18 @@
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
+      "caption": "Social insurance payment",
+      "caption_ru": "Платёж в фонд соцстраха",
+      "parentMetaId": "3297ac6a-7c2e-4d1b-8a6f-3e5c2d7a1f40",
+      "displayOrder": 3,
+      "targetType": "Document",
+      "targetMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
+      "metaId": "c66ac975-e679-4707-8c3f-c64a45f6af5f",
+      "name": "SocialInsurancePayment",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "layerId": 2
+    },
+    {
       "caption": "Payroll payment",
       "caption_ar": "الرواتب الدفع",
       "caption_ru": "Выплата ФОТ",

@@ -56,7 +56,7 @@ public class ProductionOutputCostTest : IntegrationTestScriptBase
         return sum;
     }
 
-    [IntegrationTest("Выпуск заводит партию изделию средней стоимостью компонентов и не меняет суммарную стоимость запасов")]
+    [IntegrationTest("Выпуск заводит партию изделию фактической стоимостью компонентов и не меняет суммарную стоимость запасов")]
     public async Task FinishRollsUpComponentCostToProduct()
     {
         var loc = Db.NewId();
@@ -122,6 +122,60 @@ public class ProductionOutputCostTest : IntegrationTestScriptBase
         var productAmt = await FifoAsync("Amount", product.MetaId);
         Assert.IsTrue(productQty == 5m, "партия по количеству заводится всегда, факт {0}", productQty);
         Assert.IsTrue(productAmt == 0m, "компонент без стоимостной партии стоит 0, факт {0}", productAmt);
+    }
+
+    [IntegrationTest("На нескольких партиях разной цены выпуск оценивается по FIFO, а не по средней")]
+    public async Task FinishUsesActualFifoCostNotAverage()
+    {
+        // РАСХОЖДЕНИЕ, КОТОРОГО НЕ ВИДНО НА ОДНОЙ ПАРТИИ. Пока лот один, средняя и
+        // FIFO совпадают, и любая из формул даёт верный ответ. Разъезжаются они на
+        // двух лотах разной цены:
+        //   10 × 7 = 70 и 10 × 9 = 90 → 20 штук на 160, средняя 8
+        //   потребили 15: FIFO = 10×7 + 5×9 = 115, средняя дала бы 15×8 = 120
+        // Драйвер списывает по НАСТРОЙКЕ (здесь FIFO) и снимает ровно 115. Выпуск
+        // обязан взять ту же величину — иначе стоимость запаса создастся из
+        // воздуха или исчезнет, и InventoryValue перестанет быть value-neutral.
+        var rows = await DictionaryManager.GetRecordsAsync<CostingSettings>(null, 1);
+        var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<CostingSettings>();
+        settings.CostingMethod = "FIFO";
+        settings.RoundCosts = false;
+        await DictionaryManager.SaveRecordAsync(settings);
+
+        var loc = Db.NewId();
+        var newItem = await ItemFactoryAsync();
+        var product = await newItem("Изделие-ДваЛота");
+        var comp = await newItem("Компонент-ДваЛота");
+
+        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Cell"] = loc, ["Item"] = comp.MetaId },
+            new Dictionary<string, decimal> { ["Qty"] = 20m });
+
+        // Два ОТДЕЛЬНЫХ движения — два разных слоя, иначе FIFO нечего упорядочивать.
+        await TotalsManager.PostMovementAsync("ItemCostFifo", null, DateTime.UtcNow.Date.AddDays(-2),
+            new Dictionary<string, object?> { ["Item"] = comp.MetaId },
+            new Dictionary<string, decimal> { ["Quantity"] = 10m, ["Amount"] = 70m });
+        await TotalsManager.PostMovementAsync("ItemCostFifo", null, DateTime.UtcNow.Date.AddDays(-1),
+            new Dictionary<string, object?> { ["Item"] = comp.MetaId },
+            new Dictionary<string, decimal> { ["Quantity"] = 10m, ["Amount"] = 90m });
+
+        var valueBefore = await InventoryValueTotalAsync("Value");
+
+        var order = await NewOrderAsync(product.MetaId, 5m, loc, comp.MetaId, 15m);
+        order.Subtype = ProductionOrder.Subtypes.Finished;
+        await DocumentManager.SaveDocumentAsync(order);
+
+        var productAmt = await FifoAsync("Amount", product.MetaId);
+        Assert.IsTrue(productAmt == 115m,
+            "выпуск стоит ровно списанное по FIFO: 10×7 + 5×9 = 115 (средняя дала бы 120), факт {0}", productAmt);
+
+        var compAmt = await FifoAsync("Amount", comp.MetaId);
+        Assert.IsTrue(compAmt == 45m,
+            "у компонента остаётся 160 − 115 = 45, факт {0}", compAmt);
+
+        // Главный инвариант: Costing переносит стоимость, а не создаёт её.
+        var valueDelta = await InventoryValueTotalAsync("Value") - valueBefore;
+        Assert.IsTrue(valueDelta == 0m,
+            "перенос стоимости не создаёт и не уничтожает её, дельта {0}", valueDelta);
     }
 
     /// <summary>Черновик заказа с одной строкой компонента (тот же хелпер, что в ProductionFlowTest).</summary>
