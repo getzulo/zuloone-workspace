@@ -97,18 +97,9 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         };
     }
 
-    private async Task<PriceListItem> PriceAsync(
+    private static Task<Guid> PriceAsync(
         Setup s, Guid unit, decimal price, DateTime? from = null, DateTime? to = null, Guid? list = null)
-    {
-        var row = DictionaryManager.NewRecord<PriceListItem>();
-        row.PriceType = list ?? s.PriceType;
-        row.Item = s.Item;
-        row.Unit = unit;
-        row.Price = price;
-        row.EffectiveFrom = from;
-        row.EffectiveTo = to;
-        return await DictionaryManager.SaveRecordAsync(row);
-    }
+        => GetService<IPricingService>().SetPriceAsync(list ?? s.PriceType, s.Item, unit, price, from, to);
 
     private static async Task<string> RejectedAsync(Func<Task> action, string because)
     {

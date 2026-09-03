@@ -144,8 +144,8 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         inv.Subtype = SalesInvoice.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
 
-        var rows = await DictionaryManager.GetRecordsAsync<PriceListItem>(
-            $"PriceType = '{s.PriceType}' AND Item = '{s.Item}' AND Unit = '{s.Piece}'");
+        var rows = await GetService<ILinkTableManager>().GetRecordsAsync<LT_PriceTypeHistory>(
+            new Dictionary<string, object?> { ["PriceType"] = s.PriceType, ["Item"] = s.Item, ["Unit"] = s.Piece });
         Assert.IsTrue(rows.Count == 0, "счёт не должен писать историю цен, факт {0} строк", rows.Count);
     }
 }

@@ -290,12 +290,7 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         basePriceType.Direction = PriceDirection.Sale;
         basePriceType = await DictionaryManager.SaveRecordAsync(basePriceType);
 
-        var row = DictionaryManager.NewRecord<PriceListItem>();
-        row.PriceType = basePriceType.MetaId;
-        row.Item = s.Item;
-        row.Unit = s.Unit;
-        row.Price = 100m;
-        await DictionaryManager.SaveRecordAsync(row);
+        await GetService<IPricingService>().SetPriceAsync(basePriceType.MetaId, s.Item, s.Unit, 100m, null, null);
 
         var calculated = DictionaryManager.NewRecord<PriceType>();
         calculated.Name = $"Retail-{Db.NewId():N}"[..14];

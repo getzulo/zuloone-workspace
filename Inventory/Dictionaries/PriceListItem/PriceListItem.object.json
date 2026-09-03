@@ -4,7 +4,7 @@
     "caption": "Item prices",
     "caption_ar": "أسعار الأصناف",
     "caption_ru": "Цены номенклатуры",
-    "description": "Самостоятельный справочник цен для подбора (IPricingService): товар, тип цены, единица, окно дат, значение. Карточка номенклатуры показывает развязку PriceTypeHistory. Только Kind=Base; у Calculated цену считает PricingService.",
+    "description": "Устаревший справочник цен. Подбор и запись идут через LT_PriceTypeHistory на карточке номенклатуры. Не удалять каскадом, пока в таблице есть старые строки.",
     "isLogged": true,
     "isHierarchical": false,
     "numberSequenceMetaId": "02cbff68-8ad3-402b-abc9-9fd94cc2802c",

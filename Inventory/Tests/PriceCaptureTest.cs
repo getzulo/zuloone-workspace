@@ -8,7 +8,7 @@ using ZuloOne.Runtime.Testing;
 using ZuloOne.Services.Contracts;
 
 // Автозахват истории цен: CaptureSalePriceAsync/CapturePurchasePriceAsync
-// (PricingService) строят настоящую историю PriceListItem из фактических цен
+// (PricingService) строят настоящую историю LT_PriceTypeHistory из фактических цен
 // проведённых документов. Тест вызывает сервис напрямую — так же, как
 // PriceResolutionTest проверяет Resolve*PriceAsync, — без документа: проводка
 // вызова из OnAfterPostAsync проверяется отдельно, в Purchasing/Sales.
@@ -68,9 +68,9 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         return new Setup { Item = item.MetaId, Piece = piece.MetaId, Customer = customer.MetaId, PriceType = list.MetaId };
     }
 
-    private Task<List<PriceListItem>> RowsAsync(Setup s)
-        => DictionaryManager.GetRecordsAsync<PriceListItem>(
-            $"PriceType = '{s.PriceType}' AND Item = '{s.Item}' AND Unit = '{s.Piece}'");
+    private static Task<List<LT_PriceTypeHistory>> RowsAsync(Setup s)
+        => GetService<ILinkTableManager>().GetRecordsAsync<LT_PriceTypeHistory>(
+            new Dictionary<string, object?> { ["PriceType"] = s.PriceType, ["Item"] = s.Item, ["Unit"] = s.Piece });
 
     [IntegrationTest("Свежий захват без предыдущих строк создаёт открытую строку")]
     public async Task FreshCaptureCreatesOpenRow()
@@ -214,8 +214,8 @@ public class PriceCaptureTest : IntegrationTestScriptBase
 
         await pricing.CaptureSalePriceAsync(s.Item, s.Piece, s.Customer, 100m, Day1);
 
-        var rows = await DictionaryManager.GetRecordsAsync<PriceListItem>(
-            $"PriceType = '{calc.MetaId}' AND Item = '{s.Item}'");
+        var rows = await GetService<ILinkTableManager>().GetRecordsAsync<LT_PriceTypeHistory>(
+            new Dictionary<string, object?> { ["PriceType"] = calc.MetaId, ["Item"] = s.Item });
         Assert.IsTrue(rows.Count == 0, "Calculated-тип не должен получить ни одной строки, факт {0}", rows.Count);
     }
 

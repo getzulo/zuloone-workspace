@@ -120,6 +120,7 @@ public class GoodsFlowTest : IntegrationTestScriptBase
 | Переход состояния | `ChangeSubtypeAsync(type, docId, "Received")` |
 | Движение напрямую | `PostMovementAsync(register, date, dims, resources)` |
 | Остатки / движения | `QueryBalancesAsync / QueryMovementsAsync(register, filter)` |
+| Регистр сведений | `SetInformationAsync / SliceLastAsync / SliceFirstAsync / QueryInformationAsync` |
 | Связи документов | `AddDocumentLinkAsync / GetDocumentFamilyEdgesAsync` |
 | Команды | `FindCommandIdAsync + Execute…CommandAsync` |
 | Сервисы | `GetService<T>()` — корневые менеджеры и контракты `I<Имя>`, как в любом скрипте; в самодостаточном тесте добавь `using ZuloOne.Core.Services;` |

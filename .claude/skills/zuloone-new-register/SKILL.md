@@ -1,6 +1,6 @@
 ---
 name: zuloone-new-register
-description: Создать регистр накопления ZuloOne — ресурсы, ДИНАМИЧЕСКИЕ АНАЛИТИКИ из переиспользуемого каталога, движок/драйвер итогов; §7 — кросс-регистровые отчёты через Virtual Total, §8 — отчёт поверх произвольного SQL (Custom Report). Use when adding an accumulation register (stock, money, cost) to a ZuloOne model, or when deciding how to build a report.
+description: Создать регистр накопления ZuloOne — ресурсы, ДИНАМИЧЕСКИЕ АНАЛИТИКИ из переиспользуемого каталога, движок/драйвер итогов; §7 — Virtual Total, §8 — Custom Report, §9 — регистр сведений (Information, SliceLast). Use when adding an accumulation or information register to a ZuloOne model, or when deciding how to build a report.
 ---
 
 # Новый регистр
@@ -315,4 +315,56 @@ public partial class CustomReport<Имя>
 кастомному отчёту; в дизайнере каждого из них — одна и та же панель. Поэтому
 «удалить» набор из формы отчёта = ОТВЯЗАТЬ его от этого объекта; сам набор
 исчезает только вместе с последней привязкой.
+
+## 9. Регистр сведений (`Information`)
+
+Не накопление. `registerEngineType: "Information"` → таблица `IR_{Имя}`
+(без `TR_`/`TB_`). Закон — точка на оси времени: ключ = `Period` + операционные
+физические измерения; та же комбинация обновляет строку, более поздний
+`Period` закрывает предыдущую. Срез: `SliceLast` / `SliceFirst`.
+
+Интервалы from/to с дырками — это справочник (`ValidFrom`/`ValidTo`), не этот
+движок.
+
+Ресурсы — **значения** любого EDT (число, строка, дата, ссылка, булево), не
+дельты. Измерения — физические (`dimensions`), не динамические аналитики (v1).
+
+```json
+{
+  "kind": "Register",
+  "object": {
+    "caption": "Tax rate history", "caption_ru": "История ставок",
+    "registerEngineType": "Information",
+    "metaId": "<GUID>", "name": "TaxRate",
+    "modelId": "<GUID модели>", "layerId": 1
+  },
+  "dimensions": [
+    { "registerMetaId": "<GUID>", "fieldName": "TaxCode", "name": "TaxCode",
+      "edtMetaId": "<GUID Ref-EDT>", "isOperational": true, "displayOrder": 1,
+      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 }
+  ],
+  "resources": [
+    { "registerMetaId": "<GUID>", "fieldName": "Rate", "name": "Rate",
+      "edtMetaId": "<GUID Decimal-EDT>", "displayOrder": 1,
+      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 }
+  ]
+}
+```
+
+В скрипте — не `transactions.Add`, а сервис (в тесте — `Db.SetInformationAsync` /
+`Db.SliceLastAsync`):
+
+```csharp
+var info = GetService<IInformationRegisterService>();
+await info.SetAsync("TaxRate", document.DocumentDate,
+    new Dictionary<string, object?> { ["TaxCode"] = line.TaxCode },
+    new Dictionary<string, object?> { ["Rate"] = line.Rate },
+    recorderMetaId: document.MetaId);
+var slice = await info.SliceLastAsync("TaxRate", document.DocumentDate,
+    new Dictionary<string, object?> { ["TaxCode"] = line.TaxCode });
+```
+
+Отмена документа удаляет строки с этим `RecorderMetaId`. Не ставь
+`isDoubleEntry` / `useBalanceTable` / драйвер итогов — дизайнер их прячет.
+Полный контракт: `wiki/developer/information-registers.md` в репозитории платформы.
 

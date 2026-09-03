@@ -189,19 +189,6 @@
       "layerId": 2
     },
     {
-      "caption": "Item prices",
-      "caption_ar": "أسعار الأصناف",
-      "caption_ru": "Цены номенклатуры",
-      "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
-      "displayOrder": 8,
-      "targetType": "Dictionary",
-      "targetMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
-      "metaId": "91dd790d-1a2b-4adc-8e5c-59b1a0cd907e",
-      "name": "PriceListItem",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2
-    },
-    {
       "caption": "Put-away",
       "caption_ar": "مهام التخزين",
       "caption_ru": "Раскладка",

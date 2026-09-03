@@ -6,6 +6,7 @@ using ZuloOne.Runtime.Testing;
 // Обязательно: тестовым скриптам этот namespace НЕ выдаётся глобальным using —
 // без него генерированные классы (PurchaseOrder, PriceType…) не находятся.
 using ZuloOne.Runtime.Generated;
+using ZuloOne.Services.Contracts;
 
 // Команда «Заполнить цены» на черновике заказа поставщику — зеркало
 // FillSalesPricesTest (Sales) на закупочной стороне.
@@ -133,12 +134,7 @@ public class FillPurchasePricesTest : IntegrationTestScriptBase
 
         // Цена задана за ЯЩИК — строка заказа будет в штуках, и команда обязана
         // положить в строку цену за штуку, а не за ящик.
-        var row = DictionaryManager.NewRecord<PriceListItem>();
-        row.PriceType = list.MetaId;
-        row.Item = item.MetaId;
-        row.Unit = box.MetaId;
-        row.Price = 120m;
-        await DictionaryManager.SaveRecordAsync(row);
+        await GetService<IPricingService>().SetPriceAsync(list.MetaId, item.MetaId, box.MetaId, 120m, null, null);
 
         var supplier = DictionaryManager.NewRecord<Supplier>();
         supplier.Name = "Bolt Supply Co";

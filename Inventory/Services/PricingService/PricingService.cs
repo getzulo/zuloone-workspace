@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 
@@ -18,17 +19,24 @@ public partial class PricingService
     private static int MaxPriceTypeChainDepth => GlobalConstants.Get<int?>("PriceTypeChainMaxDepth") ?? 20;
 
     private readonly IDictionaryManager<PriceType> _types;
-    private readonly IDictionaryManager<PriceListItem> _rows;
+    private readonly ILinkTableManager _rows;
     private readonly IDictionaryManager<Item> _items;
 
     public PricingService(
         IDictionaryManager<PriceType> types,
-        IDictionaryManager<PriceListItem> rows,
+        ILinkTableManager rows,
         IDictionaryManager<Item> items)
     {
         _types = types;
         _rows = rows;
         _items = items;
+    }
+
+    private Task<List<LT_PriceTypeHistory>> RowsOfAsync(Guid priceType, Guid item, Guid? unit = null)
+    {
+        var match = new Dictionary<string, object?> { ["PriceType"] = priceType, ["Item"] = item };
+        if (unit != null) match["Unit"] = unit.Value;
+        return _rows.GetRecordsAsync<LT_PriceTypeHistory>(match);
     }
 
     public decimal LineAmount(decimal quantity, decimal unitPrice)
@@ -57,7 +65,7 @@ public partial class PricingService
     public async Task<Guid> SetPriceAsync(
         Guid priceType, Guid item, Guid unit, decimal price, DateTime? from, DateTime? to)
     {
-        var row = new PriceListItem
+        var row = new LT_PriceTypeHistory
         {
             PriceType = priceType,
             Item = item,
@@ -72,7 +80,7 @@ public partial class PricingService
         // Пишем через ScriptServices, не через инжектированный менеджер:
         // Save с инжекта внутри сервиса роняет disposed IServiceProvider на
         // GetEventHandler (обработчик снова резолвит IPricingService).
-        return await ScriptServices.Get<IDictionaryManager<PriceListItem>>().SaveRecordAsync(row);
+        return await ScriptServices.Get<ILinkTableManager>().SaveRecordAsync(row);
     }
 
     public Task CaptureSalePriceAsync(Guid item, Guid unit, Guid? customer, decimal price, DateTime onDate)
@@ -86,8 +94,7 @@ public partial class PricingService
     public async Task<Guid?> FindOverlappingAsync(
         Guid priceType, Guid item, Guid unit, Guid excludeRow, DateTime? from, DateTime? to)
     {
-        var siblings = await _rows.GetRecordsAsync(
-            $"PriceType = '{priceType}' AND Item = '{item}' AND Unit = '{unit}'");
+        var siblings = await RowsOfAsync(priceType, item, unit);
         var clash = siblings.FirstOrDefault(other =>
             other.MetaId != excludeRow && WindowsOverlap(from, to, other.EffectiveFrom, other.EffectiveTo));
         return clash?.MetaId;
@@ -109,7 +116,8 @@ public partial class PricingService
         if (markupPercent <= -100m)
             return "Наценка не может быть -100% или меньше — цена базового типа обнулится или уйдёт в минус";
 
-        var existingRows = await _rows.GetRecordsAsync($"PriceType = '{metaId}'");
+        var existingRows = await _rows.GetRecordsAsync<LT_PriceTypeHistory>(
+            new Dictionary<string, object?> { ["PriceType"] = metaId });
         if (existingRows.Any())
             return "У этого типа цены уже есть строки — удали их перед переключением в Calculated";
 
@@ -188,7 +196,7 @@ public partial class PricingService
         var priceType = await _types.GetRecordAsync(typeId);
         if (priceType == null || priceType.Kind != PriceTypeKind.Base) return;
 
-        var rows = await _rows.GetRecordsAsync($"PriceType = '{typeId}' AND Item = '{item}' AND Unit = '{unit}'");
+        var rows = await RowsOfAsync(typeId, item, unit);
         var onDateOnly = onDate.Date;
         var covering = rows.FirstOrDefault(r => Covers(r, onDateOnly));
 
@@ -200,16 +208,16 @@ public partial class PricingService
             if ((covering.EffectiveFrom ?? DateTime.MinValue).Date == onDateOnly)
             {
                 covering.Price = price;
-                await ScriptServices.Get<IDictionaryManager<PriceListItem>>().SaveRecordAsync(covering);
+                await ScriptServices.Get<ILinkTableManager>().SaveRecordAsync(covering);
                 return;
             }
 
             covering.EffectiveTo = onDateOnly.AddDays(-1);
-            await ScriptServices.Get<IDictionaryManager<PriceListItem>>().SaveRecordAsync(covering);
+            await ScriptServices.Get<ILinkTableManager>().SaveRecordAsync(covering);
         }
 
         var next = rows.Where(r => r.EffectiveFrom > onDateOnly).OrderBy(r => r.EffectiveFrom).FirstOrDefault();
-        await ScriptServices.Get<IDictionaryManager<PriceListItem>>().SaveRecordAsync(new PriceListItem
+        await ScriptServices.Get<ILinkTableManager>().SaveRecordAsync(new LT_PriceTypeHistory
         {
             PriceType = typeId,
             Item = item,
@@ -271,7 +279,7 @@ public partial class PricingService
 
         if (priceType.Kind == PriceTypeKind.Base)
         {
-            var rows = (await _rows.GetRecordsAsync($"PriceType = '{priceTypeId}' AND Item = '{item}'"))
+            var rows = (await RowsOfAsync(priceTypeId, item))
                 .Where(r => Covers(r, onDate))
                 .ToList();
 
@@ -281,7 +289,8 @@ public partial class PricingService
             decimal? found = null;
             foreach (var row in rows)
             {
-                var converted = await ConvertPriceAsync(item, row.Price, row.Unit, unit);
+                if (row.Price is not decimal price || row.Unit is not Guid fromUnit) continue;
+                var converted = await ConvertPriceAsync(item, price, fromUnit, unit);
                 if (converted == null) continue;
                 if (found != null && found.Value != converted.Value) return null;
                 found ??= converted;
@@ -300,7 +309,7 @@ public partial class PricingService
         return rounded > 0m ? rounded : (decimal?)null;
     }
 
-    private static bool Covers(PriceListItem row, DateTime onDate)
+    private static bool Covers(LT_PriceTypeHistory row, DateTime onDate)
     {
         var day = onDate.Date;
         return day >= (row.EffectiveFrom?.Date ?? DateTime.MinValue.Date)
