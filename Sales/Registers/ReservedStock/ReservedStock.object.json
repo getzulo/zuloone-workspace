@@ -1,0 +1,63 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "Reserved stock",
+    "caption_ru": "Резерв",
+    "description": "Количество, занятое подтверждёнными заказами покупателя. Свободно = Stock − Reserved. Снятие — откат подтипа Confirmed.",
+    "isObsolete": false,
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "fd09b86f-2940-4832-9b56-f8c04105c04d",
+    "name": "ReservedStock",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T00:00:00",
+    "modifiedDateTime": "2026-09-03T00:00:00"
+  },
+  "resources": [
+    {
+      "registerMetaId": "fd09b86f-2940-4832-9b56-f8c04105c04d",
+      "fieldName": "Qty",
+      "caption": "Qty",
+      "caption_ru": "Количество",
+      "isOperational": true,
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "displayOrder": 1,
+      "metaId": "fa121672-62ac-4ca6-964e-3b7f6b431835",
+      "name": "Qty",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-03T00:00:00",
+      "modifiedDateTime": "2026-09-03T00:00:00"
+    }
+  ],
+  "analytics": [
+    {
+      "registerMetaId": "fd09b86f-2940-4832-9b56-f8c04105c04d",
+      "analyticMetaId": "976f4076-722f-4764-a543-68f35d1189e1",
+      "displayOrder": 2,
+      "isRequired": true,
+      "metaId": "c935baf2-ed8a-465a-b09c-7d711af3a935",
+      "name": "ReservedStock-Cell",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-03T00:00:00",
+      "modifiedDateTime": "2026-09-03T00:00:00"
+    },
+    {
+      "registerMetaId": "fd09b86f-2940-4832-9b56-f8c04105c04d",
+      "analyticMetaId": "4384343f-aa55-4cc4-9e0d-9893bfc47fb3",
+      "displayOrder": 1,
+      "isRequired": true,
+      "metaId": "c268ec02-a1be-42d1-96d5-c11804e04469",
+      "name": "ReservedStock-Item",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-03T00:00:00",
+      "modifiedDateTime": "2026-09-03T00:00:00"
+    }
+  ]
+}

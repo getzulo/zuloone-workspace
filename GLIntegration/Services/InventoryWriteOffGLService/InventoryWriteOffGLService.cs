@@ -18,15 +18,21 @@ using ZuloOne.Services.Contracts;
 // Логика одна на два документа (корректировка остатков и отпуск), поэтому живёт
 // в сервисе, а обработчики документов только решают КОГДА её звать.
 //
-// Сумма — ФАКТ списания из движений ItemCostFifo этого документа, а не пересчёт
-// по строкам: метод оценки (FIFO/AVG) живёт в настройках Costing, и повторять
-// его здесь значит разъехаться с учётом запаса в день смены настройки. Выбытие
+// Сумма — ФАКТ из движений ItemCostFifo этого документа, а не пересчёт по
+// строкам: метод оценки (FIFO/AVG) живёт в настройках Costing, и повторять его
+// здесь значит разъехаться с учётом запаса в день смены настройки. Выбытие
 // приходит отрицательной суммой (движок подставляет туда себестоимость слоёв) —
-// в проводку идёт модуль. Положительные движения (излишек) дают ноль и проводки
-// не порождают.
+// в проводку списания идёт модуль. Положительные движения — излишек: Costing
+// заводит партию, и та же сумма уходит во вторую ногу (PostSurplusAsync).
 //
 // Счёт списания СВОЙ, не COGS: себестоимость продаж — это стоимость проданного,
 // и валовая маржа считается по ней. Свалив туда потери, мы исказили бы маржу.
+//
+// Излишек — это ДОХОД, а не сторно списания. Счёт потерь и COGS остаются
+// чистыми: туда попадает только реальный уход запаса. Свалив находку на тот же
+// счёт, мы затёрли бы бой приходами и маржа/потери перестали бы читаться.
+// Поэтому своя нога: Dr запасы / Cr доход от излишка. Нулевая партия (товара
+// никогда не покупали) — суммы нет, проводки нет: выдумывать доход не из чего.
 public partial class InventoryWriteOffGLService
 {
     private readonly ITotalsManager _totals;
@@ -87,6 +93,45 @@ public partial class InventoryWriteOffGLService
             settings.InventoryWriteOffAccountCode, settings.InventoryAccountCode,
             description,
             "Списание запасов", "Выбытие запасов");
+    }
+
+    /// <summary>
+    /// Разнести стоимость излишка, который Costing завёл партией. Возвращает id
+    /// проводки или null, если приходовать нечего либо счета не настроены.
+    /// </summary>
+    /// <remarks>
+    /// Сумма — положительные Amount по ItemCostFifo этого документа (эквивалент:
+    /// если cost = −Σ Amount и cost &lt; 0, то surplus = −cost). Нулевые партии
+    /// излишка (нет истории закупок) дают 0 и сюда не попадают.
+    /// </remarks>
+    public async Task<Guid?> PostSurplusAsync(Guid documentMetaId, Guid cell, DateTime date, string description)
+    {
+        var gl = ScriptServices.Get<IGeneralLedgerService>();
+        var settings = await gl.GetSettingsAsync();
+        if (settings == null) return null;
+        if (string.IsNullOrWhiteSpace(settings.InventorySurplusAccountCode)) return null;
+        if (string.IsNullOrWhiteSpace(settings.InventoryAccountCode)) return null;
+
+        var surplus = 0m;
+        foreach (var row in await _totals.QueryMovementsAsync(
+            "ItemCostFifo", $"[DocumentMetaId] = '{documentMetaId}'"))
+        {
+            if (row.TryGetValue("Amount", out var amount) && amount != null)
+            {
+                var a = Convert.ToDecimal(amount);
+                if (a > 0m) surplus += a;
+            }
+        }
+        if (surplus <= 0m) return null;
+
+        var le = await ResolveLegalEntityAsync(cell);
+        if (le == null) return null;
+
+        return await gl.PostAsync(
+            date, le.MetaId, le.Currency, surplus,
+            settings.InventoryAccountCode, settings.InventorySurplusAccountCode,
+            description,
+            "Приход запасов (излишек)", "Доход от излишка");
     }
 
     /// <summary>Юрлицо — по цепочке Ячейка → Зона → Склад → Подразделение → Юрлицо.</summary>

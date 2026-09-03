@@ -751,4 +751,55 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         Assert.IsTrue(afterDisable == null,
             "отключение звена в середине цепочки обязано дать null, а не старую или нулевую цену, факт {0}", afterDisable);
     }
+
+    [IntegrationTest("SetPriceAsync пишет строку, ResolveForType находит её; Calculated отклоняется")]
+    public async Task SetPriceWritesAndResolveForTypeFinds()
+    {
+        var s = await SeedAsync(defaultSalePrice: 99m);
+        var pricing = GetService<IPricingService>();
+
+        var id = await pricing.SetPriceAsync(s.PriceList, s.Item, s.Piece, 42m, March, May);
+        Assert.IsTrue(id != Guid.Empty, "SetPrice обязан вернуть id строки");
+
+        var byType = await pricing.ResolveForTypeAsync(s.Item, s.Piece, s.PriceList, March);
+        Assert.IsTrue(byType == 42m, "ResolveForType обязан найти поставленную цену, факт {0}", byType);
+
+        // Умолчание карточки в разрешение типа не входит — иначе Calculated без
+        // своей строки тихо сошёлся бы к 99 мимо наценки.
+        var emptyType = DictionaryManager.NewRecord<PriceList>();
+        emptyType.Name = $"Bare {Db.NewId():N}"[..14];
+        emptyType.Direction = PriceDirection.Sale;
+        emptyType = await DictionaryManager.SaveRecordAsync(emptyType);
+        var bare = await pricing.ResolveForTypeAsync(s.Item, s.Piece, emptyType.MetaId, March);
+        Assert.IsTrue(bare == null, "тип без строк не должен брать умолчание товара, факт {0}", bare);
+
+        var calc = DictionaryManager.NewRecord<PriceList>();
+        calc.Name = $"Calc {Db.NewId():N}"[..14];
+        calc.Direction = PriceDirection.Sale;
+        calc.Kind = PriceListKind.Calculated;
+        calc.BasePriceType = s.PriceList;
+        calc.MarkupPercent = 10m;
+        calc = await DictionaryManager.SaveRecordAsync(calc);
+
+        var rejected = await RejectedAsync(
+            () => pricing.SetPriceAsync(calc.MetaId, s.Item, s.Piece, 10m, null, null),
+            "строка под Calculated");
+        Assert.IsTrue(rejected.Contains("расчётный"), "отказ SetPrice под Calculated, факт: {0}", rejected);
+    }
+
+    [IntegrationTest("Окно цены закрывается календарным днём: 31 марта 15:00 ещё покрыто EffectiveTo=31.03")]
+    public async Task LastDayAfternoonStillCovered()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        await PriceAsync(s, s.Piece, 7m, from: new DateTime(2026, 3, 1), to: new DateTime(2026, 3, 31));
+
+        var afternoon = await pricing.ResolveSalePriceAsync(
+            s.Item, s.Piece, s.Customer, new DateTime(2026, 3, 31, 15, 0, 0));
+        Assert.IsTrue(afternoon == 7m, "последний день окна обязан покрывать любой час, факт {0}", afternoon);
+
+        var nextDay = await pricing.ResolveSalePriceAsync(
+            s.Item, s.Piece, s.Customer, new DateTime(2026, 4, 1, 0, 0, 0));
+        Assert.IsTrue(nextDay == null, "1 апреля уже вне окна, факт {0}", nextDay);
+    }
 }

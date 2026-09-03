@@ -5,10 +5,8 @@ using ZuloOne.Managers;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Runtime.Generated;
 
-// Сам алгоритм захвата цены уже полностью проверен в
-// Inventory/Tests/PriceCaptureTest.cs; здесь доказывается только то, что
-// SalesInvoiceEventHandler.OnAfterPostAsync реально его вызывает при
-// выставлении счёта и не дублирует строку при перепроведении.
+// Проведение счёта НЕ пишет историю цен. Захват — явный вызов сервиса
+// (Inventory/Tests/PriceCaptureTest), не побочный эффект Issued.
 public class PriceCaptureTest : IntegrationTestScriptBase
 {
     private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
@@ -129,63 +127,25 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         };
     }
 
-    private async Task<SalesInvoice> NewInvoiceAsync(Setup s, decimal qty, decimal price)
+    [IntegrationTest("Выставление счёта не пишет цену строки в историю типа цен")]
+    public async Task IssuingDoesNotCaptureLinePrice()
     {
+        var s = await SetupAsync();
         var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         inv.Customer = s.Customer;
         inv.Location = s.Location;
-        inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Unit = s.Piece, Quantity = qty, UnitPrice = price });
+        inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Unit = s.Piece, Quantity = 1m, UnitPrice = 15m });
         await DocumentManager.SaveDocumentAsync(inv);
-        return inv;
-    }
 
-    // Товар на складе, иначе выставление не пройдёт проверку остатка.
-    private Task SeedStockAsync(Setup s, decimal qty)
-        => TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
+        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
-            new Dictionary<string, decimal> { ["Qty"] = qty });
+            new Dictionary<string, decimal> { ["Qty"] = 10m });
 
-    private Task<List<PriceListItem>> RowsAsync(Setup s)
-        => DictionaryManager.GetRecordsAsync<PriceListItem>(
+        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(inv);
+
+        var rows = await DictionaryManager.GetRecordsAsync<PriceListItem>(
             $"PriceList = '{s.PriceList}' AND Item = '{s.Item}' AND Unit = '{s.Piece}'");
-
-    [IntegrationTest("Выставление счёта с продажным типом цен Base пишет цену строки в PriceListItem")]
-    public async Task IssuingCapturesLinePrice()
-    {
-        var s = await SetupAsync();
-        var inv = await NewInvoiceAsync(s, qty: 1m, price: 15m);
-        await SeedStockAsync(s, 10m);
-
-        inv.Subtype = SalesInvoice.Subtypes.Issued;
-        await DocumentManager.SaveDocumentAsync(inv);
-
-        var rows = await RowsAsync(s);
-        Assert.IsTrue(rows.Count == 1, "выставление обязано создать ровно одну строку истории цены, факт {0}", rows.Count);
-        Assert.IsTrue(rows[0].Price == 15m, "цена в истории обязана быть 15, факт {0}", rows[0].Price);
-        Assert.IsTrue(rows[0].EffectiveTo == null, "единственная строка обязана остаться открытой, факт {0}", rows[0].EffectiveTo);
-    }
-
-    [IntegrationTest("Перепроведение (Issued → Draft → Issued) не плодит вторую строку истории")]
-    public async Task RepostingDoesNotDuplicateRow()
-    {
-        var s = await SetupAsync();
-        var inv = await NewInvoiceAsync(s, qty: 1m, price: 15m);
-        await SeedStockAsync(s, 10m);
-
-        inv.Subtype = SalesInvoice.Subtypes.Issued;
-        await DocumentManager.SaveDocumentAsync(inv);
-
-        // Перепроведение — КРУГОВОЙ переход подтипа (выйти и вернуться в
-        // Issued): при выходе разносящие Issued транзакционные скрипты (в
-        // т.ч. списание Stock) разворачиваются платформой, поэтому повторный
-        // вход снова проходит проверку остатка без досева склада.
-        inv.Subtype = SalesInvoice.Subtypes.Draft;
-        await DocumentManager.SaveDocumentAsync(inv);
-        inv.Subtype = SalesInvoice.Subtypes.Issued;
-        await DocumentManager.SaveDocumentAsync(inv);
-
-        var rows = await RowsAsync(s);
-        Assert.IsTrue(rows.Count == 1, "перепроведение той же цены не должно плодить вторую строку, факт {0}", rows.Count);
-        Assert.IsTrue(rows[0].Price == 15m, "цена обязана остаться 15, факт {0}", rows[0].Price);
+        Assert.IsTrue(rows.Count == 0, "счёт не должен писать историю цен, факт {0} строк", rows.Count);
     }
 }

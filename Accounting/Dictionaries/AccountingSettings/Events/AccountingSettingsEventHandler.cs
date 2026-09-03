@@ -57,7 +57,9 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
             ["Задолженность перед сотрудниками"] = record.PayrollLiabilityAccountCode,
             ["Денежные средства"] = record.CashAccountCode,
             ["Списание запасов"] = record.InventoryWriteOffAccountCode,
+            ["Оприходование излишка"] = record.InventorySurplusAccountCode,
             ["НДС к уплате"] = record.VatPayableAccountCode,
+            ["НДС к возмещению"] = record.VatReceivableAccountCode,
             ["Расходы на соцстрах"] = record.SocialInsuranceExpenseAccountCode,
             ["Задолженность перед фондом"] = record.SocialInsurancePayableAccountCode,
         };

@@ -5,10 +5,8 @@ using ZuloOne.Runtime.Testing;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
-// Сам алгоритм захвата цены уже полностью проверен в
-// Inventory/Tests/PriceCaptureTest.cs; здесь доказывается только то, что
-// PurchaseOrderEventHandler.OnAfterPostAsync реально его вызывает при
-// оприходовании и не дублирует строку при перепроведении.
+// Оприходование НЕ пишет историю цен. Захват — явный вызов сервиса, не
+// побочный эффект Received.
 public class PriceCaptureTest : IntegrationTestScriptBase
 {
     private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
@@ -119,65 +117,23 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         };
     }
 
-    // Подтип не передаём: NewDocumentAsync обязан подставить начальный подтип
-    // (Draft) сам.
-    private async Task<PurchaseOrder> NewOrderAsync(Setup s, decimal qty, decimal price)
+    [IntegrationTest("Оприходование не пишет цену строки в историю типа цен")]
+    public async Task ReceivingDoesNotCaptureLinePrice()
     {
+        var s = await SetupAsync();
         var order = await DocumentManager.NewDocumentAsync<PurchaseOrder>();
         order.Supplier = s.Supplier;
         order.Location = s.Location;
-        order.Lines.Add(new PurchaseOrderLinesTablePartRow { Item = s.Item, Unit = s.Unit, Quantity = qty, UnitPrice = price });
+        order.Lines.Add(new PurchaseOrderLinesTablePartRow { Item = s.Item, Unit = s.Unit, Quantity = 10m, UnitPrice = 12.5m });
         await DocumentManager.SaveDocumentAsync(order);
-        return order;
-    }
 
-    /// <summary>Заказ идёт объявленным маршрутом: Draft → Ordered → Received.</summary>
-    private async Task ReceiveAsync(PurchaseOrder order)
-    {
         order.Subtype = PurchaseOrder.Subtypes.Ordered;
         await DocumentManager.SaveDocumentAsync(order);
-
         order.Subtype = PurchaseOrder.Subtypes.Received;
         await DocumentManager.SaveDocumentAsync(order);
-    }
 
-    private Task<List<PriceListItem>> RowsAsync(Setup s)
-        => DictionaryManager.GetRecordsAsync<PriceListItem>(
+        var rows = await DictionaryManager.GetRecordsAsync<PriceListItem>(
             $"PriceList = '{s.PriceList}' AND Item = '{s.Item}' AND Unit = '{s.Unit}'");
-
-    [IntegrationTest("Оприходование с закупочным типом цен Base пишет цену строки в PriceListItem")]
-    public async Task ReceivingCapturesLinePrice()
-    {
-        var s = await SetupAsync();
-        var order = await NewOrderAsync(s, qty: 10m, price: 12.5m);
-
-        await ReceiveAsync(order);
-
-        var rows = await RowsAsync(s);
-        Assert.IsTrue(rows.Count == 1, "оприходование обязано создать ровно одну строку истории цены, факт {0}", rows.Count);
-        Assert.IsTrue(rows[0].Price == 12.5m, "цена в истории обязана быть 12.5, факт {0}", rows[0].Price);
-        Assert.IsTrue(rows[0].EffectiveTo == null, "единственная строка обязана остаться открытой, факт {0}", rows[0].EffectiveTo);
-    }
-
-    [IntegrationTest("Перепроведение (Received → Ordered → Received) не плодит вторую строку истории")]
-    public async Task RepostingDoesNotDuplicateRow()
-    {
-        var s = await SetupAsync();
-        var order = await NewOrderAsync(s, qty: 10m, price: 12.5m);
-        await ReceiveAsync(order);
-
-        // Перепроведение — КРУГОВОЙ переход подтипа (выйти и вернуться в
-        // Received), а не повторное сохранение уже проведённого документа: именно
-        // так реально перепроводят приход (см. прецедент
-        // WarehouseTaskFlowTest.RepostDoesNotDuplicatePutAwayTask) — только так
-        // повторно срабатывает OnAfterPostAsync.
-        order.Subtype = PurchaseOrder.Subtypes.Ordered;
-        await DocumentManager.SaveDocumentAsync(order);
-        order.Subtype = PurchaseOrder.Subtypes.Received;
-        await DocumentManager.SaveDocumentAsync(order);
-
-        var rows = await RowsAsync(s);
-        Assert.IsTrue(rows.Count == 1, "перепроведение той же цены не должно плодить вторую строку, факт {0}", rows.Count);
-        Assert.IsTrue(rows[0].Price == 12.5m, "цена обязана остаться 12.5, факт {0}", rows[0].Price);
+        Assert.IsTrue(rows.Count == 0, "приход не должен писать историю цен, факт {0} строк", rows.Count);
     }
 }

@@ -16,6 +16,7 @@
     },
     {
       "caption": "Dictionaries",
+      "caption_ar": "القوائم المرجعية",
       "caption_ru": "Справочники",
       "parentMetaId": "8d5e7f3c-0b4a-4c6d-9e7f-7a1b2c8d3e60",
       "displayOrder": 0,
@@ -43,6 +44,7 @@
     },
     {
       "caption": "Settings",
+      "caption_ar": "الإعدادات",
       "caption_ru": "Настройки",
       "parentMetaId": "8d5e7f3c-0b4a-4c6d-9e7f-7a1b2c8d3e60",
       "displayOrder": 2,
@@ -70,9 +72,9 @@
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
-      "caption": "Production order",
-      "caption_ar": "الإنتاج الأمر",
-      "caption_ru": "Производственный заказ",
+      "caption": "Production orders",
+      "caption_ar": "أوامر الإنتاج",
+      "caption_ru": "Производственные заказы",
       "parentMetaId": "0f7a9b5e-2d6c-4e8f-9a9b-9c3d4e0f5a80",
       "displayOrder": 0,
       "targetType": "Document",
@@ -86,7 +88,8 @@
     },
     {
       "caption": "Production settings",
-      "caption_ru": "Настройки модуля",
+      "caption_ar": "إعدادات الإنتاج",
+      "caption_ru": "Настройки производства",
       "parentMetaId": "bf0ad95d-be4d-5968-b683-576e7adcedf5",
       "displayOrder": 0,
       "targetType": "Dictionary",
@@ -96,21 +99,6 @@
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
       "createdDateTime": "2026-08-26T20:56:54.1533001",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
-    },
-    {
-      "caption": "BOM components",
-      "caption_ar": "قائمة المواد المكون",
-      "caption_ru": "Компоненты спецификации",
-      "parentMetaId": "9e6f8a4d-1c5b-4d7e-8f8a-8b2c3d9e4f70",
-      "displayOrder": 1,
-      "targetType": "Dictionary",
-      "targetMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
-      "metaId": "2b9c1d7a-4f8e-4a0b-9c1d-1e5f6a2b7c02",
-      "name": "BomComponent",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:36:42.024873",
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     }
   ]

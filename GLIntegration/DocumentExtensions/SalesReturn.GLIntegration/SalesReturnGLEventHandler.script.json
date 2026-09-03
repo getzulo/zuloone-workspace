@@ -1,0 +1,18 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "4d5e6f70-8192-4ab3-c4d5-e6f708192024",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SalesReturn",
+    "objectMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 11,
+    "metaId": "5e6f7081-92a3-4bc4-d5e6-f70819203135",
+    "name": "SalesReturnGLEventHandler",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T00:00:00",
+    "modifiedDateTime": "2026-09-03T00:00:00"
+  }
+}

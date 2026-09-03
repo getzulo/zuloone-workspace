@@ -87,12 +87,6 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
             await SpawnPutAwayTaskAsync(order, context);
         }
 
-        // Захват цены в историю — самостоятельная забота: срабатывает даже если
-        // юрлицо не резолвится. Одна и та же (Item,Unit) на двух строках —
-        // выигрывает последняя (порядок вызовов — порядок строк документа).
-        foreach (var line in order.Lines)
-            await pricing.CapturePurchasePriceAsync(line.Item, line.Unit, order.Supplier, line.UnitPrice, TaxPointOf(document));
-
         return EventResult.Ok();
     }
 

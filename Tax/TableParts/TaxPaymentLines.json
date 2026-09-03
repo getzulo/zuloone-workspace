@@ -1,0 +1,60 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "TaxPaymentLinesTablePartRow",
+    "caption": "Lines",
+    "caption_ru": "Строки",
+    "tableName": "TP_TaxPaymentLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "2b7e4c90-1a53-4d86-ae18-9f0c5b2d7e41",
+    "name": "TaxPaymentLines",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1,
+    "createdDateTime": "2026-09-02T00:00:00",
+    "modifiedDateTime": "2026-09-02T00:00:00"
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "2b7e4c90-1a53-4d86-ae18-9f0c5b2d7e41",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "caption_ru": "Сумма",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "4c9a1e63-8d27-4f50-b1e4-7a3d6c0f8b25",
+      "name": "Amount",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
+    },
+    {
+      "tablePartTypeMetaId": "2b7e4c90-1a53-4d86-ae18-9f0c5b2d7e41",
+      "fieldName": "TaxCode",
+      "caption": "Tax code",
+      "caption_ru": "Налоговый код",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
+      "referenceName": "TaxCode",
+      "displayOrder": 1,
+      "metaId": "7e1d5a82-3c49-4b16-9f70-2e8a4c6d1b93",
+      "name": "TaxCode",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
+    }
+  ]
+}

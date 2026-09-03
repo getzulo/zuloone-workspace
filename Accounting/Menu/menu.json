@@ -15,18 +15,8 @@
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
-      "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
-      "displayOrder": 2,
-      "targetType": "Group",
-      "metaId": "c4d44439-a864-4b37-8da5-9898e48f318d",
-      "name": "Dictionaries",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T02:52:53.0713125",
-      "modifiedDateTime": "2026-08-29T03:07:41.8162222"
-    },
-    {
       "caption": "Dictionaries",
+      "caption_ar": "القوائم المرجعية",
       "caption_ru": "Справочники",
       "parentMetaId": "d9db0c81-915d-4cc0-a153-5fbee50c78f0",
       "displayOrder": 0,
@@ -54,6 +44,7 @@
     },
     {
       "caption": "Registers",
+      "caption_ar": "السجلات",
       "caption_ru": "Итоги",
       "parentMetaId": "d9db0c81-915d-4cc0-a153-5fbee50c78f0",
       "displayOrder": 2,
@@ -67,6 +58,7 @@
     },
     {
       "caption": "Settings",
+      "caption_ar": "الإعدادات",
       "caption_ru": "Настройки",
       "parentMetaId": "d9db0c81-915d-4cc0-a153-5fbee50c78f0",
       "displayOrder": 3,
@@ -76,20 +68,6 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
       "createdDateTime": "2026-08-26T20:56:53.5541678",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
-    },
-    {
-      "caption": "Accounting settings",
-      "caption_ru": "Настройки модуля",
-      "parentMetaId": "3f534cbd-4407-53b5-8d28-18e068fa6532",
-      "displayOrder": 0,
-      "targetType": "Dictionary",
-      "targetMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "metaId": "8e7f73f8-869f-555c-b0f0-e65ebd5e440f",
-      "name": "AccountingSettings",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:53.5541699",
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
@@ -108,6 +86,51 @@
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
+      "caption": "Fiscal years",
+      "caption_ar": "السنوات المالية",
+      "caption_ru": "Финансовые годы",
+      "parentMetaId": "3808c862-52e8-4e9a-b50c-a0583146b18b",
+      "displayOrder": 1,
+      "targetType": "Dictionary",
+      "targetMetaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
+      "metaId": "c075be2a-114e-4167-873a-aff66713615e",
+      "name": "FiscalYear",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:30:07.0211224",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+    },
+    {
+      "caption": "Fiscal periods",
+      "caption_ar": "الفترات المالية",
+      "caption_ru": "Финансовые периоды",
+      "parentMetaId": "3808c862-52e8-4e9a-b50c-a0583146b18b",
+      "displayOrder": 2,
+      "targetType": "Dictionary",
+      "targetMetaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
+      "metaId": "d4dba2c3-4d37-4650-b0a1-aa522c3ae86f",
+      "name": "FiscalPeriod",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:30:07.0211243",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+    },
+    {
+      "caption": "Journal entries",
+      "caption_ar": "قيود اليومية",
+      "caption_ru": "Журнал проводок",
+      "parentMetaId": "f72de6fe-167d-4cfa-9e54-577ca9b87c58",
+      "displayOrder": 0,
+      "targetType": "Document",
+      "targetMetaId": "188246b3-5ed0-4da0-98cb-a86b6da36581",
+      "metaId": "fecd1033-9100-4b7a-a65d-d7a4b654f648",
+      "name": "JournalEntry",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+      "layerId": 1,
+      "createdDateTime": "2026-08-25T15:30:07.0211264",
+      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+    },
+    {
       "caption": "General ledger",
       "caption_ar": "دفتر الأستاذ العام",
       "caption_ru": "Главная книга",
@@ -123,47 +146,18 @@
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
-      "caption": "Journal entries",
-      "caption_ru": "Проводки",
-      "parentMetaId": "f72de6fe-167d-4cfa-9e54-577ca9b87c58",
+      "caption": "Accounting settings",
+      "caption_ar": "إعدادات المحاسبة",
+      "caption_ru": "Настройки бухгалтерии",
+      "parentMetaId": "3f534cbd-4407-53b5-8d28-18e068fa6532",
       "displayOrder": 0,
-      "targetType": "Document",
-      "targetMetaId": "188246b3-5ed0-4da0-98cb-a86b6da36581",
-      "metaId": "fecd1033-9100-4b7a-a65d-d7a4b654f648",
-      "name": "JournalEntry",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211264",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
-    },
-    {
-      "caption": "Fiscal years",
-      "caption_ar": "المالية السنة",
-      "caption_ru": "Фискальные годы",
-      "parentMetaId": "3808c862-52e8-4e9a-b50c-a0583146b18b",
-      "displayOrder": 1,
       "targetType": "Dictionary",
-      "targetMetaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
-      "metaId": "c075be2a-114e-4167-873a-aff66713615e",
-      "name": "FiscalYear",
+      "targetMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "metaId": "8e7f73f8-869f-555c-b0f0-e65ebd5e440f",
+      "name": "AccountingSettings",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211224",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
-    },
-    {
-      "caption": "Fiscal periods",
-      "caption_ar": "المالية الفترة",
-      "caption_ru": "Фискальные периоды",
-      "parentMetaId": "3808c862-52e8-4e9a-b50c-a0583146b18b",
-      "displayOrder": 2,
-      "targetType": "Dictionary",
-      "targetMetaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
-      "metaId": "d4dba2c3-4d37-4650-b0a1-aa522c3ae86f",
-      "name": "FiscalPeriod",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211243",
+      "createdDateTime": "2026-08-26T20:56:53.5541699",
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     }
   ]

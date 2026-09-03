@@ -1,0 +1,14 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Мок отправки декларации и оплаты в налоговый орган. Сеть не зовётся: скриптам HttpClient запрещён, стенд всегда «принимает».",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "8d2f6b47-1c90-4a53-ae18-4e7c0d5a3b26",
+    "metaId": "5e8a1c34-9d62-4f17-b3e0-2c7d4a6f1b85",
+    "name": "TaxAuthoritySubmitService",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1,
+    "createdDateTime": "2026-09-02T00:00:00",
+    "modifiedDateTime": "2026-09-02T00:00:00"
+  }
+}

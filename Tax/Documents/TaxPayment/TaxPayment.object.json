@@ -1,0 +1,124 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Tax payment",
+    "caption_ru": "Оплата налога",
+    "description": "Погашение налогового обязательства в книге: отдельный документ, а не подтип декларации — сданная декларация остаётся замороженной, начисление в TaxLedger не трогается. Зеркало VendorPayment в закупках.",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "0d5e8a21-7c46-4b19-9f32-6e1a3c8d4f70",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
+    "name": "TaxPayment",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1,
+    "createdDateTime": "2026-09-02T00:00:00",
+    "modifiedDateTime": "2026-09-02T00:00:00"
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "b92275f9-9f64-4ff3-b451-c241a7995ba8",
+      "name": "ID",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-02T20:36:35.878371",
+      "modifiedDateTime": "2026-09-02T20:36:35.8783817"
+    },
+    {
+      "documentTypeMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
+      "fieldName": "LegalEntity",
+      "caption": "Legal entity",
+      "caption_ru": "Юрлицо",
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 1,
+      "description": "Юрлицо, от имени которого идёт платёж — адресат проводки в главной книге. Не задано — платёж проводится как прежде, проводки нет.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "5a2f8c14-6e70-4d31-a9b5-1c7e3d0f4a68",
+      "name": "LegalEntity",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
+      "name": "Draft",
+      "caption": "Draft",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "1c6e9a35-4d80-4b27-91f8-3a5c7e2d0b46",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
+    },
+    {
+      "documentTypeMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
+      "name": "Paid",
+      "caption": "Paid",
+      "subtypeValue": "Paid",
+      "subtypeCaption": "Paid",
+      "subtypeCaption_ru": "Оплачено",
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "3e8b2c71-5f94-4a16-ad20-8c1e6f4a7d53",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
+      "tablePartTypeMetaId": "2b7e4c90-1a53-4d86-ae18-9f0c5b2d7e41",
+      "isCloneable": true,
+      "metaId": "8a3c6e15-2d49-4f71-90b4-5e7a1c8d2f06",
+      "name": "Lines",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "1c6e9a35-4d80-4b27-91f8-3a5c7e2d0b46",
+      "toSubtypeMetaId": "3e8b2c71-5f94-4a16-ad20-8c1e6f4a7d53",
+      "metaId": "6f1a4d82-8c37-4e50-b9d1-2a7c5e0f3b68",
+      "name": "Draft->Paid",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
+    }
+  ]
+}

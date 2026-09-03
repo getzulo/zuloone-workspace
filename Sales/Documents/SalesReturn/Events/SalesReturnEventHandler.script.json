@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SalesReturn",
+    "objectMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
+    "executionOrder": 0,
+    "metaId": "863dc932-8b08-492f-8e48-0c4eb1dcad25",
+    "name": "SalesReturnEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T00:00:00",
+    "modifiedDateTime": "2026-09-03T00:00:00"
+  }
+}

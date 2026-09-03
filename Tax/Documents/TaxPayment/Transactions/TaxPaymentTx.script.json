@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "TaxPayment",
+    "objectMetaId": "3e8b2c71-5f94-4a16-ad20-8c1e6f4a7d53",
+    "executionOrder": 1,
+    "metaId": "4e9c2b60-1d83-4f47-a8e5-3b7d6c1f0a94",
+    "name": "TaxPaymentTx",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1,
+    "createdDateTime": "2026-09-02T00:00:00",
+    "modifiedDateTime": "2026-09-02T00:00:00"
+  }
+}

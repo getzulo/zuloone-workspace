@@ -1,0 +1,13 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
+    "description": "Расширение оплаты налога моделью GLIntegration: погашение НДС к уплате попадает в главную книгу",
+    "metaId": "1b5d8e42-7c90-4a36-ad18-5f2e9c0b4a73",
+    "name": "TaxPayment.GLIntegration",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-02T00:00:00",
+    "modifiedDateTime": "2026-09-02T00:00:00"
+  }
+}

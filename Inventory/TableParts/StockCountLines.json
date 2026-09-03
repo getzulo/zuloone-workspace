@@ -105,6 +105,26 @@
       "layerId": 2,
       "createdDateTime": "2026-08-29T03:44:00.0412525",
       "modifiedDateTime": "2026-08-29T03:44:00.0412525"
+    },
+    {
+      "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
+      "fieldName": "QtyDelta",
+      "caption": "Qty delta",
+      "caption_ru": "Дельта",
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "isRequired": false,
+      "isVisible": false,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 5,
+      "developerComments": "Факт минус системный остаток в базовой единице. Пишется обработчиком на сохранении черновика, чтобы транзакционный скрипт увидел число без сервиса остатков. Руками не редактируется.",
+      "metaId": "a1e4c8b2-7d3f-4a91-9e26-5b0c8d4f1a72",
+      "name": "QtyDelta",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T00:00:00",
+      "modifiedDateTime": "2026-09-02T00:00:00"
     }
   ]
 }

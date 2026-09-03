@@ -149,11 +149,17 @@ public partial class GeneralLedgerService
 
     /// <summary>Разнести сбалансированную проводку Dr/Cr по КОДАМ счетов из профиля.
     /// Возвращает id проводки или null, если разноска невозможна ИЛИ этот факт уже
-    /// разнесён.</summary>
+    /// разнесён.
+    ///
+    /// Контуры: торговые проводки по умолчанию пишут финансовую и управленческую
+    /// книги (FIN,MGT). Налоговые ноги передают «FIN,TAX», чтобы управленческая
+    /// книга оставалась нетто без НДС — налог живёт отдельной проводкой в FIN+TAX.
+    /// </summary>
     public async Task<Guid?> PostAsync(
         DateTime date, Guid legalEntity, Guid currency, decimal amount,
         string debitAccountCode, string creditAccountCode,
-        string description, string debitLineText, string creditLineText)
+        string description, string debitLineText, string creditLineText,
+        string? circuits = null)
     {
         if (amount <= 0m || legalEntity == Guid.Empty) return null;
 
@@ -211,6 +217,7 @@ public partial class GeneralLedgerService
             ["FiscalPeriod"] = period.MetaId,
             ["Currency"] = currency,
             ["Description"] = description,
+            ["Circuits"] = string.IsNullOrWhiteSpace(circuits) ? "FIN,MGT" : circuits,
         });
 
         entry.Lines.Add(new JournalEntryLinesTablePartRow

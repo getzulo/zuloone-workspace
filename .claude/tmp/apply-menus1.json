@@ -1,0 +1,12 @@
+{
+  "files": [
+    "Inventory/Menu/menu.json",
+    "Accounting/Menu/menu.json",
+    "Sales/Menu/menu.json",
+    "Purchasing/Menu/menu.json",
+    "Tax/Menu/menu.json",
+    "HR/Menu/menu.json",
+    "Production/Menu/menu.json"
+  ],
+  "force": true
+}

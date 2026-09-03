@@ -148,6 +148,23 @@
       "layerId": 2,
       "createdDateTime": "2026-09-02T00:00:00",
       "modifiedDateTime": "2026-09-02T00:00:00"
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "fieldName": "SourceOrder",
+      "caption": "Source order",
+      "caption_ru": "Заказ-источник",
+      "baseType": "Guid",
+      "isRequired": false,
+      "displayOrder": 6,
+      "isVisible": true,
+      "description": "Заказ покупателя, из которого выставлен счёт. Ключ идемпотентности: повтор доставки не плодит второй счёт.",
+      "metaId": "6f708192-a3b4-4cd5-e6f7-081920314246",
+      "name": "SourceOrder",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-03T00:00:00",
+      "modifiedDateTime": "2026-09-03T00:00:00"
     }
   ],
   "subtypes": [

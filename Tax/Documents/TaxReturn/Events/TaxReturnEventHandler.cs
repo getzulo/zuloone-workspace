@@ -1,4 +1,6 @@
 #nullable enable
+using ZuloOne.Services.Contracts;
+
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for TaxReturn documents.
@@ -48,8 +50,23 @@ public partial class TaxReturnEventHandler : TypedDocumentEventHandler<TaxReturn
     }
 
     // After the document was posted (register movements are written).
-    public override Task<EventResult> OnAfterPostAsync(TaxReturn header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+    // Сдача в орган — побочный эффект проведения Filed: отказ мока не должен
+    // отменять уже состоявшуюся сдачу. Мок чистый, повтор harmless.
+    public override async Task<EventResult> OnAfterPostAsync(TaxReturn header, EventContext context)
+    {
+        if (header.Subtype != "Filed")
+            return EventResult.Ok();
+
+        try
+        {
+            await context.GetService<ITaxAuthoritySubmitService>().SubmitReturnAsync(header.MetaId);
+        }
+        catch
+        {
+        }
+
+        return EventResult.Ok();
+    }
 
     // Before unpost/cancel: about to reverse the document's movements.
     public override Task<EventResult> OnBeforeUnpostAsync(TaxReturn header, EventContext context)

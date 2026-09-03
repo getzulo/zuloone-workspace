@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "SalesOrder",
+    "objectMetaId": "8ce0f14d-2ff9-48a1-886d-4e958618ad0e",
+    "executionOrder": 1,
+    "metaId": "e2e9ca1d-4be7-43b2-aa69-7ddff0577ea5",
+    "name": "SalesOrderReserveTx",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T00:00:00",
+    "modifiedDateTime": "2026-09-03T00:00:00"
+  }
+}

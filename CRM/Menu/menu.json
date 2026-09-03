@@ -69,7 +69,8 @@
     },
     {
       "caption": "CRM settings",
-      "caption_ru": "Настройки модуля",
+      "caption_ar": "إعدادات إدارة العملاء",
+      "caption_ru": "Настройки CRM",
       "parentMetaId": "337ec1e4-ee3c-5b75-b924-74d5eace80b5",
       "displayOrder": 0,
       "targetType": "Dictionary",
@@ -83,6 +84,7 @@
     },
     {
       "caption": "Loyalty points",
+      "caption_ar": "نقاط الولاء",
       "caption_ru": "Баллы лояльности",
       "parentMetaId": "3f6a1c09-5b4d-4e8f-8a9c-0d3e4f1b7c20",
       "displayOrder": 0,
@@ -96,9 +98,9 @@
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
-      "caption": "Loyalty redemption",
-      "caption_ar": "استرجاع الولاء",
-      "caption_ru": "Списание баллов",
+      "caption": "Loyalty redemptions",
+      "caption_ar": "استرداد نقاط الولاء",
+      "caption_ru": "Списания баллов",
       "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
       "displayOrder": 0,
       "targetType": "Document",
@@ -112,6 +114,7 @@
     },
     {
       "caption": "Loyalty tiers",
+      "caption_ar": "مستويات الولاء",
       "caption_ru": "Уровни лояльности",
       "parentMetaId": "7ad8347e-39c8-4bf0-93a9-ba497f0e3cd3",
       "displayOrder": 0,

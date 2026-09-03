@@ -1,55 +1,41 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 
-// Сервис "PricingService": контракт IPricingService. Две обязанности:
+// Единственная дверь в цены. Счёт, заказ, команда «заполнить» и обработчики
+// справочника не читают строки сами и не сравнивают окна — спрашивают здесь.
 //
-//   1. СУММА СТРОКИ — количество × цена, округлённое до денежной точности.
-//      Раньше `line.Quantity * line.UnitPrice` копипастилось по проводкам Sales,
-//      Purchasing, CRM, Localization, Costing и в событии GL — теперь одна формула.
-//   2. РАЗРЕШЕНИЕ ЦЕНЫ — какая цена у товара в этой единице на эту дату.
-//      До этого такой вопрос в системе не задавал никто: цену вводили руками.
-//
-// Точность берётся из глобальной константы AmountScale (та же настройка, что у
-// MeasurementService).
+// Снаружи четыре глагола: подбери, посчитай сумму, поставь, захвати историю.
+// Захват — явный вызов (тип «из последнего документа»), не побочный эффект
+// проведения. Автозапись в тип клиента с каждого счёта переписывала бы общую
+// розницу чужой договорной ценой.
 public partial class PricingService
 {
-    // Defense-in-depth рядом с проверкой цикла на сохранении (PriceListEventHandler) —
-    // та уже не даёт сохранить зацикленную цепочку, здесь только страховка. Одна и
-    // та же константа GlobalConstants.Pricing.PriceTypeChainMaxDepth — там же.
     private static int MaxPriceTypeChainDepth => GlobalConstants.Get<int?>("PriceTypeChainMaxDepth") ?? 20;
 
-    private readonly IDictionaryManager<PriceList> _lists;
+    private readonly IDictionaryManager<PriceList> _types;
     private readonly IDictionaryManager<PriceListItem> _rows;
     private readonly IDictionaryManager<Item> _items;
 
     public PricingService(
-        IDictionaryManager<PriceList> lists,
+        IDictionaryManager<PriceList> types,
         IDictionaryManager<PriceListItem> rows,
         IDictionaryManager<Item> items)
     {
-        _lists = lists;
+        _types = types;
         _rows = rows;
         _items = items;
     }
 
-    /// <summary>Сумма строки = количество × цена, округлённая до денежной точности.</summary>
     public decimal LineAmount(decimal quantity, decimal unitPrice)
         => LineAmount(quantity, unitPrice, 0m);
 
-    /// <summary>
-    /// Сумма строки со скидкой. Скидка — ПРОЦЕНТ (15 = 15%), а не доля: так она
-    /// задана в LoyaltyTier.DiscountPercent, и путать её с налоговой ставкой,
-    /// которая хранится долей (0.15), нельзя.
-    ///
-    /// Скидка приходит параметром, а не читается из CRM: Inventory лежит ниже
-    /// CRM по слоям и о существовании уровней лояльности не знает. Кто скидку
-    /// нашёл, тот её и передаёт — и все денежные ноги документа обязаны
-    /// передать ОДНУ И ТУ ЖЕ, иначе выручка, НДС и баллы разъедутся.
-    /// </summary>
+    /// <summary>Скидка — процент (15 = 15%), не доля. Все денежные ноги документа
+    /// обязаны передать одну и ту же.</summary>
     public decimal LineAmount(decimal quantity, decimal unitPrice, decimal discountPercent)
     {
         var gross = quantity * unitPrice;
@@ -57,85 +43,175 @@ public partial class PricingService
         return Math.Round(net, GlobalConstants.Get<int?>("AmountScale") ?? 2, MidpointRounding.AwayFromZero);
     }
 
-    /// <summary>
-    /// Цена ПРОДАЖИ товара за указанную единицу на дату; null — цены нет.
-    /// Прайс-лист берётся у клиента (Customer.PriceList); клиент без прайса —
-    /// не ошибка, сработает умолчание товара.
-    /// </summary>
     public async Task<decimal?> ResolveSalePriceAsync(Guid item, Guid unit, Guid? customer, DateTime onDate)
-        => await ResolveAsync(item, unit, await PriceListOfAsync(customer, sale: true), onDate, sale: true);
+        => await ResolveAsync(item, unit, await PriceTypeOfAsync(customer, sale: true), onDate, sale: true);
 
-    /// <summary>Цена ЗАКУПКИ товара за указанную единицу на дату; null — цены нет.</summary>
     public async Task<decimal?> ResolvePurchasePriceAsync(Guid item, Guid unit, Guid? supplier, DateTime onDate)
-        => await ResolveAsync(item, unit, await PriceListOfAsync(supplier, sale: false), onDate, sale: false);
+        => await ResolveAsync(item, unit, await PriceTypeOfAsync(supplier, sale: false), onDate, sale: false);
 
-    /// <summary>
-    /// Захватывает фактическую цену строки продажи в историю (PriceListItem) типа
-    /// цен клиента, если тот Base. Вызывается при проведении счёта — см.
-    /// <see cref="CapturePriceAsync"/>.
-    /// </summary>
+    /// <summary>Цена ровно этого типа, без умолчания карточки. Нет цены — null.</summary>
+    public Task<decimal?> ResolveForTypeAsync(Guid item, Guid unit, Guid priceType, DateTime onDate)
+        => ResolvePriceForTypeAsync(item, unit, priceType, onDate.Date, depth: 0);
+
+    /// <summary>Ручная/загрузка. Те же проверки, что при сохранении строки.</summary>
+    public async Task<Guid> SetPriceAsync(
+        Guid priceType, Guid item, Guid unit, decimal price, DateTime? from, DateTime? to)
+    {
+        var row = new PriceListItem
+        {
+            PriceList = priceType,
+            Item = item,
+            Unit = unit,
+            Price = price,
+            EffectiveFrom = from,
+            EffectiveTo = to,
+        };
+        var error = await ValidateRowAsync(Guid.Empty, priceType, item, unit, price, from, to);
+        if (error != null) throw new InvalidOperationException(error);
+
+        // Пишем через ScriptServices, не через инжектированный менеджер:
+        // Save с инжекта внутри сервиса роняет disposed IServiceProvider на
+        // GetEventHandler (обработчик снова резолвит IPricingService).
+        return await ScriptServices.Get<IDictionaryManager<PriceListItem>>().SaveRecordAsync(row);
+    }
+
     public Task CaptureSalePriceAsync(Guid item, Guid unit, Guid? customer, decimal price, DateTime onDate)
         => CapturePriceAsync(item, unit, customer, sale: true, price, onDate);
 
-    /// <summary>Зеркало <see cref="CaptureSalePriceAsync"/> для закупки.</summary>
     public Task CapturePurchasePriceAsync(Guid item, Guid unit, Guid? supplier, decimal price, DateTime onDate)
         => CapturePriceAsync(item, unit, supplier, sale: false, price, onDate);
 
+    /// <summary>Предикат пересечения окон одной тройки. Null — пересечения нет.
+    /// В контракт не тащим сущность: сборка IPricingService и скрипт видят разные типы.</summary>
+    public async Task<Guid?> FindOverlappingAsync(
+        Guid priceType, Guid item, Guid unit, Guid excludeRow, DateTime? from, DateTime? to)
+    {
+        var siblings = await _rows.GetRecordsAsync(
+            $"PriceList = '{priceType}' AND Item = '{item}' AND Unit = '{unit}'");
+        var clash = siblings.FirstOrDefault(other =>
+            other.MetaId != excludeRow && WindowsOverlap(from, to, other.EffectiveFrom, other.EffectiveTo));
+        return clash?.MetaId;
+    }
+
+    /// <summary>Согласованность типа. kind: 0 = Base, 1 = Calculated. Null — годен.</summary>
+    public async Task<string?> ValidateTypeAsync(Guid metaId, int kind, Guid basePriceType, decimal markupPercent)
+    {
+        if (kind == (int)PriceListKind.Base)
+        {
+            if (basePriceType != Guid.Empty || markupPercent != 0)
+                return "Базовый тип цены не может ссылаться на другой тип цены и не может иметь наценку — заполни цены строками";
+            return null;
+        }
+
+        if (basePriceType == Guid.Empty)
+            return "Динамический тип цены обязан ссылаться на базовый тип цены";
+
+        if (markupPercent <= -100m)
+            return "Наценка не может быть -100% или меньше — цена базового типа обнулится или уйдёт в минус";
+
+        var existingRows = await _rows.GetRecordsAsync($"PriceList = '{metaId}'");
+        if (existingRows.Any())
+            return "У этого типа цены уже есть строки — удали их перед переключением в Calculated";
+
+        var visited = new HashSet<Guid> { metaId };
+        var currentId = basePriceType;
+        var depth = 0;
+        while (true)
+        {
+            if (!visited.Add(currentId))
+                return "Цепочка базовых типов цены зациклилась";
+            if (++depth > MaxPriceTypeChainDepth)
+                return $"Цепочка базовых типов цены длиннее {MaxPriceTypeChainDepth} уровней";
+
+            var current = await _types.GetRecordAsync(currentId);
+            if (current == null || current.Kind == PriceListKind.Base || current.BasePriceType == Guid.Empty)
+                break;
+            currentId = current.BasePriceType;
+        }
+
+        return null;
+    }
+
+    /// <summary>Строка цены: знак, Base-тип, окно, единица товара, пересечение.</summary>
+    public async Task<string?> ValidateRowAsync(
+        Guid metaId, Guid priceTypeId, Guid itemId, Guid unit, decimal price, DateTime? from, DateTime? to)
+    {
+        if (price <= 0m)
+            return "Цена должна быть больше нуля";
+
+        var priceType = await _types.GetRecordAsync(priceTypeId);
+        if (priceType == null)
+            return "Тип цены не найден";
+
+        if (priceType.Kind == PriceListKind.Calculated)
+            return $"Тип цены «{priceType.Name}» — расчётный: цена вычисляется от базового типа, а не задаётся строками";
+
+        var fromDay = from ?? DateTime.MinValue;
+        var toDay = to ?? DateTime.MaxValue;
+        if (fromDay.Date > toDay.Date)
+            return "Дата начала действия цены позже даты окончания";
+
+        var item = await _items.GetRecordAsync(itemId);
+        if (item == null)
+            return "Товар не найден";
+
+        if (unit != item.UnitOfMeasure)
+        {
+            var factor = await ScriptServices.Get<IUnitConverter>().FactorAsync(unit, item.UnitOfMeasure);
+            var packaging = (await ScriptServices.Get<IDictionaryManager<ItemUnit>>()
+                    .GetRecordsAsync($"Item = '{itemId}' AND Unit = '{unit}'"))
+                .Any();
+            if (factor == null && !packaging)
+                return "Цену нельзя задать в этой единице: она не базовая для товара, не заведена его упаковкой и не приводится к базовой по виду величины";
+        }
+
+        var clash = await FindOverlappingAsync(priceTypeId, itemId, unit, metaId, from, to);
+        if (clash != null)
+            return "Для этого товара в этом типе цен и этой единице уже есть цена на пересекающийся период";
+
+        return null;
+    }
+
     /// <summary>
-    /// Строит настоящую историю цен из проведённых документов: закрывает
-    /// действовавшую строку днём раньше и открывает новую с EffectiveFrom = onDate.
-    /// Работает только для типа цен Kind == Base — Calculated строк не хранит.
-    ///
-    /// Прошлое НИКОГДА не переписывается: попадание в уже закрытую (EffectiveTo
-    /// заполнен) строку с другой ценой молча пропускается, без лога — тот же
-    /// best-effort, что и у SpawnPutAwayTaskAsync в Purchasing. Повторный захват в
-    /// тот же день правит строку на месте (идемпотентность при перепроведении),
-    /// а не плодит нулевые окна.
+    /// История из фактической цены сделки: закрыть действовавшую строку днём
+    /// раньше, открыть новую. Только Base. Прошлое с заполненным EffectiveTo
+    /// не трогаем. Документ сам это не зовёт — только тот, кто сознательно
+    /// ведёт тип «из последнего документа».
     /// </summary>
     private async Task CapturePriceAsync(Guid item, Guid unit, Guid? party, bool sale, decimal price, DateTime onDate)
     {
-        // Unit на строке документа необязателен — пустая единица или
-        // нулевая/отрицательная цена значит «в этой строке писать нечего».
         if (item == Guid.Empty || unit == Guid.Empty || price <= 0m) return;
 
-        var priceTypeId = await PriceListOfAsync(party, sale);
-        if (priceTypeId is not Guid listId) return;
+        var priceTypeId = await PriceTypeOfAsync(party, sale);
+        if (priceTypeId is not Guid typeId) return;
 
-        var priceType = await _lists.GetRecordAsync(listId);
-        // PriceListOfAsync проверяет IsDisabled/Direction, но не Kind — Calculated
-        // строк не хранит вовсе (PriceListItemEventHandler отклонит запись под ним).
+        var priceType = await _types.GetRecordAsync(typeId);
         if (priceType == null || priceType.Kind != PriceListKind.Base) return;
 
-        var rows = await _rows.GetRecordsAsync($"PriceList = '{listId}' AND Item = '{item}' AND Unit = '{unit}'");
+        var rows = await _rows.GetRecordsAsync($"PriceList = '{typeId}' AND Item = '{item}' AND Unit = '{unit}'");
         var onDateOnly = onDate.Date;
         var covering = rows.FirstOrDefault(r => Covers(r, onDateOnly));
 
         if (covering != null)
         {
-            if (covering.Price == price) return; // уже эта цена — нечего писать
-
-            if (covering.EffectiveTo != null) return; // запечатанная история — прошлое не трогаем
+            if (covering.Price == price) return;
+            if (covering.EffectiveTo != null) return;
 
             if ((covering.EffectiveFrom ?? DateTime.MinValue).Date == onDateOnly)
             {
-                // тот же день (перепроведение или второй документ в тот же день) —
-                // правим строку на месте, а не плодим нулевые окна
                 covering.Price = price;
-                await _rows.SaveRecordAsync(covering);
+                await ScriptServices.Get<IDictionaryManager<PriceListItem>>().SaveRecordAsync(covering);
                 return;
             }
 
             covering.EffectiveTo = onDateOnly.AddDays(-1);
-            await _rows.SaveRecordAsync(covering);
+            await ScriptServices.Get<IDictionaryManager<PriceListItem>>().SaveRecordAsync(covering);
         }
 
-        // Сиблинги гарантированно непересекающиеся (инвариант проверяется на
-        // сохранении в PriceListItemEventHandler) — "next" здесь единственный
-        // кандидат, столкновения с ним не будет никогда.
         var next = rows.Where(r => r.EffectiveFrom > onDateOnly).OrderBy(r => r.EffectiveFrom).FirstOrDefault();
-        await _rows.SaveRecordAsync(new PriceListItem
+        await ScriptServices.Get<IDictionaryManager<PriceListItem>>().SaveRecordAsync(new PriceListItem
         {
-            PriceList = listId,
+            PriceList = typeId,
             Item = item,
             Unit = unit,
             Price = price,
@@ -144,59 +220,40 @@ public partial class PricingService
         });
     }
 
-    /// <summary>
-    /// Прайс-лист контрагента, если он назначен, действует и заведён на нужную
-    /// сторону сделки. Прайс продажи не имеет права подставиться в закупку —
-    /// поэтому направление проверяется здесь, а не полагается на дисциплину.
-    /// </summary>
-    private async Task<Guid?> PriceListOfAsync(Guid? party, bool sale)
+    private async Task<Guid?> PriceTypeOfAsync(Guid? party, bool sale)
     {
         if (party == null || party == Guid.Empty) return null;
 
-        Guid listId;
+        Guid typeId;
         if (sale)
         {
             var customer = await ScriptServices.Get<IDictionaryManager<Customer>>().GetRecordAsync(party.Value);
-            listId = customer?.PriceList ?? Guid.Empty;
+            typeId = customer?.PriceList ?? Guid.Empty;
         }
         else
         {
             var supplier = await ScriptServices.Get<IDictionaryManager<Supplier>>().GetRecordAsync(party.Value);
-            listId = supplier?.PriceList ?? Guid.Empty;
+            typeId = supplier?.PriceList ?? Guid.Empty;
         }
-        if (listId == Guid.Empty) return null;
+        if (typeId == Guid.Empty) return null;
 
-        var list = await _lists.GetRecordAsync(listId);
-        if (list == null || list.IsDisabled) return null;
+        var type = await _types.GetRecordAsync(typeId);
+        if (type == null || type.IsDisabled) return null;
         var wanted = sale ? PriceDirection.Sale : PriceDirection.Purchase;
-        return list.Direction == wanted ? listId : (Guid?)null;
+        return type.Direction == wanted ? typeId : (Guid?)null;
     }
 
-    /// <summary>
-    /// Лестница поиска цены. Порядок повторяет ItemQuantityConverter — от самого
-    /// точного к самому общему, с остановкой на первом ответе:
-    ///
-    ///   1. тип цены (с учётом Kind — см. ResolvePriceForTypeAsync);
-    ///   2. умолчание товара (оно за базовую единицу) — пересчёт;
-    ///   3. null.
-    ///
-    /// null — это «цена не задана», а НЕ ошибка: заполнение цен не обязано
-    /// находить её для каждой строки.
-    /// </summary>
-    private async Task<decimal?> ResolveAsync(Guid item, Guid unit, Guid? priceList, DateTime onDate, bool sale)
+    private async Task<decimal?> ResolveAsync(Guid item, Guid unit, Guid? priceType, DateTime onDate, bool sale)
     {
-        if (priceList is Guid listId)
+        if (priceType is Guid typeId)
         {
-            var resolved = await ResolvePriceForTypeAsync(item, unit, listId, onDate, depth: 0);
+            var resolved = await ResolvePriceForTypeAsync(item, unit, typeId, onDate, depth: 0);
             if (resolved != null) return resolved;
         }
 
         var card = await _items.GetRecordAsync(item);
         if (card == null) return null;
 
-        // Умолчание товара задано за его базовую единицу. Ноль здесь означает
-        // «не заполнено»: поле необязательное, а необязательный Decimal генерится
-        // ненулевым.
         var fallback = sale ? card.DefaultSalePrice : card.DefaultPurchasePrice;
         if (fallback <= 0m) return null;
 
@@ -205,26 +262,15 @@ public partial class PricingService
             : await ConvertPriceAsync(item, fallback, card.UnitOfMeasure, unit);
     }
 
-    /// <summary>
-    /// Цена по конкретному ТИПУ ЦЕНЫ. Base — строка PriceListItem ровно на эту
-    /// единицу, иначе на другую единицу того же товара с пересчётом. Calculated —
-    /// рекурсивно цена базового типа (BasePriceType) с применённой наценкой
-    /// (MarkupPercent, может быть отрицательной). Умолчание товара сюда
-    /// НЕ включено: оно крайняя ступень лестницы в ResolveAsync, а не часть
-    /// разрешения типа — иначе два разных Calculated-типа без собственной цены в
-    /// базовом тихо сошлись бы к одному умолчанию товара мимо своих наценок.
-    /// </summary>
     private async Task<decimal?> ResolvePriceForTypeAsync(Guid item, Guid unit, Guid priceTypeId, DateTime onDate, int depth)
     {
         if (depth > MaxPriceTypeChainDepth) return null;
 
-        var priceType = await _lists.GetRecordAsync(priceTypeId);
+        var priceType = await _types.GetRecordAsync(priceTypeId);
         if (priceType == null || priceType.IsDisabled) return null;
 
         if (priceType.Kind == PriceListKind.Base)
         {
-            // По (тип цены, товар) фильтруем в базе, а окно дат — в памяти:
-            // сравнение дат строкой фильтра хрупко, а строк на один товар единицы.
             var rows = (await _rows.GetRecordsAsync($"PriceList = '{priceTypeId}' AND Item = '{item}'"))
                 .Where(r => Covers(r, onDate))
                 .ToList();
@@ -232,12 +278,6 @@ public partial class PricingService
             var exact = rows.FirstOrDefault(r => r.Unit == unit);
             if (exact != null) return exact.Price;
 
-            // Несколько строк на РАЗНЫЕ единицы этого товара — обычная настройка
-            // (ящик и паллета оценены отдельно, не пропорционально). Если все, что
-            // удалось перевести в запрошенную единицу, сходятся в одну цену —
-            // отдаём её; если расходятся, порядок строк из базы ничем не
-            // гарантирован, и угадывать одну из них молча нельзя — честный ответ
-            // здесь «цена неоднозначна», то есть null, как и при отсутствии цены.
             decimal? found = null;
             foreach (var row in rows)
             {
@@ -250,9 +290,6 @@ public partial class PricingService
             return found;
         }
 
-        // Kind == Calculated: цена базового типа, к ней применяется наценка.
-        // Direction базового типа намеренно не проверяется — дилерская цена
-        // продажи вправе считаться от закупочной, это ключевой сценарий фичи.
         if (priceType.BasePriceType == Guid.Empty) return null;
 
         var basePrice = await ResolvePriceForTypeAsync(item, unit, priceType.BasePriceType, onDate, depth + 1);
@@ -260,31 +297,20 @@ public partial class PricingService
 
         var marked = basePrice.Value * (1m + priceType.MarkupPercent / 100m);
         var rounded = Math.Round(marked, GlobalConstants.Get<int?>("AmountScale") ?? 2, MidpointRounding.AwayFromZero);
-
-        // Наценка вплотную к -100% (разрешена — floor на сохранении режет только
-        // <= -100%) на уже маленькой базовой цене может обнулиться ИМЕННО
-        // округлением этой ступени, а не по вине конкретных чисел где-то ещё.
-        // Отдать 0 как «цену» — продать по нулю молча; честный ответ здесь тот
-        // же, что и при отсутствии цены вовсе, — пусть лестница уйдёт на
-        // следующую ступень (умолчание товара), а не остановится на нуле.
         return rounded > 0m ? rounded : (decimal?)null;
     }
 
-    /// <summary>Действует ли строка прайса на дату. Пустая граница — открытый конец.</summary>
     private static bool Covers(PriceListItem row, DateTime onDate)
-        => onDate >= (row.EffectiveFrom ?? DateTime.MinValue)
-        && onDate <= (row.EffectiveTo ?? DateTime.MaxValue);
+    {
+        var day = onDate.Date;
+        return day >= (row.EffectiveFrom?.Date ?? DateTime.MinValue.Date)
+            && day <= (row.EffectiveTo?.Date ?? DateTime.MaxValue.Date);
+    }
 
-    /// <summary>
-    /// Перевод ЦЕНЫ между единицами — обратный переводу количества: если в ящике
-    /// 12 штук, то ящиков меньше, а цена за ящик БОЛЬШЕ. Поэтому цена умножается
-    /// на то отношение, на которое количество делится.
-    ///
-    /// Отношение берётся ТОВАРНЫМ конвертером, а не общим: «ящик» сам по себе
-    /// коэффициента не имеет, он зависит от товара. Заодно бесплатно работают и
-    /// упаковки, и виды величины, и тождество — лестница у конвертера своя и
-    /// уже отлажена.
-    /// </summary>
+    private static bool WindowsOverlap(DateTime? aFrom, DateTime? aTo, DateTime? bFrom, DateTime? bTo)
+        => (aFrom?.Date ?? DateTime.MinValue.Date) <= (bTo?.Date ?? DateTime.MaxValue.Date)
+        && (bFrom?.Date ?? DateTime.MinValue.Date) <= (aTo?.Date ?? DateTime.MaxValue.Date);
+
     private static async Task<decimal?> ConvertPriceAsync(Guid item, decimal price, Guid fromUnit, Guid toUnit)
     {
         if (fromUnit == toUnit) return price;
@@ -292,7 +318,6 @@ public partial class PricingService
         var conversion = ScriptServices.Get<IItemQuantityConverter>();
         var oneTarget = await conversion.ToBaseAsync(item, 1m, toUnit);
         var oneSource = await conversion.ToBaseAsync(item, 1m, fromUnit);
-        // Перевести нечем — молча считать цену за штуку ценой за ящик нельзя.
         if (oneTarget == null || oneSource == null || oneSource.Value == 0m) return null;
 
         var amount = price * oneTarget.Value / oneSource.Value;

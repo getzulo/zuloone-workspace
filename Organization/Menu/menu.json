@@ -44,7 +44,7 @@
     {
       "caption": "Legal entities",
       "caption_ar": "الكيانات القانونية",
-      "caption_ru": "Юрлица",
+      "caption_ru": "Юридические лица",
       "parentMetaId": "056ae83e-b101-485d-87d5-320de4d4e920",
       "displayOrder": 0,
       "targetType": "Dictionary",
@@ -58,7 +58,8 @@
     },
     {
       "caption": "Organization settings",
-      "caption_ru": "Настройки модуля",
+      "caption_ar": "إعدادات المؤسسة",
+      "caption_ru": "Настройки организации",
       "parentMetaId": "29720d2c-504a-5235-8035-caa33aeae64b",
       "displayOrder": 0,
       "targetType": "Dictionary",

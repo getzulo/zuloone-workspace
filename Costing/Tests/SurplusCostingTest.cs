@@ -246,9 +246,9 @@ public class SurplusCostingTest : IntegrationTestScriptBase
         await ReceiveAsync(s, 10m, 7m);
         var value0 = await InventoryValueAsync();
 
-        // Пересчёт показал 13 вместо 10: движения пишет OnBeforePost самого
-        // документа, а не транзакционный скрипт — сервис считает нетто по ним и
-        // потому одинаково работает с обоими способами.
+        // Пересчёт показал 13 вместо 10: дельта на строке (QtyDelta), склад
+        // двигает StockCountTx — драйвер CostingIssue и сервис излишка видят
+        // одно и то же движение.
         var count = await DocumentManager.NewDocumentAsync<StockCount>();
         count.Cell = s.Cell;
         count.CountDate = DateTime.UtcNow.Date;
@@ -274,6 +274,38 @@ public class SurplusCostingTest : IntegrationTestScriptBase
         var value1 = await InventoryValueAsync();
         Assert.IsTrue(value1 - value0 == 21m,
             "стоимость запаса выросла на 3 × 7 = 21, факт {0}", value1 - value0);
+    }
+
+    [IntegrationTest("Недостача инвентаризации списывает партии и стоимость")]
+    public async Task StockCountShortageWritesOffCost()
+    {
+        // ДЫРА: дельта шла через ITotalsManager в OnBeforePost, драйвер
+        // CostingIssue смотрит только Tx. Склад падал, FIFO и книга — нет.
+        var s = await SetupAsync();
+        await ReceiveAsync(s, 10m, 7m);
+        var value0 = await InventoryValueAsync();
+
+        var count = await DocumentManager.NewDocumentAsync<StockCount>();
+        count.Cell = s.Cell;
+        count.CountDate = DateTime.UtcNow.Date;
+        count.Lines.Add(new StockCountLinesTablePartRow { Item = s.Item, CountedQty = 7m });
+        await DocumentManager.SaveDocumentAsync(count);
+
+        count.Subtype = StockCount.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(count);
+
+        var stock = await TotalsManager.GetBalanceAsync("Stock", "Qty",
+            new Dictionary<string, object?> { ["Item"] = s.Item, ["Cell"] = s.Cell });
+        Assert.IsTrue(stock == 7m, "пересчёт довёл остаток до 7, факт {0}", stock);
+
+        Assert.IsTrue(await FifoAsync("Quantity", s.Item) == 7m,
+            "в партиях осталось 7 штук, факт {0}", await FifoAsync("Quantity", s.Item));
+        Assert.IsTrue(await FifoAsync("Amount", s.Item) == 49m,
+            "70 − 3 × 7 = 49, факт {0}", await FifoAsync("Amount", s.Item));
+
+        var value1 = await InventoryValueAsync();
+        Assert.IsTrue(value0 - value1 == 21m,
+            "стоимость запаса упала на 3 × 7 = 21, факт {0}", value0 - value1);
     }
 
     [IntegrationTest("Черновик инвентаризации склад не двигает")]

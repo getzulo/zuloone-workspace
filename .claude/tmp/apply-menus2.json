@@ -1,0 +1,10 @@
+{
+  "files": [
+    "Common/Menu/menu.json",
+    "Organization/Menu/menu.json",
+    "CRM/Menu/menu.json",
+    "Costing/Menu/menu.json",
+    "LocalizationSaudiArabia/Menu/menu.json"
+  ],
+  "force": true
+}

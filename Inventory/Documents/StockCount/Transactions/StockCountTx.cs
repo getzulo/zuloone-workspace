@@ -1,11 +1,19 @@
 #nullable enable
 
-// Инвентаризация проводится в StockCountEventHandler.OnBeforePostAsync: там есть
-// доступ к текущему остатку (IRegisterMovementService), которого нет в Tx. Здесь —
-// пусто; связка Tx с подтипом Posted нужна, чтобы движок запустил цикл проведения.
+// Дельта уже на строке (QtyDelta): обработчик посчитал её при сохранении
+// черновика. Здесь только проводка в Stock — драйвер CostingIssue увидит минус
+// и спишет партии; плюс подхватит ISurplusCostingService.
 public partial class StockCountTx
 {
     protected override void GetTransactions(StockCount document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
     {
+        foreach (var line in document.Lines)
+        {
+            if (line.QtyDelta == 0m) continue;
+            transactions.Add(new RegisterMovementSpec("Stock")
+                .Dim("Item", line.Item)
+                .Dim("Cell", document.Cell)
+                .Res("Qty", line.QtyDelta));
+        }
     }
 }

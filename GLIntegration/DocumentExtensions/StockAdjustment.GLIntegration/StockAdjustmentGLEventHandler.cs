@@ -22,24 +22,32 @@ namespace ZuloOne.Runtime.Generated;
 // другой ненастроенной ноги: разноска best-effort и ронять документ не должна.
 //
 // Сумма НЕ пересчитывается по строкам: списание себестоимости уже сделал драйвер
-// CostingIssue, и его движения по ItemCostFifo лежат в базе с DocumentMetaId
-// этого документа. Читается ФАКТ — тот же приём, что в разноске себестоимости
-// продаж, и по той же причине: метод оценки (FIFO/AVG) живёт в настройках, и
-// повторять его здесь значит гарантированно разъехаться с учётом запаса.
+// CostingIssue, а партию излишка — SurplusCostingService; движения по
+// ItemCostFifo лежат в базе с DocumentMetaId этого документа. Читается ФАКТ —
+// тот же приём, что в разноске себестоимости продаж, и по той же причине: метод
+// оценки (FIFO/AVG) живёт в настройках, и повторять его здесь значит
+// гарантированно разъехаться с учётом запаса.
 //
-// Излишек сюда не попадает: у него движения ItemCostFifo положительные, и сумма
-// выбытия получается нулевой. Заведение партии на излишек — забота Costing.
+// ДВЕ НОГИ. Списание (cost > 0) — Dr потери / Cr запасы. Излишек (положительный
+// Amount партии) — Dr запасы / Cr доход от излишка. Это не сторно списания:
+// находка не должна затирать бой на одном счёте, иначе маржа и статья потерь
+// перестают читаться. Описания различны («Stock adjustment {id}» и
+// «Stock adjustment surplus {id}»), чтобы идемпотентность GL не схлопнула
+// два факта в одну проводку. Нулевая партия — PostSurplusAsync вернёт null.
 public partial class StockAdjustmentGLEventHandler : TypedDocumentEventHandler<StockAdjustment>
 {
     public override async Task<EventResult> OnAfterPostAsync(StockAdjustment document, EventContext context)
     {
         if (document.Subtype != "Posted") return EventResult.Ok();
 
-        var jeId = await context.GetService<IInventoryWriteOffGLService>()
-            .PostAsync(document.MetaId, document.Cell, document.DocumentDate,
-                       "Stock adjustment " + document.MetaId);
-        if (jeId.HasValue)
-            await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
+        var svc = context.GetService<IInventoryWriteOffGLService>();
+        var wo = await svc.PostAsync(document.MetaId, document.Cell, document.DocumentDate,
+                                    "Stock adjustment " + document.MetaId);
+        var su = await svc.PostSurplusAsync(document.MetaId, document.Cell, document.DocumentDate,
+                                           "Stock adjustment surplus " + document.MetaId);
+        var links = context.GetService<IDocumentManager>();
+        if (wo.HasValue) await links.AddLinkAsync(document.MetaId, wo.Value);
+        if (su.HasValue) await links.AddLinkAsync(document.MetaId, su.Value);
 
         return EventResult.Ok();
     }

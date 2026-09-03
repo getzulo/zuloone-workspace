@@ -3,7 +3,7 @@
   "object": {
     "caption": "Goods issue",
     "caption_ar": "صرف بضاعة",
-    "caption_ru": "Реализация",
+    "caption_ru": "Списание",
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "57101302-0000-4000-8000-000000000000",

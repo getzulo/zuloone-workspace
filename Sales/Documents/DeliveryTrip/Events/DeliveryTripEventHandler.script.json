@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "DeliveryTrip",
+    "objectMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
+    "executionOrder": 0,
+    "metaId": "2fb7444d-a325-4b9c-b5bf-a47290004770",
+    "name": "DeliveryTripEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T00:00:00",
+    "modifiedDateTime": "2026-09-03T00:00:00"
+  }
+}

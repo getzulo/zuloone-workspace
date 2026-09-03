@@ -236,11 +236,6 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
                 await docs.AddLinkAsync(header.MetaId, calc.Value);
         }
 
-        // Захват цены в историю — самостоятельная забота: срабатывает даже без
-        // юрлица. Одна и та же (Item,Unit) на двух строках — выигрывает последняя.
-        foreach (var line in invoice.Lines)
-            await pricing.CaptureSalePriceAsync(line.Item, line.Unit, invoice.Customer, line.UnitPrice, TaxPointOf(header));
-
         return EventResult.Ok();
     }
 

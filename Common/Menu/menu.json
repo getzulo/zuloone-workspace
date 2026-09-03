@@ -43,7 +43,8 @@
     },
     {
       "caption": "Common settings",
-      "caption_ru": "Настройки модуля",
+      "caption_ar": "الإعدادات العامة",
+      "caption_ru": "Общие настройки",
       "parentMetaId": "cf5e80d1-e7e5-508c-82bf-40e67a1c59c8",
       "displayOrder": 0,
       "targetType": "Dictionary",
@@ -60,7 +61,7 @@
       "caption_ar": "الجنس",
       "caption_ru": "Пол",
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
-      "displayOrder": 0,
+      "displayOrder": 8,
       "targetType": "Dictionary",
       "targetMetaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
       "metaId": "230f97f8-144d-491a-a153-19932585c2ba",

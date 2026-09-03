@@ -32,12 +32,15 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
         public Guid Customer;
         public Guid InventoryAccount;
         public Guid WriteOffAccount;
+        public Guid SurplusAccount;
         public Guid PayableAccount;
         public Guid CashAccount;
         public Guid LegalEntity;
     }
 
-    private async Task<Setup> SetupAsync(bool configureWriteOffAccount = true)
+    private async Task<Setup> SetupAsync(
+        bool configureWriteOffAccount = true,
+        bool? configureSurplusAccount = null)
     {
         var today = DateTime.UtcNow.Date;
 
@@ -127,8 +130,13 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
 
         var inventoryAccount = await NewAccountAsync("1400", "Inventory", AccountType.Asset, currency.MetaId);
         var writeOffAccount = await NewAccountAsync("7100", "Inventory write-off", AccountType.Expense, currency.MetaId);
+        var surplusAccount = await NewAccountAsync("9100", "Inventory surplus", AccountType.Income, currency.MetaId);
         var payableAccount = await NewAccountAsync("2000", "Accounts payable", AccountType.Liability, currency.MetaId);
         var cashAccount = await NewAccountAsync("1000", "Cash", AccountType.Asset, currency.MetaId);
+
+        // Излишек настраивается вместе со списанием: обе ноги одного контура.
+        // Явный configureSurplusAccount нужен кейсу «счёт излишка не задан».
+        var surplusConfigured = configureSurplusAccount ?? configureWriteOffAccount;
 
         // Настройки — ОДИНОЧНЫЙ и КЭШИРУЕМЫЙ справочник: правим существующую
         // запись, если она есть, иначе заводим. Слепой NewRecord делает тест
@@ -138,6 +146,7 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
         settings.InventoryAccountCode = "1400";
         settings.PayableAccountCode = "2000";
         settings.InventoryWriteOffAccountCode = configureWriteOffAccount ? "7100" : null;
+        settings.InventorySurplusAccountCode = surplusConfigured ? "9100" : null;
         settings.CashAccountCode = "1000";
         await DictionaryManager.SaveRecordAsync(settings);
 
@@ -164,6 +173,7 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
             Customer = customer.MetaId,
             InventoryAccount = inventoryAccount,
             WriteOffAccount = writeOffAccount,
+            SurplusAccount = surplusAccount,
             PayableAccount = payableAccount,
             CashAccount = cashAccount,
             LegalEntity = legalEntity.MetaId,
@@ -249,17 +259,98 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
             "и кредитует счёт запасов на ту же сумму, факт {0}", inventory.Credit);
     }
 
-    [IntegrationTest("Излишек проводки списания не порождает")]
-    public async Task SurplusPostsNothing()
+    [IntegrationTest("Излишек разносится в книгу: Dr запасы / Cr доход от излишка")]
+    public async Task SurplusPostsToLedger()
     {
+        // Излишек — доход, а не сторно списания. Счёт потерь должен остаться
+        // нулевым: находка не затирает бой, маржа и статья потерь остаются чистыми.
         var s = await SetupAsync();
-        await ReceiveAsync(s, 10m, 7m);
+        await ReceiveAsync(s, 10m, 7m);   // партия: 10 штук по 7 = 70
 
         var doc = await AdjustAsync(s, 5m, "Излишек при пересчёте");
+
+        // Costing заводит FIFO 5 × 7 = 35 — это и есть сумма в книге.
+        var inventory = await AccountAsync(doc.MetaId, s.InventoryAccount);
+        Assert.IsTrue(inventory.Debit == 35m,
+            "излишек дебетует запасы на 5 × 7 = 35, факт {0}", inventory.Debit);
+
+        var surplus = await AccountAsync(doc.MetaId, s.SurplusAccount);
+        Assert.IsTrue(surplus.Credit == 35m,
+            "и кредитует доход от излишка на ту же сумму, факт {0}", surplus.Credit);
 
         var writeOff = await AccountAsync(doc.MetaId, s.WriteOffAccount);
         Assert.IsTrue(writeOff.Debit == 0m,
             "приход на склад не является списанием, факт {0}", writeOff.Debit);
+    }
+
+    [IntegrationTest("Инвентаризация вверх разносит излишек в книгу")]
+    public async Task StockCountUpPostsSurplusToLedger()
+    {
+        var s = await SetupAsync();
+        await ReceiveAsync(s, 10m, 7m);
+
+        // Draft → Posted: движения склада пишет Tx, партию — Costing OnAfterPost,
+        // GL читает ItemCostFifo, а не QtyDelta.
+        var count = await DocumentManager.NewDocumentAsync<StockCount>();
+        count.Cell = s.Cell;
+        count.CountDate = DateTime.UtcNow.Date;
+        count.Lines.Add(new StockCountLinesTablePartRow { Item = s.Item, CountedQty = 13m });
+        await DocumentManager.SaveDocumentAsync(count);
+
+        count.Subtype = StockCount.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(count);
+
+        // 3 штуки по 7 = 21 — ровно то, что Costing записал в партию излишка.
+        var inventory = await AccountAsync(count.MetaId, s.InventoryAccount);
+        Assert.IsTrue(inventory.Debit == 21m,
+            "пересчёт вверх дебетует запасы на 3 × 7 = 21, факт {0}", inventory.Debit);
+
+        var surplus = await AccountAsync(count.MetaId, s.SurplusAccount);
+        Assert.IsTrue(surplus.Credit == 21m,
+            "и кредитует доход от излишка на ту же сумму, факт {0}", surplus.Credit);
+
+        var writeOff = await AccountAsync(count.MetaId, s.WriteOffAccount);
+        Assert.IsTrue(writeOff.Debit == 0m,
+            "пересчёт вверх не списывает, факт {0}", writeOff.Debit);
+    }
+
+    [IntegrationTest("Без настроенного счёта излишка документ проводится, проводки нет")]
+    public async Task UnconfiguredSurplusAccountDoesNotBreakPosting()
+    {
+        // Best-effort: ненастроенный доход от излишка не роняет складскую операцию.
+        var s = await SetupAsync(configureSurplusAccount: false);
+        await ReceiveAsync(s, 10m, 7m);
+
+        var doc = await AdjustAsync(s, 5m, "Излишек");
+
+        var stored = await DocumentManager.GetDocumentAsync<StockAdjustment>(doc.MetaId);
+        Assert.IsTrue(stored?.Subtype == StockAdjustment.Subtypes.Posted,
+            "излишек проведён несмотря на ненастроенный счёт, факт {0}", stored?.Subtype);
+
+        var surplus = await AccountAsync(doc.MetaId, s.SurplusAccount);
+        Assert.IsTrue(surplus.Debit == 0m && surplus.Credit == 0m,
+            "без счёта излишка проводки нет, дебет {0} кредит {1}", surplus.Debit, surplus.Credit);
+    }
+
+    [IntegrationTest("Излишек без истории закупок в книгу не идёт — партии нулевые")]
+    public async Task ZeroCostSurplusPostsNothingToLedger()
+    {
+        // Costing заводит партию с Amount=0: цены взяться неоткуда. Выдумывать
+        // доход в книге не из чего — GL тоже молчит. Тот же инвариант, что
+        // SurplusWithoutHistoryIsZeroCost у себестоимости.
+        var s = await SetupAsync();
+
+        var doc = await AdjustAsync(s, 5m, "Излишек без истории");
+
+        var inventory = await AccountAsync(doc.MetaId, s.InventoryAccount);
+        Assert.IsTrue(inventory.Debit == 0m && inventory.Credit == 0m,
+            "нулевая партия не двигает запасы в книге, дебет {0} кредит {1}",
+            inventory.Debit, inventory.Credit);
+
+        var surplus = await AccountAsync(doc.MetaId, s.SurplusAccount);
+        Assert.IsTrue(surplus.Debit == 0m && surplus.Credit == 0m,
+            "и доход от излишка тоже ноль, дебет {0} кредит {1}",
+            surplus.Debit, surplus.Credit);
     }
 
     [IntegrationTest("Отпуск со склада разносится в книгу")]

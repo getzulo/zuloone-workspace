@@ -1,0 +1,14 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Отгрузка заказа покупателя: свободный остаток, выставление счёта, закрытие рейса.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "2b3c4d5e-6f70-4891-a2b3-c4d5e6f70812",
+    "metaId": "1a2b3c4d-5e6f-4780-91a2-b3c4d5e6f701",
+    "name": "SalesFulfillmentService",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T00:00:00",
+    "modifiedDateTime": "2026-09-03T00:00:00"
+  }
+}

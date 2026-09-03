@@ -7,53 +7,49 @@ using ZuloOne.Managers;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Инвентаризация по расхождению: на проведении читаем текущий остаток Stock по
-// (ячейка, товар), считаем дельту = факт − система и двигаем Stock ОДИНОЧНОЙ
-// проводкой на эту дельту (одинарная запись — как в StockAdjustment, без External).
-// Проводки пишутся напрямую через IRegisterMovementService, привязанные к документу
-// — движок снимет их при распроведении (DeleteDocumentMovements). Дельта считается
-// здесь, а не в Tx, потому что текущий остаток доступен только через сервис, а
-// транзакционный скрипт сервисов не видит.
+// Дельта = факт − система. Tx сервисов не видит, WriteBack строк на сохранении
+// черновика до базы не доезжает (проверено: склад оставался на старом остатке).
+// Поэтому число пишется в QtyDelta через IDataService в OnBeforePost — а Tx
+// читает строки ЗАНОВО из базы уже после этого хука (BuildContextAsync).
 //
-// ПОЧЕМУ ДО ПРОВЕДЕНИЯ. Движения пишутся в OnBeforePost намеренно: к моменту
-// OnAfterPost по документу уже успевают отработать расширения других моделей
-// (Costing заводит партию себестоимости на найденный излишек), и они обязаны
-// видеть готовые складские движения. Порядок между обработчиком владельца и
-// обработчиком расширения executionOrder не задаёт — их цепочки разные, — так
-// что единственная надёжная гарантия «движения уже есть» это записать их до
-// проведения, а не соревноваться за порядок внутри OnAfterPost.
-//
-// Документ ДОЛЖЕН нести postOnSave: true. С postOnSave: false цикл проведения не
-// запускался вовсе — не срабатывал ни один хук, и инвентаризация не двигала склад
-// ни на единицу. Заметить это было негде: документ не был покрыт ни одним тестом.
-//
-// Факт берётся из BaseQuantity — CountedQty в БАЗОВОЙ единице товара, которую
-// платформа считает при сохранении строки из пары (CountedQty, Unit). Дельта
-// вычитает системный остаток, а он в базовой единице: пересчитать «2 ящика»
-// нужно ДО вычитания, иначе инвентаризация спишет разницу, которой нет. Ноль =
-// «единица не указана, пересчёта не было» → введённое количество и есть базовое.
+// Дата движений — CountDate. Проводки берут DocumentDate шапки, поэтому перед
+// проведением шапка получает CountDate WriteBack'ом (ловушка 4б скилла).
 public partial class StockCountEventHandler : TypedDocumentEventHandler<StockCount>
 {
+    public override async Task<EventResult> OnBeforeSaveAsync(StockCount header, bool isNew, EventContext context)
+    {
+        if (isNew || header.Subtype != "Posted" || header.MetaId == Guid.Empty)
+            return EventResult.Ok();
+
+        var stored = await context.GetService<IDocumentManager>().GetDocumentAsync<StockCount>(header.MetaId);
+        if (stored == null) return EventResult.Ok();
+
+        var countDate = stored.CountDate == default ? DateTime.UtcNow.Date : stored.CountDate.Date;
+        header.DocumentDate = countDate;
+        return EventResult.Ok();
+    }
 
     public override async Task<EventResult> OnBeforePostAsync(StockCount header, EventContext context)
     {
-        var full = await context.GetService<IDocumentManager>().GetDocumentAsync<StockCount>(header.MetaId);
+        var docs = context.GetService<IDocumentManager>();
+        var full = await docs.GetDocumentAsync<StockCount>(header.MetaId);
         var lines = full?.Lines ?? header.Lines;
+        var cell = full != null && full.Cell != Guid.Empty ? full.Cell : header.Cell;
         var stock = context.GetService<ITotalsManager>();
+        var data = context.GetService<IDataService>();
 
         foreach (var line in lines)
         {
+            if (line.Item == Guid.Empty || line.MetaId == Guid.Empty) continue;
             var bal = await stock.GetBalanceAsync("Stock",
-                new Dictionary<string, object?> { ["Item"] = line.Item, ["Cell"] = header.Cell });
+                new Dictionary<string, object?> { ["Item"] = line.Item, ["Cell"] = cell });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             var counted = line.BaseQuantity != 0m ? line.BaseQuantity : line.CountedQty;
             var delta = counted - onHand;
-            if (delta == 0m) continue;
-
-            await stock.PostMovementAsync("Stock", header.MetaId, header.CountDate == default ? DateTime.UtcNow : header.CountDate,
-                new Dictionary<string, object?> { ["Item"] = line.Item, ["Cell"] = header.Cell },
-                new Dictionary<string, decimal> { ["Qty"] = delta });
+            await data.UpdateAsync("TP_StockCountLines", line.MetaId,
+                new Dictionary<string, object?> { ["QtyDelta"] = delta });
         }
+
         return EventResult.Ok();
     }
 }

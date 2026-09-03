@@ -41,8 +41,9 @@
       "modifiedDateTime": "2026-08-28T02:46:15.1410344"
     },
     {
-      "caption": "LocalizationSaudiArabia settings",
-      "caption_ru": "Настройки модуля",
+      "caption": "Saudi Arabia settings",
+      "caption_ar": "إعدادات السعودية",
+      "caption_ru": "Настройки Саудовской Аравии",
       "parentMetaId": "e47a7a63-aeb5-508f-b6b9-4174968401f1",
       "displayOrder": 0,
       "targetType": "Dictionary",
@@ -56,6 +57,7 @@
     },
     {
       "caption": "VAT payable",
+      "caption_ar": "ضريبة القيمة المضافة المستحقة",
       "caption_ru": "НДС к уплате",
       "parentMetaId": "8b2d5e41-9a6f-4c3d-8e7b-1f4a6c2d9e50",
       "displayOrder": 0,
