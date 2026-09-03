@@ -285,28 +285,28 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         var s = await SetupAsync();
         var pricing = GetService<IPricingService>();
 
-        var basePriceType = DictionaryManager.NewRecord<PriceList>();
+        var basePriceType = DictionaryManager.NewRecord<PriceType>();
         basePriceType.Name = $"Base-{Db.NewId():N}"[..14];
         basePriceType.Direction = PriceDirection.Sale;
         basePriceType = await DictionaryManager.SaveRecordAsync(basePriceType);
 
         var row = DictionaryManager.NewRecord<PriceListItem>();
-        row.PriceList = basePriceType.MetaId;
+        row.PriceType = basePriceType.MetaId;
         row.Item = s.Item;
         row.Unit = s.Unit;
         row.Price = 100m;
         await DictionaryManager.SaveRecordAsync(row);
 
-        var calculated = DictionaryManager.NewRecord<PriceList>();
+        var calculated = DictionaryManager.NewRecord<PriceType>();
         calculated.Name = $"Retail-{Db.NewId():N}"[..14];
         calculated.Direction = PriceDirection.Sale;
-        calculated.Kind = PriceListKind.Calculated;
+        calculated.Kind = PriceTypeKind.Calculated;
         calculated.BasePriceType = basePriceType.MetaId;
         calculated.MarkupPercent = 20m;
         calculated = await DictionaryManager.SaveRecordAsync(calculated);
 
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = calculated.MetaId;
+        customer.PriceType = calculated.MetaId;
         await DictionaryManager.SaveRecordAsync(customer);
 
         var resolvedPrice = await pricing.ResolveSalePriceAsync(s.Item, s.Unit, s.Customer, DateTime.UtcNow.Date);

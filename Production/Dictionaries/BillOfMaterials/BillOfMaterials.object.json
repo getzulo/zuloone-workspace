@@ -114,5 +114,25 @@
       "createdDateTime": "2026-08-25T21:30:48.3941512",
       "modifiedDateTime": "2026-08-25T21:30:48.3941512"
     }
+  ],
+  "lists": [
+    {
+      "dictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
+      "name": "Components",
+      "caption": "Components",
+      "caption_ar": "المكونات",
+      "caption_ru": "Компоненты",
+      "type": "BomComponent",
+      "otherKey": "Bom",
+      "autoLoad": true,
+      "cascadeDelete": true,
+      "defaultOrderBy": "Component",
+      "description": "Состав спецификации: нормы расхода компонентов на OutputQty изделий. Открывается на карточке BOM, в меню отдельно не выводится.",
+      "metaId": "a3c5e7f1-8b2d-4e6a-9c1f-4d7e8a2b5c90",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "layerId": 2,
+      "createdDateTime": "2026-09-03T07:00:00",
+      "modifiedDateTime": "2026-09-03T07:00:00"
+    }
   ]
 }

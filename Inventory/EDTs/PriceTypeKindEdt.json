@@ -9,10 +9,10 @@
     "enumMetaId": "c5c80a37-5d51-4ee7-9a4e-075d5017824d",
     "isRequired": false,
     "metaId": "73b4f877-6a8b-4387-8e27-523a82912ccb",
-    "name": "PriceListKindEdt",
+    "name": "PriceTypeKindEdt",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
     "createdDateTime": "2026-09-02T11:58:13.811",
-    "modifiedDateTime": "2026-09-02T11:58:13.811"
+    "modifiedDateTime": "2026-09-03T12:54:36.1405322"
   }
 }

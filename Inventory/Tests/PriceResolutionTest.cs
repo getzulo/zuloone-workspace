@@ -30,7 +30,7 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         public Guid Piece;
         public Guid Box;      // 12 штук, задан упаковкой товара
         public Guid Customer;
-        public Guid PriceList;
+        public Guid PriceType;
     }
 
     // Товар со штучной базой и ящиком по 12, клиент со своим прайсом продажи.
@@ -76,7 +76,7 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         pack.QtyInBaseUnit = 12m;
         await DictionaryManager.SaveRecordAsync(pack);
 
-        var list = DictionaryManager.NewRecord<PriceList>();
+        var list = DictionaryManager.NewRecord<PriceType>();
         list.Name = $"Retail {Db.NewId():N}"[..16];
         list.Direction = PriceDirection.Sale;
         list = await DictionaryManager.SaveRecordAsync(list);
@@ -84,7 +84,7 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var customer = DictionaryManager.NewRecord<Customer>();
         customer.Name = "Buyer Ltd";
         customer.CustomerType = "B2B";
-        customer.PriceList = list.MetaId;
+        customer.PriceType = list.MetaId;
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
         return new Setup
@@ -93,7 +93,7 @@ public class PriceResolutionTest : IntegrationTestScriptBase
             Piece = piece.MetaId,
             Box = box.MetaId,
             Customer = customer.MetaId,
-            PriceList = list.MetaId,
+            PriceType = list.MetaId,
         };
     }
 
@@ -101,7 +101,7 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         Setup s, Guid unit, decimal price, DateTime? from = null, DateTime? to = null, Guid? list = null)
     {
         var row = DictionaryManager.NewRecord<PriceListItem>();
-        row.PriceList = list ?? s.PriceList;
+        row.PriceType = list ?? s.PriceType;
         row.Item = s.Item;
         row.Unit = unit;
         row.Price = price;
@@ -205,7 +205,7 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var s = await SeedAsync(defaultSalePrice: 100m);
         var pricing = GetService<IPricingService>();
 
-        var purchaseList = DictionaryManager.NewRecord<PriceList>();
+        var purchaseList = DictionaryManager.NewRecord<PriceType>();
         purchaseList.Name = $"Vendor {Db.NewId():N}"[..16];
         purchaseList.Direction = PriceDirection.Purchase;
         purchaseList = await DictionaryManager.SaveRecordAsync(purchaseList);
@@ -215,7 +215,7 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         // продажи — продать по себестоимости поставщика; сервис обязан его
         // пропустить и уйти на умолчание товара.
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = purchaseList.MetaId;
+        customer.PriceType = purchaseList.MetaId;
         await DictionaryManager.SaveRecordAsync(customer);
 
         var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
@@ -229,7 +229,7 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var pricing = GetService<IPricingService>();
         await PriceAsync(s, s.Piece, 80m);
 
-        var list = await DictionaryManager.GetRecordAsync<PriceList>(s.PriceList);
+        var list = await DictionaryManager.GetRecordAsync<PriceType>(s.PriceType);
         list.IsDisabled = true;
         await DictionaryManager.SaveRecordAsync(list);
 
@@ -256,13 +256,13 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var byDefault = await pricing.ResolvePurchasePriceAsync(s.Item, s.Piece, supplier.MetaId, March);
         Assert.IsTrue(byDefault == 60m, "без прайса поставщика ожидалось умолчание 60, факт {0}", byDefault);
 
-        var list = DictionaryManager.NewRecord<PriceList>();
+        var list = DictionaryManager.NewRecord<PriceType>();
         list.Name = $"Vendor {Db.NewId():N}"[..16];
         list.Direction = PriceDirection.Purchase;
         list = await DictionaryManager.SaveRecordAsync(list);
         await PriceAsync(s, s.Piece, 45m, list: list.MetaId);
 
-        supplier.PriceList = list.MetaId;
+        supplier.PriceType = list.MetaId;
         await DictionaryManager.SaveRecordAsync(supplier);
 
         var byList = await pricing.ResolvePurchasePriceAsync(s.Item, s.Piece, supplier.MetaId, March);
@@ -297,16 +297,16 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var pricing = GetService<IPricingService>();
         await PriceAsync(s, s.Piece, 100m);
 
-        var retail = DictionaryManager.NewRecord<PriceList>();
+        var retail = DictionaryManager.NewRecord<PriceType>();
         retail.Name = $"Retail+20 {Db.NewId():N}"[..20];
         retail.Direction = PriceDirection.Sale;
-        retail.Kind = PriceListKind.Calculated;
-        retail.BasePriceType = s.PriceList;
+        retail.Kind = PriceTypeKind.Calculated;
+        retail.BasePriceType = s.PriceType;
         retail.MarkupPercent = 20m;
         retail = await DictionaryManager.SaveRecordAsync(retail);
 
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = retail.MetaId;
+        customer.PriceType = retail.MetaId;
         await DictionaryManager.SaveRecordAsync(customer);
 
         var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
@@ -320,16 +320,16 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var pricing = GetService<IPricingService>();
         await PriceAsync(s, s.Piece, 100m);
 
-        var discounted = DictionaryManager.NewRecord<PriceList>();
+        var discounted = DictionaryManager.NewRecord<PriceType>();
         discounted.Name = $"Discount-10 {Db.NewId():N}"[..20];
         discounted.Direction = PriceDirection.Sale;
-        discounted.Kind = PriceListKind.Calculated;
-        discounted.BasePriceType = s.PriceList;
+        discounted.Kind = PriceTypeKind.Calculated;
+        discounted.BasePriceType = s.PriceType;
         discounted.MarkupPercent = -10m;
         discounted = await DictionaryManager.SaveRecordAsync(discounted);
 
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = discounted.MetaId;
+        customer.PriceType = discounted.MetaId;
         await DictionaryManager.SaveRecordAsync(customer);
 
         var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
@@ -343,24 +343,24 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var pricing = GetService<IPricingService>();
         await PriceAsync(s, s.Piece, 100m);
 
-        var wholesale = DictionaryManager.NewRecord<PriceList>();
+        var wholesale = DictionaryManager.NewRecord<PriceType>();
         wholesale.Name = $"Wholesale {Db.NewId():N}"[..20];
         wholesale.Direction = PriceDirection.Sale;
-        wholesale.Kind = PriceListKind.Calculated;
-        wholesale.BasePriceType = s.PriceList;
+        wholesale.Kind = PriceTypeKind.Calculated;
+        wholesale.BasePriceType = s.PriceType;
         wholesale.MarkupPercent = 20m; // 100 -> 120
         wholesale = await DictionaryManager.SaveRecordAsync(wholesale);
 
-        var dealer = DictionaryManager.NewRecord<PriceList>();
+        var dealer = DictionaryManager.NewRecord<PriceType>();
         dealer.Name = $"Dealer {Db.NewId():N}"[..20];
         dealer.Direction = PriceDirection.Sale;
-        dealer.Kind = PriceListKind.Calculated;
+        dealer.Kind = PriceTypeKind.Calculated;
         dealer.BasePriceType = wholesale.MetaId;
         dealer.MarkupPercent = -5m; // 120 -> 114 (не 115 — считаем по шагам, а не суммой процентов)
         dealer = await DictionaryManager.SaveRecordAsync(dealer);
 
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = dealer.MetaId;
+        customer.PriceType = dealer.MetaId;
         await DictionaryManager.SaveRecordAsync(customer);
 
         var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
@@ -372,10 +372,10 @@ public class PriceResolutionTest : IntegrationTestScriptBase
     {
         var message = await RejectedAsync(async () =>
         {
-            var calc = DictionaryManager.NewRecord<PriceList>();
+            var calc = DictionaryManager.NewRecord<PriceType>();
             calc.Name = $"NoBase {Db.NewId():N}"[..16];
             calc.Direction = PriceDirection.Sale;
-            calc.Kind = PriceListKind.Calculated;
+            calc.Kind = PriceTypeKind.Calculated;
             await DictionaryManager.SaveRecordAsync(calc);
         }, "Calculated без BasePriceType обязан быть отклонён");
         Assert.IsTrue(message.Contains("обязан ссылаться на базовый тип цены"),
@@ -385,15 +385,15 @@ public class PriceResolutionTest : IntegrationTestScriptBase
     [IntegrationTest("Цикл в цепочке базовых типов цены отклоняется")]
     public async Task CycleInBaseChainIsRejected()
     {
-        var a = DictionaryManager.NewRecord<PriceList>();
+        var a = DictionaryManager.NewRecord<PriceType>();
         a.Name = $"ChainA {Db.NewId():N}"[..16];
         a.Direction = PriceDirection.Sale;
         a = await DictionaryManager.SaveRecordAsync(a);
 
-        var b = DictionaryManager.NewRecord<PriceList>();
+        var b = DictionaryManager.NewRecord<PriceType>();
         b.Name = $"ChainB {Db.NewId():N}"[..16];
         b.Direction = PriceDirection.Sale;
-        b.Kind = PriceListKind.Calculated;
+        b.Kind = PriceTypeKind.Calculated;
         b.BasePriceType = a.MetaId;
         b.MarkupPercent = 5m;
         b = await DictionaryManager.SaveRecordAsync(b);
@@ -401,7 +401,7 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         // A уже базовый для B; попытка сделать A calculated-от-B замыкает A→B→A.
         var message = await RejectedAsync(async () =>
         {
-            a.Kind = PriceListKind.Calculated;
+            a.Kind = PriceTypeKind.Calculated;
             a.BasePriceType = b.MetaId;
             a.MarkupPercent = 3m;
             await DictionaryManager.SaveRecordAsync(a);
@@ -418,14 +418,14 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         // запись) — self.MetaId до первого SaveRecordAsync ещё не тот Guid,
         // что окажется в БД. Поэтому сценарий тот же, что у цикла A→B→A выше:
         // сначала обычное сохранение, затем апдейт со ссылкой на самого себя.
-        var self = DictionaryManager.NewRecord<PriceList>();
+        var self = DictionaryManager.NewRecord<PriceType>();
         self.Name = $"SelfRef {Db.NewId():N}"[..16];
         self.Direction = PriceDirection.Sale;
         self = await DictionaryManager.SaveRecordAsync(self);
 
         var message = await RejectedAsync(async () =>
         {
-            self.Kind = PriceListKind.Calculated;
+            self.Kind = PriceTypeKind.Calculated;
             self.BasePriceType = self.MetaId;
             self.MarkupPercent = 10m;
             await DictionaryManager.SaveRecordAsync(self);
@@ -440,11 +440,11 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var s = await SeedAsync();
         var message = await RejectedAsync(async () =>
         {
-            var invalid = DictionaryManager.NewRecord<PriceList>();
+            var invalid = DictionaryManager.NewRecord<PriceType>();
             invalid.Name = $"BadBase {Db.NewId():N}"[..16];
             invalid.Direction = PriceDirection.Sale;
-            invalid.Kind = PriceListKind.Base;
-            invalid.BasePriceType = s.PriceList;
+            invalid.Kind = PriceTypeKind.Base;
+            invalid.BasePriceType = s.PriceType;
             await DictionaryManager.SaveRecordAsync(invalid);
         }, "Base с BasePriceType обязан быть отклонён");
         Assert.IsTrue(message.Contains("не может ссылаться на другой тип цены"),
@@ -456,10 +456,10 @@ public class PriceResolutionTest : IntegrationTestScriptBase
     {
         var message = await RejectedAsync(async () =>
         {
-            var invalid = DictionaryManager.NewRecord<PriceList>();
+            var invalid = DictionaryManager.NewRecord<PriceType>();
             invalid.Name = $"BadMarkup {Db.NewId():N}"[..16];
             invalid.Direction = PriceDirection.Sale;
-            invalid.Kind = PriceListKind.Base;
+            invalid.Kind = PriceTypeKind.Base;
             invalid.MarkupPercent = 5m;
             await DictionaryManager.SaveRecordAsync(invalid);
         }, "Base с ненулевой наценкой обязан быть отклонён");
@@ -474,23 +474,23 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var pricing = GetService<IPricingService>();
 
         // Закупочный базовый тип с ценой 50 у ЭТОГО ЖЕ товара.
-        var purchaseBase = DictionaryManager.NewRecord<PriceList>();
+        var purchaseBase = DictionaryManager.NewRecord<PriceType>();
         purchaseBase.Name = $"PurchBase {Db.NewId():N}"[..20];
         purchaseBase.Direction = PriceDirection.Purchase;
         purchaseBase = await DictionaryManager.SaveRecordAsync(purchaseBase);
         await PriceAsync(s, s.Piece, 50m, list: purchaseBase.MetaId);
 
         // Дилерская цена ПРОДАЖИ считается от закупочной — ключевой сценарий фичи.
-        var dealerSale = DictionaryManager.NewRecord<PriceList>();
+        var dealerSale = DictionaryManager.NewRecord<PriceType>();
         dealerSale.Name = $"DealerSale {Db.NewId():N}"[..20];
         dealerSale.Direction = PriceDirection.Sale;
-        dealerSale.Kind = PriceListKind.Calculated;
+        dealerSale.Kind = PriceTypeKind.Calculated;
         dealerSale.BasePriceType = purchaseBase.MetaId;
         dealerSale.MarkupPercent = 20m;
         dealerSale = await DictionaryManager.SaveRecordAsync(dealerSale);
 
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = dealerSale.MetaId;
+        customer.PriceType = dealerSale.MetaId;
         await DictionaryManager.SaveRecordAsync(customer);
 
         var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
@@ -501,11 +501,11 @@ public class PriceResolutionTest : IntegrationTestScriptBase
     public async Task PriceListItemUnderCalculatedTypeIsRejected()
     {
         var s = await SeedAsync();
-        var calc = DictionaryManager.NewRecord<PriceList>();
+        var calc = DictionaryManager.NewRecord<PriceType>();
         calc.Name = $"CalcOnly {Db.NewId():N}"[..16];
         calc.Direction = PriceDirection.Sale;
-        calc.Kind = PriceListKind.Calculated;
-        calc.BasePriceType = s.PriceList;
+        calc.Kind = PriceTypeKind.Calculated;
+        calc.BasePriceType = s.PriceType;
         calc.MarkupPercent = 10m;
         calc = await DictionaryManager.SaveRecordAsync(calc);
 
@@ -522,15 +522,15 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var s = await SeedAsync();
         await PriceAsync(s, s.Piece, 100m);
 
-        var basePriceType = DictionaryManager.NewRecord<PriceList>();
+        var basePriceType = DictionaryManager.NewRecord<PriceType>();
         basePriceType.Name = $"NeedsBase {Db.NewId():N}"[..16];
         basePriceType.Direction = PriceDirection.Sale;
         basePriceType = await DictionaryManager.SaveRecordAsync(basePriceType);
 
         var message = await RejectedAsync(async () =>
         {
-            var list = await DictionaryManager.GetRecordAsync<PriceList>(s.PriceList);
-            list.Kind = PriceListKind.Calculated;
+            var list = await DictionaryManager.GetRecordAsync<PriceType>(s.PriceType);
+            list.Kind = PriceTypeKind.Calculated;
             list.BasePriceType = basePriceType.MetaId;
             list.MarkupPercent = 10m;
             await DictionaryManager.SaveRecordAsync(list);
@@ -545,11 +545,11 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var s = await SeedAsync();
         var message = await RejectedAsync(async () =>
         {
-            var calc = DictionaryManager.NewRecord<PriceList>();
+            var calc = DictionaryManager.NewRecord<PriceType>();
             calc.Name = $"ZeroFloor {Db.NewId():N}"[..16];
             calc.Direction = PriceDirection.Sale;
-            calc.Kind = PriceListKind.Calculated;
-            calc.BasePriceType = s.PriceList;
+            calc.Kind = PriceTypeKind.Calculated;
+            calc.BasePriceType = s.PriceType;
             calc.MarkupPercent = -100m;
             await DictionaryManager.SaveRecordAsync(calc);
         }, "наценка -100% обнуляет цену базового типа и обязана быть отклонена");
@@ -564,16 +564,16 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var pricing = GetService<IPricingService>();
         await PriceAsync(s, s.Piece, 100m);
 
-        var almostFree = DictionaryManager.NewRecord<PriceList>();
+        var almostFree = DictionaryManager.NewRecord<PriceType>();
         almostFree.Name = $"AlmostFree {Db.NewId():N}"[..20];
         almostFree.Direction = PriceDirection.Sale;
-        almostFree.Kind = PriceListKind.Calculated;
-        almostFree.BasePriceType = s.PriceList;
+        almostFree.Kind = PriceTypeKind.Calculated;
+        almostFree.BasePriceType = s.PriceType;
         almostFree.MarkupPercent = -99m;
         almostFree = await DictionaryManager.SaveRecordAsync(almostFree);
 
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = almostFree.MetaId;
+        customer.PriceType = almostFree.MetaId;
         await DictionaryManager.SaveRecordAsync(customer);
 
         var price = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
@@ -654,16 +654,16 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var pricing = GetService<IPricingService>();
         await PriceAsync(s, s.Piece, 0.03m);
 
-        var nearlyFree = DictionaryManager.NewRecord<PriceList>();
+        var nearlyFree = DictionaryManager.NewRecord<PriceType>();
         nearlyFree.Name = $"NearlyFree {Db.NewId():N}"[..18];
         nearlyFree.Direction = PriceDirection.Sale;
-        nearlyFree.Kind = PriceListKind.Calculated;
-        nearlyFree.BasePriceType = s.PriceList;
+        nearlyFree.Kind = PriceTypeKind.Calculated;
+        nearlyFree.BasePriceType = s.PriceType;
         nearlyFree.MarkupPercent = -91m;
         nearlyFree = await DictionaryManager.SaveRecordAsync(nearlyFree);
 
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = nearlyFree.MetaId;
+        customer.PriceType = nearlyFree.MetaId;
         await DictionaryManager.SaveRecordAsync(customer);
 
         // 0.03 × 0.09 = 0.0027 → округление до 0.00 — цена схлопнулась в ноль
@@ -681,24 +681,24 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var pricing = GetService<IPricingService>();
         await PriceAsync(s, s.Piece, 1.00m);
 
-        var stepOne = DictionaryManager.NewRecord<PriceList>();
+        var stepOne = DictionaryManager.NewRecord<PriceType>();
         stepOne.Name = $"Step1 {Db.NewId():N}"[..18];
         stepOne.Direction = PriceDirection.Sale;
-        stepOne.Kind = PriceListKind.Calculated;
-        stepOne.BasePriceType = s.PriceList;
+        stepOne.Kind = PriceTypeKind.Calculated;
+        stepOne.BasePriceType = s.PriceType;
         stepOne.MarkupPercent = 0.5m; // 1.00 -> 1.005 -> округляется здесь же до 1.01
         stepOne = await DictionaryManager.SaveRecordAsync(stepOne);
 
-        var stepTwo = DictionaryManager.NewRecord<PriceList>();
+        var stepTwo = DictionaryManager.NewRecord<PriceType>();
         stepTwo.Name = $"Step2 {Db.NewId():N}"[..18];
         stepTwo.Direction = PriceDirection.Sale;
-        stepTwo.Kind = PriceListKind.Calculated;
+        stepTwo.Kind = PriceTypeKind.Calculated;
         stepTwo.BasePriceType = stepOne.MetaId;
         stepTwo.MarkupPercent = 0.5m;
         stepTwo = await DictionaryManager.SaveRecordAsync(stepTwo);
 
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = stepTwo.MetaId;
+        customer.PriceType = stepTwo.MetaId;
         await DictionaryManager.SaveRecordAsync(customer);
 
         // Пошагово: 1.00 →+0.5%→ 1.005 →округл.→ 1.01 →+0.5%→ 1.01505 →округл.→
@@ -717,24 +717,24 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var pricing = GetService<IPricingService>();
         await PriceAsync(s, s.Piece, 100m);
 
-        var wholesale = DictionaryManager.NewRecord<PriceList>();
+        var wholesale = DictionaryManager.NewRecord<PriceType>();
         wholesale.Name = $"Wholesale {Db.NewId():N}"[..18];
         wholesale.Direction = PriceDirection.Sale;
-        wholesale.Kind = PriceListKind.Calculated;
-        wholesale.BasePriceType = s.PriceList;
+        wholesale.Kind = PriceTypeKind.Calculated;
+        wholesale.BasePriceType = s.PriceType;
         wholesale.MarkupPercent = 20m;
         wholesale = await DictionaryManager.SaveRecordAsync(wholesale);
 
-        var dealer = DictionaryManager.NewRecord<PriceList>();
+        var dealer = DictionaryManager.NewRecord<PriceType>();
         dealer.Name = $"Dealer {Db.NewId():N}"[..18];
         dealer.Direction = PriceDirection.Sale;
-        dealer.Kind = PriceListKind.Calculated;
+        dealer.Kind = PriceTypeKind.Calculated;
         dealer.BasePriceType = wholesale.MetaId;
         dealer.MarkupPercent = -5m;
         dealer = await DictionaryManager.SaveRecordAsync(dealer);
 
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = dealer.MetaId; // клиенту назначена верхушка, не Wholesale
+        customer.PriceType = dealer.MetaId; // клиенту назначена верхушка, не Wholesale
         await DictionaryManager.SaveRecordAsync(customer);
 
         var before = await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March);
@@ -742,7 +742,7 @@ public class PriceResolutionTest : IntegrationTestScriptBase
 
         // Wholesale выключается НЕ у клиента напрямую (это уже ловит
         // DisabledPriceListIsIgnored), а как промежуточное звено, куда
-        // PriceListOfAsync вообще не заглядывает, — проверка внутри
+        // PriceTypeOfAsync вообще не заглядывает, — проверка внутри
         // ResolvePriceForTypeAsync обязана поймать его сама.
         wholesale.IsDisabled = true;
         await DictionaryManager.SaveRecordAsync(wholesale);
@@ -758,26 +758,26 @@ public class PriceResolutionTest : IntegrationTestScriptBase
         var s = await SeedAsync(defaultSalePrice: 99m);
         var pricing = GetService<IPricingService>();
 
-        var id = await pricing.SetPriceAsync(s.PriceList, s.Item, s.Piece, 42m, March, May);
+        var id = await pricing.SetPriceAsync(s.PriceType, s.Item, s.Piece, 42m, March, May);
         Assert.IsTrue(id != Guid.Empty, "SetPrice обязан вернуть id строки");
 
-        var byType = await pricing.ResolveForTypeAsync(s.Item, s.Piece, s.PriceList, March);
+        var byType = await pricing.ResolveForTypeAsync(s.Item, s.Piece, s.PriceType, March);
         Assert.IsTrue(byType == 42m, "ResolveForType обязан найти поставленную цену, факт {0}", byType);
 
         // Умолчание карточки в разрешение типа не входит — иначе Calculated без
         // своей строки тихо сошёлся бы к 99 мимо наценки.
-        var emptyType = DictionaryManager.NewRecord<PriceList>();
+        var emptyType = DictionaryManager.NewRecord<PriceType>();
         emptyType.Name = $"Bare {Db.NewId():N}"[..14];
         emptyType.Direction = PriceDirection.Sale;
         emptyType = await DictionaryManager.SaveRecordAsync(emptyType);
         var bare = await pricing.ResolveForTypeAsync(s.Item, s.Piece, emptyType.MetaId, March);
         Assert.IsTrue(bare == null, "тип без строк не должен брать умолчание товара, факт {0}", bare);
 
-        var calc = DictionaryManager.NewRecord<PriceList>();
+        var calc = DictionaryManager.NewRecord<PriceType>();
         calc.Name = $"Calc {Db.NewId():N}"[..14];
         calc.Direction = PriceDirection.Sale;
-        calc.Kind = PriceListKind.Calculated;
-        calc.BasePriceType = s.PriceList;
+        calc.Kind = PriceTypeKind.Calculated;
+        calc.BasePriceType = s.PriceType;
         calc.MarkupPercent = 10m;
         calc = await DictionaryManager.SaveRecordAsync(calc);
 

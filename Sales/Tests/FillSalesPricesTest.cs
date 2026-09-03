@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Testing;
 // Обязательно: тестовым скриптам этот namespace НЕ выдаётся глобальным using —
-// без него генерированные классы (SalesInvoice, PriceList…) не находятся.
+// без него генерированные классы (SalesInvoice, PriceType…) не находятся.
 using ZuloOne.Runtime.Generated;
 
 // Команда «Заполнить цены» на черновике счёта.
@@ -126,7 +126,7 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
         pack.QtyInBaseUnit = 12m;
         await DictionaryManager.SaveRecordAsync(pack);
 
-        var list = DictionaryManager.NewRecord<PriceList>();
+        var list = DictionaryManager.NewRecord<PriceType>();
         list.Name = $"Retail {Db.NewId():N}"[..16];
         list.Direction = PriceDirection.Sale;
         list = await DictionaryManager.SaveRecordAsync(list);
@@ -134,7 +134,7 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
         // Цена задана за ЯЩИК — строка счёта будет в штуках, и команда обязана
         // положить в строку цену за штуку, а не за ящик.
         var row = DictionaryManager.NewRecord<PriceListItem>();
-        row.PriceList = list.MetaId;
+        row.PriceType = list.MetaId;
         row.Item = item.MetaId;
         row.Unit = box.MetaId;
         row.Price = 120m;
@@ -143,7 +143,7 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
         var customer = DictionaryManager.NewRecord<Customer>();
         customer.Name = "Buyer Ltd";
         customer.CustomerType = "B2B";
-        customer.PriceList = list.MetaId;
+        customer.PriceType = list.MetaId;
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
         return new Setup

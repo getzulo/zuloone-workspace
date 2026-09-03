@@ -23,6 +23,9 @@
     {
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
       "fieldName": "ID",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -38,7 +41,7 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
       "createdDateTime": "2026-08-31T16:02:58.506034",
-      "modifiedDateTime": "2026-08-31T16:02:58.5060412"
+      "modifiedDateTime": "2026-09-03T12:28:57.4595945"
     },
     {
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",

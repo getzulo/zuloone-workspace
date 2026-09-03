@@ -17,12 +17,12 @@ public partial class PricingService
 {
     private static int MaxPriceTypeChainDepth => GlobalConstants.Get<int?>("PriceTypeChainMaxDepth") ?? 20;
 
-    private readonly IDictionaryManager<PriceList> _types;
+    private readonly IDictionaryManager<PriceType> _types;
     private readonly IDictionaryManager<PriceListItem> _rows;
     private readonly IDictionaryManager<Item> _items;
 
     public PricingService(
-        IDictionaryManager<PriceList> types,
+        IDictionaryManager<PriceType> types,
         IDictionaryManager<PriceListItem> rows,
         IDictionaryManager<Item> items)
     {
@@ -59,7 +59,7 @@ public partial class PricingService
     {
         var row = new PriceListItem
         {
-            PriceList = priceType,
+            PriceType = priceType,
             Item = item,
             Unit = unit,
             Price = price,
@@ -87,7 +87,7 @@ public partial class PricingService
         Guid priceType, Guid item, Guid unit, Guid excludeRow, DateTime? from, DateTime? to)
     {
         var siblings = await _rows.GetRecordsAsync(
-            $"PriceList = '{priceType}' AND Item = '{item}' AND Unit = '{unit}'");
+            $"PriceType = '{priceType}' AND Item = '{item}' AND Unit = '{unit}'");
         var clash = siblings.FirstOrDefault(other =>
             other.MetaId != excludeRow && WindowsOverlap(from, to, other.EffectiveFrom, other.EffectiveTo));
         return clash?.MetaId;
@@ -96,7 +96,7 @@ public partial class PricingService
     /// <summary>Согласованность типа. kind: 0 = Base, 1 = Calculated. Null — годен.</summary>
     public async Task<string?> ValidateTypeAsync(Guid metaId, int kind, Guid basePriceType, decimal markupPercent)
     {
-        if (kind == (int)PriceListKind.Base)
+        if (kind == (int)PriceTypeKind.Base)
         {
             if (basePriceType != Guid.Empty || markupPercent != 0)
                 return "Базовый тип цены не может ссылаться на другой тип цены и не может иметь наценку — заполни цены строками";
@@ -109,7 +109,7 @@ public partial class PricingService
         if (markupPercent <= -100m)
             return "Наценка не может быть -100% или меньше — цена базового типа обнулится или уйдёт в минус";
 
-        var existingRows = await _rows.GetRecordsAsync($"PriceList = '{metaId}'");
+        var existingRows = await _rows.GetRecordsAsync($"PriceType = '{metaId}'");
         if (existingRows.Any())
             return "У этого типа цены уже есть строки — удали их перед переключением в Calculated";
 
@@ -124,7 +124,7 @@ public partial class PricingService
                 return $"Цепочка базовых типов цены длиннее {MaxPriceTypeChainDepth} уровней";
 
             var current = await _types.GetRecordAsync(currentId);
-            if (current == null || current.Kind == PriceListKind.Base || current.BasePriceType == Guid.Empty)
+            if (current == null || current.Kind == PriceTypeKind.Base || current.BasePriceType == Guid.Empty)
                 break;
             currentId = current.BasePriceType;
         }
@@ -143,7 +143,7 @@ public partial class PricingService
         if (priceType == null)
             return "Тип цены не найден";
 
-        if (priceType.Kind == PriceListKind.Calculated)
+        if (priceType.Kind == PriceTypeKind.Calculated)
             return $"Тип цены «{priceType.Name}» — расчётный: цена вычисляется от базового типа, а не задаётся строками";
 
         var fromDay = from ?? DateTime.MinValue;
@@ -186,9 +186,9 @@ public partial class PricingService
         if (priceTypeId is not Guid typeId) return;
 
         var priceType = await _types.GetRecordAsync(typeId);
-        if (priceType == null || priceType.Kind != PriceListKind.Base) return;
+        if (priceType == null || priceType.Kind != PriceTypeKind.Base) return;
 
-        var rows = await _rows.GetRecordsAsync($"PriceList = '{typeId}' AND Item = '{item}' AND Unit = '{unit}'");
+        var rows = await _rows.GetRecordsAsync($"PriceType = '{typeId}' AND Item = '{item}' AND Unit = '{unit}'");
         var onDateOnly = onDate.Date;
         var covering = rows.FirstOrDefault(r => Covers(r, onDateOnly));
 
@@ -211,7 +211,7 @@ public partial class PricingService
         var next = rows.Where(r => r.EffectiveFrom > onDateOnly).OrderBy(r => r.EffectiveFrom).FirstOrDefault();
         await ScriptServices.Get<IDictionaryManager<PriceListItem>>().SaveRecordAsync(new PriceListItem
         {
-            PriceList = typeId,
+            PriceType = typeId,
             Item = item,
             Unit = unit,
             Price = price,
@@ -228,12 +228,12 @@ public partial class PricingService
         if (sale)
         {
             var customer = await ScriptServices.Get<IDictionaryManager<Customer>>().GetRecordAsync(party.Value);
-            typeId = customer?.PriceList ?? Guid.Empty;
+            typeId = customer?.PriceType ?? Guid.Empty;
         }
         else
         {
             var supplier = await ScriptServices.Get<IDictionaryManager<Supplier>>().GetRecordAsync(party.Value);
-            typeId = supplier?.PriceList ?? Guid.Empty;
+            typeId = supplier?.PriceType ?? Guid.Empty;
         }
         if (typeId == Guid.Empty) return null;
 
@@ -269,9 +269,9 @@ public partial class PricingService
         var priceType = await _types.GetRecordAsync(priceTypeId);
         if (priceType == null || priceType.IsDisabled) return null;
 
-        if (priceType.Kind == PriceListKind.Base)
+        if (priceType.Kind == PriceTypeKind.Base)
         {
-            var rows = (await _rows.GetRecordsAsync($"PriceList = '{priceTypeId}' AND Item = '{item}'"))
+            var rows = (await _rows.GetRecordsAsync($"PriceType = '{priceTypeId}' AND Item = '{item}'"))
                 .Where(r => Covers(r, onDate))
                 .ToList();
 

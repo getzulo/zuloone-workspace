@@ -2,8 +2,7 @@ using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 // «Провести инвентаризацию»: факт в базовой единице через конвертер.
-// Дельту (факт − система) пишет OnBeforePost через IDataService — команда
-// только читает OnHand, чтобы отказать на пустых/нулевых строках до перехода.
+// Дельту (факт − система) пишет OnBeforePost через IDataService.
 public partial class PostStockCountCommand
 {
     public override async Task ExecuteAsync(StockCount document, CommandContext context)

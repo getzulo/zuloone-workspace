@@ -1,7 +1,7 @@
 using System.Linq;
 using ZuloOne.Managers;
 
-// «Уплатить налог»: суммы строк. SubmitPaymentAsync — OnAfterPost Paid.
+// «Уплатить налог»: суммы строк. Канал сдачи в орган — не из этой команды.
 public partial class PayTaxCommand
 {
     public override async Task ExecuteAsync(TaxPayment document, CommandContext context)

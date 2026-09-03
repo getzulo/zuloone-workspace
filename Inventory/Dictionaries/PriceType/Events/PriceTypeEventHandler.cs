@@ -7,11 +7,11 @@ namespace ZuloOne.Runtime.Generated;
 
 // Заголовок типа цены. Правила Kind/цикл/наценка — в IPricingService:
 // тот же предикат, которым сервис отказывается считать.
-public partial class PriceListEventHandler : TypedDictionaryEventHandler<PriceList>
+public partial class PriceTypeEventHandler : TypedDictionaryEventHandler<PriceType>
 {
-    public override async Task<EventResult> OnBeforeSaveAsync(PriceList record, bool isNew, EventContext context)
+    public override async Task<EventResult> OnBeforeSaveAsync(PriceType record, bool isNew, EventContext context)
     {
-        var manager = context.GetService<IDictionaryManager<PriceList>>();
+        var manager = context.GetService<IDictionaryManager<PriceType>>();
         var duplicate = (await manager
                 .GetRecordsAsync($"Name = '{record.Name?.Replace("'", "''")}'"))
             .FirstOrDefault(r => r.MetaId != record.MetaId);

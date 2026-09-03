@@ -11,7 +11,7 @@ public partial class PriceListItemEventHandler : TypedDictionaryEventHandler<Pri
     public override async Task<EventResult> OnBeforeSaveAsync(PriceListItem record, bool isNew, EventContext context)
     {
         var error = await context.GetService<IPricingService>().ValidateRowAsync(
-            record.MetaId, record.PriceList, record.Item, record.Unit,
+            record.MetaId, record.PriceType, record.Item, record.Unit,
             record.Price, record.EffectiveFrom, record.EffectiveTo);
         return error == null ? EventResult.Ok() : EventResult.Cancel(error);
     }

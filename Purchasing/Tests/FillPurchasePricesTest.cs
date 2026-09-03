@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Testing;
 // Обязательно: тестовым скриптам этот namespace НЕ выдаётся глобальным using —
-// без него генерированные классы (PurchaseOrder, PriceList…) не находятся.
+// без него генерированные классы (PurchaseOrder, PriceType…) не находятся.
 using ZuloOne.Runtime.Generated;
 
 // Команда «Заполнить цены» на черновике заказа поставщику — зеркало
@@ -126,7 +126,7 @@ public class FillPurchasePricesTest : IntegrationTestScriptBase
         pack.QtyInBaseUnit = 12m;
         await DictionaryManager.SaveRecordAsync(pack);
 
-        var list = DictionaryManager.NewRecord<PriceList>();
+        var list = DictionaryManager.NewRecord<PriceType>();
         list.Name = $"Purchase {Db.NewId():N}"[..16];
         list.Direction = PriceDirection.Purchase;
         list = await DictionaryManager.SaveRecordAsync(list);
@@ -134,7 +134,7 @@ public class FillPurchasePricesTest : IntegrationTestScriptBase
         // Цена задана за ЯЩИК — строка заказа будет в штуках, и команда обязана
         // положить в строку цену за штуку, а не за ящик.
         var row = DictionaryManager.NewRecord<PriceListItem>();
-        row.PriceList = list.MetaId;
+        row.PriceType = list.MetaId;
         row.Item = item.MetaId;
         row.Unit = box.MetaId;
         row.Price = 120m;
@@ -142,7 +142,7 @@ public class FillPurchasePricesTest : IntegrationTestScriptBase
 
         var supplier = DictionaryManager.NewRecord<Supplier>();
         supplier.Name = "Bolt Supply Co";
-        supplier.PriceList = list.MetaId;
+        supplier.PriceType = list.MetaId;
         supplier = await DictionaryManager.SaveRecordAsync(supplier);
 
         return new Setup
@@ -231,22 +231,22 @@ public class FillPurchasePricesTest : IntegrationTestScriptBase
         // обязано вернуть null и остановиться, а не бросить исключение или
         // подставить что-то постороннее (умолчание карточки товара сюда не
         // входит — оно ступень ResolveAsync, а не ResolvePriceForTypeAsync).
-        var deadBase = DictionaryManager.NewRecord<PriceList>();
+        var deadBase = DictionaryManager.NewRecord<PriceType>();
         deadBase.Name = $"DeadBase {Db.NewId():N}"[..16];
         deadBase.Direction = PriceDirection.Purchase;
         deadBase = await DictionaryManager.SaveRecordAsync(deadBase);
 
-        var dealer = DictionaryManager.NewRecord<PriceList>();
+        var dealer = DictionaryManager.NewRecord<PriceType>();
         dealer.Name = $"Dealer {Db.NewId():N}"[..16];
         dealer.Direction = PriceDirection.Purchase;
-        dealer.Kind = PriceListKind.Calculated;
+        dealer.Kind = PriceTypeKind.Calculated;
         dealer.BasePriceType = deadBase.MetaId;
         dealer.MarkupPercent = 10m;
         dealer = await DictionaryManager.SaveRecordAsync(dealer);
 
         var supplier2 = DictionaryManager.NewRecord<Supplier>();
         supplier2.Name = "Dead End Supply Co";
-        supplier2.PriceList = dealer.MetaId;
+        supplier2.PriceType = dealer.MetaId;
         supplier2 = await DictionaryManager.SaveRecordAsync(supplier2);
 
         var order = await DocumentManager.NewDocumentAsync<PurchaseOrder>();

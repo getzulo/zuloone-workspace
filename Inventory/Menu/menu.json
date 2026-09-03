@@ -176,15 +176,28 @@
       "modifiedDateTime": "2026-08-29T03:07:41.8162222"
     },
     {
-      "caption": "Price lists",
-      "caption_ar": "قوائم الأسعار",
-      "caption_ru": "Прайс-листы",
+      "caption": "Price types",
+      "caption_ar": "أنواع الأسعار",
+      "caption_ru": "Типы цен",
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 7,
       "targetType": "Dictionary",
       "targetMetaId": "6b27b46e-2358-4f1f-9b42-b98737eb931b",
       "metaId": "d270893d-3797-42e3-9f75-566c44f0b22c",
-      "name": "PriceList",
+      "name": "PriceType",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "caption": "Item prices",
+      "caption_ar": "أسعار الأصناف",
+      "caption_ru": "Цены номенклатуры",
+      "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
+      "displayOrder": 8,
+      "targetType": "Dictionary",
+      "targetMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
+      "metaId": "91dd790d-1a2b-4adc-8e5c-59b1a0cd907e",
+      "name": "PriceListItem",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     },

@@ -2,8 +2,7 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// «Провести возврат»: ячейка ПРИЁМКИ и ставка налога на дату. Суммы строк —
-// IPricingService.LineAmount (та же арифметика, что в проводках возврата).
+// «Провести возврат»: ячейка ПРИЁМКИ и суммы строк через IPricingService.LineAmount.
 public partial class PostSalesReturnCommand
 {
     public override async Task ExecuteAsync(SalesReturn document, CommandContext context)
@@ -36,19 +35,6 @@ public partial class PostSalesReturnCommand
         {
             context.AddClientAction(ClientAction.Message("Сумма строки должна быть больше нуля."));
             return;
-        }
-
-        var tax = context.GetService<ITaxService>();
-        var taxCode = await tax.ResolveDefaultTaxCodeAsync();
-        if (taxCode is not null)
-        {
-            var taxPoint = full.DocumentDate == default ? DateTime.UtcNow.Date : full.DocumentDate.Date;
-            if (await tax.ResolveRateAsync(taxCode.Value, taxPoint) is null)
-            {
-                context.AddClientAction(ClientAction.Message(
-                    $"Налоговый код настроен, но действующей ставки на {taxPoint:yyyy-MM-dd} нет — возврат не проводится."));
-                return;
-            }
         }
 
         full.Subtype = SalesReturn.Subtypes.Posted;

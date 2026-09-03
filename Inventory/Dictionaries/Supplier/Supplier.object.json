@@ -141,7 +141,7 @@
     },
     {
       "dictionaryMetaId": "d1f4e8dc-6454-4a20-b116-132053950800",
-      "fieldName": "PriceList",
+      "fieldName": "PriceType",
       "edtMetaId": "057be1a2-80d8-4dcb-a625-3933368ece82",
       "isSystem": false,
       "isRequired": false,
@@ -156,7 +156,7 @@
       "isVisible": true,
       "isCalculated": false,
       "metaId": "d6ffed40-3274-4f87-902e-a20b2e7c7818",
-      "name": "PriceList",
+      "name": "PriceType",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     }

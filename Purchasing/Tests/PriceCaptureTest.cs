@@ -18,7 +18,7 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         public Guid Item;
         public Guid Unit;
         public Guid Supplier;
-        public Guid PriceList;
+        public Guid PriceType;
     }
 
     private async Task<Setup> SetupAsync()
@@ -97,14 +97,14 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         item.UnitOfMeasure = uom.MetaId;
         item = await DictionaryManager.SaveRecordAsync(item);
 
-        var priceList = DictionaryManager.NewRecord<PriceList>();
+        var priceList = DictionaryManager.NewRecord<PriceType>();
         priceList.Name = $"Purchase {Db.NewId():N}"[..16];
         priceList.Direction = PriceDirection.Purchase;
         priceList = await DictionaryManager.SaveRecordAsync(priceList);
 
         var supplier = DictionaryManager.NewRecord<Supplier>();
         supplier.Name = "Bolt Supply Co";
-        supplier.PriceList = priceList.MetaId;
+        supplier.PriceType = priceList.MetaId;
         supplier = await DictionaryManager.SaveRecordAsync(supplier);
 
         return new Setup
@@ -113,7 +113,7 @@ public class PriceCaptureTest : IntegrationTestScriptBase
             Item = item.MetaId,
             Unit = uom.MetaId,
             Supplier = supplier.MetaId,
-            PriceList = priceList.MetaId,
+            PriceType = priceList.MetaId,
         };
     }
 
@@ -133,7 +133,7 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         await DocumentManager.SaveDocumentAsync(order);
 
         var rows = await DictionaryManager.GetRecordsAsync<PriceListItem>(
-            $"PriceList = '{s.PriceList}' AND Item = '{s.Item}' AND Unit = '{s.Unit}'");
+            $"PriceType = '{s.PriceType}' AND Item = '{s.Item}' AND Unit = '{s.Unit}'");
         Assert.IsTrue(rows.Count == 0, "приход не должен писать историю цен, факт {0} строк", rows.Count);
     }
 }

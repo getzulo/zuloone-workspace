@@ -25,7 +25,7 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         public Guid Item;
         public Guid Piece;
         public Guid Customer;
-        public Guid PriceList;
+        public Guid PriceType;
     }
 
     private async Task<Setup> SeedAsync()
@@ -54,7 +54,7 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         item.UnitOfMeasure = piece.MetaId;
         item = await DictionaryManager.SaveRecordAsync(item);
 
-        var list = DictionaryManager.NewRecord<PriceList>();
+        var list = DictionaryManager.NewRecord<PriceType>();
         list.Name = $"Retail {Db.NewId():N}"[..16];
         list.Direction = PriceDirection.Sale;
         list = await DictionaryManager.SaveRecordAsync(list);
@@ -62,15 +62,15 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         var customer = DictionaryManager.NewRecord<Customer>();
         customer.Name = "Buyer Ltd";
         customer.CustomerType = "B2B";
-        customer.PriceList = list.MetaId;
+        customer.PriceType = list.MetaId;
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
-        return new Setup { Item = item.MetaId, Piece = piece.MetaId, Customer = customer.MetaId, PriceList = list.MetaId };
+        return new Setup { Item = item.MetaId, Piece = piece.MetaId, Customer = customer.MetaId, PriceType = list.MetaId };
     }
 
     private Task<List<PriceListItem>> RowsAsync(Setup s)
         => DictionaryManager.GetRecordsAsync<PriceListItem>(
-            $"PriceList = '{s.PriceList}' AND Item = '{s.Item}' AND Unit = '{s.Piece}'");
+            $"PriceType = '{s.PriceType}' AND Item = '{s.Item}' AND Unit = '{s.Piece}'");
 
     [IntegrationTest("Свежий захват без предыдущих строк создаёт открытую строку")]
     public async Task FreshCaptureCreatesOpenRow()
@@ -195,27 +195,27 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         var s = await SeedAsync();
         var pricing = GetService<IPricingService>();
 
-        var basePriceType = DictionaryManager.NewRecord<PriceList>();
+        var basePriceType = DictionaryManager.NewRecord<PriceType>();
         basePriceType.Name = $"Base {Db.NewId():N}"[..16];
         basePriceType.Direction = PriceDirection.Sale;
         basePriceType = await DictionaryManager.SaveRecordAsync(basePriceType);
 
-        var calc = DictionaryManager.NewRecord<PriceList>();
+        var calc = DictionaryManager.NewRecord<PriceType>();
         calc.Name = $"Calc {Db.NewId():N}"[..16];
         calc.Direction = PriceDirection.Sale;
-        calc.Kind = PriceListKind.Calculated;
+        calc.Kind = PriceTypeKind.Calculated;
         calc.BasePriceType = basePriceType.MetaId;
         calc.MarkupPercent = 10m;
         calc = await DictionaryManager.SaveRecordAsync(calc);
 
         var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
-        customer.PriceList = calc.MetaId;
+        customer.PriceType = calc.MetaId;
         await DictionaryManager.SaveRecordAsync(customer);
 
         await pricing.CaptureSalePriceAsync(s.Item, s.Piece, s.Customer, 100m, Day1);
 
         var rows = await DictionaryManager.GetRecordsAsync<PriceListItem>(
-            $"PriceList = '{calc.MetaId}' AND Item = '{s.Item}'");
+            $"PriceType = '{calc.MetaId}' AND Item = '{s.Item}'");
         Assert.IsTrue(rows.Count == 0, "Calculated-тип не должен получить ни одной строки, факт {0}", rows.Count);
     }
 
@@ -233,7 +233,7 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         await pricing.CaptureSalePriceAsync(s.Item, s.Piece, bareCustomer.MetaId, 100m, Day1);
 
         // Прайс выключен.
-        var list = await DictionaryManager.GetRecordAsync<PriceList>(s.PriceList);
+        var list = await DictionaryManager.GetRecordAsync<PriceType>(s.PriceType);
         list.IsDisabled = true;
         await DictionaryManager.SaveRecordAsync(list);
         await pricing.CaptureSalePriceAsync(s.Item, s.Piece, s.Customer, 100m, Day1);

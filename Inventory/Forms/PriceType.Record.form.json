@@ -1,0 +1,15 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "6b27b46e-2358-4f1f-9b42-b98737eb931b",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":1,\"frame\":\"plain\",\"labels\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"Name\",\"label\":\"Наименование\"},{\"type\":\"field\",\"name\":\"ID\",\"label\":\"Код\"},{\"type\":\"field\",\"name\":\"Direction\",\"label\":\"Направление\"},{\"type\":\"field\",\"name\":\"IsDisabled\",\"label\":\"Отключён\"}]},{\"type\":\"group\",\"title\":\"Порядок назначения цен\",\"columns\":1,\"frame\":\"band\",\"labels\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"Kind\",\"label\":\"Вид типа цен\"},{\"type\":\"label\",\"size\":\"xs\",\"dimmed\":true,\"text\":\"Цены задаются в справочнике цен номенклатуры: товар, тип цены, даты, значение.\",\"visibleWhen\":\"Kind == 0\"},{\"type\":\"label\",\"size\":\"xs\",\"dimmed\":true,\"text\":\"Цены рассчитываются автоматически от базового типа с наценкой.\",\"visibleWhen\":\"Kind == 1\"},{\"type\":\"field\",\"name\":\"BasePriceType\",\"label\":\"Базовый тип цен\",\"disabledWhen\":\"Kind != 1\"},{\"type\":\"field\",\"name\":\"MarkupPercent\",\"label\":\"Наценка в %\",\"disabledWhen\":\"Kind != 1\"}]}],\"hidden\":[]}",
+    "metaId": "318f7b86-1139-4979-bb95-c1f38cd281c0",
+    "name": "PriceType.Record",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T04:20:28.16205",
+    "modifiedDateTime": "2026-09-03T14:20:00"
+  }
+}
