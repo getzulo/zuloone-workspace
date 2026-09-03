@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "PostStockTransfer",
+    "objectMetaId": "8a6f4c6a-362a-4930-bf8e-a413544c13bb",
+    "executionOrder": 0,
+    "metaId": "6426c979-9277-4617-b4b3-284b49fe455b",
+    "name": "PostStockTransferScript",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}

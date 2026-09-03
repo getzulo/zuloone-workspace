@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "File tax return",
+    "caption_ar": "تقديم الإقرار",
+    "caption_ru": "Сдать декларацию",
+    "scriptMetaId": "0607dfa3-8494-421f-a4a1-405596e8fef2",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "7c654496-a629-46a2-a0e5-ddbacca9b4b0",
+    "name": "FileTaxReturn",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "9a5fb287-186e-432c-acd0-315430c96d23",
+      "documentCommandMetaId": "7c654496-a629-46a2-a0e5-ddbacca9b4b0",
+      "documentSubtypeMetaId": "9c882573-8eb8-4b1c-b3ab-ecebc640a4cc"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "PaySocialInsurance",
+    "objectMetaId": "b5cdaa34-d326-4d95-8537-b0912d230603",
+    "executionOrder": 0,
+    "metaId": "edbe6272-112c-4218-b40b-2d52ad3da773",
+    "name": "PaySocialInsuranceScript",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}

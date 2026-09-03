@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "ConfirmSalesOrder",
+    "objectMetaId": "8f8cc152-4862-4487-8a42-046ab65fd387",
+    "executionOrder": 0,
+    "metaId": "982752fc-1308-4403-9c02-8c3e77dac94d",
+    "name": "ConfirmSalesOrderScript",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}

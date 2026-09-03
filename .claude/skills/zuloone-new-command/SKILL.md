@@ -12,12 +12,17 @@ description: Создать команду документа — проверк
 состояния и исполняет транзакционные скрипты **только целевого**
 (проводки, остатки, книга). Ранние проводки не копятся — если они
 нужны и после перехода, их скрипты должны висеть и на целевом подтипе.
+Один скрипт можно повесить на несколько подтипов: позднее состояние
+тогда **пересчитывает** те же проводки, а не хранит слой истории.
+Нет привязки на целевом — строки регистра удаляются.
 Без такой команды документ из UI навсегда черновик, сколько бы скриптов
 ни висело на «Подтверждено».
 
 Типичный контур: на `Draft` кнопка «Подтвердить» / «Провести» / «Оплатить» —
-проверки (есть строки, хватает остатка…), затем `document.Subtype = "Posted"`
-и `SaveDocumentAsync`. Прямой `document.Subtype = "..."` из сервиса или теста
+проверки (есть строки, хватает остатка…), затем
+`document.Subtype = <Документ>.Subtypes.Posted` и `SaveDocumentAsync`.
+Строковый литерал (`"Posted"`) не писать — подтип только из `Subtypes`.
+Прямой `document.Subtype = <Документ>.Subtypes.…` из сервиса или теста
 (см. `zuloone-new-document` §5) — для системных переводов, не вместо кнопки.
 
 Команда — НЕ замена событиям перехода (`OnBeforePostAsync` и т.д. в
@@ -89,7 +94,7 @@ public partial class <Имя>Command
         var error = await svc.Validate...Async(document.MetaId);
         if (error != null) { CreateUserMessage(error); return; }
 
-        document.Subtype = "<ЦелевойПодтипValue>";
+        document.Subtype = <Документ>.Subtypes.<ЦелевойПодтип>;
         await DocumentManager.SaveDocumentAsync(document);
     }
 }
@@ -101,10 +106,18 @@ public partial class <Имя>Command
 
 ## Конвенции
 
-- **Валидируй через сервис, не инлайн**: логика проверки (есть ли строки,
-  хватает ли остатка на складе…) живёт в `I<Имя>Service` (`zuloone-new-service`),
-  команда только вызывает её и решает, переходить или нет — та же логика
-  часто нужна и другим командам/событиям.
+- **Валидируй через УЖЕ СУЩЕСТВУЮЩИЕ сервисы, не инлайн и не новым
+  `ValidateX` на каждую кнопку.** Остаток — `IStockAvailabilityService` /
+  `ISalesFulfillmentService`, ячейки — `IStoreCellService`, количество в
+  базовой единице — `IItemQuantityConverter` (если `BaseQuantity` ещё ноль),
+  налог — `ITaxService.ResolveRateAsync` / `CalculateTax`, период и счета —
+  `IGeneralLedgerService`, комплектующие — `IBomService` (только сказать
+  «разверните», не писать строки из команды перехода). Команда тонкая:
+  reload → спросить сервис → `ClientAction.Message` или целевой подтип.
+- **Не зови мутирующие AfterPost API из команды** (`CreateCalculationAsync`,
+  `InvoiceOrderAsync`, `CompleteTripAsync`, `CreateAccrualAsync`, `BuildAsync`,
+  `IGeneralLedgerService.PostAsync`, `SubmitReturnAsync`): их уже зовут
+  события при Save. Второй вызов удваивает счета, налоги и задания.
 - **Одна команда — один переход**: не делай одну команду, которая по
   внутренней логике прыгает между несколькими целевыми подтипами; для каждого
   перехода — своя команда со своей привязкой.

@@ -102,8 +102,18 @@ public class TimeSheetAccrualTest : IntegrationTestScriptBase
             sheet.Lines.Add(new TimeSheetLinesTablePartRow { Employee = line.Employee, Hours = line.Hours });
         await DocumentManager.SaveDocumentAsync(sheet);
 
-        sheet.Subtype = TimeSheet.Subtypes.Approved;
-        await DocumentManager.SaveDocumentAsync(sheet);
+        // Пустой табель команда утверждения отклоняет — для проверки «Начислить ФОТ»
+        // на Approved без строк оставляем программный переход.
+        if (sheet.Lines.Count == 0)
+        {
+            sheet.Subtype = TimeSheet.Subtypes.Approved;
+            await DocumentManager.SaveDocumentAsync(sheet);
+            return sheet;
+        }
+
+        var approveId = await Db.FindCommandIdAsync("document", "ApproveTimeSheet");
+        var approved = await Db.ExecuteDocumentCommandAsync(approveId, sheet.MetaId);
+        Assert.IsTrue(approved.Success, "табель должен утвердиться: {0}", approved.Message ?? "");
         return sheet;
     }
 

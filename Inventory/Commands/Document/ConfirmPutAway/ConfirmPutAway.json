@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Confirm put-away",
+    "caption_ar": "تأكيد الاستلام",
+    "caption_ru": "Подтвердить приёмку",
+    "scriptMetaId": "fd1a6d16-28f8-43af-b155-811ee74743fe",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "b3c70f2a-34a9-4bad-a7f9-1ea5b93dcc50",
+    "name": "ConfirmPutAway",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "8f03b679-464d-41c8-9a87-29d59ca167c0",
+      "documentCommandMetaId": "b3c70f2a-34a9-4bad-a7f9-1ea5b93dcc50",
+      "documentSubtypeMetaId": "57100704-0000-4000-8000-000000000000"
+    }
+  ]
+}

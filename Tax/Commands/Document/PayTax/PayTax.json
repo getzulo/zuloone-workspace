@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Pay tax",
+    "caption_ar": "سداد الضريبة",
+    "caption_ru": "Уплатить налог",
+    "scriptMetaId": "73cc912e-d23d-4c17-85c7-9990ce0acb3f",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "138d022d-2456-47d0-92ef-968e8f6f57e8",
+    "name": "PayTax",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "8b9aa723-16a7-41b1-9143-cc1ab33b606b",
+      "documentCommandMetaId": "138d022d-2456-47d0-92ef-968e8f6f57e8",
+      "documentSubtypeMetaId": "1c6e9a35-4d80-4b27-91f8-3a5c7e2d0b46"
+    }
+  ]
+}

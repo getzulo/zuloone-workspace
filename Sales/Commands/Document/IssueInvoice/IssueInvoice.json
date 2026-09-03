@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Issue invoice",
+    "caption_ar": "إصدار الفاتورة",
+    "caption_ru": "Выставить счёт",
+    "scriptMetaId": "1fbe2e3d-cdf9-4138-a85e-a30a5a243eb9",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "3e18cbce-3b3b-48d4-bacc-8362a147e12e",
+    "name": "IssueInvoice",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "ca579c98-5ec3-458b-85ce-a57e3f234cec",
+      "documentCommandMetaId": "3e18cbce-3b3b-48d4-bacc-8362a147e12e",
+      "documentSubtypeMetaId": "8b4cca89-693a-4364-85d8-a6fcb3c9116b"
+    }
+  ]
+}

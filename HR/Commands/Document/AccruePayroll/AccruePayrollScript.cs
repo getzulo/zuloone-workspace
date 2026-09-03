@@ -83,7 +83,7 @@ public partial class AccruePayrollCommand
         await docs.SaveDocumentAsync(accrual);
         // Проведение начисления даёт движения по ФОТ и задолженности.
         await context.GetService<IDocumentPostingService>()
-            .SetSubtypeAsync(PayrollAccrualType, accrual.MetaId, "Posted");
+            .SetSubtypeAsync(PayrollAccrualType, accrual.MetaId, PayrollAccrual.Subtypes.Posted);
         await docs.AddLinkAsync(sheet.MetaId, accrual.MetaId);
 
         var note = skipped > 0 ? $" Пропущено строк: {skipped}." : "";

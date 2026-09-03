@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "ReceiveOrder",
+    "objectMetaId": "d7b5c4e0-c0d9-415e-b9fd-8040ca6e415f",
+    "executionOrder": 0,
+    "metaId": "1b179511-6b00-431f-a228-30acc99aa0d3",
+    "name": "ReceiveOrderScript",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}

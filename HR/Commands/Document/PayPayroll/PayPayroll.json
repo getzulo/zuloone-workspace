@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Pay payroll",
+    "caption_ar": "صرف الرواتب",
+    "caption_ru": "Выплатить ФОТ",
+    "scriptMetaId": "8090c4f8-4a4b-48c1-b80f-f0d9269f5671",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "8106eec3-e901-4b81-9b94-fa776dc7f1c4",
+    "name": "PayPayroll",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "58ba2277-70f9-475a-86c4-39bd10436c56",
+      "documentCommandMetaId": "8106eec3-e901-4b81-9b94-fa776dc7f1c4",
+      "documentSubtypeMetaId": "dbb3ce31-5c7e-4a2d-8b1f-6e3a4c7d2f90"
+    }
+  ]
+}

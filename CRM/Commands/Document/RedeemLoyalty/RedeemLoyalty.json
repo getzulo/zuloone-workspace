@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Redeem points",
+    "caption_ar": "استرداد النقاط",
+    "caption_ru": "Списать баллы",
+    "scriptMetaId": "edc927a7-cde9-4f31-a8e2-d9d139fa31d9",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "a2e9f72c-1570-4fe0-96eb-7a79f7a71cab",
+    "name": "RedeemLoyalty",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "04c83ef8-e803-455c-9195-68f50203965c",
+      "documentCommandMetaId": "a2e9f72c-1570-4fe0-96eb-7a79f7a71cab",
+      "documentSubtypeMetaId": "5d8e3a21-7f6b-4c0d-8e1a-2b5c6d3e9f40"
+    }
+  ]
+}

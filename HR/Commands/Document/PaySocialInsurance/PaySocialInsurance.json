@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Pay social insurance",
+    "caption_ar": "سداد التأمينات",
+    "caption_ru": "Оплатить взносы",
+    "scriptMetaId": "edbe6272-112c-4218-b40b-2d52ad3da773",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "b5cdaa34-d326-4d95-8537-b0912d230603",
+    "name": "PaySocialInsurance",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "237bc9d2-9989-4325-bbd6-a4cc3afa06cf",
+      "documentCommandMetaId": "b5cdaa34-d326-4d95-8537-b0912d230603",
+      "documentSubtypeMetaId": "0ec1f595-8215-4487-ab94-724ec64a8845"
+    }
+  ]
+}

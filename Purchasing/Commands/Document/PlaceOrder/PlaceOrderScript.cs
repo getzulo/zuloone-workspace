@@ -27,7 +27,7 @@ public partial class PlaceOrderCommand
             return;
         }
 
-        full.Subtype = "Ordered";
+        full.Subtype = PurchaseOrder.Subtypes.Ordered;
         await docs.SaveDocumentAsync(full);
         context.AddClientAction(ClientAction.Message("Заказ размещён у поставщика."));
     }

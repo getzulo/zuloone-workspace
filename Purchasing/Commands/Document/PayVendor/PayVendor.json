@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Pay vendor",
+    "caption_ar": "سداد المورد",
+    "caption_ru": "Оплатить поставщику",
+    "scriptMetaId": "b4f0efe8-99ab-47fb-813c-8a6ab0484e8e",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "cc790adf-9a31-479b-b02f-9f35d4835c1e",
+    "name": "PayVendor",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "60716a06-8910-432b-bdcf-72dc0a997da3",
+      "documentCommandMetaId": "cc790adf-9a31-479b-b02f-9f35d4835c1e",
+      "documentSubtypeMetaId": "4b43781f-2bfc-46a5-a7a1-de1ef5c080f5"
+    }
+  ]
+}

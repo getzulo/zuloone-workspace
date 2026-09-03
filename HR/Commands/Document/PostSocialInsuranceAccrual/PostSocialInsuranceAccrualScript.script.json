@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "PostSocialInsuranceAccrual",
+    "objectMetaId": "a770b434-1879-4450-a54d-75f048b2bd5f",
+    "executionOrder": 0,
+    "metaId": "dd583f49-8fbb-4196-8199-559520e51eeb",
+    "name": "PostSocialInsuranceAccrualScript",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}

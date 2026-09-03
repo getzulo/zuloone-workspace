@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "ApproveTimeSheet",
+    "objectMetaId": "a0d432f8-7bed-4061-995e-4f543bc5be76",
+    "executionOrder": 0,
+    "metaId": "09732368-679b-4a25-9ed3-1556d68f810c",
+    "name": "ApproveTimeSheetScript",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}

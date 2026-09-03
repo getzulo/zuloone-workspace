@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "PostJournalEntry",
+    "objectMetaId": "1851444f-d9f8-496f-943d-581a474a8d7d",
+    "executionOrder": 0,
+    "metaId": "4d51151b-1de2-4295-84e4-69ecc243d77d",
+    "name": "PostJournalEntryScript",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}

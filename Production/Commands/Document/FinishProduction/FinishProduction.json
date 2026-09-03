@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Finish production",
+    "caption_ar": "إنهاء الإنتاج",
+    "caption_ru": "Завершить выпуск",
+    "scriptMetaId": "972712f5-1efd-4c82-abaa-35db61dc8298",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "d39e4eca-54e0-4a47-b9d2-589eb040cdbf",
+    "name": "FinishProduction",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "505aade3-8d42-4bee-b5c8-039eebb638d4",
+      "documentCommandMetaId": "d39e4eca-54e0-4a47-b9d2-589eb040cdbf",
+      "documentSubtypeMetaId": "7e4f6a2d-9c3b-4d5e-8f6a-6b0c1d7e2f50"
+    }
+  ]
+}

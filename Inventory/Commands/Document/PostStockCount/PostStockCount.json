@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Post stock count",
+    "caption_ar": "ترحيل الجرد",
+    "caption_ru": "Провести инвентаризацию",
+    "scriptMetaId": "307014f9-6f59-44a1-a95a-905e83e6ac4b",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "d9a6d029-315f-4e08-92f0-a5c568480d9c",
+    "name": "PostStockCount",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "c91496e8-8b0c-4034-b309-2c8cebd6371c",
+      "documentCommandMetaId": "d9a6d029-315f-4e08-92f0-a5c568480d9c",
+      "documentSubtypeMetaId": "57100905-0000-4000-8000-000000000000"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Post payroll accrual",
+    "caption_ar": "ترحيل الاستحقاق",
+    "caption_ru": "Провести начисление",
+    "scriptMetaId": "d50499d7-7fad-4aa0-bb74-279a7bf91172",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "21706281-5172-45e0-aecc-90aa1f93f7d8",
+    "name": "PostPayrollAccrual",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "4c5fb3ab-9156-4b48-bfe6-31b88e322b0d",
+      "documentCommandMetaId": "21706281-5172-45e0-aecc-90aa1f93f7d8",
+      "documentSubtypeMetaId": "6a17b68b-3e5c-4d2a-8f1b-7c4a6e2d9b53"
+    }
+  ]
+}

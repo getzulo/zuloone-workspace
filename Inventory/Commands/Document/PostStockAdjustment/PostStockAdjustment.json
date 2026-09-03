@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Post adjustment",
+    "caption_ar": "ترحيل التسوية",
+    "caption_ru": "Провести корректировку",
+    "scriptMetaId": "d771a7fe-96da-4be9-8903-1bf3d0e9f363",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "d92f3dbd-b03d-4d62-85c3-14f556a8b1d6",
+    "name": "PostStockAdjustment",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "197fa165-9267-49e2-ab8f-e15e2184d242",
+      "documentCommandMetaId": "d92f3dbd-b03d-4d62-85c3-14f556a8b1d6",
+      "documentSubtypeMetaId": "c8721d46-690b-4d87-bebd-182b73c9c5b1"
+    }
+  ]
+}

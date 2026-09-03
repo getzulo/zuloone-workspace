@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Post social insurance",
+    "caption_ar": "ترحيل التأمينات",
+    "caption_ru": "Провести взносы",
+    "scriptMetaId": "dd583f49-8fbb-4196-8199-559520e51eeb",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "a770b434-1879-4450-a54d-75f048b2bd5f",
+    "name": "PostSocialInsuranceAccrual",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "2afd87d1-0f12-4a00-b9b7-8b1c7baf9a45",
+      "documentCommandMetaId": "a770b434-1879-4450-a54d-75f048b2bd5f",
+      "documentSubtypeMetaId": "476f82fa-43f5-42d0-9cdf-89afed3ebe4f"
+    }
+  ]
+}

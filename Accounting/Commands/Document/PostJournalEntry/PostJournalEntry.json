@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Post journal entry",
+    "caption_ar": "ترحيل القيد",
+    "caption_ru": "Провести проводку",
+    "scriptMetaId": "4d51151b-1de2-4295-84e4-69ecc243d77d",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "1851444f-d9f8-496f-943d-581a474a8d7d",
+    "name": "PostJournalEntry",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "1126c48d-27f9-47de-90f0-1022272f4d62",
+      "documentCommandMetaId": "1851444f-d9f8-496f-943d-581a474a8d7d",
+      "documentSubtypeMetaId": "0613aa31-0b97-44fa-af75-d513885b4bd0"
+    }
+  ]
+}

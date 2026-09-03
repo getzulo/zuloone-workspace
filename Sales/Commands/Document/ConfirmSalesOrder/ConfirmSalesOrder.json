@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Confirm order",
+    "caption_ar": "تأكيد الطلب",
+    "caption_ru": "Подтвердить заказ",
+    "scriptMetaId": "982752fc-1308-4403-9c02-8c3e77dac94d",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "8f8cc152-4862-4487-8a42-046ab65fd387",
+    "name": "ConfirmSalesOrder",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "4abe136d-6435-40ee-b58e-7f322e826710",
+      "documentCommandMetaId": "8f8cc152-4862-4487-8a42-046ab65fd387",
+      "documentSubtypeMetaId": "51ac876f-0fc8-4df2-b33c-dc3ea088995f"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Confirm pick",
+    "caption_ar": "تأكيد الانتقاء",
+    "caption_ru": "Подтвердить отбор",
+    "scriptMetaId": "4fc30fae-894a-4a99-a70d-2d04057d9019",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "0aa7373f-4ede-4efc-8826-cdd88405517a",
+    "name": "ConfirmPick",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "cdc5bd6c-a253-4b93-b47a-3156c0149eb6",
+      "documentCommandMetaId": "0aa7373f-4ede-4efc-8826-cdd88405517a",
+      "documentSubtypeMetaId": "57100804-0000-4000-8000-000000000000"
+    }
+  ]
+}

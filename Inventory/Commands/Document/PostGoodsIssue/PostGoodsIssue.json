@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Post goods issue",
+    "caption_ar": "ترحيل الصرف",
+    "caption_ru": "Провести расход",
+    "scriptMetaId": "b6cd6220-2127-43e8-b4e5-3fb3371e51e2",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "40d0c0c6-7f5d-4ec9-9920-571b25baa824",
+    "name": "PostGoodsIssue",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "aa7b224d-4f44-4088-9643-ae106fcf45ad",
+      "documentCommandMetaId": "40d0c0c6-7f5d-4ec9-9920-571b25baa824",
+      "documentSubtypeMetaId": "57101309-0000-4000-8000-000000000000"
+    }
+  ]
+}

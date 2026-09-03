@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Dispatch trip",
+    "caption_ar": "إرسال الرحلة",
+    "caption_ru": "Отправить рейс",
+    "scriptMetaId": "3e79391d-2ca4-4121-8f46-7230dc0a09a9",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "dc8b990a-6e32-47d0-a46d-b238ee04df62",
+    "name": "DispatchTrip",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "d3bcf308-c83c-4fa4-82d9-271e9e32ad2f",
+      "documentCommandMetaId": "dc8b990a-6e32-47d0-a46d-b238ee04df62",
+      "documentSubtypeMetaId": "d9d69160-83c9-45de-a29e-af61a3828d16"
+    }
+  ]
+}

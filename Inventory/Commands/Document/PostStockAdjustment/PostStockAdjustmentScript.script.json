@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "PostStockAdjustment",
+    "objectMetaId": "d92f3dbd-b03d-4d62-85c3-14f556a8b1d6",
+    "executionOrder": 0,
+    "metaId": "d771a7fe-96da-4be9-8903-1bf3d0e9f363",
+    "name": "PostStockAdjustmentScript",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}

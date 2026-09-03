@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "ConfirmPutAway",
+    "objectMetaId": "b3c70f2a-34a9-4bad-a7f9-1ea5b93dcc50",
+    "executionOrder": 0,
+    "metaId": "fd1a6d16-28f8-43af-b155-811ee74743fe",
+    "name": "ConfirmPutAwayScript",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}

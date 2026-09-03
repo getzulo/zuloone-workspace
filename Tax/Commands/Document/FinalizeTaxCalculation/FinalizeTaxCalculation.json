@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Finalize tax calculation",
+    "caption_ar": "اعتماد الحساب",
+    "caption_ru": "Утвердить расчёт",
+    "scriptMetaId": "2fb0da63-bdb9-4824-9d0e-f3809f316c52",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "d95c55bd-62fd-4b24-b3bc-3d156537f5e0",
+    "name": "FinalizeTaxCalculation",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+    "layerId": 1,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "fb3db09f-742a-461f-b319-745c6f4c50ab",
+      "documentCommandMetaId": "d95c55bd-62fd-4b24-b3bc-3d156537f5e0",
+      "documentSubtypeMetaId": "3c95258c-d9fd-48b0-877c-46feb4fdf275"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Approve timesheet",
+    "caption_ar": "اعتماد الجدول",
+    "caption_ru": "Утвердить табель",
+    "scriptMetaId": "09732368-679b-4a25-9ed3-1556d68f810c",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "a0d432f8-7bed-4061-995e-4f543bc5be76",
+    "name": "ApproveTimeSheet",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "212d4e16-fa8e-4900-93cc-e3307841c7cc",
+      "documentCommandMetaId": "a0d432f8-7bed-4061-995e-4f543bc5be76",
+      "documentSubtypeMetaId": "1a2b3c4d-5e6f-4a7b-9c8d-0e1f2a3b4c5a"
+    }
+  ]
+}

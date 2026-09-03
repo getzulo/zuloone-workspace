@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Receive order",
+    "caption_ar": "استلام الطلب",
+    "caption_ru": "Принять товар",
+    "scriptMetaId": "1b179511-6b00-431f-a228-30acc99aa0d3",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "d7b5c4e0-c0d9-415e-b9fd-8040ca6e415f",
+    "name": "ReceiveOrder",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "41553c45-bf9d-421e-a13d-aff7c7bf3ac3",
+      "documentCommandMetaId": "d7b5c4e0-c0d9-415e-b9fd-8040ca6e415f",
+      "documentSubtypeMetaId": "9e0f1a2b-3c4d-4e5f-8a6b-7c8d9e0f1a2b"
+    }
+  ]
+}

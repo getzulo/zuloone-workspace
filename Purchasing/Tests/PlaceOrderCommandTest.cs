@@ -151,11 +151,10 @@ public class PlaceOrderCommandTest : IntegrationTestScriptBase
         var atOrdered = await CellStockAsync(s.Location);
         Assert.IsTrue(atOrdered == 0m, "на «Заказано» склад не двигается, факт {0}", atOrdered);
 
-        // Из нового состояния приход по-прежнему проводится и двигает склад.
-        // Проведение — присваивание подтипа плюс сохранение (MIQS
-        // doc.SubtypeID = …; SaveDocument(doc)), а не вызов по имени.
-        placed.Subtype = PurchaseOrder.Subtypes.Received;
-        await DocumentManager.SaveDocumentAsync(placed);
+        // Приход из UI — команда ReceiveOrder на Ordered, не ручной Subtype.
+        var receiveId = await Db.FindCommandIdAsync("document", "ReceiveOrder");
+        var received = await Db.ExecuteDocumentCommandAsync(receiveId, order.MetaId);
+        Assert.IsTrue(received.Success, "приход должен выполниться: {0}", received.Message ?? "");
 
         var onHand = await CellStockAsync(s.Location);
         Assert.IsTrue(onHand == 4m, "после прихода на ячейке 4, факт {0}", onHand);

@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Post sales return",
+    "caption_ar": "ترحيل المرتجع",
+    "caption_ru": "Провести возврат",
+    "scriptMetaId": "731a2b22-dd46-4442-99b1-235fe4b5ba67",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "3e086ce0-2bb4-42a3-aee4-9b028dc1f7fe",
+    "name": "PostSalesReturn",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "736f342e-e39c-4fc5-bd3c-918bc20010ff",
+      "documentCommandMetaId": "3e086ce0-2bb4-42a3-aee4-9b028dc1f7fe",
+      "documentSubtypeMetaId": "d99b8bc8-0a57-4959-8e89-6f06a5cbb843"
+    }
+  ]
+}

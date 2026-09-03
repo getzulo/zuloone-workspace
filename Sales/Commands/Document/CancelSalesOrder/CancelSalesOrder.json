@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Cancel order",
+    "caption_ar": "إلغاء الطلب",
+    "caption_ru": "Отменить заказ",
+    "scriptMetaId": "6e36af95-a815-47a7-b79e-226b0a342efb",
+    "parameterMode": "None",
+    "displayOrder": 2,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "a4d1222b-46d9-4cdc-9e99-2fc9265d57c9",
+    "name": "CancelSalesOrder",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "a7098f11-4106-428b-a2f9-1535a9e926c8",
+      "documentCommandMetaId": "a4d1222b-46d9-4cdc-9e99-2fc9265d57c9",
+      "documentSubtypeMetaId": "8ce0f14d-2ff9-48a1-886d-4e958618ad0e"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "MarkDelivered",
+    "objectMetaId": "c9ac64a9-fedb-49a1-8b22-f7b09f47e9f0",
+    "executionOrder": 0,
+    "metaId": "bbbf06b0-189e-48e0-b1a2-47703174129c",
+    "name": "MarkDeliveredScript",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}

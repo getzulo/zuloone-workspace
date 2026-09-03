@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Post transfer",
+    "caption_ar": "ترحيل التحويل",
+    "caption_ru": "Провести перемещение",
+    "scriptMetaId": "6426c979-9277-4617-b4b3-284b49fe455b",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "8a6f4c6a-362a-4930-bf8e-a413544c13bb",
+    "name": "PostStockTransfer",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T06:30:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "8b9e5e33-11c9-4323-bcb0-87bc4ff85455",
+      "documentCommandMetaId": "8a6f4c6a-362a-4930-bf8e-a413544c13bb",
+      "documentSubtypeMetaId": "a554970b-8b47-43e9-9572-d918b39c18a5"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "PostSalesReturn",
+    "objectMetaId": "3e086ce0-2bb4-42a3-aee4-9b028dc1f7fe",
+    "executionOrder": 0,
+    "metaId": "731a2b22-dd46-4442-99b1-235fe4b5ba67",
+    "name": "PostSalesReturnScript",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-03T06:30:00",
+    "modifiedDateTime": "2026-09-03T03:38:08"
+  }
+}
