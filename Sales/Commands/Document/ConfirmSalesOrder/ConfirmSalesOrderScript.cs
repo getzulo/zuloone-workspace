@@ -24,6 +24,14 @@ public partial class ConfirmSalesOrderCommand
             return;
         }
 
+        var cells = context.GetService<IStoreCellService>();
+        if (!await cells.IsCellAllowedForAsync(full.Location, StoreCellPurpose.Picking))
+        {
+            context.AddClientAction(ClientAction.Message(
+                "Заказ при адресной дисциплине отгружается из ячейки ОТБОРА — у выбранной ячейки другое назначение"));
+            return;
+        }
+
         var settings = (await context.GetService<IDictionaryManager<SalesSettings>>().GetRecordsAsync("1 = 1"))
             .FirstOrDefault();
         if (settings?.AllowBackorder != true)

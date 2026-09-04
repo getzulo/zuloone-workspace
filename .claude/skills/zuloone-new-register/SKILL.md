@@ -356,15 +356,28 @@ public partial class CustomReport<Имя>
 
 ```csharp
 var info = GetService<IInformationRegisterService>();
-await info.SetAsync("TaxRate", document.DocumentDate,
-    new Dictionary<string, object?> { ["TaxCode"] = line.TaxCode },
-    new Dictionary<string, object?> { ["Rate"] = line.Rate },
-    recorderMetaId: document.MetaId);
-var slice = await info.SliceLastAsync("TaxRate", document.DocumentDate,
+await info.SetAsync(new TaxRate
+{
+    Period = document.DocumentDate,
+    TaxCode = line.TaxCode,
+    Rate = line.Rate,
+    RecorderMetaId = document.MetaId,
+});
+var slice = await info.SliceLastAsync<TaxRate>(document.DocumentDate,
     new Dictionary<string, object?> { ["TaxCode"] = line.TaxCode });
 ```
 
-Отмена документа удаляет строки с этим `RecorderMetaId`. Не ставь
+Отмена документа удаляет строки с этим `RecorderMetaId`. Журнал пишет срез
+вручную (`Set`) и удаляет строку по `MetaId`. Не ставь
 `isDoubleEntry` / `useBalanceTable` / драйвер итогов — дизайнер их прячет.
+Схема при sync снимает leftover `TR_`/`TB_` после смены движка на Information
+и осиротевший `IR_` после переименования — данные из старой таблицы не едут.
+
+Измерение на мастер-данные (товар, склад, налог) — **Reference EDT** на
+справочник: в `IR_` и в `SliceLast`/`SliceFirst` живёт Guid записи, журнал
+среза открывает карточку. Не класть имя айтема строкой (`"Widget"`) —
+это не отношение, переименование сломает ключ. Скаляр (String/Decimal) —
+только когда значения нет своей записи (ставка, курс).
+
 Полный контракт: `wiki/developer/information-registers.md` в репозитории платформы.
 

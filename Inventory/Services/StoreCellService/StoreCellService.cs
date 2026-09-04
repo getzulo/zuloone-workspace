@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
+using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 
 // Единый резолвинг ячеек склада (MIQS). Склад выводится из ячейки через зону
@@ -35,6 +36,13 @@ public partial class StoreCellService
         _divisions = divisions;
         _settings = settings;
     }
+
+    // Запись справочника из сервиса через инжект роняет disposed IServiceProvider
+    // (обработчик снова резолвит IStoreCellService). Как у PricingService.
+    private static IDictionaryManager<StoreCell> LiveCells => ScriptServices.Get<IDictionaryManager<StoreCell>>();
+    private static IDictionaryManager<StoreZone> LiveZones => ScriptServices.Get<IDictionaryManager<StoreZone>>();
+    private static IDictionaryManager<StoreCellType> LiveTypes => ScriptServices.Get<IDictionaryManager<StoreCellType>>();
+    private static IDictionaryManager<Store> LiveStores => ScriptServices.Get<IDictionaryManager<Store>>();
 
     /// <summary>
     /// Включена ли адресная дисциплина: приход только в приёмку, отгрузка только
@@ -83,6 +91,20 @@ public partial class StoreCellService
     /// <summary>Куда раскладывать принятое: ячейка хранения этого склада.</summary>
     public Task<Guid?> SuggestStorageCellAsync(Guid store) => GetCellByPurposeAsync(store, StoreCellPurpose.Storage);
 
+    /// <summary>Все ячейки склада (через зоны). Нужно, чтобы свободный остаток
+    /// при дисциплине смотрел на склад целиком: товар ещё в хранении, а заказ
+    /// указывает ячейку отбора.</summary>
+    public async Task<List<Guid>> GetCellsOfStoreAsync(Guid store)
+    {
+        var zoneIds = new HashSet<Guid>(
+            (await _zones.GetRecordsAsync($"Store = '{store}'")).Select(z => z.MetaId));
+        var ids = new List<Guid>();
+        foreach (var c in await _cells.GetRecordsAsync("1 = 1"))
+            if (zoneIds.Contains(c.StoreZone))
+                ids.Add(c.MetaId);
+        return ids;
+    }
+
     /// <summary>Склад ячейки: StoreCell → StoreZone → Store.</summary>
     public async Task<Guid?> GetStoreAsync(Guid cell)
     {
@@ -129,4 +151,123 @@ public partial class StoreCellService
 
     /// <summary>Рекомендуемая ячейка хранения под товар (v1 — первая Storage-ячейка склада).</summary>
     public Task<Guid?> SuggestPutAwayCellAsync(Guid store, Guid item) => GetDefaultCellByTypeAsync(store, "Storage");
+
+    /// <summary>
+    /// Дособрать складу ячейки трёх ролей, если какой-то нет. Идемпотентно:
+    /// уже есть приёмка/хранение/отбор — ничего не плодит. Новый склад при
+    /// включённой дисциплине и «включить флаг» на настройках зовут это, чтобы
+    /// рабочие данные можно было включить, не рисуя ячейки руками.
+    /// </summary>
+    public async Task<int> EnsureYardAsync(Guid store)
+    {
+        if (store == Guid.Empty) return 0;
+        if (await LiveStores.GetRecordAsync(store) is null) return 0;
+
+        var zone = await EnsureZoneAsync(store);
+        var created = 0;
+        created += await EnsureRoleCellAsync(store, zone, StoreCellPurpose.Receiving, "RCV", "Receiving");
+        created += await EnsureRoleCellAsync(store, zone, StoreCellPurpose.Storage, "STG", "Storage");
+        created += await EnsureRoleCellAsync(store, zone, StoreCellPurpose.Picking, "PCK", "Picking");
+        return created;
+    }
+
+    /// <summary>Проставить Purpose типам с именем роли и дособрать дворы всех
+    /// складов. Возвращает, сколько ячеек создано.</summary>
+    public async Task<int> PrepareAllYardsAsync()
+    {
+        await InferTypePurposesAsync();
+        var created = 0;
+        foreach (var store in await LiveStores.GetRecordsAsync("1 = 1"))
+            created += await EnsureYardAsync(store.MetaId);
+        return created;
+    }
+
+    private async Task InferTypePurposesAsync()
+    {
+        foreach (var type in await LiveTypes.GetRecordsAsync("1 = 1"))
+        {
+            if (type.Purpose != StoreCellPurpose.Unspecified) continue;
+            var inferred = PurposeOfName(type.Name);
+            if (inferred == StoreCellPurpose.Unspecified) continue;
+            type.Purpose = inferred;
+            await LiveTypes.SaveRecordAsync(type);
+        }
+    }
+
+    private static StoreCellPurpose PurposeOfName(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return StoreCellPurpose.Unspecified;
+        if (name.Equals("Receiving", StringComparison.OrdinalIgnoreCase)
+            || name.Equals("Приёмка", StringComparison.OrdinalIgnoreCase)
+            || name.Equals("Приемка", StringComparison.OrdinalIgnoreCase))
+            return StoreCellPurpose.Receiving;
+        if (name.Equals("Storage", StringComparison.OrdinalIgnoreCase)
+            || name.Equals("Хранение", StringComparison.OrdinalIgnoreCase))
+            return StoreCellPurpose.Storage;
+        if (name.Equals("Picking", StringComparison.OrdinalIgnoreCase)
+            || name.Equals("Отбор", StringComparison.OrdinalIgnoreCase))
+            return StoreCellPurpose.Picking;
+        return StoreCellPurpose.Unspecified;
+    }
+
+    private async Task<Guid> EnsureZoneAsync(Guid store)
+    {
+        var existing = (await LiveZones.GetRecordsAsync($"Store = '{store}'")).FirstOrDefault();
+        if (existing != null) return existing.MetaId;
+
+        var zone = await LiveZones.NewRecordAsync();
+        zone.Name = "Основная";
+        zone.Store = store;
+        zone.IsBarcodeTracking = false;
+        return await LiveZones.SaveRecordAsync(zone);
+    }
+
+    private async Task<int> EnsureRoleCellAsync(
+        Guid store, Guid zone, StoreCellPurpose purpose, string code, string name)
+    {
+        if (await GetCellByPurposeAsync(store, purpose) != null) return 0;
+
+        var typeId = await EnsureTypeAsync(purpose, code, name);
+        var next = 1;
+        foreach (var c in await LiveCells.GetRecordsAsync($"StoreZone = '{zone}'"))
+            if (c.CellNumber >= next) next = c.CellNumber + 1;
+
+        var cell = await LiveCells.NewRecordAsync();
+        cell.Name = $"{code}-01";
+        cell.Type = typeId;
+        cell.StoreZone = zone;
+        cell.RackNumber = 1;
+        cell.ShelfNumber = 1;
+        cell.LineNumber = 1;
+        cell.CellNumber = next;
+        await LiveCells.SaveRecordAsync(cell);
+        return 1;
+    }
+
+    private async Task<Guid> EnsureTypeAsync(StoreCellPurpose purpose, string code, string name)
+    {
+        var all = await LiveTypes.GetRecordsAsync("1 = 1");
+        var typed = all.FirstOrDefault(t => t.Purpose == purpose);
+        if (typed != null) return typed.MetaId;
+
+        var named = all.FirstOrDefault(t => PurposeOfName(t.Name) == purpose);
+        if (named != null)
+        {
+            named.Purpose = purpose;
+            await LiveTypes.SaveRecordAsync(named);
+            return named.MetaId;
+        }
+
+        var taken = new HashSet<string>(all.Select(t => t.Code ?? ""), StringComparer.OrdinalIgnoreCase);
+        var unique = code;
+        var n = 1;
+        while (taken.Contains(unique))
+            unique = $"{code}{++n}";
+
+        var created = await LiveTypes.NewRecordAsync();
+        created.Code = unique.Length <= 16 ? unique : unique[..16];
+        created.Name = name;
+        created.Purpose = purpose;
+        return await LiveTypes.SaveRecordAsync(created);
+    }
 }

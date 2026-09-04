@@ -1,4 +1,6 @@
 #nullable enable
+using ZuloOne.Services.Contracts;
+
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for InventorySettings records (MIQS DictionaryEventHandlerBase<T>).
@@ -24,9 +26,14 @@ public partial class InventorySettingsEventHandler : TypedDictionaryEventHandler
         return Task.FromResult(EventResult.Ok());
     }
 
-    // MIQS AfterSave: runs after ANY save (insert or update).
-    public override Task<EventResult> OnAfterSaveAsync(InventorySettings record, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+    // Включили дисциплину — дособрать дворы всех складов и проставить Purpose
+    // типам, у которых роль жила только в имени. Выключение ничего не трогает.
+    public override async Task<EventResult> OnAfterSaveAsync(InventorySettings record, bool isNew, EventContext context)
+    {
+        if (record.EnforceWarehouseTasks)
+            await context.GetService<IStoreCellService>().PrepareAllYardsAsync();
+        return EventResult.Ok();
+    }
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).

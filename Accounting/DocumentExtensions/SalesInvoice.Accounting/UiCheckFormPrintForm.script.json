@@ -1,0 +1,17 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "93bcdf85-0406-404d-9bb5-a3592576ae33",
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "SalesInvoice",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "executionOrder": 0,
+    "metaId": "94042150-fb2c-44ed-b2fe-f9af1846f1c7",
+    "name": "UiCheckFormPrintForm",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1,
+    "createdDateTime": "2026-09-04T10:54:19.9518253",
+    "modifiedDateTime": "2026-09-04T10:54:19.9518254"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Interface",
+    "executionOrder": 0,
+    "metaId": "d02de6ec-3a8a-428c-8311-f0106a6aa116",
+    "name": "NewInterface",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1,
+    "createdDateTime": "2026-09-04T07:17:00.2165049",
+    "modifiedDateTime": "2026-09-04T07:17:00.2165049"
+  }
+}

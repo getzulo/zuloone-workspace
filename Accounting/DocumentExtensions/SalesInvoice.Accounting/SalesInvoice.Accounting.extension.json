@@ -1,0 +1,13 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "description": "Extension of SalesInvoice by model Accounting",
+    "metaId": "93bcdf85-0406-404d-9bb5-a3592576ae33",
+    "name": "SalesInvoice.Accounting",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1,
+    "createdDateTime": "2026-09-04T11:12:49.3688741",
+    "modifiedDateTime": "2026-09-04T11:12:49.3688856"
+  }
+}

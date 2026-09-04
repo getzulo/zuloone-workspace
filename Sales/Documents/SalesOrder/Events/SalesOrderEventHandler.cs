@@ -23,14 +23,18 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
         if (lines.Any(l => l.Quantity <= 0m))
             return EventResult.Cancel("Количество в строке должно быть больше нуля");
 
+        var location = full != null ? full.Location : document.Location;
+        var cells = context.GetService<IStoreCellService>();
+        if (!await cells.IsCellAllowedForAsync(location, StoreCellPurpose.Picking))
+            return EventResult.Cancel(
+                "Заказ при адресной дисциплине отгружается из ячейки ОТБОРА — у выбранной ячейки другое назначение");
+
         var settings = (await context.GetService<IDictionaryManager<SalesSettings>>().GetRecordsAsync("1 = 1"))
             .FirstOrDefault();
         if (settings?.AllowBackorder == true)
             return EventResult.Ok();
 
         var fulfill = context.GetService<ISalesFulfillmentService>();
-        var location = document.Location;
-        if (full != null) location = full.Location;
         foreach (var line in lines)
         {
             var free = await fulfill.AvailableQtyAsync(location, line.Item);
@@ -44,10 +48,17 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
 
     public override async Task<EventResult> OnAfterPostAsync(SalesOrder document, EventContext context)
     {
+        var fulfill = context.GetService<ISalesFulfillmentService>();
+        if (document.Subtype == "Confirmed")
+        {
+            await fulfill.EnsurePickTaskAsync(document.MetaId);
+            return EventResult.Ok();
+        }
+
         if (document.Subtype != "Delivered")
             return EventResult.Ok();
 
-        await context.GetService<ISalesFulfillmentService>().InvoiceOrderAsync(document.MetaId);
+        await fulfill.InvoiceOrderAsync(document.MetaId);
         return EventResult.Ok();
     }
 }

@@ -163,7 +163,7 @@ live**: сохранил файл → через 2–4 секунды он пр�
 `ReplaceRecordsAsync` — сторона становится ровно заданным набором),
 `IDictionaryRecordManager`, `IDataService` (сырые записи любой таблицы),
 `ISqlService` (запросы), `IRegisterMovementService` (движения регистров),
-`IInformationRegisterService` (регистр сведений: Set / SliceLast / SliceFirst),
+`IInformationRegisterService` (регистр сведений: Set / SliceLast / SliceFirst / Delete),
 `IDocumentPostingService` (проведение/переходы), `IMetadataService`
 (метаданные), `IConstantResolver` / `IGlobalConstantManager` (константы) —
 плюс собственные сервисы моделей по контрактам `I<Имя>`.

@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "SalesInvoice",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "executionOrder": 0,
+    "metaId": "06efe5a7-11b3-4aba-ad6b-cf9dc147bce9",
+    "name": "InvoiceXrPrintForm",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-04T10:39:18.3531156",
+    "modifiedDateTime": "2026-09-04T10:39:18.3531156"
+  }
+}
