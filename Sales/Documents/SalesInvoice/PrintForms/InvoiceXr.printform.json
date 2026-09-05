@@ -1,0 +1,16 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "engine": "Xr",
+    "scriptMetaId": "06efe5a7-11b3-4aba-ad6b-cf9dc147bce9",
+    "layoutJson": "{\"schemaVersion\":1,\"paper\":{\"kind\":\"A4\",\"orientation\":\"Portrait\",\"widthMm\":210,\"heightMm\":297},\"margins\":{\"left\":15,\"top\":10,\"right\":15,\"bottom\":10},\"guides\":{\"x\":[],\"y\":[]},\"bands\":[{\"id\":\"topmargin-t60i8my\",\"kind\":\"TopMargin\",\"heightMm\":8,\"controls\":[]},{\"id\":\"pageheader-av4f4th\",\"kind\":\"PageHeader\",\"heightMm\":16,\"controls\":[{\"id\":\"title-onc8xzf\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":2,\"wMm\":160,\"hMm\":10,\"text\":\"InvoiceXr\",\"fontSizePt\":16,\"bold\":true,\"visible\":true,\"wordWrap\":true},{\"id\":\"num-8f04jva\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":12,\"wMm\":80,\"hMm\":5,\"binding\":\"Number\",\"text\":\"[Number]\",\"fontSizePt\":9,\"visible\":true,\"wordWrap\":true}]},{\"id\":\"detail-w300ilg\",\"kind\":\"Detail\",\"heightMm\":7,\"controls\":[{\"id\":\"c-rf19m6s\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":0.5,\"wMm\":33,\"hMm\":6,\"binding\":\"Item\",\"text\":\"[Item]\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true,\"borders\":\"B\"},{\"id\":\"c-itjidqt\",\"type\":\"XRLabel\",\"xMm\":34,\"yMm\":0.5,\"wMm\":33,\"hMm\":6,\"binding\":\"Quantity\",\"text\":\"[Quantity]\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true,\"borders\":\"B\"},{\"id\":\"c-dc3t987\",\"type\":\"XRLabel\",\"xMm\":68,\"yMm\":0.5,\"wMm\":33,\"hMm\":6,\"binding\":\"UnitPrice\",\"text\":\"[UnitPrice]\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true,\"borders\":\"B\"},{\"id\":\"c-3ulm8ta\",\"type\":\"XRLabel\",\"xMm\":102,\"yMm\":0.5,\"wMm\":33,\"hMm\":6,\"binding\":\"Unit\",\"text\":\"[Unit]\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true,\"borders\":\"B\"},{\"id\":\"c-2vtf4d1\",\"type\":\"XRLabel\",\"xMm\":136,\"yMm\":0.5,\"wMm\":33,\"hMm\":6,\"binding\":\"BaseQuantity\",\"text\":\"[BaseQuantity]\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true,\"borders\":\"B\"}],\"dataMember\":\"Lines\"},{\"id\":\"reportfooter-vo2tiqn\",\"kind\":\"ReportFooter\",\"heightMm\":12,\"controls\":[]},{\"id\":\"pagefooter-krwe4at\",\"kind\":\"PageFooter\",\"heightMm\":12,\"controls\":[{\"id\":\"pg-j8oj0v1\",\"type\":\"XRPageInfo\",\"xMm\":140,\"yMm\":2,\"wMm\":40,\"hMm\":5,\"pageInfo\":\"NumberOfTotal\",\"hAlign\":\"Right\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true}]},{\"id\":\"bottommargin-qqvufpc\",\"kind\":\"BottomMargin\",\"heightMm\":8,\"controls\":[]}]}",
+    "displayOrder": 1,
+    "metaId": "e73fe3e1-4a74-4d07-a816-e38b84672052",
+    "name": "InvoiceXr",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-04T03:00:47.6619634",
+    "modifiedDateTime": "2026-09-04T10:39:18.4111933"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "caption": "XrForm0890face",
+    "documentTypeMetaId": "c0b4e44f-2ea8-4d42-abfd-63718e698c26",
+    "engine": "Xr",
+    "scriptMetaId": "b2909381-c9d3-4668-b493-5ad0d4aff1fa",
+    "layoutJson": "{\"schemaVersion\":1,\"paper\":{\"kind\":\"A4\",\"orientation\":\"Portrait\",\"widthMm\":210,\"heightMm\":297},\r\n \"margins\":{\"left\":10,\"top\":10,\"right\":10,\"bottom\":10},\"bands\":[\r\n   {\"id\":\"ph\",\"kind\":\"PageHeader\",\"heightMm\":12,\"controls\":[\r\n     {\"id\":\"n\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":0,\"wMm\":80,\"hMm\":8,\"binding\":\"Note\"}]}]}",
+    "displayOrder": 1,
+    "metaId": "31e8e45e-df3e-40b1-9656-7d6b63ae4449",
+    "name": "XrForm0890face",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-04T10:47:21.9695973",
+    "modifiedDateTime": "2026-09-04T13:41:18.8277303"
+  }
+}

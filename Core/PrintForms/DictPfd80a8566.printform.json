@@ -1,0 +1,32 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "caption": "DictPfd80a8566",
+    "documentTypeMetaId": "095406ae-569d-46d2-a9e7-27d5bcbc9413",
+    "engine": "Html",
+    "scriptMetaId": "1ffee66d-dd2b-4545-81a9-ea61a35a045f",
+    "displayOrder": 2,
+    "metaId": "ce1b4c3a-4c73-41d0-af70-74d60f9e8ba5",
+    "name": "DictPfd80a8566",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-04T14:29:44.6644364",
+    "modifiedDateTime": "2026-09-05T14:57:16.3177961"
+  },
+  "bindings": [
+    {
+      "metaId": "3e05bb24-cc9c-4369-a606-7c62bac618e5",
+      "printFormMetaId": "ce1b4c3a-4c73-41d0-af70-74d60f9e8ba5",
+      "targetKind": "Dictionary",
+      "targetMetaId": "e8af973e-9a05-4609-a518-76b8ba543904",
+      "scope": "List"
+    },
+    {
+      "metaId": "ab0aa678-a9fb-4d78-bf4a-0d2787a8e4b3",
+      "printFormMetaId": "ce1b4c3a-4c73-41d0-af70-74d60f9e8ba5",
+      "targetKind": "Dictionary",
+      "targetMetaId": "e8af973e-9a05-4609-a518-76b8ba543904",
+      "scope": "Record"
+    }
+  ]
+}

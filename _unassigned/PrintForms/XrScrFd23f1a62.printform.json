@@ -1,0 +1,17 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "caption": "XrScrFd23f1a62",
+    "documentTypeMetaId": "96686a81-76e6-43ac-bcf3-6c35c578e200",
+    "engine": "Xr",
+    "scriptMetaId": "2a3e1dbb-988e-40e7-b6e2-d431185c8df9",
+    "layoutJson": "{\"schemaVersion\":1,\"paper\":{\"kind\":\"A4\",\"orientation\":\"Portrait\",\"widthMm\":210,\"heightMm\":297},\r\n \"margins\":{\"left\":10,\"top\":10,\"right\":10,\"bottom\":10},\r\n \"scriptsSource\":\"private void XtraReport_BeforePrint(object sender, System.ComponentModel.CancelEventArgs e) { this is not C#; }\",\r\n \"bands\":[{\"id\":\"ph\",\"kind\":\"PageHeader\",\"heightMm\":12,\"controls\":[]}]}",
+    "displayOrder": 1,
+    "metaId": "76462655-55c8-43ba-89b2-bd6ae254aab9",
+    "name": "XrScrFd23f1a62",
+    "modelId": "69ac939d-18ce-4058-8dbb-b1c923f76331",
+    "layerId": 1,
+    "createdDateTime": "2026-09-05T15:41:09.8621767",
+    "modifiedDateTime": "2026-09-05T15:41:09.8621768"
+  }
+}
