@@ -1,0 +1,11 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "referenceDictionaryMetaId": "11111111-0002-4000-8000-000000000002",
+    "metaId": "11111111-0003-4000-8000-000000000003",
+    "name": "RefPaymentTerm",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

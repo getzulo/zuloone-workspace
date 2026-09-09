@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectMetaId": "11111111-0002-4000-8000-000000000002",
+    "objectName": "PaymentTerm",
+    "metaId": "11111111-0004-4000-8000-000000000004",
+    "name": "PaymentTermEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1
+  }
+}

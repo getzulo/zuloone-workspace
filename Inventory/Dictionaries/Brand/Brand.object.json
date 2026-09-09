@@ -1,0 +1,47 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": "Brands",
+    "caption_ru": "Бренды",
+    "caption_ar": "العلامات التجارية",
+    "description": "",
+    "isHierarchical": false,
+    "numberSequenceMetaId": "22222222-0001-4000-8000-000000000001",
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isLogged": false,
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "22222222-0002-4000-8000-000000000002",
+    "name": "Brand",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "22222222-0002-4000-8000-000000000002",
+      "fieldName": "Name",
+      "name": "Name",
+      "caption": "Name",
+      "caption_ru": "Наименование",
+      "caption_ar": "الاسم",
+      "baseType": "String",
+      "length": 256,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "22222222-0005-4000-8000-000000000005",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    }
+  ]
+}

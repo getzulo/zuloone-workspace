@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
@@ -15,6 +16,7 @@ namespace ZuloOne.Runtime.Generated;
 public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesInvoice>
 {
     // Building a new document server-side: seed header defaults (number, date).
+    // Copy-defaults from Customer are applied in OnBeforeSaveAsync(isNew=true) below.
     public override Task<EventResult> OnBeforeCreateAsync(SalesInvoice header, EventContext context)
         => Task.FromResult(EventResult.Ok());
 
@@ -25,11 +27,33 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     // На точечном обновлении подтипа (SetSubtypeAsync) header — частичный экземпляр,
     // и DiscountPercent в нём ноль (см. SalesInvoiceLoyaltyDiscountHandler) — в
     // диапазоне, проверка безвредна.
-    public override Task<EventResult> OnBeforeSaveAsync(SalesInvoice header, bool isNew, EventContext context)
+    public override async Task<EventResult> OnBeforeSaveAsync(SalesInvoice header, bool isNew, EventContext context)
     {
         if (header.DiscountPercent < 0m || header.DiscountPercent > 100m)
-            return Task.FromResult(EventResult.Cancel("Скидка на счёте должна быть в диапазоне от 0 до 100%"));
-        return Task.FromResult(EventResult.Ok());
+            return EventResult.Cancel("Скидка на счёте должна быть в диапазоне от 0 до 100%");
+
+        // On first save: copy PaymentTerm and primary Contact from Customer if not already set.
+        if (isNew && header.Customer != Guid.Empty)
+        {
+            var dm = context.GetService<IDictionaryManager<Customer>>();
+            var customer = await dm.GetRecordAsync(header.Customer);
+            if (customer is not null)
+            {
+                if (header.PaymentTerm == Guid.Empty && customer.PaymentTerm != Guid.Empty)
+                    header.PaymentTerm = customer.PaymentTerm;
+
+                if (header.Contact == Guid.Empty)
+                {
+                    var ccDm = context.GetService<IDictionaryManager<CustomerContact>>();
+                    var contacts = await ccDm.GetRecordsAsync($"Customer = '{header.Customer}' AND IsPrimary = 1");
+                    var primary = contacts.FirstOrDefault();
+                    if (primary is not null)
+                        header.Contact = primary.MetaId;
+                }
+            }
+        }
+
+        return EventResult.Ok();
     }
 
     // MIQS AfterSave: runs after ANY save (insert or update).
@@ -71,8 +95,8 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         //
         // Подтип объявлен (исторические документы и отчёты), но ребра Issued→Paid
         // в карте переходов больше нет — форма его не предлагает. Замок здесь
-        // на случай прямого API. К Issued привязаны ТРИ транзакционных скрипта:
-        // дебиторка (Sales), баллы лояльности (CRM) и страновой НДС
+        // на случай прямого API. К Issued галками привязаны склад, выручка,
+        // дебиторка (Sales), баллы (CRM) и страновой НДС
         // (LocalizationSaudiArabia). Переход снял бы движения покидаемого
         // состояния — долг БЕЗ оплаты, баллы и обязательство по налогу. Paid
         // помечен isReadOnly, выйти из него было бы нельзя.
