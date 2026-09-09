@@ -15,6 +15,8 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
 {
     private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
     private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
+    private static readonly byte[] TinyPng = Convert.FromBase64String(
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==");
 
     // ──────────────────────────────────────────────────────────────────────
     // Helpers
@@ -111,7 +113,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         item.Description = "Test description";
         item.Brand = brand.MetaId;
         // Minimal 1×1 PNG bytes (enough to test round-trip)
-        item.Image = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==");
+        item.Image = TinyPng;
         item = await DictionaryManager.SaveRecordAsync(item);
 
         var loadedItem = await DictionaryManager.GetRecordAsync<Item>(item.MetaId);
@@ -195,6 +197,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         item.ItemGroup = group.MetaId;
         item.UnitOfMeasure = unit.MetaId;
         item.IsSellable = true;
+        item.Image = TinyPng;
         item = await DictionaryManager.SaveRecordAsync(item);
 
         // Create SalesOrder — OnBeforeSave(isNew=true) should copy PaymentTerm + Contact
@@ -255,6 +258,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         item.ItemGroup = group.MetaId;
         item.UnitOfMeasure = unit.MetaId;
         item.IsSellable = true;
+        item.Image = TinyPng;
         item = await DictionaryManager.SaveRecordAsync(item);
 
         // Create SalesInvoice — OnBeforeSave(isNew=true) should copy PaymentTerm + Contact
