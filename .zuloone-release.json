@@ -24,7 +24,7 @@
     "host, so the loopback name is the correct one here — tenants reach the same",
     "registry by its LAN address because their host is configured for it."
   ],
-  "platformImage": "localhost:5000/zuloone-core:2026.0.33",
+  "platformImage": "localhost:5000/zuloone-core:2026.0.34",
 
   "$comment_exclude": [
     "Models that are NOT shipped to customers.",
