@@ -182,20 +182,25 @@ def export_bundles(api: Api, models: list[dict], excluded: set[str], out: str) -
         with open(os.path.join(out, filename), "w", encoding="utf-8") as f:
             f.write(body)
 
-        digest = hashlib.sha256(body.encode("utf-8")).hexdigest()
+        # Encode once. len(body) counts characters, and the captions are Cyrillic,
+        # so the two disagree by ~16% — the first green run logged Accounting as
+        # 50750 bytes for a 58763-byte file. A size that does not match the file
+        # on disk is a size nobody can check anything against.
+        encoded = body.encode("utf-8")
+        digest = hashlib.sha256(encoded).hexdigest()
         index.append({
             "model": name,
             "version": version,
             "publisher": model.get("publisher"),
             "layerId": model.get("layerId"),
             "file": filename,
-            "bytes": len(body.encode("utf-8")),
+            "bytes": len(encoded),
             # Travels with the bundle to a control plane and then into a
             # customer's database. "The file I received is the file that was
             # built" should not rest on trusting the transport.
             "sha256": digest,
         })
-        print(f"  {name} {version} -> {filename} ({len(body)} bytes)")
+        print(f"  {name} {version} -> {filename} ({len(encoded)} bytes)")
 
     if not index:
         fail("No bundles were produced — every model is excluded?")

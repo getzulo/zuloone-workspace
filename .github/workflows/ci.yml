@@ -140,8 +140,15 @@ jobs:
 
           if ! python3 .github/scripts/build_bundles.py \
                  --base "http://127.0.0.1:${port}" --root . --out bundles; then
-            echo "::error::Build failed. Last 200 log lines from the stand:"
-            docker logs --tail 200 "$CORE" || true
+            echo "::error::Build failed. Recent log from the stand (SQL echo removed):"
+            # The env override above should already have silenced these, but that
+            # is config and this is the one moment the log has to be readable, so
+            # it does not depend on the override having worked. Only pure SQL echo
+            # is dropped — an exception carries a different SourceContext and
+            # survives the filter.
+            docker logs --tail 400 "$CORE" 2>&1 \
+              | grep -v '"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command"' \
+              | tail -80 || true
             exit 1
           fi
 
