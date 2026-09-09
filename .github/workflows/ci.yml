@@ -160,6 +160,62 @@ jobs:
           PKG_IMAGE: ${{ steps.cfg.outputs.image }}
         run: python3 .github/scripts/stamp_manifest.py bundles/index.json
 
+      # The artefact a tenant can actually be moved onto.
+      #
+      # Bundles as files are of no use to a tenant: its container reaches its
+      # Postgres and nothing else, and the control plane cannot call in either
+      # (EXEC=0 on the socket proxy, no route to the container's HTTP). The image
+      # is the only channel that already exists, and it works because the
+      # container is stateless — every fact about a tenant lives in its database.
+      #
+      # FROM the pinned platform, so this adds one thin layer over an image that
+      # is already on the host and already pulled by every tenant. The platform
+      # image declares ZuloOne__PackagesPath itself, so nothing here has to be
+      # kept in step with it.
+      - name: Build the distribution image
+        id: dist
+        shell: bash
+        env:
+          PLATFORM: ${{ steps.cfg.outputs.image }}
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: |
+          set -euo pipefail
+          registry="${PLATFORM%%/*}"
+          image="${registry}/zuloone:${VERSION}"
+
+          # A label per model, machine-readable, so the panel can say what an
+          # image carries without booting it.
+          models=$(python3 -c "
+          import json
+          i = json.load(open('bundles/index.json'))
+          print(','.join(f\"{m['model']}={m['version']}\" for m in i['models']))")
+
+          cat > Dockerfile.dist <<EOF
+          FROM ${PLATFORM}
+          COPY bundles/ /opt/zuloone/packages/
+          LABEL one.zulo.platform="${PLATFORM##*:}"
+          LABEL one.zulo.models="${models}"
+          LABEL one.zulo.workspace="${GITHUB_SHA}"
+          EOF
+
+          docker build -f Dockerfile.dist -t "${image}" .
+          docker push "${image}"
+          echo "image=${image}" >> "$GITHUB_OUTPUT"
+          echo "Distribution image: ${image}"
+          echo "  platform: ${PLATFORM}"
+          echo "  models:   ${models}"
+
+          # Prove the bundles are actually IN it. A COPY of an empty directory is
+          # not an error, and the failure would otherwise surface as a tenant that
+          # boots fine and installs nothing.
+          count=$(docker run --rm --entrypoint sh "${image}" -c 'ls -1 /opt/zuloone/packages/*.bundle.json | wc -l')
+          expected=$(ls -1 bundles/*.bundle.json | wc -l)
+          if [ "$count" -ne "$expected" ]; then
+            echo "::error::The image carries ${count} bundle(s); the build produced ${expected}."
+            exit 1
+          fi
+          echo "  verified: ${count} bundle(s) inside the image"
+
       - uses: actions/upload-artifact@v4
         with:
           name: bundles-${{ steps.ver.outputs.version }}
