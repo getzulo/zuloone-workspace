@@ -124,12 +124,17 @@ jobs:
           #
           # The workspace is mounted READ-ONLY. import-all only reads, and a build
           # that can edit its own inputs is a build whose output nobody can trust.
+          #
+          # EF logs every statement at Information. Importing 1560 rows buries the
+          # failure that matters: the first run's 200-line dump was almost entirely
+          # SELECT/INSERT text, and the two real errors were off the top of it.
           docker run -d --name "$CORE" --network "$NET" \
             -p "127.0.0.1:${port}:8080" \
             -e Database__Provider=PostgreSql \
             -e "ConnectionStrings__DefaultConnection=Host=${PG};Database=ws;Username=ws;Password=ws" \
             -e Jwt__SigningKey=workspace-ci-only-not-a-secret-0123456789abcdef0123456789abcdef \
             -e ZuloOne__CoreDevelopmentMode=true \
+            -e Logging__LogLevel__Microsoft.EntityFrameworkCore=Warning \
             -v "$PWD:/workspace:ro" \
             "${{ steps.cfg.outputs.image }}" >/dev/null
 
