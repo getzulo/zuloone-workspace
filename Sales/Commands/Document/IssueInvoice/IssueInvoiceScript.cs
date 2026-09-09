@@ -65,6 +65,10 @@ public partial class IssueInvoiceCommand
 
         full.Subtype = SalesInvoice.Subtypes.Issued;
         await docs.SaveDocumentAsync(full);
+
+        await context.GetService<ISalesFulfillmentService>()
+            .MarkSourceOrderDeliveredAsync(full.MetaId);
+
         context.AddClientAction(ClientAction.Message("Счёт выставлен."));
     }
 

@@ -16,6 +16,8 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
     private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
     private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
     private static ISalesFulfillmentService Fulfillment => GetService<ISalesFulfillmentService>();
+    private static readonly byte[] TinyPng = Convert.FromBase64String(
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==");
 
     private sealed class Yard
     {
@@ -86,6 +88,7 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
         item.ItemGroup = group.MetaId;
         item.UnitOfMeasure = uom.MetaId;
         item.IsSellable = true;
+        item.Image = TinyPng;
         item = await DictionaryManager.SaveRecordAsync(item);
 
         var customer = DictionaryManager.NewRecord<Customer>();
@@ -154,6 +157,12 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
         Assert.IsTrue(run.Success, "команда {0}: {1}", name, run.Message ?? string.Join("; ", run.ClientMessages));
     }
 
+    private async Task SubmitAndApproveAsync(Guid orderId)
+    {
+        await RunCommandAsync("SubmitSalesOrder", orderId);
+        await RunCommandAsync("ApproveSalesOrder", orderId);
+    }
+
     private static async Task<PickTask> SinglePickAsync(Guid orderId)
     {
         var family = await DocumentManager.GetDocumentFamilyAsync(orderId);
@@ -172,7 +181,7 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
         await SeedAsync(y.Picking, y.Item, 8m);
 
         var order = await NewOrderAsync(y, y.Picking, 3m);
-        await RunCommandAsync("ConfirmSalesOrder", order.MetaId);
+        await SubmitAndApproveAsync(order.MetaId);
 
         var family = await DocumentManager.GetDocumentFamilyAsync(order.MetaId);
         Assert.IsTrue(!family.Nodes.Any(n => n.DocTypeName == "PickTask"),
@@ -191,7 +200,7 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
             await Fulfillment.AvailableQtyAsync(y.Picking, y.Item));
 
         var order = await NewOrderAsync(y, y.Picking, 4m);
-        await RunCommandAsync("ConfirmSalesOrder", order.MetaId);
+        await SubmitAndApproveAsync(order.MetaId);
 
         var task = await SinglePickAsync(order.MetaId);
         Assert.IsTrue(task.Subtype == PickTask.Subtypes.Draft,
@@ -209,7 +218,7 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
         await SeedAsync(y.Storage, y.Item, 6m);
 
         var order = await NewOrderAsync(y, y.Picking, 2m);
-        await RunCommandAsync("ConfirmSalesOrder", order.MetaId);
+        await SubmitAndApproveAsync(order.MetaId);
         var first = await SinglePickAsync(order.MetaId);
 
         var again = await Fulfillment.EnsurePickTaskAsync(order.MetaId);
@@ -231,15 +240,16 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
         await SeedAsync(y.Storage, y.Item, 5m);
 
         var first = await NewOrderAsync(y, y.Picking, 4m);
-        await RunCommandAsync("ConfirmSalesOrder", first.MetaId);
+        await SubmitAndApproveAsync(first.MetaId);
 
         var second = await NewOrderAsync(y, y.Picking, 3m);
-        var confirmId = await Db.FindCommandIdAsync("document", "ConfirmSalesOrder");
-        var run = await Db.ExecuteDocumentCommandAsync(confirmId, second.MetaId);
+        await RunCommandAsync("SubmitSalesOrder", second.MetaId);
+        var approveId = await Db.FindCommandIdAsync("document", "ApproveSalesOrder");
+        var run = await Db.ExecuteDocumentCommandAsync(approveId, second.MetaId);
         var after = await DocumentManager.GetDocumentAsync<SalesOrder>(second.MetaId);
 
-        Assert.IsTrue(after!.Subtype == SalesOrder.Subtypes.Draft,
-            "второй остаётся черновиком, факт {0}", after.Subtype ?? "<null>");
+        Assert.IsTrue(after!.Subtype == SalesOrder.Subtypes.Submitted,
+            "второй остаётся Submitted, факт {0}", after.Subtype ?? "<null>");
         Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("остатка") || !run.Success,
             "пользователь видит отказ: {0}", string.Join("; ", run.ClientMessages));
     }
@@ -252,12 +262,13 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
         await SeedAsync(y.Storage, y.Item, 8m);
 
         var order = await NewOrderAsync(y, y.Storage, 2m);
-        var confirmId = await Db.FindCommandIdAsync("document", "ConfirmSalesOrder");
-        var run = await Db.ExecuteDocumentCommandAsync(confirmId, order.MetaId);
+        await RunCommandAsync("SubmitSalesOrder", order.MetaId);
+        var approveId = await Db.FindCommandIdAsync("document", "ApproveSalesOrder");
+        var run = await Db.ExecuteDocumentCommandAsync(approveId, order.MetaId);
         var after = await DocumentManager.GetDocumentAsync<SalesOrder>(order.MetaId);
 
-        Assert.IsTrue(after!.Subtype == SalesOrder.Subtypes.Draft,
-            "заказ из хранения остаётся черновиком, факт {0}", after.Subtype ?? "<null>");
+        Assert.IsTrue(after!.Subtype == SalesOrder.Subtypes.Submitted,
+            "заказ из хранения остаётся Submitted, факт {0}", after.Subtype ?? "<null>");
         Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("ОТБОРА") || !run.Success,
             "отказ про ячейку отбора: {0}", string.Join("; ", run.ClientMessages));
     }

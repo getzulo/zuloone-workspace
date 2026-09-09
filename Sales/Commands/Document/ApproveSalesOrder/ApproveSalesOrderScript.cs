@@ -4,10 +4,8 @@ using ZuloOne.Services.Contracts;
 
 // Команда «Согласовать заказ» (ApproveSalesOrder): переход Submitted → Confirmed.
 // Проверяет строки, ячейку и свободный остаток.
-// ВАЖНО: InvoiceOrderAsync вызывается здесь (а не в OnAfterPostAsync), потому что
-// внутри транзакции проведения сервисный IDocumentManager не видит незакоммиченные
-// строки заказа, и InvoiceOrderAsync возвращает Guid.Empty.
-// После SaveDocumentAsync транзакция завершается, и прямой вызов корректно работает.
+// InvoiceOrderAsync вызывается здесь (не в OnAfterPost): внутри транзакции
+// проведения сервисный IDocumentManager не видит незакоммиченные строки заказа.
 public partial class ApproveSalesOrderCommand
 {
     public override async Task ExecuteAsync(SalesOrder document, CommandContext context)
@@ -56,8 +54,6 @@ public partial class ApproveSalesOrderCommand
         full.Subtype = SalesOrder.Subtypes.Confirmed;
         await docs.SaveDocumentAsync(full);
 
-        // Create invoice in Reserved state. Must be called after SaveDocumentAsync completes
-        // so that the committed order is visible to the service's DB context.
         await fulfill.InvoiceOrderAsync(document.MetaId);
 
         context.AddClientAction(ClientAction.Message("Заказ согласован."));

@@ -75,10 +75,8 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
 
     public override async Task<EventResult> OnAfterPostAsync(SalesOrder document, EventContext context)
     {
-        // Only Delivered subtype needs post-event work (set by SalesInvoiceEventHandler).
-        // Invoice creation happens in ApproveSalesOrderCommand after SaveDocumentAsync commits,
-        // because InvoiceOrderAsync re-fetches the order and cannot see uncommitted lines
-        // when called from within the posting transaction context.
+        // Счёт создаёт ApproveSalesOrderCommand после SaveDocumentAsync:
+        // InvoiceOrderAsync из этой транзакции не видит незакоммиченные строки.
         if (document.Subtype == "Confirmed")
             await context.GetService<ISalesFulfillmentService>().EnsurePickTaskAsync(document.MetaId);
         return EventResult.Ok();

@@ -166,6 +166,21 @@ public partial class SalesFulfillmentService
         return invoice.MetaId;
     }
 
+    /// <summary>Счёт выставлен (Issued) — заказ-источник становится Delivered.
+    /// Вызывать после SaveDocumentAsync счёта, не из OnAfterPost: вложенный
+    /// SetSubtypeAsync там глотается платформой.</summary>
+    public async Task MarkSourceOrderDeliveredAsync(Guid invoiceId)
+    {
+        if (invoiceId == Guid.Empty) return;
+        var invoice = await _documents.GetDocumentAsync<SalesInvoice>(invoiceId);
+        var sourceOrder = invoice?.SourceOrder ?? Guid.Empty;
+        if (sourceOrder == Guid.Empty) return;
+
+        var order = await _documents.GetDocumentAsync<SalesOrder>(sourceOrder);
+        if (order is not null && order.Subtype == SalesOrder.Subtypes.Confirmed)
+            await _posting.SetSubtypeAsync(SalesOrderType, sourceOrder, SalesOrder.Subtypes.Delivered);
+    }
+
     /// <summary>Закрыть точки рейса: отказ → Cancelled, иначе Delivered
     /// (счёт ставит обработчик заказа). Повтор безопасен.</summary>
     public async Task CompleteTripAsync(Guid tripId)

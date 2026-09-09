@@ -9,8 +9,6 @@ using ZuloOne.Services.Contracts;
 // а не в OnAfterPost — там вложенный SetSubtypeAsync глотается безмолвно.
 public partial class ReleaseRealizationCommand
 {
-    private static readonly Guid SalesOrderType = Guid.Parse("23643b1b-b959-4206-83ab-948c713276c9");
-
     public override async Task ExecuteAsync(SalesInvoice document, CommandContext context)
     {
         var docs = context.GetService<IDocumentManager>();
@@ -20,19 +18,8 @@ public partial class ReleaseRealizationCommand
         full.Subtype = SalesInvoice.Subtypes.Issued;
         await docs.SaveDocumentAsync(full);
 
-        // Закрываем заказ-источник: счёт выставлен → заказ Delivered.
-        // Вызывается после SaveDocumentAsync (вне транзакции проводки счёта),
-        // иначе вложенный SetSubtypeAsync из OnAfterPost глотается платформой.
-        var sourceOrder = full.SourceOrder;
-        if (sourceOrder != Guid.Empty)
-        {
-            var order = await docs.GetDocumentAsync<SalesOrder>(sourceOrder);
-            if (order is not null && order.Subtype == SalesOrder.Subtypes.Confirmed)
-            {
-                await context.GetService<IDocumentPostingService>()
-                    .SetSubtypeAsync(SalesOrderType, sourceOrder, SalesOrder.Subtypes.Delivered);
-            }
-        }
+        await context.GetService<ISalesFulfillmentService>()
+            .MarkSourceOrderDeliveredAsync(full.MetaId);
 
         context.AddClientAction(ClientAction.Message("Реализация выставлена."));
     }

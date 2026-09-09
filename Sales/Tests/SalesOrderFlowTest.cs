@@ -186,11 +186,9 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(await StockAsync(s) == 10m, "склад не тронут, факт {0}", await StockAsync(s));
         Assert.IsTrue(await ReceivableAsync(s) == 0m, "долг 0 на Reserved");
 
-        // No TaxCalculation child
         var family = await DocumentManager.GetDocumentFamilyAsync(inv.MetaId);
-        var taxCalcTypeId = Guid.Parse("00000000-0000-0000-0000-000000000001"); // placeholder — checked by count
-        var linkedDocs = await DocumentManager.QueryDocumentsAsync<SalesInvoice>($"SourceOrder = '{order.MetaId}'");
-        // Reserve keeps reserve tx only; verify no receivable movement
+        Assert.IsTrue(!family.Nodes.Any(n => n.DocTypeName == "TaxCalculation"),
+            "Reserved не порождает TaxCalculation");
         Assert.IsTrue(await ReceivableAsync(s) == 0m, "после Reserved долг по-прежнему 0");
     }
 
