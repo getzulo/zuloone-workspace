@@ -189,6 +189,32 @@
       "layerId": 2
     },
     {
+      "caption": "Brands",
+      "caption_ru": "Бренды",
+      "caption_ar": "العلامات التجارية",
+      "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
+      "displayOrder": 8,
+      "targetType": "Dictionary",
+      "targetMetaId": "925608f0-94a4-47cc-a1ae-683247980b2d",
+      "metaId": "860e7fb7-cec6-4f96-b8c4-ab82c1e55b6c",
+      "name": "Brand",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
+      "caption": "Customer contacts",
+      "caption_ru": "Контактные лица",
+      "caption_ar": "جهات اتصال العملاء",
+      "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
+      "displayOrder": 9,
+      "targetType": "Dictionary",
+      "targetMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
+      "metaId": "242f8ef0-dbd2-4664-8149-e3f77daca2c3",
+      "name": "CustomerContact",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "layerId": 2
+    },
+    {
       "caption": "Put-away",
       "caption_ar": "مهام التخزين",
       "caption_ru": "Раскладка",

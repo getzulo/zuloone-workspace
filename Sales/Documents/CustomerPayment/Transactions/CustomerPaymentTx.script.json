@@ -4,7 +4,7 @@
     "scriptType": "TransactionScript",
     "objectType": "Document",
     "objectName": "CustomerPayment",
-    "objectMetaId": "2d3e4f5a-6b7c-4d8e-8f9a-1b2c3d4e5f6a",
+    "objectMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
     "executionOrder": 1,
     "metaId": "4f5a6b7c-8d9e-4f0a-8b1c-3d4e5f6a7b8c",
     "name": "CustomerPaymentTx",

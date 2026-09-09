@@ -139,6 +139,12 @@ public partial class SalesFulfillmentService
         invoice.SourceOrder = order.MetaId;
         if (order.DeliveryDate != default)
             invoice.DocumentDate = order.DeliveryDate.Date;
+        if (order.Contact != Guid.Empty)
+            invoice.Contact = order.Contact;
+        if (order.PaymentTerm != Guid.Empty)
+            invoice.PaymentTerm = order.PaymentTerm;
+        if (order.DiscountPercent != 0m)
+            invoice.DiscountPercent = order.DiscountPercent;
 
         foreach (var line in order.Lines)
         {
@@ -155,9 +161,24 @@ public partial class SalesFulfillmentService
         if (invoice.Lines.Count == 0) return Guid.Empty;
 
         await _documents.SaveDocumentAsync(invoice);
-        await _posting.SetSubtypeAsync(SalesInvoiceType, invoice.MetaId, "Issued");
+        await _posting.SetSubtypeAsync(SalesInvoiceType, invoice.MetaId, "Reserved");
         await _documents.AddLinkAsync(order.MetaId, invoice.MetaId);
         return invoice.MetaId;
+    }
+
+    /// <summary>Счёт выставлен (Issued) — заказ-источник становится Delivered.
+    /// Вызывать после SaveDocumentAsync счёта, не из OnAfterPost: вложенный
+    /// SetSubtypeAsync там глотается платформой.</summary>
+    public async Task MarkSourceOrderDeliveredAsync(Guid invoiceId)
+    {
+        if (invoiceId == Guid.Empty) return;
+        var invoice = await _documents.GetDocumentAsync<SalesInvoice>(invoiceId);
+        var sourceOrder = invoice?.SourceOrder ?? Guid.Empty;
+        if (sourceOrder == Guid.Empty) return;
+
+        var order = await _documents.GetDocumentAsync<SalesOrder>(sourceOrder);
+        if (order is not null && order.Subtype == SalesOrder.Subtypes.Confirmed)
+            await _posting.SetSubtypeAsync(SalesOrderType, sourceOrder, SalesOrder.Subtypes.Delivered);
     }
 
     /// <summary>Закрыть точки рейса: отказ → Cancelled, иначе Delivered

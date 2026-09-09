@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
@@ -15,6 +16,7 @@ namespace ZuloOne.Runtime.Generated;
 public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesInvoice>
 {
     // Building a new document server-side: seed header defaults (number, date).
+    // Copy-defaults from Customer are applied in OnBeforeSaveAsync(isNew=true) below.
     public override Task<EventResult> OnBeforeCreateAsync(SalesInvoice header, EventContext context)
         => Task.FromResult(EventResult.Ok());
 
@@ -25,11 +27,33 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     // На точечном обновлении подтипа (SetSubtypeAsync) header — частичный экземпляр,
     // и DiscountPercent в нём ноль (см. SalesInvoiceLoyaltyDiscountHandler) — в
     // диапазоне, проверка безвредна.
-    public override Task<EventResult> OnBeforeSaveAsync(SalesInvoice header, bool isNew, EventContext context)
+    public override async Task<EventResult> OnBeforeSaveAsync(SalesInvoice header, bool isNew, EventContext context)
     {
         if (header.DiscountPercent < 0m || header.DiscountPercent > 100m)
-            return Task.FromResult(EventResult.Cancel("Скидка на счёте должна быть в диапазоне от 0 до 100%"));
-        return Task.FromResult(EventResult.Ok());
+            return EventResult.Cancel("Скидка на счёте должна быть в диапазоне от 0 до 100%");
+
+        // Copy PaymentTerm and primary Contact from Customer when still empty.
+        if (header.Customer != Guid.Empty)
+        {
+            var dm = context.GetService<IDictionaryManager<Customer>>();
+            var customer = await dm.GetRecordAsync(header.Customer);
+            if (customer is not null)
+            {
+                if (header.PaymentTerm == Guid.Empty && customer.PaymentTerm != Guid.Empty)
+                    header.PaymentTerm = customer.PaymentTerm;
+
+                if (header.Contact == Guid.Empty)
+                {
+                    var ccDm = context.GetService<IDictionaryManager<CustomerContact>>();
+                    var contacts = await ccDm.GetRecordsAsync($"Customer = '{header.Customer}'");
+                    var primary = contacts.FirstOrDefault(c => c.IsPrimary);
+                    if (primary is not null)
+                        header.Contact = primary.MetaId;
+                }
+            }
+        }
+
+        return EventResult.Ok();
     }
 
     // MIQS AfterSave: runs after ANY save (insert or update).
@@ -71,8 +95,8 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         //
         // Подтип объявлен (исторические документы и отчёты), но ребра Issued→Paid
         // в карте переходов больше нет — форма его не предлагает. Замок здесь
-        // на случай прямого API. К Issued привязаны ТРИ транзакционных скрипта:
-        // дебиторка (Sales), баллы лояльности (CRM) и страновой НДС
+        // на случай прямого API. К Issued галками привязаны склад, выручка,
+        // дебиторка (Sales), баллы (CRM) и страновой НДС
         // (LocalizationSaudiArabia). Переход снял бы движения покидаемого
         // состояния — долг БЕЗ оплаты, баллы и обязательство по налогу. Paid
         // помечен isReadOnly, выйти из него было бы нельзя.
@@ -207,6 +231,9 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     //
     // Порождение здесь, а не в проводке: ставка и код налога читаются из
     // справочников асинхронно, а GetTransactions синхронный.
+    /// <summary>Тип заказа — цель точечного перехода при закрытии реализации.</summary>
+    private static readonly Guid SalesOrderType = Guid.Parse("23643b1b-b959-4206-83ab-948c713276c9");
+
     public override async Task<EventResult> OnAfterPostAsync(SalesInvoice header, EventContext context)
     {
         if (header.Subtype != "Issued") return EventResult.Ok();
@@ -234,6 +261,20 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
                     TaxPointOf(header), await TaxContextAsync(invoice, taxBase, context));
             if (calc.HasValue)
                 await docs.AddLinkAsync(header.MetaId, calc.Value);
+        }
+
+        // Закрываем заказ-источник: счёт выставлен → заказ Delivered.
+        // ВАЖНО: SetSubtypeAsync здесь работает ненадёжно — платформа объявляет
+        // OnAfterPost неотменяемым и глотает исключения вложенных вызовов.
+        // Реальный переход делает ReleaseRealizationCommand ПОСЛЕ SaveDocumentAsync.
+        // Блок ниже оставлен только для прямых API/программных переходов (bypass команды).
+        var sourceOrder = invoice?.SourceOrder ?? header.SourceOrder;
+        if (sourceOrder != Guid.Empty)
+        {
+            var order = await docs.GetDocumentAsync<SalesOrder>(sourceOrder);
+            if (order is not null && order.Subtype == "Confirmed")
+                await context.GetService<IDocumentPostingService>()
+                    .SetSubtypeAsync(SalesOrderType, sourceOrder, "Delivered");
         }
 
         return EventResult.Ok();

@@ -1,0 +1,16 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "PaymentTerm",
+    "objectMetaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
+    "executionOrder": 0,
+    "metaId": "1edbd189-ead3-4966-a6cc-428857c07b63",
+    "name": "PaymentTermEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1,
+    "createdDateTime": "2026-09-09T13:28:57.5060368",
+    "modifiedDateTime": "2026-09-09T13:28:57.5060368"
+  }
+}

@@ -5,7 +5,7 @@
     "scriptType": "TransactionScript",
     "objectType": "Document",
     "objectName": "SalesInvoice",
-    "objectMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
     "executionOrder": 5,
     "metaId": "0c3d8f76-2e1a-4b5c-9d6f-7a0b1c8e4f90",
     "name": "SalesLoyaltyTx",

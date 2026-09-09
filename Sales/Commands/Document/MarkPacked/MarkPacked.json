@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Mark packed",
+    "caption_ar": "تم التعبئة",
+    "caption_ru": "Упаковано",
+    "scriptMetaId": "b2c3d4e5-f6a7-4b8c-8d9e-1f2a3b4c5d6e",
+    "parameterMode": "None",
+    "displayOrder": 2,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "a1b2c3d4-e5f6-4a7b-8c8d-0e1f2a3b4c5d",
+    "name": "MarkPacked",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-09T00:00:00",
+    "modifiedDateTime": "2026-09-09T00:00:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "1122392a-15f6-43d4-9940-aabb11223355",
+      "documentCommandMetaId": "a1b2c3d4-e5f6-4a7b-8c8d-0e1f2a3b4c5d",
+      "documentSubtypeMetaId": "e2f3a4b5-c6d7-4e8f-8a0b-2c3d4e5f6a7b"
+    }
+  ]
+}

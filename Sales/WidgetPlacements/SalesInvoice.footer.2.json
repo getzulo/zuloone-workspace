@@ -1,0 +1,18 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "slot": "footer",
+    "widgetType": "attachments",
+    "displayOrder": 10,
+    "width": 3,
+    "height": 2,
+    "metaId": "c4b8c766-e1a1-4d9c-9750-37903e6d0172",
+    "name": "SalesInvoice.footer.attachments",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-09T16:40:00",
+    "modifiedDateTime": "2026-09-09T16:40:00"
+  }
+}

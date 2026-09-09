@@ -5,7 +5,7 @@
     "scriptType": "TransactionScript",
     "objectType": "Document",
     "objectName": "PurchaseOrder",
-    "objectMetaId": "9bbf8cdb-8913-4286-8f9c-31809cca4231",
+    "objectMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
     "executionOrder": 3,
     "metaId": "1c4f8b29-5e0d-4a3b-8c9f-2d5e8a1b4c00",
     "name": "ReceiptCostTx",

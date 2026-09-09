@@ -8,7 +8,7 @@
     "parameterMode": "None",
     "displayOrder": 1,
     "beginGroup": false,
-    "isEnabled": true,
+    "isEnabled": false,
     "requiresConfirmation": false,
     "reloadAfterExecution": true,
     "metaId": "c9ac64a9-fedb-49a1-8b22-f7b09f47e9f0",
@@ -16,13 +16,7 @@
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "layerId": 2,
     "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T06:30:00"
+    "modifiedDateTime": "2026-09-09T00:00:00"
   },
-  "subtypeBindings": [
-    {
-      "metaId": "3510893f-abc5-4946-bdc4-2255d090ff94",
-      "documentCommandMetaId": "c9ac64a9-fedb-49a1-8b22-f7b09f47e9f0",
-      "documentSubtypeMetaId": "8ce0f14d-2ff9-48a1-886d-4e958618ad0e"
-    }
-  ]
+  "subtypeBindings": []
 }

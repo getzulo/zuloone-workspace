@@ -103,19 +103,34 @@ description: Создать новый документ ZuloOne — шапка, 
 движений всех скриптов. Дели по ответственности: один скрипт — один регистр
 или одна учётная цель, так их можно менять и расширять независимо.
 
-Каждый скрипт — своя пара файлов; `objectMetaId` = GUID ПОДТИПА:
+Каждый скрипт — своя пара файлов; `objectMetaId` = GUID **типа документа**
+(пул). На подтип он попадает **галочкой** — строкой в
+`subtypeTransactionScripts` у `object.json`. Без этой строки скрипт в пуле
+есть, а при переходе **не бежит**. Вешать скрипт `objectMetaId`-ом на
+подтип нельзя: как только у типа есть хоть одна привязка, слот на подтипе
+игнорируется.
 
 ```json
 {
   "kind": "Script",
   "object": {
     "scriptType": "TransactionScript", "objectType": "Document",
-    "objectMetaId": "<GUID подтипа>", "objectName": "<Имя документа>",
+    "objectMetaId": "<GUID типа документа>", "objectName": "<Имя документа>",
     "executionOrder": 1,
     "metaId": "<GUID-скрипта>", "name": "<Имя><Подтип><Цель>Tx",
     "modelId": "<GUID модели>", "layerId": 1
   }
 }
+```
+
+В `Documents/<Имя>/<Имя>.object.json`:
+
+```json
+"subtypeTransactionScripts": [
+  { "subtypeMetaId": "<GUID подтипа>", "scriptMetaId": "<GUID-скрипта>",
+    "executionOrder": 1, "metaId": "<GUID-привязки>",
+    "name": "", "modelId": "<GUID модели>", "layerId": 1 }
+]
 ```
 
 `.cs` — БЕЗ объявления базового класса (framework генерится); имя класса

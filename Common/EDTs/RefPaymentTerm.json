@@ -1,0 +1,17 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
+    "isRequired": false,
+    "metaId": "3365e777-0ae8-421c-b36d-b8fe2dec5fbc",
+    "name": "RefPaymentTerm",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1,
+    "createdDateTime": "2026-09-09T13:28:57.4528347",
+    "modifiedDateTime": "2026-09-09T13:28:57.4528347"
+  }
+}

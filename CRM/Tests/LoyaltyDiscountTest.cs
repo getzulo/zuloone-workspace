@@ -108,6 +108,8 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         item.ItemGroup = group.MetaId;
         item.UnitOfMeasure = unit.MetaId;
         item.IsSellable = true;
+        item.Image = Convert.FromBase64String(
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==");
         item = await DictionaryManager.SaveRecordAsync(item);
 
         var customer = DictionaryManager.NewRecord<Customer>();

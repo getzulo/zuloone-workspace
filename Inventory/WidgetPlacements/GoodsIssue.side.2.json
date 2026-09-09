@@ -1,0 +1,18 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "57101301-0000-4000-8000-000000000000",
+    "slot": "side",
+    "widgetType": "record-kpi",
+    "displayOrder": 10,
+    "width": 3,
+    "height": 3,
+    "metaId": "734b5ecc-d5cd-4679-b195-c160caec562b",
+    "name": "record-kpi",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-09T12:47:15.333139",
+    "modifiedDateTime": "2026-09-09T12:47:15.3331391"
+  }
+}

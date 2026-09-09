@@ -5,14 +5,40 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Подтверждение заказа: строки, остаток минус уже занятый резерв.
-// AllowBackorder в настройках снимает проверку остатка — иначе существующий
-// флаг ничего бы не делал. Доставка порождает счёт через сервис: событие
-// тонкое и идемпотентное (повтор OnAfterPost не плодит второй счёт).
+// Process B: Submitted → Confirmed (OnAfterPost: create invoice in Reserved + pick task).
+// Delivered is set by SalesInvoiceEventHandler when invoice reaches Issued.
+// OnBeforePost stock checks run only on Confirmed.
 public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrder>
 {
+    // Copy PaymentTerm and primary Contact from Customer when those fields are still empty.
+    public override async Task<EventResult> OnBeforeSaveAsync(SalesOrder header, bool isNew, EventContext context)
+    {
+        if (header.Customer != Guid.Empty)
+        {
+            var dm = context.GetService<IDictionaryManager<Customer>>();
+            var customer = await dm.GetRecordAsync(header.Customer);
+            if (customer is not null)
+            {
+                if (header.PaymentTerm == Guid.Empty && customer.PaymentTerm != Guid.Empty)
+                    header.PaymentTerm = customer.PaymentTerm;
+
+                if (header.Contact == Guid.Empty)
+                {
+                    var ccDm = context.GetService<IDictionaryManager<CustomerContact>>();
+                    var contacts = await ccDm.GetRecordsAsync($"Customer = '{header.Customer}'");
+                    var primary = contacts.FirstOrDefault(c => c.IsPrimary);
+                    if (primary is not null)
+                        header.Contact = primary.MetaId;
+                }
+            }
+        }
+
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforePostAsync(SalesOrder document, EventContext context)
     {
+        // Stock sufficiency checks only apply when the order transitions to Confirmed (Approved).
         if (document.Subtype != "Confirmed")
             return EventResult.Ok();
 
@@ -25,7 +51,8 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
 
         var location = full != null ? full.Location : document.Location;
         var cells = context.GetService<IStoreCellService>();
-        if (!await cells.IsCellAllowedForAsync(location, StoreCellPurpose.Picking))
+        if (await cells.IsWarehouseDisciplineOnAsync() &&
+            !await cells.IsCellAllowedForAsync(location, StoreCellPurpose.Picking))
             return EventResult.Cancel(
                 "Заказ при адресной дисциплине отгружается из ячейки ОТБОРА — у выбранной ячейки другое назначение");
 
@@ -48,17 +75,10 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
 
     public override async Task<EventResult> OnAfterPostAsync(SalesOrder document, EventContext context)
     {
-        var fulfill = context.GetService<ISalesFulfillmentService>();
+        // Счёт создаёт ApproveSalesOrderCommand после SaveDocumentAsync:
+        // InvoiceOrderAsync из этой транзакции не видит незакоммиченные строки.
         if (document.Subtype == "Confirmed")
-        {
-            await fulfill.EnsurePickTaskAsync(document.MetaId);
-            return EventResult.Ok();
-        }
-
-        if (document.Subtype != "Delivered")
-            return EventResult.Ok();
-
-        await fulfill.InvoiceOrderAsync(document.MetaId);
+            await context.GetService<ISalesFulfillmentService>().EnsurePickTaskAsync(document.MetaId);
         return EventResult.Ok();
     }
 }

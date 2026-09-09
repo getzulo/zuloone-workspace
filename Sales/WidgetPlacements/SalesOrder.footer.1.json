@@ -1,0 +1,18 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
+    "slot": "footer",
+    "widgetType": "notes",
+    "displayOrder": 0,
+    "width": 6,
+    "height": 3,
+    "metaId": "7323b28c-b19d-4df3-95b9-cf01960b0f12",
+    "name": "SalesOrder.footer.notes",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-09T16:40:00",
+    "modifiedDateTime": "2026-09-09T16:40:00"
+  }
+}

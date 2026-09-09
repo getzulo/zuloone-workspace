@@ -1,0 +1,17 @@
+{
+  "kind": "Job",
+  "object": {
+    "description": "",
+    "scriptMetaId": "2cce6be7-4f08-4ed7-aaa5-c6720f818656",
+    "cronExpression": "/1 * * * *",
+    "isActive": false,
+    "executeSingle": false,
+    "queueTtlMinutes": 15,
+    "metaId": "c31a822f-2565-4b18-a806-6e7247883a1b",
+    "name": "New job",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1,
+    "createdDateTime": "2026-09-03T19:25:49.2859628",
+    "modifiedDateTime": "2026-09-04T01:37:44.5060289"
+  }
+}

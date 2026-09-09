@@ -2,10 +2,11 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// Команда «Подтвердить заказ»: пустые строки и нехватка свободного остатка
-// (Stock − Reserved) — отказ без смены подтипа. OnBeforePost дублирует те же
-// правила для программного перехода; здесь сообщение уходит в UI, а не исключением.
-public partial class ConfirmSalesOrderCommand
+// Команда «Согласовать заказ» (ApproveSalesOrder): переход Submitted → Confirmed.
+// Проверяет строки, ячейку и свободный остаток.
+// InvoiceOrderAsync вызывается здесь (не в OnAfterPost): внутри транзакции
+// проведения сервисный IDocumentManager не видит незакоммиченные строки заказа.
+public partial class ApproveSalesOrderCommand
 {
     public override async Task ExecuteAsync(SalesOrder document, CommandContext context)
     {
@@ -15,7 +16,7 @@ public partial class ConfirmSalesOrderCommand
 
         if (full.Lines.Count == 0)
         {
-            context.AddClientAction(ClientAction.Message("Нельзя подтвердить пустой заказ: добавьте строки."));
+            context.AddClientAction(ClientAction.Message("Нельзя согласовать пустой заказ: добавьте строки."));
             return;
         }
         if (full.Lines.Any(l => l.Quantity <= 0m))
@@ -25,18 +26,19 @@ public partial class ConfirmSalesOrderCommand
         }
 
         var cells = context.GetService<IStoreCellService>();
-        if (!await cells.IsCellAllowedForAsync(full.Location, StoreCellPurpose.Picking))
+        if (await cells.IsWarehouseDisciplineOnAsync() &&
+            !await cells.IsCellAllowedForAsync(full.Location, StoreCellPurpose.Picking))
         {
             context.AddClientAction(ClientAction.Message(
                 "Заказ при адресной дисциплине отгружается из ячейки ОТБОРА — у выбранной ячейки другое назначение"));
             return;
         }
 
+        var fulfill = context.GetService<ISalesFulfillmentService>();
         var settings = (await context.GetService<IDictionaryManager<SalesSettings>>().GetRecordsAsync("1 = 1"))
             .FirstOrDefault();
         if (settings?.AllowBackorder != true)
         {
-            var fulfill = context.GetService<ISalesFulfillmentService>();
             foreach (var line in full.Lines)
             {
                 var free = await fulfill.AvailableQtyAsync(full.Location, line.Item);
@@ -51,6 +53,9 @@ public partial class ConfirmSalesOrderCommand
 
         full.Subtype = SalesOrder.Subtypes.Confirmed;
         await docs.SaveDocumentAsync(full);
-        context.AddClientAction(ClientAction.Message("Заказ подтверждён."));
+
+        await fulfill.InvoiceOrderAsync(document.MetaId);
+
+        context.AddClientAction(ClientAction.Message("Заказ согласован."));
     }
 }

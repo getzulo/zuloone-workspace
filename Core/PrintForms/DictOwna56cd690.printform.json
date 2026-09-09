@@ -1,0 +1,33 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "caption": "DictOwna56cd690",
+    "documentTypeMetaId": "00000000-0000-0000-0000-000000000000",
+    "engine": "Xr",
+    "scriptMetaId": "27b6fbb8-2b12-4478-9471-b4b8c932aabc",
+    "layoutJson": "{\"schemaVersion\":1,\"paper\":{\"kind\":\"A4\",\"orientation\":\"Portrait\",\"widthMm\":210,\"heightMm\":297},\r\n \"margins\":{\"left\":10,\"top\":10,\"right\":10,\"bottom\":10},\"bands\":[\r\n   {\"id\":\"ph\",\"kind\":\"PageHeader\",\"heightMm\":12,\"controls\":[\r\n     {\"id\":\"n\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":0,\"wMm\":80,\"hMm\":8,\"binding\":\"Name\"}]}]}",
+    "displayOrder": 1,
+    "metaId": "d782eb6d-b7b9-48ec-978b-a888cd6d1c80",
+    "name": "DictOwna56cd690",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-05T16:47:50.4292491",
+    "modifiedDateTime": "2026-09-05T16:47:50.4292491"
+  },
+  "bindings": [
+    {
+      "metaId": "241fe6b8-1f08-482c-996a-ee7fcdb43a24",
+      "printFormMetaId": "d782eb6d-b7b9-48ec-978b-a888cd6d1c80",
+      "targetKind": "Dictionary",
+      "targetMetaId": "3c50222c-bdc2-49a8-aeb4-f31af58bff90",
+      "scope": "List"
+    },
+    {
+      "metaId": "c9afe5d1-d2ac-4f2f-8e50-f68034e91866",
+      "printFormMetaId": "d782eb6d-b7b9-48ec-978b-a888cd6d1c80",
+      "targetKind": "Dictionary",
+      "targetMetaId": "3c50222c-bdc2-49a8-aeb4-f31af58bff90",
+      "scope": "Record"
+    }
+  ]
+}

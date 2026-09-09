@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Release realization",
+    "caption_ar": "إصدار الفاتورة",
+    "caption_ru": "Выставить реализацию",
+    "scriptMetaId": "f6a7b8c9-d0e1-4f2a-8b3c-5d6e7f8a9b0c",
+    "parameterMode": "None",
+    "displayOrder": 4,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "e5f6a7b8-c9d0-4e1f-8a2b-4c5d6e7f8a9b",
+    "name": "ReleaseRealization",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-09T00:00:00",
+    "modifiedDateTime": "2026-09-09T00:00:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "33445b4c-3718-45f6-9b42-ccdd33445577",
+      "documentCommandMetaId": "e5f6a7b8-c9d0-4e1f-8a2b-4c5d6e7f8a9b",
+      "documentSubtypeMetaId": "a4b5c6d7-e8f0-4a1b-8c2d-4e5f6a7b8c9d"
+    }
+  ]
+}

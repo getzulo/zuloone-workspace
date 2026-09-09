@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Submit order",
+    "caption_ar": "إرسال الطلب",
+    "caption_ru": "Отправить заказ",
+    "scriptMetaId": "d7e8f0a1-b2c3-4d4e-8f5a-7b8c9d0e1f2a",
+    "parameterMode": "None",
+    "displayOrder": 0,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "c6d7e8f0-a1b2-4c3d-9e4f-6a7b8c9d0e1f",
+    "name": "SubmitSalesOrder",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-09T00:00:00",
+    "modifiedDateTime": "2026-09-09T00:00:00"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "ddeef5a6-71b2-4990-9506-667788990011",
+      "documentCommandMetaId": "c6d7e8f0-a1b2-4c3d-9e4f-6a7b8c9d0e1f",
+      "documentSubtypeMetaId": "51ac876f-0fc8-4df2-b33c-dc3ea088995f"
+    }
+  ]
+}
