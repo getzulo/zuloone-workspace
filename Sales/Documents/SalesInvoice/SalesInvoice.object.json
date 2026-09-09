@@ -173,7 +173,7 @@
       "caption": "Contact",
       "caption_ru": "Контактное лицо",
       "caption_ar": "جهة الاتصال",
-      "edtMetaId": "33333333-0003-4000-8000-000000000003",
+      "edtMetaId": "c680db08-5b83-445a-8705-64e85d962932",
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 7,
@@ -181,7 +181,7 @@
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
-      "metaId": "77777777-0001-4000-8000-000000000001",
+      "metaId": "a0762da1-dde7-41ab-8951-10f592fc9562",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2
     },
@@ -192,7 +192,7 @@
       "caption": "Payment term",
       "caption_ru": "Условия оплаты",
       "caption_ar": "شروط الدفع",
-      "edtMetaId": "11111111-0003-4000-8000-000000000003",
+      "edtMetaId": "3365e777-0ae8-421c-b36d-b8fe2dec5fbc",
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 8,
@@ -200,7 +200,7 @@
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
-      "metaId": "77777777-0002-4000-8000-000000000002",
+      "metaId": "8932c776-6662-44d3-a84a-4bd1857852b4",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2
     },
@@ -220,7 +220,7 @@
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
-      "metaId": "77777777-0003-4000-8000-000000000003",
+      "metaId": "1332751f-52a4-4308-ad66-f99c1ce9e798",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2
     }

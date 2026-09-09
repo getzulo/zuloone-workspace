@@ -16,7 +16,8 @@ public partial class CustomerContactEventHandler : TypedDictionaryEventHandler<C
 
         // Clear IsPrimary on other contacts of this customer.
         var dm = context.GetService<IDictionaryManager<CustomerContact>>();
-        var others = await dm.GetRecordsAsync($"Customer = '{record.Customer}' AND IsPrimary = 1");
+        var others = (await dm.GetRecordsAsync($"Customer = '{record.Customer}'"))
+            .Where(c => c.IsPrimary);
         foreach (var other in others)
         {
             // For new records MetaId is unstable; but we still clear everyone —

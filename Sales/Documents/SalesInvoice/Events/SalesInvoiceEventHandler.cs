@@ -32,8 +32,8 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         if (header.DiscountPercent < 0m || header.DiscountPercent > 100m)
             return EventResult.Cancel("Скидка на счёте должна быть в диапазоне от 0 до 100%");
 
-        // On first save: copy PaymentTerm and primary Contact from Customer if not already set.
-        if (isNew && header.Customer != Guid.Empty)
+        // Copy PaymentTerm and primary Contact from Customer when still empty.
+        if (header.Customer != Guid.Empty)
         {
             var dm = context.GetService<IDictionaryManager<Customer>>();
             var customer = await dm.GetRecordAsync(header.Customer);
@@ -45,8 +45,8 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
                 if (header.Contact == Guid.Empty)
                 {
                     var ccDm = context.GetService<IDictionaryManager<CustomerContact>>();
-                    var contacts = await ccDm.GetRecordsAsync($"Customer = '{header.Customer}' AND IsPrimary = 1");
-                    var primary = contacts.FirstOrDefault();
+                    var contacts = await ccDm.GetRecordsAsync($"Customer = '{header.Customer}'");
+                    var primary = contacts.FirstOrDefault(c => c.IsPrimary);
                     if (primary is not null)
                         header.Contact = primary.MetaId;
                 }

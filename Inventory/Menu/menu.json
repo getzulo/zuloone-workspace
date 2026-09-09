@@ -195,8 +195,8 @@
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 8,
       "targetType": "Dictionary",
-      "targetMetaId": "22222222-0002-4000-8000-000000000002",
-      "metaId": "22222222-0006-4000-8000-000000000006",
+      "targetMetaId": "925608f0-94a4-47cc-a1ae-683247980b2d",
+      "metaId": "860e7fb7-cec6-4f96-b8c4-ab82c1e55b6c",
       "name": "Brand",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
@@ -208,8 +208,8 @@
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 9,
       "targetType": "Dictionary",
-      "targetMetaId": "33333333-0002-4000-8000-000000000002",
-      "metaId": "33333333-000a-4000-8000-00000000000a",
+      "targetMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
+      "metaId": "242f8ef0-dbd2-4664-8149-e3f77daca2c3",
       "name": "CustomerContact",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2

@@ -199,7 +199,7 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "44444444-0001-4000-8000-000000000001",
+      "metaId": "1afbd1f3-b6d7-4712-a6aa-b0961c64ac54",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     },
@@ -210,7 +210,7 @@
       "caption": "Payment term",
       "caption_ru": "Условия оплаты",
       "caption_ar": "شروط الدفع",
-      "edtMetaId": "11111111-0003-4000-8000-000000000003",
+      "edtMetaId": "3365e777-0ae8-421c-b36d-b8fe2dec5fbc",
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 11,
@@ -219,7 +219,7 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "44444444-0002-4000-8000-000000000002",
+      "metaId": "3b3622d0-9a65-4166-abd4-6abb8a78c4c9",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     },
@@ -239,7 +239,7 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "44444444-0003-4000-8000-000000000003",
+      "metaId": "a181f868-201d-49c3-9128-f22b851a3775",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     }

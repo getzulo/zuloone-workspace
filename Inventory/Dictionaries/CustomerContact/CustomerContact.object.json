@@ -6,7 +6,7 @@
     "caption_ar": "جهات اتصال العملاء",
     "description": "",
     "isHierarchical": false,
-    "numberSequenceMetaId": "33333333-0001-4000-8000-000000000001",
+    "numberSequenceMetaId": "77c16dc2-e3c5-4860-be18-c8aef59c8937",
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isLogged": false,
@@ -17,14 +17,14 @@
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
-    "metaId": "33333333-0002-4000-8000-000000000002",
+    "metaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
     "name": "CustomerContact",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2
   },
   "fields": [
     {
-      "dictionaryMetaId": "33333333-0002-4000-8000-000000000002",
+      "dictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
       "fieldName": "Name",
       "name": "Name",
       "caption": "Name",
@@ -39,12 +39,12 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "33333333-0005-4000-8000-000000000005",
+      "metaId": "1a09b798-cec1-4d1f-bc64-08a3ce2c348c",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     },
     {
-      "dictionaryMetaId": "33333333-0002-4000-8000-000000000002",
+      "dictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
       "fieldName": "Customer",
       "name": "Customer",
       "caption": "Customer",
@@ -58,12 +58,12 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "33333333-0006-4000-8000-000000000006",
+      "metaId": "7d9e8487-7c81-4e2a-b6b4-09b4e14055c7",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     },
     {
-      "dictionaryMetaId": "33333333-0002-4000-8000-000000000002",
+      "dictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
       "fieldName": "Phone",
       "name": "Phone",
       "caption": "Phone",
@@ -78,12 +78,12 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "33333333-0007-4000-8000-000000000007",
+      "metaId": "0892a9d7-2434-45dd-97d0-87988766ed0a",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     },
     {
-      "dictionaryMetaId": "33333333-0002-4000-8000-000000000002",
+      "dictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
       "fieldName": "Email",
       "name": "Email",
       "caption": "Email",
@@ -98,12 +98,12 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "33333333-0008-4000-8000-000000000008",
+      "metaId": "2372f707-e20a-4ce5-a636-ec2786551c7f",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     },
     {
-      "dictionaryMetaId": "33333333-0002-4000-8000-000000000002",
+      "dictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
       "fieldName": "IsPrimary",
       "name": "IsPrimary",
       "caption": "Primary contact",
@@ -117,7 +117,7 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "33333333-0009-4000-8000-000000000009",
+      "metaId": "e82eb617-3e5a-4c7e-a387-0141ff454edd",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     }

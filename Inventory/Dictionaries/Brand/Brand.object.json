@@ -6,7 +6,7 @@
     "caption_ar": "العلامات التجارية",
     "description": "",
     "isHierarchical": false,
-    "numberSequenceMetaId": "22222222-0001-4000-8000-000000000001",
+    "numberSequenceMetaId": "22dbc348-aa64-485f-9ed3-d6818b8279e9",
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isLogged": false,
@@ -17,14 +17,14 @@
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
-    "metaId": "22222222-0002-4000-8000-000000000002",
+    "metaId": "925608f0-94a4-47cc-a1ae-683247980b2d",
     "name": "Brand",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2
   },
   "fields": [
     {
-      "dictionaryMetaId": "22222222-0002-4000-8000-000000000002",
+      "dictionaryMetaId": "925608f0-94a4-47cc-a1ae-683247980b2d",
       "fieldName": "Name",
       "name": "Name",
       "caption": "Name",
@@ -39,7 +39,7 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "22222222-0005-4000-8000-000000000005",
+      "metaId": "2c1ebc64-fd10-4fd1-b8d4-b120a01b2c94",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     }

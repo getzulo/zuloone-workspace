@@ -3,9 +3,9 @@
   "object": {
     "scriptType": "EventHandler",
     "objectType": "Dictionary",
-    "objectMetaId": "11111111-0002-4000-8000-000000000002",
+    "objectMetaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
     "objectName": "PaymentTerm",
-    "metaId": "11111111-0004-4000-8000-000000000004",
+    "metaId": "1edbd189-ead3-4966-a6cc-428857c07b63",
     "name": "PaymentTermEventHandler",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1

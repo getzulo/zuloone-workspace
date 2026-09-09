@@ -2,8 +2,8 @@
   "kind": "EDT",
   "object": {
     "edtType": "Reference",
-    "referenceDictionaryMetaId": "33333333-0002-4000-8000-000000000002",
-    "metaId": "33333333-0003-4000-8000-000000000003",
+    "referenceDictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
+    "metaId": "c680db08-5b83-445a-8705-64e85d962932",
     "name": "RefCustomerContact",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2

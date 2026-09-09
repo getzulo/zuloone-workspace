@@ -11,10 +11,10 @@ namespace ZuloOne.Runtime.Generated;
 // тонкое и идемпотентное (повтор OnAfterPost не плодит второй счёт).
 public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrder>
 {
-    // On first save: copy PaymentTerm and primary Contact from Customer if not already set.
+    // Copy PaymentTerm and primary Contact from Customer when those fields are still empty.
     public override async Task<EventResult> OnBeforeSaveAsync(SalesOrder header, bool isNew, EventContext context)
     {
-        if (isNew && header.Customer != Guid.Empty)
+        if (header.Customer != Guid.Empty)
         {
             var dm = context.GetService<IDictionaryManager<Customer>>();
             var customer = await dm.GetRecordAsync(header.Customer);
@@ -26,8 +26,8 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
                 if (header.Contact == Guid.Empty)
                 {
                     var ccDm = context.GetService<IDictionaryManager<CustomerContact>>();
-                    var contacts = await ccDm.GetRecordsAsync($"Customer = '{header.Customer}' AND IsPrimary = 1");
-                    var primary = contacts.FirstOrDefault();
+                    var contacts = await ccDm.GetRecordsAsync($"Customer = '{header.Customer}'");
+                    var primary = contacts.FirstOrDefault(c => c.IsPrimary);
                     if (primary is not null)
                         header.Contact = primary.MetaId;
                 }

@@ -266,7 +266,7 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "55555555-0001-4000-8000-000000000001",
+      "metaId": "eb362ac1-1ecf-4b7c-9b18-897b64c7613a",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     },
@@ -287,7 +287,7 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "55555555-0002-4000-8000-000000000002",
+      "metaId": "0f4f4d15-a3d7-4cc6-806c-2de8e21df9b3",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     },
@@ -298,7 +298,7 @@
       "caption": "Brand",
       "caption_ru": "Бренд",
       "caption_ar": "العلامة التجارية",
-      "edtMetaId": "22222222-0003-4000-8000-000000000003",
+      "edtMetaId": "04f93bd3-1255-4735-ad02-12baf8715b35",
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 12,
@@ -307,7 +307,7 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "55555555-0003-4000-8000-000000000003",
+      "metaId": "0ce4d38e-9772-4938-862c-ae139685e703",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2
     }

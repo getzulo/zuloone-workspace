@@ -3,9 +3,9 @@
   "object": {
     "scriptType": "EventHandler",
     "objectType": "Dictionary",
-    "objectMetaId": "33333333-0002-4000-8000-000000000002",
+    "objectMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
     "objectName": "CustomerContact",
-    "metaId": "33333333-0004-4000-8000-000000000004",
+    "metaId": "3ea71aeb-02a5-4c4f-81f3-c408c115e2d7",
     "name": "CustomerContactEventHandler",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2

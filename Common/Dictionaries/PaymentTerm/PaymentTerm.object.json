@@ -6,7 +6,7 @@
     "caption_ar": "شروط الدفع",
     "description": "",
     "isHierarchical": false,
-    "numberSequenceMetaId": "11111111-0001-4000-8000-000000000001",
+    "numberSequenceMetaId": "c7953a41-cd78-4c5b-b061-0c072244a7bc",
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isLogged": false,
@@ -17,14 +17,14 @@
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
-    "metaId": "11111111-0002-4000-8000-000000000002",
+    "metaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
     "name": "PaymentTerm",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1
   },
   "fields": [
     {
-      "dictionaryMetaId": "11111111-0002-4000-8000-000000000002",
+      "dictionaryMetaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
       "fieldName": "Name",
       "name": "Name",
       "caption": "Name",
@@ -39,12 +39,12 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "11111111-0005-4000-8000-000000000005",
+      "metaId": "d52d1e72-c2ed-449d-bb33-238dee164608",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1
     },
     {
-      "dictionaryMetaId": "11111111-0002-4000-8000-000000000002",
+      "dictionaryMetaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
       "fieldName": "Days",
       "name": "Days",
       "caption": "Days",
@@ -58,7 +58,7 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "11111111-0006-4000-8000-000000000006",
+      "metaId": "801cda54-923b-4980-9a23-c227ca7eb216",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1
     }
