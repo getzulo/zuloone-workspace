@@ -264,6 +264,10 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         }
 
         // Закрываем заказ-источник: счёт выставлен → заказ Delivered.
+        // ВАЖНО: SetSubtypeAsync здесь работает ненадёжно — платформа объявляет
+        // OnAfterPost неотменяемым и глотает исключения вложенных вызовов.
+        // Реальный переход делает ReleaseRealizationCommand ПОСЛЕ SaveDocumentAsync.
+        // Блок ниже оставлен только для прямых API/программных переходов (bypass команды).
         var sourceOrder = invoice?.SourceOrder ?? header.SourceOrder;
         if (sourceOrder != Guid.Empty)
         {

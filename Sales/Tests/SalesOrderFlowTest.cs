@@ -122,21 +122,13 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         => TotalsManager.GetBalanceAsync("ReservedStock", "Qty",
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item });
 
-    private static async Task<decimal> ReceivableAsync()
-    {
-        decimal sum = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("Receivable"))
-            sum += Convert.ToDecimal(r["Amount"]);
-        return sum;
-    }
+    private static Task<decimal> ReceivableAsync(Setup s)
+        => TotalsManager.GetBalanceAsync("Receivable", "Amount",
+            new Dictionary<string, object?> { ["Customer"] = s.Customer });
 
-    private static async Task<decimal> RevenueAsync()
-    {
-        decimal sum = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("Revenue"))
-            sum += Convert.ToDecimal(r["Amount"]);
-        return sum;
-    }
+    private static Task<decimal> RevenueAsync(Setup s)
+        => TotalsManager.GetBalanceAsync("Revenue", "Amount",
+            new Dictionary<string, object?> { ["Customer"] = s.Customer });
 
     private async Task RunCommandAsync(string name, Guid documentId)
     {
@@ -192,14 +184,14 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         // Assert 2: ReservedStock = qty; Stock unchanged; Receivable = 0
         Assert.IsTrue(await ReservedAsync(s) == 4m, "резерв 4, факт {0}", await ReservedAsync(s));
         Assert.IsTrue(await StockAsync(s) == 10m, "склад не тронут, факт {0}", await StockAsync(s));
-        Assert.IsTrue(await ReceivableAsync() == 0m, "долг 0 на Reserved");
+        Assert.IsTrue(await ReceivableAsync(s) == 0m, "долг 0 на Reserved");
 
         // No TaxCalculation child
         var family = await DocumentManager.GetDocumentFamilyAsync(inv.MetaId);
         var taxCalcTypeId = Guid.Parse("00000000-0000-0000-0000-000000000001"); // placeholder — checked by count
         var linkedDocs = await DocumentManager.QueryDocumentsAsync<SalesInvoice>($"SourceOrder = '{order.MetaId}'");
         // Reserve keeps reserve tx only; verify no receivable movement
-        Assert.IsTrue(await ReceivableAsync() == 0m, "после Reserved долг по-прежнему 0");
+        Assert.IsTrue(await ReceivableAsync(s) == 0m, "после Reserved долг по-прежнему 0");
     }
 
     /// <summary>Walk invoice through Picking → Packing → Shipped keeps reserve;
@@ -221,22 +213,22 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         // Assert 3: Picking, Packing, Shipped — still reserved, no receivable
         await RunCommandAsync("StartPicking", invId);
         Assert.IsTrue(await ReservedAsync(s) == 3m, "Picking: резерв 3, факт {0}", await ReservedAsync(s));
-        Assert.IsTrue(await ReceivableAsync() == 0m, "Picking: долг 0");
+        Assert.IsTrue(await ReceivableAsync(s) == 0m, "Picking: долг 0");
 
         await RunCommandAsync("MarkPacked", invId);
         Assert.IsTrue(await ReservedAsync(s) == 3m, "Packing: резерв 3, факт {0}", await ReservedAsync(s));
-        Assert.IsTrue(await ReceivableAsync() == 0m, "Packing: долг 0");
+        Assert.IsTrue(await ReceivableAsync(s) == 0m, "Packing: долг 0");
 
         await RunCommandAsync("MarkShipped", invId);
         Assert.IsTrue(await ReservedAsync(s) == 3m, "Shipped: резерв 3, факт {0}", await ReservedAsync(s));
-        Assert.IsTrue(await ReceivableAsync() == 0m, "Shipped: долг 0");
+        Assert.IsTrue(await ReceivableAsync(s) == 0m, "Shipped: долг 0");
 
         // Assert 4: Issued → ReservedStock=0, Stock−, Receivable+, order=Delivered
         await RunCommandAsync("ReleaseRealization", invId);
 
         Assert.IsTrue(await ReservedAsync(s) == 0m, "Issued: резерв 0, факт {0}", await ReservedAsync(s));
         Assert.IsTrue(await StockAsync(s) == 7m, "Issued: склад 10−3=7, факт {0}", await StockAsync(s));
-        Assert.IsTrue(await ReceivableAsync() == 15m, "Issued: долг 15, факт {0}", await ReceivableAsync());
+        Assert.IsTrue(await ReceivableAsync(s) == 15m, "Issued: долг 15, факт {0}", await ReceivableAsync(s));
 
         var orderReloaded = await DocumentManager.GetDocumentAsync<SalesOrder>(order.MetaId);
         Assert.IsTrue(orderReloaded!.Subtype == SalesOrder.Subtypes.Delivered,
@@ -355,7 +347,7 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         await RunCommandAsync("PostSalesReturn", ret.MetaId);
 
         Assert.IsTrue(await StockAsync(s) == 10m, "товар вернулся, факт {0}", await StockAsync(s));
-        Assert.IsTrue(await ReceivableAsync() == 0m, "долг закрыт возвратом, факт {0}", await ReceivableAsync());
-        Assert.IsTrue(await RevenueAsync() == 0m, "выручка сторнирована, факт {0}", await RevenueAsync());
+        Assert.IsTrue(await ReceivableAsync(s) == 0m, "долг закрыт возвратом, факт {0}", await ReceivableAsync(s));
+        Assert.IsTrue(await RevenueAsync(s) == 0m, "выручка сторнирована, факт {0}", await RevenueAsync(s));
     }
 }

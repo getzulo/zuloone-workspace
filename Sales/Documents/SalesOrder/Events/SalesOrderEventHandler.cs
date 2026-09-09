@@ -51,7 +51,8 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
 
         var location = full != null ? full.Location : document.Location;
         var cells = context.GetService<IStoreCellService>();
-        if (!await cells.IsCellAllowedForAsync(location, StoreCellPurpose.Picking))
+        if (await cells.IsWarehouseDisciplineOnAsync() &&
+            !await cells.IsCellAllowedForAsync(location, StoreCellPurpose.Picking))
             return EventResult.Cancel(
                 "Заказ при адресной дисциплине отгружается из ячейки ОТБОРА — у выбранной ячейки другое назначение");
 
@@ -74,14 +75,12 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
 
     public override async Task<EventResult> OnAfterPostAsync(SalesOrder document, EventContext context)
     {
-        // Only Confirmed triggers invoice creation and pick task.
-        // Delivered must NOT create another invoice.
-        if (document.Subtype != "Confirmed")
-            return EventResult.Ok();
-
-        var fulfill = context.GetService<ISalesFulfillmentService>();
-        await fulfill.InvoiceOrderAsync(document.MetaId);   // creates invoice in Reserved
-        await fulfill.EnsurePickTaskAsync(document.MetaId);  // draft pick task if discipline on
+        // Only Delivered subtype needs post-event work (set by SalesInvoiceEventHandler).
+        // Invoice creation happens in ApproveSalesOrderCommand after SaveDocumentAsync commits,
+        // because InvoiceOrderAsync re-fetches the order and cannot see uncommitted lines
+        // when called from within the posting transaction context.
+        if (document.Subtype == "Confirmed")
+            await context.GetService<ISalesFulfillmentService>().EnsurePickTaskAsync(document.MetaId);
         return EventResult.Ok();
     }
 }

@@ -3,8 +3,11 @@ using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 // Команда «Согласовать заказ» (ApproveSalesOrder): переход Submitted → Confirmed.
-// Проверяет строки, ячейку и свободный остаток. Создание счёта и задания отбора —
-// в OnAfterPost через SalesFulfillmentService, не здесь.
+// Проверяет строки, ячейку и свободный остаток.
+// ВАЖНО: InvoiceOrderAsync вызывается здесь (а не в OnAfterPostAsync), потому что
+// внутри транзакции проведения сервисный IDocumentManager не видит незакоммиченные
+// строки заказа, и InvoiceOrderAsync возвращает Guid.Empty.
+// После SaveDocumentAsync транзакция завершается, и прямой вызов корректно работает.
 public partial class ApproveSalesOrderCommand
 {
     public override async Task ExecuteAsync(SalesOrder document, CommandContext context)
@@ -25,18 +28,19 @@ public partial class ApproveSalesOrderCommand
         }
 
         var cells = context.GetService<IStoreCellService>();
-        if (!await cells.IsCellAllowedForAsync(full.Location, StoreCellPurpose.Picking))
+        if (await cells.IsWarehouseDisciplineOnAsync() &&
+            !await cells.IsCellAllowedForAsync(full.Location, StoreCellPurpose.Picking))
         {
             context.AddClientAction(ClientAction.Message(
                 "Заказ при адресной дисциплине отгружается из ячейки ОТБОРА — у выбранной ячейки другое назначение"));
             return;
         }
 
+        var fulfill = context.GetService<ISalesFulfillmentService>();
         var settings = (await context.GetService<IDictionaryManager<SalesSettings>>().GetRecordsAsync("1 = 1"))
             .FirstOrDefault();
         if (settings?.AllowBackorder != true)
         {
-            var fulfill = context.GetService<ISalesFulfillmentService>();
             foreach (var line in full.Lines)
             {
                 var free = await fulfill.AvailableQtyAsync(full.Location, line.Item);
@@ -51,6 +55,11 @@ public partial class ApproveSalesOrderCommand
 
         full.Subtype = SalesOrder.Subtypes.Confirmed;
         await docs.SaveDocumentAsync(full);
+
+        // Create invoice in Reserved state. Must be called after SaveDocumentAsync completes
+        // so that the committed order is visible to the service's DB context.
+        await fulfill.InvoiceOrderAsync(document.MetaId);
+
         context.AddClientAction(ClientAction.Message("Заказ согласован."));
     }
 }

@@ -18,8 +18,9 @@ public partial class IssueInvoiceCommand
             return;
         }
 
-        if (!await context.GetService<IStoreCellService>()
-                .IsCellAllowedForAsync(full.Location, StoreCellPurpose.Picking))
+        var cellSvc = context.GetService<IStoreCellService>();
+        if (await cellSvc.IsWarehouseDisciplineOnAsync() &&
+            !await cellSvc.IsCellAllowedForAsync(full.Location, StoreCellPurpose.Picking))
         {
             context.AddClientAction(ClientAction.Message(
                 "Отгрузка идёт из ячейки ОТБОРА — у выбранной ячейки другое назначение."));
