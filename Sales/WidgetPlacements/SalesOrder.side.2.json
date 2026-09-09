@@ -1,0 +1,18 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
+    "slot": "side",
+    "widgetType": "document-totals",
+    "displayOrder": 10,
+    "width": 3,
+    "height": 5,
+    "metaId": "8e4ff608-89a0-4e65-955c-b64888056b19",
+    "name": "SalesOrder.side.totals",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-09T16:40:00",
+    "modifiedDateTime": "2026-09-09T16:40:00"
+  }
+}

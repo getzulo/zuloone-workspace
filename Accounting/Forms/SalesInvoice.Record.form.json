@@ -4,7 +4,7 @@
     "objectType": "Document",
     "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
     "formKind": "Record",
-    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"borderStyle\":\"dotted\",\"items\":[{\"type\":\"field\",\"name\":\"Customer\",\"align\":\"left\"},{\"type\":\"field\",\"name\":\"Location\",\"align\":\"left\"},{\"type\":\"field\",\"name\":\"LegalEntity\",\"align\":\"left\"},{\"type\":\"field\",\"name\":\"DiscountPercent\",\"align\":\"left\"},{\"type\":\"field\",\"name\":\"TaxRateApplied\",\"align\":\"left\"},{\"type\":\"field\",\"name\":\"SourceOrder\",\"align\":\"left\"}]},{\"type\":\"tabs\",\"tabs\":[{\"key\":\"part:Lines\"}]}],\"hidden\":[]}",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Customer\"},{\"type\":\"field\",\"name\":\"Contact\"},{\"type\":\"field\",\"name\":\"Location\"},{\"type\":\"field\",\"name\":\"PaymentTerm\"},{\"type\":\"field\",\"name\":\"LegalEntity\"},{\"type\":\"field\",\"name\":\"DiscountPercent\"},{\"type\":\"field\",\"name\":\"TaxRateApplied\"},{\"type\":\"field\",\"name\":\"SourceOrder\"}]},{\"type\":\"tabs\",\"tabs\":[{\"key\":\"part:Lines\"}]}],\"hidden\":[]}",
     "metaId": "35764744-3838-431c-a62f-9183857e8e3a",
     "name": "SalesInvoice.Record",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",

@@ -1,0 +1,15 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
+    "formKind": "List",
+    "layoutJson": "{\"version\":4,\"presentation\":\"cards\",\"nodes\":[],\"hidden\":[]}",
+    "metaId": "26107a52-7b0d-49dc-8d45-11449e452f46",
+    "name": "Item.List",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-09T16:40:00",
+    "modifiedDateTime": "2026-09-09T16:40:00"
+  }
+}
