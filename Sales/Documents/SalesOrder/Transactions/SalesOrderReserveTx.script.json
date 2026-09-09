@@ -4,7 +4,7 @@
     "scriptType": "TransactionScript",
     "objectType": "Document",
     "objectName": "SalesOrder",
-    "objectMetaId": "8ce0f14d-2ff9-48a1-886d-4e958618ad0e",
+    "objectMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
     "executionOrder": 1,
     "metaId": "e2e9ca1d-4be7-43b2-aa69-7ddff0577ea5",
     "name": "SalesOrderReserveTx",

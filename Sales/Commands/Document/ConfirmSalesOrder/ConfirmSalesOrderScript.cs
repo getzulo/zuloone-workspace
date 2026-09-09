@@ -2,10 +2,10 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// Команда «Подтвердить заказ»: пустые строки и нехватка свободного остатка
-// (Stock − Reserved) — отказ без смены подтипа. OnBeforePost дублирует те же
-// правила для программного перехода; здесь сообщение уходит в UI, а не исключением.
-public partial class ConfirmSalesOrderCommand
+// Команда «Согласовать заказ» (ApproveSalesOrder): переход Submitted → Confirmed.
+// Проверяет строки, ячейку и свободный остаток. Создание счёта и задания отбора —
+// в OnAfterPost через SalesFulfillmentService, не здесь.
+public partial class ApproveSalesOrderCommand
 {
     public override async Task ExecuteAsync(SalesOrder document, CommandContext context)
     {
@@ -15,7 +15,7 @@ public partial class ConfirmSalesOrderCommand
 
         if (full.Lines.Count == 0)
         {
-            context.AddClientAction(ClientAction.Message("Нельзя подтвердить пустой заказ: добавьте строки."));
+            context.AddClientAction(ClientAction.Message("Нельзя согласовать пустой заказ: добавьте строки."));
             return;
         }
         if (full.Lines.Any(l => l.Quantity <= 0m))
@@ -51,6 +51,6 @@ public partial class ConfirmSalesOrderCommand
 
         full.Subtype = SalesOrder.Subtypes.Confirmed;
         await docs.SaveDocumentAsync(full);
-        context.AddClientAction(ClientAction.Message("Заказ подтверждён."));
+        context.AddClientAction(ClientAction.Message("Заказ согласован."));
     }
 }

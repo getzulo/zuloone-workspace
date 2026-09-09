@@ -2,10 +2,16 @@
   "kind": "EDT",
   "object": {
     "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
     "referenceDictionaryMetaId": "925608f0-94a4-47cc-a1ae-683247980b2d",
+    "isRequired": false,
     "metaId": "04f93bd3-1255-4735-ad02-12baf8715b35",
     "name": "RefBrand",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2
+    "layerId": 2,
+    "createdDateTime": "2026-09-09T13:28:57.6821492",
+    "modifiedDateTime": "2026-09-09T13:28:57.6821492"
   }
 }

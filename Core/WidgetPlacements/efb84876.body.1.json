@@ -1,0 +1,19 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "efb84876-7069-479f-bf72-bc97533fc558",
+    "slot": "body",
+    "widgetType": "total",
+    "configJson": "{\"metric\":\"qty\"}",
+    "displayOrder": 1,
+    "width": 6,
+    "height": 4,
+    "metaId": "e58351c5-effe-4368-b559-91092e078014",
+    "name": "WsPlc6cd67fe0",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-09T12:05:48.3064181",
+    "modifiedDateTime": "2026-09-09T12:05:54.7959502"
+  }
+}

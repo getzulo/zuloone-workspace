@@ -231,6 +231,9 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     //
     // Порождение здесь, а не в проводке: ставка и код налога читаются из
     // справочников асинхронно, а GetTransactions синхронный.
+    /// <summary>Тип заказа — цель точечного перехода при закрытии реализации.</summary>
+    private static readonly Guid SalesOrderType = Guid.Parse("23643b1b-b959-4206-83ab-948c713276c9");
+
     public override async Task<EventResult> OnAfterPostAsync(SalesInvoice header, EventContext context)
     {
         if (header.Subtype != "Issued") return EventResult.Ok();
@@ -258,6 +261,16 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
                     TaxPointOf(header), await TaxContextAsync(invoice, taxBase, context));
             if (calc.HasValue)
                 await docs.AddLinkAsync(header.MetaId, calc.Value);
+        }
+
+        // Закрываем заказ-источник: счёт выставлен → заказ Delivered.
+        var sourceOrder = invoice?.SourceOrder ?? header.SourceOrder;
+        if (sourceOrder != Guid.Empty)
+        {
+            var order = await docs.GetDocumentAsync<SalesOrder>(sourceOrder);
+            if (order is not null && order.Subtype == "Confirmed")
+                await context.GetService<IDocumentPostingService>()
+                    .SetSubtypeAsync(SalesOrderType, sourceOrder, "Delivered");
         }
 
         return EventResult.Ok();

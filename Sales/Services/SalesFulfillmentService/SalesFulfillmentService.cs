@@ -139,6 +139,12 @@ public partial class SalesFulfillmentService
         invoice.SourceOrder = order.MetaId;
         if (order.DeliveryDate != default)
             invoice.DocumentDate = order.DeliveryDate.Date;
+        if (order.Contact != Guid.Empty)
+            invoice.Contact = order.Contact;
+        if (order.PaymentTerm != Guid.Empty)
+            invoice.PaymentTerm = order.PaymentTerm;
+        if (order.DiscountPercent != 0m)
+            invoice.DiscountPercent = order.DiscountPercent;
 
         foreach (var line in order.Lines)
         {
@@ -155,7 +161,7 @@ public partial class SalesFulfillmentService
         if (invoice.Lines.Count == 0) return Guid.Empty;
 
         await _documents.SaveDocumentAsync(invoice);
-        await _posting.SetSubtypeAsync(SalesInvoiceType, invoice.MetaId, "Issued");
+        await _posting.SetSubtypeAsync(SalesInvoiceType, invoice.MetaId, "Reserved");
         await _documents.AddLinkAsync(order.MetaId, invoice.MetaId);
         return invoice.MetaId;
     }

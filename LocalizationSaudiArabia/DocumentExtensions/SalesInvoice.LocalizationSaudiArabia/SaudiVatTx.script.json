@@ -5,7 +5,7 @@
     "scriptType": "TransactionScript",
     "objectType": "Document",
     "objectName": "SalesInvoice",
-    "objectMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
     "executionOrder": 6,
     "metaId": "6f0b3c29-7e4d-4a1b-8c5f-9d2e4a0b7c30",
     "name": "SaudiVatTx",

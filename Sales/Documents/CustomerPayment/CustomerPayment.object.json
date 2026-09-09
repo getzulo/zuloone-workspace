@@ -107,5 +107,18 @@
       "createdDateTime": "2026-08-27T18:16:38.0157625",
       "modifiedDateTime": "2026-08-27T18:16:38.0157625"
     }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "2d3e4f5a-6b7c-4d8e-8f9a-1b2c3d4e5f6a",
+      "scriptMetaId": "4f5a6b7c-8d9e-4f0a-8b1c-3d4e5f6a7b8c",
+      "executionOrder": 1,
+      "metaId": "17d9299a-30be-470b-90b8-e5260e33966c",
+      "name": "",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-09T00:00:00",
+      "modifiedDateTime": "2026-09-09T00:00:00"
+    }
   ]
 }

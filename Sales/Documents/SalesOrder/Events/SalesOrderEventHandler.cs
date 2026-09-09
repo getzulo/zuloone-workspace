@@ -5,10 +5,9 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Подтверждение заказа: строки, остаток минус уже занятый резерв.
-// AllowBackorder в настройках снимает проверку остатка — иначе существующий
-// флаг ничего бы не делал. Доставка порождает счёт через сервис: событие
-// тонкое и идемпотентное (повтор OnAfterPost не плодит второй счёт).
+// Process B: Submitted → Confirmed (OnAfterPost: create invoice in Reserved + pick task).
+// Delivered is set by SalesInvoiceEventHandler when invoice reaches Issued.
+// OnBeforePost stock checks run only on Confirmed.
 public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrder>
 {
     // Copy PaymentTerm and primary Contact from Customer when those fields are still empty.
@@ -39,6 +38,7 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
 
     public override async Task<EventResult> OnBeforePostAsync(SalesOrder document, EventContext context)
     {
+        // Stock sufficiency checks only apply when the order transitions to Confirmed (Approved).
         if (document.Subtype != "Confirmed")
             return EventResult.Ok();
 
@@ -74,17 +74,14 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
 
     public override async Task<EventResult> OnAfterPostAsync(SalesOrder document, EventContext context)
     {
+        // Only Confirmed triggers invoice creation and pick task.
+        // Delivered must NOT create another invoice.
+        if (document.Subtype != "Confirmed")
+            return EventResult.Ok();
+
         var fulfill = context.GetService<ISalesFulfillmentService>();
-        if (document.Subtype == "Confirmed")
-        {
-            await fulfill.EnsurePickTaskAsync(document.MetaId);
-            return EventResult.Ok();
-        }
-
-        if (document.Subtype != "Delivered")
-            return EventResult.Ok();
-
-        await fulfill.InvoiceOrderAsync(document.MetaId);
+        await fulfill.InvoiceOrderAsync(document.MetaId);   // creates invoice in Reserved
+        await fulfill.EnsurePickTaskAsync(document.MetaId);  // draft pick task if discipline on
         return EventResult.Ok();
     }
 }

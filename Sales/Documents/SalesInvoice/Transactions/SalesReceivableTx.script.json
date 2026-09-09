@@ -4,7 +4,7 @@
     "scriptType": "TransactionScript",
     "objectType": "Document",
     "objectName": "SalesInvoice",
-    "objectMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
     "executionOrder": 3,
     "metaId": "8b9c0d1e-2f3a-4b4c-9d5e-7f8a9b0c1d2f",
     "name": "SalesReceivableTx",

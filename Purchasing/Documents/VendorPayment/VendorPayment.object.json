@@ -108,6 +108,19 @@
       "modifiedDateTime": "2026-09-02T09:32:51.5209278"
     }
   ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "e1e26bfb-8bba-44cb-9428-3f40f8b4df26",
+      "scriptMetaId": "801fabfb-f0df-4ca4-af48-9dfb6053d2d7",
+      "executionOrder": 1,
+      "metaId": "ce7be9a4-4d15-48aa-82a1-f75d72d0d308",
+      "name": "",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "layerId": 2,
+      "createdDateTime": "2026-09-09T00:00:00",
+      "modifiedDateTime": "2026-09-09T00:00:00"
+    }
+  ],
   "subtypeTransitions": [
     {
       "fromSubtypeMetaId": "4b43781f-2bfc-46a5-a7a1-de1ef5c080f5",

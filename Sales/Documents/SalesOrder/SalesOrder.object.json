@@ -3,7 +3,7 @@
   "object": {
     "caption": "Sales order",
     "caption_ru": "Заказ покупателя",
-    "description": "Вечерний сбор заказов по магазинам. Confirmed резервирует склад, не ставит долг и не списывает товар. Delivered порождает счёт.",
+    "description": "Process B: Draft → Submitted → Confirmed (Approved) → Delivered. Confirmed creates a realization invoice in Reserved; invoice walk to Issued closes the order as Delivered.",
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "676e00a2-1800-48ed-9156-d11be81150de",
@@ -17,7 +17,7 @@
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "layerId": 2,
     "createdDateTime": "2026-09-03T00:00:00",
-    "modifiedDateTime": "2026-09-03T00:00:00"
+    "modifiedDateTime": "2026-09-09T00:00:00"
   },
   "headerFields": [
     {
@@ -224,22 +224,6 @@
   "subtypes": [
     {
       "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
-      "name": "Delivered",
-      "caption": "Delivered",
-      "subtypeValue": "Delivered",
-      "subtypeCaption": "Delivered",
-      "subtypeCaption_ru": "Доставлен",
-      "displayOrder": 3,
-      "isInitial": false,
-      "isReadOnly": true,
-      "metaId": "04c5708f-4948-43d0-9d01-1b476ebb0145",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:18.8253007",
-      "modifiedDateTime": "2026-09-03T02:56:18.8253007"
-    },
-    {
-      "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
       "name": "Draft",
       "caption": "Draft",
       "subtypeValue": "Draft",
@@ -256,19 +240,51 @@
     },
     {
       "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
-      "name": "Confirmed",
-      "caption": "Confirmed",
-      "subtypeValue": "Confirmed",
-      "subtypeCaption": "Confirmed",
-      "subtypeCaption_ru": "Подтверждён",
+      "name": "Submitted",
+      "caption": "Submitted",
+      "subtypeValue": "Submitted",
+      "subtypeCaption": "Submitted",
+      "subtypeCaption_ru": "Отправлен",
       "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": false,
+      "metaId": "a3b4c5d6-e7f8-4a9b-8c1d-2e3f40516273",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-09T00:00:00",
+      "modifiedDateTime": "2026-09-09T00:00:00"
+    },
+    {
+      "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
+      "name": "Confirmed",
+      "caption": "Approved",
+      "subtypeValue": "Confirmed",
+      "subtypeCaption": "Approved",
+      "subtypeCaption_ru": "Подтверждён",
+      "displayOrder": 3,
       "isInitial": false,
       "isReadOnly": false,
       "metaId": "8ce0f14d-2ff9-48a1-886d-4e958618ad0e",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
       "createdDateTime": "2026-09-03T02:56:18.8252983",
-      "modifiedDateTime": "2026-09-03T02:56:18.8252983"
+      "modifiedDateTime": "2026-09-09T00:00:00"
+    },
+    {
+      "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
+      "name": "Delivered",
+      "caption": "Delivered",
+      "subtypeValue": "Delivered",
+      "subtypeCaption": "Delivered",
+      "subtypeCaption_ru": "Доставлен",
+      "displayOrder": 4,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "04c5708f-4948-43d0-9d01-1b476ebb0145",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-03T02:56:18.8253007",
+      "modifiedDateTime": "2026-09-09T00:00:00"
     },
     {
       "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
@@ -277,14 +293,14 @@
       "subtypeValue": "Cancelled",
       "subtypeCaption": "Cancelled",
       "subtypeCaption_ru": "Отменён",
-      "displayOrder": 4,
+      "displayOrder": 5,
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "bc8979b0-ddb0-499f-a960-41fb3cd0cbd5",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
       "createdDateTime": "2026-09-03T02:56:18.825303",
-      "modifiedDateTime": "2026-09-03T02:56:18.825303"
+      "modifiedDateTime": "2026-09-09T00:00:00"
     }
   ],
   "tableParts": [
@@ -300,20 +316,38 @@
       "modifiedDateTime": "2026-09-03T02:56:18.8253087"
     }
   ],
-  "subtypeTransactionScripts": [
+  "subtypeTransactionScripts": [],
+  "subtypeTransitions": [
     {
-      "subtypeMetaId": "8ce0f14d-2ff9-48a1-886d-4e958618ad0e",
-      "scriptMetaId": "e2e9ca1d-4be7-43b2-aa69-7ddff0577ea5",
-      "executionOrder": 1,
-      "metaId": "7cac1468-53c2-45a3-859f-ac1696b1bcdd",
-      "name": "",
+      "fromSubtypeMetaId": "51ac876f-0fc8-4df2-b33c-dc3ea088995f",
+      "toSubtypeMetaId": "a3b4c5d6-e7f8-4a9b-8c1d-2e3f40516273",
+      "metaId": "11223344-5566-4778-8990-aabbccddeeff",
+      "name": "Draft->Submitted",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:18.825317",
-      "modifiedDateTime": "2026-09-03T02:56:18.8253171"
-    }
-  ],
-  "subtypeTransitions": [
+      "createdDateTime": "2026-09-09T00:00:00",
+      "modifiedDateTime": "2026-09-09T00:00:00"
+    },
+    {
+      "fromSubtypeMetaId": "a3b4c5d6-e7f8-4a9b-8c1d-2e3f40516273",
+      "toSubtypeMetaId": "8ce0f14d-2ff9-48a1-886d-4e958618ad0e",
+      "metaId": "22334455-6677-4889-8a0b-bbccddeeff00",
+      "name": "Submitted->Confirmed",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-09T00:00:00",
+      "modifiedDateTime": "2026-09-09T00:00:00"
+    },
+    {
+      "fromSubtypeMetaId": "a3b4c5d6-e7f8-4a9b-8c1d-2e3f40516273",
+      "toSubtypeMetaId": "bc8979b0-ddb0-499f-a960-41fb3cd0cbd5",
+      "metaId": "33445566-7788-4990-8b1c-ccddeeff0011",
+      "name": "Submitted->Cancelled",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-09T00:00:00",
+      "modifiedDateTime": "2026-09-09T00:00:00"
+    },
     {
       "fromSubtypeMetaId": "51ac876f-0fc8-4df2-b33c-dc3ea088995f",
       "toSubtypeMetaId": "8ce0f14d-2ff9-48a1-886d-4e958618ad0e",
