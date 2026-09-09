@@ -104,6 +104,8 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         item.ItemGroup = group.MetaId;
         item.UnitOfMeasure = uom.MetaId;
         item.IsSellable = true;
+        item.Image = Convert.FromBase64String(
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==");
         item = await DictionaryManager.SaveRecordAsync(item);
 
         var customer = DictionaryManager.NewRecord<Customer>();
@@ -454,5 +456,55 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         Assert.IsTrue(reason.Length > 0, "счёт без действующей на его дату ставки должен быть отклонён при выставлении");
         Assert.IsTrue(reason.Contains("действующей ставки"),
             "отказ должен быть именно про отсутствие действующей ставки, факт: {0}", reason);
+    }
+
+    private async Task RunCommandAsync(string name, Guid documentId)
+    {
+        var commandId = await Db.FindCommandIdAsync("document", name);
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, documentId);
+        Assert.IsTrue(run.Success, "команда {0}: {1}", name, run.Message ?? string.Join("; ", run.ClientMessages));
+    }
+
+    [IntegrationTest("Process B: налог и ставка только на Issued, не на Reserved")]
+    public async Task TaxOnlyAfterIssuedNotReserved()
+    {
+        var s = await SetupAsync();
+        await ConfigureTaxAsync();
+
+        var order = await DocumentManager.NewDocumentAsync<SalesOrder>();
+        order.Customer = s.Customer;
+        order.Location = s.Cell;
+        order.DeliveryDate = DateTime.UtcNow.Date.AddDays(1);
+        order.Lines.Add(new SalesOrderLinesTablePartRow { Item = s.Item, Quantity = 4m, UnitPrice = 25m });
+        await DocumentManager.SaveDocumentAsync(order);
+
+        await RunCommandAsync("SubmitSalesOrder", order.MetaId);
+        await RunCommandAsync("ApproveSalesOrder", order.MetaId);
+
+        var invoices = await DocumentManager.QueryDocumentsAsync<SalesInvoice>($"SourceOrder = '{order.MetaId}'");
+        Assert.IsTrue(invoices.Count == 1, "один счёт, факт {0}", invoices.Count);
+        var invId = invoices[0].MetaId;
+        var reserved = await DocumentManager.GetDocumentAsync<SalesInvoice>(invId);
+        Assert.IsTrue(reserved!.Subtype == SalesInvoice.Subtypes.Reserved,
+            "счёт Reserved, факт {0}", reserved.Subtype ?? "<null>");
+        Assert.IsTrue(reserved.TaxRateApplied == 0m, "ставку не штампуем на Reserved, факт {0}", reserved.TaxRateApplied);
+
+        var familyReserved = await DocumentManager.GetDocumentFamilyAsync(invId);
+        Assert.IsTrue(!familyReserved.Nodes.Any(n => n.DocTypeName == "TaxCalculation"),
+            "Reserved не порождает TaxCalculation");
+
+        await RunCommandAsync("StartPicking", invId);
+        await RunCommandAsync("MarkPacked", invId);
+        await RunCommandAsync("MarkShipped", invId);
+        await RunCommandAsync("ReleaseRealization", invId);
+
+        var issued = await DocumentManager.GetDocumentAsync<SalesInvoice>(invId);
+        Assert.IsTrue(issued!.Subtype == SalesInvoice.Subtypes.Issued,
+            "счёт Issued, факт {0}", issued.Subtype ?? "<null>");
+        Assert.IsTrue(issued.TaxRateApplied > 0m, "ставка зафиксирована на Issued, факт {0}", issued.TaxRateApplied);
+
+        var familyIssued = await DocumentManager.GetDocumentFamilyAsync(invId);
+        Assert.IsTrue(familyIssued.Nodes.Count(n => n.DocTypeName == "TaxCalculation") == 1,
+            "Issued порождает один TaxCalculation");
     }
 }
