@@ -1,0 +1,44 @@
+{
+  "$comment": [
+    "What a release of this workspace contains, and what it is built against.",
+    "",
+    "Read by .github/workflows/ci.yml. Kept as an explicit file rather than",
+    "inferred from folder names, because the two decisions below are product",
+    "decisions and must be visible in a diff when they change."
+  ],
+
+  "$comment_platformImage": [
+    "The ZuloOne image the bundles are exported BY, pinned rather than 'newest'.",
+    "",
+    "A bundle is produced by importing this workspace into a running ZuloOne and",
+    "exporting each model back out, so the platform version is part of how the",
+    "artifact was made. Pinning it makes a rebuild of the same tag reproducible,",
+    "and records what a package was tested against — which matters once a model",
+    "declares a MinVersion on Core, since Core's version IS the platform's.",
+    "",
+    "localhost:5000, NOT 10.10.0.210:5000, and the difference is not cosmetic.",
+    "The registry serves plain HTTP; Docker treats localhost as insecure by",
+    "default but refuses any other host without an insecure-registries entry.",
+    "The CI host has none, so the LAN address fails with 'server gave HTTP",
+    "response to HTTPS client'. This file is read only by CI, which runs on that",
+    "host, so the loopback name is the correct one here — tenants reach the same",
+    "registry by its LAN address because their host is configured for it."
+  ],
+  "platformImage": "localhost:5000/zuloone-core:2026.0.33",
+
+  "$comment_exclude": [
+    "Models that are NOT shipped to customers.",
+    "",
+    "TestBench and TestBenchExt are fixtures for the in-app integration tests —",
+    "together the densest folders in the tree (169 files) and indistinguishable",
+    "from business models at the directory level. They must still be imported",
+    "during the build, because the tests that prove the workspace works live in",
+    "them; they simply must not be published.",
+    "",
+    "Core is excluded for a different reason: it is not distributable at all.",
+    "docs/WORKSPACE.md §7.1 — Core is inseparable from the application, its",
+    "version IS the application version, and 'upgrade Core' means 'upgrade",
+    "ZuloOne'. A Core bundle would be a package that can never be installed."
+  ],
+  "exclude": ["Core", "TestBench", "TestBenchExt"]
+}

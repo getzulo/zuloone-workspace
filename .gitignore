@@ -18,3 +18,7 @@ obj/
 *[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]Id.json
 *[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]EventHandler.cs
 *[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]EventHandler.script.json
+
+# Byte-code from running the CI scripts by hand.
+__pycache__/
+*.pyc

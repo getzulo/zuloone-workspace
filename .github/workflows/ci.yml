@@ -1,0 +1,170 @@
+# Build, gate and publish the ZuloOne business layer.
+#
+# Until this existed, NOTHING checked this repository. 1154 tracked files across
+# 16 models, 42 declared dependencies between them, and no test that the tree
+# could even be imported into a ZuloOne — let alone compiled. A model whose
+# script stopped building would have been found by a customer.
+#
+# The gate IS the build. A package is produced by importing this workspace into a
+# real ZuloOne and exporting each model back out, so an artifact exists only if
+# the whole tree imported, the schema materialised, and every model compiled. The
+# bundles are a by-product; the proof is the point.
+#
+# Runs on a SELF-HOSTED runner beside the fleet, for the same reason as the other
+# two repositories: the platform image lives in a registry on the LAN that a
+# hosted runner cannot reach.
+#
+# The work lives in .github/scripts/*.py, deliberately. It began inline and the
+# result was Python inside a shell string inside a YAML block scalar — three
+# levels of quoting fighting each other, where a line at the wrong indentation
+# silently ends the YAML block. Scripts are readable, runnable by hand against a
+# local stand, and cannot be broken by whitespace.
+#
+# DO NOT rename this file. github.run_number resets when a workflow is replaced,
+# which would send non-release versions backwards.
+
+name: ci
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+    tags: ['v*']
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  # Never cancel a tag build — that is a release, and a half-published one is
+  # worse than a slow one.
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: [self-hosted, linux, x64]
+    # The runner reaches the Docker socket, i.e. it is root on a box that also
+    # serves the fleet. Never let a fork's code near it.
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history: a release tag compares model versions against the
+          # PREVIOUS tag, and a shallow clone has neither.
+          fetch-depth: 0
+
+      - name: Read the release configuration
+        id: cfg
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .zuloone-release.json || { echo "::error::.zuloone-release.json is missing."; exit 1; }
+          image=$(python3 -c "import json;print(json.load(open('.zuloone-release.json'))['platformImage'])")
+          echo "image=${image}" >> "$GITHUB_OUTPUT"
+          echo "Building against ${image}"
+
+      - name: Derive version
+        id: ver
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            raw="${GITHUB_REF#refs/tags/}"
+            if [[ ! "$raw" =~ ^v(20[0-9]{2})\.([1-9]|1[0-2])\.(0|[1-9][0-9]*)$ ]]; then
+              echo "::error::Bad release tag '$raw'. Required shape: vYYYY.M.P, no leading zeros."
+              exit 1
+            fi
+            echo "version=${raw#v}" >> "$GITHUB_OUTPUT"
+            echo "release=true"     >> "$GITHUB_OUTPUT"
+          else
+            # Minor 0 is the sentinel for "not a release" — zero is never a month,
+            # so build and release version spaces cannot collide.
+            echo "version=$(date -u +%Y).0.${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: A release must change something
+        if: steps.ver.outputs.release == 'true'
+        shell: bash
+        run: python3 .github/scripts/check_release.py "${GITHUB_REF_NAME}"
+
+      - name: Import, compile and export
+        shell: bash
+        env:
+          PG: ws-pg-${{ github.run_id }}
+          CORE: ws-core-${{ github.run_id }}
+          NET: ws-net-${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          echo "WS_PG=$PG"     >> "$GITHUB_ENV"
+          echo "WS_CORE=$CORE" >> "$GITHUB_ENV"
+          echo "WS_NET=$NET"   >> "$GITHUB_ENV"
+
+          docker network create "$NET" >/dev/null
+          docker run -d --name "$PG" --network "$NET" \
+            -e POSTGRES_USER=ws -e POSTGRES_PASSWORD=ws -e POSTGRES_DB=ws \
+            postgres:17-alpine >/dev/null
+          for _ in $(seq 1 30); do docker exec "$PG" pg_isready -U ws -q && break; sleep 2; done
+          docker exec "$PG" pg_isready -U ws -q
+
+          # A free loopback port, so the script can speak plain HTTP instead of
+          # threading every call through `docker exec curl`.
+          port=$(python3 -c "import socket;s=socket.socket();s.bind(('127.0.0.1',0));print(s.getsockname()[1]);s.close()")
+          echo "WS_PORT=$port" >> "$GITHUB_ENV"
+
+          # CoreDevelopmentMode is REQUIRED: /api/dev/workspace/* is [CoreDevOnly]
+          # and answers 404 without it. Throwaway container, throwaway database —
+          # the mode that would be reckless on a tenant is what a build needs.
+          #
+          # The workspace is mounted READ-ONLY. import-all only reads, and a build
+          # that can edit its own inputs is a build whose output nobody can trust.
+          docker run -d --name "$CORE" --network "$NET" \
+            -p "127.0.0.1:${port}:8080" \
+            -e Database__Provider=PostgreSql \
+            -e "ConnectionStrings__DefaultConnection=Host=${PG};Database=ws;Username=ws;Password=ws" \
+            -e Jwt__SigningKey=workspace-ci-only-not-a-secret-0123456789abcdef0123456789abcdef \
+            -e ZuloOne__CoreDevelopmentMode=true \
+            -v "$PWD:/workspace:ro" \
+            "${{ steps.cfg.outputs.image }}" >/dev/null
+
+          if ! python3 .github/scripts/build_bundles.py \
+                 --base "http://127.0.0.1:${port}" --root . --out bundles; then
+            echo "::error::Build failed. Last 200 log lines from the stand:"
+            docker logs --tail 200 "$CORE" || true
+            exit 1
+          fi
+
+      - name: Stamp the manifest
+        shell: bash
+        env:
+          PKG_VERSION: ${{ steps.ver.outputs.version }}
+          PKG_RELEASE: ${{ steps.ver.outputs.release }}
+          PKG_IMAGE: ${{ steps.cfg.outputs.image }}
+        run: python3 .github/scripts/stamp_manifest.py bundles/index.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundles-${{ steps.ver.outputs.version }}
+          path: bundles/
+          if-no-files-found: error
+          # Long enough to install from, short enough not to accumulate. A release
+          # is reproducible from its tag, so the artifact is a convenience.
+          retention-days: 30
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: python3 .github/scripts/summarise.py bundles/index.json >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Clean up
+        if: always()
+        shell: bash
+        run: |
+          docker rm -f "${WS_CORE:-}" "${WS_PG:-}" 2>/dev/null || true
+          docker network rm "${WS_NET:-}" 2>/dev/null || true
