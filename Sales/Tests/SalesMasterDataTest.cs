@@ -111,7 +111,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         item.Description = "Test description";
         item.Brand = brand.MetaId;
         // Minimal 1×1 PNG bytes (enough to test round-trip)
-        item.Image = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==";
+        item.Image = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==");
         item = await DictionaryManager.SaveRecordAsync(item);
 
         var loadedItem = await DictionaryManager.GetRecordAsync<Item>(item.MetaId);
