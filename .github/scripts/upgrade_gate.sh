@@ -19,7 +19,6 @@ PREV="${2:?previous git ref required}"
 PG="ug-pg-$$"
 APP="ug-app-$$"
 NET="ug-net-$$"
-PORT=$(python3 -c "import socket;s=socket.socket();s.bind(('127.0.0.1',0));print(s.getsockname()[1]);s.close()")
 
 cleanup() {
   docker rm -f "$APP" "$PG" >/dev/null 2>&1 || true
@@ -71,9 +70,16 @@ docker run -d --name "$PG" --network "$NET" \
 for _ in $(seq 1 30); do docker exec "$PG" pg_isready -U ug -q && break; sleep 2; done
 docker exec "$PG" pg_isready -U ug -q
 
+# A free port PER BOOT, not one for the whole run. The first stand's publisher
+# can still hold its port for a moment after the container is removed, and a
+# `docker run` that loses that race dies under `set -e` with its message on a
+# stderr nobody reads — which is how this failed in CI while passing by hand.
+# Re-probing costs nothing and removes the race; reporting the failure costs a
+# line and removes the guesswork.
 boot() {
   docker rm -f "$APP" >/dev/null 2>&1 || true
-  docker run -d --name "$APP" --network "$NET" -p "127.0.0.1:${PORT}:8080" \
+  PORT=$(python3 -c "import socket;s=socket.socket();s.bind(('127.0.0.1',0));print(s.getsockname()[1]);s.close()")
+  if ! docker run -d --name "$APP" --network "$NET" -p "127.0.0.1:${PORT}:8080" \
     -v "$PWD/$1":/opt/zuloone/workspace:ro \
     -e Database__Provider=PostgreSql \
     -e "ConnectionStrings__DefaultConnection=Host=${PG};Database=ug;Username=ug;Password=ug" \
@@ -82,6 +88,10 @@ boot() {
     -e 'ZuloOne__Packages__Install=*' \
     -e Logging__LogLevel__Microsoft.EntityFrameworkCore=Warning \
     "$IMG" >/dev/null
+  then
+    echo "::error::Could not start the stand on $1 (port ${PORT})."
+    return 1
+  fi
   for _ in $(seq 1 150); do
     body=$(curl -s -m 5 "http://127.0.0.1:${PORT}/health" 2>/dev/null || true)
     case "${body// /}" in *'"ready":true'*) return 0;; esac
