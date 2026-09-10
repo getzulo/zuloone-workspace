@@ -3,16 +3,16 @@
   "object": {
     "objectType": "Dictionary",
     "objectMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
-    "slot": "header",
+    "slot": "footer",
     "widgetType": "document-totals",
     "displayOrder": 10,
     "width": 3,
     "height": 5,
-    "metaId": "5de4d0c1-a34a-48b9-a7db-7a80808e5b40",
+    "metaId": "a811844e-f2cc-497d-b707-4961325704f7",
     "name": "document-totals",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-09-10T10:48:19.2134552",
-    "modifiedDateTime": "2026-09-10T10:48:19.2134568"
+    "createdDateTime": "2026-09-09T23:15:25.8970715",
+    "modifiedDateTime": "2026-09-09T23:15:25.8970727"
   }
 }
