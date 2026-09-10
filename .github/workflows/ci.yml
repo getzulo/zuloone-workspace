@@ -162,7 +162,7 @@ jobs:
 
       # The artefact a tenant can actually be moved onto.
       #
-      # Bundles as files are of no use to a tenant: its container reaches its
+      # Files on their own are of no use to a tenant: its container reaches its
       # Postgres and nothing else, and the control plane cannot call in either
       # (EXEC=0 on the socket proxy, no route to the container's HTTP). The image
       # is the only channel that already exists, and it works because the
@@ -172,6 +172,13 @@ jobs:
       # is already on the host and already pulled by every tenant. The platform
       # image declares ZuloOne__PackagesPath itself, so nothing here has to be
       # kept in step with it.
+      #
+      # TWO payloads, and they are not redundant. /opt/zuloone/workspace is the
+      # model TREE, and a current platform installs from that: it carries all
+      # seventeen kinds of object, including the number sequences, form layouts
+      # and print forms a bundle has no field for. /opt/zuloone/packages keeps the
+      # bundles so a platform image built before the switch still installs what it
+      # can instead of nothing.
       - name: Build the distribution image
         id: dist
         shell: bash
@@ -184,14 +191,13 @@ jobs:
           image="${registry}/zuloone:${VERSION}"
 
           # A label per model, machine-readable, so the panel can say what an
-          # image carries without booting it.
-          models=$(python3 -c "
-          import json
-          i = json.load(open('bundles/index.json'))
-          print(','.join(f\"{m['model']}={m['version']}\" for m in i['models']))")
+          # image carries without booting it. Derived from the TREE, which is how
+          # Core gets named — it has no bundle and cannot have one.
+          models=$(python3 .github/scripts/stage_tree.py dist-workspace)
 
           cat > Dockerfile.dist <<EOF
           FROM ${PLATFORM}
+          COPY dist-workspace/ /opt/zuloone/workspace/
           COPY bundles/ /opt/zuloone/packages/
           LABEL one.zulo.platform="${PLATFORM##*:}"
           LABEL one.zulo.models="${models}"
@@ -205,16 +211,22 @@ jobs:
           echo "  platform: ${PLATFORM}"
           echo "  models:   ${models}"
 
-          # Prove the bundles are actually IN it. A COPY of an empty directory is
+          # Prove both payloads are actually IN it. A COPY of an empty directory is
           # not an error, and the failure would otherwise surface as a tenant that
           # boots fine and installs nothing.
+          trees=$(docker run --rm --entrypoint sh "${image}" -c 'ls -1d /opt/zuloone/workspace/*/ | wc -l')
+          staged=$(ls -1d dist-workspace/*/ | wc -l)
+          if [ "$trees" -ne "$staged" ]; then
+            echo "::error::The image carries ${trees} model director(ies); the build staged ${staged}."
+            exit 1
+          fi
           count=$(docker run --rm --entrypoint sh "${image}" -c 'ls -1 /opt/zuloone/packages/*.bundle.json | wc -l')
           expected=$(ls -1 bundles/*.bundle.json | wc -l)
           if [ "$count" -ne "$expected" ]; then
             echo "::error::The image carries ${count} bundle(s); the build produced ${expected}."
             exit 1
           fi
-          echo "  verified: ${count} bundle(s) inside the image"
+          echo "  verified: ${trees} model director(ies) and ${count} bundle(s) inside the image"
 
       - uses: actions/upload-artifact@v4
         with:

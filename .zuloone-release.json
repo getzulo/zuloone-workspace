@@ -24,10 +24,10 @@
     "host, so the loopback name is the correct one here — tenants reach the same",
     "registry by its LAN address because their host is configured for it."
   ],
-  "platformImage": "localhost:5000/zuloone-core:2026.0.37",
+  "platformImage": "localhost:5000/zuloone-core:2026.0.45",
 
   "$comment_exclude": [
-    "Models that are NOT shipped to customers.",
+    "Models with NO bundle exported for them.",
     "",
     "TestBench and TestBenchExt are fixtures for the in-app integration tests —",
     "together the densest folders in the tree (169 files) and indistinguishable",
@@ -35,10 +35,31 @@
     "during the build, because the tests that prove the workspace works live in",
     "them; they simply must not be published.",
     "",
-    "Core is excluded for a different reason: it is not distributable at all.",
-    "docs/WORKSPACE.md §7.1 — Core is inseparable from the application, its",
-    "version IS the application version, and 'upgrade Core' means 'upgrade",
-    "ZuloOne'. A Core bundle would be a package that can never be installed."
+    "Core is here for a mechanical reason: ModelBundleService.ExportAsync throws",
+    "on a system model, so no Core bundle can be produced at all. That is not the",
+    "same as Core not being shipped — see treeExclude below."
   ],
-  "exclude": ["Core", "TestBench", "TestBenchExt"]
+  "exclude": ["Core", "TestBench", "TestBenchExt"],
+
+  "$comment_treeExclude": [
+    "Models NOT copied into the distribution image's workspace tree.",
+    "",
+    "The tree, not the bundles, is what a tenant now installs from — measured:",
+    "the bundle format carries seven kinds of object and the workspace tree",
+    "carries seventeen. Number sequences, form layouts, print forms, widgets,",
+    "total drivers, link tables, analytics and global constants have no bundle",
+    "representation and were being dropped in silence. Common shipped its ten",
+    "dictionaries without any of its fourteen number sequences.",
+    "",
+    "Core IS in the tree, and that is the correction. It owns forty-nine form",
+    "layouts, fifteen number sequences, five print forms, five total drivers and",
+    "three widgets, and nothing else delivered them — ModelSeeder creates the row",
+    "and no content. 'Core's version is the application version' remains true and",
+    "is why the tenant re-applies Core whenever the platform version moves; it",
+    "was never a reason to leave Core's content out of the image.",
+    "",
+    "The fixtures stay out: they are imported during the build as the gate, and",
+    "must not reach a customer."
+  ],
+  "treeExclude": ["TestBench", "TestBenchExt"]
 }
