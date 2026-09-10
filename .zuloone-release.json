@@ -24,7 +24,21 @@
     "host, so the loopback name is the correct one here — tenants reach the same",
     "registry by its LAN address because their host is configured for it."
   ],
-  "platformImage": "localhost:5000/zuloone-core:2026.0.45",
+  "$comment_platformPin": [
+    "The pin must be a platform that can INSTALL THE TREE, not merely run.",
+    "",
+    "2026.0.45 could not: it predates the fix that opens the second guard on",
+    "Core's rows (SystemModelGuardInterceptor) and the one that stops Serilog",
+    "destructuring EF entity graphs. A tenant on it hung at 'Installing the",
+    "model tree' and was OOM-killed, and the upgrade gate below inherited that",
+    "hang on its first run.",
+    "",
+    "So the order is fixed and one-way: a platform that reads what CI writes",
+    "reaches the registry FIRST, this pin moves to it SECOND, and only then may",
+    "the tree change shape. Bumping this line before the platform exists ships",
+    "an image whose tenants boot healthy with no business layer."
+  ],
+  "platformImage": "localhost:5000/zuloone-core:2026.0.50",
 
   "$comment_exclude": [
     "Models with NO bundle exported for them.",
