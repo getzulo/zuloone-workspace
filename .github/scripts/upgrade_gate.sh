@@ -107,12 +107,28 @@ summary() { docker logs "$APP" 2>&1 | grep -o '"Created":[0-9]*,"Updated":[0-9]*
 echo "Previous release: $PREV"
 echo "Model versions that moved since then: ${moved:-none}"
 
+# errexit OFF around the boots. With it on, anything failing inside boot() ends
+# the script at that instant with no output at all — which is what happened
+# twice: the log jumped straight from the phase heading to "exit code 1" and
+# said nothing about why. A gate that fails silently teaches people to ignore it.
+run_boot() {
+  set +e
+  boot "$1"
+  local rc=$?
+  set -e
+  if [ "$rc" -ne 0 ]; then
+    echo "::error::The stand on $1 did not come up (rc=${rc})."
+    docker ps -a --filter "name=${APP}" --format "  container: {{.Status}}" || true
+    exit 1
+  fi
+}
+
 echo "--- installing the previous tree ---"
-boot .ug-prev
+run_boot .ug-prev
 echo "  $(summary)"
 
 echo "--- installing this build's tree over it ---"
-boot .ug-now
+run_boot .ug-now
 now_summary=$(summary)
 echo "  ${now_summary}"
 
