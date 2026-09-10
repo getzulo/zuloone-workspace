@@ -160,6 +160,42 @@ jobs:
           PKG_IMAGE: ${{ steps.cfg.outputs.image }}
         run: python3 .github/scripts/stamp_manifest.py bundles/index.json
 
+      # Before publishing anything: does an UPGRADE actually apply?
+      #
+      # The import above proves the workspace loads into an EMPTY database, and on
+      # an empty database a create-only import and an updating one look identical.
+      # That blind spot shipped. A model keeps its MetaIds at every version — Sales
+      # 1.1.0 and 1.2.0 share every one of them — so installing a newer version over
+      # an older one passed over every changed row, reported success, and let the
+      # package row record a number the tenant did not run.
+      #
+      # Placed before the image build on purpose: a build that cannot upgrade must
+      # not become an artefact anyone can move a tenant onto.
+      #
+      # The first stand is torn down first. The runner has 7 GB and two ZuloOne
+      # stands at once do not fit.
+      - name: Upgrade gate
+        shell: bash
+        env:
+          PLATFORM: ${{ steps.cfg.outputs.image }}
+        run: |
+          set -euo pipefail
+          docker rm -f "${WS_CORE:-}" "${WS_PG:-}" 2>/dev/null || true
+          docker network rm "${WS_NET:-}" 2>/dev/null || true
+
+          # The release this build would follow. On a tag, the one before it;
+          # otherwise the newest tag this commit descends from.
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            prev=$(git describe --tags --abbrev=0 "${GITHUB_REF_NAME}^" 2>/dev/null || true)
+          else
+            prev=$(git describe --tags --abbrev=0 HEAD 2>/dev/null || true)
+          fi
+          if [ -z "$prev" ]; then
+            echo "No earlier release exists, so there is nothing to upgrade from — gate skipped."
+            exit 0
+          fi
+          bash .github/scripts/upgrade_gate.sh "$PLATFORM" "$prev"
+
       # The artefact a tenant can actually be moved onto.
       #
       # Files on their own are of no use to a tenant: its container reaches its
