@@ -119,10 +119,19 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
         code.EffectiveFrom = from;
         code = await DictionaryManager.SaveRecordAsync(code);
 
-        var direction = DictionaryManager.NewRecord<TaxDirection>();
-        direction.Code = "OUTPUT";
-        direction.Name = "Output";
-        direction = await DictionaryManager.SaveRecordAsync(direction);
+        var existingOutput = await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'OUTPUT'", take: 1);
+        TaxDirection direction;
+        if (existingOutput.Count == 0)
+        {
+            direction = DictionaryManager.NewRecord<TaxDirection>();
+            direction.Code = "OUTPUT";
+            direction.Name = "Output";
+            direction = await DictionaryManager.SaveRecordAsync(direction);
+        }
+        else
+        {
+            direction = existingOutput[0];
+        }
 
         return new Setup
         {

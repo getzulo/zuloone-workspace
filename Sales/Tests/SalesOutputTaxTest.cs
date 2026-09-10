@@ -177,12 +177,20 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         code.EffectiveFrom = from;
         code = await DictionaryManager.SaveRecordAsync(code);
 
-        var direction = DictionaryManager.NewRecord<TaxDirection>();
-        direction.Code = "OUTPUT";
-        direction.Name = "Output";
-        await DictionaryManager.SaveRecordAsync(direction);
+        var existingOutput = await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'OUTPUT'", take: 1);
+        if (existingOutput.Count == 0)
+        {
+            var direction = DictionaryManager.NewRecord<TaxDirection>();
+            direction.Code = "OUTPUT";
+            direction.Name = "Output";
+            await DictionaryManager.SaveRecordAsync(direction);
+        }
 
-        var settings = DictionaryManager.NewRecord<TaxSettings>();
+        // TaxSettings — одиночный справочник: FirstOrDefault в ITaxService
+        // читает существующую строку стенда. Вторая вставка не перебивает
+        // DefaultTaxCode и ломает кейсы со своим контуром.
+        var taxRows = await DictionaryManager.GetRecordsAsync<TaxSettings>(null, 1);
+        var settings = taxRows.Count > 0 ? taxRows[0] : DictionaryManager.NewRecord<TaxSettings>();
         settings.DefaultTaxCode = code.Code;
         settings.PricesIncludeTax = false;
         await DictionaryManager.SaveRecordAsync(settings);
@@ -410,7 +418,14 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
     public async Task NoTaxConfigStillIssues()
     {
         var s = await SetupAsync();
-        // ConfigureTaxAsync НЕ вызываем: кода налога по умолчанию нет.
+        // Стенд может уже иметь DefaultTaxCode. Кейс проверяет ветку
+        // «контур выключен», поэтому явно гасим код — откат теста вернёт стенд.
+        var taxRows = await DictionaryManager.GetRecordsAsync<TaxSettings>(null, 1);
+        if (taxRows.Count > 0)
+        {
+            taxRows[0].DefaultTaxCode = null;
+            await DictionaryManager.SaveRecordAsync(taxRows[0]);
+        }
 
         var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 2m, 10m);
         Assert.IsTrue(inv.Subtype == SalesInvoice.Subtypes.Draft,

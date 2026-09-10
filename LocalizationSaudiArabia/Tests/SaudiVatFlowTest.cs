@@ -189,10 +189,13 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
         code.EffectiveFrom = from;
         code = await DictionaryManager.SaveRecordAsync(code);
 
-        var direction = DictionaryManager.NewRecord<TaxDirection>();
-        direction.Code = "OUTPUT";
-        direction.Name = "Output";
-        await DictionaryManager.SaveRecordAsync(direction);
+        if ((await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'OUTPUT'", take: 1)).Count == 0)
+        {
+            var direction = DictionaryManager.NewRecord<TaxDirection>();
+            direction.Code = "OUTPUT";
+            direction.Name = "Output";
+            await DictionaryManager.SaveRecordAsync(direction);
+        }
 
         // TaxSettings — ОДИНОЧНЫЙ и КЭШИРУЕМЫЙ справочник: кэш переживает откат
         // кейса, поэтому правим существующую запись, а не заводим слепо.

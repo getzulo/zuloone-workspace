@@ -178,6 +178,21 @@ public class SalesFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(revenue == 15m, "выручка должна быть 15 (3 × 5), а не {0}", revenue);
     }
 
+    [IntegrationTest("Released (Issued) замораживает данные счёта")]
+    public async Task IssuedInvoiceIsReadOnly()
+    {
+        var s = await SetupAsync();
+        await StockInAsync(s, 10m);
+        var invoice = await NewInvoiceAsync(s, qty: 2m, price: 5m);
+        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(invoice);
+
+        invoice.DiscountPercent = 50m;
+        await Assert.ThrowsAsync<InvalidOperationException>(
+            () => DocumentManager.SaveDocumentAsync(invoice),
+            "правка Released-счёта должна отклоняться");
+    }
+
     [IntegrationTest("Продажа сверх остатка отклоняется")]
     public async Task OverSellIsRejected()
     {

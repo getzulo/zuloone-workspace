@@ -103,6 +103,19 @@ public class TaxRuleEngineTest : IntegrationTestScriptBase
         await manager.SaveRecordAsync(settings);
     }
 
+    /// <summary>Направление OUTPUT на стенде уже есть (уникальный Code). Повторная
+    /// вставка ломает кейс уникальным индексом — берём существующую строку.</summary>
+    private async Task<Guid> EnsureOutputDirectionAsync()
+    {
+        var existing = await RecordsAsync<TaxDirection>("Code = 'OUTPUT'");
+        if (existing.Count > 0) return existing[0].MetaId;
+        return await NewRecordAsync<TaxDirection>(d =>
+        {
+            d.Code = "OUTPUT";
+            d.Name = "Output";
+        });
+    }
+
     private static Dictionary<string, object?> Ctx(params (string Key, object? Value)[] pairs)
     {
         var d = new Dictionary<string, object?>();
@@ -293,11 +306,7 @@ public class TaxRuleEngineTest : IntegrationTestScriptBase
         var rule = await NewRuleAsync(ruleCode, 10);
         await NewConditionAsync(rule, "buyer.type", TaxRuleOperator.Eq, "B2B");
 
-        var direction = await NewRecordAsync<TaxDirection>(d =>
-        {
-            d.Code = "OUTPUT";
-            d.Name = "Output";
-        });
+        var direction = await EnsureOutputDirectionAsync();
         Assert.IsTrue(direction != Guid.Empty, "направление заведено");
 
         var legalEntity = await NewLegalEntityAsync();
@@ -334,11 +343,7 @@ public class TaxRuleEngineTest : IntegrationTestScriptBase
         var rule = await NewRuleAsync(ruleCode, 10);
         await NewConditionAsync(rule, "buyer.type", TaxRuleOperator.Eq, "B2B");
 
-        await NewRecordAsync<TaxDirection>(d =>
-        {
-            d.Code = "OUTPUT";
-            d.Name = "Output";
-        });
+        await EnsureOutputDirectionAsync();
         var legalEntity = await NewLegalEntityAsync();
 
         var calcId = await Svc.CreateCalculationAsync(

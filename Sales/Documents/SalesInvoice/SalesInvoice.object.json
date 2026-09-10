@@ -322,7 +322,7 @@
       "subtypeCaption_ru": "Реализовано",
       "displayOrder": 6,
       "isInitial": false,
-      "isReadOnly": false,
+      "isReadOnly": true,
       "metaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "layerId": 2,

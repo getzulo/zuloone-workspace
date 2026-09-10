@@ -172,20 +172,33 @@ public class PurchaseInputTaxTest : IntegrationTestScriptBase
         code.EffectiveFrom = from;
         code = await DictionaryManager.SaveRecordAsync(code);
 
-        var input = DictionaryManager.NewRecord<TaxDirection>();
-        input.Code = "INPUT";
-        input.Name = "Input";
-        input = await DictionaryManager.SaveRecordAsync(input);
+        var existingInput = await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'INPUT'", take: 1);
+        TaxDirection input;
+        if (existingInput.Count == 0)
+        {
+            input = DictionaryManager.NewRecord<TaxDirection>();
+            input.Code = "INPUT";
+            input.Name = "Input";
+            input = await DictionaryManager.SaveRecordAsync(input);
+        }
+        else
+        {
+            input = existingInput[0];
+        }
 
-        var output = DictionaryManager.NewRecord<TaxDirection>();
-        output.Code = "OUTPUT";
-        output.Name = "Output";
-        output = await DictionaryManager.SaveRecordAsync(output);
+        if ((await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'OUTPUT'", take: 1)).Count == 0)
+        {
+            var output = DictionaryManager.NewRecord<TaxDirection>();
+            output.Code = "OUTPUT";
+            output.Name = "Output";
+            await DictionaryManager.SaveRecordAsync(output);
+        }
 
-        var settings = DictionaryManager.NewRecord<TaxSettings>();
+        var taxRows = await DictionaryManager.GetRecordsAsync<TaxSettings>(null, 1);
+        var settings = taxRows.Count > 0 ? taxRows[0] : DictionaryManager.NewRecord<TaxSettings>();
         settings.DefaultTaxCode = code.Code;
         settings.PricesIncludeTax = false;
-        settings = await DictionaryManager.SaveRecordAsync(settings);
+        await DictionaryManager.SaveRecordAsync(settings);
 
         return input.MetaId;
     }

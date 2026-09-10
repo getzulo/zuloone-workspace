@@ -207,10 +207,13 @@ public class CircuitGLTest : IntegrationTestScriptBase
         code.EffectiveFrom = from;
         code = await DictionaryManager.SaveRecordAsync(code);
 
-        var direction = DictionaryManager.NewRecord<TaxDirection>();
-        direction.Code = "OUTPUT";
-        direction.Name = "Output";
-        await DictionaryManager.SaveRecordAsync(direction);
+        if ((await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'OUTPUT'", take: 1)).Count == 0)
+        {
+            var direction = DictionaryManager.NewRecord<TaxDirection>();
+            direction.Code = "OUTPUT";
+            direction.Name = "Output";
+            await DictionaryManager.SaveRecordAsync(direction);
+        }
 
         var taxRows = await DictionaryManager.GetRecordsAsync<TaxSettings>(null, 1);
         var settings = taxRows.Count > 0 ? taxRows[0] : DictionaryManager.NewRecord<TaxSettings>();

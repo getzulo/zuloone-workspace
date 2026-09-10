@@ -233,15 +233,21 @@ public class ReceivableTaxSeamTest : IntegrationTestScriptBase
         code.EffectiveFrom = from;
         code = await DictionaryManager.SaveRecordAsync(code);
 
-        var output = DictionaryManager.NewRecord<TaxDirection>();
-        output.Code = "OUTPUT";
-        output.Name = "Output";
-        await DictionaryManager.SaveRecordAsync(output);
+        if ((await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'OUTPUT'", take: 1)).Count == 0)
+        {
+            var output = DictionaryManager.NewRecord<TaxDirection>();
+            output.Code = "OUTPUT";
+            output.Name = "Output";
+            await DictionaryManager.SaveRecordAsync(output);
+        }
 
-        var input = DictionaryManager.NewRecord<TaxDirection>();
-        input.Code = "INPUT";
-        input.Name = "Input";
-        await DictionaryManager.SaveRecordAsync(input);
+        if ((await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'INPUT'", take: 1)).Count == 0)
+        {
+            var input = DictionaryManager.NewRecord<TaxDirection>();
+            input.Code = "INPUT";
+            input.Name = "Input";
+            await DictionaryManager.SaveRecordAsync(input);
+        }
 
         var taxRows = await DictionaryManager.GetRecordsAsync<TaxSettings>(null, 1);
         var settings = taxRows.Count > 0 ? taxRows[0] : DictionaryManager.NewRecord<TaxSettings>();
