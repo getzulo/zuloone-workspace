@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Task",
+    "objectType": "Job",
+    "objectName": "NewJob",
+    "executionOrder": 0,
+    "metaId": "2cce6be7-4f08-4ed7-aaa5-c6720f818656",
+    "name": "NewJobTask_1788463549156",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
+    "layerId": 1,
+    "createdDateTime": "2026-09-03T19:25:49.2111063",
+    "modifiedDateTime": "2026-09-04T01:34:08.5896074"
+  }
+}

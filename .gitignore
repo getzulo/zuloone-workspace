@@ -19,6 +19,13 @@ obj/
 *[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]EventHandler.cs
 *[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]EventHandler.script.json
 
+# …but a name ending in DIGITS is not a MetaId, it is a timestamp, and its last
+# eight digits are valid hex by accident. That accident cost a red build: the
+# rules above swallowed a job's script, so the job was committed and the script
+# it points at was not, and every import since failed the foreign key.
+!*_[0-9]*.cs
+!*_[0-9]*.script.json
+
 # Byte-code from running the CI scripts by hand.
 __pycache__/
 *.pyc
