@@ -68,7 +68,10 @@ live**: сохранил файл → через 2–4 секунды он пр�
 
 - **Структура = json, код = .cs.** Пара «`X.script.json` (привязка) + `X.cs`
   (код)» неразделима: envelope несёт scriptType/objectType/objectMetaId, кодовый
-  файл — только юзер-partial.
+  файл — только юзер-partial. Коммитить только одну половину нельзя: gitignore
+  уже один раз проглотил скрипт задания (`…_1788463549156`) и оставил Job —
+  импорт падал на FK. Перед коммитом `git add` оба файла; CI гоняет
+  `.github/scripts/check_script_pairs.py`.
 - **Новый объект = новый файл с новым GUID** (uuid v4) в `metaId`. Внутренние
   ссылки json — по metaId (`edtMetaId`, `numberSequenceMetaId`,
   `tablePartTypeMetaId`, `referenceDictionaryMetaId`, `parentMetaId`…) — держи

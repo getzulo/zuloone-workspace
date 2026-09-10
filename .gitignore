@@ -6,25 +6,30 @@ bin/
 obj/
 *.conflict
 
-# Integration-test artifacts. The dev stand syncs this folder, so anything a test
-# creates is exported here — models named "<Prefix><8 hex>" (ApiFixture.Suffix)
-# and their contents. They are transient by definition and must never be committed.
-# Sweep the stand with POST /api/dev/test-artifacts/sweep to remove them for real.
-*[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]/
-*[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].json
-*[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].cs
-*[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].script.json
-*[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].object.json
-*[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]Id.json
-*[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]EventHandler.cs
-*[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]EventHandler.script.json
+# Integration-test artifacts. The stand syncs this folder, so anything a test
+# creates is exported here. They are transient and must never be committed.
+# Sweep the stand with POST /api/dev/test-artifacts/sweep to remove them.
+#
+# Do NOT use a bare "ends in 8 hex" rule on files. Digits are valid hex, so a
+# job script named …_1788463549156 disappeared from git while its Job stayed —
+# every import then died on FK_MetaJobs_MetaScripts_ScriptMetaId. Match only
+# the shapes tests and the exporter actually write.
 
-# …but a name ending in DIGITS is not a MetaId, it is a timestamp, and its last
-# eight digits are valid hex by accident. That accident cost a red build: the
-# rules above swallowed a job's script, so the job was committed and the script
-# it points at was not, and every import since failed the foreign key.
-!*_[0-9]*.cs
-!*_[0-9]*.script.json
+# Test model folders: "<Prefix><8 hex>/" from ApiFixture.Suffix.
+*[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]/
+
+# Test number sequences: Foo<8 hex>Id.json
+*[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]Id.json
+
+# Exporter collision copies: same caption, hyphen + 8 hex.
+*-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].json
+*-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].cs
+*-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].script.json
+*-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].object.json
+
+# Test files titled "Name <8 hex>"
+*[ ][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].json
+*[ ][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].cs
 
 # Byte-code from running the CI scripts by hand.
 __pycache__/

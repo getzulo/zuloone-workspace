@@ -89,6 +89,10 @@ jobs:
             echo "release=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Script pairs must not be split by gitignore
+        shell: bash
+        run: python3 .github/scripts/check_script_pairs.py
+
       - name: A release must change something
         if: steps.ver.outputs.release == 'true'
         shell: bash
