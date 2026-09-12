@@ -11,6 +11,8 @@
     "isExtension": false,
     "metaId": "3c7e0f96-4b1a-4d8e-9f2c-6a9b1d7e4f00",
     "name": "VatPayable",
+    "iconName": "fluent-color:receipt-32",
+    "largeIconName": "fluent-color:receipt-32",
     "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
     "layerId": 3,
     "createdDateTime": "2026-08-25T22:05:06.7122484",

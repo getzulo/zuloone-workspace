@@ -10,6 +10,8 @@
     "isExtension": false,
     "metaId": "2015c2a5-ff9f-4b15-9f2c-7239158a5a25",
     "name": "TBStock",
+    "iconName": "fluent-color:table-48",
+    "largeIconName": "fluent-color:table-48",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1,
     "createdDateTime": "2026-08-28T11:06:19.1695317",

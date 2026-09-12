@@ -1,0 +1,17 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "caption": "XrScrForm2cd572b8",
+    "documentTypeMetaId": "bb49d7f0-c690-4450-bade-a0149a6603ad",
+    "engine": "Xr",
+    "scriptMetaId": "63f0c456-ce7e-48b5-8f8f-a276b464314d",
+    "layoutJson": "{\"schemaVersion\":1,\"paper\":{\"kind\":\"A4\",\"orientation\":\"Portrait\",\"widthMm\":210,\"heightMm\":297},\r\n \"margins\":{\"left\":10,\"top\":10,\"right\":10,\"bottom\":10},\"bands\":[\r\n   {\"id\":\"ph\",\"kind\":\"PageHeader\",\"heightMm\":12,\"controls\":[\r\n     {\"id\":\"n\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":0,\"wMm\":80,\"hMm\":8,\"binding\":\"Marker\"}]}]}",
+    "displayOrder": 1,
+    "metaId": "9285658a-4c98-47f9-9d0c-f007d38542cb",
+    "name": "XrScrForm2cd572b8",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-11T03:40:45.8582153",
+    "modifiedDateTime": "2026-09-11T03:40:45.8582156"
+  }
+}

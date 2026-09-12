@@ -16,6 +16,8 @@
     "isExtension": false,
     "metaId": "970b6be9-ec41-5651-8ff3-51ab037cd79d",
     "name": "TaxSettings",
+    "iconName": "fluent-color:building-government-search-32",
+    "largeIconName": "fluent-color:building-government-search-32",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-08-26T20:56:54.100999",

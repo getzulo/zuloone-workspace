@@ -19,6 +19,8 @@
     "isExtension": false,
     "metaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
     "name": "Address",
+    "iconName": "fluent-color:location-ripple-24",
+    "largeIconName": "fluent-color:location-ripple-24",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-22T02:02:11.0719773",

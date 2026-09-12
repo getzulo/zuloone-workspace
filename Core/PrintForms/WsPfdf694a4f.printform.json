@@ -1,0 +1,33 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "caption": "Round trip",
+    "documentTypeMetaId": "c23f9803-ccd2-4522-a010-a2a7af3de8e8",
+    "engine": "Xr",
+    "scriptMetaId": "6e4ba8e7-2288-4416-a955-0ca22ee6f048",
+    "layoutJson": "{\"schemaVersion\":1,\"paper\":{\"kind\":\"A4\",\"orientation\":\"Portrait\",\"widthMm\":210,\"heightMm\":297},\r\n \"margins\":{\"left\":10,\"top\":10,\"right\":10,\"bottom\":10},\"bands\":[\r\n   {\"id\":\"ph\",\"kind\":\"PageHeader\",\"heightMm\":12,\"controls\":[\r\n     {\"id\":\"n\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":0,\"wMm\":80,\"hMm\":8,\"text\":\"hello ws\"}]}]}",
+    "displayOrder": 1,
+    "metaId": "66c27b87-2473-44d6-8a58-421998d7bd93",
+    "name": "WsPfdf694a4f",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-11T03:39:57.082932",
+    "modifiedDateTime": "2026-09-11T03:40:05.3097076"
+  },
+  "bindings": [
+    {
+      "metaId": "0f258fb6-b015-47b3-9a4e-d504170b4138",
+      "printFormMetaId": "66c27b87-2473-44d6-8a58-421998d7bd93",
+      "targetKind": "DocumentType",
+      "targetMetaId": "c23f9803-ccd2-4522-a010-a2a7af3de8e8",
+      "scope": "Record"
+    },
+    {
+      "metaId": "4704b625-8caf-4df7-9d1e-631c63f77073",
+      "printFormMetaId": "66c27b87-2473-44d6-8a58-421998d7bd93",
+      "targetKind": "DocumentType",
+      "targetMetaId": "c23f9803-ccd2-4522-a010-a2a7af3de8e8",
+      "scope": "List"
+    }
+  ]
+}

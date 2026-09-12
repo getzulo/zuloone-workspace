@@ -14,6 +14,8 @@
     "isExtension": false,
     "metaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
     "name": "TaxCalculation",
+    "iconName": "fluent-color:gauge-32",
+    "largeIconName": "fluent-color:gauge-32",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-08-25T16:27:30.2416687",

@@ -13,6 +13,8 @@
     "isExtension": false,
     "metaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
     "name": "GL",
+    "iconName": "fluent-color:chart-multiple-32",
+    "largeIconName": "fluent-color:chart-multiple-32",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
     "createdDateTime": "2026-08-25T15:28:35.948293",

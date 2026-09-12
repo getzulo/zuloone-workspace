@@ -16,6 +16,8 @@
     "isExtension": false,
     "metaId": "dab95d48-61e1-56c4-b852-6964435dc152",
     "name": "CostingSettings",
+    "iconName": "fluent-color:data-pie-32",
+    "largeIconName": "fluent-color:data-pie-32",
     "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
     "layerId": 2,
     "createdDateTime": "2026-08-26T20:56:53.2488621",

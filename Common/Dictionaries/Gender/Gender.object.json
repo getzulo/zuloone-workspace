@@ -19,6 +19,8 @@
     "isExtension": false,
     "metaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
     "name": "Gender",
+    "iconName": "fluent-color:diversity-48",
+    "largeIconName": "fluent-color:diversity-48",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-22T02:01:49.878893",

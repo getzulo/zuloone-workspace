@@ -4,12 +4,12 @@
     "objectType": "Document",
     "objectMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
     "formKind": "Record",
-    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Customer\"},{\"type\":\"field\",\"name\":\"Contact\"},{\"type\":\"field\",\"name\":\"Location\"},{\"type\":\"field\",\"name\":\"DeliveryDate\"},{\"type\":\"field\",\"name\":\"PaymentTerm\"},{\"type\":\"field\",\"name\":\"DiscountPercent\"}]},{\"type\":\"tabs\",\"tabs\":[{\"key\":\"part:Lines\"}]}],\"hidden\":[]}",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Customer\"},{\"type\":\"field\",\"name\":\"Contact\"},{\"type\":\"field\",\"name\":\"Location\"},{\"type\":\"field\",\"name\":\"DeliveryDate\"},{\"type\":\"field\",\"name\":\"PaymentTerm\"},{\"type\":\"field\",\"name\":\"DiscountPercent\"}]},{\"type\":\"group\",\"title\":\"Прочие поля\",\"columns\":2,\"items\":[{\"type\":\"field\",\"name\":\"Agent\"},{\"type\":\"field\",\"name\":\"Route\"}]},{\"type\":\"tabs\",\"tabs\":[{\"key\":\"part:Lines\"}]}],\"hidden\":[\"Notes\"]}",
     "metaId": "9aab9d3b-b09b-4cc2-be94-bed0e14e3bb8",
     "name": "SalesOrder.Record",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "layerId": 2,
     "createdDateTime": "2026-09-09T16:40:00",
-    "modifiedDateTime": "2026-09-09T16:40:00"
+    "modifiedDateTime": "2026-09-11T14:11:05.8818824"
   }
 }

@@ -16,6 +16,8 @@
     "isExtension": false,
     "metaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
     "name": "HRSettings",
+    "iconName": "fluent-color:people-team-48",
+    "largeIconName": "fluent-color:people-team-48",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
     "createdDateTime": "2026-08-26T20:56:52.491305",

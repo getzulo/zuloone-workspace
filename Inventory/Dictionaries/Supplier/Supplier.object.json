@@ -18,6 +18,8 @@
     "isExtension": false,
     "metaId": "d1f4e8dc-6454-4a20-b116-132053950800",
     "name": "Supplier",
+    "iconName": "fluent-color:people-list-32",
+    "largeIconName": "fluent-color:people-list-32",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
     "createdDateTime": "2026-08-25T17:30:38.4260496",

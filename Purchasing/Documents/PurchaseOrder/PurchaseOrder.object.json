@@ -14,6 +14,8 @@
     "isExtension": false,
     "metaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
     "name": "PurchaseOrder",
+    "iconName": "fluent-color:clipboard-48",
+    "largeIconName": "fluent-color:clipboard-48",
     "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
     "layerId": 2,
     "createdDateTime": "2026-08-25T21:07:09.9311712",

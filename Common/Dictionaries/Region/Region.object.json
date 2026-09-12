@@ -19,6 +19,8 @@
     "isExtension": false,
     "metaId": "56e72501-c6c6-4fc8-9cbd-c645dcbbb669",
     "name": "Region",
+    "iconName": "fluent-color:planet-32",
+    "largeIconName": "fluent-color:planet-32",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-22T02:02:11.0727035",

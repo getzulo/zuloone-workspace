@@ -16,6 +16,8 @@
     "isExtension": false,
     "metaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
     "name": "OrganizationSettings",
+    "iconName": "fluent-color:building-48",
+    "largeIconName": "fluent-color:building-48",
     "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
     "layerId": 1,
     "createdDateTime": "2026-08-26T20:56:52.8258619",

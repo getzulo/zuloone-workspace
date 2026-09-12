@@ -19,6 +19,8 @@
     "isExtension": false,
     "metaId": "b9309207-b153-4ec9-b072-4211947b7e16",
     "name": "ChartOfAccounts",
+    "iconName": "fluent-color:book-open-48",
+    "largeIconName": "fluent-color:book-open-48",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
     "createdDateTime": "2026-08-25T15:27:04.7162312",

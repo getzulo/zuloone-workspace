@@ -1,0 +1,16 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "caption": "Invoice copy",
+    "documentTypeMetaId": "ac5d80fb-d32b-4d67-b300-d6cd51f7c2e9",
+    "engine": "Html",
+    "scriptMetaId": "bed2a05f-75b7-4bd4-88d0-bd8f00624ae9",
+    "displayOrder": 1,
+    "metaId": "beab534c-b9a2-429a-a765-1b94c91641c1",
+    "name": "HtmlScrFormabe69fda",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-11T03:41:14.5247213",
+    "modifiedDateTime": "2026-09-11T03:41:14.5247218"
+  }
+}

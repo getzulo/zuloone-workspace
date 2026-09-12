@@ -19,6 +19,8 @@
     "isExtension": false,
     "metaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
     "name": "LegalEntity",
+    "iconName": "fluent-color:building-48",
+    "largeIconName": "fluent-color:building-48",
     "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
     "layerId": 1,
     "createdDateTime": "2026-08-25T15:10:16.4085461",

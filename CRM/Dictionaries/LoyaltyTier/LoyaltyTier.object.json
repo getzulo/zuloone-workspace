@@ -18,6 +18,8 @@
     "isExtension": false,
     "metaId": "86a86778-40a7-4921-8283-1b2cefb4c3f1",
     "name": "LoyaltyTier",
+    "iconName": "fluent-color:trophy-48",
+    "largeIconName": "fluent-color:trophy-48",
     "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
     "layerId": 2,
     "createdDateTime": "2026-08-27T20:41:18.8206144",

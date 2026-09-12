@@ -14,6 +14,8 @@
     "isExtension": false,
     "metaId": "57101301-0000-4000-8000-000000000000",
     "name": "GoodsIssue",
+    "iconName": "fluent-color:send-48",
+    "largeIconName": "fluent-color:send-48",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
     "createdDateTime": "2026-08-28T14:14:54.8143022",

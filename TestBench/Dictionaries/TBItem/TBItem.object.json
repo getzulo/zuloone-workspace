@@ -14,6 +14,8 @@
     "isExtension": false,
     "metaId": "5929e99f-75f5-4635-9293-b99892d085be",
     "name": "TBItem",
+    "iconName": "fluent-color:apps-48",
+    "largeIconName": "fluent-color:apps-48",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1,
     "createdDateTime": "2026-08-28T11:06:18.9802456",

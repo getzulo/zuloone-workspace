@@ -16,6 +16,8 @@
     "isExtension": false,
     "metaId": "34401e5e-877c-513d-a793-b2c549619c84",
     "name": "AccountingSettings",
+    "iconName": "fluent-color:book-database-32",
+    "largeIconName": "fluent-color:book-database-32",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
     "createdDateTime": "2026-08-26T20:56:52.7355827",

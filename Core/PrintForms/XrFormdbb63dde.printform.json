@@ -1,0 +1,17 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "caption": "XrFormdbb63dde",
+    "documentTypeMetaId": "1ca84d0c-ff62-4cba-82eb-2a1fc920139f",
+    "engine": "Xr",
+    "scriptMetaId": "7134bbc5-6296-45ae-8055-f5d85af382f9",
+    "layoutJson": "{\"schemaVersion\":1,\"paper\":{\"kind\":\"A4\",\"orientation\":\"Portrait\",\"widthMm\":210,\"heightMm\":297},\r\n \"margins\":{\"left\":10,\"top\":10,\"right\":10,\"bottom\":10},\"bands\":[\r\n   {\"id\":\"ph\",\"kind\":\"PageHeader\",\"heightMm\":12,\"controls\":[\r\n     {\"id\":\"n\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":0,\"wMm\":80,\"hMm\":8,\"binding\":\"Note\"}]}]}",
+    "displayOrder": 1,
+    "metaId": "7ce56d08-e8d0-4939-8038-ee72bf46984a",
+    "name": "XrFormdbb63dde",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-11T03:51:17.1000948",
+    "modifiedDateTime": "2026-09-11T03:51:17.1000951"
+  }
+}

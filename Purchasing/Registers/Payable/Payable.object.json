@@ -12,6 +12,8 @@
     "isExtension": false,
     "metaId": "4ae283e4-d6a7-45dc-ae4e-865c97ca2b34",
     "name": "Payable",
+    "iconName": "fluent-color:data-bar-vertical-ascending-24",
+    "largeIconName": "fluent-color:data-bar-vertical-ascending-24",
     "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
     "layerId": 2,
     "createdDateTime": "2026-08-25T21:06:50.9528176",

@@ -1,0 +1,33 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "caption": "DictOwn1fa51a7e",
+    "documentTypeMetaId": "00000000-0000-0000-0000-000000000000",
+    "engine": "Xr",
+    "scriptMetaId": "333d08c8-9566-4806-bf32-760cbfe353f9",
+    "layoutJson": "{\"schemaVersion\":1,\"paper\":{\"kind\":\"A4\",\"orientation\":\"Portrait\",\"widthMm\":210,\"heightMm\":297},\r\n \"margins\":{\"left\":10,\"top\":10,\"right\":10,\"bottom\":10},\"bands\":[\r\n   {\"id\":\"ph\",\"kind\":\"PageHeader\",\"heightMm\":12,\"controls\":[\r\n     {\"id\":\"n\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":0,\"wMm\":80,\"hMm\":8,\"binding\":\"Name\"}]}]}",
+    "displayOrder": 1,
+    "metaId": "5c4c17ba-ba39-461e-b341-ad34fb9dd29f",
+    "name": "DictOwn1fa51a7e",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-11T03:41:28.1191359",
+    "modifiedDateTime": "2026-09-11T03:41:28.1191362"
+  },
+  "bindings": [
+    {
+      "metaId": "51d6645b-ef45-4a3f-94d0-3ec0616819ee",
+      "printFormMetaId": "5c4c17ba-ba39-461e-b341-ad34fb9dd29f",
+      "targetKind": "Dictionary",
+      "targetMetaId": "9510ca8b-97fc-4a80-a812-38cad1cc747e",
+      "scope": "Record"
+    },
+    {
+      "metaId": "a4042b05-c0e8-4f12-9ab9-026df7024e1f",
+      "printFormMetaId": "5c4c17ba-ba39-461e-b341-ad34fb9dd29f",
+      "targetKind": "Dictionary",
+      "targetMetaId": "9510ca8b-97fc-4a80-a812-38cad1cc747e",
+      "scope": "List"
+    }
+  ]
+}

@@ -14,6 +14,8 @@
     "isExtension": false,
     "metaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
     "name": "TimeSheet",
+    "iconName": "fluent-color:shifts-32",
+    "largeIconName": "fluent-color:shifts-32",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
     "createdDateTime": "2026-08-27T18:24:59.1895546",

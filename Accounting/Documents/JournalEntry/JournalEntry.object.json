@@ -14,6 +14,8 @@
     "isExtension": false,
     "metaId": "188246b3-5ed0-4da0-98cb-a86b6da36581",
     "name": "JournalEntry",
+    "iconName": "fluent-color:document-text-48",
+    "largeIconName": "fluent-color:document-text-48",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
     "createdDateTime": "2026-08-25T15:29:35.2124714",

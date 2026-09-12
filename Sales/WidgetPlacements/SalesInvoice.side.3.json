@@ -1,0 +1,19 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "slot": "side",
+    "widgetType": "related-snapshot",
+    "configJson": "{\"referenceField\":\"Customer\",\"relatedTable\":\"Customer\",\"creditLimitField\":\"CreditLimit\",\"outstandingRegister\":\"Receivable\",\"ytdRegister\":\"Revenue\",\"ordersTable\":\"SalesOrder\",\"onTimeDueField\":\"DeliveryDate\",\"onTimeActualField\":\"DocumentDate\",\"onTimeDeliveredSubtypes\":\"Delivered\"}",
+    "displayOrder": 20,
+    "width": 3,
+    "height": 5,
+    "metaId": "7fe9da25-c07f-4c41-b6d5-59e5a3b772c6",
+    "name": "SalesInvoice.side.snapshot",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+    "layerId": 2,
+    "createdDateTime": "2026-09-11T14:30:00",
+    "modifiedDateTime": "2026-09-11T14:30:00"
+  }
+}

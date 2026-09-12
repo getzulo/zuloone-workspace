@@ -16,6 +16,8 @@
     "isExtension": false,
     "metaId": "e8c8174d-fd25-5eb9-b255-2209f294e1bf",
     "name": "PurchasingSettings",
+    "iconName": "fluent-color:briefcase-48",
+    "largeIconName": "fluent-color:briefcase-48",
     "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
     "layerId": 2,
     "createdDateTime": "2026-08-26T20:56:52.2930769",

@@ -14,6 +14,8 @@
     "isExtension": false,
     "metaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
     "name": "TaxPayment",
+    "iconName": "fluent-color:savings-32",
+    "largeIconName": "fluent-color:savings-32",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-09-02T00:00:00",

@@ -1,0 +1,16 @@
+{
+  "kind": "Widget",
+  "object": {
+    "caption": "Round trip",
+    "widgetType": "count",
+    "configJson": "{\"title\":\"stock\"}",
+    "width": 4,
+    "height": 5,
+    "metaId": "f625f6ae-37db-45be-8d1c-7ed0657fcfcc",
+    "name": "WsWid0a7f70a7",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-11T03:49:38.9732192",
+    "modifiedDateTime": "2026-09-11T03:49:46.4348144"
+  }
+}

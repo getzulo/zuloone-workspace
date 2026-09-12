@@ -1,0 +1,32 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "caption": "DictPfba14a4ff",
+    "documentTypeMetaId": "01254a34-e5c0-48d4-abcf-6ba6cc71c987",
+    "engine": "Html",
+    "scriptMetaId": "04106943-9cc1-4ff3-89ce-1a0a89bc2701",
+    "displayOrder": 2,
+    "metaId": "66d4434c-9a63-4472-9dbb-027b26a18ec3",
+    "name": "DictPfba14a4ff",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-11T03:50:48.2064782",
+    "modifiedDateTime": "2026-09-11T03:50:48.2064786"
+  },
+  "bindings": [
+    {
+      "metaId": "3141f0b9-8b2c-4022-9bf4-a771e501a1a3",
+      "printFormMetaId": "66d4434c-9a63-4472-9dbb-027b26a18ec3",
+      "targetKind": "Dictionary",
+      "targetMetaId": "7e174ae4-b409-4146-8380-48eeb5636179",
+      "scope": "Record"
+    },
+    {
+      "metaId": "fa1d19fb-0373-442a-9b09-ea133e816ffe",
+      "printFormMetaId": "66d4434c-9a63-4472-9dbb-027b26a18ec3",
+      "targetKind": "Dictionary",
+      "targetMetaId": "7e174ae4-b409-4146-8380-48eeb5636179",
+      "scope": "List"
+    }
+  ]
+}

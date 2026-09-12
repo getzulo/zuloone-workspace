@@ -12,6 +12,8 @@
     "isExtension": false,
     "metaId": "8e31292c-3d5a-4f8b-9c2e-7a4f1b6d8e30",
     "name": "PayrollLiability",
+    "iconName": "fluent-color:data-area-32",
+    "largeIconName": "fluent-color:data-area-32",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
     "createdDateTime": "2026-08-25T21:18:11.9616817",

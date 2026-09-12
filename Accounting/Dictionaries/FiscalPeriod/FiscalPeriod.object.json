@@ -19,6 +19,8 @@
     "isExtension": false,
     "metaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
     "name": "FiscalPeriod",
+    "iconName": "fluent-color:calendar-clock-24",
+    "largeIconName": "fluent-color:calendar-clock-24",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
     "createdDateTime": "2026-08-25T15:27:31.749415",

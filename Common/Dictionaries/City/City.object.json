@@ -19,6 +19,8 @@
     "isExtension": false,
     "metaId": "690564b8-f618-4f1d-9954-8d8d7b10452f",
     "name": "City",
+    "iconName": "fluent-color:building-home-32",
+    "largeIconName": "fluent-color:building-home-32",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-22T02:02:11.0720513",
