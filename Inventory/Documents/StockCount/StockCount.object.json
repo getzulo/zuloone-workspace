@@ -10,16 +10,16 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:checkbox-24",
+    "largeIconName": "fluent-color:checkbox-24",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "57100901-0000-4000-8000-000000000000",
     "name": "StockCount",
-    "iconName": "fluent-color:checkbox-24",
-    "largeIconName": "fluent-color:checkbox-24",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
     "createdDateTime": "2026-08-27T21:51:30.7337302",
-    "modifiedDateTime": "2026-08-27T21:51:30.7337302"
+    "modifiedDateTime": "2026-09-12T02:43:32.0252764"
   },
   "headerFields": [
     {
@@ -67,8 +67,9 @@
     {
       "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
       "fieldName": "ID",
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -84,7 +85,7 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
       "createdDateTime": "2026-08-27T21:51:30.7337324",
-      "modifiedDateTime": "2026-08-27T21:51:30.7337324"
+      "modifiedDateTime": "2026-09-03T12:28:57.4287124"
     }
   ],
   "subtypes": [

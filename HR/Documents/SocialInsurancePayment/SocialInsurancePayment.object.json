@@ -10,16 +10,16 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:shield-checkmark-48",
+    "largeIconName": "fluent-color:shield-checkmark-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
     "name": "SocialInsurancePayment",
-    "iconName": "fluent-color:shield-checkmark-48",
-    "largeIconName": "fluent-color:shield-checkmark-48",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
     "createdDateTime": "2026-09-02T11:03:42.0059829",
-    "modifiedDateTime": "2026-09-02T11:03:42.0059829"
+    "modifiedDateTime": "2026-09-12T02:43:31.9940916"
   },
   "headerFields": [
     {

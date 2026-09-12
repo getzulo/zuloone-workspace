@@ -1,0 +1,19 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
+    "slot": "header",
+    "widgetType": "attachments",
+    "widgetMetaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a101",
+    "displayOrder": 0,
+    "width": 4,
+    "height": 4,
+    "metaId": "3b27b2cb-4f71-4968-b879-95d8d92cfc0c",
+    "name": "Dictionary.8e2bd784b17841b1914154c0c55fc76f.header.6ee41023f2594117910e20d2ee877712",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+    "layerId": 1,
+    "createdDateTime": "2026-09-12T12:59:22.4326095",
+    "modifiedDateTime": "2026-09-12T12:59:22.4326336"
+  }
+}

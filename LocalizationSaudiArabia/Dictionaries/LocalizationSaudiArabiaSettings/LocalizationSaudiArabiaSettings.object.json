@@ -12,16 +12,16 @@
     "isSingleton": true,
     "notificationEnabled": false,
     "isKernel": false,
+    "iconName": "fluent-color:building-government-32",
+    "largeIconName": "fluent-color:building-government-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "e2d38cb7-3c6b-54f9-97fa-4069ead80ea6",
     "name": "LocalizationSaudiArabiaSettings",
-    "iconName": "fluent-color:building-government-32",
-    "largeIconName": "fluent-color:building-government-32",
     "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
     "layerId": 3,
     "createdDateTime": "2026-08-26T20:56:53.1224743",
-    "modifiedDateTime": "2026-08-26T20:56:53.1224743"
+    "modifiedDateTime": "2026-09-12T02:43:31.1764785"
   },
   "fields": [
     {

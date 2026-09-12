@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:diversity-48",
+    "largeIconName": "fluent-color:diversity-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
     "name": "Gender",
-    "iconName": "fluent-color:diversity-48",
-    "largeIconName": "fluent-color:diversity-48",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-22T02:01:49.878893",
-    "modifiedDateTime": "2026-08-22T03:43:39.0275765"
+    "modifiedDateTime": "2026-09-12T02:43:31.0522811"
   },
   "fields": [
     {

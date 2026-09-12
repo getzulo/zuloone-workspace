@@ -1,0 +1,20 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
+    "slot": "header",
+    "widgetType": "record-image",
+    "widgetMetaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a10c",
+    "configJson": "{\"chrome\":{\"showTitle\":true,\"title\":\"\",\"density\":\"comfortable\"},\"form\":{\"fieldName\":\"Image\"}}",
+    "displayOrder": 20,
+    "width": 4,
+    "height": 4,
+    "metaId": "dd849a8e-64bf-4e45-941f-4192ad227975",
+    "name": "Dictionary.319da250b7834c33aa691c6ced3be605.header.9992f9f1ab724ab0b899927f244ea744",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-12T16:48:49.0624167",
+    "modifiedDateTime": "2026-09-12T20:16:41.2479901"
+  }
+}

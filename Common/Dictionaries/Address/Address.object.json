@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:location-ripple-24",
+    "largeIconName": "fluent-color:location-ripple-24",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
     "name": "Address",
-    "iconName": "fluent-color:location-ripple-24",
-    "largeIconName": "fluent-color:location-ripple-24",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-22T02:02:11.0719773",
-    "modifiedDateTime": "2026-08-22T03:43:38.660526"
+    "modifiedDateTime": "2026-09-12T02:43:30.7002453"
   },
   "fields": [
     {

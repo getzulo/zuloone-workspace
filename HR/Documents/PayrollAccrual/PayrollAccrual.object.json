@@ -9,16 +9,16 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:document-text-48",
+    "largeIconName": "fluent-color:document-text-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
     "name": "PayrollAccrual",
-    "iconName": "fluent-color:document-text-48",
-    "largeIconName": "fluent-color:document-text-48",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
     "createdDateTime": "2026-08-25T21:18:50.3228401",
-    "modifiedDateTime": "2026-08-25T21:18:50.3228401"
+    "modifiedDateTime": "2026-09-12T02:43:31.8132966"
   },
   "headerFields": [
     {
@@ -45,8 +45,9 @@
     {
       "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
       "fieldName": "ID",
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -62,7 +63,7 @@
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
       "createdDateTime": "2026-08-25T21:18:50.344394",
-      "modifiedDateTime": "2026-08-25T21:18:50.3443942"
+      "modifiedDateTime": "2026-09-03T12:28:57.3206942"
     }
   ],
   "subtypes": [

@@ -6,14 +6,14 @@
       "caption_ar": "المؤسسة",
       "caption_ru": "Организация",
       "displayOrder": 1,
+      "icon": "fluent-color:org-48",
       "targetType": "Group",
       "metaId": "05fc20e3-4b78-40db-b781-6ce37e247c97",
       "name": "Organization",
-      "icon": "fluent-color:org-48",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "layerId": 1,
       "createdDateTime": "2026-08-25T15:09:09.666099",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:32.5733484"
     },
     {
       "caption": "Dictionaries",
@@ -21,28 +21,28 @@
       "caption_ru": "Справочники",
       "parentMetaId": "05fc20e3-4b78-40db-b781-6ce37e247c97",
       "displayOrder": 0,
+      "icon": "fluent-color:database-48",
       "targetType": "Group",
       "metaId": "056ae83e-b101-485d-87d5-320de4d4e920",
       "name": "Dictionaries",
-      "icon": "fluent-color:database-48",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "layerId": 1,
       "createdDateTime": "2026-08-25T15:09:09.6670841",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:33.0969127"
     },
     {
       "caption": "Settings",
       "caption_ru": "Настройки",
       "parentMetaId": "05fc20e3-4b78-40db-b781-6ce37e247c97",
       "displayOrder": 1,
+      "icon": "fluent-color:settings-48",
       "targetType": "Group",
       "metaId": "29720d2c-504a-5235-8035-caa33aeae64b",
       "name": "Settings",
-      "icon": "fluent-color:settings-48",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "layerId": 1,
       "createdDateTime": "2026-08-26T20:56:53.9657724",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:33.1052753"
     },
     {
       "caption": "Legal entities",
@@ -50,15 +50,15 @@
       "caption_ru": "Юридические лица",
       "parentMetaId": "056ae83e-b101-485d-87d5-320de4d4e920",
       "displayOrder": 0,
+      "icon": "fluent-color:building-48",
       "targetType": "Dictionary",
       "targetMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
       "metaId": "dabbf1e0-d2b9-4856-b642-6d498fab6b6b",
       "name": "LegalEntity",
-      "icon": "fluent-color:building-48",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "layerId": 1,
       "createdDateTime": "2026-08-25T15:09:09.6672044",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:32.8384767"
     },
     {
       "caption": "Organization settings",
@@ -66,15 +66,15 @@
       "caption_ru": "Настройки организации",
       "parentMetaId": "29720d2c-504a-5235-8035-caa33aeae64b",
       "displayOrder": 0,
+      "icon": "fluent-color:building-48",
       "targetType": "Dictionary",
       "targetMetaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
       "metaId": "fc9a2413-bbbc-5971-8376-85f8e17097be",
       "name": "OrganizationSettings",
-      "icon": "fluent-color:building-48",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "layerId": 1,
       "createdDateTime": "2026-08-26T20:56:53.9657741",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:33.601028"
     },
     {
       "caption": "Divisions",
@@ -82,15 +82,15 @@
       "caption_ru": "Подразделения",
       "parentMetaId": "056ae83e-b101-485d-87d5-320de4d4e920",
       "displayOrder": 1,
+      "icon": "fluent-color:building-people-24",
       "targetType": "Dictionary",
       "targetMetaId": "94139682-fbaf-4cea-b3bf-99e067f31b2a",
       "metaId": "8b174fc7-f037-4344-bdac-8ac120159b55",
       "name": "Division",
-      "icon": "fluent-color:building-people-24",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "layerId": 1,
       "createdDateTime": "2026-08-25T15:09:09.6672875",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:32.8460932"
     },
     {
       "caption": "Division types",
@@ -98,15 +98,15 @@
       "caption_ru": "Типы подразделений",
       "parentMetaId": "056ae83e-b101-485d-87d5-320de4d4e920",
       "displayOrder": 2,
+      "icon": "fluent-color:org-48",
       "targetType": "Dictionary",
       "targetMetaId": "9eff86a3-7382-4094-863d-a04d07c4ab0b",
       "metaId": "9b71f874-0a5b-4d27-9e01-9b5efb7004f3",
       "name": "DivisionType",
-      "icon": "fluent-color:org-48",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "layerId": 1,
       "createdDateTime": "2026-08-25T15:09:09.6672912",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:32.8549162"
     }
   ]
 }

@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Code} {Name}",
     "isKernel": false,
+    "iconName": "fluent-color:book-open-48",
+    "largeIconName": "fluent-color:book-open-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "b9309207-b153-4ec9-b072-4211947b7e16",
     "name": "ChartOfAccounts",
-    "iconName": "fluent-color:book-open-48",
-    "largeIconName": "fluent-color:book-open-48",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
     "createdDateTime": "2026-08-25T15:27:04.7162312",
-    "modifiedDateTime": "2026-08-26T20:31:45.6469047"
+    "modifiedDateTime": "2026-09-12T02:43:30.7765985"
   },
   "fields": [
     {

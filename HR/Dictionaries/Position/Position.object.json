@@ -14,16 +14,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:briefcase-48",
+    "largeIconName": "fluent-color:briefcase-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "3ffd2704-716e-40c3-9dc5-a585c96b4be7",
     "name": "Position",
-    "iconName": "fluent-color:briefcase-48",
-    "largeIconName": "fluent-color:briefcase-48",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
     "createdDateTime": "2026-08-25T21:15:17.3482446",
-    "modifiedDateTime": "2026-08-25T21:15:17.3482446"
+    "modifiedDateTime": "2026-09-12T02:43:31.2495921"
   },
   "fields": [
     {

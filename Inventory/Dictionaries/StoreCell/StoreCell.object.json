@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:apps-48",
+    "largeIconName": "fluent-color:apps-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "1ef94317-154c-468a-b167-4dd6057984d8",
     "name": "StoreCell",
-    "iconName": "fluent-color:apps-48",
-    "largeIconName": "fluent-color:apps-48",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
     "createdDateTime": "2026-08-25T17:31:18.7527467",
-    "modifiedDateTime": "2026-08-27T21:23:10.8002597"
+    "modifiedDateTime": "2026-09-12T02:43:31.3929648"
   },
   "fields": [
     {

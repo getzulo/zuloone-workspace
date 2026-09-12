@@ -4,6 +4,8 @@
     "caption": "Item cost (FIFO)",
     "caption_ru": "Себестоимость товара (FIFO)",
     "isObsolete": false,
+    "iconName": "fluent-color:data-trending-48",
+    "largeIconName": "fluent-color:data-trending-48",
     "registerEngineType": "FIFO",
     "totalDriverMetaId": "234e5e4a-eb4b-4402-8c29-23c8bb168ec2",
     "isDoubleEntry": false,
@@ -12,12 +14,10 @@
     "isExtension": false,
     "metaId": "2f6a9c41-5d8e-4b3f-9a1c-6e2d5f8a3b60",
     "name": "ItemCostFifo",
-    "iconName": "fluent-color:data-trending-48",
-    "largeIconName": "fluent-color:data-trending-48",
     "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
     "layerId": 2,
     "createdDateTime": "2026-08-25T22:20:20.064993",
-    "modifiedDateTime": "2026-08-30T17:21:56.9268374"
+    "modifiedDateTime": "2026-09-12T02:43:32.2863967"
   },
   "dimensions": [
     {

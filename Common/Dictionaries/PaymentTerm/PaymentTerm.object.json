@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:clock-48",
+    "largeIconName": "fluent-color:clock-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
     "name": "PaymentTerm",
-    "iconName": "fluent-color:clock-48",
-    "largeIconName": "fluent-color:clock-48",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-09-09T13:28:57.2494566",
-    "modifiedDateTime": "2026-09-09T13:28:57.2494566"
+    "modifiedDateTime": "2026-09-12T02:43:31.2312348"
   },
   "fields": [
     {

@@ -8,22 +8,24 @@
     "requiresPosting": false,
     "postOnSave": false,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:document-48",
+    "largeIconName": "fluent-color:document-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "bb42274b-8296-4de4-ac74-81da5230e13a",
     "name": "TBStockDoc",
-    "iconName": "fluent-color:document-48",
-    "largeIconName": "fluent-color:document-48",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1,
     "createdDateTime": "2026-08-28T11:06:19.4565546",
-    "modifiedDateTime": "2026-08-28T11:06:19.4565547"
+    "modifiedDateTime": "2026-09-12T02:43:32.117672"
   },
   "headerFields": [
     {
       "documentTypeMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",
       "fieldName": "ID",
-      "caption": "ID",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -39,7 +41,7 @@
       "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "layerId": 1,
       "createdDateTime": "2026-08-28T11:06:19.4749807",
-      "modifiedDateTime": "2026-08-28T11:06:19.4749807"
+      "modifiedDateTime": "2026-09-03T12:28:57.4679107"
     },
     {
       "documentTypeMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",

@@ -3,6 +3,7 @@
   "object": {
     "caption": "RecordImage",
     "widgetType": "record-image",
+    "configJson": "{\"chrome\":{\"showTitle\":true,\"title\":\"\",\"density\":\"comfortable\"},\"desktop\":{},\"form\":{}}",
     "width": 4,
     "height": 4,
     "surface": "form",
@@ -11,6 +12,6 @@
     "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
     "layerId": 1,
     "createdDateTime": "2026-09-12T12:43:11.3712064",
-    "modifiedDateTime": "2026-09-12T12:43:11.3712064"
+    "modifiedDateTime": "2026-09-12T16:50:30.858438"
   }
 }

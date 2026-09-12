@@ -5,6 +5,8 @@
     "caption_ar": "المخزون القيمة",
     "caption_ru": "Стоимость запасов",
     "isObsolete": false,
+    "iconName": "fluent-color:vault-24",
+    "largeIconName": "fluent-color:vault-24",
     "registerEngineType": "Standard",
     "isDoubleEntry": false,
     "allowNegativeBalance": true,
@@ -12,12 +14,10 @@
     "isExtension": false,
     "metaId": "7e0b4d85-1a6f-4c9d-8e5b-8f1a4c7d0e60",
     "name": "InventoryValue",
-    "iconName": "fluent-color:vault-24",
-    "largeIconName": "fluent-color:vault-24",
     "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
     "layerId": 2,
     "createdDateTime": "2026-08-25T22:13:26.4683147",
-    "modifiedDateTime": "2026-08-25T22:13:26.4683147"
+    "modifiedDateTime": "2026-09-12T02:43:32.2671584"
   },
   "resources": [
     {

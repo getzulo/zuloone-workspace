@@ -4,13 +4,13 @@
     "padLength": 0,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 1,
+    "nextValue": 2,
     "resetPolicy": "None",
     "metaId": "1a51bbca-cb23-5e1f-9e8f-ec0b4a3bb826",
     "name": "SalesSettingsSeq",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "layerId": 2,
     "createdDateTime": "2026-08-26T20:56:53.9195891",
-    "modifiedDateTime": "2026-08-26T20:56:53.9195891"
+    "modifiedDateTime": "2026-09-11T14:13:22.0933333"
   }
 }

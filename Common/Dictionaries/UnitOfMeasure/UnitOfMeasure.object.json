@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:gauge-32",
+    "largeIconName": "fluent-color:gauge-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
     "name": "UnitOfMeasure",
-    "iconName": "fluent-color:gauge-32",
-    "largeIconName": "fluent-color:gauge-32",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-22T02:01:49.6937917",
-    "modifiedDateTime": "2026-08-31T02:45:46.2498099"
+    "modifiedDateTime": "2026-09-12T02:43:31.6978975"
   },
   "fields": [
     {

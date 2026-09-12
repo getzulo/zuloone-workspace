@@ -29,6 +29,17 @@
     },
     {
       "modelMetaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "dependsOnModelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "minVersion": "1.0.0",
+      "metaId": "3f6a8d15-2c9b-4e7f-8a1d-6b3c9e2f5a70",
+      "name": "Production->Costing",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
+      "layerId": 2,
+      "createdDateTime": "2026-08-31T00:00:00",
+      "modifiedDateTime": "2026-08-31T00:00:00"
+    },
+    {
+      "modelMetaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "minVersion": "1.0.0",
       "metaId": "2b8c1f6a-4d7e-4a9b-8c3f-1e5a6d2b7c90",
@@ -37,17 +48,6 @@
       "layerId": 2,
       "createdDateTime": "2026-08-25T21:30:26.6908709",
       "modifiedDateTime": "2026-08-25T21:30:26.690871"
-    },
-    {
-      "modelMetaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "dependsOnModelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "minVersion": "1.0.0",
-      "metaId": "3f6a8d15-2c9b-4e7f-8a1d-6b3c9e2f5a70",
-      "name": "Production->Costing",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-31T00:00:00.0000000",
-      "modifiedDateTime": "2026-08-31T00:00:00.0000000"
     }
   ]
 }

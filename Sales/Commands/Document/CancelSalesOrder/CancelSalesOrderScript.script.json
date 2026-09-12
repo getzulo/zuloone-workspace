@@ -1,16 +1,15 @@
 {
   "kind": "Script",
   "object": {
-    "scriptType": "DocumentCommand",
-    "objectType": "Command",
-    "objectName": "CancelSalesOrder",
-    "objectMetaId": "a4d1222b-46d9-4cdc-9e99-2fc9265d57c9",
-    "executionOrder": 0,
+    "scriptType": "Command",
+    "objectType": "Document",
+    "objectName": "SalesOrder",
+    "executionOrder": 1,
     "metaId": "6e36af95-a815-47a7-b79e-226b0a342efb",
     "name": "CancelSalesOrderScript",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T03:38:08"
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 0,
+    "createdDateTime": "2026-09-09T15:44:01.0267594",
+    "modifiedDateTime": "2026-09-09T15:44:01.0295048"
   }
 }

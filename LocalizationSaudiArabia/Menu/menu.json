@@ -6,42 +6,42 @@
       "caption_ar": "المملكة العربية السعودية",
       "caption_ru": "Саудовская Аравия",
       "displayOrder": 11,
+      "icon": "fluent-color:building-government-32",
       "targetType": "Group",
       "metaId": "7a1c4d30-8f5e-4b2c-9d6a-0e3f5b1c8d40",
       "name": "SaudiArabia",
-      "icon": "fluent-color:building-government-32",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
       "layerId": 3,
       "createdDateTime": "2026-08-25T22:06:11.471023",
-      "modifiedDateTime": "2026-08-25T22:06:11.4710231"
+      "modifiedDateTime": "2026-09-12T02:43:32.6548163"
     },
     {
       "caption": "Registers",
       "caption_ru": "Итоги",
       "parentMetaId": "7a1c4d30-8f5e-4b2c-9d6a-0e3f5b1c8d40",
       "displayOrder": 0,
+      "icon": "fluent-color:table-48",
       "targetType": "Group",
       "metaId": "8b2d5e41-9a6f-4c3d-8e7b-1f4a6c2d9e50",
       "name": "Registers",
-      "icon": "fluent-color:table-48",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
       "layerId": 3,
       "createdDateTime": "2026-08-25T22:06:11.4710372",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:32.6782378"
     },
     {
       "caption": "Settings",
       "caption_ru": "Настройки",
       "parentMetaId": "7a1c4d30-8f5e-4b2c-9d6a-0e3f5b1c8d40",
       "displayOrder": 1,
+      "icon": "fluent-color:settings-48",
       "targetType": "Group",
       "metaId": "e47a7a63-aeb5-508f-b6b9-4174968401f1",
       "name": "Settings",
-      "icon": "fluent-color:settings-48",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
       "layerId": 3,
       "createdDateTime": "2026-08-26T20:56:54.062749",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:32.6876155"
     },
     {
       "caption": "Saudi Arabia settings",
@@ -49,15 +49,15 @@
       "caption_ru": "Настройки Саудовской Аравии",
       "parentMetaId": "e47a7a63-aeb5-508f-b6b9-4174968401f1",
       "displayOrder": 0,
+      "icon": "fluent-color:building-government-32",
       "targetType": "Dictionary",
       "targetMetaId": "e2d38cb7-3c6b-54f9-97fa-4069ead80ea6",
       "metaId": "0424bc5f-cb69-568a-829b-421c9e82a7aa",
       "name": "LocalizationSaudiArabiaSettings",
-      "icon": "fluent-color:building-government-32",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
       "layerId": 3,
       "createdDateTime": "2026-08-26T20:56:54.0627521",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:32.9267748"
     },
     {
       "caption": "VAT payable",
@@ -65,15 +65,15 @@
       "caption_ru": "НДС к уплате",
       "parentMetaId": "8b2d5e41-9a6f-4c3d-8e7b-1f4a6c2d9e50",
       "displayOrder": 0,
+      "icon": "fluent-color:receipt-32",
       "targetType": "Register",
       "targetMetaId": "3c7e0f96-4b1a-4d8e-9f2c-6a9b1d7e4f00",
       "metaId": "9c3e6f52-0b7a-4d4e-9f8c-2a5b7d3e0f60",
       "name": "VatPayable",
-      "icon": "fluent-color:receipt-32",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
       "layerId": 3,
       "createdDateTime": "2026-08-25T22:06:11.4710399",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:32.7745548"
     }
   ]
 }

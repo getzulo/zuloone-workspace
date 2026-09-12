@@ -1,0 +1,16 @@
+{
+  "kind": "Widget",
+  "object": {
+    "caption": "BreakdownBars",
+    "widgetType": "breakdown-bars",
+    "width": 4,
+    "height": 4,
+    "surface": "form",
+    "metaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a10d",
+    "name": "BreakdownBars",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-12T21:00:45.5226957",
+    "modifiedDateTime": "2026-09-12T21:00:45.5226957"
+  }
+}

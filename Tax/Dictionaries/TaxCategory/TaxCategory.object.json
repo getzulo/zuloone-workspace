@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Code",
     "displayFormat": "{Code}",
     "isKernel": false,
+    "iconName": "fluent-color:bookmark-32",
+    "largeIconName": "fluent-color:bookmark-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
     "name": "TaxCategory",
-    "iconName": "fluent-color:bookmark-32",
-    "largeIconName": "fluent-color:bookmark-32",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-08-25T16:23:32.1205706",
-    "modifiedDateTime": "2026-08-25T16:23:32.1205707"
+    "modifiedDateTime": "2026-09-12T02:43:31.508792"
   },
   "fields": [
     {

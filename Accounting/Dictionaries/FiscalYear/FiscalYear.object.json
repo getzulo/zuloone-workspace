@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Code",
     "displayFormat": "{Code}",
     "isKernel": false,
+    "iconName": "fluent-color:calendar-48",
+    "largeIconName": "fluent-color:calendar-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
     "name": "FiscalYear",
-    "iconName": "fluent-color:calendar-48",
-    "largeIconName": "fluent-color:calendar-48",
     "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
     "layerId": 1,
     "createdDateTime": "2026-08-25T15:27:18.3013139",
-    "modifiedDateTime": "2026-08-25T15:27:18.3013139"
+    "modifiedDateTime": "2026-09-12T02:43:31.0348703"
   },
   "fields": [
     {

@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Code} {Name}",
     "isKernel": false,
+    "iconName": "fluent-color:number-symbol-square-32",
+    "largeIconName": "fluent-color:number-symbol-square-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
     "name": "TaxCode",
-    "iconName": "fluent-color:number-symbol-square-32",
-    "largeIconName": "fluent-color:number-symbol-square-32",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-08-25T16:23:53.2075011",
-    "modifiedDateTime": "2026-08-25T16:23:53.2075011"
+    "modifiedDateTime": "2026-09-12T02:43:31.5261681"
   },
   "fields": [
     {
@@ -191,6 +191,7 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 5,
+      "description": "ИСТОРИЧЕСКАЯ привязка кода к ставке. Расчёт её НЕ читает: действующая ставка подбирается по налогу и дате из истории TaxRate (см. TaxService.ResolveRateAsync), иначе смена ставки требовала бы заводить новый код налога. Поле оставлено необязательным для совместимости; если заполнено — обязано указывать на ставку ТОГО ЖЕ налога.",
       "isIndexed": false,
       "isUnique": false,
       "caption": "Tax rate",
@@ -204,8 +205,7 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
       "createdDateTime": "2026-08-25T16:23:53.2076073",
-      "modifiedDateTime": "2026-08-25T16:23:53.2076073",
-      "description": "ИСТОРИЧЕСКАЯ привязка кода к ставке. Расчёт её НЕ читает: действующая ставка подбирается по налогу и дате из истории TaxRate (см. TaxService.ResolveRateAsync), иначе смена ставки требовала бы заводить новый код налога. Поле оставлено необязательным для совместимости; если заполнено — обязано указывать на ставку ТОГО ЖЕ налога."
+      "modifiedDateTime": "2026-09-02T15:27:20.8387786"
     }
   ]
 }

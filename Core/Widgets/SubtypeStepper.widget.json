@@ -3,7 +3,8 @@
   "object": {
     "caption": "SubtypeStepper",
     "widgetType": "subtype-stepper",
-    "width": 4,
+    "configJson": "{\"chrome\":{\"showTitle\":true,\"title\":\"\",\"density\":\"comfortable\"},\"desktop\":{},\"form\":{}}",
+    "width": 2,
     "height": 4,
     "surface": "form",
     "metaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a105",
@@ -11,6 +12,6 @@
     "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
     "layerId": 1,
     "createdDateTime": "2026-09-12T12:43:11.3550003",
-    "modifiedDateTime": "2026-09-12T12:43:11.3550004"
+    "modifiedDateTime": "2026-09-12T16:06:09.4703917"
   }
 }

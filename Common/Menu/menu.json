@@ -6,14 +6,14 @@
       "caption_ar": "عام",
       "caption_ru": "Общие",
       "displayOrder": 0,
+      "icon": "fluent-color:globe-24",
       "targetType": "Group",
       "metaId": "ee56f9bb-66b6-43fd-9378-6f9d453374c4",
       "name": "Common",
-      "icon": "fluent-color:globe-24",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-22T02:01:49.929175",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:32.5640577"
     },
     {
       "caption": "Dictionaries",
@@ -21,28 +21,28 @@
       "caption_ru": "Справочники",
       "parentMetaId": "ee56f9bb-66b6-43fd-9378-6f9d453374c4",
       "displayOrder": 0,
+      "icon": "fluent-color:database-48",
       "targetType": "Group",
       "metaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "name": "Dictionaries",
-      "icon": "fluent-color:database-48",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-22T11:52:31.1444916",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:33.1120666"
     },
     {
       "caption": "Settings",
       "caption_ru": "Настройки",
       "parentMetaId": "ee56f9bb-66b6-43fd-9378-6f9d453374c4",
       "displayOrder": 1,
+      "icon": "fluent-color:settings-48",
       "targetType": "Group",
       "metaId": "cf5e80d1-e7e5-508c-82bf-40e67a1c59c8",
       "name": "Settings",
-      "icon": "fluent-color:settings-48",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-26T20:56:53.8484411",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:33.1205397"
     },
     {
       "caption": "Common settings",
@@ -50,31 +50,15 @@
       "caption_ru": "Общие настройки",
       "parentMetaId": "cf5e80d1-e7e5-508c-82bf-40e67a1c59c8",
       "displayOrder": 0,
+      "icon": "fluent-color:settings-48",
       "targetType": "Dictionary",
       "targetMetaId": "83321261-0387-519e-822b-5128b78e690e",
       "metaId": "dbc90904-7761-57b3-bcb3-d1f5b54e191d",
       "name": "CommonSettings",
-      "icon": "fluent-color:settings-48",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-26T20:56:53.8484429",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
-    },
-    {
-      "caption": "Gender",
-      "caption_ar": "الجنس",
-      "caption_ru": "Пол",
-      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
-      "displayOrder": 8,
-      "targetType": "Dictionary",
-      "targetMetaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
-      "metaId": "230f97f8-144d-491a-a153-19932585c2ba",
-      "name": "Gender",
-      "icon": "fluent-color:diversity-48",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.9293893",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:32.9200236"
     },
     {
       "caption": "Countries",
@@ -82,15 +66,15 @@
       "caption_ru": "Страны",
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 1,
+      "icon": "fluent-color:globe-24",
       "targetType": "Dictionary",
       "targetMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
       "metaId": "712724b4-1102-432c-9284-b3c76256f96b",
       "name": "Country",
-      "icon": "fluent-color:globe-24",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-22T02:01:49.9294391",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:33.2612792"
     },
     {
       "caption": "Regions",
@@ -98,15 +82,15 @@
       "caption_ru": "Регионы",
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 2,
+      "icon": "fluent-color:planet-32",
       "targetType": "Dictionary",
       "targetMetaId": "56e72501-c6c6-4fc8-9cbd-c645dcbbb669",
       "metaId": "f2f64457-a5ea-4b86-9ebd-02f25ccf530e",
       "name": "Region",
-      "icon": "fluent-color:planet-32",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-22T02:01:49.9294424",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:33.2708172"
     },
     {
       "caption": "Cities",
@@ -114,15 +98,15 @@
       "caption_ru": "Города",
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 3,
+      "icon": "fluent-color:building-home-32",
       "targetType": "Dictionary",
       "targetMetaId": "690564b8-f618-4f1d-9954-8d8d7b10452f",
       "metaId": "047f5201-7ec6-4b98-9d42-2aff0af64fc3",
       "name": "City",
-      "icon": "fluent-color:building-home-32",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-22T02:01:49.9294448",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:33.278439"
     },
     {
       "caption": "Addresses",
@@ -130,15 +114,15 @@
       "caption_ru": "Адреса",
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 4,
+      "icon": "fluent-color:location-ripple-24",
       "targetType": "Dictionary",
       "targetMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
       "metaId": "10f066c7-f9cf-495f-b4bc-c295cc3b6a9a",
       "name": "Address",
-      "icon": "fluent-color:location-ripple-24",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-22T02:01:49.9294472",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:33.2876955"
     },
     {
       "caption": "Units of measure",
@@ -146,15 +130,15 @@
       "caption_ru": "Единицы измерения",
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 5,
+      "icon": "fluent-color:gauge-32",
       "targetType": "Dictionary",
       "targetMetaId": "cb9244c1-3b98-4fd1-ae7e-9de75e51dae3",
       "metaId": "595405ff-1513-4755-8f8e-df305792b322",
       "name": "UnitOfMeasure",
-      "icon": "fluent-color:gauge-32",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-22T02:01:49.9294518",
-      "modifiedDateTime": "2026-08-28T02:46:15.1410344"
+      "modifiedDateTime": "2026-09-12T02:43:33.2951808"
     },
     {
       "caption": "Currencies",
@@ -162,44 +146,62 @@
       "caption_ru": "Валюты",
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 6,
+      "icon": "fluent-color:coin-multiple-48",
       "targetType": "Dictionary",
       "targetMetaId": "f90a6b92-f04d-4454-8de5-362a8893d34e",
       "metaId": "d1fa3e00-2603-41f9-9c0f-7837ad214a50",
       "name": "Currency",
-      "icon": "fluent-color:coin-multiple-48",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-22T02:01:49.9294494",
-      "modifiedDateTime": "2026-08-22T11:52:31.1514893"
+      "modifiedDateTime": "2026-09-12T02:43:33.3064443"
     },
     {
       "caption": "Unit classes",
       "caption_ru": "Виды величин",
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 7,
+      "icon": "fluent-color:apps-list-32",
       "targetType": "Dictionary",
       "targetMetaId": "977785ef-79fe-4128-894d-36f13e1f5a59",
       "metaId": "276740f4-f36a-4ed0-a252-1075361724d0",
       "name": "UnitClass",
-      "icon": "fluent-color:apps-list-32",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "layerId": 1,
       "createdDateTime": "2026-08-31T02:37:55.1076088",
-      "modifiedDateTime": "2026-08-31T02:37:55.1076088"
+      "modifiedDateTime": "2026-09-12T02:43:33.3139256"
+    },
+    {
+      "caption": "Gender",
+      "caption_ar": "الجنس",
+      "caption_ru": "Пол",
+      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "displayOrder": 8,
+      "icon": "fluent-color:diversity-48",
+      "targetType": "Dictionary",
+      "targetMetaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
+      "metaId": "230f97f8-144d-491a-a153-19932585c2ba",
+      "name": "Gender",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1,
+      "createdDateTime": "2026-08-22T02:01:49.9293893",
+      "modifiedDateTime": "2026-09-12T02:43:33.3226682"
     },
     {
       "caption": "Payment terms",
-      "caption_ru": "Условия оплаты",
       "caption_ar": "شروط الدفع",
+      "caption_ru": "Условия оплаты",
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 9,
+      "icon": "fluent-color:clock-48",
       "targetType": "Dictionary",
       "targetMetaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
       "metaId": "57e75dfe-3bd4-4bb5-b5d2-e7a22f0a25ca",
       "name": "PaymentTerm",
-      "icon": "fluent-color:clock-48",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1
+      "layerId": 1,
+      "createdDateTime": "2026-09-09T13:28:59.6868676",
+      "modifiedDateTime": "2026-09-12T02:43:33.3307272"
     }
   ]
 }

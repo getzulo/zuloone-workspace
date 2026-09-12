@@ -10,23 +10,24 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:clipboard-48",
+    "largeIconName": "fluent-color:clipboard-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
     "name": "PurchaseOrder",
-    "iconName": "fluent-color:clipboard-48",
-    "largeIconName": "fluent-color:clipboard-48",
     "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
     "layerId": 2,
     "createdDateTime": "2026-08-25T21:07:09.9311712",
-    "modifiedDateTime": "2026-08-25T21:07:09.9311712"
+    "modifiedDateTime": "2026-09-12T02:43:31.9055869"
   },
   "headerFields": [
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "fieldName": "ID",
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -42,7 +43,7 @@
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
       "createdDateTime": "2026-08-25T21:07:09.9499804",
-      "modifiedDateTime": "2026-08-25T21:07:09.9499806"
+      "modifiedDateTime": "2026-09-09T05:42:15.253868"
     },
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
@@ -180,7 +181,7 @@
       "executionOrder": 3,
       "metaId": "28432847-f7fb-434c-ad5c-c2a2b3349d03",
       "name": "",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
       "createdDateTime": "2026-09-09T00:00:00",
       "modifiedDateTime": "2026-09-09T00:00:00"
@@ -191,7 +192,7 @@
       "executionOrder": 4,
       "metaId": "92323f55-5840-4c9d-bd08-07c0afcc51a7",
       "name": "",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "layerId": 2,
       "createdDateTime": "2026-09-09T00:00:00",
       "modifiedDateTime": "2026-09-09T00:00:00"

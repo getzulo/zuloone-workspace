@@ -1,0 +1,13 @@
+{
+  "kind": "WidgetAssignment",
+  "object": {
+    "widgetMetaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a10c",
+    "objectType": "Dictionary",
+    "metaId": "e919c2c4-2371-460f-a50a-e3445797664c",
+    "name": "RecordImage.Dictionary",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
+    "layerId": 1,
+    "createdDateTime": "2026-09-12T16:50:05.8999017",
+    "modifiedDateTime": "2026-09-12T16:50:05.899904"
+  }
+}

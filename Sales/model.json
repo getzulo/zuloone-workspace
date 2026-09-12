@@ -13,7 +13,7 @@
     "modelId": "00000000-0000-0000-0000-000000000000",
     "layerId": 2,
     "createdDateTime": "2026-08-25T17:57:08.868338",
-    "modifiedDateTime": "2026-08-27T18:37:50.9858853"
+    "modifiedDateTime": "2026-09-05T15:34:08.4524738"
   },
   "dependencies": [
     {
@@ -51,6 +51,17 @@
     },
     {
       "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "minVersion": "1.0.0",
+      "metaId": "8210acbe-0b01-493e-b589-8d9d2244b898",
+      "name": "Sales->Organization",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "layerId": 2,
+      "createdDateTime": "2026-09-02T14:27:57.2330659",
+      "modifiedDateTime": "2026-09-02T14:27:57.2330659"
+    },
+    {
+      "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "minVersion": "1.0.0",
       "metaId": "e898e296-0661-43cc-805d-2c13a8554763",
@@ -59,15 +70,6 @@
       "layerId": 2,
       "createdDateTime": "2026-08-28T20:46:10.3802681",
       "modifiedDateTime": "2026-08-28T20:46:10.3802681"
-    },
-    {
-      "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "minVersion": "1.0.0",
-      "metaId": "8210acbe-0b01-493e-b589-8d9d2244b898",
-      "name": "Sales->Organization",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2
     }
   ]
 }

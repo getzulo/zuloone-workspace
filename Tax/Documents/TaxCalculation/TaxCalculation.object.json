@@ -10,16 +10,16 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:gauge-32",
+    "largeIconName": "fluent-color:gauge-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
     "name": "TaxCalculation",
-    "iconName": "fluent-color:gauge-32",
-    "largeIconName": "fluent-color:gauge-32",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-08-25T16:27:30.2416687",
-    "modifiedDateTime": "2026-08-25T16:27:30.2416687"
+    "modifiedDateTime": "2026-09-12T02:43:32.0566779"
   },
   "headerFields": [
     {
@@ -66,31 +66,10 @@
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
-      "fieldName": "MatchedRule",
-      "caption": "Matched rule",
-      "caption_ar": "القاعدة المطابقة",
-      "caption_ru": "Сработавшее правило",
-      "edtMetaId": "39b0d6f1-4082-4c73-8d51-7e920b3c8d16",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 7,
-      "description": "Правило, определившее налоговый код. Пусто — код взят по умолчанию из настроек модуля (правила не заведены или ни одно не подошло). Это ответ на вопрос «почему тут такая ставка», и он обязан лежать НА РАСЧЁТЕ: правило потом отредактируют, а расчёт неизменен.",
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "2f9c1b48-6d05-4e37-9a82-4b7e0c6d5f19",
-      "name": "MatchedRule",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
-    },
-    {
-      "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
       "fieldName": "ID",
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -106,7 +85,7 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "layerId": 1,
       "createdDateTime": "2026-08-25T16:27:30.325938",
-      "modifiedDateTime": "2026-08-25T16:27:30.3259382"
+      "modifiedDateTime": "2026-09-03T12:28:57.4439887"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
@@ -128,6 +107,28 @@
       "layerId": 1,
       "createdDateTime": "2026-08-25T16:27:30.2421029",
       "modifiedDateTime": "2026-08-25T16:27:30.2421029"
+    },
+    {
+      "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
+      "fieldName": "MatchedRule",
+      "caption": "Matched rule",
+      "caption_ar": "القاعدة المطابقة",
+      "caption_ru": "Сработавшее правило",
+      "edtMetaId": "39b0d6f1-4082-4c73-8d51-7e920b3c8d16",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "description": "Правило, определившее налоговый код. Пусто — код взят по умолчанию из настроек модуля (правила не заведены или ни одно не подошло). Это ответ на вопрос «почему тут такая ставка», и он обязан лежать НА РАСЧЁТЕ: правило потом отредактируют, а расчёт неизменен.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "2f9c1b48-6d05-4e37-9a82-4b7e0c6d5f19",
+      "name": "MatchedRule",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "layerId": 1,
+      "createdDateTime": "2026-09-01T00:00:00",
+      "modifiedDateTime": "2026-09-01T00:00:00"
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",

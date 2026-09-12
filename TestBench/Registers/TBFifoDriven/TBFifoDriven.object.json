@@ -3,7 +3,9 @@
   "object": {
     "caption": "TBFifoDriven",
     "isObsolete": false,
-    "registerEngineType": "Standard",
+    "iconName": "fluent-color:data-line-32",
+    "largeIconName": "fluent-color:data-line-32",
+    "registerEngineType": "FIFO",
     "totalDriverMetaId": "5f0b7131-cad6-4f29-a639-758bf8507b29",
     "isDoubleEntry": false,
     "allowNegativeBalance": true,
@@ -11,12 +13,10 @@
     "isExtension": false,
     "metaId": "98ec3cdf-6263-4cc3-806b-237c68f9e584",
     "name": "TBFifoDriven",
-    "iconName": "fluent-color:data-line-32",
-    "largeIconName": "fluent-color:data-line-32",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1,
     "createdDateTime": "2026-08-28T11:06:19.3508906",
-    "modifiedDateTime": "2026-08-28T11:06:19.3508906"
+    "modifiedDateTime": "2026-09-12T02:43:32.5029932"
   },
   "dimensions": [
     {

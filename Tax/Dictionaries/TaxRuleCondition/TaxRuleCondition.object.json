@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Field",
     "displayFormat": "{Field} {Value}",
     "isKernel": false,
+    "iconName": "fluent-color:options-48",
+    "largeIconName": "fluent-color:options-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "3ab1d7f2-4082-4c73-8d51-7e920b3c8d17",
     "name": "TaxRuleCondition",
-    "iconName": "fluent-color:options-48",
-    "largeIconName": "fluent-color:options-48",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-09-01T00:00:00",
-    "modifiedDateTime": "2026-09-01T00:00:00"
+    "modifiedDateTime": "2026-09-12T02:43:31.6104024"
   },
   "fields": [
     {

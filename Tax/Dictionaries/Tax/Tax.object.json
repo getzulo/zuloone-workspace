@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Code} {Name}",
     "isKernel": false,
+    "iconName": "fluent-color:certificate-32",
+    "largeIconName": "fluent-color:certificate-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "59cf0fba-776e-4223-943f-f8ab2d8ef203",
     "name": "Tax",
-    "iconName": "fluent-color:certificate-32",
-    "largeIconName": "fluent-color:certificate-32",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-08-25T16:23:06.4760381",
-    "modifiedDateTime": "2026-08-25T16:23:06.4760382"
+    "modifiedDateTime": "2026-09-12T02:43:31.4572306"
   },
   "fields": [
     {

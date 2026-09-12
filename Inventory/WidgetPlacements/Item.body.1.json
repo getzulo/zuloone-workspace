@@ -1,0 +1,20 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
+    "slot": "body",
+    "widgetType": "breakdown-bars",
+    "widgetMetaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a10d",
+    "configJson": "{\"chrome\":{\"showTitle\":true,\"title\":\"Stock by cell\",\"density\":\"comfortable\"},\"form\":{\"source\":\"register\",\"register\":\"Stock\",\"groupBy\":\"Cell\",\"resource\":\"Qty\",\"filter\":\"[Item] = '{recordId}'\",\"maxRows\":8,\"labelTable\":\"StoreCell\"}}",
+    "displayOrder": 0,
+    "width": 6,
+    "height": 5,
+    "metaId": "8fe21cf3-77f8-49a3-8274-09102fda7d9e",
+    "name": "Item.body.stockByCell",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-12T21:00:00",
+    "modifiedDateTime": "2026-09-12T21:04:43.9533677"
+  }
+}

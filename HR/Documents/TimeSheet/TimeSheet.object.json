@@ -10,16 +10,16 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:shifts-32",
+    "largeIconName": "fluent-color:shifts-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
     "name": "TimeSheet",
-    "iconName": "fluent-color:shifts-32",
-    "largeIconName": "fluent-color:shifts-32",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
     "createdDateTime": "2026-08-27T18:24:59.1895546",
-    "modifiedDateTime": "2026-08-27T18:24:59.1895546"
+    "modifiedDateTime": "2026-09-12T02:43:32.1373718"
   },
   "headerFields": [
     {
@@ -45,7 +45,9 @@
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
       "fieldName": "ID",
-      "caption": "ID",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -61,7 +63,7 @@
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
       "createdDateTime": "2026-08-27T18:24:59.2670775",
-      "modifiedDateTime": "2026-08-27T18:24:59.2670777"
+      "modifiedDateTime": "2026-09-03T12:28:57.4754526"
     }
   ],
   "subtypes": [

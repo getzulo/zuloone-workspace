@@ -14,16 +14,16 @@
     "defaultSearchProperty": "ID",
     "displayFormat": "{Item} / {Unit}",
     "isKernel": false,
+    "iconName": "fluent-color:number-symbol-square-32",
+    "largeIconName": "fluent-color:number-symbol-square-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "94a2d817-d01b-4c54-bdbc-d8d17e5dbf7b",
     "name": "ItemUnit",
-    "iconName": "fluent-color:number-symbol-square-32",
-    "largeIconName": "fluent-color:number-symbol-square-32",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
     "createdDateTime": "2026-08-31T02:40:30.8882282",
-    "modifiedDateTime": "2026-08-31T02:40:30.8882282"
+    "modifiedDateTime": "2026-09-12T02:43:31.1389613"
   },
   "fields": [
     {

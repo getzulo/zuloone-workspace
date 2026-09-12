@@ -9,16 +9,16 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:shield-48",
+    "largeIconName": "fluent-color:shield-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "a0d03063-af77-4fd0-886b-223a9731f105",
     "name": "SocialInsuranceAccrual",
-    "iconName": "fluent-color:shield-48",
-    "largeIconName": "fluent-color:shield-48",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
     "createdDateTime": "2026-08-28T21:23:56.4457648",
-    "modifiedDateTime": "2026-08-28T21:23:56.4457648"
+    "modifiedDateTime": "2026-09-12T02:43:31.9818024"
   },
   "headerFields": [
     {
@@ -44,6 +44,9 @@
     {
       "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
       "fieldName": "ID",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -59,7 +62,7 @@
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
       "createdDateTime": "2026-08-28T21:23:56.4726557",
-      "modifiedDateTime": "2026-08-28T21:23:56.4726557"
+      "modifiedDateTime": "2026-09-09T11:25:36.9184904"
     }
   ],
   "subtypes": [

@@ -1,0 +1,19 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "57101301-0000-4000-8000-000000000000",
+    "slot": "body",
+    "widgetType": "notes",
+    "widgetMetaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a103",
+    "displayOrder": 0,
+    "width": 4,
+    "height": 4,
+    "metaId": "9c9b9a01-b5c7-4f5e-9247-928e8cd82c7f",
+    "name": "Document.57101301000040008000000000000000.body.143675e4b1ac4911ace1670ec860d027",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-12T15:10:18.4059873",
+    "modifiedDateTime": "2026-09-12T20:16:41.0908384"
+  }
+}

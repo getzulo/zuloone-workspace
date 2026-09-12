@@ -12,16 +12,16 @@
     "isSingleton": true,
     "notificationEnabled": false,
     "isKernel": false,
+    "iconName": "fluent-color:people-chat-48",
+    "largeIconName": "fluent-color:people-chat-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "4d8e6d80-cbf0-5dc2-b88b-00a1eae5cdf8",
     "name": "CRMSettings",
-    "iconName": "fluent-color:people-chat-48",
-    "largeIconName": "fluent-color:people-chat-48",
     "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
     "layerId": 2,
     "createdDateTime": "2026-08-26T20:56:52.5618002",
-    "modifiedDateTime": "2026-08-26T20:56:52.5618002"
+    "modifiedDateTime": "2026-09-12T02:43:30.8714653"
   },
   "fields": [
     {

@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name} - ({CodeISO2})",
     "isKernel": false,
+    "iconName": "fluent-color:globe-24",
+    "largeIconName": "fluent-color:globe-24",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
     "name": "Country",
-    "iconName": "fluent-color:globe-24",
-    "largeIconName": "fluent-color:globe-24",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-22T02:01:49.7256302",
-    "modifiedDateTime": "2026-08-28T15:10:47.3164521"
+    "modifiedDateTime": "2026-09-12T02:43:30.8535001"
   },
   "fields": [
     {

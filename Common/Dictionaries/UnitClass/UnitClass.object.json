@@ -14,16 +14,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:apps-list-32",
+    "largeIconName": "fluent-color:apps-list-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "977785ef-79fe-4128-894d-36f13e1f5a59",
     "name": "UnitClass",
-    "iconName": "fluent-color:apps-list-32",
-    "largeIconName": "fluent-color:apps-list-32",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-31T02:37:54.9411535",
-    "modifiedDateTime": "2026-08-31T02:37:54.9411535"
+    "modifiedDateTime": "2026-09-12T02:43:31.6800776"
   },
   "fields": [
     {

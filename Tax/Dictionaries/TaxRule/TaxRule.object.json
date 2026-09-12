@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Code} {Name}",
     "isKernel": false,
+    "iconName": "fluent-color:checkbox-24",
+    "largeIconName": "fluent-color:checkbox-24",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
     "name": "TaxRule",
-    "iconName": "fluent-color:checkbox-24",
-    "largeIconName": "fluent-color:checkbox-24",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-09-01T00:00:00",
-    "modifiedDateTime": "2026-09-01T10:05:18.8538745"
+    "modifiedDateTime": "2026-09-12T02:43:31.5931153"
   },
   "fields": [
     {

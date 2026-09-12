@@ -4,6 +4,8 @@
     "caption": "Loyalty points",
     "caption_ru": "Баллы лояльности",
     "isObsolete": false,
+    "iconName": "fluent-color:star-48",
+    "largeIconName": "fluent-color:star-48",
     "registerEngineType": "Standard",
     "isDoubleEntry": false,
     "allowNegativeBalance": false,
@@ -11,12 +13,10 @@
     "isExtension": false,
     "metaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
     "name": "LoyaltyPoints",
-    "iconName": "fluent-color:star-48",
-    "largeIconName": "fluent-color:star-48",
     "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
     "layerId": 2,
     "createdDateTime": "2026-08-25T21:55:49.8926187",
-    "modifiedDateTime": "2026-08-25T21:55:49.8926187"
+    "modifiedDateTime": "2026-09-12T02:43:32.3095131"
   },
   "dimensions": [
     {

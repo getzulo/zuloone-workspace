@@ -2,7 +2,7 @@
   "kind": "Model",
   "object": {
     "modelType": "Custom",
-    "description": "Локализация Саудовская Аравия (core): НДС 15% на продажах (ZATCA/FATOORA — отложено)",
+    "description": "Локализация Саудовская Аравия (core): НДС 15% на продажах (ZATCA/FATOORA)",
     "isSystem": false,
     "isSealed": false,
     "isEnabled": true,
@@ -13,7 +13,7 @@
     "modelId": "00000000-0000-0000-0000-000000000000",
     "layerId": 3,
     "createdDateTime": "2026-08-25T22:04:49.1419308",
-    "modifiedDateTime": "2026-08-27T18:30:50.9400205"
+    "modifiedDateTime": "2026-09-06T17:44:40.4666667"
   },
   "dependencies": [
     {

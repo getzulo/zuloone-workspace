@@ -5,6 +5,7 @@
     "objectMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
     "slot": "side",
     "widgetType": "subtype-stepper",
+    "widgetMetaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a105",
     "displayOrder": 0,
     "width": 3,
     "height": 6,
@@ -13,6 +14,6 @@
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "layerId": 2,
     "createdDateTime": "2026-09-09T16:40:00",
-    "modifiedDateTime": "2026-09-09T16:40:00"
+    "modifiedDateTime": "2026-09-12T20:16:40.9706972"
   }
 }

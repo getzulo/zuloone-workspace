@@ -3,6 +3,7 @@
   "object": {
     "caption": "CommandButtons",
     "widgetType": "command-buttons",
+    "configJson": "{\"chrome\":{\"showTitle\":true,\"title\":\"\",\"density\":\"comfortable\"},\"desktop\":{},\"form\":{\"commandMetaIds\":[\"cc3226f5-7b55-48b0-8c4c-19cba6437933\"]}}",
     "width": 4,
     "height": 4,
     "surface": "form",
@@ -11,6 +12,6 @@
     "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b",
     "layerId": 1,
     "createdDateTime": "2026-09-12T12:43:11.3690753",
-    "modifiedDateTime": "2026-09-12T12:43:11.3690753"
+    "modifiedDateTime": "2026-09-12T13:36:26.5337849"
   }
 }

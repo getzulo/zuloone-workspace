@@ -10,16 +10,16 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:gift-24",
+    "largeIconName": "fluent-color:gift-24",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
     "name": "LoyaltyRedemption",
-    "iconName": "fluent-color:gift-24",
-    "largeIconName": "fluent-color:gift-24",
     "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
     "layerId": 2,
     "createdDateTime": "2026-08-25T21:56:00.2166666",
-    "modifiedDateTime": "2026-08-25T21:56:00.2166666"
+    "modifiedDateTime": "2026-09-12T02:43:31.793518"
   },
   "headerFields": [
     {
@@ -46,8 +46,9 @@
     {
       "documentTypeMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
       "fieldName": "ID",
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -63,7 +64,7 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
       "layerId": 2,
       "createdDateTime": "2026-08-25T21:56:00.254269",
-      "modifiedDateTime": "2026-08-25T21:56:00.2542691"
+      "modifiedDateTime": "2026-09-03T12:28:57.308901"
     },
     {
       "documentTypeMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",

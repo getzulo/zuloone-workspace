@@ -10,23 +10,24 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:savings-32",
+    "largeIconName": "fluent-color:savings-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
     "name": "PayrollPayment",
-    "iconName": "fluent-color:savings-32",
-    "largeIconName": "fluent-color:savings-32",
     "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "layerId": 2,
     "createdDateTime": "2026-08-25T21:18:57.9561452",
-    "modifiedDateTime": "2026-08-25T21:18:57.9561452"
+    "modifiedDateTime": "2026-09-12T02:43:31.8319472"
   },
   "headerFields": [
     {
       "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
       "fieldName": "ID",
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -42,7 +43,7 @@
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
       "layerId": 2,
       "createdDateTime": "2026-08-25T21:18:57.9769039",
-      "modifiedDateTime": "2026-08-25T21:18:57.9769042"
+      "modifiedDateTime": "2026-09-03T12:28:57.3348651"
     }
   ],
   "subtypes": [

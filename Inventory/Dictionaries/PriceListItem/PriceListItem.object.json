@@ -15,16 +15,16 @@
     "defaultSearchProperty": "ID",
     "displayFormat": "{PriceType} / {Item} / {Unit}",
     "isKernel": false,
+    "iconName": "fluent-color:premium-32",
+    "largeIconName": "fluent-color:premium-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
     "name": "PriceListItem",
-    "iconName": "fluent-color:premium-32",
-    "largeIconName": "fluent-color:premium-32",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
     "createdDateTime": "2026-09-02T09:23:30.9174412",
-    "modifiedDateTime": "2026-09-02T09:23:30.9174412"
+    "modifiedDateTime": "2026-09-12T02:43:31.2663122"
   },
   "fields": [
     {
@@ -161,7 +161,7 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
       "createdDateTime": "2026-09-02T09:23:30.9174622",
-      "modifiedDateTime": "2026-09-02T09:23:30.9174622"
+      "modifiedDateTime": "2026-09-03T12:54:44.8738531"
     },
     {
       "dictionaryMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",

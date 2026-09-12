@@ -6,6 +6,8 @@
     "caption_ru": "Налоговый леджер",
     "description": "Source of tax returns; input/output tax base and amount by code/direction/entity",
     "isObsolete": false,
+    "iconName": "fluent-color:table-48",
+    "largeIconName": "fluent-color:table-48",
     "registerEngineType": "Standard",
     "isDoubleEntry": false,
     "allowNegativeBalance": true,
@@ -13,12 +15,10 @@
     "isExtension": false,
     "metaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
     "name": "TaxLedger",
-    "iconName": "fluent-color:table-48",
-    "largeIconName": "fluent-color:table-48",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-08-25T16:27:11.5240894",
-    "modifiedDateTime": "2026-08-25T16:27:11.5240895"
+    "modifiedDateTime": "2026-09-12T02:43:32.4712004"
   },
   "resources": [
     {

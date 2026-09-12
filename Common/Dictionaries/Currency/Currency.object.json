@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:coin-multiple-48",
+    "largeIconName": "fluent-color:coin-multiple-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "f90a6b92-f04d-4454-8de5-362a8893d34e",
     "name": "Currency",
-    "iconName": "fluent-color:coin-multiple-48",
-    "largeIconName": "fluent-color:coin-multiple-48",
     "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
     "layerId": 1,
     "createdDateTime": "2026-08-22T02:01:50.0177621",
-    "modifiedDateTime": "2026-08-22T03:43:39.1410821"
+    "modifiedDateTime": "2026-09-12T02:43:30.8910175"
   },
   "fields": [
     {

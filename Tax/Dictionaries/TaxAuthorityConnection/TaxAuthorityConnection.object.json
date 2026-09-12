@@ -14,16 +14,16 @@
     "defaultSearchProperty": "Code",
     "displayFormat": "{Code}",
     "isKernel": false,
+    "iconName": "fluent-color:link-32",
+    "largeIconName": "fluent-color:link-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
     "name": "TaxAuthorityConnection",
-    "iconName": "fluent-color:link-32",
-    "largeIconName": "fluent-color:link-32",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-08-29T04:23:03.0915982",
-    "modifiedDateTime": "2026-08-29T04:27:56.3543211"
+    "modifiedDateTime": "2026-09-12T02:43:31.4912615"
   },
   "fields": [
     {

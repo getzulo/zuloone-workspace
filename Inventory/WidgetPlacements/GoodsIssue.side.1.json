@@ -4,15 +4,16 @@
     "objectType": "Document",
     "objectMetaId": "57101301-0000-4000-8000-000000000000",
     "slot": "side",
-    "widgetType": "activity",
-    "displayOrder": 0,
-    "width": 3,
-    "height": 2,
-    "metaId": "3d923476-bace-4e44-b7a7-676462cf185f",
-    "name": "activity",
+    "widgetType": "related-snapshot",
+    "widgetMetaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a107",
+    "displayOrder": 10,
+    "width": 4,
+    "height": 4,
+    "metaId": "279d960b-de79-433f-9992-cf45d76c6b08",
+    "name": "Document.57101301000040008000000000000000.side.46e8dd17a5bd4cdfa4eee3a5c716a21e",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
-    "createdDateTime": "2026-09-09T12:44:02.4056186",
-    "modifiedDateTime": "2026-09-09T12:44:02.4056186"
+    "createdDateTime": "2026-09-12T15:10:43.1595205",
+    "modifiedDateTime": "2026-09-12T20:16:41.1362098"
   }
 }

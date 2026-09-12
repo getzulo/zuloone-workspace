@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:arrow-trending-lines-24",
+    "largeIconName": "fluent-color:arrow-trending-lines-24",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "4969cf4b-d049-4d50-b611-1942cee7fc20",
     "name": "TaxDirection",
-    "iconName": "fluent-color:arrow-trending-lines-24",
-    "largeIconName": "fluent-color:arrow-trending-lines-24",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-08-25T16:22:04.8372131",
-    "modifiedDateTime": "2026-08-25T16:22:04.8372132"
+    "modifiedDateTime": "2026-09-12T02:43:31.542491"
   },
   "fields": [
     {

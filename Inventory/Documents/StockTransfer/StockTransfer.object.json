@@ -10,16 +10,16 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:arrow-sync-24",
+    "largeIconName": "fluent-color:arrow-sync-24",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
     "name": "StockTransfer",
-    "iconName": "fluent-color:arrow-sync-24",
-    "largeIconName": "fluent-color:arrow-sync-24",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
     "createdDateTime": "2026-08-25T17:46:00.4333619",
-    "modifiedDateTime": "2026-08-25T17:46:00.4333619"
+    "modifiedDateTime": "2026-09-12T02:43:32.041204"
   },
   "headerFields": [
     {
@@ -46,8 +46,9 @@
     {
       "documentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
       "fieldName": "ID",
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -63,7 +64,7 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "layerId": 2,
       "createdDateTime": "2026-08-25T17:46:00.4505431",
-      "modifiedDateTime": "2026-08-25T17:46:00.4505433"
+      "modifiedDateTime": "2026-09-03T12:28:57.4362072"
     },
     {
       "documentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",

@@ -5,6 +5,8 @@
     "caption_ru": "Остатки",
     "description": "On-hand quantity by location and item (single-entry accumulation register, MIQS-style). Receipts add +qty, issues/sales post -qty directly from the cell; transfers move between two cells. Balance = actual on-hand — no External counterparty bucket.",
     "isObsolete": false,
+    "iconName": "fluent-color:building-multiple-24",
+    "largeIconName": "fluent-color:building-multiple-24",
     "hotkey": "Ctrl+Shift+E",
     "registerEngineType": "Standard",
     "totalDriverMetaId": "11aaff03-c273-4d2f-8a94-2a590d1501e3",
@@ -14,12 +16,10 @@
     "isExtension": false,
     "metaId": "83559331-ac7f-46da-87a8-7da599ef6f41",
     "name": "Stock",
-    "iconName": "fluent-color:building-multiple-24",
-    "largeIconName": "fluent-color:building-multiple-24",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
     "createdDateTime": "2026-08-26T20:01:49.828327",
-    "modifiedDateTime": "2026-08-30T17:22:28.3767054"
+    "modifiedDateTime": "2026-09-12T02:43:32.4537449"
   },
   "dimensions": [
     {

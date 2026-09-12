@@ -6,6 +6,8 @@
     "caption_ru": "Выручка",
     "description": "Recognized sales revenue by item and customer",
     "isObsolete": false,
+    "iconName": "fluent-color:coin-multiple-48",
+    "largeIconName": "fluent-color:coin-multiple-48",
     "registerEngineType": "Standard",
     "isDoubleEntry": false,
     "allowNegativeBalance": true,
@@ -13,12 +15,10 @@
     "isExtension": false,
     "metaId": "103cdb23-2d49-4c42-9bf3-3c5a8ce46cdc",
     "name": "Revenue",
-    "iconName": "fluent-color:coin-multiple-48",
-    "largeIconName": "fluent-color:coin-multiple-48",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "layerId": 2,
     "createdDateTime": "2026-08-25T17:57:18.5893575",
-    "modifiedDateTime": "2026-08-25T17:57:18.5893578"
+    "modifiedDateTime": "2026-09-12T02:43:32.4162876"
   },
   "resources": [
     {

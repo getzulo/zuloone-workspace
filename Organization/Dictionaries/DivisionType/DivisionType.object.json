@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:org-48",
+    "largeIconName": "fluent-color:org-48",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "9eff86a3-7382-4094-863d-a04d07c4ab0b",
     "name": "DivisionType",
-    "iconName": "fluent-color:org-48",
-    "largeIconName": "fluent-color:org-48",
     "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
     "layerId": 1,
     "createdDateTime": "2026-08-25T15:09:45.0906976",
-    "modifiedDateTime": "2026-08-25T15:09:45.0906976"
+    "modifiedDateTime": "2026-09-12T02:43:30.9781744"
   },
   "fields": [
     {

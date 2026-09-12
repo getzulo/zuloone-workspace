@@ -1,0 +1,19 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "57101301-0000-4000-8000-000000000000",
+    "slot": "footer",
+    "widgetType": "related-documents",
+    "widgetMetaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a10b",
+    "displayOrder": 20,
+    "width": 4,
+    "height": 4,
+    "metaId": "b7fefd35-4d13-4f13-9b1e-3b6c2d5332bf",
+    "name": "Document.57101301000040008000000000000000.footer.fd21c6e1fb3141b1a0e785ef6f69ded7",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
+    "layerId": 2,
+    "createdDateTime": "2026-09-12T15:10:59.1477834",
+    "modifiedDateTime": "2026-09-12T20:16:41.1258694"
+  }
+}

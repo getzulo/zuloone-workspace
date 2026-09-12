@@ -10,16 +10,16 @@
     "isSingleton": false,
     "notificationEnabled": false,
     "isKernel": false,
+    "iconName": "fluent-color:building-multiple-24",
+    "largeIconName": "fluent-color:building-multiple-24",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "f808a852-1145-47bd-953a-d25e42f3c315",
     "name": "TBWarehouse",
-    "iconName": "fluent-color:building-multiple-24",
-    "largeIconName": "fluent-color:building-multiple-24",
     "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "layerId": 1,
     "createdDateTime": "2026-08-28T11:06:18.802172",
-    "modifiedDateTime": "2026-08-28T11:06:18.8021929"
+    "modifiedDateTime": "2026-09-12T02:43:31.6623891"
   },
   "fields": [
     {

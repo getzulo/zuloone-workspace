@@ -10,16 +10,16 @@
     "requiresPosting": true,
     "postOnSave": true,
     "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:clipboard-text-edit-32",
+    "largeIconName": "fluent-color:clipboard-text-edit-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
     "name": "ProductionOrder",
-    "iconName": "fluent-color:clipboard-text-edit-32",
-    "largeIconName": "fluent-color:clipboard-text-edit-32",
     "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
     "layerId": 2,
     "createdDateTime": "2026-08-25T21:31:26.0330582",
-    "modifiedDateTime": "2026-08-25T21:31:26.0330583"
+    "modifiedDateTime": "2026-09-12T02:43:31.8876851"
   },
   "headerFields": [
     {
@@ -47,8 +47,9 @@
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "fieldName": "ID",
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -64,7 +65,7 @@
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
       "layerId": 2,
       "createdDateTime": "2026-08-25T21:31:26.0610257",
-      "modifiedDateTime": "2026-08-25T21:31:26.0610257"
+      "modifiedDateTime": "2026-09-03T12:28:57.3551746"
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",

@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:ribbon-star-32",
+    "largeIconName": "fluent-color:ribbon-star-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "925608f0-94a4-47cc-a1ae-683247980b2d",
     "name": "Brand",
-    "iconName": "fluent-color:ribbon-star-32",
-    "largeIconName": "fluent-color:ribbon-star-32",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "layerId": 2,
     "createdDateTime": "2026-09-09T13:28:57.6299589",
-    "modifiedDateTime": "2026-09-09T13:28:57.6299589"
+    "modifiedDateTime": "2026-09-12T02:43:30.7587802"
   },
   "fields": [
     {

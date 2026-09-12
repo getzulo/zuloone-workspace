@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:building-government-32",
+    "largeIconName": "fluent-color:building-government-32",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "62952a21-be30-46b7-b3db-6f014094a15f",
     "name": "TaxAuthority",
-    "iconName": "fluent-color:building-government-32",
-    "largeIconName": "fluent-color:building-government-32",
     "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
     "layerId": 1,
     "createdDateTime": "2026-08-25T16:22:23.8455834",
-    "modifiedDateTime": "2026-08-25T16:22:23.8455834"
+    "modifiedDateTime": "2026-09-12T02:43:31.4748135"
   },
   "fields": [
     {

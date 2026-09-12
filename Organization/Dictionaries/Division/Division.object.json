@@ -15,16 +15,16 @@
     "defaultSearchProperty": "Name",
     "displayFormat": "{Name}",
     "isKernel": false,
+    "iconName": "fluent-color:building-people-24",
+    "largeIconName": "fluent-color:building-people-24",
     "isObsolete": false,
     "isExtension": false,
     "metaId": "94139682-fbaf-4cea-b3bf-99e067f31b2a",
     "name": "Division",
-    "iconName": "fluent-color:building-people-24",
-    "largeIconName": "fluent-color:building-people-24",
     "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
     "layerId": 1,
     "createdDateTime": "2026-08-25T15:09:58.4872373",
-    "modifiedDateTime": "2026-08-25T15:09:58.4872373"
+    "modifiedDateTime": "2026-09-12T02:43:30.9588173"
   },
   "fields": [
     {
