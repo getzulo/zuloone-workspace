@@ -1,0 +1,21 @@
+[
+  {
+    "id": "catalogs",
+    "file": "catalogs.json",
+    "caption": "Countries, currencies, units",
+    "captionRu": "Страны, валюты, единицы",
+    "caption_ru": "Страны, валюты, единицы",
+    "when": "once",
+    "sort": 10
+  },
+  {
+    "id": "cities-SA",
+    "file": "cities-SA.json",
+    "caption": "Saudi cities",
+    "captionRu": "Города КСА",
+    "caption_ru": "Города КСА",
+    "when": "country",
+    "country": "SA",
+    "sort": 20
+  }
+]

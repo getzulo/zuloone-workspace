@@ -1,0 +1,615 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "cities-SA",
+    "entities": [
+      {
+        "entity": "Region",
+        "table": "Region",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Country",
+          "Name"
+        ],
+        "mode": "insert",
+        "rowCount": 13
+      },
+      {
+        "entity": "City",
+        "table": "City",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Country",
+          "Name"
+        ],
+        "mode": "insert",
+        "rowCount": 22
+      }
+    ]
+  },
+  "data": {
+    "Region": [
+      {
+        "Name": "Riyadh Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Makkah Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Eastern Province",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Madinah Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Al-Qassim Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Hail Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Tabuk Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Northern Borders Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Jazan Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Najran Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Al-Bahah Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Al-Jawf Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      },
+      {
+        "Name": "Asir Region",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        }
+      }
+    ],
+    "City": [
+      {
+        "Name": "Riyadh",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Riyadh Region"
+          }
+        }
+      },
+      {
+        "Name": "Jeddah",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Makkah Region"
+          }
+        }
+      },
+      {
+        "Name": "Makkah",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Makkah Region"
+          }
+        }
+      },
+      {
+        "Name": "Madinah",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Madinah Region"
+          }
+        }
+      },
+      {
+        "Name": "Dammam",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Eastern Province"
+          }
+        }
+      },
+      {
+        "Name": "Khobar",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Eastern Province"
+          }
+        }
+      },
+      {
+        "Name": "Dhahran",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Eastern Province"
+          }
+        }
+      },
+      {
+        "Name": "Jubail",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Eastern Province"
+          }
+        }
+      },
+      {
+        "Name": "Hofuf",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Eastern Province"
+          }
+        }
+      },
+      {
+        "Name": "Qatif",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Eastern Province"
+          }
+        }
+      },
+      {
+        "Name": "Taif",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Makkah Region"
+          }
+        }
+      },
+      {
+        "Name": "Yanbu",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Madinah Region"
+          }
+        }
+      },
+      {
+        "Name": "Buraidah",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Al-Qassim Region"
+          }
+        }
+      },
+      {
+        "Name": "Hail",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Hail Region"
+          }
+        }
+      },
+      {
+        "Name": "Tabuk",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Tabuk Region"
+          }
+        }
+      },
+      {
+        "Name": "Abha",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Asir Region"
+          }
+        }
+      },
+      {
+        "Name": "Khamis Mushait",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Asir Region"
+          }
+        }
+      },
+      {
+        "Name": "Jazan",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Jazan Region"
+          }
+        }
+      },
+      {
+        "Name": "Najran",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Najran Region"
+          }
+        }
+      },
+      {
+        "Name": "Arar",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Northern Borders Region"
+          }
+        }
+      },
+      {
+        "Name": "Sakaka",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Al-Jawf Region"
+          }
+        }
+      },
+      {
+        "Name": "Al Bahah",
+        "Country": {
+          "$ref": "Country",
+          "key": {
+            "CodeISO2": "SA"
+          }
+        },
+        "Region": {
+          "$ref": "Region",
+          "key": {
+            "Country": {
+              "$ref": "Country",
+              "key": {
+                "CodeISO2": "SA"
+              }
+            },
+            "Name": "Al-Bahah Region"
+          }
+        }
+      }
+    ]
+  }
+}

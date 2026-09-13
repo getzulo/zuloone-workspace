@@ -1,0 +1,2439 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "catalogs",
+    "entities": [
+      {
+        "entity": "Country",
+        "table": "Country",
+        "kind": "Dictionary",
+        "businessKey": [
+          "CodeISO2"
+        ],
+        "mode": "insert",
+        "rowCount": 248
+      },
+      {
+        "entity": "Currency",
+        "table": "Currency",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Code"
+        ],
+        "mode": "insert",
+        "rowCount": 155
+      },
+      {
+        "entity": "UnitClass",
+        "table": "UnitClass",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Code"
+        ],
+        "mode": "insert",
+        "rowCount": 4
+      },
+      {
+        "entity": "UnitOfMeasure",
+        "table": "UnitOfMeasure",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Code"
+        ],
+        "mode": "insert",
+        "rowCount": 9
+      }
+    ]
+  },
+  "data": {
+    "Country": [
+      {
+        "CodeISO2": "AF",
+        "CodeISO3": "AFG",
+        "Name": "Afghanistan",
+        "PhoneCode": "+93"
+      },
+      {
+        "CodeISO2": "AL",
+        "CodeISO3": "ALB",
+        "Name": "Albania",
+        "PhoneCode": "+355"
+      },
+      {
+        "CodeISO2": "DZ",
+        "CodeISO3": "DZA",
+        "Name": "Algeria",
+        "PhoneCode": "+213"
+      },
+      {
+        "CodeISO2": "AS",
+        "CodeISO3": "ASM",
+        "Name": "American Samoa",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "AD",
+        "CodeISO3": "AND",
+        "Name": "Andorra",
+        "PhoneCode": "+376"
+      },
+      {
+        "CodeISO2": "AO",
+        "CodeISO3": "AGO",
+        "Name": "Angola",
+        "PhoneCode": "+244"
+      },
+      {
+        "CodeISO2": "AI",
+        "CodeISO3": "AIA",
+        "Name": "Anguilla",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "AQ",
+        "CodeISO3": "ATA",
+        "Name": "Antarctica"
+      },
+      {
+        "CodeISO2": "AG",
+        "CodeISO3": "ATG",
+        "Name": "Antigua and Barbuda",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "AR",
+        "CodeISO3": "ARG",
+        "Name": "Argentina",
+        "PhoneCode": "+54"
+      },
+      {
+        "CodeISO2": "AM",
+        "CodeISO3": "ARM",
+        "Name": "Armenia",
+        "PhoneCode": "+374"
+      },
+      {
+        "CodeISO2": "AW",
+        "CodeISO3": "ABW",
+        "Name": "Aruba",
+        "PhoneCode": "+297"
+      },
+      {
+        "CodeISO2": "AU",
+        "CodeISO3": "AUS",
+        "Name": "Australia",
+        "PhoneCode": "+61"
+      },
+      {
+        "CodeISO2": "AT",
+        "CodeISO3": "AUT",
+        "Name": "Austria",
+        "PhoneCode": "+43"
+      },
+      {
+        "CodeISO2": "AZ",
+        "CodeISO3": "AZE",
+        "Name": "Azerbaijan",
+        "PhoneCode": "+994"
+      },
+      {
+        "CodeISO2": "BS",
+        "CodeISO3": "BHS",
+        "Name": "Bahamas",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "BH",
+        "CodeISO3": "BHR",
+        "Name": "Bahrain",
+        "PhoneCode": "+973"
+      },
+      {
+        "CodeISO2": "BD",
+        "CodeISO3": "BGD",
+        "Name": "Bangladesh",
+        "PhoneCode": "+880"
+      },
+      {
+        "CodeISO2": "BB",
+        "CodeISO3": "BRB",
+        "Name": "Barbados",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "BY",
+        "CodeISO3": "BLR",
+        "Name": "Belarus",
+        "PhoneCode": "+375"
+      },
+      {
+        "CodeISO2": "BE",
+        "CodeISO3": "BEL",
+        "Name": "Belgium",
+        "PhoneCode": "+32"
+      },
+      {
+        "CodeISO2": "BZ",
+        "CodeISO3": "BLZ",
+        "Name": "Belize",
+        "PhoneCode": "+501"
+      },
+      {
+        "CodeISO2": "BJ",
+        "CodeISO3": "BEN",
+        "Name": "Benin",
+        "PhoneCode": "+229"
+      },
+      {
+        "CodeISO2": "BM",
+        "CodeISO3": "BMU",
+        "Name": "Bermuda",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "BT",
+        "CodeISO3": "BTN",
+        "Name": "Bhutan",
+        "PhoneCode": "+975"
+      },
+      {
+        "CodeISO2": "BO",
+        "CodeISO3": "BOL",
+        "Name": "Bolivia",
+        "PhoneCode": "+591"
+      },
+      {
+        "CodeISO2": "BQ",
+        "CodeISO3": "BES",
+        "Name": "Bonaire, Sint Eustatius and Saba",
+        "PhoneCode": "+599"
+      },
+      {
+        "CodeISO2": "BA",
+        "CodeISO3": "BIH",
+        "Name": "Bosnia and Herzegovina",
+        "PhoneCode": "+387"
+      },
+      {
+        "CodeISO2": "BW",
+        "CodeISO3": "BWA",
+        "Name": "Botswana",
+        "PhoneCode": "+267"
+      },
+      {
+        "CodeISO2": "BV",
+        "CodeISO3": "BVT",
+        "Name": "Bouvet Island"
+      },
+      {
+        "CodeISO2": "BR",
+        "CodeISO3": "BRA",
+        "Name": "Brazil",
+        "PhoneCode": "+55"
+      },
+      {
+        "CodeISO2": "IO",
+        "CodeISO3": "IOT",
+        "Name": "British Indian Ocean Territory",
+        "PhoneCode": "+246"
+      },
+      {
+        "CodeISO2": "BN",
+        "CodeISO3": "BRN",
+        "Name": "Brunei Darussalam",
+        "PhoneCode": "+673"
+      },
+      {
+        "CodeISO2": "BG",
+        "CodeISO3": "BGR",
+        "Name": "Bulgaria",
+        "PhoneCode": "+359"
+      },
+      {
+        "CodeISO2": "BF",
+        "CodeISO3": "BFA",
+        "Name": "Burkina Faso",
+        "PhoneCode": "+226"
+      },
+      {
+        "CodeISO2": "BI",
+        "CodeISO3": "BDI",
+        "Name": "Burundi",
+        "PhoneCode": "+257"
+      },
+      {
+        "CodeISO2": "CV",
+        "CodeISO3": "CPV",
+        "Name": "Cabo Verde",
+        "PhoneCode": "+238"
+      },
+      {
+        "CodeISO2": "KH",
+        "CodeISO3": "KHM",
+        "Name": "Cambodia",
+        "PhoneCode": "+855"
+      },
+      {
+        "CodeISO2": "CM",
+        "CodeISO3": "CMR",
+        "Name": "Cameroon",
+        "PhoneCode": "+237"
+      },
+      {
+        "CodeISO2": "CA",
+        "CodeISO3": "CAN",
+        "Name": "Canada",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "KY",
+        "CodeISO3": "CYM",
+        "Name": "Cayman Islands",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "CF",
+        "CodeISO3": "CAF",
+        "Name": "Central African Republic",
+        "PhoneCode": "+236"
+      },
+      {
+        "CodeISO2": "TD",
+        "CodeISO3": "TCD",
+        "Name": "Chad",
+        "PhoneCode": "+235"
+      },
+      {
+        "CodeISO2": "CL",
+        "CodeISO3": "CHL",
+        "Name": "Chile",
+        "PhoneCode": "+56"
+      },
+      {
+        "CodeISO2": "CN",
+        "CodeISO3": "CHN",
+        "Name": "China",
+        "PhoneCode": "+86"
+      },
+      {
+        "CodeISO2": "CX",
+        "CodeISO3": "CXR",
+        "Name": "Christmas Island",
+        "PhoneCode": "+61"
+      },
+      {
+        "CodeISO2": "CC",
+        "CodeISO3": "CCK",
+        "Name": "Cocos (Keeling) Islands",
+        "PhoneCode": "+61"
+      },
+      {
+        "CodeISO2": "CO",
+        "CodeISO3": "COL",
+        "Name": "Colombia",
+        "PhoneCode": "+57"
+      },
+      {
+        "CodeISO2": "KM",
+        "CodeISO3": "COM",
+        "Name": "Comoros",
+        "PhoneCode": "+269"
+      },
+      {
+        "CodeISO2": "CG",
+        "CodeISO3": "COG",
+        "Name": "Congo",
+        "PhoneCode": "+242"
+      },
+      {
+        "CodeISO2": "CD",
+        "CodeISO3": "COD",
+        "Name": "Congo, Democratic Republic of the",
+        "PhoneCode": "+243"
+      },
+      {
+        "CodeISO2": "CK",
+        "CodeISO3": "COK",
+        "Name": "Cook Islands",
+        "PhoneCode": "+682"
+      },
+      {
+        "CodeISO2": "CR",
+        "CodeISO3": "CRI",
+        "Name": "Costa Rica",
+        "PhoneCode": "+506"
+      },
+      {
+        "CodeISO2": "CI",
+        "CodeISO3": "CIV",
+        "Name": "Côte d'Ivoire",
+        "PhoneCode": "+225"
+      },
+      {
+        "CodeISO2": "HR",
+        "CodeISO3": "HRV",
+        "Name": "Croatia",
+        "PhoneCode": "+385"
+      },
+      {
+        "CodeISO2": "CU",
+        "CodeISO3": "CUB",
+        "Name": "Cuba",
+        "PhoneCode": "+53"
+      },
+      {
+        "CodeISO2": "CW",
+        "CodeISO3": "CUW",
+        "Name": "Curaçao",
+        "PhoneCode": "+599"
+      },
+      {
+        "CodeISO2": "CY",
+        "CodeISO3": "CYP",
+        "Name": "Cyprus",
+        "PhoneCode": "+357"
+      },
+      {
+        "CodeISO2": "CZ",
+        "CodeISO3": "CZE",
+        "Name": "Czechia",
+        "PhoneCode": "+420"
+      },
+      {
+        "CodeISO2": "DK",
+        "CodeISO3": "DNK",
+        "Name": "Denmark",
+        "PhoneCode": "+45"
+      },
+      {
+        "CodeISO2": "DJ",
+        "CodeISO3": "DJI",
+        "Name": "Djibouti",
+        "PhoneCode": "+253"
+      },
+      {
+        "CodeISO2": "DM",
+        "CodeISO3": "DMA",
+        "Name": "Dominica",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "DO",
+        "CodeISO3": "DOM",
+        "Name": "Dominican Republic",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "EC",
+        "CodeISO3": "ECU",
+        "Name": "Ecuador",
+        "PhoneCode": "+593"
+      },
+      {
+        "CodeISO2": "EG",
+        "CodeISO3": "EGY",
+        "Name": "Egypt",
+        "PhoneCode": "+20"
+      },
+      {
+        "CodeISO2": "SV",
+        "CodeISO3": "SLV",
+        "Name": "El Salvador",
+        "PhoneCode": "+503"
+      },
+      {
+        "CodeISO2": "GQ",
+        "CodeISO3": "GNQ",
+        "Name": "Equatorial Guinea",
+        "PhoneCode": "+240"
+      },
+      {
+        "CodeISO2": "ER",
+        "CodeISO3": "ERI",
+        "Name": "Eritrea",
+        "PhoneCode": "+291"
+      },
+      {
+        "CodeISO2": "EE",
+        "CodeISO3": "EST",
+        "Name": "Estonia",
+        "PhoneCode": "+372"
+      },
+      {
+        "CodeISO2": "SZ",
+        "CodeISO3": "SWZ",
+        "Name": "Eswatini",
+        "PhoneCode": "+268"
+      },
+      {
+        "CodeISO2": "ET",
+        "CodeISO3": "ETH",
+        "Name": "Ethiopia",
+        "PhoneCode": "+251"
+      },
+      {
+        "CodeISO2": "FK",
+        "CodeISO3": "FLK",
+        "Name": "Falkland Islands",
+        "PhoneCode": "+500"
+      },
+      {
+        "CodeISO2": "FO",
+        "CodeISO3": "FRO",
+        "Name": "Faroe Islands",
+        "PhoneCode": "+298"
+      },
+      {
+        "CodeISO2": "FJ",
+        "CodeISO3": "FJI",
+        "Name": "Fiji",
+        "PhoneCode": "+679"
+      },
+      {
+        "CodeISO2": "FI",
+        "CodeISO3": "FIN",
+        "Name": "Finland",
+        "PhoneCode": "+358"
+      },
+      {
+        "CodeISO2": "FR",
+        "CodeISO3": "FRA",
+        "Name": "France",
+        "PhoneCode": "+33"
+      },
+      {
+        "CodeISO2": "GF",
+        "CodeISO3": "GUF",
+        "Name": "French Guiana",
+        "PhoneCode": "+594"
+      },
+      {
+        "CodeISO2": "PF",
+        "CodeISO3": "PYF",
+        "Name": "French Polynesia",
+        "PhoneCode": "+689"
+      },
+      {
+        "CodeISO2": "TF",
+        "CodeISO3": "ATF",
+        "Name": "French Southern Territories"
+      },
+      {
+        "CodeISO2": "GA",
+        "CodeISO3": "GAB",
+        "Name": "Gabon",
+        "PhoneCode": "+241"
+      },
+      {
+        "CodeISO2": "GM",
+        "CodeISO3": "GMB",
+        "Name": "Gambia",
+        "PhoneCode": "+220"
+      },
+      {
+        "CodeISO2": "GE",
+        "CodeISO3": "GEO",
+        "Name": "Georgia",
+        "PhoneCode": "+995"
+      },
+      {
+        "CodeISO2": "DE",
+        "CodeISO3": "DEU",
+        "Name": "Germany",
+        "PhoneCode": "+49"
+      },
+      {
+        "CodeISO2": "GH",
+        "CodeISO3": "GHA",
+        "Name": "Ghana",
+        "PhoneCode": "+233"
+      },
+      {
+        "CodeISO2": "GI",
+        "CodeISO3": "GIB",
+        "Name": "Gibraltar",
+        "PhoneCode": "+350"
+      },
+      {
+        "CodeISO2": "GR",
+        "CodeISO3": "GRC",
+        "Name": "Greece",
+        "PhoneCode": "+30"
+      },
+      {
+        "CodeISO2": "GL",
+        "CodeISO3": "GRL",
+        "Name": "Greenland",
+        "PhoneCode": "+299"
+      },
+      {
+        "CodeISO2": "GD",
+        "CodeISO3": "GRD",
+        "Name": "Grenada",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "GP",
+        "CodeISO3": "GLP",
+        "Name": "Guadeloupe",
+        "PhoneCode": "+590"
+      },
+      {
+        "CodeISO2": "GU",
+        "CodeISO3": "GUM",
+        "Name": "Guam",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "GT",
+        "CodeISO3": "GTM",
+        "Name": "Guatemala",
+        "PhoneCode": "+502"
+      },
+      {
+        "CodeISO2": "GG",
+        "CodeISO3": "GGY",
+        "Name": "Guernsey",
+        "PhoneCode": "+44"
+      },
+      {
+        "CodeISO2": "GN",
+        "CodeISO3": "GIN",
+        "Name": "Guinea",
+        "PhoneCode": "+224"
+      },
+      {
+        "CodeISO2": "GW",
+        "CodeISO3": "GNB",
+        "Name": "Guinea-Bissau",
+        "PhoneCode": "+245"
+      },
+      {
+        "CodeISO2": "GY",
+        "CodeISO3": "GUY",
+        "Name": "Guyana",
+        "PhoneCode": "+592"
+      },
+      {
+        "CodeISO2": "HT",
+        "CodeISO3": "HTI",
+        "Name": "Haiti",
+        "PhoneCode": "+509"
+      },
+      {
+        "CodeISO2": "HM",
+        "CodeISO3": "HMD",
+        "Name": "Heard Island and McDonald Islands"
+      },
+      {
+        "CodeISO2": "VA",
+        "CodeISO3": "VAT",
+        "Name": "Holy See",
+        "PhoneCode": "+39"
+      },
+      {
+        "CodeISO2": "HN",
+        "CodeISO3": "HND",
+        "Name": "Honduras",
+        "PhoneCode": "+504"
+      },
+      {
+        "CodeISO2": "HK",
+        "CodeISO3": "HKG",
+        "Name": "Hong Kong",
+        "PhoneCode": "+852"
+      },
+      {
+        "CodeISO2": "HU",
+        "CodeISO3": "HUN",
+        "Name": "Hungary",
+        "PhoneCode": "+36"
+      },
+      {
+        "CodeISO2": "IS",
+        "CodeISO3": "ISL",
+        "Name": "Iceland",
+        "PhoneCode": "+354"
+      },
+      {
+        "CodeISO2": "IN",
+        "CodeISO3": "IND",
+        "Name": "India",
+        "PhoneCode": "+91"
+      },
+      {
+        "CodeISO2": "ID",
+        "CodeISO3": "IDN",
+        "Name": "Indonesia",
+        "PhoneCode": "+62"
+      },
+      {
+        "CodeISO2": "IR",
+        "CodeISO3": "IRN",
+        "Name": "Iran",
+        "PhoneCode": "+98"
+      },
+      {
+        "CodeISO2": "IQ",
+        "CodeISO3": "IRQ",
+        "Name": "Iraq",
+        "PhoneCode": "+964"
+      },
+      {
+        "CodeISO2": "IE",
+        "CodeISO3": "IRL",
+        "Name": "Ireland",
+        "PhoneCode": "+353"
+      },
+      {
+        "CodeISO2": "IM",
+        "CodeISO3": "IMN",
+        "Name": "Isle of Man",
+        "PhoneCode": "+44"
+      },
+      {
+        "CodeISO2": "IL",
+        "CodeISO3": "ISR",
+        "Name": "Israel",
+        "PhoneCode": "+972"
+      },
+      {
+        "CodeISO2": "IT",
+        "CodeISO3": "ITA",
+        "Name": "Italy",
+        "PhoneCode": "+39"
+      },
+      {
+        "CodeISO2": "JM",
+        "CodeISO3": "JAM",
+        "Name": "Jamaica",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "JP",
+        "CodeISO3": "JPN",
+        "Name": "Japan",
+        "PhoneCode": "+81"
+      },
+      {
+        "CodeISO2": "JE",
+        "CodeISO3": "JEY",
+        "Name": "Jersey",
+        "PhoneCode": "+44"
+      },
+      {
+        "CodeISO2": "JO",
+        "CodeISO3": "JOR",
+        "Name": "Jordan",
+        "PhoneCode": "+962"
+      },
+      {
+        "CodeISO2": "KZ",
+        "CodeISO3": "KAZ",
+        "Name": "Kazakhstan",
+        "PhoneCode": "+7"
+      },
+      {
+        "CodeISO2": "KE",
+        "CodeISO3": "KEN",
+        "Name": "Kenya",
+        "PhoneCode": "+254"
+      },
+      {
+        "CodeISO2": "KI",
+        "CodeISO3": "KIR",
+        "Name": "Kiribati",
+        "PhoneCode": "+686"
+      },
+      {
+        "CodeISO2": "KP",
+        "CodeISO3": "PRK",
+        "Name": "Korea, Democratic People's Republic of",
+        "PhoneCode": "+850"
+      },
+      {
+        "CodeISO2": "KR",
+        "CodeISO3": "KOR",
+        "Name": "Korea, Republic of",
+        "PhoneCode": "+82"
+      },
+      {
+        "CodeISO2": "KW",
+        "CodeISO3": "KWT",
+        "Name": "Kuwait",
+        "PhoneCode": "+965"
+      },
+      {
+        "CodeISO2": "KG",
+        "CodeISO3": "KGZ",
+        "Name": "Kyrgyzstan",
+        "PhoneCode": "+996"
+      },
+      {
+        "CodeISO2": "LA",
+        "CodeISO3": "LAO",
+        "Name": "Lao People's Democratic Republic",
+        "PhoneCode": "+856"
+      },
+      {
+        "CodeISO2": "LV",
+        "CodeISO3": "LVA",
+        "Name": "Latvia",
+        "PhoneCode": "+371"
+      },
+      {
+        "CodeISO2": "LB",
+        "CodeISO3": "LBN",
+        "Name": "Lebanon",
+        "PhoneCode": "+961"
+      },
+      {
+        "CodeISO2": "LS",
+        "CodeISO3": "LSO",
+        "Name": "Lesotho",
+        "PhoneCode": "+266"
+      },
+      {
+        "CodeISO2": "LR",
+        "CodeISO3": "LBR",
+        "Name": "Liberia",
+        "PhoneCode": "+231"
+      },
+      {
+        "CodeISO2": "LY",
+        "CodeISO3": "LBY",
+        "Name": "Libya",
+        "PhoneCode": "+218"
+      },
+      {
+        "CodeISO2": "LI",
+        "CodeISO3": "LIE",
+        "Name": "Liechtenstein",
+        "PhoneCode": "+423"
+      },
+      {
+        "CodeISO2": "LT",
+        "CodeISO3": "LTU",
+        "Name": "Lithuania",
+        "PhoneCode": "+370"
+      },
+      {
+        "CodeISO2": "LU",
+        "CodeISO3": "LUX",
+        "Name": "Luxembourg",
+        "PhoneCode": "+352"
+      },
+      {
+        "CodeISO2": "MO",
+        "CodeISO3": "MAC",
+        "Name": "Macao",
+        "PhoneCode": "+853"
+      },
+      {
+        "CodeISO2": "MG",
+        "CodeISO3": "MDG",
+        "Name": "Madagascar",
+        "PhoneCode": "+261"
+      },
+      {
+        "CodeISO2": "MW",
+        "CodeISO3": "MWI",
+        "Name": "Malawi",
+        "PhoneCode": "+265"
+      },
+      {
+        "CodeISO2": "MY",
+        "CodeISO3": "MYS",
+        "Name": "Malaysia",
+        "PhoneCode": "+60"
+      },
+      {
+        "CodeISO2": "MV",
+        "CodeISO3": "MDV",
+        "Name": "Maldives",
+        "PhoneCode": "+960"
+      },
+      {
+        "CodeISO2": "ML",
+        "CodeISO3": "MLI",
+        "Name": "Mali",
+        "PhoneCode": "+223"
+      },
+      {
+        "CodeISO2": "MT",
+        "CodeISO3": "MLT",
+        "Name": "Malta",
+        "PhoneCode": "+356"
+      },
+      {
+        "CodeISO2": "MH",
+        "CodeISO3": "MHL",
+        "Name": "Marshall Islands",
+        "PhoneCode": "+692"
+      },
+      {
+        "CodeISO2": "MQ",
+        "CodeISO3": "MTQ",
+        "Name": "Martinique",
+        "PhoneCode": "+596"
+      },
+      {
+        "CodeISO2": "MR",
+        "CodeISO3": "MRT",
+        "Name": "Mauritania",
+        "PhoneCode": "+222"
+      },
+      {
+        "CodeISO2": "MU",
+        "CodeISO3": "MUS",
+        "Name": "Mauritius",
+        "PhoneCode": "+230"
+      },
+      {
+        "CodeISO2": "YT",
+        "CodeISO3": "MYT",
+        "Name": "Mayotte",
+        "PhoneCode": "+262"
+      },
+      {
+        "CodeISO2": "MX",
+        "CodeISO3": "MEX",
+        "Name": "Mexico",
+        "PhoneCode": "+52"
+      },
+      {
+        "CodeISO2": "FM",
+        "CodeISO3": "FSM",
+        "Name": "Micronesia",
+        "PhoneCode": "+691"
+      },
+      {
+        "CodeISO2": "MD",
+        "CodeISO3": "MDA",
+        "Name": "Moldova",
+        "PhoneCode": "+373"
+      },
+      {
+        "CodeISO2": "MC",
+        "CodeISO3": "MCO",
+        "Name": "Monaco",
+        "PhoneCode": "+377"
+      },
+      {
+        "CodeISO2": "MN",
+        "CodeISO3": "MNG",
+        "Name": "Mongolia",
+        "PhoneCode": "+976"
+      },
+      {
+        "CodeISO2": "ME",
+        "CodeISO3": "MNE",
+        "Name": "Montenegro",
+        "PhoneCode": "+382"
+      },
+      {
+        "CodeISO2": "MS",
+        "CodeISO3": "MSR",
+        "Name": "Montserrat",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "MA",
+        "CodeISO3": "MAR",
+        "Name": "Morocco",
+        "PhoneCode": "+212"
+      },
+      {
+        "CodeISO2": "MZ",
+        "CodeISO3": "MOZ",
+        "Name": "Mozambique",
+        "PhoneCode": "+258"
+      },
+      {
+        "CodeISO2": "MM",
+        "CodeISO3": "MMR",
+        "Name": "Myanmar",
+        "PhoneCode": "+95"
+      },
+      {
+        "CodeISO2": "NA",
+        "CodeISO3": "NAM",
+        "Name": "Namibia",
+        "PhoneCode": "+264"
+      },
+      {
+        "CodeISO2": "NR",
+        "CodeISO3": "NRU",
+        "Name": "Nauru",
+        "PhoneCode": "+674"
+      },
+      {
+        "CodeISO2": "NP",
+        "CodeISO3": "NPL",
+        "Name": "Nepal",
+        "PhoneCode": "+977"
+      },
+      {
+        "CodeISO2": "NL",
+        "CodeISO3": "NLD",
+        "Name": "Netherlands",
+        "PhoneCode": "+31"
+      },
+      {
+        "CodeISO2": "NC",
+        "CodeISO3": "NCL",
+        "Name": "New Caledonia",
+        "PhoneCode": "+687"
+      },
+      {
+        "CodeISO2": "NZ",
+        "CodeISO3": "NZL",
+        "Name": "New Zealand",
+        "PhoneCode": "+64"
+      },
+      {
+        "CodeISO2": "NI",
+        "CodeISO3": "NIC",
+        "Name": "Nicaragua",
+        "PhoneCode": "+505"
+      },
+      {
+        "CodeISO2": "NE",
+        "CodeISO3": "NER",
+        "Name": "Niger",
+        "PhoneCode": "+227"
+      },
+      {
+        "CodeISO2": "NG",
+        "CodeISO3": "NGA",
+        "Name": "Nigeria",
+        "PhoneCode": "+234"
+      },
+      {
+        "CodeISO2": "NU",
+        "CodeISO3": "NIU",
+        "Name": "Niue",
+        "PhoneCode": "+683"
+      },
+      {
+        "CodeISO2": "NF",
+        "CodeISO3": "NFK",
+        "Name": "Norfolk Island",
+        "PhoneCode": "+672"
+      },
+      {
+        "CodeISO2": "MK",
+        "CodeISO3": "MKD",
+        "Name": "North Macedonia",
+        "PhoneCode": "+389"
+      },
+      {
+        "CodeISO2": "MP",
+        "CodeISO3": "MNP",
+        "Name": "Northern Mariana Islands",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "NO",
+        "CodeISO3": "NOR",
+        "Name": "Norway",
+        "PhoneCode": "+47"
+      },
+      {
+        "CodeISO2": "OM",
+        "CodeISO3": "OMN",
+        "Name": "Oman",
+        "PhoneCode": "+968"
+      },
+      {
+        "CodeISO2": "PK",
+        "CodeISO3": "PAK",
+        "Name": "Pakistan",
+        "PhoneCode": "+92"
+      },
+      {
+        "CodeISO2": "PW",
+        "CodeISO3": "PLW",
+        "Name": "Palau",
+        "PhoneCode": "+680"
+      },
+      {
+        "CodeISO2": "PS",
+        "CodeISO3": "PSE",
+        "Name": "Palestine, State of",
+        "PhoneCode": "+970"
+      },
+      {
+        "CodeISO2": "PA",
+        "CodeISO3": "PAN",
+        "Name": "Panama",
+        "PhoneCode": "+507"
+      },
+      {
+        "CodeISO2": "PG",
+        "CodeISO3": "PNG",
+        "Name": "Papua New Guinea",
+        "PhoneCode": "+675"
+      },
+      {
+        "CodeISO2": "PY",
+        "CodeISO3": "PRY",
+        "Name": "Paraguay",
+        "PhoneCode": "+595"
+      },
+      {
+        "CodeISO2": "PE",
+        "CodeISO3": "PER",
+        "Name": "Peru",
+        "PhoneCode": "+51"
+      },
+      {
+        "CodeISO2": "PH",
+        "CodeISO3": "PHL",
+        "Name": "Philippines",
+        "PhoneCode": "+63"
+      },
+      {
+        "CodeISO2": "PN",
+        "CodeISO3": "PCN",
+        "Name": "Pitcairn",
+        "PhoneCode": "+64"
+      },
+      {
+        "CodeISO2": "PL",
+        "CodeISO3": "POL",
+        "Name": "Poland",
+        "PhoneCode": "+48"
+      },
+      {
+        "CodeISO2": "PT",
+        "CodeISO3": "PRT",
+        "Name": "Portugal",
+        "PhoneCode": "+351"
+      },
+      {
+        "CodeISO2": "PR",
+        "CodeISO3": "PRI",
+        "Name": "Puerto Rico",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "QA",
+        "CodeISO3": "QAT",
+        "Name": "Qatar",
+        "PhoneCode": "+974"
+      },
+      {
+        "CodeISO2": "RE",
+        "CodeISO3": "REU",
+        "Name": "Réunion",
+        "PhoneCode": "+262"
+      },
+      {
+        "CodeISO2": "RO",
+        "CodeISO3": "ROU",
+        "Name": "Romania",
+        "PhoneCode": "+40"
+      },
+      {
+        "CodeISO2": "RU",
+        "CodeISO3": "RUS",
+        "Name": "Russian Federation",
+        "PhoneCode": "+7"
+      },
+      {
+        "CodeISO2": "RW",
+        "CodeISO3": "RWA",
+        "Name": "Rwanda",
+        "PhoneCode": "+250"
+      },
+      {
+        "CodeISO2": "BL",
+        "CodeISO3": "BLM",
+        "Name": "Saint Barthélemy",
+        "PhoneCode": "+590"
+      },
+      {
+        "CodeISO2": "SH",
+        "CodeISO3": "SHN",
+        "Name": "Saint Helena, Ascension and Tristan da Cunha",
+        "PhoneCode": "+290"
+      },
+      {
+        "CodeISO2": "KN",
+        "CodeISO3": "KNA",
+        "Name": "Saint Kitts and Nevis",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "LC",
+        "CodeISO3": "LCA",
+        "Name": "Saint Lucia",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "MF",
+        "CodeISO3": "MAF",
+        "Name": "Saint Martin (French part)",
+        "PhoneCode": "+590"
+      },
+      {
+        "CodeISO2": "PM",
+        "CodeISO3": "SPM",
+        "Name": "Saint Pierre and Miquelon",
+        "PhoneCode": "+508"
+      },
+      {
+        "CodeISO2": "VC",
+        "CodeISO3": "VCT",
+        "Name": "Saint Vincent and the Grenadines",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "WS",
+        "CodeISO3": "WSM",
+        "Name": "Samoa",
+        "PhoneCode": "+685"
+      },
+      {
+        "CodeISO2": "SM",
+        "CodeISO3": "SMR",
+        "Name": "San Marino",
+        "PhoneCode": "+378"
+      },
+      {
+        "CodeISO2": "ST",
+        "CodeISO3": "STP",
+        "Name": "Sao Tome and Principe",
+        "PhoneCode": "+239"
+      },
+      {
+        "CodeISO2": "SA",
+        "CodeISO3": "SAU",
+        "Name": "Saudi Arabia",
+        "PhoneCode": "+966"
+      },
+      {
+        "CodeISO2": "SN",
+        "CodeISO3": "SEN",
+        "Name": "Senegal",
+        "PhoneCode": "+221"
+      },
+      {
+        "CodeISO2": "RS",
+        "CodeISO3": "SRB",
+        "Name": "Serbia",
+        "PhoneCode": "+381"
+      },
+      {
+        "CodeISO2": "SC",
+        "CodeISO3": "SYC",
+        "Name": "Seychelles",
+        "PhoneCode": "+248"
+      },
+      {
+        "CodeISO2": "SL",
+        "CodeISO3": "SLE",
+        "Name": "Sierra Leone",
+        "PhoneCode": "+232"
+      },
+      {
+        "CodeISO2": "SG",
+        "CodeISO3": "SGP",
+        "Name": "Singapore",
+        "PhoneCode": "+65"
+      },
+      {
+        "CodeISO2": "SX",
+        "CodeISO3": "SXM",
+        "Name": "Sint Maarten (Dutch part)",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "SK",
+        "CodeISO3": "SVK",
+        "Name": "Slovakia",
+        "PhoneCode": "+421"
+      },
+      {
+        "CodeISO2": "SI",
+        "CodeISO3": "SVN",
+        "Name": "Slovenia",
+        "PhoneCode": "+386"
+      },
+      {
+        "CodeISO2": "SB",
+        "CodeISO3": "SLB",
+        "Name": "Solomon Islands",
+        "PhoneCode": "+677"
+      },
+      {
+        "CodeISO2": "SO",
+        "CodeISO3": "SOM",
+        "Name": "Somalia",
+        "PhoneCode": "+252"
+      },
+      {
+        "CodeISO2": "ZA",
+        "CodeISO3": "ZAF",
+        "Name": "South Africa",
+        "PhoneCode": "+27"
+      },
+      {
+        "CodeISO2": "GS",
+        "CodeISO3": "SGS",
+        "Name": "South Georgia and the South Sandwich Islands"
+      },
+      {
+        "CodeISO2": "SS",
+        "CodeISO3": "SSD",
+        "Name": "South Sudan",
+        "PhoneCode": "+211"
+      },
+      {
+        "CodeISO2": "ES",
+        "CodeISO3": "ESP",
+        "Name": "Spain",
+        "PhoneCode": "+34"
+      },
+      {
+        "CodeISO2": "LK",
+        "CodeISO3": "LKA",
+        "Name": "Sri Lanka",
+        "PhoneCode": "+94"
+      },
+      {
+        "CodeISO2": "SD",
+        "CodeISO3": "SDN",
+        "Name": "Sudan",
+        "PhoneCode": "+249"
+      },
+      {
+        "CodeISO2": "SR",
+        "CodeISO3": "SUR",
+        "Name": "Suriname",
+        "PhoneCode": "+597"
+      },
+      {
+        "CodeISO2": "SJ",
+        "CodeISO3": "SJM",
+        "Name": "Svalbard and Jan Mayen",
+        "PhoneCode": "+47"
+      },
+      {
+        "CodeISO2": "SE",
+        "CodeISO3": "SWE",
+        "Name": "Sweden",
+        "PhoneCode": "+46"
+      },
+      {
+        "CodeISO2": "CH",
+        "CodeISO3": "CHE",
+        "Name": "Switzerland",
+        "PhoneCode": "+41"
+      },
+      {
+        "CodeISO2": "SY",
+        "CodeISO3": "SYR",
+        "Name": "Syrian Arab Republic",
+        "PhoneCode": "+963"
+      },
+      {
+        "CodeISO2": "TW",
+        "CodeISO3": "TWN",
+        "Name": "Taiwan",
+        "PhoneCode": "+886"
+      },
+      {
+        "CodeISO2": "TJ",
+        "CodeISO3": "TJK",
+        "Name": "Tajikistan",
+        "PhoneCode": "+992"
+      },
+      {
+        "CodeISO2": "TZ",
+        "CodeISO3": "TZA",
+        "Name": "Tanzania",
+        "PhoneCode": "+255"
+      },
+      {
+        "CodeISO2": "TH",
+        "CodeISO3": "THA",
+        "Name": "Thailand",
+        "PhoneCode": "+66"
+      },
+      {
+        "CodeISO2": "TL",
+        "CodeISO3": "TLS",
+        "Name": "Timor-Leste",
+        "PhoneCode": "+670"
+      },
+      {
+        "CodeISO2": "TG",
+        "CodeISO3": "TGO",
+        "Name": "Togo",
+        "PhoneCode": "+228"
+      },
+      {
+        "CodeISO2": "TK",
+        "CodeISO3": "TKL",
+        "Name": "Tokelau",
+        "PhoneCode": "+690"
+      },
+      {
+        "CodeISO2": "TO",
+        "CodeISO3": "TON",
+        "Name": "Tonga",
+        "PhoneCode": "+676"
+      },
+      {
+        "CodeISO2": "TT",
+        "CodeISO3": "TTO",
+        "Name": "Trinidad and Tobago",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "TN",
+        "CodeISO3": "TUN",
+        "Name": "Tunisia",
+        "PhoneCode": "+216"
+      },
+      {
+        "CodeISO2": "TR",
+        "CodeISO3": "TUR",
+        "Name": "Türkiye",
+        "PhoneCode": "+90"
+      },
+      {
+        "CodeISO2": "TM",
+        "CodeISO3": "TKM",
+        "Name": "Turkmenistan",
+        "PhoneCode": "+993"
+      },
+      {
+        "CodeISO2": "TC",
+        "CodeISO3": "TCA",
+        "Name": "Turks and Caicos Islands",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "TV",
+        "CodeISO3": "TUV",
+        "Name": "Tuvalu",
+        "PhoneCode": "+688"
+      },
+      {
+        "CodeISO2": "UG",
+        "CodeISO3": "UGA",
+        "Name": "Uganda",
+        "PhoneCode": "+256"
+      },
+      {
+        "CodeISO2": "UA",
+        "CodeISO3": "UKR",
+        "Name": "Ukraine",
+        "PhoneCode": "+380"
+      },
+      {
+        "CodeISO2": "AE",
+        "CodeISO3": "ARE",
+        "Name": "United Arab Emirates",
+        "PhoneCode": "+971"
+      },
+      {
+        "CodeISO2": "GB",
+        "CodeISO3": "GBR",
+        "Name": "United Kingdom",
+        "PhoneCode": "+44"
+      },
+      {
+        "CodeISO2": "US",
+        "CodeISO3": "USA",
+        "Name": "United States of America",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "UM",
+        "CodeISO3": "UMI",
+        "Name": "United States Minor Outlying Islands"
+      },
+      {
+        "CodeISO2": "UY",
+        "CodeISO3": "URY",
+        "Name": "Uruguay",
+        "PhoneCode": "+598"
+      },
+      {
+        "CodeISO2": "UZ",
+        "CodeISO3": "UZB",
+        "Name": "Uzbekistan",
+        "PhoneCode": "+998"
+      },
+      {
+        "CodeISO2": "VU",
+        "CodeISO3": "VUT",
+        "Name": "Vanuatu",
+        "PhoneCode": "+678"
+      },
+      {
+        "CodeISO2": "VE",
+        "CodeISO3": "VEN",
+        "Name": "Venezuela",
+        "PhoneCode": "+58"
+      },
+      {
+        "CodeISO2": "VN",
+        "CodeISO3": "VNM",
+        "Name": "Viet Nam",
+        "PhoneCode": "+84"
+      },
+      {
+        "CodeISO2": "VG",
+        "CodeISO3": "VGB",
+        "Name": "Virgin Islands (British)",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "VI",
+        "CodeISO3": "VIR",
+        "Name": "Virgin Islands (U.S.)",
+        "PhoneCode": "+1"
+      },
+      {
+        "CodeISO2": "WF",
+        "CodeISO3": "WLF",
+        "Name": "Wallis and Futuna",
+        "PhoneCode": "+681"
+      },
+      {
+        "CodeISO2": "EH",
+        "CodeISO3": "ESH",
+        "Name": "Western Sahara",
+        "PhoneCode": "+212"
+      },
+      {
+        "CodeISO2": "YE",
+        "CodeISO3": "YEM",
+        "Name": "Yemen",
+        "PhoneCode": "+967"
+      },
+      {
+        "CodeISO2": "ZM",
+        "CodeISO3": "ZMB",
+        "Name": "Zambia",
+        "PhoneCode": "+260"
+      },
+      {
+        "CodeISO2": "ZW",
+        "CodeISO3": "ZWE",
+        "Name": "Zimbabwe",
+        "PhoneCode": "+263"
+      }
+    ],
+    "Currency": [
+      {
+        "Code": "AED",
+        "Name": "UAE Dirham",
+        "Symbol": "د.إ"
+      },
+      {
+        "Code": "AFN",
+        "Name": "Afghani",
+        "Symbol": "؋"
+      },
+      {
+        "Code": "ALL",
+        "Name": "Lek",
+        "Symbol": "L"
+      },
+      {
+        "Code": "AMD",
+        "Name": "Armenian Dram",
+        "Symbol": "֏"
+      },
+      {
+        "Code": "ANG",
+        "Name": "Netherlands Antillean Guilder",
+        "Symbol": "ƒ"
+      },
+      {
+        "Code": "AOA",
+        "Name": "Kwanza",
+        "Symbol": "Kz"
+      },
+      {
+        "Code": "ARS",
+        "Name": "Argentine Peso",
+        "Symbol": "$"
+      },
+      {
+        "Code": "AUD",
+        "Name": "Australian Dollar",
+        "Symbol": "A$"
+      },
+      {
+        "Code": "AWG",
+        "Name": "Aruban Florin",
+        "Symbol": "ƒ"
+      },
+      {
+        "Code": "AZN",
+        "Name": "Azerbaijan Manat",
+        "Symbol": "₼"
+      },
+      {
+        "Code": "BAM",
+        "Name": "Convertible Mark",
+        "Symbol": "KM"
+      },
+      {
+        "Code": "BBD",
+        "Name": "Barbados Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "BDT",
+        "Name": "Taka",
+        "Symbol": "৳"
+      },
+      {
+        "Code": "BGN",
+        "Name": "Bulgarian Lev",
+        "Symbol": "лв"
+      },
+      {
+        "Code": "BHD",
+        "Name": "Bahraini Dinar",
+        "Symbol": "BD"
+      },
+      {
+        "Code": "BIF",
+        "Name": "Burundi Franc",
+        "Symbol": "FBu"
+      },
+      {
+        "Code": "BMD",
+        "Name": "Bermudian Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "BND",
+        "Name": "Brunei Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "BOB",
+        "Name": "Boliviano",
+        "Symbol": "Bs"
+      },
+      {
+        "Code": "BRL",
+        "Name": "Brazilian Real",
+        "Symbol": "R$"
+      },
+      {
+        "Code": "BSD",
+        "Name": "Bahamian Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "BTN",
+        "Name": "Ngultrum",
+        "Symbol": "Nu"
+      },
+      {
+        "Code": "BWP",
+        "Name": "Pula",
+        "Symbol": "P"
+      },
+      {
+        "Code": "BYN",
+        "Name": "Belarusian Ruble",
+        "Symbol": "Br"
+      },
+      {
+        "Code": "BZD",
+        "Name": "Belize Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "CAD",
+        "Name": "Canadian Dollar",
+        "Symbol": "C$"
+      },
+      {
+        "Code": "CDF",
+        "Name": "Congolese Franc",
+        "Symbol": "FC"
+      },
+      {
+        "Code": "CHF",
+        "Name": "Swiss Franc",
+        "Symbol": "CHF"
+      },
+      {
+        "Code": "CLP",
+        "Name": "Chilean Peso",
+        "Symbol": "$"
+      },
+      {
+        "Code": "CNY",
+        "Name": "Yuan Renminbi",
+        "Symbol": "¥"
+      },
+      {
+        "Code": "COP",
+        "Name": "Colombian Peso",
+        "Symbol": "$"
+      },
+      {
+        "Code": "CRC",
+        "Name": "Costa Rican Colon",
+        "Symbol": "₡"
+      },
+      {
+        "Code": "CUP",
+        "Name": "Cuban Peso",
+        "Symbol": "$"
+      },
+      {
+        "Code": "CVE",
+        "Name": "Cabo Verde Escudo",
+        "Symbol": "$"
+      },
+      {
+        "Code": "CZK",
+        "Name": "Czech Koruna",
+        "Symbol": "Kč"
+      },
+      {
+        "Code": "DJF",
+        "Name": "Djibouti Franc",
+        "Symbol": "Fdj"
+      },
+      {
+        "Code": "DKK",
+        "Name": "Danish Krone",
+        "Symbol": "kr"
+      },
+      {
+        "Code": "DOP",
+        "Name": "Dominican Peso",
+        "Symbol": "$"
+      },
+      {
+        "Code": "DZD",
+        "Name": "Algerian Dinar",
+        "Symbol": "DA"
+      },
+      {
+        "Code": "EGP",
+        "Name": "Egyptian Pound",
+        "Symbol": "E£"
+      },
+      {
+        "Code": "ERN",
+        "Name": "Nakfa",
+        "Symbol": "Nfk"
+      },
+      {
+        "Code": "ETB",
+        "Name": "Ethiopian Birr",
+        "Symbol": "Br"
+      },
+      {
+        "Code": "EUR",
+        "Name": "Euro",
+        "Symbol": "€"
+      },
+      {
+        "Code": "FJD",
+        "Name": "Fiji Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "FKP",
+        "Name": "Falkland Islands Pound",
+        "Symbol": "£"
+      },
+      {
+        "Code": "GBP",
+        "Name": "Pound Sterling",
+        "Symbol": "£"
+      },
+      {
+        "Code": "GEL",
+        "Name": "Lari",
+        "Symbol": "₾"
+      },
+      {
+        "Code": "GHS",
+        "Name": "Ghana Cedi",
+        "Symbol": "₵"
+      },
+      {
+        "Code": "GIP",
+        "Name": "Gibraltar Pound",
+        "Symbol": "£"
+      },
+      {
+        "Code": "GMD",
+        "Name": "Dalasi",
+        "Symbol": "D"
+      },
+      {
+        "Code": "GNF",
+        "Name": "Guinean Franc",
+        "Symbol": "FG"
+      },
+      {
+        "Code": "GTQ",
+        "Name": "Quetzal",
+        "Symbol": "Q"
+      },
+      {
+        "Code": "GYD",
+        "Name": "Guyana Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "HKD",
+        "Name": "Hong Kong Dollar",
+        "Symbol": "HK$"
+      },
+      {
+        "Code": "HNL",
+        "Name": "Lempira",
+        "Symbol": "L"
+      },
+      {
+        "Code": "HTG",
+        "Name": "Gourde",
+        "Symbol": "G"
+      },
+      {
+        "Code": "HUF",
+        "Name": "Forint",
+        "Symbol": "Ft"
+      },
+      {
+        "Code": "IDR",
+        "Name": "Rupiah",
+        "Symbol": "Rp"
+      },
+      {
+        "Code": "ILS",
+        "Name": "New Israeli Sheqel",
+        "Symbol": "₪"
+      },
+      {
+        "Code": "INR",
+        "Name": "Indian Rupee",
+        "Symbol": "₹"
+      },
+      {
+        "Code": "IQD",
+        "Name": "Iraqi Dinar",
+        "Symbol": "ع.د"
+      },
+      {
+        "Code": "IRR",
+        "Name": "Iranian Rial",
+        "Symbol": "﷼"
+      },
+      {
+        "Code": "ISK",
+        "Name": "Iceland Krona",
+        "Symbol": "kr"
+      },
+      {
+        "Code": "JMD",
+        "Name": "Jamaican Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "JOD",
+        "Name": "Jordanian Dinar",
+        "Symbol": "JD"
+      },
+      {
+        "Code": "JPY",
+        "Name": "Yen",
+        "Symbol": "¥"
+      },
+      {
+        "Code": "KES",
+        "Name": "Kenyan Shilling",
+        "Symbol": "KSh"
+      },
+      {
+        "Code": "KGS",
+        "Name": "Som",
+        "Symbol": "сом"
+      },
+      {
+        "Code": "KHR",
+        "Name": "Riel",
+        "Symbol": "KHR"
+      },
+      {
+        "Code": "KMF",
+        "Name": "Comorian Franc",
+        "Symbol": "CF"
+      },
+      {
+        "Code": "KPW",
+        "Name": "North Korean Won",
+        "Symbol": "₩"
+      },
+      {
+        "Code": "KRW",
+        "Name": "Won",
+        "Symbol": "₩"
+      },
+      {
+        "Code": "KWD",
+        "Name": "Kuwaiti Dinar",
+        "Symbol": "KD"
+      },
+      {
+        "Code": "KYD",
+        "Name": "Cayman Islands Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "KZT",
+        "Name": "Tenge",
+        "Symbol": "₸"
+      },
+      {
+        "Code": "LAK",
+        "Name": "Lao Kip",
+        "Symbol": "₭"
+      },
+      {
+        "Code": "LBP",
+        "Name": "Lebanese Pound",
+        "Symbol": "ل.ل"
+      },
+      {
+        "Code": "LKR",
+        "Name": "Sri Lanka Rupee",
+        "Symbol": "Rs"
+      },
+      {
+        "Code": "LRD",
+        "Name": "Liberian Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "LSL",
+        "Name": "Loti",
+        "Symbol": "L"
+      },
+      {
+        "Code": "LYD",
+        "Name": "Libyan Dinar",
+        "Symbol": "LD"
+      },
+      {
+        "Code": "MAD",
+        "Name": "Moroccan Dirham",
+        "Symbol": "د.م."
+      },
+      {
+        "Code": "MDL",
+        "Name": "Moldovan Leu",
+        "Symbol": "L"
+      },
+      {
+        "Code": "MGA",
+        "Name": "Malagasy Ariary",
+        "Symbol": "Ar"
+      },
+      {
+        "Code": "MKD",
+        "Name": "Denar",
+        "Symbol": "ден"
+      },
+      {
+        "Code": "MMK",
+        "Name": "Kyat",
+        "Symbol": "K"
+      },
+      {
+        "Code": "MNT",
+        "Name": "Tugrik",
+        "Symbol": "₮"
+      },
+      {
+        "Code": "MOP",
+        "Name": "Pataca",
+        "Symbol": "MOP$"
+      },
+      {
+        "Code": "MRU",
+        "Name": "Ouguiya",
+        "Symbol": "UM"
+      },
+      {
+        "Code": "MUR",
+        "Name": "Mauritius Rupee",
+        "Symbol": "₨"
+      },
+      {
+        "Code": "MVR",
+        "Name": "Rufiyaa",
+        "Symbol": "Rf"
+      },
+      {
+        "Code": "MWK",
+        "Name": "Malawi Kwacha",
+        "Symbol": "MK"
+      },
+      {
+        "Code": "MXN",
+        "Name": "Mexican Peso",
+        "Symbol": "$"
+      },
+      {
+        "Code": "MYR",
+        "Name": "Malaysian Ringgit",
+        "Symbol": "RM"
+      },
+      {
+        "Code": "MZN",
+        "Name": "Mozambique Metical",
+        "Symbol": "MT"
+      },
+      {
+        "Code": "NAD",
+        "Name": "Namibia Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "NGN",
+        "Name": "Naira",
+        "Symbol": "₦"
+      },
+      {
+        "Code": "NIO",
+        "Name": "Cordoba Oro",
+        "Symbol": "C$"
+      },
+      {
+        "Code": "NOK",
+        "Name": "Norwegian Krone",
+        "Symbol": "kr"
+      },
+      {
+        "Code": "NPR",
+        "Name": "Nepalese Rupee",
+        "Symbol": "Rs"
+      },
+      {
+        "Code": "NZD",
+        "Name": "New Zealand Dollar",
+        "Symbol": "NZ$"
+      },
+      {
+        "Code": "OMR",
+        "Name": "Rial Omani",
+        "Symbol": "ر.ع."
+      },
+      {
+        "Code": "PAB",
+        "Name": "Balboa",
+        "Symbol": "B/."
+      },
+      {
+        "Code": "PEN",
+        "Name": "Sol",
+        "Symbol": "S/"
+      },
+      {
+        "Code": "PGK",
+        "Name": "Kina",
+        "Symbol": "K"
+      },
+      {
+        "Code": "PHP",
+        "Name": "Philippine Peso",
+        "Symbol": "₱"
+      },
+      {
+        "Code": "PKR",
+        "Name": "Pakistan Rupee",
+        "Symbol": "₨"
+      },
+      {
+        "Code": "PLN",
+        "Name": "Zloty",
+        "Symbol": "zł"
+      },
+      {
+        "Code": "PYG",
+        "Name": "Guarani",
+        "Symbol": "₲"
+      },
+      {
+        "Code": "QAR",
+        "Name": "Qatari Rial",
+        "Symbol": "ر.ق"
+      },
+      {
+        "Code": "RON",
+        "Name": "Romanian Leu",
+        "Symbol": "lei"
+      },
+      {
+        "Code": "RSD",
+        "Name": "Serbian Dinar",
+        "Symbol": "дин"
+      },
+      {
+        "Code": "RUB",
+        "Name": "Russian Ruble",
+        "Symbol": "₽"
+      },
+      {
+        "Code": "RWF",
+        "Name": "Rwanda Franc",
+        "Symbol": "FRw"
+      },
+      {
+        "Code": "SAR",
+        "Name": "Saudi Riyal",
+        "Symbol": "﷼"
+      },
+      {
+        "Code": "SBD",
+        "Name": "Solomon Islands Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "SCR",
+        "Name": "Seychelles Rupee",
+        "Symbol": "₨"
+      },
+      {
+        "Code": "SDG",
+        "Name": "Sudanese Pound",
+        "Symbol": "£"
+      },
+      {
+        "Code": "SEK",
+        "Name": "Swedish Krona",
+        "Symbol": "kr"
+      },
+      {
+        "Code": "SGD",
+        "Name": "Singapore Dollar",
+        "Symbol": "S$"
+      },
+      {
+        "Code": "SHP",
+        "Name": "Saint Helena Pound",
+        "Symbol": "£"
+      },
+      {
+        "Code": "SLE",
+        "Name": "Leone",
+        "Symbol": "Le"
+      },
+      {
+        "Code": "SOS",
+        "Name": "Somali Shilling",
+        "Symbol": "Sh"
+      },
+      {
+        "Code": "SRD",
+        "Name": "Surinam Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "SSP",
+        "Name": "South Sudanese Pound",
+        "Symbol": "£"
+      },
+      {
+        "Code": "STN",
+        "Name": "Dobra",
+        "Symbol": "Db"
+      },
+      {
+        "Code": "SVC",
+        "Name": "El Salvador Colon",
+        "Symbol": "₡"
+      },
+      {
+        "Code": "SYP",
+        "Name": "Syrian Pound",
+        "Symbol": "£"
+      },
+      {
+        "Code": "SZL",
+        "Name": "Lilangeni",
+        "Symbol": "L"
+      },
+      {
+        "Code": "THB",
+        "Name": "Baht",
+        "Symbol": "฿"
+      },
+      {
+        "Code": "TJS",
+        "Name": "Somoni",
+        "Symbol": "SM"
+      },
+      {
+        "Code": "TMT",
+        "Name": "Turkmenistan New Manat",
+        "Symbol": "m"
+      },
+      {
+        "Code": "TND",
+        "Name": "Tunisian Dinar",
+        "Symbol": "DT"
+      },
+      {
+        "Code": "TOP",
+        "Name": "Pa’anga",
+        "Symbol": "T$"
+      },
+      {
+        "Code": "TRY",
+        "Name": "Turkish Lira",
+        "Symbol": "₺"
+      },
+      {
+        "Code": "TTD",
+        "Name": "Trinidad and Tobago Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "TWD",
+        "Name": "New Taiwan Dollar",
+        "Symbol": "NT$"
+      },
+      {
+        "Code": "TZS",
+        "Name": "Tanzanian Shilling",
+        "Symbol": "TSh"
+      },
+      {
+        "Code": "UAH",
+        "Name": "Hryvnia",
+        "Symbol": "₴"
+      },
+      {
+        "Code": "UGX",
+        "Name": "Uganda Shilling",
+        "Symbol": "USh"
+      },
+      {
+        "Code": "USD",
+        "Name": "US Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "UYU",
+        "Name": "Peso Uruguayo",
+        "Symbol": "$"
+      },
+      {
+        "Code": "UZS",
+        "Name": "Uzbekistan Sum",
+        "Symbol": "soʻm"
+      },
+      {
+        "Code": "VES",
+        "Name": "Bolívar Soberano",
+        "Symbol": "Bs"
+      },
+      {
+        "Code": "VND",
+        "Name": "Dong",
+        "Symbol": "₫"
+      },
+      {
+        "Code": "VUV",
+        "Name": "Vatu",
+        "Symbol": "VT"
+      },
+      {
+        "Code": "WST",
+        "Name": "Tala",
+        "Symbol": "T"
+      },
+      {
+        "Code": "XAF",
+        "Name": "CFA Franc BEAC",
+        "Symbol": "FCFA"
+      },
+      {
+        "Code": "XCD",
+        "Name": "East Caribbean Dollar",
+        "Symbol": "$"
+      },
+      {
+        "Code": "XOF",
+        "Name": "CFA Franc BCEAO",
+        "Symbol": "CFA"
+      },
+      {
+        "Code": "XPF",
+        "Name": "CFP Franc",
+        "Symbol": "₣"
+      },
+      {
+        "Code": "YER",
+        "Name": "Yemeni Rial",
+        "Symbol": "﷼"
+      },
+      {
+        "Code": "ZAR",
+        "Name": "Rand",
+        "Symbol": "R"
+      },
+      {
+        "Code": "ZMW",
+        "Name": "Zambian Kwacha",
+        "Symbol": "ZK"
+      },
+      {
+        "Code": "ZWG",
+        "Name": "Zimbabwe Gold",
+        "Symbol": "ZiG"
+      }
+    ],
+    "UnitClass": [
+      {
+        "Code": "COUNT",
+        "Name": "Count"
+      },
+      {
+        "Code": "MASS",
+        "Name": "Mass"
+      },
+      {
+        "Code": "LENGTH",
+        "Name": "Length"
+      },
+      {
+        "Code": "VOLUME",
+        "Name": "Volume"
+      }
+    ],
+    "UnitOfMeasure": [
+      {
+        "Code": "PCS",
+        "Name": "Piece",
+        "DecimalPlaces": 0,
+        "RatioToBase": 1,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "COUNT"
+          }
+        }
+      },
+      {
+        "Code": "G",
+        "Name": "Gram",
+        "DecimalPlaces": 0,
+        "RatioToBase": 1,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "MASS"
+          }
+        }
+      },
+      {
+        "Code": "KG",
+        "Name": "Kilogram",
+        "DecimalPlaces": 3,
+        "RatioToBase": 1000,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "MASS"
+          }
+        }
+      },
+      {
+        "Code": "T",
+        "Name": "Tonne",
+        "DecimalPlaces": 3,
+        "RatioToBase": 1000000,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "MASS"
+          }
+        }
+      },
+      {
+        "Code": "MM",
+        "Name": "Millimetre",
+        "DecimalPlaces": 1,
+        "RatioToBase": 0.001,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "LENGTH"
+          }
+        }
+      },
+      {
+        "Code": "CM",
+        "Name": "Centimetre",
+        "DecimalPlaces": 2,
+        "RatioToBase": 0.01,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "LENGTH"
+          }
+        }
+      },
+      {
+        "Code": "M",
+        "Name": "Metre",
+        "DecimalPlaces": 3,
+        "RatioToBase": 1,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "LENGTH"
+          }
+        }
+      },
+      {
+        "Code": "ML",
+        "Name": "Millilitre",
+        "DecimalPlaces": 0,
+        "RatioToBase": 0.001,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "VOLUME"
+          }
+        }
+      },
+      {
+        "Code": "L",
+        "Name": "Litre",
+        "DecimalPlaces": 3,
+        "RatioToBase": 1,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "VOLUME"
+          }
+        }
+      }
+    ]
+  }
+}
