@@ -38,7 +38,7 @@
     "the tree change shape. Bumping this line before the platform exists ships",
     "an image whose tenants boot healthy with no business layer."
   ],
-  "platformImage": "localhost:5000/zuloone-core:2026.0.58",
+  "platformImage": "localhost:5000/zuloone-core:2026.0.93",
 
   "$comment_exclude": [
     "Models with NO bundle exported for them.",
