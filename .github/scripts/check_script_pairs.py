@@ -49,6 +49,35 @@ def script_meta_id(path: Path) -> str | None:
     return meta if isinstance(meta, str) and meta else None
 
 
+def subtype_tx_script_ids(path: Path) -> list[str]:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    if not isinstance(data, dict):
+        return []
+    buckets: list[object] = []
+    raw = data.get("subtypeTransactionScripts")
+    if isinstance(raw, list):
+        buckets.append(raw)
+    obj = data.get("object")
+    if isinstance(obj, dict):
+        nested = obj.get("subtypeTransactionScripts")
+        if isinstance(nested, list):
+            buckets.append(nested)
+    ids: list[str] = []
+    for rows in buckets:
+        if not isinstance(rows, list):
+            continue
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            meta = row.get("scriptMetaId")
+            if isinstance(meta, str) and meta:
+                ids.append(meta)
+    return ids
+
+
 def job_script_meta_id(path: Path) -> str | None:
     try:
         data = json.loads(path.read_text(encoding="utf-8-sig"))
@@ -93,6 +122,15 @@ def main() -> int:
                 f"{rel} scriptMetaId {script_id} has no tracked .script.json"
             )
 
+    for rel in sorted(files):
+        if not rel.endswith(".object.json"):
+            continue
+        for script_id in subtype_tx_script_ids(root / rel):
+            if script_id not in scripts_by_id:
+                errors.append(
+                    f"{rel} subtypeTransactionScripts scriptMetaId {script_id} has no tracked .script.json"
+                )
+
     skip_prefixes = (".generated/",)
     skip_suffixes = (".pyc",)
     for rel in sorted(hidden):
@@ -115,7 +153,7 @@ def main() -> int:
         for line in errors:
             print(f"  {line}")
         return 1
-    print("Script pairs: every tracked envelope has its code, every Job has a script.")
+    print("Script pairs: every tracked envelope has its code; jobs and subtype tx bindings resolve.")
     return 0
 
 
