@@ -6,6 +6,9 @@ using ZuloOne.Runtime.Testing;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
+// Живёт в GLIntegration, а не в Inventory: сценарии прихода/отгрузки
+// типизируют PurchaseOrder и SalesInvoice, а Inventory их не видит.
+//
 // АДРЕСНАЯ СКЛАДСКАЯ ДИСЦИПЛИНА.
 //
 // Задания раскладки и отбора существовали давно и двигали склад, но их никто не

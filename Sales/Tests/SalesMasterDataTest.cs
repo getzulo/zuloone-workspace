@@ -24,8 +24,40 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
 
     private async Task<Guid> MakeLocationAsync()
     {
+        var currency = DictionaryManager.NewRecord<Currency>();
+        currency.Name = "Euro";
+        currency.Code = $"EU{Guid.NewGuid():N}"[..3].ToUpperInvariant();
+        currency.Symbol = "€";
+        currency = await DictionaryManager.SaveRecordAsync(currency);
+
+        var country = DictionaryManager.NewRecord<Country>();
+        country.Name = "Germany";
+        country.CodeISO2 = $"{Guid.NewGuid():N}"[..2].ToUpperInvariant();
+        country.CodeISO3 = $"{Guid.NewGuid():N}"[..3].ToUpperInvariant();
+        country.PhoneCode = "49";
+        country = await DictionaryManager.SaveRecordAsync(country);
+
+        var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
+        legalEntity.Name = "MDTest GmbH";
+        legalEntity.RegistrationNumber = $"REG-MD-{Guid.NewGuid():N}"[..16];
+        legalEntity.Country = country.MetaId;
+        legalEntity.Currency = currency.MetaId;
+        legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
+
+        var divisionType = DictionaryManager.NewRecord<DivisionType>();
+        divisionType.Code = $"MD-{Guid.NewGuid():N}"[..10];
+        divisionType.Name = "SalesPoint";
+        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
+
+        var division = DictionaryManager.NewRecord<Division>();
+        division.Name = "Shop";
+        division.LegalEntity = legalEntity.MetaId;
+        division.DivisionType = divisionType.MetaId;
+        division = await DictionaryManager.SaveRecordAsync(division);
+
         var store = DictionaryManager.NewRecord<Store>();
         store.Name = "MDTest-WH";
+        store.Division = division.MetaId;
         store.IsSimple = true;
         store = await DictionaryManager.SaveRecordAsync(store);
 
