@@ -51,9 +51,13 @@
     "",
     "Core is here for a mechanical reason: ModelBundleService.ExportAsync throws",
     "on a system model, so no Core bundle can be produced at all. That is not the",
-    "same as Core not being shipped — see treeExclude below."
+    "same as Core not being shipped — see treeExclude below.",
+    "",
+    "Tenant is the empty writable model the platform seeds on a fresh stand",
+    "(layer 4) so jobs and scripts have somewhere to live before any package",
+    "lands. It is not a workspace model and has no tree to export."
   ],
-  "exclude": ["Core", "TestBench", "TestBenchExt"],
+  "exclude": ["Core", "TestBench", "TestBenchExt", "Tenant"],
 
   "$comment_treeExclude": [
     "Models NOT copied into the distribution image's workspace tree.",
