@@ -286,12 +286,18 @@ public class CircuitGLTest : IntegrationTestScriptBase
     public async Task VatJournalFillsTaxNotManagement()
     {
         var s = await SetupAsync();
-        await IssueAsync(s, 4m, 25m);
+        var invoice = await IssueAsync(s, 4m, 25m);
 
-        var all = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
-        Assert.IsTrue(all.Count == 1, "должен появиться один расчёт налога, факт {0}", all.Count);
+        var family = await DocumentManager.GetDocumentFamilyAsync(invoice.MetaId);
+        TaxCalculation? calc = null;
+        foreach (var id in family.Edges.Where(e => e.ParentDocId == invoice.MetaId).Select(e => e.ChildDocId).Distinct())
+        {
+            calc = await DocumentManager.GetDocumentAsync<TaxCalculation>(id);
+            if (calc != null) break;
+        }
+        Assert.IsTrue(calc != null, "счёт должен породить расчёт налога");
 
-        var vat = await FindJournalAsync(all[0].MetaId, "Output VAT");
+        var vat = await FindJournalAsync(calc!.MetaId, "Output VAT");
         Assert.IsTrue(vat != null, "расчёт налога обязан породить проводку НДС");
 
         var books = await BooksAsync(vat!.MetaId);

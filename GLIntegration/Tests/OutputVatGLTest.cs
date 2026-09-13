@@ -259,12 +259,17 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         return invoice;
     }
 
-    /// <summary>Единственный расчёт налога, порождённый выставлением счёта.</summary>
-    private static async Task<TaxCalculation> TheCalculationAsync()
+    /// <summary>Расчёт налога, порождённый этим счётом — не любой TaxCalculation на стенде.</summary>
+    private static async Task<TaxCalculation> TheCalculationAsync(Guid invoiceId)
     {
-        var all = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
-        Assert.IsTrue(all.Count == 1, "должен появиться один расчёт налога, факт {0}", all.Count);
-        return (await DocumentManager.GetDocumentAsync<TaxCalculation>(all[0].MetaId))!;
+        var family = await DocumentManager.GetDocumentFamilyAsync(invoiceId);
+        foreach (var id in family.Edges.Where(e => e.ParentDocId == invoiceId).Select(e => e.ChildDocId).Distinct())
+        {
+            var calc = await DocumentManager.GetDocumentAsync<TaxCalculation>(id);
+            if (calc != null) return calc;
+        }
+        Assert.IsTrue(false, "счёт должен породить расчёт налога");
+        return null!;
     }
 
     /// <summary>Дебет/кредит ОДНОГО счёта по проводкам, порождённым документом.</summary>
@@ -296,7 +301,7 @@ public class OutputVatGLTest : IntegrationTestScriptBase
 
         // 4 × 25 = 100 базы, ставка 15% → налог 15.
         var invoice = await IssueAsync(s, 4m, 25m);
-        var calc = await TheCalculationAsync();
+        var calc = await TheCalculationAsync(invoice.MetaId);
 
         var vat = await AccountAsync(calc.MetaId, s.VatAccount);
         Assert.IsTrue(vat.Credit == 15m,
@@ -322,7 +327,7 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         var s = await SetupAsync(configureVatAccount: false);
 
         var invoice = await IssueAsync(s, 4m, 25m);
-        var calc = await TheCalculationAsync();
+        var calc = await TheCalculationAsync(invoice.MetaId);
 
         var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
         Assert.IsTrue(stored?.Subtype == SalesInvoice.Subtypes.Issued,
@@ -332,9 +337,8 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         Assert.IsTrue(vat.Credit == 0m, "проводки по НДС нет, факт {0}", vat.Credit);
 
         // И налог сам по себе посчитан — он живёт в своём регистре независимо от книги.
-        decimal ledger = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("TaxLedger"))
-            ledger += Convert.ToDecimal(r["TaxAmount"]);
+        var ledger = await TotalsManager.GetBalanceAsync("TaxLedger", "TaxAmount",
+            new Dictionary<string, object?> { ["LegalEntity"] = s.LegalEntity });
         Assert.IsTrue(ledger == 15m, "налог начислен в TaxLedger, факт {0}", ledger);
     }
 
@@ -351,7 +355,7 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         var s = await SetupAsync();
 
         var invoice = await IssueAsync(s, 4m, 25m);
-        var calc = await TheCalculationAsync();
+        var calc = await TheCalculationAsync(invoice.MetaId);
 
         var fromInvoice = await AccountAsync(invoice.MetaId, s.ArAccount);
         var fromTax = await AccountAsync(calc.MetaId, s.ArAccount);

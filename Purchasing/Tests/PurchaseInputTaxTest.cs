@@ -234,16 +234,15 @@ public class PurchaseInputTaxTest : IntegrationTestScriptBase
         var order = await NewOrderAsync(s, qty: 10m, price: 3m);
 
         // Состояние ДО оприходования: налоговый расчёт порождает именно приход.
-        Assert.IsTrue((await DocumentManager.CountDocumentsAsync<TaxCalculation>()) == 0,
+        Assert.IsTrue(await FamilyCalcCountAsync(order.MetaId) == 0,
             "до прихода налоговых расчётов быть не должно");
 
         await ReceiveAsync(order);
 
-        var calcs = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
-        Assert.IsTrue(calcs.Count == 1, "приход должен породить один расчёт налога, факт {0}", calcs.Count);
+        var issuedCalcs = await FamilyCalcCountAsync(order.MetaId);
+        Assert.IsTrue(issuedCalcs == 1, "приход должен породить один расчёт налога, факт {0}", issuedCalcs);
 
-        // Строки берём вместе с документом: у менеджера список отдаёт только шапки.
-        var calc = await DocumentManager.GetDocumentAsync<TaxCalculation>(calcs[0].MetaId);
+        var calc = await TheCalculationAsync(order.MetaId);
         Assert.IsNotNull(calc, "расчёт налога читается");
         Assert.IsTrue(calc!.Lines.Count == 1, "одна строка налога, факт {0}", calc.Lines.Count);
         Assert.IsTrue(calc.Lines[0].TaxBase == 30m, "база = 10 × 3 = 30, факт {0}", calc.Lines[0].TaxBase);
@@ -261,7 +260,14 @@ public class PurchaseInputTaxTest : IntegrationTestScriptBase
     public async Task NoTaxConfigStillReceives()
     {
         var s = await SetupAsync();
-        // ConfigureTaxAsync НЕ вызываем: кода налога по умолчанию нет.
+        // Стенд может уже иметь DefaultTaxCode. Кейс проверяет ветку
+        // «контур выключен», поэтому явно гасим код — откат теста вернёт стенд.
+        var taxRows = await DictionaryManager.GetRecordsAsync<TaxSettings>(null, 1);
+        if (taxRows.Count > 0)
+        {
+            taxRows[0].DefaultTaxCode = null;
+            await DictionaryManager.SaveRecordAsync(taxRows[0]);
+        }
 
         var order = await NewOrderAsync(s, qty: 4m, price: 5m);
         Assert.IsTrue(await StockAsync(s.Location, s.Item) == 0m, "черновик заказа склад не двигает");
@@ -271,7 +277,8 @@ public class PurchaseInputTaxTest : IntegrationTestScriptBase
         var stored = await DocumentManager.GetDocumentAsync<PurchaseOrder>(order.MetaId);
         Assert.IsTrue(stored?.Subtype == PurchaseOrder.Subtypes.Received,
             "приход проведён несмотря на ненастроенный налог, факт {0}", stored?.Subtype);
-        Assert.IsTrue((await DocumentManager.CountDocumentsAsync<TaxCalculation>()) == 0, "расчёт налога не создан");
+        var issuedCalcs = await FamilyCalcCountAsync(order.MetaId);
+        Assert.IsTrue(issuedCalcs == 0, "расчёт налога не создан, факт {0}", issuedCalcs);
 
         // И сам приход при этом отработал полностью.
         var stock = await StockAsync(s.Location, s.Item);
@@ -305,6 +312,30 @@ public class PurchaseInputTaxTest : IntegrationTestScriptBase
         Assert.IsTrue(reason.Length > 0, "приход без действующей на его дату ставки должен быть отклонён");
         Assert.IsTrue(reason.Contains("действующей ставки"),
             "отказ должен быть именно про отсутствие действующей ставки, факт: {0}", reason);
+    }
+
+    /// <summary>Расчёт налога, порождённый этим заказом — не любой TaxCalculation на стенде.</summary>
+    private static async Task<TaxCalculation> TheCalculationAsync(Guid orderId)
+    {
+        var family = await DocumentManager.GetDocumentFamilyAsync(orderId);
+        foreach (var id in family.Edges.Where(e => e.ParentDocId == orderId).Select(e => e.ChildDocId).Distinct())
+        {
+            var found = await DocumentManager.GetDocumentAsync<TaxCalculation>(id);
+            if (found != null) return found;
+        }
+        Assert.IsTrue(false, "заказ должен породить расчёт налога");
+        return null!;
+    }
+
+    private static async Task<int> FamilyCalcCountAsync(Guid orderId)
+    {
+        var family = await DocumentManager.GetDocumentFamilyAsync(orderId);
+        var n = 0;
+        foreach (var id in family.Edges.Where(e => e.ParentDocId == orderId).Select(e => e.ChildDocId).Distinct())
+        {
+            if (await DocumentManager.GetDocumentAsync<TaxCalculation>(id) != null) n++;
+        }
+        return n;
     }
 
     // Срез регистра адресуется измерениями, а не SQL-строкой.

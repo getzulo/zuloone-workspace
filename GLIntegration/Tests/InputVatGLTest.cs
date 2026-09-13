@@ -231,7 +231,7 @@ public class InputVatGLTest : IntegrationTestScriptBase
         await DictionaryManager.SaveRecordAsync(settings);
     }
 
-    private async Task ReceiveAsync(Setup s, decimal quantity, decimal unitPrice)
+    private async Task<PurchaseOrder> ReceiveAsync(Setup s, decimal quantity, decimal unitPrice)
     {
         var order = await DocumentManager.NewDocumentAsync<PurchaseOrder>();
         order.Supplier = s.Supplier;
@@ -244,13 +244,20 @@ public class InputVatGLTest : IntegrationTestScriptBase
 
         order.Subtype = PurchaseOrder.Subtypes.Received;
         await DocumentManager.SaveDocumentAsync(order);
+        return order;
     }
 
-    private static async Task<TaxCalculation> TheCalculationAsync()
+    /// <summary>Расчёт налога, порождённый этим заказом — не любой TaxCalculation на стенде.</summary>
+    private static async Task<TaxCalculation> TheCalculationAsync(Guid orderId)
     {
-        var all = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
-        Assert.IsTrue(all.Count == 1, "должен появиться один расчёт налога, факт {0}", all.Count);
-        return (await DocumentManager.GetDocumentAsync<TaxCalculation>(all[0].MetaId))!;
+        var family = await DocumentManager.GetDocumentFamilyAsync(orderId);
+        foreach (var id in family.Edges.Where(e => e.ParentDocId == orderId).Select(e => e.ChildDocId).Distinct())
+        {
+            var calc = await DocumentManager.GetDocumentAsync<TaxCalculation>(id);
+            if (calc != null) return calc;
+        }
+        Assert.IsTrue(false, "заказ должен породить расчёт налога");
+        return null!;
     }
 
     private static async Task<(decimal Debit, decimal Credit)> AccountAsync(Guid document, Guid account)
@@ -280,8 +287,8 @@ public class InputVatGLTest : IntegrationTestScriptBase
         var s = await SetupAsync();
 
         // 10 × 3 = 30 базы, ставка 15% → налог 4.5.
-        await ReceiveAsync(s, 10m, 3m);
-        var calc = await TheCalculationAsync();
+        var order = await ReceiveAsync(s, 10m, 3m);
+        var calc = await TheCalculationAsync(order.MetaId);
 
         var vat = await AccountAsync(calc.MetaId, s.VatAccount);
         Assert.IsTrue(vat.Debit == 4.5m,
@@ -297,8 +304,8 @@ public class InputVatGLTest : IntegrationTestScriptBase
     {
         var s = await SetupAsync(configureVatAccount: false);
 
-        await ReceiveAsync(s, 10m, 3m);
-        var calc = await TheCalculationAsync();
+        var order = await ReceiveAsync(s, 10m, 3m);
+        var calc = await TheCalculationAsync(order.MetaId);
 
         var vat = await AccountAsync(calc.MetaId, s.VatAccount);
         Assert.IsTrue(vat.Debit == 0m, "проводки по НДС нет, факт {0}", vat.Debit);

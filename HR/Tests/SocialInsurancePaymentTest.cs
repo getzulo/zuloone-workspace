@@ -101,16 +101,14 @@ public class SocialInsurancePaymentTest : IntegrationTestScriptBase
         return (await DocumentManager.GetDocumentAsync<SocialInsuranceAccrual>(all[0].MetaId))!;
     }
 
-    /// <summary>Обязательство перед фондом: обе доли взноса по всем строкам баланса.</summary>
-    private static async Task<(decimal Employee, decimal Employer)> FundAsync()
+    private static async Task<(decimal Employee, decimal Employer)> FundAsync(Guid employee)
     {
-        decimal employee = 0m, employer = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("SocialInsurance"))
-        {
-            employee += Convert.ToDecimal(r["EmployeeContribution"]);
-            employer += Convert.ToDecimal(r["EmployerContribution"]);
-        }
-        return (employee, employer);
+        var row = await TotalsManager.GetBalanceAsync("SocialInsurance",
+            new Dictionary<string, object?> { ["Employee"] = employee });
+        if (row == null) return (0m, 0m);
+        return (
+            Convert.ToDecimal(row["EmployeeContribution"] ?? 0m),
+            Convert.ToDecimal(row["EmployerContribution"] ?? 0m));
     }
 
     [IntegrationTest("Платёж в фонд закрывает обязательство по обеим долям взноса")]
@@ -122,7 +120,7 @@ public class SocialInsurancePaymentTest : IntegrationTestScriptBase
         // 10 000 × 9.75% = 975 работник; × 11.75% = 1175 работодатель.
         var si = await AccrueAsync(s.Division, emp, 10000m);
 
-        var accrued = await FundAsync();
+        var accrued = await FundAsync(emp);
         Assert.IsTrue(accrued.Employee == 975m && accrued.Employer == 1175m,
             "начислено 975/1175, факт {0}/{1}", accrued.Employee, accrued.Employer);
 
@@ -137,28 +135,21 @@ public class SocialInsurancePaymentTest : IntegrationTestScriptBase
         await DocumentManager.SaveDocumentAsync(payment);
 
         // Черновик платежа ничего не гасит: движения принадлежат подтипу Paid.
-        var stillOwed = await FundAsync();
+        var stillOwed = await FundAsync(emp);
         Assert.IsTrue(stillOwed.Employee == 975m && stillOwed.Employer == 1175m,
             "черновик платежа не гасит обязательство, факт {0}/{1}", stillOwed.Employee, stillOwed.Employer);
 
         payment.Subtype = SocialInsurancePayment.Subtypes.Paid;
         await DocumentManager.SaveDocumentAsync(payment);
 
-        var settled = await FundAsync();
+        var settled = await FundAsync(emp);
         Assert.IsTrue(settled.Employee == 0m && settled.Employer == 0m,
             "после платежа обязательство перед фондом 0/0, факт {0}/{1}", settled.Employee, settled.Employer);
 
         // Платёж в фонд не должен возвращать сотруднику удержанное: начисление
         // взносов уменьшило задолженность по ФОТ, и это уменьшение остаётся.
-        //
-        // Сумма по ВСЕМУ регистру, а не срез по сотруднику: у PayrollLiability нет
-        // физических измерений, Employee там динамическая аналитика, и ключ в
-        // GetBalanceAsync по ней молча игнорируется — вернулся бы тот же итог, но
-        // с видом персонального среза. В кейсе сотрудник один, поэтому итог и есть
-        // его остаток.
-        decimal payroll = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("PayrollLiability"))
-            payroll += Convert.ToDecimal(r["Amount"]);
+        var payroll = await TotalsManager.GetBalanceAsync("PayrollLiability", "Amount",
+            new Dictionary<string, object?> { ["Employee"] = emp });
         Assert.IsTrue(payroll == 10000m - 975m,
             "задолженность по ФОТ остаётся нетто 9025, факт {0}", payroll);
     }
@@ -183,7 +174,7 @@ public class SocialInsurancePaymentTest : IntegrationTestScriptBase
         payment.Subtype = SocialInsurancePayment.Subtypes.Paid;
         await DocumentManager.SaveDocumentAsync(payment);
 
-        var rest = await FundAsync();
+        var rest = await FundAsync(emp);
         Assert.IsTrue(rest.Employee == 0m, "доля работника погашена, факт {0}", rest.Employee);
         Assert.IsTrue(rest.Employer == 1175m, "доля работодателя ещё висит, факт {0}", rest.Employer);
     }

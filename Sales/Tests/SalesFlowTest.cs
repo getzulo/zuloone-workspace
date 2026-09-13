@@ -121,14 +121,10 @@ public class SalesFlowTest : IntegrationTestScriptBase
         => TotalsManager.GetBalanceAsync("Stock", "Qty",
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item });
 
-    /// <summary>Revenue несёт только АНАЛИТИКИ, физических измерений нет — баланс
-    /// рассыпается по аналитическим строкам, поэтому суммируем.</summary>
-    private static async Task<decimal> RevenueAsync()
-    {
-        decimal sum = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("Revenue")) sum += Convert.ToDecimal(r["Amount"]);
-        return sum;
-    }
+    /// <summary>Выручка покупателя — срез Revenue по аналитике Customer.</summary>
+    private static Task<decimal> RevenueAsync(Setup s)
+        => TotalsManager.GetBalanceAsync("Revenue", "Amount",
+            new Dictionary<string, object?> { ["Customer"] = s.Customer });
 
     private async Task StockInAsync(Setup s, decimal qty)
     {
@@ -164,7 +160,7 @@ public class SalesFlowTest : IntegrationTestScriptBase
         // обязательна: SalesInvoice объявлен postOnSave, и без неё утверждения ниже
         // зеленели бы независимо от того, сделал ли переход Draft → Issued хоть что-то.
         Assert.IsTrue(await StockAsync(s) == 10m, "черновик счёта не должен трогать остаток, факт {0}", await StockAsync(s));
-        Assert.IsTrue(await RevenueAsync() == 0m, "черновик счёта не должен признавать выручку, факт {0}", await RevenueAsync());
+        Assert.IsTrue(await RevenueAsync(s) == 0m, "черновик счёта не должен признавать выручку, факт {0}", await RevenueAsync(s));
 
         // Выставление — переход подтипа, то есть присваивание плюс сохранение
         // (MIQS doc.SubtypeID = …; SaveDocument(doc)).
@@ -172,7 +168,7 @@ public class SalesFlowTest : IntegrationTestScriptBase
         await DocumentManager.SaveDocumentAsync(invoice);
 
         var stock = await StockAsync(s);
-        var revenue = await RevenueAsync();
+        var revenue = await RevenueAsync(s);
 
         Assert.IsTrue(stock == 7m, "остаток ячейки должен стать 7 (10 − 3), а не {0}", stock);
         Assert.IsTrue(revenue == 15m, "выручка должна быть 15 (3 × 5), а не {0}", revenue);
@@ -209,7 +205,7 @@ public class SalesFlowTest : IntegrationTestScriptBase
             // Сюда попадаем, только если охранник НЕ бросил: тогда отказ должен быть
             // виден по регистру. После броска базу не трогаем — бросок портит
             // объемлющую транзакцию прогона.
-            rejected = await RevenueAsync() == 0m; // posting blocked → no revenue recognized
+            rejected = await RevenueAsync(s) == 0m; // posting blocked → no revenue recognized
         }
         catch
         {

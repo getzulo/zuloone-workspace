@@ -25,7 +25,11 @@ public class TaxReturnTest : IntegrationTestScriptBase
     private string Uniq() => $"{Db.NewId():N}"[..8];
 
     private async Task<Guid> NewDirectionAsync(string code)
-        => await NewRecordAsync<TaxDirection>(d => { d.Code = code; d.Name = code; });
+    {
+        var existing = await GetService<IDictionaryManager>().GetRecordsAsync<TaxDirection>($"Code = '{code}'", take: 1);
+        if (existing.Count > 0) return existing[0].MetaId;
+        return await NewRecordAsync<TaxDirection>(d => { d.Code = code; d.Name = code; });
+    }
 
     private async Task<Guid> NewCodeAsync(string uniq, string name)
     {

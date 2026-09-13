@@ -206,15 +206,10 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
         await DictionaryManager.SaveRecordAsync(settings);
     }
 
-    // VatPayable несёт одну динамическую аналитику (Customer) и ни одного
-    // физического измерения — баланс рассыпается по аналитическим строкам, поэтому
-    // суммируем.
-    private static async Task<decimal> VatAsync()
-    {
-        decimal sum = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("VatPayable")) sum += Convert.ToDecimal(r["Amount"]);
-        return sum;
-    }
+    // VatPayable несёт одну динамическую аналитику Customer.
+    private static Task<decimal> VatAsync(Setup s)
+        => TotalsManager.GetBalanceAsync("VatPayable", "Amount",
+            new Dictionary<string, object?> { ["Customer"] = s.Customer });
 
     [IntegrationTest("Выставление счёта начисляет НДС 15% в VatPayable")]
     public async Task IssueAccruesVat()
@@ -237,13 +232,13 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
         // Черновик налога не начисляет. Проверка ДО перехода обязательна:
         // SalesInvoice объявлен postOnSave, и без неё «НДС 15» ниже подтвердилось бы
         // даже если переход Draft → Issued не сделал ничего.
-        Assert.IsTrue(await VatAsync() == 0m, "черновик счёта не должен начислять НДС, факт {0}", await VatAsync());
+        Assert.IsTrue(await VatAsync(s) == 0m, "черновик счёта не должен начислять НДС, факт {0}", await VatAsync(s));
 
         invoice.Subtype = SalesInvoice.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
 
         // База 10 × 10 = 100; НДС 15% = 15.
-        var vat = await VatAsync();
+        var vat = await VatAsync(s);
         Assert.IsTrue(vat == 15m, "НДС 15 при базе 100, факт {0}", vat);
     }
 
@@ -278,7 +273,7 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
             "на счёте обязана быть ставка, действовавшая 2024-06-01 (0.15), факт {0}",
             issued?.TaxRateApplied);
 
-        var vat = await VatAsync();
+        var vat = await VatAsync(s);
         Assert.IsTrue(vat == 15m,
             "НДС по исторической ставке 15%, а не по нынешней 20%: ожидалось 15, факт {0}", vat);
     }

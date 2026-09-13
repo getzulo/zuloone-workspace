@@ -147,12 +147,12 @@ public class PurchaseFlowTest : IntegrationTestScriptBase
         // кредиторку не двигает — движения принадлежат подтипу Received. Без этой
         // проверки утверждения ниже проходят и тогда, когда заказ провёлся сам.
         Assert.IsTrue(await StockAsync(s.Location, s.Item) == 0m, "черновик заказа не двигает склад");
-        Assert.IsTrue(await PayableAsync() == 0m, "черновик заказа не признаёт кредиторку");
+        Assert.IsTrue(await PayableAsync(s) == 0m, "черновик заказа не признаёт кредиторку");
 
         await ReceiveAsync(order);
 
         var stock = await StockAsync(s.Location, s.Item);
-        var payable = await PayableAsync();
+        var payable = await PayableAsync(s);
         Assert.IsTrue(stock == 10m, "остаток ячейки должен стать 10, а не {0}", stock);
         Assert.IsTrue(payable == 30m, "кредиторка должна быть 30 (10 × 3), а не {0}", payable);
     }
@@ -188,12 +188,7 @@ public class PurchaseFlowTest : IntegrationTestScriptBase
         => TotalsManager.GetBalanceAsync("Stock", "Qty",
             new Dictionary<string, object?> { ["Cell"] = location, ["Item"] = item });
 
-    // У Payable физических измерений нет — разрез несут динамические аналитики,
-    // поэтому итог собирается суммой по строкам баланса.
-    private async Task<decimal> PayableAsync()
-    {
-        decimal payable = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("Payable")) payable += Convert.ToDecimal(r["Amount"]);
-        return payable;
-    }
+    private static Task<decimal> PayableAsync(Setup s)
+        => TotalsManager.GetBalanceAsync("Payable", "Amount",
+            new Dictionary<string, object?> { ["Supplier"] = s.Supplier });
 }

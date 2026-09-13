@@ -221,16 +221,16 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         // Состояние ДО перехода: расчёт налога рождает именно ВЫСТАВЛЕНИЕ.
         // Без этой проверки «один расчёт» ниже проходит и тогда, когда счёт
         // породил его ещё при сохранении черновика.
-        Assert.IsTrue((await DocumentManager.QueryDocumentsAsync<TaxCalculation>()).Count == 0,
+        Assert.IsTrue(await FamilyCalcCountAsync(inv.MetaId) == 0,
             "черновик счёта не должен порождать расчёт налога");
 
         inv.Subtype = SalesInvoice.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
 
-        var calcs = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
-        Assert.IsTrue(calcs.Count == 1, "счёт должен породить один расчёт налога, факт {0}", calcs.Count);
+        var issuedCalcs = await FamilyCalcCountAsync(inv.MetaId);
+        Assert.IsTrue(issuedCalcs == 1, "счёт должен породить один расчёт налога, факт {0}", issuedCalcs);
 
-        var calc = await DocumentManager.GetDocumentAsync<TaxCalculation>(calcs[0].MetaId);
+        var calc = await TheCalculationAsync(inv.MetaId);
         Assert.IsNotNull(calc, "расчёт налога читается как генерённый класс");
         Assert.IsTrue(calc!.Lines.Count == 1, "одна строка налога, факт {0}", calc.Lines.Count);
         Assert.IsTrue(calc.Lines[0].TaxBase == 100m,
@@ -268,9 +268,9 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         inv.Subtype = SalesInvoice.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
 
-        var calcs = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
-        Assert.IsTrue(calcs.Count == 1,
-            "расчёт налога один, сколько бы раз ни сработало after-post, факт {0}", calcs.Count);
+        var issuedCalcs = await FamilyCalcCountAsync(inv.MetaId);
+        Assert.IsTrue(issuedCalcs == 1,
+            "расчёт налога один, сколько бы раз ни сработало after-post, факт {0}", issuedCalcs);
     }
 
     [IntegrationTest("Правило определения перебивает код по умолчанию на реальной продаже")]
@@ -304,10 +304,10 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         inv.Subtype = SalesInvoice.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
 
-        var calcs = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
-        Assert.IsTrue(calcs.Count == 1, "один расчёт налога, факт {0}", calcs.Count);
+        var issuedCalcs = await FamilyCalcCountAsync(inv.MetaId);
+        Assert.IsTrue(issuedCalcs == 1, "один расчёт налога, факт {0}", issuedCalcs);
 
-        var calc = await DocumentManager.GetDocumentAsync<TaxCalculation>(calcs[0].MetaId);
+        var calc = await TheCalculationAsync(inv.MetaId);
         Assert.IsTrue(calc!.MatchedRule == rule,
             "расчёт помнит правило, которое определило код");
         // 100 × 5% = 5 по правилу против 100 × 15% = 15 по умолчанию. Разница чисел
@@ -437,8 +437,8 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(inv.MetaId);
         Assert.IsTrue(stored?.Subtype == SalesInvoice.Subtypes.Issued,
             "счёт выставлен несмотря на ненастроенный налог, факт {0}", stored?.Subtype);
-        var calcs = await DocumentManager.QueryDocumentsAsync<TaxCalculation>();
-        Assert.IsTrue(calcs.Count == 0, "расчёт налога не создан, факт {0}", calcs.Count);
+        var issuedCalcs = await FamilyCalcCountAsync(inv.MetaId);
+        Assert.IsTrue(issuedCalcs == 0, "расчёт налога не создан, факт {0}", issuedCalcs);
     }
 
     [IntegrationTest("Истёкшая на дату счёта ставка не даёт выставить счёт")]
@@ -471,6 +471,30 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         Assert.IsTrue(reason.Length > 0, "счёт без действующей на его дату ставки должен быть отклонён при выставлении");
         Assert.IsTrue(reason.Contains("действующей ставки"),
             "отказ должен быть именно про отсутствие действующей ставки, факт: {0}", reason);
+    }
+
+    /// <summary>Расчёт налога, порождённый этим счётом — не любой TaxCalculation на стенде.</summary>
+    private static async Task<TaxCalculation> TheCalculationAsync(Guid invoiceId)
+    {
+        var family = await DocumentManager.GetDocumentFamilyAsync(invoiceId);
+        foreach (var id in family.Edges.Where(e => e.ParentDocId == invoiceId).Select(e => e.ChildDocId).Distinct())
+        {
+            var calc = await DocumentManager.GetDocumentAsync<TaxCalculation>(id);
+            if (calc != null) return calc;
+        }
+        Assert.IsTrue(false, "счёт должен породить расчёт налога");
+        return null!;
+    }
+
+    private static async Task<int> FamilyCalcCountAsync(Guid invoiceId)
+    {
+        var family = await DocumentManager.GetDocumentFamilyAsync(invoiceId);
+        var n = 0;
+        foreach (var id in family.Edges.Where(e => e.ParentDocId == invoiceId).Select(e => e.ChildDocId).Distinct())
+        {
+            if (await DocumentManager.GetDocumentAsync<TaxCalculation>(id) != null) n++;
+        }
+        return n;
     }
 
     private async Task RunCommandAsync(string name, Guid documentId)

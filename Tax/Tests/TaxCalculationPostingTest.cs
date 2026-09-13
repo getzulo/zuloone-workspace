@@ -65,20 +65,22 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
 
         var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
         legalEntity.Name = "ACME KSA";
-        legalEntity.RegistrationNumber = "REG-TAX-1";
+        legalEntity.RegistrationNumber = $"REG-TAX-{Db.NewId():N}"[..16];
         legalEntity.Country = country.MetaId;
         legalEntity.Currency = currency.MetaId;
         legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
 
+        var uniq = $"{Db.NewId():N}"[..8];
+
         var authority = DictionaryManager.NewRecord<TaxAuthority>();
-        authority.Code = "ZATCA";
+        authority.Code = $"ZAT-{uniq}";
         authority.Name = "ZATCA";
         authority.CountryCode = "SA";
         authority.IsActive = true;
         authority = await DictionaryManager.SaveRecordAsync(authority);
 
         var jurisdiction = DictionaryManager.NewRecord<TaxJurisdiction>();
-        jurisdiction.Code = "SA";
+        jurisdiction.Code = $"SA-{uniq}";
         jurisdiction.Name = "Saudi Arabia";
         jurisdiction.CountryCode = "SA";
         jurisdiction.Level = 0;
@@ -89,7 +91,7 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
         // необязательное, поэтому генерируется как DateTime? и уходит в базу NULL.
 
         var tax = DictionaryManager.NewRecord<Tax>();
-        tax.Code = "SA-VAT";
+        tax.Code = $"VAT-{uniq}";
         tax.Name = "Saudi VAT";
         tax.Authority = authority.MetaId;
         tax.Jurisdiction = jurisdiction.MetaId;
@@ -98,7 +100,7 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
 
         var rate = DictionaryManager.NewRecord<TaxRate>();
         rate.Tax = tax.MetaId;
-        rate.Code = "SA-VAT-15";
+        rate.Code = $"R15-{uniq}";
         rate.Rate = 0.15m;
         rate.EffectiveFrom = from;
         rate.EffectiveTo = rateTo;
@@ -106,12 +108,12 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
 
         var category = DictionaryManager.NewRecord<TaxCategory>();
         category.Tax = tax.MetaId;
-        category.Code = "STD";
+        category.Code = $"STD-{uniq}";
         category.Treatment = "STANDARD";
         category = await DictionaryManager.SaveRecordAsync(category);
 
         var code = DictionaryManager.NewRecord<TaxCode>();
-        code.Code = "SA-VAT-15";
+        code.Code = $"C15-{uniq}";
         code.Name = "Standard 15%";
         code.Tax = tax.MetaId;
         code.TaxCategory = category.MetaId;
@@ -210,13 +212,13 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
         // Черновик леджер не двигает. Проверяем ДО перехода: тип помечен postOnSave,
         // и без этой проверки утверждения ниже проходят даже тогда, когда расчёт
         // разнёсся сам на сохранении — то есть про переход тест не доказывает ничего.
-        Assert.IsTrue((await TotalsManager.QueryMovementsAsync("TaxLedger")).Count == 0,
+        Assert.IsTrue((await TotalsManager.QueryMovementsAsync("TaxLedger", $"[DocumentMetaId] = '{calc.MetaId}'")).Count == 0,
             "черновик не должен порождать движений TaxLedger");
 
         var reason = await TryFinalizeAsync(calc);
         Assert.IsTrue(reason.Length == 0, "правильный расчёт обязан финализироваться, отказ: {0}", reason);
 
-        var movements = await TotalsManager.QueryMovementsAsync("TaxLedger");
+        var movements = await TotalsManager.QueryMovementsAsync("TaxLedger", $"[DocumentMetaId] = '{calc.MetaId}'");
         Assert.IsTrue(movements.Count == 1, "ожидалось 1 движение TaxLedger, а не {0}", movements.Count);
         Assert.IsTrue(Convert.ToDecimal(movements[0]["TaxBase"]) == 100m, "база должна быть 100, а не {0}", movements[0]["TaxBase"]);
         Assert.IsTrue(Convert.ToDecimal(movements[0]["TaxAmount"]) == 15m, "сумма налога должна быть 15, а не {0}", movements[0]["TaxAmount"]);
@@ -226,7 +228,7 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
     public async Task RateOfTheTaxPointDateFinalizes()
     {
         var s = await SetupAsync(rateTo: new DateTime(2024, 12, 31));
-        await AddRateAsync(s, "SA-VAT-20", 0.20m, new DateTime(2025, 1, 1));
+        await AddRateAsync(s, $"R20-{s.LegalEntity:N}"[..12], 0.20m, new DateTime(2025, 1, 1));
 
         // Сегодня у кода действует 0.20 — значит успех ниже доказывает, что
         // финализация спрашивает ставку НА ДАТУ РАСЧЁТА. Проверка, подставляющая
@@ -236,13 +238,13 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
         Assert.IsTrue(today == 0.20m, "сегодня у кода действует 0.20, факт {0}", today.HasValue ? today.Value : -1m);
 
         var calc = await NewCalcAsync(s, taxBase: 100m, amount: 15m, rate: 0.15m, taxPoint: new DateTime(2024, 6, 1));
-        Assert.IsTrue((await TotalsManager.QueryMovementsAsync("TaxLedger")).Count == 0,
+        Assert.IsTrue((await TotalsManager.QueryMovementsAsync("TaxLedger", $"[DocumentMetaId] = '{calc.MetaId}'")).Count == 0,
             "черновик не должен порождать движений TaxLedger");
 
         var reason = await TryFinalizeAsync(calc);
         Assert.IsTrue(reason.Length == 0, "расчёт по ставке своей даты обязан финализироваться, отказ: {0}", reason);
 
-        var movements = await TotalsManager.QueryMovementsAsync("TaxLedger");
+        var movements = await TotalsManager.QueryMovementsAsync("TaxLedger", $"[DocumentMetaId] = '{calc.MetaId}'");
         Assert.IsTrue(movements.Count == 1, "ожидалось 1 движение TaxLedger, а не {0}", movements.Count);
         Assert.IsTrue(Convert.ToDecimal(movements[0]["TaxAmount"]) == 15m,
             "разнестись должна сумма по ставке 2024 года — 15, а не {0}", movements[0]["TaxAmount"]);
@@ -252,7 +254,7 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
     public async Task RateNotEffectiveOnTaxPointIsRejected()
     {
         var s = await SetupAsync(rateTo: new DateTime(2024, 12, 31));
-        await AddRateAsync(s, "SA-VAT-20", 0.20m, new DateTime(2025, 1, 1));
+        await AddRateAsync(s, $"R20-{s.LegalEntity:N}"[..12], 0.20m, new DateTime(2025, 1, 1));
 
         // Ставка 0.20 у этого налога ЕСТЬ — но её окно начинается в 2025-м, а
         // расчёт датирован 2024-м. Проверка «такая ставка у налога вообще
@@ -265,7 +267,7 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
         // тавтологичное утверждение не доказало бы самосогласованности.
         Assert.IsTrue(Svc.CalculateTax(100m, 0.20m) == 20m,
             "строка обязана быть самосогласованной, иначе отказ ниже доказывает не то");
-        Assert.IsTrue((await TotalsManager.QueryMovementsAsync("TaxLedger")).Count == 0,
+        Assert.IsTrue((await TotalsManager.QueryMovementsAsync("TaxLedger", $"[DocumentMetaId] = '{calc.MetaId}'")).Count == 0,
             "черновик не должен порождать движений TaxLedger");
 
         var reason = await TryFinalizeAsync(calc);
@@ -290,7 +292,7 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
 
         Assert.IsNull(await Svc.ResolveRateAsync(s.TaxCode, taxPoint),
             "на дату расчёта действующей ставки быть не должно — иначе кейс проверяет не то");
-        Assert.IsTrue((await TotalsManager.QueryMovementsAsync("TaxLedger")).Count == 0,
+        Assert.IsTrue((await TotalsManager.QueryMovementsAsync("TaxLedger", $"[DocumentMetaId] = '{calc.MetaId}'")).Count == 0,
             "черновик не должен порождать движений TaxLedger");
 
         var reason = await TryFinalizeAsync(calc);
@@ -307,7 +309,7 @@ public class TaxCalculationPostingTest : IntegrationTestScriptBase
         // Черновик с неверной суммой обязан СОХРАНИТЬСЯ: черновику позволено быть
         // неправильным, проверка принадлежит ФИНАЛИЗАЦИИ. И в леджер он не попадает.
         var calc = await NewCalcAsync(s, taxBase: 100m, amount: 20m); // 100 × 0.15 = 15, не 20
-        Assert.IsTrue((await TotalsManager.QueryMovementsAsync("TaxLedger")).Count == 0,
+        Assert.IsTrue((await TotalsManager.QueryMovementsAsync("TaxLedger", $"[DocumentMetaId] = '{calc.MetaId}'")).Count == 0,
             "неверный черновик не должен порождать движений TaxLedger");
 
         var reason = await TryFinalizeAsync(calc);

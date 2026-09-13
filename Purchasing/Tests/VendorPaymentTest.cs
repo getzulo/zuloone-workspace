@@ -130,14 +130,9 @@ public class VendorPaymentTest : IntegrationTestScriptBase
         await DocumentManager.SaveDocumentAsync(order);
     }
 
-    // У Payable физических измерений нет — разрез несут динамические аналитики,
-    // поэтому итог собирается суммой по строкам баланса.
-    private async Task<decimal> PayableAsync()
-    {
-        decimal payable = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("Payable")) payable += Convert.ToDecimal(r["Amount"]);
-        return payable;
-    }
+    private static Task<decimal> PayableAsync(Setup s)
+        => TotalsManager.GetBalanceAsync("Payable", "Amount",
+            new Dictionary<string, object?> { ["Supplier"] = s.Supplier });
 
     private Task<decimal> StockAsync(Guid location, Guid item)
         => TotalsManager.GetBalanceAsync("Stock", "Qty",
@@ -149,7 +144,7 @@ public class VendorPaymentTest : IntegrationTestScriptBase
         var s = await SetupAsync();
         await ReceiveAsync(s, qty: 10m, price: 3m);
 
-        Assert.IsTrue(await PayableAsync() == 30m, "приход обязан признать долг 30, факт {0}", await PayableAsync());
+        Assert.IsTrue(await PayableAsync(s) == 30m, "приход обязан признать долг 30, факт {0}", await PayableAsync(s));
 
         var payment = await DocumentManager.NewDocumentAsync<VendorPayment>();
         payment.Lines.Add(new VendorPaymentLinesTablePartRow { Supplier = s.Supplier, Amount = 30m });
@@ -157,13 +152,13 @@ public class VendorPaymentTest : IntegrationTestScriptBase
 
         // Черновик оплаты ничего не гасит: движения принадлежат подтипу Paid. Без
         // этой проверки тест прошёл бы и в случае, если оплата проводится сама.
-        Assert.IsTrue(await PayableAsync() == 30m,
-            "черновик оплаты не должен гасить долг, факт {0}", await PayableAsync());
+        Assert.IsTrue(await PayableAsync(s) == 30m,
+            "черновик оплаты не должен гасить долг, факт {0}", await PayableAsync(s));
 
         payment.Subtype = VendorPayment.Subtypes.Paid;
         await DocumentManager.SaveDocumentAsync(payment);
 
-        var payable = await PayableAsync();
+        var payable = await PayableAsync(s);
         Assert.IsTrue(payable == 0m, "после оплаты долг должен быть 0, факт {0}", payable);
 
         // Ключевое отличие от подтипа-флипа на самом заказе: приход остаётся на
@@ -184,7 +179,7 @@ public class VendorPaymentTest : IntegrationTestScriptBase
         payment.Subtype = VendorPayment.Subtypes.Paid;
         await DocumentManager.SaveDocumentAsync(payment);
 
-        var payable = await PayableAsync();
+        var payable = await PayableAsync(s);
         Assert.IsTrue(payable == 18m, "30 − 12 = 18, факт {0}", payable);
     }
 

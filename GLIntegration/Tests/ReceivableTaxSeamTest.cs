@@ -269,13 +269,9 @@ public class ReceivableTaxSeamTest : IntegrationTestScriptBase
         return invoice;
     }
 
-    private static async Task<decimal> ReceivableAsync()
-    {
-        decimal total = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("Receivable"))
-            total += Convert.ToDecimal(r["Amount"]);
-        return total;
-    }
+    private static Task<decimal> ReceivableAsync(Setup s)
+        => TotalsManager.GetBalanceAsync("Receivable", "Amount",
+            new Dictionary<string, object?> { ["Customer"] = s.Customer });
 
     [IntegrationTest("С налогом дебиторка 115, оплата 115 гасит регистр в ноль")]
     public async Task TaxInclusiveReceivableClearedByGrossPayment()
@@ -283,8 +279,8 @@ public class ReceivableTaxSeamTest : IntegrationTestScriptBase
         var s = await SetupAsync(configureTax: true);
 
         await IssueAsync(s, 4m, 25m);
-        Assert.IsTrue(await ReceivableAsync() == 115m,
-            "долг 100 + налог 15 = 115, факт {0}", await ReceivableAsync());
+        Assert.IsTrue(await ReceivableAsync(s) == 115m,
+            "долг 100 + налог 15 = 115, факт {0}", await ReceivableAsync(s));
 
         var payment = await DocumentManager.NewDocumentAsync<CustomerPayment>();
         payment.LegalEntity = s.LegalEntity;
@@ -294,8 +290,8 @@ public class ReceivableTaxSeamTest : IntegrationTestScriptBase
         payment.Subtype = CustomerPayment.Subtypes.Paid;
         await DocumentManager.SaveDocumentAsync(payment);
 
-        Assert.IsTrue(await ReceivableAsync() == 0m,
-            "оплата 115 гасит регистр, факт {0}", await ReceivableAsync());
+        Assert.IsTrue(await ReceivableAsync(s) == 0m,
+            "оплата 115 гасит регистр, факт {0}", await ReceivableAsync(s));
     }
 
     [IntegrationTest("Без налоговой настройки дебиторка остаётся 100")]
@@ -304,8 +300,8 @@ public class ReceivableTaxSeamTest : IntegrationTestScriptBase
         var s = await SetupAsync(configureTax: false);
 
         await IssueAsync(s, 4m, 25m);
-        Assert.IsTrue(await ReceivableAsync() == 100m,
-            "без налога долг 100, лишнего движения нет, факт {0}", await ReceivableAsync());
+        Assert.IsTrue(await ReceivableAsync(s) == 100m,
+            "без налога долг 100, лишнего движения нет, факт {0}", await ReceivableAsync(s));
     }
 
     private static async Task ReceiveAsync(Setup s, decimal quantity, decimal unitPrice)
@@ -322,13 +318,9 @@ public class ReceivableTaxSeamTest : IntegrationTestScriptBase
         await DocumentManager.SaveDocumentAsync(order);
     }
 
-    private static async Task<decimal> PayableAsync()
-    {
-        decimal total = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("Payable"))
-            total += Convert.ToDecimal(r["Amount"]);
-        return total;
-    }
+    private static Task<decimal> PayableAsync(Setup s)
+        => TotalsManager.GetBalanceAsync("Payable", "Amount",
+            new Dictionary<string, object?> { ["Supplier"] = s.Supplier });
 
     [IntegrationTest("С налогом кредиторка 115, оплата 115 гасит регистр в ноль")]
     public async Task TaxInclusivePayableClearedByGrossPayment()
@@ -336,8 +328,8 @@ public class ReceivableTaxSeamTest : IntegrationTestScriptBase
         var s = await SetupAsync(configureTax: true);
 
         await ReceiveAsync(s, 4m, 25m);
-        Assert.IsTrue(await PayableAsync() == 115m,
-            "долг 100 + входной налог 15 = 115, факт {0}", await PayableAsync());
+        Assert.IsTrue(await PayableAsync(s) == 115m,
+            "долг 100 + входной налог 15 = 115, факт {0}", await PayableAsync(s));
 
         var payment = await DocumentManager.NewDocumentAsync<VendorPayment>();
         payment.LegalEntity = s.LegalEntity;
@@ -347,8 +339,8 @@ public class ReceivableTaxSeamTest : IntegrationTestScriptBase
         payment.Subtype = VendorPayment.Subtypes.Paid;
         await DocumentManager.SaveDocumentAsync(payment);
 
-        Assert.IsTrue(await PayableAsync() == 0m,
-            "оплата 115 гасит кредиторку, факт {0}", await PayableAsync());
+        Assert.IsTrue(await PayableAsync(s) == 0m,
+            "оплата 115 гасит кредиторку, факт {0}", await PayableAsync(s));
     }
 
     [IntegrationTest("Без налоговой настройки кредиторка остаётся 100")]
@@ -357,7 +349,7 @@ public class ReceivableTaxSeamTest : IntegrationTestScriptBase
         var s = await SetupAsync(configureTax: false);
 
         await ReceiveAsync(s, 4m, 25m);
-        Assert.IsTrue(await PayableAsync() == 100m,
-            "без налога долг 100, лишнего движения нет, факт {0}", await PayableAsync());
+        Assert.IsTrue(await PayableAsync(s) == 100m,
+            "без налога долг 100, лишнего движения нет, факт {0}", await PayableAsync(s));
     }
 }

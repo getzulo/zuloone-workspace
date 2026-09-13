@@ -19,11 +19,12 @@ public class PayrollFlowTest : IntegrationTestScriptBase
     private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
     private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
 
-    private async Task<decimal> RegisterTotalAsync(string register)
+    private static async Task<decimal> RegisterTotalAsync(string register, params Guid[] employees)
     {
         decimal total = 0m;
-        foreach (var row in await TotalsManager.QueryBalancesAsync(register))
-            total += Convert.ToDecimal(row["Amount"]);
+        foreach (var emp in employees)
+            total += await TotalsManager.GetBalanceAsync(register, "Amount",
+                new Dictionary<string, object?> { ["Employee"] = emp });
         return total;
     }
 
@@ -46,16 +47,16 @@ public class PayrollFlowTest : IntegrationTestScriptBase
 
         // Тип документа помечен postOnSave — без снимка ДО перехода проверки
         // после него проходят даже когда переход ничего не сделал.
-        Assert.IsTrue(await RegisterTotalAsync("Payroll") == 0m, "черновик не должен начислять ФОТ");
-        Assert.IsTrue(await RegisterTotalAsync("PayrollLiability") == 0m, "черновик не должен создавать задолженность");
+        Assert.IsTrue(await RegisterTotalAsync("Payroll", emp1, emp2) == 0m, "черновик не должен начислять ФОТ");
+        Assert.IsTrue(await RegisterTotalAsync("PayrollLiability", emp1, emp2) == 0m, "черновик не должен создавать задолженность");
 
         doc.Subtype = PayrollAccrual.Subtypes.Posted;
         await DocumentManager.SaveDocumentAsync(doc);
 
-        var payroll = await RegisterTotalAsync("Payroll");
+        var payroll = await RegisterTotalAsync("Payroll", emp1, emp2);
         Assert.IsTrue(payroll == 160m, "Payroll итого 160, факт {0}", payroll);
 
-        var liab = await RegisterTotalAsync("PayrollLiability");
+        var liab = await RegisterTotalAsync("PayrollLiability", emp1, emp2);
         Assert.IsTrue(liab == 160m, "PayrollLiability итого 160, факт {0}", liab);
     }
 
@@ -70,26 +71,26 @@ public class PayrollFlowTest : IntegrationTestScriptBase
         acc.Lines.Add(new PayrollAccrualLinesTablePartRow { Employee = emp, Amount = 100m });
         await DocumentManager.SaveDocumentAsync(acc);
 
-        Assert.IsTrue(await RegisterTotalAsync("PayrollLiability") == 0m,
+        Assert.IsTrue(await RegisterTotalAsync("PayrollLiability", emp) == 0m,
             "до проведения задолженности нет");
 
         acc.Subtype = PayrollAccrual.Subtypes.Posted;
         await DocumentManager.SaveDocumentAsync(acc);
 
-        var afterAccrual = await RegisterTotalAsync("PayrollLiability");
+        var afterAccrual = await RegisterTotalAsync("PayrollLiability", emp);
         Assert.IsTrue(afterAccrual == 100m, "после начисления задолженность 100, факт {0}", afterAccrual);
 
         var pay = await DocumentManager.NewDocumentAsync<PayrollPayment>();
         pay.Lines.Add(new PayrollPaymentLinesTablePartRow { Employee = emp, Amount = 100m });
         await DocumentManager.SaveDocumentAsync(pay);
 
-        Assert.IsTrue(await RegisterTotalAsync("PayrollLiability") == 100m,
+        Assert.IsTrue(await RegisterTotalAsync("PayrollLiability", emp) == 100m,
             "черновик выплаты ничего не гасит");
 
         pay.Subtype = PayrollPayment.Subtypes.Paid;
         await DocumentManager.SaveDocumentAsync(pay);
 
-        var afterPayment = await RegisterTotalAsync("PayrollLiability");
+        var afterPayment = await RegisterTotalAsync("PayrollLiability", emp);
         Assert.IsTrue(afterPayment == 0m, "задолженность 0 после выплаты, факт {0}", afterPayment);
     }
 

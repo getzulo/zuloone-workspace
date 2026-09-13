@@ -29,11 +29,11 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
     {
         var uom = DictionaryManager.NewRecord<UnitOfMeasure>();
         uom.Name = "Piece";
-        uom.Code = "PCS";
+        uom.Code = $"PCS-{Db.NewId():N}"[..12];
         uom = await DictionaryManager.SaveRecordAsync(uom);
 
         var group = DictionaryManager.NewRecord<ItemGroup>();
-        group.Code = "MAT";
+        group.Code = $"MAT-{Db.NewId():N}"[..12];
         group.Name = "Materials";
         group = await DictionaryManager.SaveRecordAsync(group);
 
@@ -74,7 +74,7 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
         legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
 
         var divisionType = DictionaryManager.NewRecord<DivisionType>();
-        divisionType.Code = "PRD";
+        divisionType.Code = $"PRD-{Db.NewId():N}"[..12];
         divisionType.Name = "Production";
         divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
 
@@ -141,9 +141,31 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
     private async Task<List<ProductionOrderComponentsTablePartRow>> ComponentsAsync(Guid orderId)
         => (await DocumentManager.GetDocumentAsync<ProductionOrder>(orderId))!.Components;
 
+    /// <summary>
+    /// ProductionSettings — одиночный и кэшируемый: чужой AutoExpandBom на стенде
+    /// разворачивает заказ сам и ломает кейсы «строк нет до команды».
+    /// </summary>
+    private async Task SetAutoExpandAsync(bool enabled)
+    {
+        var rows = await DictionaryManager.GetRecordsAsync<ProductionSettings>();
+        if (rows.Count == 0)
+        {
+            var created = DictionaryManager.NewRecord<ProductionSettings>();
+            created.AutoExpandBom = enabled;
+            await DictionaryManager.SaveRecordAsync(created);
+            return;
+        }
+        foreach (var row in rows)
+        {
+            row.AutoExpandBom = enabled;
+            await DictionaryManager.SaveRecordAsync(row);
+        }
+    }
+
     [IntegrationTest("Команда разворачивает спецификацию в компоненты заказа")]
     public async Task CommandFillsComponents()
     {
+        await SetAutoExpandAsync(false);
         var newItem = await ItemFactoryAsync();
         var product = await newItem("Бутерброд");
         var c1 = await newItem("Колбаса");
@@ -305,11 +327,7 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
         var bom = await NewBomAsync("BOM-авто", product.MetaId, 1m);
         await AddComponentAsync(bom, c1.MetaId, 3m);
 
-        // Настройки модуля — одиночный справочник; без записи настройка выключена,
-        // поэтому остальные тесты создают заказы без автоподстановки.
-        var settings = DictionaryManager.NewRecord<ProductionSettings>();
-        settings.AutoExpandBom = true;
-        await DictionaryManager.SaveRecordAsync(settings);
+        await SetAutoExpandAsync(true);
 
         // Заказ создаётся ТОЙ ЖЕ типизированной дверью, что и везде: строки
         // проставит обработчик OnAfterSave, и пустая коллекция в памяти их больше
@@ -331,6 +349,7 @@ public class ExpandBomCommandTest : IntegrationTestScriptBase
     [IntegrationTest("Без записи настроек автоподстановка не срабатывает")]
     public async Task NoSettingsNoAutoExpand()
     {
+        await SetAutoExpandAsync(false);
         var newItem = await ItemFactoryAsync();
         var product = await newItem("Бутерброд");
         var c1 = await newItem("Колбаса");

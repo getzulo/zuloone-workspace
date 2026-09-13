@@ -147,8 +147,7 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
                     "Receivable", $"[DocumentMetaId] = '{header.MetaId}'");
                 if (existing.Count == 0)
                 {
-                    // ITotalsManager.PostMovementAsync аналитики не принимает —
-                    // Customer на Receivable динамический, иначе «Analytic required».
+                    // Customer на Receivable — динамическая аналитика, не колонка TB_.
                     var receivableId = registers.First(r =>
                         string.Equals(r.Name, "Receivable", StringComparison.OrdinalIgnoreCase)).MetaId;
                     await movements.PostMovementAsync(receivableId, header.MetaId, calc.DocumentDate,
@@ -186,18 +185,21 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
 
         const string salesPrefix = "Sales invoice ";
         const string purchasePrefix = "Purchase order ";
-        string? number = null;
+        var escaped = (string n) => n.Replace("'", "''");
         if (reason.StartsWith(salesPrefix, StringComparison.Ordinal))
-            number = reason[salesPrefix.Length..];
+        {
+            var number = reason[salesPrefix.Length..];
+            if (string.IsNullOrWhiteSpace(number)) return null;
+            var invoices = await docs.QueryDocumentsAsync<SalesInvoice>($"ID = '{escaped(number)}'");
+            if (invoices.Count > 0) return invoices[0].MetaId;
+        }
         else if (reason.StartsWith(purchasePrefix, StringComparison.Ordinal))
-            number = reason[purchasePrefix.Length..];
-        if (string.IsNullOrWhiteSpace(number)) return null;
-
-        var escaped = number.Replace("'", "''");
-        var invoices = await docs.QueryDocumentsAsync<SalesInvoice>($"ID = '{escaped}'");
-        if (invoices.Count > 0) return invoices[0].MetaId;
-        var orders = await docs.QueryDocumentsAsync<PurchaseOrder>($"ID = '{escaped}'");
-        if (orders.Count > 0) return orders[0].MetaId;
+        {
+            var number = reason[purchasePrefix.Length..];
+            if (string.IsNullOrWhiteSpace(number)) return null;
+            var orders = await docs.QueryDocumentsAsync<PurchaseOrder>($"ID = '{escaped(number)}'");
+            if (orders.Count > 0) return orders[0].MetaId;
+        }
         return null;
     }
 }

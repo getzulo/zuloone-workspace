@@ -128,6 +128,20 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
         return (await DocumentManager.GetDocumentAsync<SocialInsuranceAccrual>(all[0].MetaId))!;
     }
 
+    private static async Task<(decimal Employee, decimal Employer)> FundAsync(Guid employee)
+    {
+        var row = await TotalsManager.GetBalanceAsync("SocialInsurance",
+            new Dictionary<string, object?> { ["Employee"] = employee });
+        if (row == null) return (0m, 0m);
+        return (
+            Convert.ToDecimal(row["EmployeeContribution"] ?? 0m),
+            Convert.ToDecimal(row["EmployerContribution"] ?? 0m));
+    }
+
+    private static Task<decimal> LiabilityAsync(Guid employee)
+        => TotalsManager.GetBalanceAsync("PayrollLiability", "Amount",
+            new Dictionary<string, object?> { ["Employee"] = employee });
+
     [IntegrationTest("Начисление ФОТ порождает взносы по ставкам гражданина")]
     public async Task AccrualCreatesLocalContributions()
     {
@@ -146,12 +160,7 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
             "взнос работодателя = 10000 × 11.75% = 1175, факт {0}", si.Lines[0].EmployerContribution);
 
         // Взносы проведены в регистр, а не остались черновиком.
-        decimal regEmployee = 0m, regEmployer = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("SocialInsurance"))
-        {
-            regEmployee += Convert.ToDecimal(r["EmployeeContribution"]);
-            regEmployer += Convert.ToDecimal(r["EmployerContribution"]);
-        }
+        var (regEmployee, regEmployer) = await FundAsync(emp);
         Assert.IsTrue(regEmployee == 975m, "регистр: взнос работника 975, факт {0}", regEmployee);
         Assert.IsTrue(regEmployer == 1175m, "регистр: взнос работодателя 1175, факт {0}", regEmployer);
 
@@ -172,9 +181,7 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
         await AccrueAsync(s.Division, new[] { (emp, 10000m) });
         await TheContributionAsync();
 
-        decimal liability = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("PayrollLiability"))
-            liability += Convert.ToDecimal(r["Amount"]);
+        var liability = await LiabilityAsync(emp);
         Assert.IsTrue(liability == 9025m,
             "задолженность = gross 10000 − удержано 975 = 9025, факт {0}", liability);
     }
@@ -230,9 +237,7 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
             "начисление взносов не создано");
 
         // И сам ФОТ отработал: задолженность перед сотрудником признана.
-        decimal liability = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("PayrollLiability"))
-            liability += Convert.ToDecimal(r["Amount"]);
+        var liability = await LiabilityAsync(emp);
         Assert.IsTrue(liability == 10000m, "задолженность 10000, факт {0}", liability);
     }
 
@@ -264,12 +269,7 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
 
         // Главное — не количество документов, а суммы: обязательство перед фондом
         // должно остаться одинарным.
-        decimal employee = 0m, employer = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("SocialInsurance"))
-        {
-            employee += Convert.ToDecimal(r["EmployeeContribution"]);
-            employer += Convert.ToDecimal(r["EmployerContribution"]);
-        }
+        var (employee, employer) = await FundAsync(emp);
         Assert.IsTrue(employee == 975m, "взнос работника не удвоился: 975, факт {0}", employee);
         Assert.IsTrue(employer == 1175m, "взнос работодателя не удвоился: 1175, факт {0}", employer);
     }

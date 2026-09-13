@@ -117,15 +117,10 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
         return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
     }
 
-    // Receivable и Revenue несут только динамическую аналитику — баланс каждого
-    // схлопывается в строки с одним ресурсом Amount; суммируем его.
-    private static async Task<decimal> SumAsync(string register)
-    {
-        decimal total = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync(register))
-            total += Convert.ToDecimal(r["Amount"]);
-        return total;
-    }
+    // Receivable и Revenue несут только динамическую аналитику Customer.
+    private static Task<decimal> SumAsync(string register, Setup s)
+        => TotalsManager.GetBalanceAsync(register, "Amount",
+            new Dictionary<string, object?> { ["Customer"] = s.Customer });
 
     [IntegrationTest("Выставление создаёт дебиторку, оплата её гасит")]
     public async Task IssueCreatesDebtPaymentClearsIt()
@@ -149,29 +144,29 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
         // Черновик долга не создаёт. Проверяем ДО перехода: тип помечен postOnSave,
         // и без этой проверки утверждения ниже прошли бы и в том случае, когда
         // документ провёлся сам при сохранении.
-        Assert.IsTrue(await SumAsync("Receivable") == 0m, "черновик счёта не создаёт долг");
-        Assert.IsTrue(await SumAsync("Revenue") == 0m, "черновик счёта не признаёт выручку");
+        Assert.IsTrue(await SumAsync("Receivable", s) == 0m, "черновик счёта не создаёт долг");
+        Assert.IsTrue(await SumAsync("Revenue", s) == 0m, "черновик счёта не признаёт выручку");
 
         inv.Subtype = SalesInvoice.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
 
-        Assert.IsTrue(await SumAsync("Receivable") == 15m,
-            "после выставления долг 3×5=15, факт {0}", await SumAsync("Receivable"));
-        Assert.IsTrue(await SumAsync("Revenue") == 15m,
-            "выручка признана 15, факт {0}", await SumAsync("Revenue"));
+        Assert.IsTrue(await SumAsync("Receivable", s) == 15m,
+            "после выставления долг 3×5=15, факт {0}", await SumAsync("Receivable", s));
+        Assert.IsTrue(await SumAsync("Revenue", s) == 15m,
+            "выручка признана 15, факт {0}", await SumAsync("Revenue", s));
 
         // Оплата — ОТДЕЛЬНЫЙ документ, а не смена подтипа счёта.
         var pay = await DocumentManager.NewDocumentAsync<CustomerPayment>();
         pay.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Amount = 15m });
         await DocumentManager.SaveDocumentAsync(pay);
-        Assert.IsTrue(await SumAsync("Receivable") == 15m,
-            "черновик оплаты долг не трогает, факт {0}", await SumAsync("Receivable"));
+        Assert.IsTrue(await SumAsync("Receivable", s) == 15m,
+            "черновик оплаты долг не трогает, факт {0}", await SumAsync("Receivable", s));
 
         pay.Subtype = CustomerPayment.Subtypes.Paid;
         await DocumentManager.SaveDocumentAsync(pay);
 
-        Assert.IsTrue(await SumAsync("Receivable") == 0m,
-            "после оплаты долг погашен, факт {0}", await SumAsync("Receivable"));
+        Assert.IsTrue(await SumAsync("Receivable", s) == 0m,
+            "после оплаты долг погашен, факт {0}", await SumAsync("Receivable", s));
 
         // Счёт остаётся выставленным — оплата не отменяет продажу.
         var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(inv.MetaId);
@@ -179,8 +174,8 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(stored!.Subtype == SalesInvoice.Subtypes.Issued,
             "счёт остаётся Issued, факт {0}", stored.Subtype);
 
-        Assert.IsTrue(await SumAsync("Revenue") == 15m,
-            "выручка сохраняется после оплаты, факт {0}", await SumAsync("Revenue"));
+        Assert.IsTrue(await SumAsync("Revenue", s) == 15m,
+            "выручка сохраняется после оплаты, факт {0}", await SumAsync("Revenue", s));
 
         decimal onHand = 0m;
         foreach (var r in await TotalsManager.QueryBalancesAsync("Stock", $"[Cell] = '{s.Location}'"))
@@ -213,7 +208,7 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
 
         inv.Subtype = SalesInvoice.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
-        Assert.IsTrue(await SumAsync("Receivable") == 15m, "долг признан выставлением");
+        Assert.IsTrue(await SumAsync("Receivable", s) == 15m, "долг признан выставлением");
 
         var reason = string.Empty;
         try
@@ -224,6 +219,6 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
         catch (Exception ex) { reason = ex.Message; }
 
         Assert.IsTrue(reason.Length > 0, "перевод в Paid обязан быть отклонён, факт: без ошибки");
-        Assert.IsTrue(await SumAsync("Receivable") == 15m, "долг остаётся — его гасит только CustomerPayment");
+        Assert.IsTrue(await SumAsync("Receivable", s) == 15m, "долг остаётся — его гасит только CustomerPayment");
     }
 }

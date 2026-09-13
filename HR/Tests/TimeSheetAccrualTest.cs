@@ -84,11 +84,12 @@ public class TimeSheetAccrualTest : IntegrationTestScriptBase
         return (division.MetaId, emp1.MetaId, emp2.MetaId);
     }
 
-    private async Task<decimal> RegisterTotalAsync(string register)
+    private static async Task<decimal> RegisterTotalAsync(string register, params Guid[] employees)
     {
         decimal total = 0m;
-        foreach (var row in await TotalsManager.QueryBalancesAsync(register))
-            total += Convert.ToDecimal(row["Amount"]);
+        foreach (var emp in employees)
+            total += await TotalsManager.GetBalanceAsync(register, "Amount",
+                new Dictionary<string, object?> { ["Employee"] = emp });
         return total;
     }
 
@@ -126,7 +127,7 @@ public class TimeSheetAccrualTest : IntegrationTestScriptBase
         // Утверждённый табель — это факт работы, а не деньги: пока команда не
         // отработала, регистры ФОТ пусты. Без этого снимка проверки ниже проходят
         // даже когда команда ничего не сделала.
-        Assert.IsTrue(await RegisterTotalAsync("Payroll") == 0m, "сам табель ФОТ не начисляет");
+        Assert.IsTrue(await RegisterTotalAsync("Payroll", s.Emp1, s.Emp2) == 0m, "сам табель ФОТ не начисляет");
 
         // Исполнение команд — единственный шаг сценария БЕЗ менеджера: платформа
         // не публикует ICommandManager, запускать команду умеет только харнесс.
@@ -135,10 +136,10 @@ public class TimeSheetAccrualTest : IntegrationTestScriptBase
         Assert.IsTrue(run.Success, "команда должна выполниться: {0}", run.Message ?? "");
 
         // 10×50 + 8×25 = 500 + 200 = 700 — суммы нет в табеле, она посчитана по ставкам.
-        var payroll = await RegisterTotalAsync("Payroll");
+        var payroll = await RegisterTotalAsync("Payroll", s.Emp1, s.Emp2);
         Assert.IsTrue(payroll == 700m, "ФОТ = 10×50 + 8×25 = 700, факт {0}", payroll);
 
-        var liab = await RegisterTotalAsync("PayrollLiability");
+        var liab = await RegisterTotalAsync("PayrollLiability", s.Emp1, s.Emp2);
         Assert.IsTrue(liab == 700m, "задолженность перед сотрудниками 700, факт {0}", liab);
 
         Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("700"),
@@ -154,7 +155,7 @@ public class TimeSheetAccrualTest : IntegrationTestScriptBase
         var commandId = await Db.FindCommandIdAsync("document", "AccruePayroll");
         var run = await Db.ExecuteDocumentCommandAsync(commandId, sheet.MetaId);
 
-        var payroll = await RegisterTotalAsync("Payroll");
+        var payroll = await RegisterTotalAsync("Payroll", s.Emp1, s.Emp2);
         Assert.IsTrue(payroll == 0m, "по пустому табелю начислений нет, факт {0}", payroll);
         Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("нет строк"),
             "пользователь получил причину: {0}", string.Join("; ", run.ClientMessages));

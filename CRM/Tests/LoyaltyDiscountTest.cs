@@ -138,15 +138,10 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         => TotalsManager.GetBalanceAsync("LoyaltyPoints", "Points",
             new Dictionary<string, object?> { ["Customer"] = customer });
 
-    // Receivable и Revenue несут только динамическую аналитику — баланс каждого
-    // схлопывается в строки с одним ресурсом Amount; суммируем его.
-    private static async Task<decimal> SumAsync(string register)
-    {
-        decimal total = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync(register))
-            total += Convert.ToDecimal(r["Amount"]);
-        return total;
-    }
+    // Receivable и Revenue несут только динамическую аналитику Customer.
+    private static Task<decimal> SumAsync(string register, Setup s)
+        => TotalsManager.GetBalanceAsync(register, "Amount",
+            new Dictionary<string, object?> { ["Customer"] = s.Customer });
 
     private async Task<SalesInvoice> IssueAsync(Setup s, decimal qty, decimal price, decimal? manualDiscount = null)
     {
@@ -183,10 +178,10 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
             "уровень Silver даёт 10%, в документе {0}", stored.DiscountPercent);
 
         // 10 × 100 = 1000, минус 10% = 900. Один и тот же ответ у всех трёх.
-        Assert.IsTrue(await SumAsync("Receivable") == 900m,
-            "долг со скидкой 900, факт {0}", await SumAsync("Receivable"));
-        Assert.IsTrue(await SumAsync("Revenue") == 900m,
-            "выручка со скидкой 900, факт {0}", await SumAsync("Revenue"));
+        Assert.IsTrue(await SumAsync("Receivable", s) == 900m,
+            "долг со скидкой 900, факт {0}", await SumAsync("Receivable", s));
+        Assert.IsTrue(await SumAsync("Revenue", s) == 900m,
+            "выручка со скидкой 900, факт {0}", await SumAsync("Revenue", s));
         // Баллы начислялись бы 1000 при незамеченной скидке — 500 стартовых плюс 900.
         Assert.IsTrue(await PointsAsync(s.Customer) == 1400m,
             "баллы 500 + 900 = 1400, факт {0}", await PointsAsync(s.Customer));
@@ -207,8 +202,8 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
         Assert.IsTrue(stored.DiscountPercent == 25m,
             "ручные 25% сохраняются, факт {0}", stored.DiscountPercent);
-        Assert.IsTrue(await SumAsync("Revenue") == 750m,
-            "выручка 1000 − 25% = 750, факт {0}", await SumAsync("Revenue"));
+        Assert.IsTrue(await SumAsync("Revenue", s) == 750m,
+            "выручка 1000 − 25% = 750, факт {0}", await SumAsync("Revenue", s));
     }
 
     [IntegrationTest("Без достигнутого уровня счёт выставляется по полной цене")]
@@ -223,8 +218,8 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
         Assert.IsTrue(stored.DiscountPercent == 0m,
             "недостигнутый уровень скидки не даёт, факт {0}", stored.DiscountPercent);
-        Assert.IsTrue(await SumAsync("Revenue") == 1000m,
-            "выручка без скидки 1000, факт {0}", await SumAsync("Revenue"));
+        Assert.IsTrue(await SumAsync("Revenue", s) == 1000m,
+            "выручка без скидки 1000, факт {0}", await SumAsync("Revenue", s));
     }
 
     private static async Task<string> RejectedAsync(Func<Task> action, string because)
@@ -276,8 +271,8 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
 
         var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
         Assert.IsTrue(stored.DiscountPercent == 100m, "скидка 100% сохраняется, факт {0}", stored.DiscountPercent);
-        Assert.IsTrue(await SumAsync("Receivable") == 0m, "долг при скидке 100% — 0, факт {0}", await SumAsync("Receivable"));
-        Assert.IsTrue(await SumAsync("Revenue") == 0m, "выручка при скидке 100% — 0, факт {0}", await SumAsync("Revenue"));
+        Assert.IsTrue(await SumAsync("Receivable", s) == 0m, "долг при скидке 100% — 0, факт {0}", await SumAsync("Receivable", s));
+        Assert.IsTrue(await SumAsync("Revenue", s) == 0m, "выручка при скидке 100% — 0, факт {0}", await SumAsync("Revenue", s));
         Assert.IsTrue(await PointsAsync(s.Customer) == 0m, "баллы при скидке 100% не начисляются, факт {0}", await PointsAsync(s.Customer));
     }
 
@@ -322,10 +317,10 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         Assert.IsTrue(stored.DiscountPercent == 10m, "уровень Silver даёт 10%, в документе {0}", stored.DiscountPercent);
         // 10 × 120 = 1200, минус 10% = 1080 — обе фичи (цепочка наценок и скидка
         // уровня) обязаны сойтись в ОДНОЙ базе, как и везде в этом документе.
-        Assert.IsTrue(await SumAsync("Receivable") == 1080m,
-            "долг с ценой из цепочки и скидкой уровня 1080, факт {0}", await SumAsync("Receivable"));
-        Assert.IsTrue(await SumAsync("Revenue") == 1080m,
-            "выручка 1080, факт {0}", await SumAsync("Revenue"));
+        Assert.IsTrue(await SumAsync("Receivable", s) == 1080m,
+            "долг с ценой из цепочки и скидкой уровня 1080, факт {0}", await SumAsync("Receivable", s));
+        Assert.IsTrue(await SumAsync("Revenue", s) == 1080m,
+            "выручка 1080, факт {0}", await SumAsync("Revenue", s));
         Assert.IsTrue(await PointsAsync(s.Customer) == 1580m,
             "баллы 500 + 1080 = 1580, факт {0}", await PointsAsync(s.Customer));
     }
