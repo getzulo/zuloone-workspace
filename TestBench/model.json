@@ -6,6 +6,7 @@
     "isSystem": false,
     "isSealed": false,
     "isEnabled": true,
+    "compilationError": "TBStockDocEvents: CS0234 The type or namespace name 'Services' does not exist in the namespace 'ZuloOne' (are you missing an assembly reference?)",
     "metaId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
     "name": "TestBench",
     "modelId": "00000000-0000-0000-0000-000000000000",

@@ -6,6 +6,7 @@
     "isSystem": false,
     "isSealed": false,
     "isEnabled": true,
+    "compilationError": "Dependency failed: TestBench",
     "metaId": "390cbabb-1f33-47db-afd7-b78fb78afae9",
     "name": "TestBenchExt",
     "modelId": "00000000-0000-0000-0000-000000000000",
