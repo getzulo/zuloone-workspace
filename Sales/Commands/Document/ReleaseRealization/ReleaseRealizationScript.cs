@@ -1,12 +1,12 @@
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// Команда «Выставить реализацию»: переход Shipped → Issued.
-// Проверки остатка, юрлица и налоговой ставки — в OnBeforePost.
-// После перехода: Mix снимает резерв SalesInvoiceReserveTx и
-// записывает Stock/Revenue/Receivable/Loyalty/SaudiVat скриптами Issued.
-// Заказ-источник переводится в Delivered здесь (после SaveDocumentAsync),
-// а не в OnAfterPost — там вложенный SetSubtypeAsync глотается безмолвно.
+// Release-realization command: Shipped → Issued.
+// Stock, legal-entity, and tax-rate checks live in OnBeforePost.
+// After the transition: Mix lifts the SalesInvoiceReserveTx reserve and
+// writes Stock/Revenue/Receivable/Loyalty/SaudiVat via the Issued scripts.
+// The source order is moved to Delivered here (after SaveDocumentAsync),
+// not in OnAfterPost — a nested SetSubtypeAsync is silently swallowed there.
 public partial class ReleaseRealizationCommand
 {
     public override async Task ExecuteAsync(SalesInvoice document, CommandContext context)

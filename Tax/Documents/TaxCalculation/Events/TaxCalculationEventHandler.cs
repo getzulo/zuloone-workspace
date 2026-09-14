@@ -5,35 +5,39 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Целостность налогового расчёта на ФИНАЛИЗАЦИИ. Две проверки, и порядок у них
-// не случайный:
+// Tax-calculation integrity at FINALIZATION. Two checks, and their order is
+// not accidental:
 //
-//   1. ставка строки — ТА, что действовала на TaxPointDate расчёта;
-//   2. сумма = база × эта ставка (с точностью до денежного округления).
+//   1. the line rate is THE one that was effective on the calculation's TaxPointDate;
+//   2. amount = base × that rate (to money rounding).
 //
-// Одной арифметики мало: расчёт, собранный руками или через API с ЛЮБОЙ ставкой,
-// самосогласован — 100 × 0.20 = 20 сходится ничуть не хуже, чем 100 × 0.15 = 15.
-// Проверка проходила, число уходило в декларацию, и расхождение всплывало у
-// налогового органа. Ставка — ВХОД расчёта, её и надо подтверждать первой;
-// арифметика после этого считается уже от подтверждённой ставки.
+// Arithmetic alone is not enough: a calculation assembled by hand or via API
+// with ANY rate is self-consistent — 100 × 0.20 = 20 checks out no worse than
+// 100 × 0.15 = 15. The check would pass, the number would go into the return,
+// and the discrepancy would surface at the tax authority. The rate is the
+// INPUT of the calculation and must be confirmed first; arithmetic after that
+// is computed from the confirmed rate.
 //
-// Подбор ставки здесь НЕ повторяется: окна EffectiveFrom/EffectiveTo налога,
-// кода и самой ставки читает ITaxService.ResolveRateAsync. Второй экземпляр этой
-// логики разошёлся бы с первым, и разошёлся бы молча — документ считался бы по
-// одному правилу, а проверялся по другому.
+// Rate resolution is NOT repeated here: EffectiveFrom/EffectiveTo windows of
+// the tax, the code and the rate itself are read by ITaxService.ResolveRateAsync.
+// A second copy of that logic would drift from the first, and silently — the
+// document would be calculated by one rule and checked by another.
 //
-// ПОЧЕМУ в OnBeforePost. Из событий проводки платформа объявляет отменяемым
-// только его: DocumentPostingService зовёт OnBeforePost/OnBeforeUnpost с
-// cancelable: true и превращает отказ в исключение, а OnAfterPost/OnAfterUnpost —
-// с cancelable: false, где отказ становится строкой в логе и документ проводится
-// всё равно. Проверка, которая обязана ОТКАЗЫВАТЬ, может стоять только здесь.
+// WHY OnBeforePost. Of the posting events the platform marks only this one as
+// cancelable: DocumentPostingService calls OnBeforePost/OnBeforeUnpost with
+// cancelable: true and turns a refusal into an exception, while
+// OnAfterPost/OnAfterUnpost use cancelable: false, where a refusal becomes a
+// log line and the document posts anyway. A check that MUST refuse can only
+// live here.
 //
-// Строки перечитываются через IDocumentManager: шапочное событие приходит без
-// табличных частей.
+// Lines are re-read via IDocumentManager: the header event arrives without
+// table parts.
 public partial class TaxCalculationEventHandler : TypedDocumentEventHandler<TaxCalculation>
 {
-    public override async Task<EventResult> OnBeforePostAsync(TaxCalculation document, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(TaxCalculation document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<TaxCalculation>(document.MetaId);
         var calc = full ?? document;
         var lines = calc.Lines;
@@ -41,39 +45,39 @@ public partial class TaxCalculationEventHandler : TypedDocumentEventHandler<TaxC
         if (lines.Count == 0)
             return EventResult.Cancel("Налоговый расчёт без строк не финализируется");
 
-        // Дата налогового события — та, что записана в расчёте. Именно она, а не
-        // «сегодня»: расчёт, выпущенный задним числом, обязан подтверждаться
-        // ставкой своего периода, иначе прошлогодний документ отвергался бы за то,
-        // что ставка с тех пор поменялась.
+        // The tax-event date is the one recorded on the calculation. That date,
+        // not "today": a backdated calculation must be confirmed at its period's
+        // rate, otherwise last year's document would be rejected because the rate
+        // has changed since.
         var taxPoint = calc.TaxPointDate.Date;
         var tax = context.GetService<ITaxService>();
 
         foreach (var line in lines)
         {
-            // Ставки на дату НЕТ — отказ, а не «посчитаем по тому, что записано».
-            // Строка ссылается на код, чья ставка на эту дату не действует: либо
-            // дату подменили, либо ставку отозвали задним числом. Ни то ни другое
-            // не даёт права выпустить сумму, обосновать которую больше нечем;
-            // молчаливое согласие здесь и есть та дыра, ради которой всё это.
-            // Пересечение окон ResolveRateAsync бросает сам — исключение
-            // обработчика платформа тоже превращает в отказ проводки.
+            // There is NO rate on the date — refuse, do not "compute from what is
+            // written". The line points at a code whose rate is not effective on
+            // this date: either the date was swapped or the rate was withdrawn
+            // retroactively. Neither grants the right to issue an amount that can
+            // no longer be justified; silent assent here is the hole this is for.
+            // Overlapping windows are thrown by ResolveRateAsync itself — the
+            // platform turns a handler exception into a posting refusal too.
             var effective = await tax.ResolveRateAsync(line.TaxCode, taxPoint);
             if (effective is null)
                 return EventResult.Cancel(
                     $"На {taxPoint:yyyy-MM-dd} у налогового кода строки нет действующей ставки — "
                     + "финализировать расчёт нечем");
 
-            // Сравнение ТОЧНОЕ. Обе величины пришли из колонок одного EDT
-            // TaxRateValue — decimal(9,6), так что расхождение может быть только
-            // настоящим; а на большой базе оно и в шестом знаке стоит денег.
+            // Comparison is EXACT. Both values came from columns of the same EDT
+            // TaxRateValue — decimal(9,6), so a mismatch can only be real; and on
+            // a large base the sixth decimal place is money.
             if (effective.Value != line.RateValue)
                 return EventResult.Cancel(
                     $"Ставка строки {line.RateValue} не действовала на {taxPoint:yyyy-MM-dd}: "
                     + $"действующая ставка {effective.Value}");
 
-            // Округление берётся у сервиса: денежная точность — глобальная
-            // настройка AmountScale, и у расчёта с его проверкой не должно быть
-            // двух разных мнений о том, сколько в сумме знаков.
+            // Rounding is taken from the service: money precision is the global
+            // AmountScale setting, and the calculation and its check must not have
+            // two different opinions about how many digits the amount has.
             var expected = tax.CalculateTax(line.TaxBase, effective.Value);
             if (Math.Abs(expected - line.TaxAmount) > 0.01m)
                 return EventResult.Cancel($"Сумма налога {line.TaxAmount} не сходится с базой×ставкой ({expected})");

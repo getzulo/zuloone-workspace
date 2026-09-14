@@ -10,15 +10,15 @@ public partial class SocialInsuranceAccrualEventHandler : TypedDocumentEventHand
 {
     // Building a new document server-side: seed header defaults (number, date).
     public override Task<EventResult> OnBeforeCreateAsync(SocialInsuranceAccrual header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
     public override Task<EventResult> OnBeforeSaveAsync(SocialInsuranceAccrual header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(SocialInsuranceAccrual header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
@@ -33,44 +33,48 @@ public partial class SocialInsuranceAccrualEventHandler : TypedDocumentEventHand
 
     // Just before the document is deleted.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the document was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // Before posting: validate the whole document; cancel to block posting.
-    public override Task<EventResult> OnBeforePostAsync(SocialInsuranceAccrual header, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(SocialInsuranceAccrual header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         // if (header.Number == null)
-        //     return Task.FromResult(EventResult.Cancel("Number is required before posting"));
-        return Task.FromResult(EventResult.Ok());
+        //     return EventResult.Cancel("Number is required before posting");
+        return EventResult.Ok();
     }
 
     // After the document was posted (register movements are written).
     public override Task<EventResult> OnAfterPostAsync(SocialInsuranceAccrual header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // Before unpost/cancel: about to reverse the document's movements.
     public override Task<EventResult> OnBeforeUnpostAsync(SocialInsuranceAccrual header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // After the document's movements were reversed.
     public override Task<EventResult> OnAfterUnpostAsync(SocialInsuranceAccrual header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // Human-readable description shown in lists: put it in context.Data["description"].
-    public override Task<EventResult> OnGenerateDescriptionAsync(SocialInsuranceAccrual header, EventContext context)
-    {
+    public override async Task<EventResult> OnGenerateDescriptionAsync(SocialInsuranceAccrual header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         // context.Data["description"] = "SocialInsuranceAccrual " + header.Number;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(SocialInsuranceAccrual header, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, errorMessage, context);
 
     // A delete failed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, errorMessage, context);
 }

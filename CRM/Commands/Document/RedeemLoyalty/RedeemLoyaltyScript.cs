@@ -1,8 +1,9 @@
 using System.Linq;
 using ZuloOne.Managers;
 
-// «Списать баллы»: баланс LoyaltyPoints и лимит уровня. Отдельного сервиса
-// лояльности нет — те же ITotalsManager и LoyaltyTier, что в OnBeforePost.
+// «Redeem points»: LoyaltyPoints balance and the tier limit. There is no
+// separate loyalty service — the same ITotalsManager and LoyaltyTier as in
+// OnBeforePost.
 public partial class RedeemLoyaltyCommand
 {
     public override async Task ExecuteAsync(LoyaltyRedemption document, CommandContext context)

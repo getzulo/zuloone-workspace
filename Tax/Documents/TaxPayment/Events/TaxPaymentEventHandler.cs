@@ -4,17 +4,20 @@ using ZuloOne.Managers;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Проверка оплаты налога перед проведением. Движковой отсечки по остатку
-// обязательства здесь нет: налог в регистрах живёт в TaxLedger (начисление) и в
-// GL (обязательство), а этот документ только гасит счёт в книге. Проверяется
-// осмысленность самого документа: пустая оплата и неположительная сумма.
+// Validate a tax payment before posting. There is no engine cutoff on the
+// liability balance: tax in the registers lives in TaxLedger (accrual) and in
+// GL (liability), and this document only settles the book account. We check
+// that the document itself makes sense: an empty payment and a non-positive
+// amount.
 //
-// Строки перечитываются через IDocumentManager: в событие заголовка табличная
-// часть не приезжает (тот же приём, что в VendorPayment и TaxCalculation).
+// Lines are re-read via IDocumentManager: the header event does not carry the
+// table part (the same pattern as VendorPayment and TaxCalculation).
 public partial class TaxPaymentEventHandler : TypedDocumentEventHandler<TaxPayment>
 {
-    public override async Task<EventResult> OnBeforePostAsync(TaxPayment document, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(TaxPayment document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Paid")
             return EventResult.Ok();
 

@@ -4,12 +4,14 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Строка истории цен на карточке номенклатуры. Окна, единица, Calculated —
-// спрашивает IPricingService, своего сравнения дат здесь нет.
+// Price-history row on the item card. Windows, unit, Calculated —
+// asked of IPricingService, there is no date comparison here.
 public partial class PriceTypeHistoryEventHandler : TypedDictionaryEventHandler<LT_PriceTypeHistory>
 {
-    public override async Task<EventResult> OnBeforeSaveAsync(LT_PriceTypeHistory record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(LT_PriceTypeHistory record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         var error = await context.GetService<IPricingService>().ValidateRowAsync(
             record.MetaId,
             record.PriceType ?? Guid.Empty,

@@ -1,4 +1,4 @@
-// «Ядерные тесты.Команды»: команда списка TBItem — считает выборку.
+// "TestBench.Commands": TBItem list command — counts the selection.
 public partial class TBItemTallyCommand
 {
     public override async Task ExecuteAsync(IReadOnlyList<TBItem> records, CommandContext context)

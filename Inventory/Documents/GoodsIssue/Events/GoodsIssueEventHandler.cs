@@ -6,7 +6,7 @@ using ZuloOne.Managers;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Strongly-typed lifecycle handler for GoodsIssue (Реализация) documents.
+// Strongly-typed lifecycle handler for GoodsIssue (realization) documents.
 // The document ships stock OUT of the warehouse to a sale — every line is a
 // write-off of `Quantity` from FromCell. The posting itself is a single -qty
 // Stock movement (see GoodsIssueTx); here we only guard against over-shipping.
@@ -16,26 +16,28 @@ public partial class GoodsIssueEventHandler : TypedDocumentEventHandler<GoodsIss
     // Before posting: reject a shipment that would drive a bin negative. Stock is a
     // single-entry register with allowNegativeBalance:true, so the engine will not
     // block it — we enforce "can't ship more than on-hand" here, per FromCell/Item.
-    public override async Task<EventResult> OnBeforePostAsync(GoodsIssue header, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(GoodsIssue header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<GoodsIssue>(header.MetaId);
         var lines = full?.Lines ?? header.Lines;
 
-        // Сравнивается с остатком регистра, а он в БАЗОВОЙ единице товара — значит и
-        // потребность считается по BaseQuantity, иначе «2 ящика» прошли бы проверку
-        // против 12 штук на полке. Ноль = единица не указана, пересчёта не было.
+        // Compared to the register balance, which is in the item's BASE unit — so
+        // demand is also counted in BaseQuantity, otherwise "2 boxes" would pass
+        // against 12 pieces on the shelf. Zero = unit not specified, no conversion.
         var need = new Dictionary<Guid, decimal>();
         foreach (var line in lines)
         {
             var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
 
-            // Отрицательная строка ОТКЛОНЯЕТСЯ, а не пропускается. Раньше здесь
-            // стояло `if (qty > 0m)` — минусовые строки не попадали в потребность
-            // и проверку остатка не проходили вовсе. При этом транзакционный
-            // скрипт проводит −qty, то есть минус в строке превращался в ПЛЮС на
-            // складе: строка «−5» приходовала пять единиц, которых никто не
-            // покупал, и притом без слоя себестоимости — положительное нетто
-            // драйвер Costing не оценивает.
+            // A negative line is REJECTED, not skipped. This used to be
+            // `if (qty > 0m)` — negative lines never entered demand
+            // and never hit the stock check. Meanwhile the transactional
+            // script posts −qty, so a minus on the line became a PLUS in
+            // the warehouse: a "−5" line received five units nobody
+            // bought, and without a cost layer — Costing does not value
+            // a positive net.
             if (qty <= 0m)
                 return EventResult.Cancel("Количество отпуска должно быть больше нуля");
 

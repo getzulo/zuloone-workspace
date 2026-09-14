@@ -4,9 +4,9 @@ public partial class PayrollPaymentTx
     {
         foreach (var line in document.Lines)
         {
-            // Выплата гасит задолженность перед сотрудником.
-            // Регистр PayrollLiability запрещает отрицательный остаток —
-            // переплата (выплата больше начисленного) будет отклонена движком.
+            // Payment settles the liability to the employee.
+            // PayrollLiability forbids a negative balance —
+            // overpayment (paying more than accrued) will be rejected by the engine.
             transactions.Add(new RegisterMovementSpec("PayrollLiability")
                 .An(Analytics.PayrollLiability.Employee, line.Employee)
                 .Res("Amount", -line.Amount));

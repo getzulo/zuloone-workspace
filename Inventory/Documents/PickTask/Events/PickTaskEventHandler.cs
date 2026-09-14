@@ -16,15 +16,15 @@ public partial class PickTaskEventHandler : TypedDocumentEventHandler<PickTask>
 {
     // Building a new document server-side: seed header defaults (number, date).
     public override Task<EventResult> OnBeforeCreateAsync(PickTask header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
     public override Task<EventResult> OnBeforeSaveAsync(PickTask header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(PickTask header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
@@ -39,32 +39,33 @@ public partial class PickTaskEventHandler : TypedDocumentEventHandler<PickTask>
 
     // Just before the document is deleted.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the document was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
-    // Отбор под отгрузку: хранение → отбор. Две проверки разной природы, и их
-    // НЕЛЬЗЯ смешивать.
+    // Pick for shipment: storage → picking. Two checks of different nature, and
+    // they MUST NOT be mixed.
     //
-    // Первая — физика: нельзя отобрать больше, чем лежит в ячейке хранения. Она
-    // работает ВСЕГДА, флагом не выключается. Регистр Stock допускает
-    // отрицательный остаток (allowNegativeBalance), поэтому движок здесь не
-    // помощник — проверка обязана стоять тут.
+    // First is physics: you cannot pick more than sits in the storage cell. It
+    // ALWAYS runs, the flag does not turn it off. The Stock register allows
+    // a negative balance (allowNegativeBalance), so the engine is no help here —
+    // the check must live here.
     //
-    // Вторая — политика: хранение это хранение, а отбор это отбор. Она
-    // включается настройкой EnforceWarehouseTasks, потому что до сих пор ячейки
-    // были свободными, и разом запретить произвольную ячейку значит сломать все
-    // существующие документы.
+    // Second is policy: storage is storage, picking is picking. It is turned on
+    // by EnforceWarehouseTasks, because until now cells were free-form, and
+    // suddenly forbidding an arbitrary cell would break every existing document.
     //
-    // Политика живёт в StoreCellService, хотя он в ЭТОЙ ЖЕ модели: обращение
-    // модели к собственному контракту сервиса когда-то ломало сборку контрактов,
-    // но платформа это починила — проверено компиляцией и тестами. Поэтому здесь
-    // тонкая оркестровка, а знание «какая ячейка для чего» — в одном месте, и
-    // приход с продажей спрашивают то же самое.
-    public override async Task<EventResult> OnBeforePostAsync(PickTask header, EventContext context)
-    {
+    // Policy lives in StoreCellService, even though it is in THIS SAME model:
+    // a model calling its own service contract once broke the contract assembly,
+    // but the platform fixed that — verified by compile and tests. So this is
+    // thin orchestration, and "which cell is for what" lives in one place;
+    // receipt and sale ask the same thing.
+    public override async Task<EventResult> OnBeforePostAsync(PickTask header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         if (header.Subtype != "Confirmed") return EventResult.Ok();
 
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<PickTask>(header.MetaId);
@@ -79,8 +80,8 @@ public partial class PickTaskEventHandler : TypedDocumentEventHandler<PickTask>
         if (enforcing && !await cells.IsCellAllowedForAsync(fromCell, StoreCellPurpose.Storage))
             return EventResult.Cancel("Отбор забирает товар из ячейки ХРАНЕНИЯ — у выбранной ячейки другое назначение");
 
-        // Спрос считается по BaseQuantity — регистр хранит базовую единицу товара.
-        // Ноль означает «единица не указана, пересчёта не было».
+        // Demand is counted in BaseQuantity — the register stores the item's base unit.
+        // Zero means "unit not specified, no conversion".
         var demand = new Dictionary<Guid, decimal>();
         foreach (var line in lines)
         {
@@ -106,28 +107,30 @@ public partial class PickTaskEventHandler : TypedDocumentEventHandler<PickTask>
 
     // After the document was posted (register movements are written).
     public override Task<EventResult> OnAfterPostAsync(PickTask header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // Before unpost/cancel: about to reverse the document's movements.
     public override Task<EventResult> OnBeforeUnpostAsync(PickTask header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // After the document's movements were reversed.
     public override Task<EventResult> OnAfterUnpostAsync(PickTask header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // Human-readable description shown in lists: put it in context.Data["description"].
-    public override Task<EventResult> OnGenerateDescriptionAsync(PickTask header, EventContext context)
-    {
+    public override async Task<EventResult> OnGenerateDescriptionAsync(PickTask header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         // context.Data["description"] = "PickTask " + header.Number;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(PickTask header, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, errorMessage, context);
 
     // A delete failed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, errorMessage, context);
 }

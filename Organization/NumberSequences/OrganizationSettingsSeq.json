@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 1,
+    "nextValue": 2,
     "resetPolicy": "None",
     "metaId": "43218c98-3060-571c-a481-4ad5c3556aa8",
     "name": "OrganizationSettingsSeq",

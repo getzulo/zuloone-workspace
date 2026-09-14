@@ -7,43 +7,45 @@ using ZuloOne.Runtime.Generated;
 using ZuloOne.Totals;
 using ZuloOne.Totals.Calculation;
 
-// ═══ ДРАЙВЕР ОЦЕНКИ ВЫБЫТИЯ регистра ItemCostFifo ════════════════════════════
+// ═══ DISPOSAL-VALUATION DRIVER for the ItemCostFifo register ═════════════════
 //
-// Регистр хранит слои (лоты) прихода; движок зовёт CalculateOutcomes, чтобы
-// РАСПЛАНИРОВАТЬ, из каких слоёв и по какой цене снять расход. Метод берётся из
-// singleton-справочника CostingSettings и НЕ зашит в код:
+// The register stores receipt layers (lots); the engine calls CalculateOutcomes
+// to PLAN which layers and at which price to take the issue from. The method
+// comes from the CostingSettings singleton dictionary and is NOT hard-coded:
 //
-//   CostingMethod = FIFO (умолчание, в том числе когда записи настроек нет) —
-//     база FifoTotalDriver: расход гасит старейшие лоты, себестоимость лота
-//     переходит в выбытие как есть.
+//   CostingMethod = FIFO (default, including when there is no settings record) —
+//     FifoTotalDriver base: the issue consumes the oldest lots, lot cost
+//     moves into disposal as-is.
 //
-//   CostingMethod = AVG — средневзвешенная: единица оценивается как
-//     Σ сумм открытых лотов / Σ их количеств, а количество снимается с лотов
-//     ПРОПОРЦИОНАЛЬНО их остаткам. Пропорция здесь не украшение, а условие
-//     сходимости: физический слой хранит ИСХОДНУЮ цену партии, и его
-//     непогашенная стоимость всегда считается как Amount/OriginalQty×RemainingQty
-//     (платформа гасит только RemainingQty). Гаси лоты по старшинству, а оценивай
-//     по средней — сумма непогашенных стоимостей слоёв разойдётся с остатком
-//     регистра ровно на разницу методов. При пропорциональном гашении доли всех
-//     лотов уменьшаются одинаково, и обе величины остаются равными.
+//   CostingMethod = AVG — weighted average: a unit is valued as
+//     Σ amounts of open lots / Σ their quantities, and quantity is taken
+//     from lots PROPORTIONALLY to their remaining balances. The proportion
+//     is not decoration here, it is a convergence condition: the physical
+//     layer stores the ORIGINAL lot price, and its outstanding cost is
+//     always Amount/OriginalQty×RemainingQty (the platform only consumes
+//     RemainingQty). Consume lots by age and value at average — the sum of
+//     outstanding layer costs will drift from the register balance by
+//     exactly the method difference. With proportional consumption all lots
+//     shrink by the same share, and both quantities stay equal.
 //
-//   RoundCosts — округлять себестоимость выбытия до 2 знаков (тот же хук
-//     CalculatePartialAmount, что и у стендового TBRounding).
+//   RoundCosts — round disposal cost to 2 places (the same
+//     CalculatePartialAmount hook as stand TBRounding).
 //
-// ГДЕ читаются настройки. В ИНИЦИАЛИЗАТОРЕ ПОЛЯ, то есть в конструкторе, то есть
-// в момент ITotalDriverProvider.ResolveAsync — единственной точке жизни драйвера,
-// когда соединение регистра ЕЩЁ не открыто (RegisterMovementService резолвит
-// драйвер строкой раньше connection.OpenAsync). Все хуки расчёта —
-// LoadTotalState, CalculateOutcomes — платформа зовёт уже с открытым
-// соединением: второе соединение внутри той же окружающей транзакции повысило бы
-// её до распределённой, чего сервер стенда не поддерживает. Экземпляр драйвера
-// живёт одно движение, поэтому «один раз в конструкторе» — это и есть «свежие
-// настройки на каждое движение».
+// WHERE settings are read. In the FIELD INITIALIZER, i.e. the constructor,
+// i.e. at ITotalDriverProvider.ResolveAsync — the only moment in the
+// driver's life when the register connection is NOT yet open
+// (RegisterMovementService resolves the driver one line before
+// connection.OpenAsync). All calculation hooks — LoadTotalState,
+// CalculateOutcomes — the platform already calls with the connection
+// open: a second connection inside the same surrounding transaction would
+// promote it to distributed, which the stand server does not support. The
+// driver instance lives for one movement, so «once in the constructor» is
+// exactly «fresh settings on every movement».
 public partial class CostingValuationTotalDriver
 {
     private readonly (bool Average, bool Round) _settings = ReadSettings();
 
-    /// <summary>Метод и округление из CostingSettings; нет записи — FIFO без округления.</summary>
+    /// <summary>Method and rounding from CostingSettings; no record — FIFO without rounding.</summary>
     private static (bool Average, bool Round) ReadSettings()
     {
         var rows = GetService<IDictionaryManager>()
@@ -55,7 +57,7 @@ public partial class CostingValuationTotalDriver
     private decimal Round(decimal value)
         => _settings.Round ? Math.Round(value, 2, MidpointRounding.AwayFromZero) : value;
 
-    /// <summary>FIFO-ветка: частичная себестоимость лота с округлением по настройке.</summary>
+    /// <summary>FIFO branch: partial lot cost with rounding per the setting.</summary>
     protected override decimal CalculatePartialAmount(decimal lotQuantity, decimal lotAmount, decimal transQuantity)
         => Round(base.CalculatePartialAmount(lotQuantity, lotAmount, transQuantity));
 
@@ -72,17 +74,18 @@ public partial class CostingValuationTotalDriver
         var lots = queue == null ? new List<DetailedTransactionValue>() : queue.ToList();
         var haveQty = lots.Sum(l => l.GetValue(QuantityVariableName));
 
-        // Нехватка слоёв — не дело метода оценки. Отдаём базе: она сформирует
-        // лот «списание ниже нуля», и движок отклонит перерасход, как и в FIFO.
+        // Layer shortage is not the valuation method's job. Hand it to the base:
+        // it will form an «issue below zero» lot, and the engine will reject
+        // over-issue, same as FIFO.
         if (haveQty < need) return base.CalculateOutcomes(tv, incomes);
 
         var haveAmount = lots.Sum(l => l.GetValue(AmountVariableName));
         var unit = haveAmount / haveQty;
         var totalCost = Round(unit * need);
 
-        // Доли: остаток лота × потребность / всего. Последнему лоту достаётся
-        // ОСТАТОК потребности — так сумма долей сходится с целым и на «хвостах»
-        // деления.
+        // Shares: lot remainder × need / total. The last lot gets the
+        // REMAINDER of the need — so the sum of shares converges to the
+        // whole even on division «tails».
         var takes = new decimal[lots.Count];
         var left = need;
         for (var i = 0; i < lots.Count && left > 0m; i++)
@@ -94,7 +97,7 @@ public partial class CostingValuationTotalDriver
             takes[i] = share;
             left -= share;
         }
-        // Хвост после клампов раскидываем по лотам с оставшейся ёмкостью.
+        // After clamps, leftover is spread across lots that still have room.
         for (var i = 0; i < lots.Count && left > 0m; i++)
         {
             var room = lots[i].GetValue(QuantityVariableName) - takes[i];
@@ -116,8 +119,8 @@ public partial class CostingValuationTotalDriver
             var take = takes[i];
             if (take > 0m)
             {
-                // Последней доле достаётся остаток стоимости: иначе округление
-                // каждой доли отдельно увело бы сумму от totalCost.
+                // The last share gets the leftover cost: otherwise rounding
+                // each share separately would pull the sum away from totalCost.
                 var cost = i == lastIndex ? costLeft : Round(unit * take);
                 costLeft -= cost;
 
@@ -126,7 +129,7 @@ public partial class CostingValuationTotalDriver
                 detail.SetValue(AmountVariableName, -cost);
                 detail.LotNo = lot.LotNo;
                 detail.DeltaSubNo = GetNextDeltaSubNo(detail.DeltaNo);
-                // Неоперационные измерения лот несёт сам (как в базовом FIFO).
+                // The lot carries non-operational dimensions itself (as in base FIFO).
                 foreach (var name in detail.TotalDescriptor.Dimensions.Where(d => !d.IsOperational).Select(d => d.Name))
                     detail.SetCoordinate(name, lot.GetCoordinate(name));
                 outcomes.Add(detail);
@@ -137,8 +140,8 @@ public partial class CostingValuationTotalDriver
             if (lot.GetValue(QuantityVariableName) > 0m) survivors.Enqueue(lot);
         }
 
-        // Очередь лотов пересобирается: гашение шло по всем лотам сразу, а
-        // RemoveFifoLot умеет снимать только с головы.
+        // The lot queue is rebuilt: consumption ran across all lots at once,
+        // and RemoveFifoLot can only take from the head.
         if (survivors.Count > 0) QueueIndex[key] = survivors;
         else QueueIndex.Remove(key);
 

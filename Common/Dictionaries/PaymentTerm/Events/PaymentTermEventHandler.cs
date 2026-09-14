@@ -3,10 +3,12 @@ namespace ZuloOne.Runtime.Generated;
 
 public partial class PaymentTermEventHandler : TypedDictionaryEventHandler<PaymentTerm>
 {
-    public override Task<EventResult> OnBeforeSaveAsync(PaymentTerm record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(PaymentTerm record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         if (string.IsNullOrWhiteSpace(record.Name))
-            return Task.FromResult(EventResult.Cancel("Payment term name is required"));
-        return Task.FromResult(EventResult.Ok());
+            return EventResult.Cancel("Payment term name is required");
+        return EventResult.Ok();
     }
 }

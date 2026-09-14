@@ -10,26 +10,32 @@ namespace ZuloOne.Runtime.Generated;
 public partial class InventorySettingsEventHandler : TypedDictionaryEventHandler<InventorySettings>
 {
     // Building a new record server-side: seed default field values here.
-    public override Task<EventResult> OnBeforeCreateAsync(InventorySettings record, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeCreateAsync(InventorySettings record, EventContext context){
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+
         // record.CreatedOn = DateTime.UtcNow;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew == true) or update.
     // Put shared validation / computed fields here.
-    public override Task<EventResult> OnBeforeSaveAsync(InventorySettings record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(InventorySettings record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         // if (string.IsNullOrEmpty(record.Name))
-        //     return Task.FromResult(EventResult.Cancel("Name is required"));
+        //     return EventResult.Cancel("Name is required");
         // context.AddClientAction(ClientAction.Message("Saved", "success"));
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
-    // Включили дисциплину — дособрать дворы всех складов и проставить Purpose
-    // типам, у которых роль жила только в имени. Выключение ничего не трогает.
-    public override async Task<EventResult> OnAfterSaveAsync(InventorySettings record, bool isNew, EventContext context)
-    {
+    // Discipline turned on — finish every store's yard and stamp Purpose
+    // on types whose role lived only in the name. Turning it off touches nothing.
+    public override async Task<EventResult> OnAfterSaveAsync(InventorySettings record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         if (record.EnforceWarehouseTasks)
             await context.GetService<IStoreCellService>().PrepareAllYardsAsync();
         return EventResult.Ok();
@@ -48,29 +54,29 @@ public partial class InventorySettingsEventHandler : TypedDictionaryEventHandler
 
     // Just before a record is deleted. Cancel to block the delete.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the record was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // Before inserting a clone: reset unique values (codes, numbers).
     public override Task<EventResult> OnBeforeCloneAsync(InventorySettings record, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
     public override Task<EventResult> OnAfterLoadAsync(InventorySettings record, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, context);
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(InventorySettings record, string fieldName, object? value, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, fieldName, value, context);
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(InventorySettings record, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, errorMessage, context);
 
     // A delete failed: same friendly-message translation as OnSaveFailed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, errorMessage, context);
 }

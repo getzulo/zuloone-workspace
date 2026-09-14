@@ -8,29 +8,31 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Три правила заказа. Первое — автоподстановка компонентов: если в настройках
-// модуля включён AutoExpandBom, новый заказ сам разворачивает спецификацию, а
-// одноимённая команда остаётся ручной альтернативой (перезаполнить после смены
-// количества). Второе — валидация выпуска: заказ не проводится без компонентов,
-// с неположительным количеством и при нехватке компонента на ячейке. Третье —
-// оценка выпуска: драйвер Costing на Stock уже списывает себестоимость
-// потреблённых компонентов (чистый минус по товару), но партию изделию не
-// заводит — положительный нетто не его забота (это может быть и приход, и
-// безстоимостный излишек). Эту партию заводит сам заказ, симметрично тому, как
-// ReceiptCostTx/ReceiptFifoTx заводят её закупке.
+// Three order rules. First — auto-expand components: if AutoExpandBom is on in
+// module settings, a new order expands the BOM itself, and the same-named
+// command stays as the manual alternative (refill after a quantity change).
+// Second — output validation: the order does not post without components, with
+// a non-positive quantity, or when a component is short on the cell. Third —
+// output costing: the Costing driver on Stock already writes off consumed
+// component cost (a net minus on the item), but does not open a layer for the
+// finished good — a positive net is not its concern (that can be a receipt or
+// a zero-cost surplus). The order itself opens that layer, symmetrically to how
+// ReceiptCostTx/ReceiptFifoTx open it for purchasing.
 //
-// Компоненты и количество перечитываются через IDocumentManager (событие
-// заголовка не несёт табличную часть). Проверка остатка — по физическим
-// измерениям Stock через ITotalsManager (движковой проверки нет: Stock —
-// односторонний регистр, allowNegativeBalance=true).
+// Components and quantity are re-read via IDocumentManager (the header event
+// does not carry the table part). Balance is checked on Stock physical
+// dimensions via ITotalsManager (no engine check: Stock is a one-sided
+// register, allowNegativeBalance=true).
 public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<ProductionOrder>
 {
 
-    public override async Task<EventResult> OnAfterSaveAsync(ProductionOrder header, bool isNew, EventContext context)
-    {
-        // Только при создании: сохранение развёрнутых строк ниже вызовет это же
-        // событие повторно, и без отсечки получилась бы рекурсия. Уже заполненные
-        // строки не трогаем — ручной ввод важнее настройки.
+    public override async Task<EventResult> OnAfterSaveAsync(ProductionOrder header, bool isNew, EventContext context){
+        var prior = await next(header, isNew, context);
+        if (!prior.Success) return prior;
+
+        // Create only: saving the expanded lines below will fire this same event
+        // again, and without the guard that would recurse. Already filled lines
+        // are left alone — manual input wins over the setting.
         if (!isNew || header.Product == Guid.Empty || header.Quantity <= 0m)
             return EventResult.Ok();
 
@@ -42,8 +44,8 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         var full = await docs.GetDocumentAsync<ProductionOrder>(header.MetaId);
         if (full == null || full.Components.Count > 0) return EventResult.Ok();
 
-        // По БАЗОВОМУ количеству и из перечитанного документа: спецификация нормирована
-        // на складскую единицу изделия, а в шапке количество может быть в любой.
+        // On BASE quantity and from the re-read document: the BOM is normalized
+        // to the finished good's stock unit, while the header quantity may be in any.
         var outputQty = full.BaseQuantity != 0m ? full.BaseQuantity : full.Quantity;
         var need = await context.GetService<IBomService>().ExpandByProductAsync(full.Product, outputQty);
         if (need.Count == 0) return EventResult.Ok();
@@ -55,8 +57,10 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         return EventResult.Ok();
     }
 
-    public override async Task<EventResult> OnBeforePostAsync(ProductionOrder document, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(ProductionOrder document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Finished")
             return EventResult.Ok();
 
@@ -71,10 +75,10 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         if (components.Count == 0)
             return EventResult.Cancel("Заполните компоненты (разверните спецификацию)");
 
-        // Сравнивается с остатком регистра, а он в БАЗОВОЙ единице товара — значит и
-        // потребность считается по BaseQuantity. Ноль = единица не указана, пересчёта
-        // не было (так приходят строки, развёрнутые из спецификации: BomService уже
-        // отдаёт потребность в складской единице компонента).
+        // Compared to the register balance, which is in the item's BASE unit — so
+        // demand is also taken from BaseQuantity. Zero = unit not specified, no
+        // conversion (that is how BOM-expanded lines arrive: BomService already
+        // returns demand in the component's stock unit).
         var demand = ComponentDemand(components);
 
         var stock = context.GetService<ITotalsManager>();
@@ -90,24 +94,27 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         return EventResult.Ok();
     }
 
-    // Списание компонентов Costing уже провёл (Stock-нетто отрицательный —
-    // выбытие). Изделию партии нет: заводим её сами — ФАКТИЧЕСКОЙ стоимостью
-    // списанных компонентов.
+    // Costing has already written off the components (Stock net is negative —
+    // an issue). The finished good has no layer: we open it ourselves — at the
+    // ACTUAL cost of the written-off components.
     //
-    // ПОЧЕМУ ФАКТ, А НЕ СРЕДНЯЯ. Раньше здесь считалась средняя Amount/Quantity по
-    // ItemCostFifo. Она врала дважды. Во-первых, драйвер к этому моменту УЖЕ
-    // списал компоненты (его EndDocument отрабатывает внутри проведения), так что
-    // средняя бралась по остатку ПОСЛЕ списания, а не по тому, что ушло в
-    // производство. Во-вторых, средняя расходится с FIFO на нескольких партиях
-    // разной цены — а списывает драйвер именно по методу из настроек.
+    // WHY ACTUAL, NOT AVERAGE. Previously this computed Amount/Quantity average
+    // on ItemCostFifo. It lied twice. First, by this moment the driver has
+    // ALREADY written off the components (its EndDocument runs inside posting),
+    // so the average was taken from the balance AFTER the issue, not from what
+    // went into production. Second, the average diverges from FIFO across
+    // several layers at different prices — and the driver writes off by the
+    // method from settings.
     //
-    // Факт лежит там же, где его читает разноска себестоимости продаж: движения
-    // ItemCostFifo, помеченные этим документом. Отрицательные суммы в них — ровно
-    // то, что движок снял с партий. Беря их, выпуск оценивается тем же методом,
-    // каким оценено списание, и стоимость запаса остаётся value-neutral при любой
-    // настройке — по построению, а не по совпадению.
-    public override async Task<EventResult> OnAfterPostAsync(ProductionOrder document, EventContext context)
-    {
+    // Actual cost lives where sales COGS posting reads it: ItemCostFifo
+    // movements tagged with this document. Negative amounts in them are exactly
+    // what the engine took off the layers. Taking them, output is valued by the
+    // same method as the issue, and inventory value stays value-neutral under
+    // any setting — by construction, not by coincidence.
+    public override async Task<EventResult> OnAfterPostAsync(ProductionOrder document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Finished")
             return EventResult.Ok();
 
@@ -119,9 +126,9 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
 
         var totals = context.GetService<ITotalsManager>();
 
-        // Только отрицательные суммы: партию выпуска мы ещё не завели, но фильтр
-        // оставлен явным — он же защищает от повторного прочтения собственной
-        // проводки, если порядок хуков когда-нибудь изменится.
+        // Negative amounts only: we have not opened the output layer yet, but the
+        // filter is left explicit — it also guards against re-reading our own
+        // posting if hook order ever changes.
         var totalCost = 0m;
         foreach (var row in await totals.QueryMovementsAsync(
             "ItemCostFifo", $"[DocumentMetaId] = '{document.MetaId}'"))
@@ -137,8 +144,8 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         await totals.PostMovementAsync("ItemCostFifo", document.MetaId, movementDate, outputKey,
             new Dictionary<string, decimal> { ["Quantity"] = outputQty, ["Amount"] = totalCost });
 
-        // InventoryValue разрезан динамической аналитикой Item — тем же путём,
-        // которым CostingIssueTotalDriver зеркалит списание (см. этот драйвер).
+        // InventoryValue is sliced by the Item dynamic analytic — the same path
+        // CostingIssueTotalDriver uses to mirror the issue (see that driver).
         var movements = context.GetService<IRegisterMovementService>();
         var inventoryValueId = (await context.GetService<IMetadataService>().GetAllRegistersAsync())
             .First(r => string.Equals(r.Name, "InventoryValue", StringComparison.OrdinalIgnoreCase)).MetaId;

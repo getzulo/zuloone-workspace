@@ -8,27 +8,31 @@ namespace ZuloOne.Runtime.Generated;
 public partial class LoyaltyTierEventHandler : TypedDictionaryEventHandler<LoyaltyTier>
 {
     // Building a new record server-side: seed default field values here.
-    public override Task<EventResult> OnBeforeCreateAsync(LoyaltyTier record, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeCreateAsync(LoyaltyTier record, EventContext context){
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+
         // record.CreatedOn = DateTime.UtcNow;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew == true) or update.
-    // DiscountPercent штампуется в SalesInvoice и там же попадает во ВСЕ денежные
-    // ноги через PricingService.LineAmount — вне [0, 100] она либо ничего не значит
-    // (отрицательная — это наценка, а не скидка), либо переворачивает знак суммы
-    // строки (>100%), и это должно быть отклонено здесь, а не на счёте.
-    public override Task<EventResult> OnBeforeSaveAsync(LoyaltyTier record, bool isNew, EventContext context)
-    {
+    // DiscountPercent is stamped onto SalesInvoice and from there hits ALL monetary
+    // legs through PricingService.LineAmount — outside [0, 100] it either means
+    // nothing (negative is a markup, not a discount) or flips the sign of the
+    // line amount (>100%), and that must be rejected here, not on the invoice.
+    public override async Task<EventResult> OnBeforeSaveAsync(LoyaltyTier record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         if (record.DiscountPercent < 0m || record.DiscountPercent > 100m)
-            return Task.FromResult(EventResult.Cancel("Скидка уровня должна быть в диапазоне от 0 до 100%"));
-        return Task.FromResult(EventResult.Ok());
+            return EventResult.Cancel("Скидка уровня должна быть в диапазоне от 0 до 100%");
+        return EventResult.Ok();
     }
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(LoyaltyTier record, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, isNew, context);
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
@@ -43,29 +47,29 @@ public partial class LoyaltyTierEventHandler : TypedDictionaryEventHandler<Loyal
 
     // Just before a record is deleted. Cancel to block the delete.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the record was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // Before inserting a clone: reset unique values (codes, numbers).
     public override Task<EventResult> OnBeforeCloneAsync(LoyaltyTier record, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
     public override Task<EventResult> OnAfterLoadAsync(LoyaltyTier record, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, context);
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(LoyaltyTier record, string fieldName, object? value, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, fieldName, value, context);
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(LoyaltyTier record, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, errorMessage, context);
 
     // A delete failed: same friendly-message translation as OnSaveFailed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, errorMessage, context);
 }

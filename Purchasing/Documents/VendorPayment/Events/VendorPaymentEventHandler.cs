@@ -3,17 +3,19 @@ using System.Linq;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Проверка оплаты поставщику перед проведением. Кредиторка (Payable) заведена с
-// allowNegativeBalance=true — переплата и авансы поставщику законны, поэтому
-// движковой отсечки по остатку здесь нет и быть не должно; проверяется только
-// осмысленность самого документа: пустая оплата и неположительная сумма.
+// Validate a vendor payment before posting. Payable is created with
+// allowNegativeBalance=true — overpayment and advances to the vendor are lawful,
+// so there is no engine cutoff on the balance and there must not be one; only
+// the document itself is checked: an empty payment and a non-positive amount.
 //
-// Строки перечитываются через IDocumentManager: в событие заголовка табличная
-// часть не приезжает (тот же приём, что в PurchaseOrder и ProductionOrder).
+// Lines are re-read via IDocumentManager: the header event does not carry the
+// table part (the same pattern as PurchaseOrder and ProductionOrder).
 public partial class VendorPaymentEventHandler : TypedDocumentEventHandler<VendorPayment>
 {
-    public override async Task<EventResult> OnBeforePostAsync(VendorPayment document, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(VendorPayment document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Paid")
             return EventResult.Ok();
 

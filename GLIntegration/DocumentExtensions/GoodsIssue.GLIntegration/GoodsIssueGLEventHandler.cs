@@ -6,16 +6,18 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Расширение Inventory моделью GLIntegration: ОТПУСК со склада попадает в
-// главную книгу — Dr списание запасов / Cr запасы. Та же логика, что у
-// корректировки остатков, и потому тот же сервис: обработчик решает только КОГДА.
+// GLIntegration extension of Inventory: a warehouse ISSUE hits the
+// general ledger — Dr inventory write-off / Cr inventory. Same logic as
+// stock adjustment, and therefore the same service: the handler only decides WHEN.
 //
-// Отпуск — это выбытие мимо продажи, поэтому счёт списания, а не COGS: иначе
-// внутреннее перемещение ценностей исказило бы валовую маржу.
+// An issue is a non-sale disposal, so the write-off account, not COGS:
+// otherwise an internal transfer of goods would distort gross margin.
 public partial class GoodsIssueGLEventHandler : TypedDocumentEventHandler<GoodsIssue>
 {
-    public override async Task<EventResult> OnAfterPostAsync(GoodsIssue document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(GoodsIssue document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Posted") return EventResult.Ok();
 
         var jeId = await context.GetService<IInventoryWriteOffGLService>()

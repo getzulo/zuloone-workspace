@@ -1,17 +1,17 @@
 using System.Linq;
 
-// Команда «Заполнить цены» на черновике счёта: проставляет UnitPrice из прайса
-// клиента, а где его нет — из умолчания карточки товара.
+// "Fill prices" command on a draft invoice: sets UnitPrice from the customer's
+// price list, and where that is missing — from the item card default.
 //
-// Почему командой, а не автоподстановкой при вводе строки: построчного хука в
-// платформе нет — события справочника/документа приходят на ШАПКУ и строк не
-// видят, а SaveDocumentAsync во время проведения переписывает все строки и в
-// проводках запрещён. Команда — единственное место, где можно пройти строки и
-// сохранить документ целиком.
+// Why a command, not auto-fill on line entry: the platform has no per-line hook —
+// dictionary/document events arrive on the HEADER and do not see lines, and
+// SaveDocumentAsync during posting rewrites every line and is forbidden in
+// movements. A command is the only place to walk the lines and save the document
+// as a whole.
 //
-// Заполняются ТОЛЬКО пустые цены. Цена, введённая руками, — это решение
-// человека (согласованная скидка, спорная позиция), и затирать его подбором
-// нельзя. Кому нужно переподобрать — очистит цену и нажмёт снова.
+// ONLY empty prices are filled. A price typed by hand is a human decision
+// (agreed discount, disputed item) and must not be overwritten by lookup.
+// Anyone who needs a re-lookup clears the price and clicks again.
 public partial class FillSalesPricesCommand
 {
     public override async Task ExecuteAsync(SalesInvoice document, CommandContext context)
@@ -19,7 +19,7 @@ public partial class FillSalesPricesCommand
         var docs = context.GetService<IDocumentManager>();
         var pricing = context.GetService<IPricingService>();
 
-        // Строки у заголовка из команды пусты — документ перечитывается.
+        // Lines on the command header are empty — the document is re-read.
         var full = await docs.GetDocumentAsync<SalesInvoice>(document.MetaId);
         if (full == null) return;
 
@@ -33,8 +33,8 @@ public partial class FillSalesPricesCommand
         var missing = 0;
         foreach (var line in full.Lines.Where(l => l.UnitPrice <= 0m))
         {
-            // Дата документа, а не сегодня: перевыставляя мартовский счёт в мае,
-            // мы обязаны взять мартовскую цену.
+            // Document date, not today: re-issuing a March invoice in May
+            // must take the March price.
             var price = await pricing.ResolveSalePriceAsync(
                 line.Item, line.Unit, full.Customer, full.DocumentDate);
 

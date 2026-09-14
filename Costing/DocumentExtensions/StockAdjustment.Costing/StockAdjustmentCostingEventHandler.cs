@@ -4,21 +4,24 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Расширение Inventory моделью Costing: излишек корректировки заводит партию
-// себестоимости. Направление зависимости обязано быть именно таким — Costing
-// зависит от Inventory, обратной зависимости нет и быть не может (был бы цикл),
-// поэтому обработчик живёт здесь, а не в самом документе.
+// Costing-model extension of Inventory: an adjustment surplus opens a
+// cost lot. The dependency direction must be exactly this — Costing
+// depends on Inventory; the reverse cannot exist (that would be a cycle),
+// so the handler lives here, not on the document itself.
 //
-// OnAfterPost, а не транзакционный скрипт: цена берётся из текущего остатка
-// партий, а это чтение БД — в синхронный и чистый GetTransactions оно не влезает.
-// К этому моменту складские движения уже записаны, и сервис считает нетто по ним.
+// OnAfterPost, not a transactional script: the price is taken from the
+// current lot balance, and that is a DB read — it does not fit in
+// synchronous, pure GetTransactions. By this point warehouse movements
+// are already written, and the service computes net from them.
 //
-// Недостача (чистый минус) сюда не попадает: её списывает драйвер CostingIssue.
-// Дата партии — DocumentDate документа, не день нажатия «Провести».
+// A shortage (net minus) does not get here: CostingIssue writes it off.
+// Lot date is the document's DocumentDate, not the day «Post» was clicked.
 public partial class StockAdjustmentCostingEventHandler : TypedDocumentEventHandler<StockAdjustment>
 {
-    public override async Task<EventResult> OnAfterPostAsync(StockAdjustment document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(StockAdjustment document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Posted") return EventResult.Ok();
 
         var date = document.DocumentDate == default ? DateTime.UtcNow.Date : document.DocumentDate.Date;

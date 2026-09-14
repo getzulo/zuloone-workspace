@@ -1,8 +1,8 @@
 #nullable enable
 using ZuloOne.Services.Contracts;
 
-// Признаёт выручку по строке в разрезе товара и клиента. Сумма строки считается
-// общим PricingService (количество × цена, округлённое до денежной точности).
+// Recognizes revenue per line by item and customer. Line amount is computed
+// by the shared PricingService (quantity × price, rounded to money precision).
 public partial class SalesRevenueTx
 {
     protected override void GetTransactions(SalesInvoice document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

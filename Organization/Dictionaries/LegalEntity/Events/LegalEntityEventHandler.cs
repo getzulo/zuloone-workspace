@@ -7,10 +7,12 @@ namespace ZuloOne.Runtime.Generated;
 // extension link once the Tax model exists — not referenced here to keep this compilable.
 public partial class LegalEntityEventHandler : TypedDictionaryEventHandler<LegalEntity>
 {
-    public override Task<EventResult> OnBeforeSaveAsync(LegalEntity record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(LegalEntity record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         if (record.Country == Guid.Empty || record.Currency == Guid.Empty)
-            return Task.FromResult(EventResult.Cancel("Страна и валюта обязательны"));
-        return Task.FromResult(EventResult.Ok());
+            return EventResult.Cancel("Страна и валюта обязательны");
+        return EventResult.Ok();
     }
 }

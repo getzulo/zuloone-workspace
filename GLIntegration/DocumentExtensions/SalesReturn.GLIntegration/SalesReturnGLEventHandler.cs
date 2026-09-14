@@ -7,13 +7,15 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Зеркало SalesGL: продажа Dr дебиторка / Cr выручка, возврат — наоборот.
-// Юрлицо с ячейки возврата (поля на документе нет). Не настроена книга —
-// возврат проводится, проводки нет.
+// Mirror of SalesGL: a sale is Dr receivables / Cr revenue, a return is the reverse.
+// Legal entity from the return cell (the document has no field). If the books
+// are not configured — the return posts, and there is no journal entry.
 public partial class SalesReturnGLEventHandler : TypedDocumentEventHandler<SalesReturn>
 {
-    public override async Task<EventResult> OnAfterPostAsync(SalesReturn document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(SalesReturn document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Posted") return EventResult.Ok();
 
         var jeId = await PostToLedgerAsync(document, context);

@@ -7,16 +7,18 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Расширение Purchasing: оприходование заказа разносится в главную книгу
-// (Dr запасы / Cr кредиторка). Второй потребитель GeneralLedgerService —
-// та же механика проводки, отличаются только счета из профиля и подписи строк.
-// Звено ЦЕПОЧКИ обработчиков PurchaseOrder из GLIntegration (см. примечание в
-// SalesGLEventHandler): класс носит имя базового обработчика, иначе скрипт
-// конкурирует с ним и не выполняется вовсе.
+// Purchasing extension: receiving a purchase order is posted to the general ledger
+// (Dr inventory / Cr payables). Second consumer of GeneralLedgerService —
+// same posting mechanics, only the profile accounts and line captions differ.
+// A CHAIN link of PurchaseOrder handlers from GLIntegration (see the note in
+// SalesGLEventHandler): the class keeps the base handler name, otherwise the
+// script competes with it and never runs at all.
 public partial class PurchaseGLEventHandler : TypedDocumentEventHandler<PurchaseOrder>
 {
-    public override async Task<EventResult> OnAfterPostAsync(PurchaseOrder document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(PurchaseOrder document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Received") return EventResult.Ok();
 
         var jeId = await PostToLedgerAsync(document, context);
@@ -37,7 +39,7 @@ public partial class PurchaseGLEventHandler : TypedDocumentEventHandler<Purchase
         var pricing = context.GetService<IPricingService>();
         var total = order.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
 
-        // Юрлицо — по цепочке Ячейка → Зона → Склад → Подразделение → Юрлицо.
+        // Legal entity — along Cell → Zone → Store → Division → LegalEntity.
         var loc = await context.GetService<IDictionaryManager<StoreCell>>().GetRecordAsync(order.Location);
         if (loc == null) return null;
         var zone = await context.GetService<IDictionaryManager<StoreZone>>().GetRecordAsync(loc.StoreZone);

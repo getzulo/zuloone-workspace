@@ -5,12 +5,14 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Заголовок типа цены. Правила Kind/цикл/наценка — в IPricingService:
-// тот же предикат, которым сервис отказывается считать.
+// Price type header. Kind/cycle/markup rules live in IPricingService:
+// the same predicate the service uses to refuse to calculate.
 public partial class PriceTypeEventHandler : TypedDictionaryEventHandler<PriceType>
 {
-    public override async Task<EventResult> OnBeforeSaveAsync(PriceType record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(PriceType record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         var manager = context.GetService<IDictionaryManager<PriceType>>();
         var duplicate = (await manager
                 .GetRecordsAsync($"Name = '{record.Name?.Replace("'", "''")}'"))

@@ -1,5 +1,5 @@
-// Расширение кода (docs/WORKSPACE.md §8.7): наследник базового скрипта.
-// base.GetTransactions(...) — super(); действует только на строки-маркеры.
+// Code extension (docs/WORKSPACE.md §8.7): subclass of the base script.
+// base.GetTransactions(...) — super(); applies only to marker lines.
 public class TBReceiptTx_TestBenchExt : TBReceiptTx
 {
     protected override void GetTransactions(TBStockDoc document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

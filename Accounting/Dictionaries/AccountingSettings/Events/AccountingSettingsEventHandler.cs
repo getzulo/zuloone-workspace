@@ -12,40 +12,44 @@ namespace ZuloOne.Runtime.Generated;
 // Cancel with EventResult.Cancel("reason"); replace a DB error with EventResult.Error("...");
 // show UI feedback with context.AddClientAction(ClientAction.Message("...", "success")).
 //
-// ═══ КОДЫ СЧЕТОВ ПРОВЕРЯЮТСЯ ЗДЕСЬ, А НЕ ПРИ РАЗНОСКЕ ═══════════════════════
+// ═══ ACCOUNT CODES ARE CHECKED HERE, NOT AT POSTING ═════════════════════════
 //
-// Профиль называет счета КОДАМИ, и до сих пор в поле можно было написать код
-// счёта-ГРУППЫ. Разноска на таком профиле молча ничего не делает — она
-// best-effort и не должна ронять проведение документа, — то есть ошибка
-// настройки оборачивается пропавшими проводками, о которых никто не узнает до
-// сверки. При этом поле выглядит заполненным, а счёт в плане есть.
+// The profile names accounts by CODES, and until now the field could hold a
+// GROUP-account code. Posting on such a profile silently does nothing — it is
+// best-effort and must not fail document posting — so a settings error becomes
+// missing journal entries that nobody notices until reconciliation. Meanwhile
+// the field looks filled and the account exists in the chart.
 //
-// Проверка стоит на СОХРАНЕНИИ ПРОФИЛЯ: человек в форме настроек, видит поле и
-// может его исправить. Само правило не дублируется — его знает
-// GeneralLedgerService (AccountCodeProblemAsync), и та же функция отсеивает
-// непроводимые счета на разноске как последний рубеж.
+// The check sits on PROFILE SAVE: the person is in the settings form, sees the
+// field and can fix it. The rule itself is not duplicated — GeneralLedgerService
+// knows it (AccountCodeProblemAsync), and the same function filters unpostable
+// accounts at posting as the last line of defence.
 //
-// Код НЕСУЩЕСТВУЮЩЕГО счёта здесь НЕ отвергается намеренно: это «нога ещё не
-// настроена», такое же законное состояние, как пустое поле. Профиль заполняют
-// до того, как достроен план счетов, и требовать наличия всех двенадцати счетов
-// ради правки одного поля — значит запереть форму.
+// A NON-EXISTENT account code is NOT rejected here on purpose: that is "this
+// leg is not configured yet", as lawful as an empty field. The profile is
+// filled before the chart is finished, and requiring all twelve accounts just
+// to edit one field would lock the form.
 public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandler<AccountingSettings>
 {
     // Building a new record server-side: seed default field values here.
-    public override Task<EventResult> OnBeforeCreateAsync(AccountingSettings record, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeCreateAsync(AccountingSettings record, EventContext context){
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+
         // record.CreatedOn = DateTime.UtcNow;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew == true) or update.
     // Put shared validation / computed fields here.
-    public override async Task<EventResult> OnBeforeSaveAsync(AccountingSettings record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(AccountingSettings record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         var gl = context.GetService<IGeneralLedgerService>();
 
-        // Пустой код = «эта нога не настроена», и это законно: разноска её тихо
-        // пропустит. Проверяется только ЗАПОЛНЕННОЕ.
+        // Empty code = "this leg is not configured", and that is lawful: posting
+        // will skip it quietly. Only a FILLED code is checked.
         var codes = new Dictionary<string, string?>
         {
             ["Дебиторка"] = record.ArAccountCode,
@@ -76,7 +80,7 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(AccountingSettings record, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, isNew, context);
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
@@ -91,29 +95,29 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
 
     // Just before a record is deleted. Cancel to block the delete.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the record was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // Before inserting a clone: reset unique values (codes, numbers).
     public override Task<EventResult> OnBeforeCloneAsync(AccountingSettings record, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
     public override Task<EventResult> OnAfterLoadAsync(AccountingSettings record, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, context);
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(AccountingSettings record, string fieldName, object? value, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, fieldName, value, context);
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(AccountingSettings record, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, errorMessage, context);
 
     // A delete failed: same friendly-message translation as OnSaveFailed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, errorMessage, context);
 }

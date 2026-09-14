@@ -2,10 +2,10 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// Команда «Согласовать заказ» (ApproveSalesOrder): переход Submitted → Confirmed.
-// Проверяет строки, ячейку и свободный остаток.
-// InvoiceOrderAsync вызывается здесь (не в OnAfterPost): внутри транзакции
-// проведения сервисный IDocumentManager не видит незакоммиченные строки заказа.
+// ApproveSalesOrder command: Submitted → Confirmed.
+// Checks lines, the cell, and free stock.
+// InvoiceOrderAsync is called here (not in OnAfterPost): inside the posting
+// transaction the service IDocumentManager cannot see uncommitted order lines.
 public partial class ApproveSalesOrderCommand
 {
     public override async Task ExecuteAsync(SalesOrder document, CommandContext context)

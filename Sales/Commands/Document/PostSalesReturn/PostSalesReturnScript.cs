@@ -2,7 +2,7 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// «Провести возврат»: ячейка ПРИЁМКИ и суммы строк через IPricingService.LineAmount.
+// "Post return": RECEIVING cell and line amounts via IPricingService.LineAmount.
 public partial class PostSalesReturnCommand
 {
     public override async Task ExecuteAsync(SalesReturn document, CommandContext context)

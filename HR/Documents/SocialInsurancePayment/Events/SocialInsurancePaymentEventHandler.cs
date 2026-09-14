@@ -3,20 +3,23 @@ using System.Linq;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Проверка платежа в фонд перед проведением. Регистр SocialInsurance заведён с
-// allowNegativeBalance=true, поэтому движковой отсечки по остатку нет —
-// проверяется осмысленность самого документа: пустой платёж и строка, в которой
-// обе доли нулевые или отрицательные.
+// Validate a payment to the fund before posting. The SocialInsurance register is
+// created with allowNegativeBalance=true, so there is no engine cutoff on the
+// balance — we check that the document itself makes sense: an empty payment and
+// a line where both shares are zero or negative.
 //
-// Переплату в фонд не блокируем намеренно: авансовые перечисления и доплаты по
-// уточнённому расчёту законны, а жёсткая отсечка сделала бы их невозможными.
+// Overpayment to the fund is left unblocked on purpose: advance remittances and
+// top-ups after a restated calculation are lawful, and a hard cutoff would make
+// them impossible.
 //
-// Строки перечитываются через IDocumentManager: в событие заголовка табличная
-// часть не приезжает.
+// Lines are re-read via IDocumentManager: the header event does not carry the
+// table part.
 public partial class SocialInsurancePaymentEventHandler : TypedDocumentEventHandler<SocialInsurancePayment>
 {
-    public override async Task<EventResult> OnBeforePostAsync(SocialInsurancePayment document, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(SocialInsurancePayment document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Paid")
             return EventResult.Ok();
 

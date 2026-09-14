@@ -6,8 +6,10 @@ namespace ZuloOne.Runtime.Generated;
 
 public partial class SalesReturnEventHandler : TypedDocumentEventHandler<SalesReturn>
 {
-    public override async Task<EventResult> OnBeforePostAsync(SalesReturn document, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(SalesReturn document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Posted")
             return EventResult.Ok();
 

@@ -1,13 +1,13 @@
 ---
 name: zuloone-extend
-description: Расширить ЧУЖУЮ модель ZuloOne — поля-расширения на чужих объектах, звено цепочки событий, наследование кода скриптов, прививка меню. Use when adding fields, event handlers, script overrides or menu items to objects owned by another model.
+description: Расширить ЧУЖУЮ модель ZuloOne — поля-расширения, CoC событий/сервисов/драйверов/команд/tx через next, прививка меню. Use when adding fields, event handlers, service wrappers, driver/command/tx wraps or menu items to objects owned by another model.
 ---
 
 # Расширение чужой модели
 
 Чужие модели не редактируются — они расширяются АДДИТИВНО из твоей модели.
-Четыре механики: поля-расширения, звено цепочки событий, наследование кода,
-прививка меню.
+Механики: поля-расширения, звено CoC (события, сервис, драйвер, команда,
+tx), прививка меню.
 
 ## 0. Предусловия — без них расширение отклонят
 
@@ -49,11 +49,15 @@ description: Расширить ЧУЖУЮ модель ZuloOne — поля-р�
 твоей модели убирает поле из effective set. В сгенерированном классе сущности
 поле появляется как обычное свойство — доступно всем скриптам.
 
-## 2. Звено цепочки событий на чужом объекте
+## 2. Звено Chain of Command на чужом объекте
 
-Обработчики одного объекта выстраиваются в ЦЕПОЧКУ по слоям: владелец первым,
-расширения после. Звено — обычный EventHandler-скрипт твоей модели в папке
-агрегата:
+Обработчики одного объекта — **соседи**, не наследники. Список сортируется
+по слою (потом имя): владелец слева / внутри, твоя модель справа / снаружи.
+**Правое (верхний слой) стартует первым.** `next(...)` идёт вниз и возвращает
+результат нижнего. Работа **после** `next()` видит, что записал владелец/GL —
+тот же порядок побочек, что у старой подписки «сначала они, потом ты».
+
+Звено — обычный EventHandler-скрипт твоей модели в папке агрегата:
 
 `DictionaryExtensions/Country.WMS/CountryWmsEvents.script.json`:
 ```json
@@ -77,69 +81,115 @@ namespace ZuloOne.Runtime.Generated;
 
 public partial class CountryWmsEventHandler : TypedDictionaryEventHandler<Country>
 {
-    public override Task<EventResult> OnBeforeSaveAsync(Country record, bool isNew, EventContext context)
+    public override async Task<EventResult> OnBeforeSaveAsync(Country record, bool isNew, EventContext context)
     {
-        // выполняется ПОСЛЕ звена владельца: record несёт всё, что оно
-        // записало; context.PreviousResult — результат предыдущего звена
-        // (Data объединяется по всей цепочке — позднее звено дополняет,
-        // но не затирает). Свои поля-расширения типизированы: record.CustomsCode.
-        return Task.FromResult(EventResult.Ok());
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+        // record и PreviousResult — уже после владельца.
+        // Свои поля-расширения типизированы: record.CustomsCode.
+        return EventResult.Ok();
     }
 }
 ```
 
-Правила цепочки: порядок = слой модели звена (затем имя); фейл любого звена
-(`EventResult.Cancel/Error`) прерывает цепочку; отключение модели снимает её
-звено. `super()` не нужен — звено не оборачивает, а ДОПОЛНЯЕТ.
+Правила: в `next` — те же аргументы, что у метода; забытый `next` — **ZOCOC001**;
+`[Replace]` глотает цепочку намеренно; второй `next` в одном override бросает;
+отключение модели снимает её звено. `override` — против виртуала платформы,
+не против чужого обработчика. `base.` / `super()` здесь не нужны и не работают
+как CoC.
 
-## 3. Наследование КОДА (tx-скрипты, команды) — вместо Chain of Command
+Полоска в дизайнере: владелец слева, ты справа; стрелки = направление `next`.
+Вики: `wiki/developer/chain-of-command.md`.
 
-Расширение исполняемого скрипта = C#-класс, наследующий класс базового скрипта;
-`base.Метод(...)` — это super(). Рантайм исполняет САМЫЙ ПРОИЗВОДНЫЙ класс
-цепочки; несколько расширений выстраиваются линейно по слоям.
+## 2б. Сервис чужой модели — тот же `name`, `next<T>`
 
-Envelope — обычный Script твоей модели + `baseScriptMetaId`:
-```json
-{
-  "kind": "Script",
-  "object": {
-    "scriptType": "TransactionScript", "objectType": "Document",
-    "objectMetaId": "<GUID подтипа — тот же, что у базы>", "objectName": "<Документ>",
-    "baseScriptMetaId": "<GUID базового скрипта>",
-    "metaId": "<GUID>", "name": "ReceiptTx_WMS",
-    "modelId": "<GUID ТВОЕЙ модели>" }
-}
-```
-
-Код объявляет базу САМ (framework-часть не генерится — она у корня цепочки).
-`base.Метод(...)` — вызов родителя, его РЕЗУЛЬТАТ у тебя в руках:
+Чужой `IFoo` не наследуют и не подменяют новым именем, если нужна цепочка.
+В своей модели заведи сервис с **тем же** `name` (контракт остаётся `IFoo`):
+верхний слой стартует первым, `next<T>(аргументы)` вызывает нижний.
 
 ```csharp
-public class ReceiptTx_WMS : ReceiptTx
+public partial class Pricing
 {
-    protected override void GetTransactions(<Документ> document, TransactionPairCollection pairs, TransactionCollection transactions)
+    public decimal PriceOf(Guid itemId, DateTime onDate)
+        => next<decimal>(itemId, onDate) * 1.05m;
+}
+```
+
+Асинхронно — `await nextAsync<decimal?>(...)`. Неиспользуемый метод контракта —
+`=> next<T>(...)`. Проглотить нижний — `[Replace]` на методе. Забытый `next` —
+**ZOCOC002** (реестр расширение не зарегистрирует, `GetService<IFoo>()` останется
+на владельце). Две реализации на одном слое — ошибка. Класс по-прежнему зовётся
+как сервис: в IDE-проекте воркспейса положи расширение в свой `namespace`.
+
+В студии: **Сервисы** → карточка или скрипт — та же полоска, что у событий.
+«Добавить свой поверх» создаёт сервис с тем же `name` в рабочей модели и
+заглушки `next<T>`. Check скрипта ловит `ZOCOC002`.
+
+Платформенный контракт (`IQuantityConverter`) — цепочка по слоям; ничья на
+одном слое бросает, как раньше.
+
+## 2в. Драйвер чужого регистра — `next` на хуке, не второй драйвер
+
+У регистра один `TotalDriverMetaId`. Второй драйвер рядом поставить нельзя.
+Обёртка — скрипт твоей модели с `scriptType: "TotalDriver"`, тем же
+`objectMetaId`. Класс уникален, база `TotalDriverLayerBase` генерится.
+
+**Kernel-драйвер** (`StockBaseTotalDriver`, `FifoTotalDriver`, …) — владелец
+уже скомпилирован в Core. Owner-partial `class StockBaseTotalDriver` в своей
+модели писать нельзя: это тот же CLR-класс. Полоска показывает движок слева;
+«Добавить свой поверх» создаёт wrap с `next()`, не второй owner.
+
+```csharp
+public partial class StockWmsTotalDriver
+{
+    public decimal CalculatePartialAmount(decimal lotQuantity, decimal lotAmount, decimal transQuantity)
+        => next<decimal>(lotQuantity, lotAmount, transQuantity);
+}
+```
+
+Владелец по-прежнему зовёт `base.` движка. Забытый `next` — **ZOCOC003**.
+
+## 2г. Команда чужой модели — луковица `ExecuteAsync`
+
+Одна мета-команда (`PlaceOrder` в Inventory). Вторую «с тем же смыслом»
+не заводить. Обёртка на полоске этой команды:
+
+```csharp
+public partial class PlaceOrderWmsCommand
+{
+    public override async Task<CommandResult> ExecuteAsync(CommandContext context)
     {
-        base.GetTransactions(document, pairs, transactions);
-        // ← в коллекциях уже ВСЁ, что насеял родитель: можно дополнить,
-        //   поправить или отфильтровать его движения перед проведением.
-        // transactions.Add(new RegisterMovementSpec("CostRegister")…);
+        var prior = await nextAsync<CommandResult>(context);
+        if (!prior.Success) return prior;
+        return prior;
     }
 }
 ```
 
-Для методов с возвращаемым значением (хуки драйверов, команды) — как в
-обычном C#: `var result = base.CalculatePartialAmount(…);` — получил расчёт
-родителя, поправил, вернул. Аргументы можно править ДО вызова base,
-результат — ПОСЛЕ; вызов base можно и опустить (полное замещение — validate
-предупредит, но не заблокирует).
+`[Replace]` не зовёт владельца (и его переход подтипа). **ZOCOC003**, если
+забыл `next`. Рабочая модель строго выше слоем.
 
-- базу можно НЕ вызывать — полное замещение легально (validate предупредит);
-- точки расширения = `protected virtual` базового класса; `private` недоступно,
-  `sealed` — запрещено переопределять;
-- скаффолд всех virtual-точек c готовыми `base.()`: кнопка «Расширить» в студии
-  или `POST /api/metadata/extensions/extend-script`.
+## 2д. Tx чужого скрипта — вертикаль, список подтипа не трогать
 
-## 4. Меню и прочее
+Две оси: склад и себестоимость — **разные** owner-скрипты на подтипе
+(горизонталь, `executionOrder`). CoC — когда нужно поправить **уже
+существующий** `ReceiptTx`, а не поставить ещё один tx рядом.
+
+```csharp
+public partial class ReceiptTxWms
+{
+    public override void GetTransactions(DocumentContext document, TransactionPairCollection pairs, TransactionCollection transactions)
+    {
+        next(document, pairs, transactions);
+        // коллекции уже с движениями владельца
+    }
+}
+```
+
+«Добавить свой поверх» на полоске **этого** tx ≠ «новый tx на подтипе».
+Costing и склад не склеиваются в одну луковицу.
+
+## 3. Меню и прочее
 
 - Пункт в ЧУЖУЮ группу меню: свой пункт в СВОЁМ `Menu/menu.json` с
   `parentMetaId` чужой группы (тоже зависимость!).

@@ -1,0 +1,10 @@
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "5929e99f-75f5-4635-9293-b99892d085be",
+    "description": "Extension of TBItem by model TestBenchExt",
+    "metaId": "b4f29a32-6626-49ea-9825-c18b92caa97e",
+    "name": "TBItem.TestBenchExt",
+    "modelId": "390cbabb-1f33-47db-afd7-b78fb78afae9"
+  }
+}

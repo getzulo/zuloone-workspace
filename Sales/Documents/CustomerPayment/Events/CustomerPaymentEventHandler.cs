@@ -10,15 +10,15 @@ public partial class CustomerPaymentEventHandler : TypedDocumentEventHandler<Cus
 {
     // Building a new document server-side: seed header defaults (number, date).
     public override Task<EventResult> OnBeforeCreateAsync(CustomerPayment header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
     public override Task<EventResult> OnBeforeSaveAsync(CustomerPayment header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(CustomerPayment header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
@@ -33,24 +33,26 @@ public partial class CustomerPaymentEventHandler : TypedDocumentEventHandler<Cus
 
     // Just before the document is deleted.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the document was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // Before posting: validate the whole document; cancel to block posting.
     //
-    // Зеркало VendorPaymentEventHandler в закупках. Дебиторка (Receivable) заведена
-    // с allowNegativeBalance=true — авансы покупателя законны, поэтому движковой
-    // отсечки по остатку здесь нет и быть не должно; проверяется только
-    // осмысленность самого документа. Без этого оплата с ОТРИЦАТЕЛЬНОЙ суммой
-    // проводилась и НАРАЩИВАЛА долг вместо погашения.
+    // Mirror of VendorPaymentEventHandler in Purchasing. Receivable is set up
+    // with allowNegativeBalance=true — customer advances are legal, so there is
+    // no engine-level on-hand cutoff here and must not be; only the document
+    // itself is validated. Without this, a payment with a NEGATIVE amount
+    // posted and INCREASED the debt instead of settling it.
     //
-    // Строки перечитываются через IDocumentManager: в событие заголовка табличная
-    // часть не приезжает.
-    public override async Task<EventResult> OnBeforePostAsync(CustomerPayment header, EventContext context)
-    {
+    // Lines are re-read via IDocumentManager: the header event does not receive
+    // the table part.
+    public override async Task<EventResult> OnBeforePostAsync(CustomerPayment header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         if (header.Subtype != "Paid")
             return EventResult.Ok();
 
@@ -68,28 +70,30 @@ public partial class CustomerPaymentEventHandler : TypedDocumentEventHandler<Cus
 
     // After the document was posted (register movements are written).
     public override Task<EventResult> OnAfterPostAsync(CustomerPayment header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // Before unpost/cancel: about to reverse the document's movements.
     public override Task<EventResult> OnBeforeUnpostAsync(CustomerPayment header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // After the document's movements were reversed.
     public override Task<EventResult> OnAfterUnpostAsync(CustomerPayment header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // Human-readable description shown in lists: put it in context.Data["description"].
-    public override Task<EventResult> OnGenerateDescriptionAsync(CustomerPayment header, EventContext context)
-    {
+    public override async Task<EventResult> OnGenerateDescriptionAsync(CustomerPayment header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         // context.Data["description"] = "CustomerPayment " + header.Number;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(CustomerPayment header, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, errorMessage, context);
 
     // A delete failed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, errorMessage, context);
 }

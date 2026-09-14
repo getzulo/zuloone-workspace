@@ -3,40 +3,42 @@ using System.Linq;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Расширение счёта продажи МОДЕЛЬЮ CRM: при выставлении в шапку счёта
-// проставляется скидка уровня лояльности клиента.
+// CRM extension of SalesInvoice: on issue, stamp the customer's loyalty-tier
+// discount on the header.
 //
-// ГДЕ ИМЕННО ЭТО ПРОИСХОДИТ. Не на проведении, а на записи ПОДТИПА. Подтип
-// меняет отдельный движок: SaveDocumentAsync его вообще не пишет (Subtype в
-// списке полей, которыми владеет платформа), а SetSubtypeAsync делает
-// точечный UPDATE одной колонки — и вот его-то before-событие мы и ловим.
-// Значение попадает в тот же UPDATE (WriteBack), то есть оказывается в базе
-// ДО того, как движок соберёт проводки.
+// WHERE this runs. Not on post — on the SUBTYPE write. Subtype is owned by a
+// separate engine: SaveDocumentAsync never writes it (platform-owned field),
+// SetSubtypeAsync does a one-column UPDATE — we hook that before-event.
+// WriteBack puts the discount in the same UPDATE, so it is in the database
+// BEFORE the engine builds movements.
 //
-// Поставить скидку в OnBeforePost нельзя: экземпляр события в базу не пишется
-// (WriteBack на пост-событиях нет), а точечная запись оттуда до проводок уже не
-// доезжает. Скидка применилась бы только к налоговой базе в OnAfterPost, которая
-// перечитывает документ, — и дебиторка, выручка, НДС и баллы посчитались бы без
-// неё. Ровно то расхождение леджера, ради которого скидка и вынесена в шапку.
+// OnBeforePost cannot set the discount: the event instance is not written
+// (no WriteBack on post events), and a header-only write from there no
+// longer reaches the movements. The discount would apply only to the tax
+// base in OnAfterPost (which reloads the document) — receivable, revenue,
+// VAT and points would ignore it. That ledger split is why the discount
+// lives on the header.
 //
-// ДОКУМЕНТ ПЕРЕЧИТЫВАЕТСЯ. В событие частичного обновления приходят ТОЛЬКО
-// пишущиеся колонки — здесь это один Subtype, а Customer и текущая скидка в нём
-// нули. Судить по такому экземпляру о документе нельзя.
+// THE DOCUMENT IS RELOADED. A partial update event carries ONLY the columns
+// being written — here that is Subtype; Customer and the current discount
+// are zeros. Do not judge the document from that instance.
 //
-// Уровень выводится из НАКОПЛЕННОГО баланса баллов, а не хранится у клиента: так
-// он не может разъехаться с фактическими баллами. Баланс берётся до начисления
-// баллов этим же счётом — счёт ещё не проведён.
+// Tier comes from the ACCUMULATED points balance, not a field on the
+// customer, so it cannot drift from actual points. Balance is read before
+// this invoice awards points — the invoice is not posted yet.
 public partial class SalesInvoiceLoyaltyDiscountHandler : TypedDocumentEventHandler<SalesInvoice>
 {
     public override async Task<EventResult> OnBeforeSaveAsync(SalesInvoice header, bool isNew, EventContext context)
     {
+        var prior = await next(header, isNew, context);
+        if (!prior.Success) return prior;
         if (isNew || header.Subtype != "Issued" || header.MetaId == Guid.Empty) return EventResult.Ok();
 
         var stored = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
         if (stored == null || stored.Customer == Guid.Empty) return EventResult.Ok();
 
-        // Скидка, введённая руками, — решение человека (договорённость по сделке).
-        // Уровень лояльности её не переписывает, как и юрлицо продавца.
+        // A hand-entered discount is a person's decision (a deal). Loyalty
+        // tier does not overwrite it, same as the seller legal entity.
         if (stored.DiscountPercent > 0m) return EventResult.Ok();
 
         var balance = await context.GetService<ITotalsManager>().GetBalanceAsync("LoyaltyPoints",
@@ -50,8 +52,8 @@ public partial class SalesInvoiceLoyaltyDiscountHandler : TypedDocumentEventHand
             .OrderByDescending(t => t.MinPoints)
             .FirstOrDefault();
 
-        // Уровня нет (лестница пуста или баллов не хватает) — скидки нет, и это
-        // не ошибка: счёт выставляется по полной цене.
+        // No tier (empty ladder or not enough points) — no discount, not an
+        // error: the invoice issues at full price.
         if (reached == null || reached.DiscountPercent <= 0m) return EventResult.Ok();
 
         header.DiscountPercent = reached.DiscountPercent;

@@ -11,8 +11,10 @@ namespace ZuloOne.Runtime.Generated;
 // carry table parts).
 public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<PurchaseOrder>
 {
-    public override async Task<EventResult> OnBeforePostAsync(PurchaseOrder document, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(PurchaseOrder document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<PurchaseOrder>(document.MetaId);
         var lines = full?.Lines ?? document.Lines;
 
@@ -25,18 +27,19 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
                 return EventResult.Cancel("Количество в строке должно быть больше нуля");
         }
 
-        // Налоговый контур НАСТРОЕН, но на дату прихода действующей ставки нет —
-        // приход не проводится. Зеркало проверки у счёта продажи, и стоит она в
-        // ОТМЕНЯЕМОМ событии по той же причине: в OnAfterPost, где порождается сам
-        // расчёт, платформа превращает отказ обработчика в предупреждение в логе:
-        // документ проводится, а возмещаемый входной налог пропадает молча.
+        // The tax contour IS configured, but there is no effective rate on the
+        // receipt date — the receipt is not posted. Mirror of the sales-invoice
+        // check, and it lives in a CANCELABLE event for the same reason: in
+        // OnAfterPost, where the calculation itself is spawned, the platform turns
+        // a handler refusal into a log warning: the document posts, and recoverable
+        // input tax disappears silently.
         if (document.Subtype == "Received")
         {
-            // Адресная дисциплина: принимать положено в ячейку ПРИЁМКИ, а дальше
-            // товар переносит задание раскладки. Проверка спрашивает Inventory, а
-            // не сравнивает имя типа ячейки: набор ролей лежит в метаданных.
-            // Дисциплина выключена (умолчание) — сервис отвечает «годится любая»,
-            // и приход ведёт себя как раньше.
+            // Location discipline: receipt belongs in a RECEIVING cell; a put-away
+            // task then moves the goods. The check asks Inventory, it does not
+            // compare the cell-type name: the role set lives in metadata.
+            // Discipline off (the default) — the service answers "any cell is fine",
+            // and receipt behaves as before.
             var cells = context.GetService<IStoreCellService>();
             if (!await cells.IsCellAllowedForAsync(document.Location, StoreCellPurpose.Receiving))
                 return EventResult.Cancel(
@@ -52,18 +55,20 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
         return EventResult.Ok();
     }
 
-    /// <summary>Дата налогового события — дата документа; незаполненная датируется
-    /// сегодняшним днём ровно так же, как её проставляет IDocumentManager при создании.</summary>
+    /// <summary>Tax-event date is the document date; an empty one is dated
+    /// today, exactly as IDocumentManager stamps it on create.</summary>
     private static DateTime TaxPointOf(PurchaseOrder document)
         => document.DocumentDate == default ? DateTime.UtcNow.Date : document.DocumentDate.Date;
 
-    // Оприходование порождает расчёт ВХОДНОГО налога — зеркало выходного у
-    // счёта продажи. Тот же сервис и та же необязательность контура: разница
-    // ровно в коде направления, поэтому вход и выход не могут разъехаться.
-    // Входной налог возмещаемый, поэтому он обязан попасть в тот же леджер, что
-    // и выходной, — иначе декларация посчитает налог к уплате с полной выручки.
-    public override async Task<EventResult> OnAfterPostAsync(PurchaseOrder document, EventContext context)
-    {
+    // Receipting spawns an INPUT tax calculation — the mirror of output tax on
+    // a sales invoice. Same service and the same optional contour: the only
+    // difference is the direction code, so input and output cannot drift apart.
+    // Input tax is recoverable, so it must land in the same ledger as output —
+    // otherwise the return would compute tax payable on full revenue.
+    public override async Task<EventResult> OnAfterPostAsync(PurchaseOrder document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Received") return EventResult.Ok();
 
         var docs = context.GetService<IDocumentManager>();
@@ -76,9 +81,9 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
         {
             var taxBase = order.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
 
-            // Ставка подбирается на ДАТУ ПРИХОДА, не на сегодня: иначе документ и
-            // его налог датировались бы по-разному, а оприходование задним числом
-            // посчиталось бы по сегодняшней ставке.
+            // The rate is resolved on the RECEIPT DATE, not today: otherwise the
+            // document and its tax would be dated differently, and a backdated
+            // receipt would be calculated at today's rate.
             var calc = await context.GetService<ITaxService>()
                 .CreateCalculationAsync(legalEntity.Value, "INPUT", taxBase, $"Purchase order {document.Number}", TaxPointOf(document));
             if (calc.HasValue)
@@ -91,25 +96,25 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
     }
 
     /// <summary>
-    /// Принятый товар лежит в ячейке приёмки и должен уехать на хранение — это
-    /// работа кладовщика, а не бухгалтера, поэтому приход сам заводит ей ЧЕРНОВИК
-    /// задания раскладки. Черновик, а не проведённое: физически товар ещё не
-    /// переставили, подтверждает человек.
+    /// Received goods sit in the receiving cell and must move to storage — that
+    /// is warehouse work, not accounting, so the receipt itself opens a DRAFT
+    /// put-away task. A draft, not a posted one: the goods have not been moved
+    /// physically yet; a person confirms.
     ///
-    /// ИДЕМПОТЕНТНОСТЬ ОБЯЗАТЕЛЬНА. Событие after-post исполняется заново при
-    /// КАЖДОМ проведении, а приход перепроводят буднично — правка накладной.
-    /// Без проверки второе проведение заводило бы второе задание на тот же товар
-    /// (проверено: со снятой проверкой тест видит два). Отдельно замечу, что
-    /// удвоение, которым страдают ПРОДАЖИ (драйвер себестоимости дописывает
-    /// движения и заставляет событие сработать дважды за одно проведение), здесь
-    /// ни при чём: приход увеличивает склад, драйвер срабатывает на чистом
-    /// минусе, вторичных движений нет.
+    /// IDEMPOTENCY IS REQUIRED. The after-post event runs again on EVERY posting,
+    /// and receipts are re-posted routinely — a packing-slip correction. Without
+    /// the check a second posting would open a second task for the same goods
+    /// (verified: with the check removed the test sees two). Separately, the
+    /// doubling that hits SALES (the costing driver appends movements and forces
+    /// the event to fire twice in one posting) is irrelevant here: a receipt
+    /// increases stock, the driver fires on a net minus, there are no secondary
+    /// movements.
     ///
-    /// Ключ — ГРАФ ДОКУМЕНТОВ, а не колонка с id: указатель документа на документ
-    /// в этой платформе выражается связью.
+    /// The key is the DOCUMENT GRAPH, not an id column: a document-to-document
+    /// pointer on this platform is expressed as a link.
     ///
-    /// Best-effort, как разноска в GL: нет ячейки хранения — задания нет, приход
-    /// проводится. Иначе незаполненная настройка склада роняла бы закупку.
+    /// Best-effort, like GL posting: no storage cell — no task, the receipt still
+    /// posts. Otherwise an empty warehouse setting would fail purchasing.
     /// </summary>
     private static async Task SpawnPutAwayTaskAsync(PurchaseOrder order, EventContext context)
     {
@@ -118,11 +123,11 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
 
         var docs = context.GetService<IDocumentManager>();
 
-        // Ребро несёт только id концов, тип — у узла: сопоставляем одно с другим.
-        // Ищется именно РЕБРО от этого заказа, а не любой родственник типа
-        // «раскладка» в графе: семья обходит связи в обе стороны на восемь шагов,
-        // и чужое задание, попавшее в неё окольным путём, отменило бы создание
-        // своего.
+        // An edge carries only endpoint ids; the type lives on the node — we match
+        // one against the other. We look for an EDGE from this order, not any
+        // "put-away" relative in the graph: the family walks links both ways for
+        // eight steps, and a foreign task that joined it by a side path would
+        // cancel creating our own.
         var family = await docs.GetDocumentFamilyAsync(order.MetaId);
         var putAwayIds = new HashSet<Guid>(
             family.Nodes.Where(n => n.DocTypeMetaId == PutAwayTaskType).Select(n => n.DocId));
@@ -150,6 +155,6 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
         await docs.AddLinkAsync(order.MetaId, task.MetaId);
     }
 
-    /// <summary>Тип документа «раскладка» — по нему ищется уже созданное задание.</summary>
+    /// <summary>Put-away document type — used to find an already created task.</summary>
     private static readonly Guid PutAwayTaskType = Guid.Parse("57100701-0000-4000-8000-000000000000");
 }

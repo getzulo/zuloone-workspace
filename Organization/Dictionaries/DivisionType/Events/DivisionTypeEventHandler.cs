@@ -5,6 +5,5 @@ namespace ZuloOne.Runtime.Generated;
 // no server-side logic beyond the metadata-declared required/unique constraints.
 public partial class DivisionTypeEventHandler : TypedDictionaryEventHandler<DivisionType>
 {
-    public override Task<EventResult> OnBeforeSaveAsync(DivisionType record, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+    // Override only the hooks you need. Call next(...) first — ZOCOC001.
 }

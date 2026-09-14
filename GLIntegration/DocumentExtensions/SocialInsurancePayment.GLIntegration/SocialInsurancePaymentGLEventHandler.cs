@@ -7,23 +7,25 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Расширение HR: ПЛАТЁЖ В ФОНД разносится в главную книгу —
-// Dr задолженность перед фондом соцстраха / Cr денежные средства.
+// HR extension: a FUND PAYMENT is posted to the general ledger —
+// Dr social-insurance fund payable / Cr cash.
 //
-// Зачем: начисление взносов кредитует счёт задолженности перед фондом дважды
-// (удержанное у работника и доля работодателя — см. SocialInsuranceGLEventHandler),
-// а дебетовать его было нечем. Эта пара закрывает расхождение: после платежа
-// счёт задолженности перед фондом сходится с остатком регистра SocialInsurance.
+// Why: contribution accrual credits the fund-payable account twice
+// (employee withholding and the employer share — see SocialInsuranceGLEventHandler),
+// and there was nothing to debit it with. This pair closes the gap: after the
+// payment the fund-payable account matches the SocialInsurance register balance.
 //
-// Юрлицо берётся по цепочке Подразделение → Юрлицо, как у начисления: у платежа
-// подразделение лежит прямо в шапке.
+// Legal entity is taken along Division → LegalEntity, same as the accrual:
+// the payment carries the division on the header.
 //
-// Сумма проводки — ОБЕ доли взноса: в фонд уходит один платёж, разделение на
-// удержанное и начисленное работодателем существует только для отчётности.
+// Posting amount is BOTH contribution shares: one payment goes to the fund;
+// the split into withheld and employer-accrued exists only for reporting.
 public partial class SocialInsurancePaymentGLEventHandler : TypedDocumentEventHandler<SocialInsurancePayment>
 {
-    public override async Task<EventResult> OnAfterPostAsync(SocialInsurancePayment document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(SocialInsurancePayment document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Paid") return EventResult.Ok();
 
         var jeId = await PostToLedgerAsync(document, context);

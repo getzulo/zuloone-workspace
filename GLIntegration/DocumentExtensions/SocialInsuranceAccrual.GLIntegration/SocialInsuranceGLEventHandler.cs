@@ -7,17 +7,19 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Расширение HR: взносы на соцстрах разносятся в главную книгу ДВУМЯ ногами —
-// реклассификация удержанной доли (Dr задолженность перед сотрудниками /
-// Cr задолженность перед фондом) и расход работодателя (Dr расход на соцстрах /
-// Cr задолженность перед фондом). Четвёртый потребитель GeneralLedgerService:
-// механика та же, что у ФОТ, продаж и закупок.
+// HR extension: social-insurance contributions are posted to the general ledger
+// in TWO legs — reclassification of the withheld share (Dr employee payable /
+// Cr fund payable) and the employer expense (Dr social-insurance expense /
+// Cr fund payable). Fourth consumer of GeneralLedgerService:
+// same mechanics as payroll, sales, and purchasing.
 //
-// Юрлицо берётся по цепочке Подразделение → Юрлицо, как и у PayrollGLEventHandler.
+// Legal entity is taken along Division → LegalEntity, same as PayrollGLEventHandler.
 public partial class SocialInsuranceGLEventHandler : TypedDocumentEventHandler<SocialInsuranceAccrual>
 {
-    public override async Task<EventResult> OnAfterPostAsync(SocialInsuranceAccrual document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(SocialInsuranceAccrual document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Posted") return EventResult.Ok();
 
         await PostToLedgerAsync(document, context);
@@ -34,8 +36,8 @@ public partial class SocialInsuranceGLEventHandler : TypedDocumentEventHandler<S
         var accrual = await context.GetService<IDocumentManager>().GetDocumentAsync<SocialInsuranceAccrual>(header.MetaId);
         if (accrual == null) return;
 
-        // Суммы уже посчитаны SocialInsuranceService и сохранены на строки ДО
-        // перевода документа в Posted — здесь их только читаем.
+        // Amounts are already computed by SocialInsuranceService and saved on the lines BEFORE
+        // the document moves to Posted — here they are only read.
         var employee = accrual.Lines.Sum(l => l.EmployeeContribution);
         var employer = accrual.Lines.Sum(l => l.EmployerContribution);
 

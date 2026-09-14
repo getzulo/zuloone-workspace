@@ -9,10 +9,10 @@ using System.Linq;
 // posted set, is always balanced. GL analytics are dynamic (Account / LegalEntity /
 // FiscalPeriod), so movements are built with RegisterMovementSpec, not a typed row.
 //
-// Три книги на одной строке: Debit/Credit — финансовая (FIN, всегда),
-// Management* — управленческая, Tax* — налоговая. Circuits на шапке говорит,
-// какие книги заполнить суммой строки; пусто = FIN,MGT. Так НДС не попадает
-// в управленческую книгу, и не нужно плодить вторую проводку.
+// Three books on one line: Debit/Credit — financial (FIN, always),
+// Management* — management, Tax* — tax. Circuits on the header says which
+// books to fill with the line amount; empty = FIN,MGT. That way VAT does not
+// enter the management book, and a second journal entry is not needed.
 public partial class GLPostingTx
 {
     protected override void GetTransactions(JournalEntry document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

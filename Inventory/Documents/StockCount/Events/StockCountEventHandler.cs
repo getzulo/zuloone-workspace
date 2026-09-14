@@ -7,17 +7,19 @@ using ZuloOne.Managers;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Дельта = факт − система. Tx сервисов не видит, WriteBack строк на сохранении
-// черновика до базы не доезжает (проверено: склад оставался на старом остатке).
-// Поэтому число пишется в QtyDelta через IDataService в OnBeforePost — а Tx
-// читает строки ЗАНОВО из базы уже после этого хука (BuildContextAsync).
+// Delta = counted − system. Tx cannot see services; WriteBack of lines on a
+// draft save does not reach the database (verified: stock stayed at the old
+// balance). So the number is written to QtyDelta via IDataService in OnBeforePost —
+// and Tx re-reads the lines from the database AFTER that hook (BuildContextAsync).
 //
-// Дата движений — CountDate. Проводки берут DocumentDate шапки, поэтому перед
-// проведением шапка получает CountDate WriteBack'ом (ловушка 4б скилла).
+// Movement date is CountDate. Postings take the header DocumentDate, so before
+// posting the header gets CountDate via WriteBack (skill pitfall 4b).
 public partial class StockCountEventHandler : TypedDocumentEventHandler<StockCount>
 {
-    public override async Task<EventResult> OnBeforeSaveAsync(StockCount header, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(StockCount header, bool isNew, EventContext context){
+        var prior = await next(header, isNew, context);
+        if (!prior.Success) return prior;
+
         if (isNew || header.Subtype != "Posted" || header.MetaId == Guid.Empty)
             return EventResult.Ok();
 
@@ -29,8 +31,10 @@ public partial class StockCountEventHandler : TypedDocumentEventHandler<StockCou
         return EventResult.Ok();
     }
 
-    public override async Task<EventResult> OnBeforePostAsync(StockCount header, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(StockCount header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         var docs = context.GetService<IDocumentManager>();
         var full = await docs.GetDocumentAsync<StockCount>(header.MetaId);
         var lines = full?.Lines ?? header.Lines;

@@ -7,8 +7,10 @@ namespace ZuloOne.Runtime.Generated;
 
 public partial class DeliveryTripEventHandler : TypedDocumentEventHandler<DeliveryTrip>
 {
-    public override async Task<EventResult> OnBeforePostAsync(DeliveryTrip document, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(DeliveryTrip document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Completed" && document.Subtype != "Dispatched")
             return EventResult.Ok();
 
@@ -22,8 +24,10 @@ public partial class DeliveryTripEventHandler : TypedDocumentEventHandler<Delive
         return EventResult.Ok();
     }
 
-    public override async Task<EventResult> OnAfterPostAsync(DeliveryTrip document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(DeliveryTrip document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Completed")
             return EventResult.Ok();
 

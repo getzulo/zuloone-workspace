@@ -1,14 +1,14 @@
-// ОТКЛЮЧЕНА (isEnabled: false), оставлена как документированный тупик.
+// DISABLED (isEnabled: false), left as a documented dead end.
 //
-// Идея «оплата = подтип счёта» неверна: при переходе Выставлен → Оплачен движок
-// снимает движения ПРОШЛОГО состояния, поэтому вместе с дебиторкой обнулялась и
-// ВЫРУЧКА — оплата отменяла продажу. Поймано тестом ReceivableFlowTest
-// («выручка сохраняется после оплаты, факт 0.00»).
+// The idea "payment = invoice subtype" is wrong: on Issued → Paid the engine
+// lifts the PREVIOUS state's movements, so REVENUE was zeroed together with
+// receivable — payment cancelled the sale. Caught by ReceivableFlowTest
+// ("revenue survives payment, actual 0.00").
 //
-// Правильная модель — отдельный документ CustomerPayment (как выплата в HR):
-// счёт остаётся выставленным, а платёж гасит долг своей проводкой.
-// Удалить объект из базы нельзя (нет DELETE для команд документа), поэтому
-// команда выключена.
+// The correct model is a separate CustomerPayment document (like a payout in HR):
+// the invoice stays issued, and the payment settles the debt with its own movement.
+// The object cannot be deleted from the database (no DELETE for document commands),
+// so the command is disabled.
 public partial class MarkPaidCommand
 {
     public override async Task ExecuteAsync(SalesInvoice document, CommandContext context)

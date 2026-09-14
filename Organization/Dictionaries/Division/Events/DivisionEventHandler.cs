@@ -5,10 +5,12 @@ namespace ZuloOne.Runtime.Generated;
 // entity and carries a role (DivisionType); both are enforced as required in metadata.
 public partial class DivisionEventHandler : TypedDictionaryEventHandler<Division>
 {
-    public override Task<EventResult> OnBeforeSaveAsync(Division record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(Division record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         if (record.LegalEntity == Guid.Empty)
-            return Task.FromResult(EventResult.Cancel("Подразделение должно принадлежать юрлицу"));
-        return Task.FromResult(EventResult.Ok());
+            return EventResult.Cancel("Подразделение должно принадлежать юрлицу");
+        return EventResult.Ok();
     }
 }

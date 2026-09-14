@@ -6,8 +6,10 @@ namespace ZuloOne.Runtime.Generated;
 // that were previously primary are set to false before this record is saved.
 public partial class CustomerContactEventHandler : TypedDictionaryEventHandler<CustomerContact>
 {
-    public override async Task<EventResult> OnBeforeSaveAsync(CustomerContact record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(CustomerContact record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         if (!record.IsPrimary)
             return EventResult.Ok();
 

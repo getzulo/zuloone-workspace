@@ -7,35 +7,31 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Звено ЦЕПОЧКИ обработчиков SalesInvoice из модели GLIntegration: при выставлении
-// счёта продажа разносится в главную книгу ДВУМЯ проводками — выручка
-// (Dr дебиторка / Cr выручка) и себестоимость (Dr себестоимость / Cr запасы).
+// SalesInvoice Chain of Command link from GLIntegration: on issue, the sale
+// posts to the general ledger as TWO journals — revenue (Dr AR / Cr revenue)
+// and cost of sales (Dr COGS / Cr inventory).
 //
-// Две проводки, а не одна на четыре строки: PostAsync разносит сбалансированную
-// ПАРУ, и это не ограничение, а верное разделение — признание выручки и списание
-// себестоимости живут по разным правилам (выручка есть всегда, себестоимости у
-// товара без партий нет вовсе). Сумма себестоимости в ноль — второй проводки
-// просто не будет, а счёт разнесётся как раньше.
+// Two journals, not one four-line entry: PostAsync posts a balanced PAIR.
+// That split is correct — revenue recognition and COGS live by different
+// rules (revenue is always there; an item with no layers has no cost).
+// Cost of zero — the second journal is skipped, invoice still posts.
 //
-// ВНИМАНИЕ: имя класса СВОЁ, не как у базового обработчика. Попытка назвать
-// его именем базового (ради цепочки) не создаёт цепочку, а ВЫТЕСНЯЕТ родной
-// обработчик Sales вместе с его проверкой остатка.
-// Исходное рассуждение про имя класса:
-// расширение чужого объекта оформляется звеном цепочки (конверт несёт
-// extensionMetaId + baseClassName), и рантайм связывает звенья ПО ИМЕНИ КЛАССА.
-// Со своим именем класса скрипт становится КОНКУРИРУЮЩИМ обработчиком того же
-// документа — и не выполняется вовсе, потому что запускается только самый
-// производный. Именно так эта разноска и молчала, когда у Sales появился
-// собственный обработчик с проверкой остатка.
+// Class name is OWN, not the owner's. Naming it after the Sales handler
+// does not extend the chain — it REPLACES the Sales handler and its
+// on-hand check. CoC links are separate classes; EventService runs every
+// layer. A colliding class name used to swallow this posting when Sales
+// added its own stock check.
 //
-// Событие тонкое: сумма, юрлицо — и вызов GeneralLedgerService, где живёт вся
-// механика проводки. Ненастроенный профиль — GetSettingsAsync вернёт null, и
-// ноги просто не будет. Настоящий сбой разноски ловить нельзя: OnAfterPost
-// и так не откатывает документ, а пустой catch прятал причину из лога.
+// The event stays thin: amount, legal entity, then GeneralLedgerService.
+// No profile — GetSettingsAsync returns null, no journal. A real posting
+// failure must not be swallowed: OnAfterPost does not roll back the
+// document, and an empty catch hid the cause from the log.
 public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoice>
 {
-    public override async Task<EventResult> OnAfterPostAsync(SalesInvoice document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(SalesInvoice document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Issued") return EventResult.Ok();
 
         var docs = context.GetService<IDocumentManager>();
@@ -57,13 +53,13 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
         var settings = await gl.GetSettingsAsync();
         if (settings == null) return null;
 
-        // Строки заголовочного события пусты — документ перечитывается целиком.
+        // Header-event lines are empty — reload the full document.
         var inv = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
         if (inv == null) return null;
 
-        // Та же формула, что у дебиторки, выручки, НДС и баллов: иначе скидка
-        // на счёте разъедет регистры с книгой. Контракт IPricingService больше
-        // не ломается на границе сборок — перекос версий контрактов закрыт.
+        // Same formula as receivable, revenue, VAT and points: otherwise the
+        // invoice discount splits registers from the ledger. IPricingService
+        // no longer breaks across the assembly boundary.
         var pricing = context.GetService<IPricingService>();
         var total = inv.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice, inv.DiscountPercent));
 
@@ -78,20 +74,19 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
     }
 
     /// <summary>
-    /// Себестоимость проданного: Dr себестоимость / Cr запасы.
+    /// Cost of sales: Dr COGS / Cr inventory.
     ///
-    /// Сумма НЕ пересчитывается по строкам счёта — она уже посчитана и записана.
-    /// Списание себестоимости делает драйвер CostingIssue на регистре Stock
-    /// («уменьшился остаток — списалась себестоимость»), и к моменту этого события
-    /// его движения по ItemCostFifo уже лежат в базе с DocumentMetaId нашего счёта.
-    /// Читается ФАКТ списания, а не своя копия расчёта: иначе метод оценки
-    /// (FIFO/AVG из CostingSettings) пришлось бы повторять здесь, и учёт запаса
-    /// разъехался бы с главной книгой ровно в тот день, когда настройку поменяют.
+    /// Amount is NOT recomputed from invoice lines — it is already posted.
+    /// CostingIssue on Stock writes it ("qty down — cost written off"); by
+    /// this event ItemCostFifo movements for our DocumentMetaId are in the
+    /// database. Read the FACT of the issue, not a second calculation:
+    /// otherwise FIFO/AVG from CostingSettings would be duplicated here and
+    /// stock would diverge from the ledger the day the method changes.
     ///
-    /// Amount выбытия отрицателен (движок подставляет туда себестоимость слоёв
-    /// вместо переданного нуля) — знак разворачивается, в проводку идёт модуль.
-    /// Нет партий (товар заведён прямым движением регистра, а не приходом) —
-    /// списывать нечего, сумма ноль, проводки нет.
+    /// Issue Amount is negative (the engine puts layer cost there instead of
+    /// the zero we passed) — the journal uses the absolute value. No layers
+    /// (item was booked by a raw register move, not a receipt) — nothing to
+    /// write off, amount zero, no journal.
     /// </summary>
     private async Task<Guid?> PostCostOfSalesAsync(SalesInvoice header, EventContext context)
     {
@@ -121,13 +116,13 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
             "Себестоимость продажи", "Выбытие запасов");
     }
 
-    /// <summary>Юрлицо продавца — с самого счёта: его фиксирует выставление
-    /// (<c>SalesInvoiceEventHandler.OnBeforePost</c>) по цепочке Ячейка → Зона →
-    /// Склад → Подразделение → Юрлицо. Читать поле, а не проходить цепочку заново,
-    /// важно не ради экономии четырёх чтений: счёт мог быть выставлен от имени
-    /// другого юрлица (агентская продажа со чужого склада), и проводка обязана
-    /// попасть туда же, куда налог и сам счёт. Пусто — оргструктура не заполнена,
-    /// разноска тихо пропускается.</summary>
+    /// <summary>Seller legal entity comes from the invoice: issue stamps it
+    /// (<c>SalesInvoiceEventHandler.OnBeforePost</c>) via Cell → Zone →
+    /// Warehouse → Division → LegalEntity. Read the field, do not walk the
+    /// chain again — not to save four reads: the invoice may have been issued
+    /// for another legal entity (agent sale from a foreign warehouse), and
+    /// the journal must land where tax and the invoice already are. Empty —
+    /// org structure is not filled, posting is skipped.</summary>
     private static async Task<LegalEntity?> ResolveLegalEntityAsync(SalesInvoice invoice, EventContext context)
     {
         if (invoice.LegalEntity == Guid.Empty) return null;

@@ -11,35 +11,40 @@ namespace ZuloOne.Runtime.Generated;
 // Cancel with EventResult.Cancel("reason"); replace a DB error with EventResult.Error("...");
 // show UI feedback with context.AddClientAction(ClientAction.Message("...", "success")).
 //
-// ═══ НЕПЕРЕСЕКАЮЩАЯСЯ ИСТОРИЯ СТАВОК ════════════════════════════════════════
+// ═══ NON-OVERLAPPING RATE HISTORY ═══════════════════════════════════════════
 //
-// Ставка налога — величина, действующая в ОКНЕ дат: «НДС 15% с 01.07.2020». На
-// любую дату у налога обязана действовать ровно одна ставка. TaxService это
-// требование знает и при двух подходящих ставках БРОСАЕТ исключение — но узнаёт
-// об этом в момент выпуска счёта, то есть ошибка мастер-данных останавливает
-// операционную работу и всплывает не там, где её допустили.
+// A tax rate is a value effective in a date WINDOW: "VAT 15% from 01.07.2020".
+// On any date a tax must have exactly one effective rate. TaxService knows this
+// and THROWS when two rates match — but it learns that at invoice issue time,
+// so a master-data error stops operational work and surfaces not where it was
+// introduced.
 //
-// Проверка перенесена на ВВОД: пересечение окон отклоняется в момент заведения
-// ставки, когда человек как раз занят справочником и видит соседние строки.
-// Отказ в TaxService остаётся как последний рубеж — на случай данных, залитых
-// в обход событий (импорт, миграция, прямой SQL).
+// The check is moved to INPUT: overlapping windows are rejected when the rate
+// is created, while the person is in the dictionary and can see neighbouring
+// rows. The refusal in TaxService stays as the last line of defence — for data
+// loaded past events (import, migration, direct SQL).
 //
-// САМО ПРАВИЛО ЗДЕСЬ НЕ ЖИВЁТ: обработчик спрашивает TaxService, у которого оно
-// одно на обе двери (FindOverlappingRateAsync). Иначе граница окна могла бы
-// разъехаться между «что нельзя завести» и «на чём падает расчёт».
+// THE RULE ITSELF DOES NOT LIVE HERE: the handler asks TaxService, which has
+// one rule for both doors (FindOverlappingRateAsync). Otherwise the window
+// boundary could drift between "what cannot be created" and "what the
+// calculation fails on".
 public partial class TaxRateEventHandler : TypedDictionaryEventHandler<TaxRate>
 {
     // Building a new record server-side: seed default field values here.
-    public override Task<EventResult> OnBeforeCreateAsync(TaxRate record, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeCreateAsync(TaxRate record, EventContext context){
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+
         // record.CreatedOn = DateTime.UtcNow;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew == true) or update.
     // Put shared validation / computed fields here.
-    public override async Task<EventResult> OnBeforeSaveAsync(TaxRate record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(TaxRate record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         if (record.Tax == Guid.Empty)
             return EventResult.Cancel("Укажите налог, ставкой которого является запись");
 
@@ -66,7 +71,7 @@ public partial class TaxRateEventHandler : TypedDictionaryEventHandler<TaxRate>
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(TaxRate record, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, isNew, context);
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
@@ -81,29 +86,29 @@ public partial class TaxRateEventHandler : TypedDictionaryEventHandler<TaxRate>
 
     // Just before a record is deleted. Cancel to block the delete.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the record was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // Before inserting a clone: reset unique values (codes, numbers).
     public override Task<EventResult> OnBeforeCloneAsync(TaxRate record, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
     public override Task<EventResult> OnAfterLoadAsync(TaxRate record, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, context);
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(TaxRate record, string fieldName, object? value, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, fieldName, value, context);
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(TaxRate record, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, errorMessage, context);
 
     // A delete failed: same friendly-message translation as OnSaveFailed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, errorMessage, context);
 }

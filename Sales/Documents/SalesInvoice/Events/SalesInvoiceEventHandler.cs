@@ -18,17 +18,19 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     // Building a new document server-side: seed header defaults (number, date).
     // Copy-defaults from Customer are applied in OnBeforeSaveAsync(isNew=true) below.
     public override Task<EventResult> OnBeforeCreateAsync(SalesInvoice header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
-    // DiscountPercent вне [0, 100] переворачивает знак LineAmount (>100%) или значит
-    // не скидку, а наценку (<0) — оба случая ловятся здесь, а не только у источника
-    // (LoyaltyTier), потому что поле пишется и напрямую рукой на форме документа.
-    // На точечном обновлении подтипа (SetSubtypeAsync) header — частичный экземпляр,
-    // и DiscountPercent в нём ноль (см. SalesInvoiceLoyaltyDiscountHandler) — в
-    // диапазоне, проверка безвредна.
+    // DiscountPercent outside [0, 100] flips LineAmount (>100%) or is a markup
+    // (<0), not a discount. Catch both here, not only at LoyaltyTier: the field
+    // is also typed by hand on the document form.
+    // On a subtype-only write (SetSubtypeAsync) header is a partial instance and
+    // DiscountPercent is zero (see SalesInvoiceLoyaltyDiscountHandler) — still
+    // in range, so the check is harmless.
     public override async Task<EventResult> OnBeforeSaveAsync(SalesInvoice header, bool isNew, EventContext context)
     {
+        var prior = await next(header, isNew, context);
+        if (!prior.Success) return prior;
         if (header.DiscountPercent < 0m || header.DiscountPercent > 100m)
             return EventResult.Cancel("Скидка на счёте должна быть в диапазоне от 0 до 100%");
 
@@ -58,7 +60,7 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(SalesInvoice header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
@@ -73,11 +75,11 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
 
     // Just before the document is deleted.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the document was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // Before posting: reject overselling — a line cannot ship more than is on hand
     // at the sale location. Stock is a single-entry register (allowNegativeBalance:true),
@@ -86,25 +88,27 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     // Note: check-then-act, not atomic with posting.
     private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
 
-    /// <summary>Тип документа — цель точечного обновления шапки.</summary>
+    /// <summary>Document type — target of the header-only update.</summary>
     private static readonly Guid SalesInvoiceType = Guid.Parse("34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3");
 
     public override async Task<EventResult> OnBeforePostAsync(SalesInvoice header, EventContext context)
     {
-        // ПОДТИП «ОПЛАЧЕН» НЕДОСТИЖИМ НАМЕРЕННО, И ЭТО НАДО ЗАЩИЩАТЬ ЯВНО.
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // The Paid subtype is unreachable on purpose and must stay locked.
         //
-        // Подтип объявлен (исторические документы и отчёты), но ребра Issued→Paid
-        // в карте переходов больше нет — форма его не предлагает. Замок здесь
-        // на случай прямого API. К Issued галками привязаны склад, выручка,
-        // дебиторка (Sales), баллы (CRM) и страновой НДС
-        // (LocalizationSaudiArabia). Переход снял бы движения покидаемого
-        // состояния — долг БЕЗ оплаты, баллы и обязательство по налогу. Paid
-        // помечен isReadOnly, выйти из него было бы нельзя.
+        // The subtype still exists (historical documents and reports), but the
+        // Issued→Paid edge is gone from the map — the form never offers it.
+        // This lock covers a direct API call. Issued carries stock, revenue,
+        // receivable (Sales), loyalty points (CRM) and country VAT
+        // (LocalizationSaudiArabia). Leaving it would reverse those movements —
+        // debt with no payment, points, and the tax liability. Paid is
+        // isReadOnly; there would be no way back.
         //
-        // Оплата в этой системе — ОТДЕЛЬНЫЙ документ (CustomerPayment), гасящий
-        // регистр Receivable и не трогающий счёт. Платёжный статус читается из
-        // регистра, а не из подтипа. Тот же урок записан в отключённой команде
-        // MarkPaid; здесь он закрыт на замок, а не только объяснён комментарием.
+        // Payment here is a SEPARATE document (CustomerPayment) that settles
+        // Receivable and does not touch the invoice. Payment status is read
+        // from the register, not the subtype. The same lesson is in the
+        // disabled MarkPaid command; here it is a lock, not only a comment.
         if (header.Subtype == "Paid")
             return EventResult.Cancel(
                 "Счёт нельзя перевести в «Оплачен» вручную: это снимет дебиторку без оплаты, "
@@ -116,32 +120,30 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
         var lines = full?.Lines ?? header.Lines;
 
-        // Адресная дисциплина: отгружать положено из ячейки ОТБОРА, куда товар
-        // принесло задание отбора. Проверка спрашивает Inventory, а не сравнивает
-        // имя типа ячейки. Дисциплина выключена (умолчание) — годится любая
-        // ячейка, и счёт выставляется как раньше.
+        // Address discipline: ship from a PICKING cell, where the pick task
+        // put the goods. The check asks Inventory, it does not compare cell
+        // type names. Discipline off (default) — any cell is fine, invoice
+        // posts as before.
         if (!await context.GetService<IStoreCellService>()
                 .IsCellAllowedForAsync(full?.Location ?? header.Location, StoreCellPurpose.Picking))
             return EventResult.Cancel(
                 "Отгрузка идёт из ячейки ОТБОРА — у выбранной ячейки другое назначение");
 
-        // ЮРЛИЦО ПРОДАВЦА ФИКСИРУЕТСЯ НА ДОКУМЕНТЕ, а не резолвится каждым, кому
-        // оно понадобилось. Причина техническая и жёсткая: налоговый леджер разрезан
-        // юрлицом, а пишет в него ТРАНЗАКЦИОННЫЙ скрипт — синхронный, и цепочку
-        // Ячейка → Зона → Склад → Подразделение → Юрлицо он пройти не может (это
-        // четыре асинхронных чтения справочников). Здесь, на пути проведения, они
-        // работают штатно.
+        // The seller legal entity is STAMPED on the document, not resolved by
+        // every consumer. Technical reason: the tax ledger is sliced by legal
+        // entity, and the writer is a SYNCHRONOUS transaction script that
+        // cannot walk Cell → Zone → Warehouse → Division → LegalEntity (four
+        // async dictionary reads). On the posting path those reads are fine.
         //
-        // Причина учётная не слабее: оргструктуру потом переподчинят, а счёт
-        // неизменен — он обязан помнить, КТО продал, а не пересчитывать это по
-        // сегодняшнему дереву. Поэтому заполненное вручную значение не
-        // перезаписывается: ячейка отгрузки и продавец совпадают не всегда.
+        // Accounting reason is as strong: org structure will be re-parented
+        // later; the invoice must remember WHO sold, not recompute today's
+        // tree. A value typed by hand is not overwritten — ship cell and
+        // seller do not always match.
         //
-        // Пишется ТОЧЕЧНЫМ обновлением шапки, а не присваиванием в header:
-        // экземпляр, приехавший в событие, до базы не доезжает (проверено —
-        // IssueStampsSellingLegalEntity падал именно на этом). SaveDocumentAsync
-        // здесь тоже не годится: он переписывает ВСЕ строки документа посреди его
-        // же проведения.
+        // Written as a HEADER-ONLY update, not header.LegalEntity = …: the
+        // event instance never reaches the database (IssueStampsSellingLegalEntity
+        // failed on that). SaveDocumentAsync is also wrong here: it rewrites
+        // EVERY line mid-posting.
         var current = full?.LegalEntity ?? header.LegalEntity;
         if (current == Guid.Empty)
         {
@@ -156,10 +158,10 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
             }
         }
 
-        // Сравнивается с остатком регистра, а он в БАЗОВОЙ единице товара — значит и
-        // спрос считается по BaseQuantity. Ноль = единица не указана, пересчёта не было.
-        // Налоговая база ниже (OnAfterPostAsync) НАРОЧНО остаётся на введённом
-        // Quantity: цена задана за введённую единицу, продано 5 ящиков по цене за ящик.
+        // Compared to the register balance, which is in the item BASE unit —
+        // so demand uses BaseQuantity. Zero means no unit was set, no convert.
+        // Tax base below (OnAfterPostAsync) INTENTIONALLY stays on entered
+        // Quantity: price is per entered unit (5 cases at the case price).
         var demand = new Dictionary<Guid, decimal>();
         foreach (var line in lines)
         {
@@ -177,15 +179,15 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
                 return EventResult.Cancel($"Недостаточно остатка на ячейке: требуется {kv.Value}, в наличии {onHand}");
         }
 
-        // Налоговый контур НАСТРОЕН, но на дату счёта действующей ставки нет —
-        // счёт не выставляется. Это не «налоги выключены» (тогда кода по умолчанию
-        // просто нет и проверка молчит), а порванная настройка: счёт, молча ушедший
-        // клиенту без НДС, обнаружится у налогового органа.
+        // Tax is CONFIGURED, but there is no rate on the invoice date — do not
+        // issue. That is not "tax off" (then there is no default code and this
+        // check stays quiet); it is a broken setup. An invoice that silently
+        // left without VAT will show up at the tax authority.
         //
-        // Проверка стоит ЗДЕСЬ, в отменяемом событии, а не рядом с порождением
-        // расчёта в OnAfterPost: OnAfterPost платформа объявляет неотменяемым и
-        // превращает исключение обработчика в предупреждение в логе — документ всё
-        // равно проводится, и потеря налога снова становится молчаливой.
+        // The check lives HERE, in a cancellable event, not next to calculation
+        // create in OnAfterPost: the platform marks OnAfterPost non-cancellable
+        // and turns a handler exception into a log warning — the document still
+        // posts, and the missing tax is silent again.
         var tax = context.GetService<ITaxService>();
         var taxCode = await tax.ResolveDefaultTaxCodeAsync();
         if (taxCode is null) return EventResult.Ok();
@@ -196,18 +198,17 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
             return EventResult.Cancel(
                 $"Налоговый код настроен, но действующей ставки на {taxPoint:yyyy-MM-dd} нет — счёт не выставляется");
 
-        // СТАВКА ФИКСИРУЕТСЯ НА ДОКУМЕНТЕ — по той же причине, что юрлицо выше:
-        // страновые проводки (НДС КСА в регистр VatPayable) синхронны и подобрать
-        // датированную ставку сами не могут. Раньше локализация брала её из плоской
-        // константы SaudiVatRate, у которой нет даты вовсе: при любом изменении
-        // ставки страновой регистр расходился с TaxLedger, а счёт задним числом
-        // считался по сегодняшней ставке. Теперь источник один — справочник TaxRate,
-        // подобранный на дату счёта ровно тем же вызовом, которым воспользуется
-        // расчёт налога в OnAfterPost.
+        // The rate is STAMPED on the document — same reason as legal entity:
+        // country postings (KSA VAT into VatPayable) are synchronous and cannot
+        // pick a dated rate themselves. Localization used to read a flat
+        // SaudiVatRate constant with no date: any rate change split the country
+        // register from TaxLedger, and a back-dated invoice used today's rate.
+        // One source now: TaxRate, resolved on the invoice date with the same
+        // call OnAfterPost will use for the calculation.
         //
-        // Точечным обновлением, а не присваиванием: экземпляр из события до базы
-        // не доезжает (см. примечание к LegalEntity). Заполненное вручную не
-        // перезаписывается — счёт мог быть выставлен по согласованной ставке.
+        // Header-only update, not assignment: the event instance never reaches
+        // the database (see LegalEntity). A hand-filled rate is kept — the
+        // invoice may have been issued at an agreed rate.
         if (header.TaxRateApplied == 0m && (full?.TaxRateApplied ?? 0m) == 0m)
         {
             header.TaxRateApplied = rate.Value;
@@ -219,43 +220,45 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         return EventResult.Ok();
     }
 
-    /// <summary>Дата налогового события — дата документа; незаполненная датируется
-    /// сегодняшним днём ровно так же, как её проставляет IDocumentManager при создании.</summary>
+    /// <summary>Tax-point date is the document date; empty is today, same as
+    /// IDocumentManager stamps on create.</summary>
     private static DateTime TaxPointOf(SalesInvoice header)
         => header.DocumentDate == default ? DateTime.UtcNow.Date : header.DocumentDate.Date;
 
-    // Выставленный счёт порождает расчёт ВЫХОДНОГО налога: отдельный документ
-    // TaxCalculation, связанный со счётом через граф документов. Отдельный
-    // документ, а не поле на счёте, потому что налог живёт своей жизнью — у него
-    // свой леджер, своя отчётность и своя дата налогового события.
+    // An issued invoice creates an OUTPUT tax calculation: a separate
+    // TaxCalculation document linked on the document graph. Separate, not a
+    // field on the invoice: tax has its own ledger, reporting, and tax-point
+    // date.
     //
-    // Порождение здесь, а не в проводке: ставка и код налога читаются из
-    // справочников асинхронно, а GetTransactions синхронный.
-    /// <summary>Тип заказа — цель точечного перехода при закрытии реализации.</summary>
+    // Created here, not in the transaction script: rate and tax code are
+    // async dictionary reads; GetTransactions is synchronous.
+    /// <summary>Order type — target of the subtype write when fulfillment closes.</summary>
     private static readonly Guid SalesOrderType = Guid.Parse("23643b1b-b959-4206-83ab-948c713276c9");
 
-    public override async Task<EventResult> OnAfterPostAsync(SalesInvoice header, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(SalesInvoice header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         if (header.Subtype != "Issued") return EventResult.Ok();
 
         var docs = context.GetService<IDocumentManager>();
         var invoice = await docs.GetDocumentAsync<SalesInvoice>(header.MetaId);
         if (invoice is null || invoice.Lines.Count == 0) return EventResult.Ok();
 
-        // Юрлицо продавца УЖЕ зафиксировано на документе (OnBeforePost) — читается
-        // оттуда, а не резолвится заново по ячейке. Так налог и сам счёт по
-        // построению говорят об одном и том же продавце, даже если оргструктуру
-        // переподчинят между проведением и перепроведением.
+        // Seller legal entity is ALREADY stamped (OnBeforePost) — read it,
+        // do not resolve again from the cell. Tax and the invoice then name
+        // the same seller even if org structure is re-parented between post
+        // and repost.
         var pricing = context.GetService<IPricingService>();
         var legalEntity = invoice.LegalEntity;
         if (legalEntity != Guid.Empty)
         {
             var taxBase = invoice.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice, invoice.DiscountPercent));
 
-            // Контур необязателен: не настроен — сервис вернёт null, счёт выставлен
-            // как раньше. Ставка подбирается на ДАТУ СЧЁТА, не на сегодня: иначе
-            // счёт и его налог датировались бы по-разному, а задним числом
-            // выставленный документ посчитался бы по сегодняшней ставке.
+            // Contour is optional: not set — service returns null, invoice
+            // issues as before. Rate is on the INVOICE DATE, not today:
+            // otherwise invoice and tax would date differently, and a
+            // back-dated document would use today's rate.
             var calc = await context.GetService<ITaxService>()
                 .CreateCalculationAsync(legalEntity, "OUTPUT", taxBase, $"Sales invoice {header.Number}",
                     TaxPointOf(header), await TaxContextAsync(invoice, taxBase, context));
@@ -263,11 +266,11 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
                 await docs.AddLinkAsync(header.MetaId, calc.Value);
         }
 
-        // Закрываем заказ-источник: счёт выставлен → заказ Delivered.
-        // ВАЖНО: SetSubtypeAsync здесь работает ненадёжно — платформа объявляет
-        // OnAfterPost неотменяемым и глотает исключения вложенных вызовов.
-        // Реальный переход делает ReleaseRealizationCommand ПОСЛЕ SaveDocumentAsync.
-        // Блок ниже оставлен только для прямых API/программных переходов (bypass команды).
+        // Close the source order: invoice issued → order Delivered.
+        // IMPORTANT: SetSubtypeAsync is unreliable here — the platform marks
+        // OnAfterPost non-cancellable and swallows nested exceptions.
+        // The real transition is ReleaseRealizationCommand AFTER SaveDocumentAsync.
+        // The block below is only for direct API / programmatic posts (bypass).
         var sourceOrder = invoice?.SourceOrder ?? header.SourceOrder;
         if (sourceOrder != Guid.Empty)
         {
@@ -281,21 +284,20 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
     }
 
     /// <summary>
-    /// КОНТЕКСТ СДЕЛКИ для движка правил налога: плоские пути → значения. Что
-    /// именно продали, кому и на сколько — по этому набору правило и выбирает код,
-    /// вместо единственного кода по умолчанию из настроек.
+    /// DEAL CONTEXT for the tax-rule engine: flat paths → values. What was
+    /// sold, to whom, and for how much — the rule picks a code from this set
+    /// instead of the single default from settings.
     ///
-    /// Словарь, а не типизированный класс, — сознательно: движок развязан с
-    /// документом (Purchasing кладёт сюда своё) и переживает границу сборки
-    /// контрактов, которая типов из скриптов не видит.
+    /// A dictionary, not a typed class, on purpose: the engine is decoupled
+    /// from the document (Purchasing puts its own keys) and survives the
+    /// contracts assembly boundary, which cannot see script types.
     ///
-    /// Набор путей — ДОГОВОР с теми, кто заводит правила, поэтому он узкий и
-    /// расширяется по мере надобности, а не «на всякий случай»: путь, которого
-    /// никто не кладёт, в правиле выглядит рабочим, а молча не срабатывает.
-    /// Однородность строки не требуется — в счёте могут быть товары разных групп,
-    /// поэтому item.group кладётся ТОЛЬКО когда он у всех строк один; иначе пути
-    /// нет вовсе, и правило по нему честно не сработает (оператор NotExists это
-    /// увидит). Налог по строкам — задача построчного расчёта, он отложен.
+    /// The path set is a CONTRACT with rule authors, so it stays narrow and
+    /// grows when needed, not "just in case": a path nobody writes looks
+    /// live in a rule and silently never matches. Line homogeneity is not
+    /// required — an invoice may mix item groups, so item.group is set ONLY
+    /// when every line shares one; otherwise the path is absent and the rule
+    /// honestly misses (NotExists sees that). Per-line tax is a later job.
     /// </summary>
     private static async Task<Dictionary<string, object?>> TaxContextAsync(
         SalesInvoice invoice, decimal taxBase, EventContext context)
@@ -332,24 +334,26 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
 
     // Before unpost/cancel: about to reverse the document's movements.
     public override Task<EventResult> OnBeforeUnpostAsync(SalesInvoice header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // After the document's movements were reversed.
     public override Task<EventResult> OnAfterUnpostAsync(SalesInvoice header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // Human-readable description shown in lists: put it in context.Data["description"].
-    public override Task<EventResult> OnGenerateDescriptionAsync(SalesInvoice header, EventContext context)
-    {
+    public override async Task<EventResult> OnGenerateDescriptionAsync(SalesInvoice header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         // context.Data["description"] = "SalesInvoice " + header.Number;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(SalesInvoice header, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, errorMessage, context);
 
     // A delete failed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 }

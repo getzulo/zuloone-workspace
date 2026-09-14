@@ -3,23 +3,27 @@ using System.Linq;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Правила погашения баллов. Регистр сам не даёт уйти в минус, но отказ движка —
-// это исключение проведения без внятной причины; здесь переход отклоняется
-// осмысленным текстом и добавляется то, что регистр не знает: лестница уровней.
+// Point-redemption rules. The register itself will not go negative, but the
+// engine's refusal is a posting exception with no clear reason; here the
+// transition is rejected with a meaningful text, and what the register does
+// not know is added: the tier ladder.
 //
-// Уровень НЕ хранится у клиента, а выводится из накопленного баланса — так он не
-// может разъехаться с фактическими баллами. Уровень решает, сколько баллов можно
-// списать одним документом.
+// The tier is NOT stored on the customer; it is derived from the accumulated
+// balance — so it cannot drift from actual points. The tier decides how many
+// points one document may redeem.
 //
-// Почему проверки в событии, а не в транзакционном скрипте: и баланс регистра, и
-// справочник уровней читаются асинхронно, а GetTransactions синхронный. Сервисом
-// это не оформлено намеренно — скрипт своей же модели не видит контракт
-// I<Сервис> этой модели (контракты собираются после её скриптов).
+// Why the checks live in the event, not the transactional script: both the
+// register balance and the tier dictionary are read asynchronously, and
+// GetTransactions is synchronous. This is deliberately not a service — a
+// script of the same model cannot see that model's I<Service> contract
+// (contracts are assembled after its scripts).
 public partial class LoyaltyRedemptionEventHandler : TypedDocumentEventHandler<LoyaltyRedemption>
 {
 
-    public override async Task<EventResult> OnBeforePostAsync(LoyaltyRedemption header, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(LoyaltyRedemption header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         if (header.Subtype != "Redeemed") return EventResult.Ok();
 
         var requested = header.Points;
@@ -41,8 +45,9 @@ public partial class LoyaltyRedemptionEventHandler : TypedDocumentEventHandler<L
             .OrderByDescending(t => t.MinPoints)
             .FirstOrDefault();
 
-        // Пустая лестница — уровни ещё не заведены; тогда лимитов нет и погашение
-        // ограничено только балансом. Иначе клиент обязан достичь уровня.
+        // An empty ladder — tiers are not set up yet; then there are no limits
+        // and redemption is constrained only by the balance. Otherwise the
+        // customer must have reached a tier.
         if (reached == null)
         {
             var anyTier = (await tiers.GetRecordsAsync(null)).Any();

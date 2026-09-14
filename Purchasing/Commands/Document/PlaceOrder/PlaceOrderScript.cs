@@ -1,18 +1,19 @@
 using System.Linq;
 
-// Команда «Заказать» на подтипе Draft заказа поставщику: управляемый переход
-// Черновик → Заказано. Раньше заказ прыгал из черновика сразу в приход, и
-// состояния «размещён у поставщика, но ещё не приехал» просто не было.
+// "Place order" command on the purchase-order Draft subtype: a controlled
+// Draft → Ordered transition. Previously the order jumped from draft straight
+// to receipt, and the "placed with the vendor but not yet arrived" state simply
+// did not exist.
 //
-// Проверка перед переходом: в заказе должны быть строки с положительным
-// количеством. Не проходит — сообщение пользователю и документ остаётся на месте.
+// Check before the transition: the order must have lines with a positive
+// quantity. Fail — message to the user and the document stays put.
 public partial class PlaceOrderCommand
 {
     public override async Task ExecuteAsync(PurchaseOrder document, CommandContext context)
     {
         var docs = context.GetService<IDocumentManager>();
 
-        // Строки у заголовка из команды пусты — документ перечитывается.
+        // Lines on the command header are empty — the document is re-read.
         var full = await docs.GetDocumentAsync<PurchaseOrder>(document.MetaId);
         if (full == null) return;
 

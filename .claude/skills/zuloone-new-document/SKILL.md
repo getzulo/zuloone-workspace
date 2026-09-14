@@ -133,7 +133,10 @@ description: Создать новый документ ZuloOne — шапка, 
 `.cs` — БЕЗ объявления базового класса (framework генерится); имя класса
 уникально во всём воркспейсе. Пример пары скриптов одного подтипа:
 `ReceiptStockTx` (executionOrder 1 — складские остатки) и `ReceiptCostTx`
-(executionOrder 2 — себестоимость):
+(executionOrder 2 — себестоимость). Это **горизонтальный список**, не CoC:
+каждый owner бежит сам. Поправить чужой `ReceiptStockTx` — вертикаль
+`next(...)` на полоске **этого** скрипта (скилл `zuloone-extend` §2д), а не
+третий tx на подтипе.
 
 ```csharp
 public partial class <Имя><Подтип><Цель>Tx
@@ -180,6 +183,8 @@ public partial class <Имя><Подтип><Цель>Tx
 ```csharp
 public override async Task<EventResult> OnAfterPostAsync(PurchaseOrder header, EventContext context)
 {
+    var prior = await next(header, context);
+    if (!prior.Success) return prior;
     if (header.Subtype != "Received") return EventResult.Ok();
 
     var docs = context.GetService<IDocumentManager>();

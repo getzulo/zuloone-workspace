@@ -1,8 +1,8 @@
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// «Провести проводку»: баланс дебет=кредит и период на дату документа
-// (IGeneralLedgerService). Непроводимый счёт (группа) — AccountCodeProblemAsync.
+// "Post journal entry": debit=credit balance and a period on the document date
+// (IGeneralLedgerService). An unpostable account (group) — AccountCodeProblemAsync.
 public partial class PostJournalEntryCommand
 {
     public override async Task ExecuteAsync(JournalEntry document, CommandContext context)

@@ -1,11 +1,11 @@
 #nullable enable
 
-// Хранение → отбор: на строку ДВЕ одиночные проводки Stock (одинарная запись) —
-// минус из ячейки хранения (FromCell, шапка), плюс в ячейку отбора (ToCell, строка).
+// Storage → picking: TWO single Stock movements per line (single-entry) —
+// minus from the storage cell (FromCell, header), plus into the picking cell (ToCell, line).
 //
-// В регистр уходит BaseQuantity (базовая единица товара, считает платформа при
-// сохранении строки); ноль = «единица не указана, пересчёта не было» → введённое
-// количество и есть базовое. Обе ноги берут ОДНО значение.
+// The register gets BaseQuantity (the item's base unit, computed by the platform
+// when the line is saved); zero = "unit not specified, no conversion" → the
+// entered quantity is the base. Both legs take ONE value.
 public partial class PickTaskTx
 {
     protected override void GetTransactions(PickTask document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

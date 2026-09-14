@@ -16,15 +16,15 @@ public partial class PayrollAccrualEventHandler : TypedDocumentEventHandler<Payr
 {
     // Building a new document server-side: seed header defaults (number, date).
     public override Task<EventResult> OnBeforeCreateAsync(PayrollAccrual header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
     public override Task<EventResult> OnBeforeSaveAsync(PayrollAccrual header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(PayrollAccrual header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
@@ -39,54 +39,60 @@ public partial class PayrollAccrualEventHandler : TypedDocumentEventHandler<Payr
 
     // Just before the document is deleted.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the document was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // Before posting: validate the whole document; cancel to block posting.
-    public override Task<EventResult> OnBeforePostAsync(PayrollAccrual header, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(PayrollAccrual header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         // if (header.Number == null)
-        //     return Task.FromResult(EventResult.Cancel("Number is required before posting"));
-        return Task.FromResult(EventResult.Ok());
+        //     return EventResult.Cancel("Number is required before posting");
+        return EventResult.Ok();
     }
 
     // After the document was posted (register movements are written).
     //
-    // Проведённое начисление ФОТ порождает начисление ВЗНОСОВ соцстраха —
-    // отдельным документом, как налоговый расчёт у счёта продажи. Отдельный
-    // документ, а не движения этой же проводки, потому что взносы платятся в
-    // фонд своим платежом, отчитываются своей формой и могут быть пересчитаны
-    // (переаттестация гражданства, задним числом поднятая ставка) без
-    // переоткрытия закрытого начисления ФОТ.
-    public override async Task<EventResult> OnAfterPostAsync(PayrollAccrual header, EventContext context)
-    {
+    // A posted payroll accrual spawns a social-insurance CONTRIBUTION accrual —
+    // a separate document, like the tax calculation on a sales invoice. Separate
+    // document, not movements of this same posting, because contributions are paid
+    // to the fund with their own payment, reported on their own form, and can be
+    // recalculated (citizenship re-attestation, a rate raised retroactively) without
+    // reopening a closed payroll accrual.
+    public override async Task<EventResult> OnAfterPostAsync(PayrollAccrual header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         if (header.Subtype != "Posted") return EventResult.Ok();
 
         var docs = context.GetService<IDocumentManager>();
         var accrual = await docs.GetDocumentAsync<PayrollAccrual>(header.MetaId);
         if (accrual is null || accrual.Lines.Count == 0) return EventResult.Ok();
 
-        // Взносы начисляются РОВНО ОДИН РАЗ на начисление ФОТ. Проведение может
-        // прогнаться повторно — драйвер итогов, пишущий движения во время
-        // проведения самого документа, перезапускает цепочку, — и без этой
-        // отсечки второй проход создал бы ещё один документ взносов, удвоив и
-        // обязательство перед фондом, и удержание у сотрудника.
+        // Contributions are accrued EXACTLY ONCE per payroll accrual. Posting may
+        // run again — a totals driver that writes movements during the document's
+        // own posting restarts the chain — and without this guard the second pass
+        // would create another contribution document, doubling both the liability
+        // to the fund and the employee withholding.
         //
-        // Ребро несёт только id концов, тип — у узла: сопоставляем одно с другим.
-        // Ищется именно РЕБРО от этого начисления, а не любой родственник типа
-        // «взносы» в графе: семья обходит связи в обе стороны, и чужой документ,
-        // попавший в неё окольным путём, отменил бы создание своего.
+        // An edge carries only endpoint ids; the type lives on the node — we match
+        // one against the other. We look for an EDGE from this accrual, not any
+        // "contribution" relative in the graph: the family walks links both ways,
+        // and a foreign document that joined it by a side path would cancel creating
+        // our own.
         var family = await docs.GetDocumentFamilyAsync(header.MetaId);
         var contributionIds = new HashSet<Guid>(
             family.Nodes.Where(n => n.DocTypeMetaId == SocialInsuranceAccrualType).Select(n => n.DocId));
         if (family.Edges.Any(e => e.ParentDocId == header.MetaId && contributionIds.Contains(e.ChildDocId)))
             return EventResult.Ok();
 
-        // Один сотрудник может встречаться в нескольких строках — взнос берётся
-        // с СУММЫ начислений, иначе потолок базы обходится дроблением строк.
+        // One employee may appear on several lines — the contribution is taken
+        // from the SUM of accruals, otherwise the wage ceiling is bypassed by
+        // splitting lines.
         var gross = new Dictionary<Guid, decimal>();
         foreach (var line in accrual.Lines)
             gross[line.Employee] = (gross.TryGetValue(line.Employee, out var v) ? v : 0m) + line.Amount;
@@ -103,24 +109,26 @@ public partial class PayrollAccrualEventHandler : TypedDocumentEventHandler<Payr
 
     // Before unpost/cancel: about to reverse the document's movements.
     public override Task<EventResult> OnBeforeUnpostAsync(PayrollAccrual header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // After the document's movements were reversed.
     public override Task<EventResult> OnAfterUnpostAsync(PayrollAccrual header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // Human-readable description shown in lists: put it in context.Data["description"].
-    public override Task<EventResult> OnGenerateDescriptionAsync(PayrollAccrual header, EventContext context)
-    {
+    public override async Task<EventResult> OnGenerateDescriptionAsync(PayrollAccrual header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         // context.Data["description"] = "PayrollAccrual " + header.Number;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(PayrollAccrual header, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, errorMessage, context);
 
     // A delete failed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, errorMessage, context);
 }

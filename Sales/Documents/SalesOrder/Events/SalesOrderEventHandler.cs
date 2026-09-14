@@ -13,6 +13,8 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
     // Copy PaymentTerm and primary Contact from Customer when those fields are still empty.
     public override async Task<EventResult> OnBeforeSaveAsync(SalesOrder header, bool isNew, EventContext context)
     {
+        var prior = await next(header, isNew, context);
+        if (!prior.Success) return prior;
         if (header.Customer != Guid.Empty)
         {
             var dm = context.GetService<IDictionaryManager<Customer>>();
@@ -36,8 +38,10 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
         return EventResult.Ok();
     }
 
-    public override async Task<EventResult> OnBeforePostAsync(SalesOrder document, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(SalesOrder document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         // Stock sufficiency checks only apply when the order transitions to Confirmed (Approved).
         if (document.Subtype != "Confirmed")
             return EventResult.Ok();
@@ -73,10 +77,12 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
         return EventResult.Ok();
     }
 
-    public override async Task<EventResult> OnAfterPostAsync(SalesOrder document, EventContext context)
-    {
-        // Счёт создаёт ApproveSalesOrderCommand после SaveDocumentAsync:
-        // InvoiceOrderAsync из этой транзакции не видит незакоммиченные строки.
+    public override async Task<EventResult> OnAfterPostAsync(SalesOrder document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
+        // The invoice is created by ApproveSalesOrderCommand after SaveDocumentAsync:
+        // InvoiceOrderAsync from this transaction cannot see uncommitted lines.
         if (document.Subtype == "Confirmed")
             await context.GetService<ISalesFulfillmentService>().EnsurePickTaskAsync(document.MetaId);
         return EventResult.Ok();

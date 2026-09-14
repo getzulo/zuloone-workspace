@@ -8,26 +8,30 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Расширение HR: ВЫПЛАТА ФОТ разносится в главную книгу —
-// Dr задолженность перед сотрудниками / Cr денежные средства.
+// HR extension: a PAYROLL PAYOUT is posted to the general ledger —
+// Dr employee payable / Cr cash.
 //
-// Зачем: начисление кредитует счёт задолженности (PayrollGLEventHandler), а
-// дебетовать его было нечем — в регистре PayrollLiability долг гасился
-// PayrollPaymentTx, а в книге рос бесконечно. Эта пара закрывает расхождение:
-// после выплаты счёт задолженности в GL сходится с остатком регистра.
+// Why: accrual credits the liability account (PayrollGLEventHandler), and
+// there was nothing to debit it with — in the PayrollLiability register the
+// debt was cleared by PayrollPaymentTx, while the ledger grew without bound.
+// This pair closes the gap: after the payout the GL liability account matches
+// the register balance.
 //
-// Юрлицо у выплаты не лежит в шапке (там только ID), поэтому цепочка длиннее,
-// чем у начисления: Строка → Сотрудник → Подразделение → Юрлицо. Выплата может
-// охватывать сотрудников РАЗНЫХ юрлиц, поэтому суммы группируются по юрлицу и
-// на каждое пишется своя проводка — одна общая исказила бы обе книги.
+// The payout does not carry a legal entity on the header (only ID), so the
+// chain is longer than on the accrual: Line → Employee → Division → LegalEntity.
+// A payout may cover employees of DIFFERENT legal entities, so amounts are
+// grouped by legal entity and each gets its own posting — one shared entry
+// would distort both books.
 //
-// Имя класса намеренно отличается от PayrollGLEventHandler: имена классов
-// скриптов уникальны во всём воркспейсе, и совпадение вытеснило бы обработчик
-// начисления.
+// The class name is deliberately different from PayrollGLEventHandler: script
+// class names are unique across the whole workspace, and a collision would
+// displace the accrual handler.
 public partial class PayrollPaymentGLEventHandler : TypedDocumentEventHandler<PayrollPayment>
 {
-    public override async Task<EventResult> OnAfterPostAsync(PayrollPayment document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(PayrollPayment document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Paid") return EventResult.Ok();
 
         var docs = context.GetService<IDocumentManager>();
@@ -52,7 +56,7 @@ public partial class PayrollPaymentGLEventHandler : TypedDocumentEventHandler<Pa
         var divisions = context.GetService<IDictionaryManager<Division>>();
         var entities = context.GetService<IDictionaryManager<LegalEntity>>();
 
-        // Сумма к разноске — по юрлицу сотрудника, а не общий итог документа.
+        // Amount to post — by the employee's legal entity, not the document total.
         var byLegalEntity = new Dictionary<Guid, decimal>();
         foreach (var line in payment.Lines)
         {
@@ -74,8 +78,9 @@ public partial class PayrollPaymentGLEventHandler : TypedDocumentEventHandler<Pa
             var le = await entities.GetRecordAsync(kv.Key);
             if (le == null) continue;
 
-            // Описание несёт и документ, и юрлицо: идемпотентность GeneralLedgerService
-            // построена на нём, а на одну выплату проводок может быть несколько.
+            // The description carries both the document and the legal entity:
+            // GeneralLedgerService idempotency is built on it, and one payout
+            // may produce several postings.
             var jeId = await gl.PostAsync(
                 payment.DocumentDate, le.MetaId, le.Currency, kv.Value,
                 settings.PayrollLiabilityAccountCode, settings.CashAccountCode,

@@ -1,7 +1,7 @@
 using System.Linq;
 using ZuloOne.Managers;
 
-// «Уплатить налог»: суммы строк. Канал сдачи в орган — не из этой команды.
+// "Pay tax": line amounts. The authority-filing channel is not this command.
 public partial class PayTaxCommand
 {
     public override async Task ExecuteAsync(TaxPayment document, CommandContext context)

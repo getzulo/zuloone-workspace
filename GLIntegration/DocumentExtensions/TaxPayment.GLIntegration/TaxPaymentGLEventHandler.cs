@@ -7,20 +7,23 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Расширение Tax моделью GLIntegration: ОПЛАТА НАЛОГА попадает в главную
-// книгу — Dr НДС к уплате / Cr денежные средства.
+// GLIntegration extension of Tax: a TAX PAYMENT hits the general
+// ledger — Dr VAT payable / Cr cash.
 //
-// Зачем: начисление НДС кредитует счёт обязательства (TaxCalculationGL), а
-// дебетовать его было нечем. В леджере налог остаётся начисленным (это факт
-// декларации), а в книге обязательство росло бесконечно — то же расхождение,
-// что уже закрыто у VendorPayment и PayrollPayment.
+// Why: VAT accrual credits the liability account (TaxCalculationGL), and
+// there was nothing to debit it with. In the tax ledger the tax stays accrued
+// (that is a filing fact), while the book liability grew without bound — the
+// same gap already closed for VendorPayment and PayrollPayment.
 //
-// ЮРЛИЦО — ПОЛЕМ ШАПКИ. Не задано — платёж проводится как прежде, проводки нет
-// (best-effort: отсутствие настройки не ломает существующие документы).
+// LEGAL ENTITY — A HEADER FIELD. If unset, the payment posts as before and
+// there is no journal entry (best-effort: missing setup must not break existing
+// documents).
 public partial class TaxPaymentGLEventHandler : TypedDocumentEventHandler<TaxPayment>
 {
-    public override async Task<EventResult> OnAfterPostAsync(TaxPayment document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(TaxPayment document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Paid") return EventResult.Ok();
 
         var jeId = await PostToLedgerAsync(document, context);
@@ -28,7 +31,7 @@ public partial class TaxPaymentGLEventHandler : TypedDocumentEventHandler<TaxPay
         {
             await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
 
-            // Мок госоргана не должен отменять уже разнесённую проводку.
+            // A government-authority mock must not reverse a journal entry already posted.
             try
             {
                 await context.GetService<ITaxAuthoritySubmitService>().SubmitPaymentAsync(document.MetaId);

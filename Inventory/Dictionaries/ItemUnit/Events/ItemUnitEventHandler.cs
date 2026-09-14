@@ -4,13 +4,15 @@ using ZuloOne.Core.Services;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Проверки упаковки товара. Их не было в прежней модели пересчёта вообще —
-// поэтому на стенде и появились противоречивые правила (тонна→грамм заведена
-// отдельно от тонна→килограмм и килограмм→грамм, и согласованы они случайно).
+// Item packaging checks. The previous conversion model had none at all —
+// that is why the stand grew contradictory rules (tonne→gram set up
+// separately from tonne→kilogram and kilogram→gram, and they only matched by chance).
 public partial class ItemUnitEventHandler : TypedDictionaryEventHandler<ItemUnit>
 {
-    public override async Task<EventResult> OnBeforeSaveAsync(ItemUnit record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(ItemUnit record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         if (record.QtyInBaseUnit <= 0m)
             return EventResult.Cancel("Количество в базовой единице должно быть больше нуля");
 
@@ -18,15 +20,15 @@ public partial class ItemUnitEventHandler : TypedDictionaryEventHandler<ItemUnit
         if (item == null)
             return EventResult.Cancel("Товар не найден");
 
-        // Базовая единица товара — это единица, В КОТОРОЙ считается упаковка;
-        // упаковка «сама в себя» означала бы коэффициент 1 и только путала.
+        // The item's base unit is the unit IN WHICH packaging is counted;
+        // packaging "into itself" would mean a factor of 1 and only confuse.
         if (record.Unit == item.UnitOfMeasure)
             return EventResult.Cancel(
                 "Упаковка не может совпадать с базовой единицей товара — её коэффициент по определению равен 1");
 
-        // Пара (товар, единица) уникальна: две упаковки одного товара в одной
-        // единице — это два разных ответа на один вопрос, и пересчёт стал бы
-        // зависеть от того, какая строка попалась первой.
+        // The (item, unit) pair is unique: two packagings of the same item in the
+        // same unit are two different answers to one question, and conversion
+        // would depend on which row came first.
         var duplicate = (await context.GetService<IDictionaryManager<ItemUnit>>()
                 .GetRecordsAsync($"Item = '{record.Item}' AND Unit = '{record.Unit}'"))
             .FirstOrDefault(r => r.MetaId != record.MetaId);

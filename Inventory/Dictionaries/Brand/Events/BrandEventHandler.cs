@@ -3,10 +3,12 @@ namespace ZuloOne.Runtime.Generated;
 
 public partial class BrandEventHandler : TypedDictionaryEventHandler<Brand>
 {
-    public override Task<EventResult> OnBeforeSaveAsync(Brand record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(Brand record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         if (string.IsNullOrWhiteSpace(record.Name))
-            return Task.FromResult(EventResult.Cancel("Brand name is required"));
-        return Task.FromResult(EventResult.Ok());
+            return EventResult.Cancel("Brand name is required");
+        return EventResult.Ok();
     }
 }

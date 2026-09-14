@@ -7,29 +7,34 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Расширение Sales моделью GLIntegration: ОПЛАТА ПОКУПАТЕЛЯ попадает в главную
-// книгу — Dr денежные средства / Cr дебиторка.
+// GLIntegration extension of Sales: a CUSTOMER PAYMENT hits the general
+// ledger — Dr cash / Cr receivables.
 //
-// Зачем: выставление счёта дебетует дебиторку (SalesGLEventHandler), расчёт
-// налога добавляет к ней сумму НДС (TaxCalculationGLEventHandler) — а кредитовать
-// её было нечем. Счёт дебиторки в книге рос на всю выручку с налогом за историю,
-// тогда как регистр Receivable гасился оплатой. Это самая дорогая половина того
-// же расхождения, что уже закрыто у ФОТ и у фонда соцстраха.
+// Why: issuing an invoice debits receivables (SalesGLEventHandler), the tax
+// calculation adds VAT to them (TaxCalculationGLEventHandler) — and there was
+// nothing to credit them with. The receivables account in the books grew by
+// all tax-inclusive revenue over history, while the Receivable register was
+// cleared by the payment. This is the most expensive half of the same gap
+// already closed for payroll and the social-insurance fund.
 //
-// ВАЖНО ПРО СУММУ. Регистр Receivable ведётся БЕЗ налога, а дебиторка в книге —
-// С налогом (счёт + нога НДС). Поэтому платёж на полную сумму с налогом закроет
-// счёт в книге корректно, но в регистре уведёт остаток в минус на величину
-// налога. Пока регистр и книга ведут дебиторку по разным базам, полностью сойтись
-// они не могут: закрыть этот шов должен либо НДС в регистре, либо отказ от ноги
-// НДС в книге. Здесь закрывается книжная сторона, о регистровой — отдельная
-// запись в вики, раздел «Чего пока нет».
+// IMPORTANT ABOUT THE AMOUNT. The Receivable register is kept WITHOUT tax,
+// while book receivables are WITH tax (invoice + VAT leg). So a payment for
+// the full tax-inclusive amount will close the book account correctly, but
+// will drive the register balance negative by the tax amount. Until the
+// register and the books keep receivables on different bases, they cannot
+// fully agree: closing this seam requires either VAT in the register, or
+// dropping the VAT leg in the books. This closes the book side; the register
+// side is a separate wiki note, section «What is not there yet».
 //
-// ЮРЛИЦО — ПОЛЕМ ШАПКИ: у оплаты нет ни склада, ни счёта-основания, а у клиента
-// нет связи с юрлицом. Не задано — платёж гасит регистр как прежде, проводки нет.
+// LEGAL ENTITY — A HEADER FIELD: the payment has neither a warehouse nor a
+// source invoice, and the customer has no link to a legal entity. If unset,
+// the payment still clears the register as before, and there is no posting.
 public partial class CustomerPaymentGLEventHandler : TypedDocumentEventHandler<CustomerPayment>
 {
-    public override async Task<EventResult> OnAfterPostAsync(CustomerPayment document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(CustomerPayment document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Paid") return EventResult.Ok();
 
         var jeId = await PostToLedgerAsync(document, context);

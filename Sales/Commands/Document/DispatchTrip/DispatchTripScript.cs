@@ -1,8 +1,8 @@
 using System.Linq;
 using ZuloOne.Managers;
 
-// «Отправить рейс»: у каждой точки должен быть заказ. CompleteTripAsync —
-// OnAfterPost завершения, не диспатча.
+// "Dispatch trip": every stop must have an order. CompleteTripAsync runs in
+// OnAfterPost of completion, not of dispatch.
 public partial class DispatchTripCommand
 {
     public override async Task ExecuteAsync(DeliveryTrip document, CommandContext context)

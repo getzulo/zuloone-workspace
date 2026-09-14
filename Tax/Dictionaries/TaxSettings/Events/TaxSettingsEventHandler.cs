@@ -8,25 +8,29 @@ namespace ZuloOne.Runtime.Generated;
 public partial class TaxSettingsEventHandler : TypedDictionaryEventHandler<TaxSettings>
 {
     // Building a new record server-side: seed default field values here.
-    public override Task<EventResult> OnBeforeCreateAsync(TaxSettings record, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeCreateAsync(TaxSettings record, EventContext context){
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+
         // record.CreatedOn = DateTime.UtcNow;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew == true) or update.
     // Put shared validation / computed fields here.
-    public override Task<EventResult> OnBeforeSaveAsync(TaxSettings record, bool isNew, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforeSaveAsync(TaxSettings record, bool isNew, EventContext context){
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+
         // if (string.IsNullOrEmpty(record.Name))
-        //     return Task.FromResult(EventResult.Cancel("Name is required"));
+        //     return EventResult.Cancel("Name is required");
         // context.AddClientAction(ClientAction.Message("Saved", "success"));
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(TaxSettings record, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, isNew, context);
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
@@ -41,29 +45,29 @@ public partial class TaxSettingsEventHandler : TypedDictionaryEventHandler<TaxSe
 
     // Just before a record is deleted. Cancel to block the delete.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the record was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // Before inserting a clone: reset unique values (codes, numbers).
     public override Task<EventResult> OnBeforeCloneAsync(TaxSettings record, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
     public override Task<EventResult> OnAfterLoadAsync(TaxSettings record, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, context);
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(TaxSettings record, string fieldName, object? value, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, fieldName, value, context);
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(TaxSettings record, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(record, errorMessage, context);
 
     // A delete failed: same friendly-message translation as OnSaveFailed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, errorMessage, context);
 }

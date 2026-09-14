@@ -187,10 +187,12 @@ namespace ZuloOne.Runtime.Generated;
 
 public partial class <Имя>EventHandler : TypedDictionaryEventHandler<<Имя>>
 {
-    public override Task<EventResult> OnBeforeSaveAsync(<Имя> record, bool isNew, EventContext context)
+    public override async Task<EventResult> OnBeforeSaveAsync(<Имя> record, bool isNew, EventContext context)
     {
-        // if (string.IsNullOrEmpty(record.Name)) return Task.FromResult(EventResult.Cancel("Наименование обязательно"));
-        return Task.FromResult(EventResult.Ok());
+        var prior = await next(record, isNew, context);
+        if (!prior.Success) return prior;
+        // if (string.IsNullOrEmpty(record.Name)) return EventResult.Cancel("Наименование обязательно");
+        return EventResult.Ok();
     }
 }
 ```

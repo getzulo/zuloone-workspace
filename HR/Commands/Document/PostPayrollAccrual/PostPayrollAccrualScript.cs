@@ -1,6 +1,6 @@
-// Команда «Провести начисление» на подтипе-источнике PayrollAccrual: переход в Posted.
-// Проверки предметной области живут в OnBeforePost; здесь — пустой документ
-// и смена подтипа. Движок заменяет проводки целевого состояния (семантика Mix).
+// "Post accrual" command on the PayrollAccrual source subtype: transition to Posted.
+// Domain checks live in OnBeforePost; here — empty document and subtype change.
+// The engine replaces postings of the target state (Mix semantics).
 public partial class PostPayrollAccrualCommand
 {
     public override async Task ExecuteAsync(PayrollAccrual document, CommandContext context)

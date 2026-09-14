@@ -10,8 +10,10 @@ namespace ZuloOne.Runtime.Generated;
 // table parts in an event handler).
 public partial class JournalEntryEventHandler : TypedDocumentEventHandler<JournalEntry>
 {
-    public override async Task<EventResult> OnBeforePostAsync(JournalEntry document, EventContext context)
-    {
+    public override async Task<EventResult> OnBeforePostAsync(JournalEntry document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<JournalEntry>(document.MetaId);
         var lines = full?.Lines ?? document.Lines;
 

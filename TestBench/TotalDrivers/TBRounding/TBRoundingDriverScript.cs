@@ -1,5 +1,5 @@
-// Стендовый скриптовый драйвер итогов: база FifoTotalDriver, хук
-// CalculatePartialAmount округляет частичную себестоимость до 2 знаков.
+// Bench script totals driver: base FifoTotalDriver, hook
+// CalculatePartialAmount rounds partial cost to 2 decimal places.
 public partial class TBRoundingTotalDriver
 {
     protected override decimal CalculatePartialAmount(decimal lotQuantity, decimal lotAmount, decimal transQuantity)

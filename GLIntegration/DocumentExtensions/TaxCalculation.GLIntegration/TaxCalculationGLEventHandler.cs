@@ -8,46 +8,49 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Расширение Tax моделью GLIntegration: налог из расчёта становится проводкой
-// в главной книге. Исходящий — обязательство, входящий — актив.
+// GLIntegration extension of Tax: tax from the calculation becomes a journal
+// entry in the general ledger. Output — a liability, input — an asset.
 //
-// ═══ ПОЧЕМУ ИМЕННО ЭТОТ ДОКУМЕНТ ИСТОЧНИК ИСТИНЫ ════════════════════════════
+// ═══ WHY THIS DOCUMENT IS THE SOURCE OF TRUTH ═══════════════════════════════
 //
-// Налог в системе считают ДВА независимых механизма: универсальный движок правил
-// (этот документ → регистр TaxLedger) и страновой контур КСА (SaudiVatTx →
-// регистр VatPayable). В книгу разносится ТОЛЬКО первый.
+// Tax in the system is computed by TWO independent mechanisms: the universal
+// rule engine (this document → TaxLedger register) and the KSA country contour
+// (SaudiVatTx → VatPayable register). ONLY the first is posted to the books.
 //
-// Причина не в предпочтениях: страновой скрипт сам объявляет себя срезом для
-// отчётности ZATCA поверх универсального контура. Провести оба — удвоить
-// обязательство по НДС в главной книге на ровном месте. Универсальный движок
-// выбран источником истины потому, что он общий: он работает в любой стране, а
-// страновой контур существует не везде.
+// The reason is not preference: the country script itself declares that it is
+// a slice for ZATCA reporting on top of the universal contour. Posting both
+// would double the VAT liability in the general ledger for no reason. The
+// universal engine is the source of truth because it is shared: it works in
+// any country, while the country contour does not exist everywhere.
 //
-// ═══ ИСХОДЯЩИЙ: ПОЧЕМУ ДЕБЕТУЕТСЯ ДЕБИТОРКА ═════════════════════════════════
+// ═══ OUTPUT: WHY RECEIVABLES ARE DEBITED ════════════════════════════════════
 //
-// Счёт продажи разносит Dr дебиторка / Cr выручка на сумму БЕЗ налога — и
-// регистр Receivable тоже ведётся без него. Полная проводка продажи с НДС
-// выглядит как Dr дебиторка (с налогом) / Cr выручка (без) / Cr НДС. Эта
-// проводка добавляет недостающие две ноги: доводит дебиторку до суммы с налогом
-// и создаёт обязательство. Итог тот же, что у трёхногой проводки, но счёт
-// продажи трогать не пришлось.
+// The sales invoice posts Dr receivables / Cr revenue on the amount WITHOUT
+// tax — and the Receivable register is also kept without it. The full sales
+// posting with VAT looks like Dr receivables (with tax) / Cr revenue (without)
+// / Cr VAT. This posting adds the two missing legs: it brings receivables up
+// to the tax-inclusive amount and creates the liability. The result is the
+// same as a three-leg posting, but the sales account did not have to be
+// touched.
 //
-// ═══ ВХОДЯЩИЙ: ЗЕРКАЛО, БЕЗ ВОЗМЕСТИМОСТИ ═══════════════════════════════════
+// ═══ INPUT: THE MIRROR, WITHOUT RECOVERABILITY ══════════════════════════════
 //
-// Заказ поставщику разносит Dr запасы / Cr кредиторка на сумму БЕЗ налога.
-// Входящий налог — Dr НДС к возмещению / Cr кредиторка: актив для зачёта с
-// исходящим и долг поставщику до суммы с налогом. Невозместимую часть в
-// стоимость запаса не раскладываем: справочника возместимости нет, весь
-// входящий налог считается возмещаемым. Когда возместимость появится — её
-// место на TaxCode, не отдельная проводка здесь.
+// A purchase order posts Dr inventory / Cr payables on the amount WITHOUT tax.
+// Input tax is Dr VAT recoverable / Cr payables: an asset to offset against
+// output and a supplier debt up to the tax-inclusive amount. The non-recoverable
+// portion is not folded into inventory cost: there is no recoverability
+// dictionary, so all input tax is treated as recoverable. When recoverability
+// arrives, it belongs on TaxCode, not as a separate posting here.
 public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<TaxCalculation>
 {
     private const string OutputDirection = "OUTPUT";
     private const string InputDirection = "INPUT";
     private const string TaxCircuits = "FIN,TAX";
 
-    public override async Task<EventResult> OnAfterPostAsync(TaxCalculation document, EventContext context)
-    {
+    public override async Task<EventResult> OnAfterPostAsync(TaxCalculation document, EventContext context){
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
         if (document.Subtype != "Finalized") return EventResult.Ok();
 
         var docs = context.GetService<IDocumentManager>();
@@ -68,8 +71,8 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
         var calc = await context.GetService<IDocumentManager>().GetDocumentAsync<TaxCalculation>(header.MetaId);
         if (calc == null) return posted;
 
-        // Направление строки — ССЫЛКА на справочник TaxDirection, а не строка:
-        // сравнивать надо резолвнутый Code, как это делает TaxReturnService.
+        // Line direction is a REFERENCE to the TaxDirection dictionary, not a string:
+        // compare the resolved Code, the same way TaxReturnService does.
         var directions = context.GetService<IDictionaryManager<TaxDirection>>();
         var output = 0m;
         var input = 0m;
@@ -83,7 +86,7 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
         }
         if (output <= 0m && input <= 0m) return posted;
 
-        // Юрлицо у расчёта в шапке: его зафиксировал документ-источник.
+        // The calculation carries the legal entity on the header: the source document pinned it.
         var le = await context.GetService<IDictionaryManager<LegalEntity>>().GetRecordAsync(header.LegalEntity);
         if (le == null) return posted;
 
@@ -115,14 +118,16 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
         return posted;
     }
 
-    // Платёж на сумму с налогом закрывает регистр; книга уже содержит налог
-    // отдельной проводкой. Receivable/Payable ведутся без налога, GL AR/AP —
-    // с налогом. Без этой ноги оплата гросса оставляла регистр на −налог.
-    // OnAfterPost может прийти дважды — движение пишем только если его ещё нет.
+    // A payment for the tax-inclusive amount closes the register; the books
+    // already hold the tax as a separate posting. Receivable/Payable are kept
+    // without tax, GL AR/AP — with tax. Without this leg, a gross payment
+    // left the register at −tax.
+    // OnAfterPost may fire twice — write the movement only if it is not there yet.
     //
-    // Связь invoice→calc кладётся ПОСЛЕ CreateCalculationAsync (он уже провёл
-    // расчёт), поэтому в момент этого события граф семьи ещё пуст. Фоллбэк —
-    // DeterminationReason («Sales invoice {Number}» / «Purchase order {Number}»).
+    // The invoice→calc link is written AFTER CreateCalculationAsync (it has
+    // already posted the calculation), so at this event the family graph is
+    // still empty. Fallback — DeterminationReason («Sales invoice {Number}» /
+    // «Purchase order {Number}»).
     private static async Task CloseReceivablePayableSeamAsync(
         TaxCalculation header, TaxCalculation calc, decimal output, decimal input, EventContext context)
     {
@@ -147,7 +152,7 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
                     "Receivable", $"[DocumentMetaId] = '{header.MetaId}'");
                 if (existing.Count == 0)
                 {
-                    // Customer на Receivable — динамическая аналитика, не колонка TB_.
+                    // Customer on Receivable is a dynamic analytic, not a TB_ column.
                     var receivableId = registers.First(r =>
                         string.Equals(r.Name, "Receivable", StringComparison.OrdinalIgnoreCase)).MetaId;
                     await movements.PostMovementAsync(receivableId, header.MetaId, calc.DocumentDate,

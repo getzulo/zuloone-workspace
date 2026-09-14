@@ -15,15 +15,15 @@ public partial class StockTransferEventHandler : TypedDocumentEventHandler<Stock
 {
     // Building a new document server-side: seed header defaults (number, date).
     public override Task<EventResult> OnBeforeCreateAsync(StockTransfer header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
     public override Task<EventResult> OnBeforeSaveAsync(StockTransfer header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(StockTransfer header, bool isNew, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, isNew, context);
 
     // Operation-specific hooks. NOTE: overriding one REPLACES OnBeforeSave/OnAfterSave
     // for that operation (the default implementation is what delegates to them).
@@ -38,31 +38,33 @@ public partial class StockTransferEventHandler : TypedDocumentEventHandler<Stock
 
     // Just before the document is deleted.
     public override Task<EventResult> OnBeforeDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // After the document was deleted.
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, context);
 
     // Before posting: validate the whole document; cancel to block posting.
     //
-    // ЗАЩИТА ОТ УХОДА В МИНУС. Регистр Stock объявлен allowNegativeBalance=true —
-    // движок минус не отклоняет, поэтому проверка обязана быть здесь. Она есть у
-    // всех прочих расходных документов (списание, отпуск, отбор, раскладка,
-    // продажа, выпуск), а у перемещения её не было.
+    // GUARD AGAINST GOING NEGATIVE. Stock is declared allowNegativeBalance=true —
+    // the engine does not reject a minus, so the check must live here. Every
+    // other outbound document has it (write-off, issue, pick, put-away,
+    // sale, production), but transfer did not.
     //
-    // Почему это опаснее обычного ухода в минус: перемещение — ПАРА проводок по
-    // одному товару, нетто ноль, поэтому драйвер себестоимости на него не смотрит
-    // вовсе. Переместив 100 при остатке 5, получаем −95 в исходной ячейке и +100
-    // в целевой БЕЗ слоя себестоимости, и последующая отгрузка из целевой съест
-    // слои чужого, реально существующего товара.
+    // Why this is worse than a normal negative: a transfer is a PAIR of movements
+    // for one item, net zero, so the costing driver does not look at it at all.
+    // Transfer 100 with 5 on hand and you get −95 in the source cell and +100
+    // in the target WITH NO cost layer, and a later shipment from the target
+    // consumes layers of someone else's real stock.
     //
-    // Потребность считается по BaseQuantity: остаток регистра ведётся в базовой
-    // единице, и «2 ящика» иначе прошли бы проверку против 12 штук на полке.
-    // Строки одного товара складываются — дроблением по строкам проверка не
-    // обходится.
-    public override async Task<EventResult> OnBeforePostAsync(StockTransfer header, EventContext context)
-    {
+    // Demand is counted in BaseQuantity: the register balance is in the base
+    // unit, and "2 boxes" would otherwise pass against 12 pieces on the shelf.
+    // Lines of the same item are summed — splitting across lines does not
+    // bypass the check.
+    public override async Task<EventResult> OnBeforePostAsync(StockTransfer header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         if (header.Subtype != "Posted")
             return EventResult.Ok();
 
@@ -94,28 +96,30 @@ public partial class StockTransferEventHandler : TypedDocumentEventHandler<Stock
 
     // After the document was posted (register movements are written).
     public override Task<EventResult> OnAfterPostAsync(StockTransfer header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // Before unpost/cancel: about to reverse the document's movements.
     public override Task<EventResult> OnBeforeUnpostAsync(StockTransfer header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // After the document's movements were reversed.
     public override Task<EventResult> OnAfterUnpostAsync(StockTransfer header, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, context);
 
     // Human-readable description shown in lists: put it in context.Data["description"].
-    public override Task<EventResult> OnGenerateDescriptionAsync(StockTransfer header, EventContext context)
-    {
+    public override async Task<EventResult> OnGenerateDescriptionAsync(StockTransfer header, EventContext context){
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+
         // context.Data["description"] = "StockTransfer " + header.Number;
-        return Task.FromResult(EventResult.Ok());
+        return EventResult.Ok();
     }
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.
     public override Task<EventResult> OnSaveFailedAsync(StockTransfer header, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(header, errorMessage, context);
 
     // A delete failed.
     public override Task<EventResult> OnDeleteFailedAsync(Guid recordId, string errorMessage, EventContext context)
-        => Task.FromResult(EventResult.Ok());
+        => next(recordId, errorMessage, context);
 }
