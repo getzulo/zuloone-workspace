@@ -3,7 +3,7 @@
 // Reserve for the realization. Used while the invoice is in transit (Reserved → Picking → Packing → Shipped).
 // Transition to Issued LIFTS this reserve (the script is not bound to Issued)
 // and WRITES the warehouse write-off via SalesStockTx / SalesRevenueTx / SalesReceivableTx.
-// Named separately from SalesOrderReserveTx because script class names are unique
+// Named separately from SalesOrderReserveTx — script type names must be unique
 // across the workspace.
 public partial class SalesInvoiceReserveTx
 {
