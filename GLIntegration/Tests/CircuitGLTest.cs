@@ -46,10 +46,19 @@ public class CircuitGLTest : IntegrationTestScriptBase
         legalEntity.Currency = currency.MetaId;
         legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
 
-        var divisionType = DictionaryManager.NewRecord<DivisionType>();
-        divisionType.Code = $"SP-{Db.NewId():N}"[..12];
-        divisionType.Name = "SalesPoint";
-        divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
+        // Prefer the seeded classifier. A new row draws DivisionTypeSeq, and
+        // that counter is often still 1001 after a model apply — the same ID
+        // the data pack already used (IX_DivisionType_ID).
+        var divisionType = (await DictionaryManager.GetRecordsAsync<DivisionType>("Code = 'SALESPOINT'", take: 1))
+            .FirstOrDefault();
+        if (divisionType == null)
+        {
+            divisionType = DictionaryManager.NewRecord<DivisionType>();
+            divisionType.Code = $"SP-{Db.NewId():N}"[..12];
+            divisionType.Name = "SalesPoint";
+            divisionType.ID = $"DT-{Db.NewId():N}"[..16];
+            divisionType = await DictionaryManager.SaveRecordAsync(divisionType);
+        }
 
         var division = DictionaryManager.NewRecord<Division>();
         division.Name = "Shop";
