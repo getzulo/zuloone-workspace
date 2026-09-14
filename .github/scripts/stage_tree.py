@@ -28,6 +28,10 @@ import sys
 # bigger, and .generated in particular is build output.
 JUNK = {".generated", ".git", "node_modules", ".vscode", "bin", "obj"}
 
+# Same identity ModelSeeder stamps on every tenant. A rename (Okrasheno, …)
+# must not publish it either — treeExclude is names, this is the row.
+STAND_MODEL_ID = "7e2c1f0a-9b4d-4e6a-8c3f-1d5a7b9e2c40"
+
 
 def main() -> int:
     out = sys.argv[1] if len(sys.argv) > 1 else "dist-workspace"
@@ -48,6 +52,9 @@ def main() -> int:
         except Exception as ex:  # a model.json that will not parse is a build error
             print(f"::error::{manifest} could not be read: {ex}", file=sys.stderr)
             return 1
+        if str(obj.get("metaId") or "").lower() == STAND_MODEL_ID:
+            print(f"  skipping {obj.get('name', name)} (stand model, seeded by the platform)", file=sys.stderr)
+            continue
 
         shutil.copytree(
             name,

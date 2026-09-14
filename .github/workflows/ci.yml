@@ -190,6 +190,7 @@ jobs:
         shell: bash
         env:
           PLATFORM: ${{ steps.cfg.outputs.image }}
+          RELEASE: ${{ steps.ver.outputs.release }}
         run: |
           set -euo pipefail
           docker rm -f "${WS_CORE:-}" "${WS_PG:-}" 2>/dev/null || true

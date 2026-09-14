@@ -37,9 +37,14 @@ python3 .github/scripts/stage_tree.py .ug-now >/dev/null
 mkdir -p .ug-prev
 for d in .ug-now/*/; do
   m=$(basename "$d")
-  git archive "$PREV" -- "$m/" 2>/dev/null | tar -x -C .ug-prev || {
+  # A new folder (Local, a just-added model) is not at PREV. Do not pipe a
+  # failed `git archive` into tar — empty stdin is "this does not look like
+  # a tar archive", which reads as a broken gate rather than a skip.
+  if ! git cat-file -e "$PREV:$m" 2>/dev/null; then
     echo "  $m did not exist at $PREV — it is new, so nothing to upgrade from."
-  }
+    continue
+  fi
+  git archive "$PREV" -- "$m/" | tar -x -C .ug-prev
 done
 
 moved=$(python3 - "$PREV" <<'PY'
@@ -76,6 +81,13 @@ docker exec "$PG" pg_isready -U ug -q
 # stderr nobody reads — which is how this failed in CI while passing by hand.
 # Re-probing costs nothing and removes the race; reporting the failure costs a
 # line and removes the guesswork.
+#
+# CoreDevelopmentMode matches the compile stand. The pin (2026.0.104) installs
+# the tree under PlatformInstallScope, then backfills ID fields OUTSIDE it —
+# on a tenant that write is "Sales is a Zulo product model and is read-only"
+# and the process dies before /health. The first successful gate ran on an
+# older image without that lock. This flag is the CI workaround until the
+# platform wraps that backfill in the same scope (real tenants need that).
 boot() {
   docker rm -f "$APP" >/dev/null 2>&1 || true
   PORT=$(python3 -c "import socket;s=socket.socket();s.bind(('127.0.0.1',0));print(s.getsockname()[1]);s.close()")
@@ -85,6 +97,7 @@ boot() {
     -e "ConnectionStrings__DefaultConnection=Host=${PG};Database=ug;Username=ug;Password=ug" \
     -e Jwt__SigningKey=upgrade-gate-not-a-secret-0123456789abcdef \
     -e ASPNETCORE_URLS=http://+:8080 \
+    -e ZuloOne__CoreDevelopmentMode=true \
     -e 'ZuloOne__Packages__Install=*' \
     -e Logging__LogLevel__Microsoft.EntityFrameworkCore=Warning \
     "$IMG" >/dev/null
@@ -92,10 +105,15 @@ boot() {
     echo "::error::Could not start the stand on $1 (port ${PORT})."
     return 1
   fi
-  for _ in $(seq 1 150); do
-    body=$(curl -s -m 5 "http://127.0.0.1:${PORT}/health" 2>/dev/null || true)
+  for _ in $(seq 1 480); do
+    if [ -z "$(docker ps -q --filter "name=^/${APP}$")" ]; then
+      echo "::error::The stand on $1 exited before ready."
+      docker logs --tail 60 "$APP" 2>&1 | grep -v '"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command"' | tail -25
+      return 1
+    fi
+    body=$(curl -s -m 2 "http://127.0.0.1:${PORT}/health" 2>/dev/null || true)
     case "${body// /}" in *'"ready":true'*) return 0;; esac
-    sleep 4
+    sleep 1
   done
   echo "::error::The stand on $1 never reported ready."
   docker logs --tail 60 "$APP" 2>&1 | grep -v '"SourceContext":"Microsoft.EntityFrameworkCore.Database.Command"' | tail -25

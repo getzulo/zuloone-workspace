@@ -79,7 +79,12 @@
     "was never a reason to leave Core's content out of the image.",
     "",
     "The fixtures stay out: they are imported during the build as the gate, and",
-    "must not reach a customer."
+    "must not reach a customer.",
+    "",
+    "The stand model (Local / Tenant / whatever the tenant renamed it to) is",
+    "seeded by the platform on first boot. Shipping it as a workspace tree",
+    "makes the catalogue list a package nobody created, and the upgrade gate",
+    "then tries to extract it from a release that never had the folder."
   ],
-  "treeExclude": ["TestBench", "TestBenchExt"]
+  "treeExclude": ["TestBench", "TestBenchExt", "Tenant", "Local"]
 }
