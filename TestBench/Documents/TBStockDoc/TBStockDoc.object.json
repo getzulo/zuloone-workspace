@@ -49,7 +49,7 @@
       "caption": "Warehouse",
       "edtMetaId": "d3c586bc-147f-4b02-bbaf-ef9651ce705f",
       "isSystem": false,
-      "isRequired": true,
+      "isRequired": false,
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
