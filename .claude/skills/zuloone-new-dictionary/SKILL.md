@@ -259,6 +259,10 @@ public partial class <Имя>EventHandler : TypedDictionaryEventHandler<<Имя>
 `isTranslatable: true`, иначе суффиксы игнорируются. Повтор не затирает
 уже введённый перевод.
 
+После любой правки объектов этой модели подними `modelVersion` в её
+`model.json` (скилл `zuloone-new-model`). Без бампа тенанты не зальют
+изменение.
+
 ## 6. Проверка — обязательно
 
 Скилл `zuloone-verify`: синк применил → компиляция Ok → схема синхронизирована →

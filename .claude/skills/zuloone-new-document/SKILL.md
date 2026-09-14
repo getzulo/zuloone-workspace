@@ -447,6 +447,6 @@ await gl.PostAsync(inv.DocumentDate, ...);
 
 Пункт `targetType: "Document"` в `Menu/menu.json`, `parentMetaId` — GUID
 подгруппы **`Documents`/«Документы»** модели (`zuloone-new-model`), не
-корневой группы напрямую. Затем `zuloone-verify` + интеграционный тест на
+корневой группы напрямую. Подними `modelVersion` модели. Затем `zuloone-verify` + интеграционный тест на
 ПЕРЕХОДЫ: создать → перевести по состояниям → остатки регистров сходятся на
 каждом шаге, включая откат назад.

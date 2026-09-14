@@ -177,7 +177,7 @@ transactions.Add(new RegisterMovementSpec("<Имя>")
 
 ## 6. Проверка
 
-Скилл `zuloone-verify` + интеграционный тест: `Db.PostMovementAsync("<Имя>",
+Подними `modelVersion` модели. Скилл `zuloone-verify` + интеграционный тест: `Db.PostMovementAsync("<Имя>",
 дата, {"Warehouse": wh, "Item": item}, {"Qty": 5m})` и сверка
 `QueryMovementsAsync`/`QueryBalancesAsync`; обязательная аналитика без
 значения должна отклоняться; для драйвера — сценарий на его алгоритм.
