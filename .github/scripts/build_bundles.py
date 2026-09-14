@@ -161,9 +161,15 @@ def export_bundles(api: Api, models: list[dict], excluded: set[str], out: str) -
     os.makedirs(out, exist_ok=True)
     index = []
 
+    # Seeded stand model (identity is fixed; the display name is the tenant
+    # in PascalCase). Never a workspace package — skip even if the name
+    # is no longer the historical "Tenant".
+    stand_model_id = "7e2c1f0a-9b4d-4e6a-8c3f-1d5a7b9e2c40"
+
     for model in sorted(models, key=lambda m: m["name"]):
         name = model["name"]
-        if name in excluded:
+        meta_id = str(model.get("metaId") or "").lower()
+        if name in excluded or meta_id == stand_model_id:
             print(f"  skipping {name} (excluded)")
             continue
 

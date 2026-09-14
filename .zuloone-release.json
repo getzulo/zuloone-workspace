@@ -53,11 +53,14 @@
     "on a system model, so no Core bundle can be produced at all. That is not the",
     "same as Core not being shipped — see treeExclude below.",
     "",
-    "Tenant is the empty writable model the platform seeds on a fresh stand",
-    "(layer 4) so jobs and scripts have somewhere to live before any package",
-    "lands. It is not a workspace model and has no tree to export."
+    "The stand customization model is seeded by the platform (layer 4) so jobs",
+    "and scripts have somewhere to live before any package lands. Its identity",
+    "is fixed; the name is the tenant in PascalCase (or Local on an anonymous",
+    "stand). It is not a workspace model. CI also skips it by metaId, so a",
+    "rename does not accidentally publish it. Tenant/Local stay here as the",
+    "historical names of that same row."
   ],
-  "exclude": ["Core", "TestBench", "TestBenchExt", "Tenant"],
+  "exclude": ["Core", "TestBench", "TestBenchExt", "Tenant", "Local"],
 
   "$comment_treeExclude": [
     "Models NOT copied into the distribution image's workspace tree.",
