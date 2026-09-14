@@ -10,10 +10,7 @@
     "isLogged": false,
     "metaId": "57100909-0000-4000-8000-000000000000",
     "name": "StockCountLines",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-08-27T21:47:41.1685898",
-    "modifiedDateTime": "2026-08-27T21:47:41.1685899"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   },
   "properties": [
     {
@@ -32,10 +29,7 @@
       "developerComments": "Заполняется платформой при сохранении: введённое количество, переведённое в базовую единицу товара. Руками не редактируется.",
       "metaId": "d59355c9-4b13-49d3-8685-049ab87d8573",
       "name": "BaseQuantity",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:00.0412589",
-      "modifiedDateTime": "2026-08-29T03:44:00.0412589"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
@@ -55,10 +49,7 @@
       "normalizedFieldName": "BaseQuantity",
       "metaId": "5710090b-0000-4000-8000-000000000000",
       "name": "CountedQty",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:47:41.1686143",
-      "modifiedDateTime": "2026-08-30T14:17:52.8016757"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
@@ -78,10 +69,7 @@
       "displayOrder": 1,
       "metaId": "5710090a-0000-4000-8000-000000000000",
       "name": "Item",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:47:41.1686055",
-      "modifiedDateTime": "2026-08-29T03:44:00.0620302"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
@@ -98,10 +86,7 @@
       "developerComments": "Факт минус системный остаток в базовой единице. Пишется обработчиком на сохранении черновика, чтобы транзакционный скрипт увидел число без сервиса остатков. Руками не редактируется.",
       "metaId": "a1e4c8b2-7d3f-4a91-9e26-5b0c8d4f1a72",
       "name": "QtyDelta",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
@@ -121,10 +106,7 @@
       "displayOrder": 3,
       "metaId": "87e1353e-9897-4afc-be7f-87df4cb12f27",
       "name": "Unit",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:00.0412525",
-      "modifiedDateTime": "2026-08-29T03:44:00.0412525"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

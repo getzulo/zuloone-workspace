@@ -7,13 +7,11 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.1.0",
+    "modelVersion": "1.1.1",
     "metaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
     "name": "HR",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T21:14:50.2255614",
-    "modifiedDateTime": "2026-08-27T18:37:50.9761813"
+    "layerId": 2
   },
   "dependencies": [
     {
@@ -22,10 +20,7 @@
       "minVersion": "1.0.0",
       "metaId": "6ce1089b-1e5a-4107-933a-bcfc1383175e",
       "name": "HR->Accounting",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:14:50.2255839",
-      "modifiedDateTime": "2026-08-25T21:14:50.2255839"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "modelMetaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
@@ -33,10 +28,7 @@
       "minVersion": "1.0.0",
       "metaId": "b4d6f8a2-3c5e-4f7b-9d1e-2a4c6d8e0f3a",
       "name": "HR->Common",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "modelMetaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
@@ -44,10 +36,7 @@
       "minVersion": "1.0.0",
       "metaId": "52e0aa33-76a2-4425-b7b4-856ca2c4f957",
       "name": "HR->Organization",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:14:50.2255786",
-      "modifiedDateTime": "2026-08-25T21:14:50.2255786"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ]
 }

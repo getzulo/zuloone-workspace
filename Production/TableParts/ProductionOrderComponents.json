@@ -10,10 +10,7 @@
     "isLogged": false,
     "metaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
     "name": "ProductionOrderComponents",
-    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T21:31:12.2906326",
-    "modifiedDateTime": "2026-08-25T21:31:12.2906326"
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
   },
   "properties": [
     {
@@ -32,10 +29,7 @@
       "developerComments": "Заполняется платформой при сохранении: введённое количество, переведённое в базовую единицу товара. Руками не редактируется.",
       "metaId": "90ce8fa7-42a3-4f17-be56-2bd1eac6eddb",
       "name": "BaseQuantity",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:43:59.9098687",
-      "modifiedDateTime": "2026-08-29T03:43:59.9098687"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
@@ -55,10 +49,7 @@
       "displayOrder": 1,
       "metaId": "1c8d0e6b-3a7f-4b9c-8d0e-0f4a5b1c6d90",
       "name": "Component",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:31:12.2906558",
-      "modifiedDateTime": "2026-08-29T03:43:59.9210584"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
@@ -78,10 +69,7 @@
       "normalizedFieldName": "BaseQuantity",
       "metaId": "2d9e1f7c-4b8a-4c0d-9e1f-1a5b6c2d7e00",
       "name": "QtyRequired",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:31:12.2906684",
-      "modifiedDateTime": "2026-08-30T14:17:52.7614171"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
@@ -101,10 +89,7 @@
       "displayOrder": 3,
       "metaId": "bbd75afe-625c-48e5-bce8-27436f7309c6",
       "name": "Unit",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:43:59.9098589",
-      "modifiedDateTime": "2026-08-29T03:43:59.909859"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ]
 }

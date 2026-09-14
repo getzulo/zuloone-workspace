@@ -21,10 +21,7 @@
     "isExtension": false,
     "metaId": "3ab1d7f2-4082-4c73-8d51-7e920b3c8d17",
     "name": "TaxRuleCondition",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-01T00:00:00",
-    "modifiedDateTime": "2026-09-12T02:43:31.6104024"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   },
   "fields": [
     {
@@ -45,10 +42,7 @@
       "isCalculated": false,
       "metaId": "90173d58-a6e8-4229-93b7-d4586b923d7d",
       "name": "ConditionGroup",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T10:05:18.954693"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "3ab1d7f2-4082-4c73-8d51-7e920b3c8d17",
@@ -69,10 +63,7 @@
       "isCalculated": false,
       "metaId": "6de40a25-73b5-4fa6-8084-a1253e6f0a4a",
       "name": "Field",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "3ab1d7f2-4082-4c73-8d51-7e920b3c8d17",
@@ -92,10 +83,7 @@
       "isCalculated": false,
       "metaId": "4bc2e803-5193-4d84-9e62-8f031c4d9e28",
       "name": "ID",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "3ab1d7f2-4082-4c73-8d51-7e920b3c8d17",
@@ -114,10 +102,7 @@
       "isCalculated": false,
       "metaId": "7ef51b36-84c6-4007-9195-b2364f701b5b",
       "name": "Operator",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "3ab1d7f2-4082-4c73-8d51-7e920b3c8d17",
@@ -137,10 +122,7 @@
       "isCalculated": false,
       "metaId": "5cd3f914-62a4-4e95-8f73-90142d5e0f39",
       "name": "TaxRule",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "3ab1d7f2-4082-4c73-8d51-7e920b3c8d17",
@@ -161,10 +143,7 @@
       "isCalculated": false,
       "metaId": "8f062c47-95d7-4118-82a6-c3475a812c6c",
       "name": "Value",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

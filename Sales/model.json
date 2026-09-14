@@ -7,13 +7,11 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.3.0",
+    "modelVersion": "1.3.1",
     "metaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "name": "Sales",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T17:57:08.868338",
-    "modifiedDateTime": "2026-09-05T15:34:08.4524738"
+    "layerId": 2
   },
   "dependencies": [
     {
@@ -22,10 +20,7 @@
       "minVersion": "1.0.0",
       "metaId": "2b977df1-8dab-4ce2-b57c-f3246aca7ca5",
       "name": "Sales->Accounting",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:57:08.8683694",
-      "modifiedDateTime": "2026-08-25T17:57:08.8683694"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -33,10 +28,7 @@
       "minVersion": "1.0.0",
       "metaId": "cc60ad14-9756-4591-9c5d-09e63461e8d7",
       "name": "Sales->Common",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:49.1499908",
-      "modifiedDateTime": "2026-08-29T03:44:49.1499908"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -44,10 +36,7 @@
       "minVersion": "1.0.0",
       "metaId": "63123de8-8665-4c29-bd4a-6ef1223fb19f",
       "name": "Sales->Inventory",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:57:08.8683622",
-      "modifiedDateTime": "2026-08-25T17:57:08.8683622"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -55,10 +44,7 @@
       "minVersion": "1.0.0",
       "metaId": "8210acbe-0b01-493e-b589-8d9d2244b898",
       "name": "Sales->Organization",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T14:27:57.2330659",
-      "modifiedDateTime": "2026-09-02T14:27:57.2330659"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -66,10 +52,7 @@
       "minVersion": "1.0.0",
       "metaId": "e898e296-0661-43cc-805d-2c13a8554763",
       "name": "Sales->Tax",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-28T20:46:10.3802681",
-      "modifiedDateTime": "2026-08-28T20:46:10.3802681"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

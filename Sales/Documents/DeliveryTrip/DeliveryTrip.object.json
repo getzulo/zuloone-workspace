@@ -16,10 +16,7 @@
     "isExtension": false,
     "metaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
     "name": "DeliveryTrip",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T00:00:00",
-    "modifiedDateTime": "2026-09-12T02:43:31.7430291"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   },
   "headerFields": [
     {
@@ -37,10 +34,7 @@
       "isTranslatable": false,
       "metaId": "da432ad8-dec2-4c6a-a057-b4f2ec9521ba",
       "name": "DeliveryDate",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:06.9899807",
-      "modifiedDateTime": "2026-09-03T02:56:06.9899807"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
@@ -57,10 +51,7 @@
       "isTranslatable": false,
       "metaId": "1cf1c9e4-de79-4a35-87fe-860771376924",
       "name": "Driver",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:06.9899871",
-      "modifiedDateTime": "2026-09-03T02:56:06.9899871"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
@@ -80,10 +71,7 @@
       "isTranslatable": false,
       "metaId": "d7da0dd5-c187-4d3d-8c07-5f4e1638af14",
       "name": "ID",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:07.03379",
-      "modifiedDateTime": "2026-09-03T12:28:57.2721418"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
@@ -100,10 +88,7 @@
       "isTranslatable": false,
       "metaId": "4377d710-9b6e-41b6-8145-d86eb9c7f420",
       "name": "Route",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:06.9899891",
-      "modifiedDateTime": "2026-09-03T02:56:06.9899891"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypes": [
@@ -118,10 +103,7 @@
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "31a33ef3-1d3b-4249-940d-dca2996ad3e0",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:06.9900012",
-      "modifiedDateTime": "2026-09-03T02:56:06.9900013"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
@@ -134,10 +116,7 @@
       "isInitial": false,
       "isReadOnly": false,
       "metaId": "c3631488-22d2-454c-9745-607b4bf78713",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:06.9899996",
-      "modifiedDateTime": "2026-09-03T02:56:06.9899996"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
@@ -150,10 +129,7 @@
       "isInitial": true,
       "isReadOnly": false,
       "metaId": "d9d69160-83c9-45de-a29e-af61a3828d16",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:06.989994",
-      "modifiedDateTime": "2026-09-03T02:56:06.989994"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "tableParts": [
@@ -163,10 +139,7 @@
       "isCloneable": true,
       "metaId": "c116c48f-2ccf-4d85-96a7-59889f1856b0",
       "name": "Lines",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:06.9900049",
-      "modifiedDateTime": "2026-09-03T02:56:06.990005"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypeTransitions": [
@@ -175,30 +148,21 @@
       "toSubtypeMetaId": "31a33ef3-1d3b-4249-940d-dca2996ad3e0",
       "metaId": "0b1c2d3e-4f50-4161-a273-38495a6b7c8d",
       "name": "Dispatched->Completed",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:06.9900164",
-      "modifiedDateTime": "2026-09-03T02:56:06.9900164"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "d9d69160-83c9-45de-a29e-af61a3828d16",
       "toSubtypeMetaId": "31a33ef3-1d3b-4249-940d-dca2996ad3e0",
       "metaId": "a172afa2-9336-49c9-be0e-c1114b576870",
       "name": "Draft->Completed",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:06.9900151",
-      "modifiedDateTime": "2026-09-03T02:56:06.9900151"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "d9d69160-83c9-45de-a29e-af61a3828d16",
       "toSubtypeMetaId": "c3631488-22d2-454c-9745-607b4bf78713",
       "metaId": "aa0e2825-d36d-48e5-8f9b-449b910c1a6a",
       "name": "Draft->Dispatched",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:06.9900115",
-      "modifiedDateTime": "2026-09-03T02:56:06.9900115"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

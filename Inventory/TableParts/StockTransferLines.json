@@ -10,10 +10,7 @@
     "isLogged": false,
     "metaId": "111f1288-f692-4b6d-ab54-a2fd6658a98d",
     "name": "StockTransferLines",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T17:36:02.1734461",
-    "modifiedDateTime": "2026-08-25T17:36:02.1734462"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   },
   "properties": [
     {
@@ -32,10 +29,7 @@
       "developerComments": "Заполняется платформой при сохранении: введённое количество, переведённое в базовую единицу товара. Руками не редактируется.",
       "metaId": "6f85d310-42db-4d28-83c4-fd155d406be9",
       "name": "BaseQuantity",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:00.3771478",
-      "modifiedDateTime": "2026-08-29T03:44:00.3771478"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "111f1288-f692-4b6d-ab54-a2fd6658a98d",
@@ -55,10 +49,7 @@
       "displayOrder": 1,
       "metaId": "44439c48-bb6d-4cc4-be3e-436844505d40",
       "name": "Item",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:36:02.1734634",
-      "modifiedDateTime": "2026-08-29T03:44:00.3828568"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "111f1288-f692-4b6d-ab54-a2fd6658a98d",
@@ -78,10 +69,7 @@
       "normalizedFieldName": "BaseQuantity",
       "metaId": "03412e82-d66e-41a0-9948-c7b5013393eb",
       "name": "Quantity",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:36:02.1734803",
-      "modifiedDateTime": "2026-08-30T14:17:53.6976909"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "111f1288-f692-4b6d-ab54-a2fd6658a98d",
@@ -101,10 +89,7 @@
       "displayOrder": 3,
       "metaId": "31eb5a6c-a79c-4340-ae82-b42e01948c34",
       "name": "Unit",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:00.3771455",
-      "modifiedDateTime": "2026-08-29T03:44:00.3771455"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

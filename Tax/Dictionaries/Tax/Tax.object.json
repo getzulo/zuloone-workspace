@@ -21,10 +21,7 @@
     "isExtension": false,
     "metaId": "59cf0fba-776e-4223-943f-f8ab2d8ef203",
     "name": "Tax",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-08-25T16:23:06.4760381",
-    "modifiedDateTime": "2026-09-12T02:43:31.4572306"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   },
   "fields": [
     {
@@ -44,10 +41,7 @@
       "isCalculated": false,
       "metaId": "1766f433-90ea-4fdd-bf0b-9e2ca15a92f4",
       "name": "Authority",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:06.4764451",
-      "modifiedDateTime": "2026-08-25T16:23:06.4764452"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "59cf0fba-776e-4223-943f-f8ab2d8ef203",
@@ -67,10 +61,7 @@
       "isCalculated": false,
       "metaId": "feae0285-007b-4eb4-8000-9a206d62e4a6",
       "name": "Code",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:06.4760637",
-      "modifiedDateTime": "2026-08-25T16:23:06.4760637"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "59cf0fba-776e-4223-943f-f8ab2d8ef203",
@@ -89,10 +80,7 @@
       "isCalculated": false,
       "metaId": "b7279d2b-fc2f-4e80-beb4-9e074341d4d6",
       "name": "EffectiveFrom",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:06.4764523",
-      "modifiedDateTime": "2026-08-25T16:23:06.4764523"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "59cf0fba-776e-4223-943f-f8ab2d8ef203",
@@ -111,10 +99,7 @@
       "isCalculated": false,
       "metaId": "3dfc564c-944d-4904-b887-018125b78ebf",
       "name": "EffectiveTo",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:06.4764543",
-      "modifiedDateTime": "2026-08-25T16:23:06.4764543"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "59cf0fba-776e-4223-943f-f8ab2d8ef203",
@@ -134,10 +119,7 @@
       "isCalculated": false,
       "metaId": "e74e7859-5584-4128-8d25-bf3c559a0de2",
       "name": "ID",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:06.5123899",
-      "modifiedDateTime": "2026-08-25T16:23:06.5123899"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "59cf0fba-776e-4223-943f-f8ab2d8ef203",
@@ -156,10 +138,7 @@
       "isCalculated": false,
       "metaId": "d0aa9a19-602d-4346-be64-e3116245d3dc",
       "name": "Jurisdiction",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:06.4764498",
-      "modifiedDateTime": "2026-08-25T16:23:06.4764498"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "59cf0fba-776e-4223-943f-f8ab2d8ef203",
@@ -179,10 +158,7 @@
       "isCalculated": false,
       "metaId": "ba3f5a96-85e9-474e-9110-7b5ad942285e",
       "name": "Name",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:06.4761183",
-      "modifiedDateTime": "2026-08-25T16:23:06.4761183"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

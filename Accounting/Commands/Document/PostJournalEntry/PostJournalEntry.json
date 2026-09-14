@@ -13,10 +13,7 @@
     "reloadAfterExecution": true,
     "metaId": "1851444f-d9f8-496f-943d-581a474a8d7d",
     "name": "PostJournalEntry",
-    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1,
-    "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T06:30:00"
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
   },
   "subtypeBindings": [
     {

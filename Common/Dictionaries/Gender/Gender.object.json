@@ -21,10 +21,7 @@
     "isExtension": false,
     "metaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
     "name": "Gender",
-    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-    "layerId": 1,
-    "createdDateTime": "2026-08-22T02:01:49.878893",
-    "modifiedDateTime": "2026-09-12T02:43:31.0522811"
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
   },
   "fields": [
     {
@@ -45,10 +42,27 @@
       "isCalculated": false,
       "metaId": "99c56818-6e78-4dcb-ba30-44710428b12b",
       "name": "ID",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.8921874",
-      "modifiedDateTime": "2026-08-22T02:01:49.8921875"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "dictionaryMetaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
+      "fieldName": "Code",
+      "baseType": "String",
+      "length": 16,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "Code",
+      "caption_ar": "الكود",
+      "caption_ru": "Код",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a1f8c3d2-6b4e-4e9a-8c2d-1f7b5a9e3c40",
+      "name": "Code",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
       "dictionaryMetaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
@@ -57,7 +71,7 @@
       "length": 100,
       "isSystem": false,
       "isRequired": true,
-      "displayOrder": 1,
+      "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
       "caption": "Name",
@@ -68,10 +82,7 @@
       "isCalculated": false,
       "metaId": "69cb85bc-36cd-4f4c-8199-fbc4fa986ce8",
       "name": "Name",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.8789223",
-      "modifiedDateTime": "2026-08-22T03:43:39.0300961"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     }
   ]
 }

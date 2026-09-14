@@ -7,13 +7,11 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.1.0",
+    "modelVersion": "1.1.1",
     "metaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
     "name": "Purchasing",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T21:06:39.6403512",
-    "modifiedDateTime": "2026-08-27T18:37:50.9650042"
+    "layerId": 2
   },
   "dependencies": [
     {
@@ -22,10 +20,7 @@
       "minVersion": "1.0.0",
       "metaId": "dfe4267a-5843-4d79-a0be-06c776d61ee0",
       "name": "Purchasing->Accounting",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:06:39.6404008",
-      "modifiedDateTime": "2026-08-25T21:06:39.6404008"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
       "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
@@ -33,10 +28,7 @@
       "minVersion": "1.0.0",
       "metaId": "bed4d55b-252d-4aaa-9578-7e031c73dd74",
       "name": "Purchasing->Common",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:45.5570035",
-      "modifiedDateTime": "2026-08-29T03:44:45.5570035"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
       "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
@@ -44,10 +36,7 @@
       "minVersion": "1.0.0",
       "metaId": "ef7f42b4-cc09-4740-84a1-cec6b3d6af5f",
       "name": "Purchasing->Inventory",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:06:39.6403956",
-      "modifiedDateTime": "2026-08-25T21:06:39.6403957"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
       "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
@@ -55,10 +44,7 @@
       "minVersion": "1.0.0",
       "metaId": "012e490c-1517-4eac-881e-3a30dc618881",
       "name": "Purchasing->Organization",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T14:27:57.1951714",
-      "modifiedDateTime": "2026-09-02T14:27:57.1951714"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
       "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
@@ -66,10 +52,7 @@
       "minVersion": "1.0.0",
       "metaId": "06b286d9-4905-4056-ae87-e1c53465223b",
       "name": "Purchasing->Tax",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-28T21:10:12.1673252",
-      "modifiedDateTime": "2026-08-28T21:10:12.1673252"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ]
 }

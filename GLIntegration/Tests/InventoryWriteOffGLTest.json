@@ -8,9 +8,6 @@
     "isExtension": false,
     "metaId": "1e9cd17d-7d8a-4504-aef1-c913a0b031ac",
     "name": "InventoryWriteOffGLTest",
-    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T11:51:29.2719688",
-    "modifiedDateTime": "2026-09-02T20:34:04.8216684"
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80"
   }
 }

@@ -21,10 +21,7 @@
     "isExtension": false,
     "metaId": "94139682-fbaf-4cea-b3bf-99e067f31b2a",
     "name": "Division",
-    "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-    "layerId": 1,
-    "createdDateTime": "2026-08-25T15:09:58.4872373",
-    "modifiedDateTime": "2026-09-12T02:43:30.9588173"
+    "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
   },
   "fields": [
     {
@@ -44,10 +41,7 @@
       "isCalculated": false,
       "metaId": "edc501e8-4c7d-4dd9-85f0-e7781fa21fcb",
       "name": "DivisionType",
-      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:09:58.4878111",
-      "modifiedDateTime": "2026-08-25T15:09:58.4878111"
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
       "dictionaryMetaId": "94139682-fbaf-4cea-b3bf-99e067f31b2a",
@@ -67,10 +61,7 @@
       "isCalculated": false,
       "metaId": "015444e2-da29-4a5c-9e5f-2c4ef4d836a5",
       "name": "ID",
-      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:09:58.5121654",
-      "modifiedDateTime": "2026-08-25T15:09:58.5121656"
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
       "dictionaryMetaId": "94139682-fbaf-4cea-b3bf-99e067f31b2a",
@@ -89,10 +80,7 @@
       "isCalculated": false,
       "metaId": "8c2ad59c-a30e-46d5-9eb7-8c29eccbc8df",
       "name": "LegalEntity",
-      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:09:58.4873667",
-      "modifiedDateTime": "2026-08-25T15:09:58.4873667"
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
       "dictionaryMetaId": "94139682-fbaf-4cea-b3bf-99e067f31b2a",
@@ -112,10 +100,7 @@
       "isCalculated": false,
       "metaId": "df20e5fe-64d2-4b4d-b27d-e4871e17b132",
       "name": "Name",
-      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:09:58.4873364",
-      "modifiedDateTime": "2026-08-25T15:09:58.4873364"
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
       "dictionaryMetaId": "94139682-fbaf-4cea-b3bf-99e067f31b2a",
@@ -134,10 +119,7 @@
       "isCalculated": false,
       "metaId": "21f0b3a5-da11-492d-bc3a-0c989b76bae7",
       "name": "ParentId",
-      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:09:58.5334401",
-      "modifiedDateTime": "2026-08-25T15:09:58.5334401"
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     }
   ]
 }

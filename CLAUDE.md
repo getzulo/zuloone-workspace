@@ -82,7 +82,7 @@ live**: сохранил файл → через 2–4 секунды он пр�
   ссылки json — по metaId (`edtMetaId`, `numberSequenceMetaId`,
   `tablePartTypeMetaId`, `referenceDictionaryMetaId`, `parentMetaId`…) — держи
   их согласованными между файлами. У каждой строки — `modelId` = metaId модели
-  из `model.json` папки и её `layerId`.
+  из `model.json` папки. `layerId` пишется только у самой модели.
 - **Имена объектов и полей — PascalCase латиницей** (они же имена C#-классов,
   свойств и таблиц): `GoodsReceipt`, `WarehouseID`.
 - **Подписи многоязычны инлайн**: `caption` — базовая подпись НА АНГЛИЙСКОМ,

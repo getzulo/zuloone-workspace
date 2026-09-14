@@ -20,10 +20,7 @@
     "isExtension": false,
     "metaId": "abb0b19e-9453-4d51-bd29-ebb07cc869b8",
     "name": "SalesPerson",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T00:00:00",
-    "modifiedDateTime": "2026-09-12T02:43:31.3497161"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   },
   "fields": [
     {
@@ -43,10 +40,7 @@
       "isCalculated": false,
       "metaId": "019f4be0-f5aa-459d-bbde-96d25de47647",
       "name": "ID",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:02.6274837",
-      "modifiedDateTime": "2026-09-03T02:56:02.6274837"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "dictionaryMetaId": "abb0b19e-9453-4d51-bd29-ebb07cc869b8",
@@ -65,10 +59,7 @@
       "isCalculated": false,
       "metaId": "04a26153-206b-47dd-b62d-ad77efff571d",
       "name": "Name",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T00:00:00",
-      "modifiedDateTime": "2026-09-03T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

@@ -8,9 +8,6 @@
     "executionOrder": 0,
     "metaId": "731a2b22-dd46-4442-99b1-235fe4b5ba67",
     "name": "PostSalesReturnScript",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T04:00:01.4193024"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   }
 }

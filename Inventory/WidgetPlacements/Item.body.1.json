@@ -12,9 +12,6 @@
     "height": 5,
     "metaId": "8fe21cf3-77f8-49a3-8274-09102fda7d9e",
     "name": "Item.body.stockByCell",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-09-12T21:00:00",
-    "modifiedDateTime": "2026-09-12T21:04:43.9533677"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   }
 }

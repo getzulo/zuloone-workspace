@@ -21,10 +21,7 @@
     "isExtension": false,
     "metaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
     "name": "TaxRule",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-01T00:00:00",
-    "modifiedDateTime": "2026-09-12T02:43:31.5931153"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   },
   "fields": [
     {
@@ -45,10 +42,7 @@
       "isCalculated": false,
       "metaId": "7df41a35-84c6-4007-9195-b2364f701b5a",
       "name": "Code",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
@@ -67,10 +61,7 @@
       "isCalculated": false,
       "metaId": "d35a709b-ea2c-4d6d-97fb-1892afd6711a",
       "name": "EffectiveFrom",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
@@ -89,10 +80,7 @@
       "isCalculated": false,
       "metaId": "e46b81ac-fb3d-4e7e-a80c-29a3b0e7822b",
       "name": "EffectiveTo",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
@@ -112,10 +100,7 @@
       "isCalculated": false,
       "metaId": "6ce30924-73b5-4fa6-8084-a1253e6f0a49",
       "name": "ID",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
@@ -135,10 +120,7 @@
       "isCalculated": false,
       "metaId": "f57c92bd-0c4e-4f8f-b91d-3ab4c1f8933c",
       "name": "IsDisabled",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T10:07:00.3091895"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
@@ -158,10 +140,7 @@
       "isCalculated": false,
       "metaId": "b1385e79-c80a-444b-95d9-f6708db45f9e",
       "name": "Jurisdiction",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
@@ -181,10 +160,7 @@
       "isCalculated": false,
       "metaId": "8e052b46-95d7-4118-82a6-c3475a812c6b",
       "name": "Name",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
@@ -204,10 +180,7 @@
       "isCalculated": false,
       "metaId": "9f163c57-a6e8-4229-93b7-d4586b923d7c",
       "name": "Priority",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T10:05:18.856587"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
@@ -227,10 +200,7 @@
       "isCalculated": false,
       "metaId": "a0274d68-b7f9-433a-84c8-e5697ca34e8d",
       "name": "Tax",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "28a9c5e0-3f71-4b62-9c40-6d81f2a7b3e5",
@@ -250,10 +220,7 @@
       "isCalculated": false,
       "metaId": "c2496f8a-d91b-4c5c-86ea-07819ec5601f",
       "name": "TaxCode",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

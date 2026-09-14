@@ -8,9 +8,6 @@
     "resetPolicy": "None",
     "metaId": "0d5e8a21-7c46-4b19-9f32-6e1a3c8d4f70",
     "name": "TaxPaymentSeq",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-02T00:00:00",
-    "modifiedDateTime": "2026-09-02T00:00:00"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   }
 }

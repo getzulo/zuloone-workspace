@@ -7,7 +7,7 @@ using ZuloOne.Managers;
 // получают это пространство имён глобальным using'ом.
 using ZuloOne.Runtime.Generated;
 
-// «Ядерные тесты.Итоги»: учётные периоды (MIQS AccountingPeriodManager).
+// «Ядерные тесты.Итоги»: граница проведения (MIQS AccountingPeriodManager).
 // Закрытый период — жёсткая граница: движения с датой не позже её не проводятся
 // и не распроводятся никем. Аудит-период — мягкая: требует права PostInAudit
 // (тест-раннер работает без пользователя — права нет, проведение отклоняется).
@@ -21,7 +21,7 @@ public class TbAccountingPeriodsTest : IntegrationTestScriptBase
 {
     private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
 
-    [IntegrationTest("учётные периоды блокируют проведение")]
+    [IntegrationTest("граница проведения блокирует проведение")]
     public async Task PeriodsGatePosting()
     {
         var warehouse = Db.NewId();

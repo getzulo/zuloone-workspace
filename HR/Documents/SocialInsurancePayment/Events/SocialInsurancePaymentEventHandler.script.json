@@ -8,9 +8,6 @@
     "executionOrder": 0,
     "metaId": "c70bffe2-863c-481d-b616-c1d20d2c1df5",
     "name": "SocialInsurancePaymentEventHandler",
-    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T11:03:42.1379861",
-    "modifiedDateTime": "2026-09-02T11:03:42.1379862"
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
   }
 }

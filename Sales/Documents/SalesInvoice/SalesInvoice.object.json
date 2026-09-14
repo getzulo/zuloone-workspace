@@ -16,10 +16,7 @@
     "isExtension": false,
     "metaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
     "name": "SalesInvoice",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T17:57:40.2023549",
-    "modifiedDateTime": "2026-09-12T02:43:31.9371067"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   },
   "headerFields": [
     {
@@ -38,10 +35,7 @@
       "isTranslatable": false,
       "metaId": "a0762da1-dde7-41ab-8951-10f592fc9562",
       "name": "Contact",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.9329893",
-      "modifiedDateTime": "2026-09-09T13:28:58.9329893"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -59,10 +53,7 @@
       "isTranslatable": false,
       "metaId": "5ef15695-33f5-449f-948a-f050b9c05266",
       "name": "Customer",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:57:40.2023869",
-      "modifiedDateTime": "2026-08-25T17:57:40.2023869"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -81,10 +72,7 @@
       "isTranslatable": false,
       "metaId": "9c4d1e73-5a86-4b29-8f0d-3e7a2c5b1d84",
       "name": "DiscountPercent",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:40:00",
-      "modifiedDateTime": "2026-09-02T11:40:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -104,10 +92,7 @@
       "isTranslatable": false,
       "metaId": "2466f989-76ca-44d7-8ffc-fbe59c95cf53",
       "name": "ID",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:57:40.221592",
-      "modifiedDateTime": "2026-09-10T13:47:30.5983739"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -126,10 +111,7 @@
       "isTranslatable": false,
       "metaId": "5e3a7c81-9b24-4d06-8f57-1c9e2b6a4d38",
       "name": "LegalEntity",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -146,10 +128,7 @@
       "isTranslatable": false,
       "metaId": "60d8388c-63ce-426c-88a9-f2168ba5786e",
       "name": "Location",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:57:40.2023999",
-      "modifiedDateTime": "2026-08-25T17:57:40.2023999"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -168,10 +147,7 @@
       "isTranslatable": false,
       "metaId": "1332751f-52a4-4308-ad66-f99c1ce9e798",
       "name": "Notes",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.9329958",
-      "modifiedDateTime": "2026-09-09T13:28:58.9329958"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -189,10 +165,7 @@
       "isTranslatable": false,
       "metaId": "8932c776-6662-44d3-a84a-4bd1857852b4",
       "name": "PaymentTerm",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.9329931",
-      "modifiedDateTime": "2026-09-09T13:28:58.9329931"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -210,10 +183,7 @@
       "isTranslatable": false,
       "metaId": "6f708192-a3b4-4cd5-e6f7-081920314246",
       "name": "SourceOrder",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T00:00:00",
-      "modifiedDateTime": "2026-09-03T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -232,10 +202,7 @@
       "isTranslatable": false,
       "metaId": "24d6b07f-8a62-467d-a74d-b3e413494060",
       "name": "TaxRateApplied",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-09T15:15:21.7863279"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypes": [
@@ -250,10 +217,7 @@
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "7a8b9c0d-1e2f-4a3b-8c4d-6e7f8a9b0c1e",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T18:09:59.4217392",
-      "modifiedDateTime": "2026-09-09T15:15:21.8081277"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -267,10 +231,7 @@
       "isInitial": true,
       "isReadOnly": false,
       "metaId": "8b4cca89-693a-4364-85d8-a6fcb3c9116b",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:57:40.2024065",
-      "modifiedDateTime": "2026-08-25T17:57:40.2024066"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -285,10 +246,7 @@
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:57:40.2024168",
-      "modifiedDateTime": "2026-09-10T13:43:27.0008577"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -302,10 +260,7 @@
       "isInitial": false,
       "isReadOnly": false,
       "metaId": "a4b5c6d7-e8f0-4a1b-8c2d-4e5f6a7b8c9d",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -319,10 +274,7 @@
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "a9b0c1d2-e3f4-4a5b-8c6d-7e8f9a0b1c2d",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -336,10 +288,7 @@
       "isInitial": false,
       "isReadOnly": false,
       "metaId": "d1e2f3a4-b5c6-4d7e-8f0a-1b2c3d4e5f6a",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -353,10 +302,7 @@
       "isInitial": false,
       "isReadOnly": false,
       "metaId": "e2f3a4b5-c6d7-4e8f-8a0b-2c3d4e5f6a7b",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
@@ -370,10 +316,7 @@
       "isInitial": false,
       "isReadOnly": false,
       "metaId": "f3a4b5c6-d7e8-4f0a-8b1c-3d4e5f6a7b8c",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "tableParts": [
@@ -383,10 +326,7 @@
       "isCloneable": true,
       "metaId": "d3066ffb-1126-4f8f-9fc5-494bd7a6269a",
       "name": "Lines",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:57:40.2024231",
-      "modifiedDateTime": "2026-08-25T17:57:40.2024231"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypeTransactionScripts": [
@@ -396,10 +336,7 @@
       "executionOrder": 1,
       "metaId": "35909b53-9e13-45c6-9442-e076a3b42a9c",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:58:45.2271961",
-      "modifiedDateTime": "2026-08-25T17:58:45.2271961"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "subtypeMetaId": "d1e2f3a4-b5c6-4d7e-8f0a-1b2c3d4e5f6a",
@@ -407,10 +344,7 @@
       "executionOrder": 1,
       "metaId": "99aab1c2-3d4e-4556-8172-223344556677",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "subtypeMetaId": "e2f3a4b5-c6d7-4e8f-8a0b-2c3d4e5f6a7b",
@@ -418,10 +352,7 @@
       "executionOrder": 1,
       "metaId": "aabbc2d3-4e5f-4667-9283-334455667788",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "subtypeMetaId": "f3a4b5c6-d7e8-4f0a-8b1c-3d4e5f6a7b8c",
@@ -429,10 +360,7 @@
       "executionOrder": 1,
       "metaId": "bbccd3e4-5f60-4778-8394-445566778899",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "subtypeMetaId": "a4b5c6d7-e8f0-4a1b-8c2d-4e5f6a7b8c9d",
@@ -440,10 +368,7 @@
       "executionOrder": 1,
       "metaId": "ccdde4f5-60a1-4889-94a5-556677889900",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "subtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
@@ -451,10 +376,7 @@
       "executionOrder": 2,
       "metaId": "796080a3-8fed-424b-94ff-5b176368309f",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:58:45.2271997",
-      "modifiedDateTime": "2026-08-25T17:58:45.2271997"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "subtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
@@ -462,10 +384,7 @@
       "executionOrder": 3,
       "metaId": "726ac0b1-1227-42f4-8251-6b729c86254a",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "subtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
@@ -473,10 +392,7 @@
       "executionOrder": 5,
       "metaId": "602d5db9-1092-4771-bf9b-0912db706566",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "subtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
@@ -484,10 +400,7 @@
       "executionOrder": 6,
       "metaId": "a0ff2e40-322e-4103-9271-ad6cf97a9f0d",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 3,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypeTransitions": [
@@ -496,120 +409,84 @@
       "toSubtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
       "metaId": "031e9e9a-07a5-47a4-98e5-beccae9f692e",
       "name": "Draft->Issued",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-28T13:35:29.791783",
-      "modifiedDateTime": "2026-09-09T15:15:21.8359769"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "8b4cca89-693a-4364-85d8-a6fcb3c9116b",
       "toSubtypeMetaId": "a9b0c1d2-e3f4-4a5b-8c6d-7e8f9a0b1c2d",
       "metaId": "fe405162-3849-4fa0-9112-2d3e4f5a6b7c",
       "name": "Draft->Cancelled",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "8b4cca89-693a-4364-85d8-a6fcb3c9116b",
       "toSubtypeMetaId": "d1e2f3a4-b5c6-4d7e-8f0a-1b2c3d4e5f6a",
       "metaId": "44556677-8899-4001-8c2d-ddeeff001122",
       "name": "Draft->Reserved",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
       "toSubtypeMetaId": "8b4cca89-693a-4364-85d8-a6fcb3c9116b",
       "metaId": "2a2cc9d0-ab94-4141-bbeb-2e95fd8dad4c",
       "name": "Issued->Draft",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T18:02:14.2525702",
-      "modifiedDateTime": "2026-09-09T15:15:21.8372561"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "a4b5c6d7-e8f0-4a1b-8c2d-4e5f6a7b8c9d",
       "toSubtypeMetaId": "8f46b406-52a2-4c3d-b9fa-ac26027f01ff",
       "metaId": "8899a0b1-2c3d-4445-9061-112233445566",
       "name": "Shipped->Issued",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "a4b5c6d7-e8f0-4a1b-8c2d-4e5f6a7b8c9d",
       "toSubtypeMetaId": "a9b0c1d2-e3f4-4a5b-8c6d-7e8f9a0b1c2d",
       "metaId": "ed3f4051-2738-4e9f-9001-1c2d3e4f5a6b",
       "name": "Shipped->Cancelled",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "d1e2f3a4-b5c6-4d7e-8f0a-1b2c3d4e5f6a",
       "toSubtypeMetaId": "a9b0c1d2-e3f4-4a5b-8c6d-7e8f9a0b1c2d",
       "metaId": "ba0c1d2e-f405-4b6c-8d7e-8f9a0b1c2d3e",
       "name": "Reserved->Cancelled",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "d1e2f3a4-b5c6-4d7e-8f0a-1b2c3d4e5f6a",
       "toSubtypeMetaId": "e2f3a4b5-c6d7-4e8f-8a0b-2c3d4e5f6a7b",
       "metaId": "55667788-990a-4112-8d3e-eeff00112233",
       "name": "Reserved->Picking",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "e2f3a4b5-c6d7-4e8f-8a0b-2c3d4e5f6a7b",
       "toSubtypeMetaId": "a9b0c1d2-e3f4-4a5b-8c6d-7e8f9a0b1c2d",
       "metaId": "cb1d2e3f-0516-4c7d-8e8f-9a0b1c2d3e4f",
       "name": "Picking->Cancelled",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "e2f3a4b5-c6d7-4e8f-8a0b-2c3d4e5f6a7b",
       "toSubtypeMetaId": "f3a4b5c6-d7e8-4f0a-8b1c-3d4e5f6a7b8c",
       "metaId": "66778899-0a1b-4223-8e4f-ff0011223344",
       "name": "Picking->Packing",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "f3a4b5c6-d7e8-4f0a-8b1c-3d4e5f6a7b8c",
       "toSubtypeMetaId": "a4b5c6d7-e8f0-4a1b-8c2d-4e5f6a7b8c9d",
       "metaId": "77889900-1b2c-4334-8f50-001122334455",
       "name": "Packing->Shipped",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "fromSubtypeMetaId": "f3a4b5c6-d7e8-4f0a-8b1c-3d4e5f6a7b8c",
       "toSubtypeMetaId": "a9b0c1d2-e3f4-4a5b-8c6d-7e8f9a0b1c2d",
       "metaId": "dc2e3f40-1627-4d8e-8f90-0b1c2d3e4f5a",
       "name": "Packing->Cancelled",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

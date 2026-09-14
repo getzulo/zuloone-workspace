@@ -7,9 +7,6 @@
     "executionOrder": 1,
     "metaId": "6e36af95-a815-47a7-b79e-226b0a342efb",
     "name": "CancelSalesOrderScript",
-    "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 0,
-    "createdDateTime": "2026-09-09T15:44:01.0267594",
-    "modifiedDateTime": "2026-09-09T15:44:01.0295048"
+    "modelId": "00000000-0000-0000-0000-000000000000"
   }
 }

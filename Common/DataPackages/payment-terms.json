@@ -8,7 +8,7 @@
         "table": "PaymentTerm",
         "kind": "Dictionary",
         "businessKey": [
-          "Name"
+          "Days"
         ],
         "mode": "insert",
         "rowCount": 7

@@ -13,10 +13,7 @@
     "reloadAfterExecution": true,
     "metaId": "d7b5c4e0-c0d9-415e-b9fd-8040ca6e415f",
     "name": "ReceiveOrder",
-    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T06:30:00"
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
   },
   "subtypeBindings": [
     {

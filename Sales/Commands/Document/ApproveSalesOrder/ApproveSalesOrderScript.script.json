@@ -8,9 +8,6 @@
     "executionOrder": 0,
     "metaId": "982752fc-1308-4403-9c02-8c3e77dac94d",
     "name": "ApproveSalesOrderScript",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-09-09T16:13:37.2622739",
-    "modifiedDateTime": "2026-09-09T17:06:31.5315541"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   }
 }

@@ -7,13 +7,11 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.1.0",
+    "modelVersion": "1.1.1",
     "metaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
     "name": "Production",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T21:30:26.6908534",
-    "modifiedDateTime": "2026-08-27T18:37:51.0083975"
+    "layerId": 2
   },
   "dependencies": [
     {
@@ -22,10 +20,7 @@
       "minVersion": "1.0.0",
       "metaId": "ab3c5d7e-9f1a-4b2c-8d3e-4f5a6b7c8d90",
       "name": "Production->Common",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T21:13:42.487972",
-      "modifiedDateTime": "2026-08-26T21:13:42.487972"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "modelMetaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
@@ -33,10 +28,7 @@
       "minVersion": "1.0.0",
       "metaId": "3f6a8d15-2c9b-4e7f-8a1d-6b3c9e2f5a70",
       "name": "Production->Costing",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-31T00:00:00",
-      "modifiedDateTime": "2026-08-31T00:00:00"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "modelMetaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
@@ -44,10 +36,7 @@
       "minVersion": "1.0.0",
       "metaId": "2b8c1f6a-4d7e-4a9b-8c3f-1e5a6d2b7c90",
       "name": "Production->Inventory",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:30:26.6908709",
-      "modifiedDateTime": "2026-08-25T21:30:26.690871"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ]
 }

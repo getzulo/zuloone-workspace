@@ -13,10 +13,7 @@
     "reloadAfterExecution": true,
     "metaId": "138d022d-2456-47d0-92ef-968e8f6f57e8",
     "name": "PayTax",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T06:30:00"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   },
   "subtypeBindings": [
     {

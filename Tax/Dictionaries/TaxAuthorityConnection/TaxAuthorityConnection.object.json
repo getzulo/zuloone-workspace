@@ -20,10 +20,7 @@
     "isExtension": false,
     "metaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
     "name": "TaxAuthorityConnection",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-08-29T04:23:03.0915982",
-    "modifiedDateTime": "2026-09-12T02:43:31.4912615"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   },
   "fields": [
     {
@@ -42,10 +39,7 @@
       "isCalculated": false,
       "metaId": "ac8a959d-98a9-48a9-877d-852b90baa764",
       "name": "Authority",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916415",
-      "modifiedDateTime": "2026-08-29T04:23:03.0916415"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -64,10 +58,7 @@
       "isCalculated": false,
       "metaId": "417a22c1-44b8-4be4-903e-73e04554922f",
       "name": "BaseUrl",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916455",
-      "modifiedDateTime": "2026-08-29T04:27:56.3585039"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -86,10 +77,7 @@
       "isCalculated": false,
       "metaId": "f154fe28-d806-4ea8-84ab-869be83aa916",
       "name": "Code",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T04:27:56.3533013",
-      "modifiedDateTime": "2026-08-29T04:27:56.3533014"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -108,10 +96,7 @@
       "isCalculated": false,
       "metaId": "98e31efa-3b7f-4193-97c4-2b15fe565cbd",
       "name": "CredentialRef",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916528",
-      "modifiedDateTime": "2026-08-29T04:27:56.3599168"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -129,10 +114,7 @@
       "isCalculated": false,
       "metaId": "e43b85a1-b3d2-4c17-8245-07f70574d7e1",
       "name": "Environment",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916437",
-      "modifiedDateTime": "2026-08-29T04:27:56.3615403"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -151,10 +133,7 @@
       "isCalculated": false,
       "metaId": "84d9fffd-90c9-4a30-9c27-07e6724be915",
       "name": "ID",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.1236222",
-      "modifiedDateTime": "2026-08-29T04:27:56.3632167"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -172,10 +151,7 @@
       "isCalculated": false,
       "metaId": "f46582cc-226b-4600-b9aa-e88bd15a4180",
       "name": "LegalEntity",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916309",
-      "modifiedDateTime": "2026-08-29T04:27:56.3650379"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -193,10 +169,7 @@
       "isCalculated": false,
       "metaId": "8771ab59-92e9-44c2-a4c3-063213cfcd95",
       "name": "MaxRetries",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.091651",
-      "modifiedDateTime": "2026-08-29T04:27:56.3668"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -214,10 +187,7 @@
       "isCalculated": false,
       "metaId": "82e051e2-b016-4f28-9d86-e69ea69b0910",
       "name": "Status",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916548",
-      "modifiedDateTime": "2026-08-29T04:27:56.3689721"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
@@ -235,10 +205,7 @@
       "isCalculated": false,
       "metaId": "05c088b5-e653-4523-b7fe-25650780394b",
       "name": "TimeoutSeconds",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-29T04:23:03.0916489",
-      "modifiedDateTime": "2026-08-29T04:27:56.3701156"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

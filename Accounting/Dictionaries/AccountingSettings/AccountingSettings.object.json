@@ -18,10 +18,7 @@
     "isExtension": false,
     "metaId": "34401e5e-877c-513d-a793-b2c549619c84",
     "name": "AccountingSettings",
-    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1,
-    "createdDateTime": "2026-08-26T20:56:52.7355827",
-    "modifiedDateTime": "2026-09-12T02:43:30.6724566"
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
   },
   "fields": [
     {
@@ -42,10 +39,7 @@
       "isCalculated": false,
       "metaId": "929d6ab3-1daa-53a3-b4e2-5b2b707aa0aa",
       "name": "ArAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.5257346",
-      "modifiedDateTime": "2026-08-27T12:25:20.5257346"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -63,10 +57,7 @@
       "isCalculated": false,
       "metaId": "fbee2380-f3c7-5706-9451-d8703a5c937e",
       "name": "AutoPostJournal",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:52.7356082",
-      "modifiedDateTime": "2026-08-26T20:56:52.7356082"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -86,10 +77,7 @@
       "isCalculated": false,
       "metaId": "272907d6-4e07-44ef-b930-22efad84840e",
       "name": "CashAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T09:38:01.427058",
-      "modifiedDateTime": "2026-09-02T09:38:01.427058"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -109,10 +97,7 @@
       "isCalculated": false,
       "metaId": "1c5a7e93-4d80-4b2f-9a6e-8f3b0c7d5e21",
       "name": "CogsAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -131,10 +116,7 @@
       "isCalculated": false,
       "metaId": "b10efd5d-a292-54a5-ae3d-7ac4db85550f",
       "name": "DefaultCurrencyCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:52.7356194",
-      "modifiedDateTime": "2026-08-26T20:56:52.7356194"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -153,10 +135,7 @@
       "isCalculated": false,
       "metaId": "358afded-e134-452d-b62a-d7e7a1b29b9b",
       "name": "ID",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:52.7735206",
-      "modifiedDateTime": "2026-08-26T20:56:52.7735206"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -176,10 +155,7 @@
       "isCalculated": false,
       "metaId": "9359cf8f-8e49-551c-a458-45be9d644a7b",
       "name": "InventoryAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.5257446",
-      "modifiedDateTime": "2026-08-27T12:25:20.5257446"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -199,10 +175,7 @@
       "isCalculated": false,
       "metaId": "1e8a4c73-9b26-4d50-8f17-2c6e0a5d3b91",
       "name": "InventorySurplusAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -222,10 +195,7 @@
       "isCalculated": false,
       "metaId": "57209bc3-9453-419f-a5a5-136941b25990",
       "name": "InventoryWriteOffAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T11:49:24.0839868",
-      "modifiedDateTime": "2026-09-02T11:49:24.0839868"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -245,10 +215,7 @@
       "isCalculated": false,
       "metaId": "319061ea-e0b2-5bf1-bb48-4bed7413be8a",
       "name": "PayableAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.525749",
-      "modifiedDateTime": "2026-08-27T12:25:20.5257491"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -268,10 +235,7 @@
       "isCalculated": false,
       "metaId": "97d1fc00-9c3b-5cf6-aaca-02a04bcf251d",
       "name": "PayrollExpenseAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.5257511",
-      "modifiedDateTime": "2026-08-27T12:25:20.5257511"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -291,10 +255,7 @@
       "isCalculated": false,
       "metaId": "dd0b01e9-94f9-50c5-b10b-36c83ec4bb9d",
       "name": "PayrollLiabilityAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.525753",
-      "modifiedDateTime": "2026-08-27T12:25:20.525753"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -314,10 +275,7 @@
       "isCalculated": false,
       "metaId": "a6df3f26-5102-561b-8a6d-e9ebd70a8c12",
       "name": "RevenueAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-27T12:25:20.5257415",
-      "modifiedDateTime": "2026-08-27T12:25:20.5257415"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -337,10 +295,7 @@
       "isCalculated": false,
       "metaId": "2bed507a-c8bb-4f3f-933e-43d6bc0febd6",
       "name": "SocialInsuranceExpenseAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -360,10 +315,7 @@
       "isCalculated": false,
       "metaId": "10a71156-d73e-4c91-816a-5d11d075664c",
       "name": "SocialInsurancePayableAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -383,10 +335,7 @@
       "isCalculated": false,
       "metaId": "b4a018f6-5338-454f-990a-d6440e323e35",
       "name": "VatPayableAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T12:17:03.4725619",
-      "modifiedDateTime": "2026-09-02T12:17:03.4725619"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
@@ -406,10 +355,7 @@
       "isCalculated": false,
       "metaId": "a7c3e91d-4b28-4f6a-9e15-8d2c0b7f3a61",
       "name": "VatReceivableAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     }
   ]
 }

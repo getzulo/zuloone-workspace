@@ -8,9 +8,6 @@
     "isExtension": false,
     "metaId": "99fb0e41-f032-49fb-b2fc-a42591e357ba",
     "name": "LedgerGuardsTest",
-    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1,
-    "createdDateTime": "2026-09-02T16:52:58.6882443",
-    "modifiedDateTime": "2026-09-02T16:57:42.3160879"
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
   }
 }

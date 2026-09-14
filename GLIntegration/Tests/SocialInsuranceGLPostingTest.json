@@ -8,9 +8,6 @@
     "isExtension": false,
     "metaId": "f68ea85a-4b34-42ab-bca9-3e8d929a6233",
     "name": "SocialInsuranceGLPostingTest",
-    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T00:00:00",
-    "modifiedDateTime": "2026-09-02T00:00:00"
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80"
   }
 }

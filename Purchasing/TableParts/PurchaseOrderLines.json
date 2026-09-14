@@ -10,10 +10,7 @@
     "isLogged": false,
     "metaId": "aafabd76-4419-4cdf-9223-8c4f97c906d0",
     "name": "PurchaseOrderLines",
-    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T21:06:58.2461407",
-    "modifiedDateTime": "2026-08-25T21:06:58.2461407"
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
   },
   "properties": [
     {
@@ -32,10 +29,7 @@
       "developerComments": "Заполняется платформой при сохранении: введённое количество, переведённое в базовую единицу товара. Руками не редактируется.",
       "metaId": "33046a2a-91eb-4c0c-960f-432756e9a2ae",
       "name": "BaseQuantity",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:43:59.7823793",
-      "modifiedDateTime": "2026-08-29T03:43:59.7823793"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
       "tablePartTypeMetaId": "aafabd76-4419-4cdf-9223-8c4f97c906d0",
@@ -55,10 +49,7 @@
       "displayOrder": 1,
       "metaId": "df992b2d-9ec8-49c8-a70b-3bcd43e18e72",
       "name": "Item",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:06:58.2461538",
-      "modifiedDateTime": "2026-08-29T03:43:59.7961752"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
       "tablePartTypeMetaId": "aafabd76-4419-4cdf-9223-8c4f97c906d0",
@@ -78,10 +69,7 @@
       "normalizedFieldName": "BaseQuantity",
       "metaId": "7d68ec46-72c6-4b42-b3a5-8e2fa10ef336",
       "name": "Quantity",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:06:58.2461608",
-      "modifiedDateTime": "2026-08-30T14:17:51.5852682"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
       "tablePartTypeMetaId": "aafabd76-4419-4cdf-9223-8c4f97c906d0",
@@ -101,10 +89,7 @@
       "displayOrder": 4,
       "metaId": "ec25b392-675d-43a3-a1f3-a03625be5251",
       "name": "Unit",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:43:59.7823773",
-      "modifiedDateTime": "2026-08-29T03:43:59.7823773"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
       "tablePartTypeMetaId": "aafabd76-4419-4cdf-9223-8c4f97c906d0",
@@ -121,10 +106,7 @@
       "displayOrder": 3,
       "metaId": "d78ebd4e-b785-4e66-a147-a31bfb36d549",
       "name": "UnitPrice",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:06:58.2461626",
-      "modifiedDateTime": "2026-08-25T21:06:58.2461626"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ]
 }

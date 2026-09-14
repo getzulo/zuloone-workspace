@@ -16,10 +16,7 @@
     "isExtension": false,
     "metaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
     "name": "SocialInsurancePayment",
-    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T11:03:42.0059829",
-    "modifiedDateTime": "2026-09-12T02:43:31.9940916"
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
   },
   "headerFields": [
     {
@@ -37,10 +34,7 @@
       "isTranslatable": false,
       "metaId": "14d40f8f-9296-4a3c-b4a5-0437bd2b824b",
       "name": "Division",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:03:42.0060288",
-      "modifiedDateTime": "2026-09-02T11:03:42.0060288"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "documentTypeMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
@@ -60,10 +54,7 @@
       "isTranslatable": false,
       "metaId": "0548835a-dbf6-4634-943e-5da50acf8ffb",
       "name": "ID",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:03:42.0060124",
-      "modifiedDateTime": "2026-09-03T12:28:57.411811"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ],
   "subtypes": [
@@ -78,10 +69,7 @@
       "isInitial": true,
       "isReadOnly": false,
       "metaId": "0ec1f595-8215-4487-ab94-724ec64a8845",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:03:42.0060899",
-      "modifiedDateTime": "2026-09-02T11:03:42.00609"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "documentTypeMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
@@ -94,10 +82,7 @@
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "cbfe306f-9fe7-4288-a6e5-f291b793cc98",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:03:42.0061746",
-      "modifiedDateTime": "2026-09-02T11:03:42.0061746"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ],
   "tableParts": [
@@ -107,10 +92,7 @@
       "isCloneable": true,
       "metaId": "620f9ae3-24c3-4fe3-89ae-2ed95417ae3c",
       "name": "Lines",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:03:42.006184",
-      "modifiedDateTime": "2026-09-02T11:03:42.0061841"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ],
   "subtypeTransactionScripts": [
@@ -120,10 +102,7 @@
       "executionOrder": 1,
       "metaId": "6d0e1571-0973-4e46-95a4-99d807c1146c",
       "name": "",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ],
   "subtypeTransitions": [
@@ -132,10 +111,7 @@
       "toSubtypeMetaId": "cbfe306f-9fe7-4288-a6e5-f291b793cc98",
       "metaId": "5de00b2b-cf2e-4432-9bae-ba778395d1dd",
       "name": "Draft->Paid",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:03:42.0061982",
-      "modifiedDateTime": "2026-09-02T11:03:42.0061982"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ]
 }

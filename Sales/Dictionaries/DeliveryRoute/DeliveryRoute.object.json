@@ -20,10 +20,7 @@
     "isExtension": false,
     "metaId": "9936cbb9-3fbb-415c-91bd-c7d8843b2f70",
     "name": "DeliveryRoute",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T00:00:00",
-    "modifiedDateTime": "2026-09-12T02:43:30.9418757"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   },
   "fields": [
     {
@@ -43,10 +40,7 @@
       "isCalculated": false,
       "metaId": "95a57087-a171-4e0d-9f6d-09d9f349fc0a",
       "name": "ID",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:02.5041009",
-      "modifiedDateTime": "2026-09-03T02:56:02.5041082"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "dictionaryMetaId": "9936cbb9-3fbb-415c-91bd-c7d8843b2f70",
@@ -65,10 +59,7 @@
       "isCalculated": false,
       "metaId": "25cb0143-caf3-426a-810e-5a37fe6406b7",
       "name": "Name",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T00:00:00",
-      "modifiedDateTime": "2026-09-03T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

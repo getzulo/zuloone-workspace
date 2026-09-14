@@ -20,10 +20,7 @@
     "isExtension": false,
     "metaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
     "name": "BillOfMaterials",
-    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T21:30:48.3941103",
-    "modifiedDateTime": "2026-09-12T02:43:30.7204"
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
   },
   "fields": [
     {
@@ -44,10 +41,7 @@
       "isCalculated": false,
       "metaId": "9b4c7b91-df31-4270-8290-7c9d398dbf6c",
       "name": "ID",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:30:48.4146526",
-      "modifiedDateTime": "2026-08-25T21:30:48.4146526"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "dictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
@@ -67,10 +61,7 @@
       "isCalculated": false,
       "metaId": "7a4b6c2f-9e3d-4f5a-8b6c-6d0e1f7a2b50",
       "name": "Name",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:30:48.3941409",
-      "modifiedDateTime": "2026-08-25T21:30:48.3941409"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "dictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
@@ -89,10 +80,7 @@
       "isCalculated": false,
       "metaId": "9c6d8e4b-1a5f-4b7c-8d8e-8f2a3b9c4d70",
       "name": "OutputQty",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:30:48.3941541",
-      "modifiedDateTime": "2026-08-25T21:30:48.3941541"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "dictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
@@ -111,10 +99,7 @@
       "isCalculated": false,
       "metaId": "8b5c7d3a-0f4e-4a6b-9c7d-7e1f2a8b3c60",
       "name": "Product",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:30:48.3941512",
-      "modifiedDateTime": "2026-08-25T21:30:48.3941512"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ],
   "lists": [
@@ -131,10 +116,7 @@
       "defaultOrderBy": "Component",
       "description": "Состав спецификации: нормы расхода компонентов на OutputQty изделий. Открывается на карточке BOM, в меню отдельно не выводится.",
       "metaId": "a3c5e7f1-8b2d-4e6a-9c1f-4d7e8a2b5c90",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T07:00:00",
-      "modifiedDateTime": "2026-09-03T07:00:00"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ]
 }

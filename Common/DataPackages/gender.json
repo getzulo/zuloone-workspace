@@ -8,7 +8,7 @@
         "table": "Gender",
         "kind": "Dictionary",
         "businessKey": [
-          "Name"
+          "Code"
         ],
         "mode": "insert",
         "rowCount": 3
@@ -18,16 +18,19 @@
   "data": {
     "Gender": [
       {
+        "Code": "MALE",
         "Name": "Male",
         "Name_ru": "Мужской",
         "Name_ar": "ذكر"
       },
       {
+        "Code": "FEMALE",
         "Name": "Female",
         "Name_ru": "Женский",
         "Name_ar": "أنثى"
       },
       {
+        "Code": "UNSPECIFIED",
         "Name": "Unspecified",
         "Name_ru": "Не указан",
         "Name_ar": "غير محدد"

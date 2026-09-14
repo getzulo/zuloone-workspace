@@ -8,9 +8,6 @@
     "isExtension": false,
     "metaId": "80ab2b42-4ff8-4063-9bd9-1bc165231014",
     "name": "Документы: OnBeforePost блокирует проведение",
-    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1,
-    "createdDateTime": "2026-08-28T11:06:22.3293569",
-    "modifiedDateTime": "2026-08-30T14:17:51.359908"
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
   }
 }

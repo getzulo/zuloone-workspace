@@ -5,6 +5,8 @@
     "caption": "Countries, currencies, units",
     "captionRu": "Страны, валюты, единицы",
     "caption_ru": "Страны, валюты, единицы",
+    "captionAr": "الدول والعملات والوحدات",
+    "caption_ar": "الدول والعملات والوحدات",
     "when": "once",
     "sort": 10
   },
@@ -14,6 +16,8 @@
     "caption": "Payment terms",
     "captionRu": "Условия оплаты",
     "caption_ru": "Условия оплаты",
+    "captionAr": "شروط الدفع",
+    "caption_ar": "شروط الدفع",
     "when": "once",
     "sort": 15
   },
@@ -23,6 +27,8 @@
     "caption": "Genders",
     "captionRu": "Пол",
     "caption_ru": "Пол",
+    "captionAr": "الجنس",
+    "caption_ar": "الجنس",
     "when": "once",
     "sort": 16
   },
@@ -32,6 +38,8 @@
     "caption": "Saudi cities",
     "captionRu": "Города КСА",
     "caption_ru": "Города КСА",
+    "captionAr": "مدن السعودية",
+    "caption_ar": "مدن السعودية",
     "when": "country",
     "country": "SA",
     "sort": 20

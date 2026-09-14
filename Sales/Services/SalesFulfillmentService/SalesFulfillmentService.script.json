@@ -7,9 +7,6 @@
     "executionOrder": 2,
     "metaId": "2b3c4d5e-6f70-4891-a2b3-c4d5e6f70812",
     "name": "SalesFulfillmentService",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-09-09T15:42:56.5766193",
-    "modifiedDateTime": "2026-09-09T17:06:31.4436219"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   }
 }

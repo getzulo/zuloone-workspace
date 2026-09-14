@@ -8,9 +8,6 @@
     "executionOrder": 1,
     "metaId": "e2e9ca1d-4be7-43b2-aa69-7ddff0577ea5",
     "name": "SalesOrderReserveTx",
-    "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 0,
-    "createdDateTime": "2026-09-09T15:40:19.531452",
-    "modifiedDateTime": "2026-09-09T15:40:19.5421439"
+    "modelId": "00000000-0000-0000-0000-000000000000"
   }
 }

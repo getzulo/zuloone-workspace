@@ -8,9 +8,6 @@
     "executionOrder": 0,
     "metaId": "73cc912e-d23d-4c17-85c7-9990ce0acb3f",
     "name": "PayTaxScript",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T03:59:29.2397011"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   }
 }

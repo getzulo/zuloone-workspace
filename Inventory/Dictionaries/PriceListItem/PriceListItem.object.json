@@ -21,10 +21,7 @@
     "isExtension": false,
     "metaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
     "name": "PriceListItem",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T09:23:30.9174412",
-    "modifiedDateTime": "2026-09-12T02:43:31.2663122"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   },
   "fields": [
     {
@@ -45,10 +42,7 @@
       "isCalculated": false,
       "metaId": "8fd27fd0-b510-4c35-a6a1-480b1228a43b",
       "name": "EffectiveFrom",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T09:23:30.9174792",
-      "modifiedDateTime": "2026-09-02T09:23:30.9174792"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
@@ -68,10 +62,7 @@
       "isCalculated": false,
       "metaId": "1c5f5c8f-26a0-4e02-bbb2-d0f47acc8038",
       "name": "EffectiveTo",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T09:23:30.917482",
-      "modifiedDateTime": "2026-09-02T09:23:30.917482"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
@@ -90,10 +81,7 @@
       "isCalculated": false,
       "metaId": "3f29e5d4-0ea2-4487-a848-da562ad29820",
       "name": "ID",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T09:23:30.9518856",
-      "modifiedDateTime": "2026-09-02T09:23:30.9518856"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
@@ -112,10 +100,7 @@
       "isCalculated": false,
       "metaId": "7d5473ea-c4e6-49d4-bb49-a65022d61b7f",
       "name": "Item",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T09:23:30.9174713",
-      "modifiedDateTime": "2026-09-02T09:23:30.9174713"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
@@ -135,10 +120,7 @@
       "isCalculated": false,
       "metaId": "38b7d615-b8fb-46ba-97c7-46013f78fc55",
       "name": "Price",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T09:23:30.9174768",
-      "modifiedDateTime": "2026-09-02T09:23:30.9174768"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
@@ -158,10 +140,7 @@
       "isCalculated": false,
       "metaId": "9501add5-8e44-4d5e-841d-4e6596a8f720",
       "name": "PriceType",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T09:23:30.9174622",
-      "modifiedDateTime": "2026-09-03T12:54:44.8738531"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "43ef58a9-12e9-4614-95a7-244bf6fc4dd6",
@@ -181,10 +160,7 @@
       "isCalculated": false,
       "metaId": "e7a87a09-4e15-4e19-83cc-00d324a39585",
       "name": "Unit",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T09:23:30.9174738",
-      "modifiedDateTime": "2026-09-02T09:23:30.9174738"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

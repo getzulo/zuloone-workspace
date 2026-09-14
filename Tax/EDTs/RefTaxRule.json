@@ -9,9 +9,6 @@
     "isRequired": false,
     "metaId": "39b0d6f1-4082-4c73-8d51-7e920b3c8d16",
     "name": "RefTaxRule",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-01T00:00:00",
-    "modifiedDateTime": "2026-09-01T00:00:00"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   }
 }

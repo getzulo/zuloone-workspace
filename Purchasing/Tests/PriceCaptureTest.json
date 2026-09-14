@@ -8,9 +8,6 @@
     "isExtension": false,
     "metaId": "fc50c3f9-812f-4114-b02a-ebcf397e4ed6",
     "name": "PriceCaptureTest",
-    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T14:00:00",
-    "modifiedDateTime": "2026-09-03T19:33:38.2564093"
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
   }
 }

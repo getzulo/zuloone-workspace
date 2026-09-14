@@ -10,10 +10,7 @@
     "isLogged": false,
     "metaId": "1f24a567-1964-46a7-9d50-c6753833b009",
     "name": "TaxReturnLines",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-08-31T16:02:58.1879767",
-    "modifiedDateTime": "2026-08-31T16:02:58.1879767"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   },
   "properties": [
     {
@@ -34,10 +31,7 @@
       "displayOrder": 2,
       "metaId": "8e6c6b73-431b-43d7-bddc-d70416113c1c",
       "name": "Direction",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-31T16:02:58.1880235",
-      "modifiedDateTime": "2026-08-31T16:02:58.1880236"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
@@ -54,10 +48,7 @@
       "displayOrder": 4,
       "metaId": "c562107b-7124-41b9-8cac-2f64bd65ca6d",
       "name": "TaxAmount",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-31T16:02:58.1880308",
-      "modifiedDateTime": "2026-08-31T16:02:58.1880308"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
@@ -74,10 +65,7 @@
       "displayOrder": 3,
       "metaId": "cecf51ef-8299-4a4a-87c3-28bf9abedc93",
       "name": "TaxBase",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-31T16:02:58.1880273",
-      "modifiedDateTime": "2026-08-31T16:02:58.1880274"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
@@ -97,10 +85,7 @@
       "displayOrder": 1,
       "metaId": "d5864011-f18f-466e-8c72-20363b61c5a3",
       "name": "TaxCode",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-31T16:02:58.1880117",
-      "modifiedDateTime": "2026-08-31T16:02:58.1880118"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

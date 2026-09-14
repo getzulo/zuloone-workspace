@@ -13,10 +13,7 @@
     "reloadAfterExecution": true,
     "metaId": "21706281-5172-45e0-aecc-90aa1f93f7d8",
     "name": "PostPayrollAccrual",
-    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T06:30:00"
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
   },
   "subtypeBindings": [
     {

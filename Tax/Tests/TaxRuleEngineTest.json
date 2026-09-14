@@ -8,9 +8,6 @@
     "isExtension": false,
     "metaId": "7e2b5c94-1a63-4d08-9f27-6c4e8b0d3a51",
     "name": "TaxRuleEngineTest",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-01T00:00:00",
-    "modifiedDateTime": "2026-09-10T12:43:15.3292366"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   }
 }

@@ -21,10 +21,7 @@
     "isExtension": false,
     "metaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
     "name": "Country",
-    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-    "layerId": 1,
-    "createdDateTime": "2026-08-22T02:01:49.7256302",
-    "modifiedDateTime": "2026-09-12T02:43:30.8535001"
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
   },
   "fields": [
     {
@@ -45,10 +42,7 @@
       "isCalculated": false,
       "metaId": "8f92714e-98e6-4ae0-9a86-a7d5b53e71ba",
       "name": "CodeISO2",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.7256688",
-      "modifiedDateTime": "2026-08-22T03:43:38.9204741"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
       "dictionaryMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
@@ -68,10 +62,7 @@
       "isCalculated": false,
       "metaId": "9cc7885c-fa73-4683-bd87-6946df422d4d",
       "name": "CodeISO3",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.7256714",
-      "modifiedDateTime": "2026-08-22T03:43:38.9215371"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
       "dictionaryMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
@@ -91,10 +82,7 @@
       "isCalculated": false,
       "metaId": "207d12c7-88ec-4873-8767-d95fb3b17ccf",
       "name": "ID",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.7448323",
-      "modifiedDateTime": "2026-08-22T02:01:49.7448324"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
       "dictionaryMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
@@ -114,10 +102,7 @@
       "isCalculated": false,
       "metaId": "52007b08-5eb1-4349-8645-d79f11830497",
       "name": "Name",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.7256558",
-      "modifiedDateTime": "2026-08-22T03:43:38.9247842"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
       "dictionaryMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
@@ -137,10 +122,7 @@
       "isCalculated": false,
       "metaId": "bce1044c-cccc-474f-a47e-632e0b42f8ac",
       "name": "PhoneCode",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-08-22T02:01:49.7256758",
-      "modifiedDateTime": "2026-08-22T03:43:38.9257322"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
       "dictionaryMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
@@ -159,10 +141,7 @@
       "isCalculated": false,
       "metaId": "a7d4e21c-6b8f-4c3a-91e0-5d2b8f4a1c73",
       "name": "Currency",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-09-14T01:00:00",
-      "modifiedDateTime": "2026-09-14T01:00:00"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     }
   ]
 }

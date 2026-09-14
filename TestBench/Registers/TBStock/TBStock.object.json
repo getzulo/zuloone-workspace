@@ -12,10 +12,7 @@
     "isExtension": false,
     "metaId": "2015c2a5-ff9f-4b15-9f2c-7239158a5a25",
     "name": "TBStock",
-    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1,
-    "createdDateTime": "2026-08-28T11:06:19.1695317",
-    "modifiedDateTime": "2026-09-12T02:43:32.5192655"
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
   },
   "dimensions": [
     {
@@ -30,10 +27,7 @@
       "displayOrder": 2,
       "metaId": "3a30f857-1766-43d4-b9ba-7e6626907af9",
       "name": "Item",
-      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-      "layerId": 1,
-      "createdDateTime": "2026-08-28T11:06:19.2306861",
-      "modifiedDateTime": "2026-08-28T11:06:19.2306862"
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
     },
     {
       "registerMetaId": "2015c2a5-ff9f-4b15-9f2c-7239158a5a25",
@@ -47,10 +41,7 @@
       "displayOrder": 1,
       "metaId": "83c843ea-49bd-4da4-9535-c11878e1a9eb",
       "name": "Warehouse",
-      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-      "layerId": 1,
-      "createdDateTime": "2026-08-28T11:06:19.2141588",
-      "modifiedDateTime": "2026-08-28T11:06:19.2141589"
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
     }
   ],
   "resources": [
@@ -63,10 +54,7 @@
       "displayOrder": 1,
       "metaId": "73f84978-79e2-4865-9baf-6f36373ff88f",
       "name": "Quantity",
-      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-      "layerId": 1,
-      "createdDateTime": "2026-08-28T11:06:19.2466663",
-      "modifiedDateTime": "2026-08-28T11:06:19.2466664"
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
     }
   ]
 }

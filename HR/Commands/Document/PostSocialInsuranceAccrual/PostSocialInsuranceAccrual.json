@@ -13,10 +13,7 @@
     "reloadAfterExecution": true,
     "metaId": "a770b434-1879-4450-a54d-75f048b2bd5f",
     "name": "PostSocialInsuranceAccrual",
-    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T06:30:00"
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
   },
   "subtypeBindings": [
     {

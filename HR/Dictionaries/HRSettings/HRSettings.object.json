@@ -18,10 +18,7 @@
     "isExtension": false,
     "metaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
     "name": "HRSettings",
-    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2,
-    "createdDateTime": "2026-08-26T20:56:52.491305",
-    "modifiedDateTime": "2026-09-12T02:43:31.0690439"
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
   },
   "fields": [
     {
@@ -40,10 +37,7 @@
       "isCalculated": false,
       "metaId": "9b53ce68-4831-41a6-ab49-b9ae3039ae93",
       "name": "HomeCountry",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-08-28T21:20:17.5476378",
-      "modifiedDateTime": "2026-08-28T21:20:17.5476379"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -62,10 +56,7 @@
       "isCalculated": false,
       "metaId": "bba7a821-d596-4896-96b4-32c2c9c25ca9",
       "name": "ID",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:52.5305059",
-      "modifiedDateTime": "2026-08-26T20:56:52.5305059"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -83,10 +74,7 @@
       "isCalculated": false,
       "metaId": "1bed8d09-e429-5a7f-b4d2-a69de7d73e6b",
       "name": "PayrollRunDay",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:52.4913438",
-      "modifiedDateTime": "2026-08-26T20:56:52.4913438"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -106,10 +94,7 @@
       "isCalculated": false,
       "metaId": "c8cc10fe-8aaa-4500-96d5-3899f8dddba5",
       "name": "SocialInsuranceEmployeeRate",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-08-28T21:20:17.547652",
-      "modifiedDateTime": "2026-08-28T21:20:17.5476521"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -129,10 +114,7 @@
       "isCalculated": false,
       "metaId": "109f6c8f-9ace-4186-9ded-58d58656c84b",
       "name": "SocialInsuranceEmployerRate",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-08-28T21:20:17.5476576",
-      "modifiedDateTime": "2026-08-28T21:20:17.5476576"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -152,10 +134,7 @@
       "isCalculated": false,
       "metaId": "49975d95-0f63-43c9-b382-1a7a05167a34",
       "name": "SocialInsuranceForeignEmployerRate",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-08-28T21:20:17.5476606",
-      "modifiedDateTime": "2026-08-28T21:20:17.5476607"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -173,10 +152,7 @@
       "isCalculated": false,
       "metaId": "d1c8f32c-8f76-478f-a050-00399b91c877",
       "name": "SocialInsuranceWageCeiling",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-08-28T21:20:17.5476636",
-      "modifiedDateTime": "2026-08-28T21:20:17.5476636"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
@@ -196,10 +172,7 @@
       "isCalculated": false,
       "metaId": "8e07b64f-8c4d-5c4e-8312-8086677cdfdf",
       "name": "WorkHoursPerDay",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:52.4913586",
-      "modifiedDateTime": "2026-08-26T20:56:52.4913586"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ]
 }

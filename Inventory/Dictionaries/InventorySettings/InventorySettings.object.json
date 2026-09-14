@@ -18,10 +18,7 @@
     "isExtension": false,
     "metaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
     "name": "InventorySettings",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-08-26T20:42:56.2167979",
-    "modifiedDateTime": "2026-09-12T02:43:31.0864683"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   },
   "fields": [
     {
@@ -40,10 +37,7 @@
       "isCalculated": false,
       "metaId": "6a7b8c9d-0e1f-4a2b-9c3d-5e6f7a8b9c90",
       "name": "DefaultReceivingLocation",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:42:56.2173809",
-      "modifiedDateTime": "2026-08-26T20:42:56.217381"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
@@ -61,10 +55,7 @@
       "isCalculated": false,
       "metaId": "5f6a7b8c-9d0e-4f1a-8b2c-4d5e6f7a8b89",
       "name": "DefaultUnit",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-30T13:59:57.7247262",
-      "modifiedDateTime": "2026-08-30T13:59:57.7247262"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
@@ -82,10 +73,7 @@
       "isCalculated": false,
       "metaId": "7b8c9d0e-1f2a-4b3c-8d4e-6f7a8b9c0d01",
       "name": "EnforceUnitConversion",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-30T13:59:57.7247288",
-      "modifiedDateTime": "2026-08-30T13:59:57.7247288"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
@@ -105,10 +93,7 @@
       "isCalculated": false,
       "metaId": "3a915cb8-0e24-4576-8d33-92c04e81bfa7",
       "name": "EnforceWarehouseTasks",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
@@ -127,10 +112,7 @@
       "isCalculated": false,
       "metaId": "6f42b739-d02e-4e8d-b57a-eef3594092b7",
       "name": "ID",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:42:56.2545141",
-      "modifiedDateTime": "2026-08-26T20:42:56.2545142"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

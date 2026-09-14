@@ -8,7 +8,8 @@
         "table": "PriceType",
         "kind": "Dictionary",
         "businessKey": [
-          "Name"
+          "Direction",
+          "Kind"
         ],
         "mode": "insert",
         "rowCount": 2

@@ -8,9 +8,6 @@
     "isExtension": false,
     "metaId": "9508866a-c099-47a0-818b-f5d12dd047cf",
     "name": "AccountingPostingTest",
-    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1,
-    "createdDateTime": "2026-08-25T16:11:10.3822085",
-    "modifiedDateTime": "2026-08-30T14:17:53.7855497"
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
   }
 }

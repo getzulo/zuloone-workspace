@@ -21,10 +21,7 @@
     "isExtension": false,
     "metaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
     "name": "PaymentTerm",
-    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-    "layerId": 1,
-    "createdDateTime": "2026-09-09T13:28:57.2494566",
-    "modifiedDateTime": "2026-09-12T02:43:31.2312348"
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
   },
   "fields": [
     {
@@ -44,10 +41,7 @@
       "isCalculated": false,
       "metaId": "801cda54-923b-4980-9a23-c227ca7eb216",
       "name": "Days",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-09-09T13:28:57.2510402",
-      "modifiedDateTime": "2026-09-09T13:28:57.2510402"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
       "dictionaryMetaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
@@ -66,10 +60,7 @@
       "isCalculated": false,
       "metaId": "aa6a213e-8c4a-42f0-9e29-5f1052cbeef6",
       "name": "ID",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-09-09T13:28:57.4188391",
-      "modifiedDateTime": "2026-09-09T13:28:57.4188391"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
       "dictionaryMetaId": "c068338c-d820-4970-ab4b-bdd3ad97bcf1",
@@ -89,10 +80,7 @@
       "isCalculated": false,
       "metaId": "d52d1e72-c2ed-449d-bb33-238dee164608",
       "name": "Name",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "layerId": 1,
-      "createdDateTime": "2026-09-09T13:28:57.2503434",
-      "modifiedDateTime": "2026-09-09T13:28:57.2503434"
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     }
   ]
 }

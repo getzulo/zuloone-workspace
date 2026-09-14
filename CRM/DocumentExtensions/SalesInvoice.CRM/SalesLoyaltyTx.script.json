@@ -9,9 +9,6 @@
     "executionOrder": 5,
     "metaId": "0c3d8f76-2e1a-4b5c-9d6f-7a0b1c8e4f90",
     "name": "SalesLoyaltyTx",
-    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T21:57:32.6515285",
-    "modifiedDateTime": "2026-09-09T05:40:27.6867012"
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
   }
 }

@@ -5,9 +5,6 @@
     "description": "Расширение счёта продажи программой лояльности: выставление начисляет баллы клиенту",
     "metaId": "9a3f1d6a-5e24-4b79-8ca6-4d9f7e2c3b85",
     "name": "SalesInvoice.CRM",
-    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-    "layerId": 2,
-    "createdDateTime": "2026-09-01T00:00:00",
-    "modifiedDateTime": "2026-09-01T00:00:00"
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
   }
 }

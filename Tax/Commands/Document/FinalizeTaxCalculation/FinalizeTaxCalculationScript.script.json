@@ -8,9 +8,6 @@
     "executionOrder": 0,
     "metaId": "2fb0da63-bdb9-4824-9d0e-f3809f316c52",
     "name": "FinalizeTaxCalculationScript",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T03:59:29.0002502"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   }
 }

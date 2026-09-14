@@ -18,10 +18,7 @@
     "isExtension": false,
     "metaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
     "name": "OrganizationSettings",
-    "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-    "layerId": 1,
-    "createdDateTime": "2026-08-26T20:56:52.8258619",
-    "modifiedDateTime": "2026-09-12T02:43:31.2129667"
+    "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
   },
   "fields": [
     {
@@ -41,10 +38,7 @@
       "isCalculated": false,
       "metaId": "3f8a1c2e-7b94-4d61-a5e0-9c2d8f1b4e70",
       "name": "ApplicationName",
-      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1,
-      "createdDateTime": "2026-09-13T12:00:00",
-      "modifiedDateTime": "2026-09-13T12:00:00"
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
       "dictionaryMetaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
@@ -62,10 +56,7 @@
       "isCalculated": false,
       "metaId": "9b6d2e4a-1c83-4f07-b9e5-0a7c3d8f2e16",
       "name": "Logo",
-      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1,
-      "createdDateTime": "2026-09-13T12:00:00",
-      "modifiedDateTime": "2026-09-13T12:00:00"
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
       "dictionaryMetaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
@@ -84,10 +75,7 @@
       "isCalculated": false,
       "metaId": "b4917c1e-cd65-54fd-bdae-59ca88cf3d31",
       "name": "DefaultLegalEntityCode",
-      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:52.8258949",
-      "modifiedDateTime": "2026-08-26T20:56:52.8258949"
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
       "dictionaryMetaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
@@ -106,10 +94,7 @@
       "isCalculated": false,
       "metaId": "4ec59664-75f3-4d2a-9755-7dd460984fa2",
       "name": "ID",
-      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:52.9114579",
-      "modifiedDateTime": "2026-08-26T20:56:52.9114579"
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     }
   ]
 }

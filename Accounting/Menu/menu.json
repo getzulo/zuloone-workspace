@@ -9,10 +9,7 @@
       "targetMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
       "metaId": "3b2d047a-3539-4e59-a6fb-0329cf50f5a4",
       "name": "BomComponent",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-04T07:10:31.3538701",
-      "modifiedDateTime": "2026-09-04T07:10:40.602066"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "Accounting",
@@ -23,10 +20,7 @@
       "targetType": "Group",
       "metaId": "d9db0c81-915d-4cc0-a153-5fbee50c78f0",
       "name": "Accounting",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0210963",
-      "modifiedDateTime": "2026-09-12T02:43:32.5802484"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "Dictionaries",
@@ -38,10 +32,7 @@
       "targetType": "Group",
       "metaId": "3808c862-52e8-4e9a-b50c-a0583146b18b",
       "name": "Dictionaries",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211096",
-      "modifiedDateTime": "2026-09-12T02:43:33.066203"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "Documents",
@@ -53,10 +44,7 @@
       "targetType": "Group",
       "metaId": "f72de6fe-167d-4cfa-9e54-577ca9b87c58",
       "name": "Documents",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211165",
-      "modifiedDateTime": "2026-09-12T02:43:33.074063"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "Registers",
@@ -68,10 +56,7 @@
       "targetType": "Group",
       "metaId": "014427f4-cfbf-435e-a51f-b3e5d40c88cb",
       "name": "Registers",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211181",
-      "modifiedDateTime": "2026-09-12T02:43:33.0822958"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "Settings",
@@ -83,10 +68,7 @@
       "targetType": "Group",
       "metaId": "3f534cbd-4407-53b5-8d28-18e068fa6532",
       "name": "Settings",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:53.5541678",
-      "modifiedDateTime": "2026-09-12T02:43:33.0896313"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "Accounting settings",
@@ -99,10 +81,7 @@
       "targetMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "metaId": "8e7f73f8-869f-555c-b0f0-e65ebd5e440f",
       "name": "AccountingSettings",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-26T20:56:53.5541699",
-      "modifiedDateTime": "2026-09-12T02:43:32.766275"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "Chart of accounts",
@@ -115,10 +94,7 @@
       "targetMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
       "metaId": "8771a5c8-b10b-481b-87d6-0f0c7bc32b33",
       "name": "ChartOfAccounts",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211194",
-      "modifiedDateTime": "2026-09-12T02:43:33.4933267"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "General ledger",
@@ -131,10 +107,7 @@
       "targetMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
       "metaId": "f895b6fc-a8e2-4dc5-ba98-c904ad28978c",
       "name": "GL",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211285",
-      "modifiedDateTime": "2026-09-12T02:43:33.5787386"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "Journal entries",
@@ -147,10 +120,7 @@
       "targetMetaId": "188246b3-5ed0-4da0-98cb-a86b6da36581",
       "metaId": "fecd1033-9100-4b7a-a65d-d7a4b654f648",
       "name": "JournalEntry",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211264",
-      "modifiedDateTime": "2026-09-12T02:43:33.0187189"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "Fiscal years",
@@ -163,10 +133,7 @@
       "targetMetaId": "703dfbdd-6591-46d6-b3b8-de92ad826d34",
       "metaId": "c075be2a-114e-4167-873a-aff66713615e",
       "name": "FiscalYear",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211224",
-      "modifiedDateTime": "2026-09-12T02:43:33.5020329"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "caption": "Fiscal periods",
@@ -179,10 +146,7 @@
       "targetMetaId": "90bde510-4440-441f-afd9-a2ac6a88712c",
       "metaId": "d4dba2c3-4d37-4650-b0a1-aa522c3ae86f",
       "name": "FiscalPeriod",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:30:07.0211243",
-      "modifiedDateTime": "2026-09-12T02:43:33.5076713"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     }
   ]
 }

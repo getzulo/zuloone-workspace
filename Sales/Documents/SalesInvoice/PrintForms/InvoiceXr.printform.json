@@ -8,9 +8,6 @@
     "displayOrder": 1,
     "metaId": "e73fe3e1-4a74-4d07-a816-e38b84672052",
     "name": "InvoiceXr",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-09-04T03:00:47.6619634",
-    "modifiedDateTime": "2026-09-05T09:15:11.9729612"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   }
 }

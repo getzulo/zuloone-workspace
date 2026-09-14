@@ -10,10 +10,7 @@
       "targetType": "Group",
       "metaId": "8d5e7f3c-0b4a-4c6d-9e7f-7a1b2c8d3e60",
       "name": "Production",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:36:42.0248561",
-      "modifiedDateTime": "2026-09-12T02:43:32.6034823"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "caption": "Dictionaries",
@@ -25,10 +22,7 @@
       "targetType": "Group",
       "metaId": "9e6f8a4d-1c5b-4d7e-8f8a-8b2c3d9e4f70",
       "name": "Dictionaries",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:36:42.0248666",
-      "modifiedDateTime": "2026-09-12T02:43:33.1363834"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "caption": "Documents",
@@ -40,10 +34,7 @@
       "targetType": "Group",
       "metaId": "0f7a9b5e-2d6c-4e8f-9a9b-9c3d4e0f5a80",
       "name": "Documents",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:36:42.0248693",
-      "modifiedDateTime": "2026-09-12T02:43:33.143806"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "caption": "Settings",
@@ -55,10 +46,7 @@
       "targetType": "Group",
       "metaId": "bf0ad95d-be4d-5968-b683-576e7adcedf5",
       "name": "Settings",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:54.1532984",
-      "modifiedDateTime": "2026-09-12T02:43:33.1527732"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "caption": "Bills of materials",
@@ -71,10 +59,7 @@
       "targetMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
       "metaId": "1a8b0c6f-3e7d-4f9a-8b0c-0d4e5f1a6b90",
       "name": "BillOfMaterials",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:36:42.0248709",
-      "modifiedDateTime": "2026-09-12T02:43:33.3695588"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "caption": "Production orders",
@@ -87,10 +72,7 @@
       "targetMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "metaId": "3c0d2e8b-5a9f-4b1c-8d2e-2f6a7b3c8d11",
       "name": "ProductionOrder",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:36:42.0248747",
-      "modifiedDateTime": "2026-09-12T02:43:33.4874704"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
       "caption": "Production settings",
@@ -103,10 +85,7 @@
       "targetMetaId": "bd0fccd2-d075-5de8-b054-dd7ba806c280",
       "metaId": "af5eea64-0fd6-52e4-af5a-d4c62d7cadc5",
       "name": "ProductionSettings",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:54.1533001",
-      "modifiedDateTime": "2026-09-12T02:43:33.0099437"
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ]
 }

@@ -9,10 +9,7 @@
     "isLogged": false,
     "metaId": "f271cb4a-c8a1-44c5-bdbc-bced07fc08e8",
     "name": "SocialInsurancePaymentLines",
-    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T11:03:41.958891",
-    "modifiedDateTime": "2026-09-02T11:03:41.958891"
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
   },
   "properties": [
     {
@@ -32,10 +29,7 @@
       "displayOrder": 1,
       "metaId": "d775a6ee-6dc5-4dd1-87dd-5b835ef98304",
       "name": "Employee",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:03:41.9589231",
-      "modifiedDateTime": "2026-09-02T11:03:41.9589232"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "tablePartTypeMetaId": "f271cb4a-c8a1-44c5-bdbc-bced07fc08e8",
@@ -51,10 +45,7 @@
       "displayOrder": 2,
       "metaId": "9ed80654-072a-46b9-94f2-ea3743c7e1f8",
       "name": "EmployeeContribution",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:03:41.9589353",
-      "modifiedDateTime": "2026-09-02T11:03:41.9589354"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
       "tablePartTypeMetaId": "f271cb4a-c8a1-44c5-bdbc-bced07fc08e8",
@@ -70,10 +61,7 @@
       "displayOrder": 3,
       "metaId": "d3e70d64-cd5f-4eb8-a20f-ef02f596683d",
       "name": "EmployerContribution",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:03:41.9589375",
-      "modifiedDateTime": "2026-09-02T11:03:41.9589375"
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ]
 }

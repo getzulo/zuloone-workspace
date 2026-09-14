@@ -12,9 +12,6 @@
     "height": 2,
     "metaId": "395f075f-a519-4fda-a424-8b1551a08d3b",
     "name": "Item.header.countAll",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-09-09T16:40:00",
-    "modifiedDateTime": "2026-09-12T20:16:41.2251988"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   }
 }

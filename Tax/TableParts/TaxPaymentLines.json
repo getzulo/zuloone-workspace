@@ -9,10 +9,7 @@
     "isLogged": false,
     "metaId": "2b7e4c90-1a53-4d86-ae18-9f0c5b2d7e41",
     "name": "TaxPaymentLines",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-02T00:00:00",
-    "modifiedDateTime": "2026-09-02T00:00:00"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   },
   "properties": [
     {
@@ -29,10 +26,7 @@
       "displayOrder": 2,
       "metaId": "4c9a1e63-8d27-4f50-b1e4-7a3d6c0f8b25",
       "name": "Amount",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "tablePartTypeMetaId": "2b7e4c90-1a53-4d86-ae18-9f0c5b2d7e41",
@@ -51,10 +45,7 @@
       "displayOrder": 1,
       "metaId": "7e1d5a82-3c49-4b16-9f70-2e8a4c6d1b93",
       "name": "TaxCode",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

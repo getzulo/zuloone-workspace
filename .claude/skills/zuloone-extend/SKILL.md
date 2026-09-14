@@ -34,13 +34,12 @@ description: Расширить ЧУЖУЮ модель ZuloOne — поля-р�
     "targetDictionaryMetaId": "<GUID чужого справочника>",
     "description": "<Зачем расширяем>",
     "metaId": "<GUID-агрегата>", "name": "Country.WMS",
-    "modelId": "<GUID ТВОЕЙ модели>", "layerId": 2
-  },
+    "modelId": "<GUID ТВОЕЙ модели>" },
   "fields": [
     { "dictionaryMetaId": "<GUID чужого справочника>", "extensionMetaId": "<GUID-агрегата>",
       "fieldName": "CustomsCode", "name": "CustomsCode", "caption": "Код таможни",
       "baseType": "String", "length": 32, "displayOrder": 50, "isVisible": true,
-      "metaId": "<GUID>", "modelId": "<GUID ТВОЕЙ модели>", "layerId": 2 }
+      "metaId": "<GUID>", "modelId": "<GUID ТВОЕЙ модели>" }
   ]
 }
 ```
@@ -65,8 +64,7 @@ description: Расширить ЧУЖУЮ модель ZuloOne — поля-р�
     "objectMetaId": "<GUID чужого справочника>", "objectName": "Country",
     "extensionMetaId": "<GUID-агрегата>",
     "metaId": "<GUID>", "name": "CountryWmsEvents",
-    "modelId": "<GUID ТВОЕЙ модели>", "layerId": 2
-  }
+    "modelId": "<GUID ТВОЕЙ модели>" }
 }
 ```
 
@@ -109,8 +107,7 @@ Envelope — обычный Script твоей модели + `baseScriptMetaId`:
     "objectMetaId": "<GUID подтипа — тот же, что у базы>", "objectName": "<Документ>",
     "baseScriptMetaId": "<GUID базового скрипта>",
     "metaId": "<GUID>", "name": "ReceiptTx_WMS",
-    "modelId": "<GUID ТВОЕЙ модели>", "layerId": 2
-  }
+    "modelId": "<GUID ТВОЕЙ модели>" }
 }
 ```
 
@@ -167,7 +164,7 @@ public class ReceiptTx_WMS : ReceiptTx
 Пишешь в чужой регистр — либо переезжай в модель-владельца расширением чужого
 документа (§2 и §3), либо ОБЪЯВИ зависимость, если она честная и не даёт цикла.
 
-Перенос делается БЕЗ пересоздания: тот же `metaId`, новые `modelId`/`layerId` и
+Перенос делается БЕЗ пересоздания: тот же `metaId`, новый `modelId` и
 `extensionMetaId` — база отвечает `updated: 1`, объект меняет владельца. Целевой
 документ при этом не трогается: транзакционный скрипт цепляется к подтипу сам
 через `objectMetaId`, в `subtypeTransactionScripts` документа его нет.

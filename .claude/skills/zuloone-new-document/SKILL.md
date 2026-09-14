@@ -41,15 +41,14 @@ description: Создать новый документ ZuloOne — шапка, 
     "className": "<Документ>LinesTablePartRow",
     "softDeletion": false, "isLogged": false,
     "metaId": "<GUID-типа-строк>", "name": "<Документ>Lines",
-    "modelId": "<GUID модели>", "layerId": 1
-  },
+    "modelId": "<GUID модели>" },
   "properties": [
     { "tablePartTypeMetaId": "<GUID-типа-строк>", "fieldName": "Item", "name": "Item",
       "edtMetaId": "<GUID RefItem>", "isRequired": true, "displayOrder": 1, "isVisible": true,
-      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 },
+      "metaId": "<GUID>", "modelId": "<GUID модели>" },
     { "tablePartTypeMetaId": "<GUID-типа-строк>", "fieldName": "Quantity", "name": "Quantity",
       "baseType": "Decimal", "precision": 18, "scale": 4, "displayOrder": 2, "isVisible": true,
-      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 }
+      "metaId": "<GUID>", "modelId": "<GUID модели>" }
   ]
 }
 ```
@@ -63,28 +62,27 @@ description: Создать новый документ ZuloOne — шапка, 
     "caption": "<English caption>", "caption_ru": "<Русская подпись>", "requiresPosting": true, "postOnSave": true,
     "isCloneable": true, "numberSequenceMetaId": "<GUID-серии>",
     "metaId": "<GUID-документа>", "name": "<Имя>",
-    "modelId": "<GUID модели>", "layerId": 1
-  },
+    "modelId": "<GUID модели>" },
   "headerFields": [
     { "documentTypeMetaId": "<GUID-документа>", "fieldName": "Warehouse", "name": "Warehouse",
       "edtMetaId": "<GUID RefWarehouse>", "isRequired": true, "displayOrder": 1, "isVisible": true,
-      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 }
+      "metaId": "<GUID>", "modelId": "<GUID модели>" }
   ],
   "subtypes": [
     { "documentTypeMetaId": "<GUID-документа>", "name": "Draft", "subtypeValue": "Draft",
       "subtypeCaption": "Черновик", "displayOrder": 1,
-      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 },
+      "metaId": "<GUID>", "modelId": "<GUID модели>" },
     { "documentTypeMetaId": "<GUID-документа>", "name": "Ordered", "subtypeValue": "Ordered",
       "subtypeCaption": "Заказано", "displayOrder": 2,
-      "metaId": "<GUID-подтипа-Ordered>", "modelId": "<GUID модели>", "layerId": 1 },
+      "metaId": "<GUID-подтипа-Ordered>", "modelId": "<GUID модели>" },
     { "documentTypeMetaId": "<GUID-документа>", "name": "Received", "subtypeValue": "Received",
       "subtypeCaption": "Оприходовано", "displayOrder": 3,
-      "metaId": "<GUID-подтипа-Received>", "modelId": "<GUID модели>", "layerId": 1 }
+      "metaId": "<GUID-подтипа-Received>", "modelId": "<GUID модели>" }
   ],
   "tableParts": [
     { "documentTypeMetaId": "<GUID-документа>", "tablePartTypeMetaId": "<GUID-типа-строк>",
       "name": "Lines", "isCloneable": true,
-      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 }
+      "metaId": "<GUID>", "modelId": "<GUID модели>" }
   ]
 }
 ```
@@ -118,8 +116,7 @@ description: Создать новый документ ZuloOne — шапка, 
     "objectMetaId": "<GUID типа документа>", "objectName": "<Имя документа>",
     "executionOrder": 1,
     "metaId": "<GUID-скрипта>", "name": "<Имя><Подтип><Цель>Tx",
-    "modelId": "<GUID модели>", "layerId": 1
-  }
+    "modelId": "<GUID модели>" }
 }
 ```
 
@@ -129,7 +126,7 @@ description: Создать новый документ ZuloOne — шапка, 
 "subtypeTransactionScripts": [
   { "subtypeMetaId": "<GUID подтипа>", "scriptMetaId": "<GUID-скрипта>",
     "executionOrder": 1, "metaId": "<GUID-привязки>",
-    "name": "", "modelId": "<GUID модели>", "layerId": 1 }
+    "name": "", "modelId": "<GUID модели>" }
 ]
 ```
 
@@ -326,7 +323,7 @@ await _posting.SetSubtypeAsync(ТипДокумента, doc.MetaId, "Posted"); 
 "subtypeTransitions": [
   { "fromSubtypeMetaId": "<GUID Draft>", "toSubtypeMetaId": "<GUID Ordered>",
     "name": "Draft->Ordered", "metaId": "<НОВЫЙ GUID>",
-    "modelId": "<GUID модели>", "layerId": 1 }
+    "modelId": "<GUID модели>" }
 ]
 ```
 

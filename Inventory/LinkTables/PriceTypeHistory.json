@@ -10,10 +10,7 @@
     "developerComments": "Единственное хранилище цен: товар × тип цены × единица + окно дат. Карточка — у Item (Item помечен PK). IPricingService читает и пишет эти строки.",
     "metaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
     "name": "PriceTypeHistory",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T15:00:00",
-    "modifiedDateTime": "2026-09-03T19:33:37.9609243"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   },
   "properties": [
     {
@@ -31,10 +28,7 @@
       "displayOrder": 5,
       "metaId": "1f6b8e2c-3a7d-42e5-9c48-6b1d2f9a3e07",
       "name": "EffectiveFrom",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T15:00:00",
-      "modifiedDateTime": "2026-09-03T15:00:00"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
@@ -51,10 +45,7 @@
       "displayOrder": 6,
       "metaId": "2a7c9f3d-4b8e-43f6-ad59-7c2e3a0b4f18",
       "name": "EffectiveTo",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T15:00:00",
-      "modifiedDateTime": "2026-09-03T15:00:00"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
@@ -73,10 +64,7 @@
       "description": "Владелец строки на карточке номенклатуры.",
       "metaId": "3b8f2e1a-6c47-4d91-a5e0-8f2c1b7d4e93",
       "name": "Item",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T15:00:00",
-      "modifiedDateTime": "2026-09-03T15:00:00"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
@@ -95,10 +83,7 @@
       "displayOrder": 4,
       "metaId": "8c3f5d0a-2e6b-41c4-bd37-5a0c1e8f2d96",
       "name": "Price",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T15:00:00",
-      "modifiedDateTime": "2026-09-03T15:00:00"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
@@ -116,10 +101,7 @@
       "displayOrder": 2,
       "metaId": "5d1c9a4e-8b36-4f02-9e71-2c6a8d3f5b14",
       "name": "PriceType",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T15:00:00",
-      "modifiedDateTime": "2026-09-03T15:00:00"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
@@ -137,10 +119,7 @@
       "displayOrder": 3,
       "metaId": "7a2e4c8f-1d59-4b83-ae26-4f9b0c7e1a85",
       "name": "Unit",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T15:00:00",
-      "modifiedDateTime": "2026-09-03T15:00:00"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

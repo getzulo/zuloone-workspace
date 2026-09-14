@@ -16,10 +16,7 @@
     "isExtension": false,
     "metaId": "f808a852-1145-47bd-953a-d25e42f3c315",
     "name": "TBWarehouse",
-    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-    "layerId": 1,
-    "createdDateTime": "2026-08-28T11:06:18.802172",
-    "modifiedDateTime": "2026-09-12T02:43:31.6623891"
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
   },
   "fields": [
     {
@@ -39,10 +36,7 @@
       "isCalculated": false,
       "metaId": "65654409-24e2-444f-b070-6355ef0114d1",
       "name": "ID",
-      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-      "layerId": 1,
-      "createdDateTime": "2026-08-28T11:06:18.8899994",
-      "modifiedDateTime": "2026-08-28T11:06:18.8899994"
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
     },
     {
       "dictionaryMetaId": "f808a852-1145-47bd-953a-d25e42f3c315",
@@ -60,10 +54,7 @@
       "isCalculated": false,
       "metaId": "b66c4d9b-474d-44b7-b850-34261962e824",
       "name": "Name",
-      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
-      "layerId": 1,
-      "createdDateTime": "2026-08-28T11:06:19.0221058",
-      "modifiedDateTime": "2026-08-28T11:06:19.0221059"
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
     }
   ]
 }

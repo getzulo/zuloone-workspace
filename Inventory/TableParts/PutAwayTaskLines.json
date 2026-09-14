@@ -10,10 +10,7 @@
     "isLogged": false,
     "metaId": "57100708-0000-4000-8000-000000000000",
     "name": "PutAwayTaskLines",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-08-27T21:45:40.2617648",
-    "modifiedDateTime": "2026-08-27T21:45:40.2617648"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   },
   "properties": [
     {
@@ -32,10 +29,7 @@
       "developerComments": "Заполняется платформой при сохранении: введённое количество, переведённое в базовую единицу товара. Руками не редактируется.",
       "metaId": "5b864c54-ef86-4dcb-851d-b645382abd8e",
       "name": "BaseQuantity",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:00.3153449",
-      "modifiedDateTime": "2026-08-29T03:44:00.3153449"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
@@ -55,10 +49,7 @@
       "displayOrder": 1,
       "metaId": "57100709-0000-4000-8000-000000000000",
       "name": "Item",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:45:40.2617823",
-      "modifiedDateTime": "2026-08-29T03:44:00.3270773"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
@@ -78,10 +69,7 @@
       "normalizedFieldName": "BaseQuantity",
       "metaId": "5710070a-0000-4000-8000-000000000000",
       "name": "Quantity",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:45:40.2617918",
-      "modifiedDateTime": "2026-08-30T14:17:51.4254849"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
@@ -101,10 +89,7 @@
       "displayOrder": 3,
       "metaId": "5710070b-0000-4000-8000-000000000000",
       "name": "ToCell",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:45:40.261794",
-      "modifiedDateTime": "2026-08-29T03:44:00.3304558"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
@@ -124,10 +109,7 @@
       "displayOrder": 4,
       "metaId": "0b0a75a9-ce9a-4899-be5d-144b2557def6",
       "name": "Unit",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-29T03:44:00.3153427",
-      "modifiedDateTime": "2026-08-29T03:44:00.3153427"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

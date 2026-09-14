@@ -33,8 +33,7 @@ description: Создать регистр накопления ZuloOne — ре
     "description": "Reusable analytic over the Warehouse dictionary",
     "edtMetaId": "<GUID Ref-EDT на справочник>",
     "metaId": "<GUID-аналитики>", "name": "<Имя>",
-    "modelId": "<GUID модели-владельца>", "layerId": 1
-  }
+    "modelId": "<GUID модели-владельца>" }
 }
 ```
 
@@ -53,20 +52,19 @@ description: Создать регистр накопления ZuloOne — ре
     "allowNegativeBalance": true,
     "useBalanceTable": true,
     "metaId": "<GUID-регистра>", "name": "<Имя>",
-    "modelId": "<GUID модели>", "layerId": 1
-  },
+    "modelId": "<GUID модели>" },
   "resources": [
     { "registerMetaId": "<GUID-регистра>", "fieldName": "Qty", "name": "Qty",
       "edtMetaId": "<GUID Qty-EDT>", "isOperational": true, "displayOrder": 1,
-      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 }
+      "metaId": "<GUID>", "modelId": "<GUID модели>" }
   ],
   "analytics": [
     { "registerMetaId": "<GUID-регистра>", "analyticMetaId": "<GUID аналитики Warehouse>",
       "isRequired": true, "displayOrder": 1, "name": "<Имя>-Warehouse",
-      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 },
+      "metaId": "<GUID>", "modelId": "<GUID модели>" },
     { "registerMetaId": "<GUID-регистра>", "analyticMetaId": "<GUID аналитики Item>",
       "isRequired": true, "displayOrder": 2, "name": "<Имя>-Item",
-      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 }
+      "metaId": "<GUID>", "modelId": "<GUID модели>" }
   ]
 }
 ```
@@ -153,8 +151,7 @@ transactions.Add(new RegisterMovementSpec("<Имя>")
     "caption": "<Подпись>", "baseClassName": "FifoTotalDriver", "baseEngine": "Standard",
     "isKernel": false,
     "metaId": "<GUID-драйвера>", "name": "<Имя>",
-    "modelId": "<GUID модели>", "layerId": 1
-  }
+    "modelId": "<GUID модели>" }
 }
 ```
 
@@ -336,17 +333,16 @@ public partial class CustomReport<Имя>
     "caption": "Tax rate history", "caption_ru": "История ставок",
     "registerEngineType": "Information",
     "metaId": "<GUID>", "name": "TaxRate",
-    "modelId": "<GUID модели>", "layerId": 1
-  },
+    "modelId": "<GUID модели>" },
   "dimensions": [
     { "registerMetaId": "<GUID>", "fieldName": "TaxCode", "name": "TaxCode",
       "edtMetaId": "<GUID Ref-EDT>", "isOperational": true, "displayOrder": 1,
-      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 }
+      "metaId": "<GUID>", "modelId": "<GUID модели>" }
   ],
   "resources": [
     { "registerMetaId": "<GUID>", "fieldName": "Rate", "name": "Rate",
       "edtMetaId": "<GUID Decimal-EDT>", "displayOrder": 1,
-      "metaId": "<GUID>", "modelId": "<GUID модели>", "layerId": 1 }
+      "metaId": "<GUID>", "modelId": "<GUID модели>" }
   ]
 }
 ```

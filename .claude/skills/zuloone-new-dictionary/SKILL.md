@@ -6,7 +6,7 @@ description: Создать новый справочник ZuloOne в ворк�
 # Новый справочник
 
 Все файлы создаются в папке СВОЕЙ модели (`<Модель>/…`). `modelId` каждой
-строки = `metaId` из `<Модель>/model.json`, `layerId` — оттуда же. Для каждого
+строки = `metaId` из `<Модель>/model.json`. Для каждого
 нового объекта/строки генерируй СВОЙ GUID (uuid v4). Имена — PascalCase латиницей.
 
 ## 1. Номерная серия — `NumberSequences/<Имя>Seq.json`
@@ -18,8 +18,7 @@ description: Создать новый справочник ZuloOne в ворк�
     "padLength": 0, "startValue": 1000, "increment": 1, "nextValue": 1000,
     "resetPolicy": "None",
     "metaId": "<GUID-серии>", "name": "<Имя>Seq",
-    "modelId": "<GUID модели>", "layerId": 1
-  }
+    "modelId": "<GUID модели>" }
 }
 ```
 
@@ -39,16 +38,14 @@ description: Создать новый справочник ZuloOne в ворк�
     "displayFormat": "{ID} - {Name}",
     "isLogged": false, "isVersioned": false, "isCached": false,
     "metaId": "<GUID-справочника>", "name": "<Имя>",
-    "modelId": "<GUID модели>", "layerId": 1
-  },
+    "modelId": "<GUID модели>" },
   "fields": [
     {
       "dictionaryMetaId": "<GUID-справочника>",
       "fieldName": "Name", "name": "Name", "caption": "Name", "caption_ru": "Наименование",
       "baseType": "String", "length": 256,
       "isRequired": true, "displayOrder": 1, "isVisible": true,
-      "metaId": "<GUID-поля>", "modelId": "<GUID модели>", "layerId": 1
-    }
+      "metaId": "<GUID-поля>", "modelId": "<GUID модели>"    }
   ]
 }
 ```
@@ -161,8 +158,7 @@ while (true)
     "edtType": "Reference",
     "referenceDictionaryMetaId": "<GUID целевого справочника>",
     "metaId": "<GUID-EDT>", "name": "Ref<Цель>",
-    "modelId": "<GUID модели>", "layerId": 1
-  }
+    "modelId": "<GUID модели>" }
 }
 ```
 
@@ -179,8 +175,7 @@ while (true)
     "scriptType": "EventHandler", "objectType": "Dictionary",
     "objectMetaId": "<GUID-справочника>", "objectName": "<Имя>",
     "metaId": "<GUID-скрипта>", "name": "<Имя>EventHandler",
-    "modelId": "<GUID модели>", "layerId": 1
-  }
+    "modelId": "<GUID модели>" }
 }
 ```
 
@@ -212,7 +207,7 @@ public partial class <Имя>EventHandler : TypedDictionaryEventHandler<<Имя>
 { "kind": "Menu", "items": [
   { "name": "<Имя>", "caption": "<English>", "caption_ru": "<Русская>", "targetType": "Dictionary",
     "targetMetaId": "<GUID-справочника>", "parentMetaId": "<GUID подгруппы Dictionaries>",
-    "displayOrder": 1, "metaId": "<GUID-пункта>", "modelId": "<GUID модели>", "layerId": 1 }
+    "displayOrder": 1, "metaId": "<GUID-пункта>", "modelId": "<GUID модели>" }
 ] }
 ```
 
@@ -248,6 +243,10 @@ public partial class <Имя>EventHandler : TypedDictionaryEventHandler<<Имя>
 справочники — `$ref` по бизнес-ключу, как в `Common/DataPackages`. Повтор
 заливает только пустые поля, уже правленое не затирает.
 
+Бизнес-ключ не должен быть переводимым `Name`. Иначе заливка на русском
+создаст «Сразу», на английском — вторую строку `Immediate`. Ключ —
+`Code` / `Days` / `Direction`+`Kind`; подписи — `Name` + `Name_ru` + `Name_ar`.
+
 Страновые данные живут в модели локализации, не в общей. Пример: `Tax/vat`
 (`when: once`) — общий НДС (категории STANDARD/ZERO_RATED/…, коды STD/ZERO/…);
 `LocalizationSaudiArabia/vat-SA` (`when: country`, `country: SA`) — только
@@ -257,7 +256,9 @@ public partial class <Имя>EventHandler : TypedDictionaryEventHandler<<Имя>
 Подписи записей — на трёх языках системы: `Name` (английский, колонка
 по умолчанию), рядом `Name_ru` и `Name_ar`. Поле `Name` должно быть
 `isTranslatable: true`, иначе суффиксы игнорируются. Повтор не затирает
-уже введённый перевод.
+уже введённый перевод. «Пересоздать» на настройке тенанта стирает ВСЕ строки
+таблиц пакета, сбрасывает номерную серию и заливает сид заново — ломает
+ссылки; если удаление упрётся в FK, заливка не пойдёт.
 
 После любой правки объектов этой модели подними `modelVersion` в её
 `model.json` (скилл `zuloone-new-model`). Без бампа тенанты не зальют

@@ -29,8 +29,7 @@ description: Создать сервис ZuloOne — класс с бизнес-
     "namespace": "ZuloOne.Services",
     "scriptMetaId": "<GUID-скрипта>",
     "metaId": "<GUID-сервиса>", "name": "<Имя>",
-    "modelId": "<GUID модели>", "layerId": 1
-  }
+    "modelId": "<GUID модели>" }
 }
 ```
 
@@ -41,8 +40,7 @@ description: Создать сервис ZuloOne — класс с бизнес-
   "object": {
     "scriptType": "Service", "objectType": "Service", "objectName": "<Имя>",
     "metaId": "<GUID-скрипта>", "name": "<Имя>Service",
-    "modelId": "<GUID модели>", "layerId": 1
-  }
+    "modelId": "<GUID модели>" }
 }
 ```
 

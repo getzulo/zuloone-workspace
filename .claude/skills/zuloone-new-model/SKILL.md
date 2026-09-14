@@ -60,16 +60,16 @@ description: Создать новую модель ZuloOne (модуль/при
 ```json
 "dependencies": [
   {
-    "modelMetaId": "<GUID ЭТОЙ модели>",
     "dependsOnModelMetaId": "<GUID модели-зависимости>",
     "minVersion": "1.0.0",
     "name": "<Имя>-><ИмяЗависимости>",
-    "metaId": "<НОВЫЙ GUID>",
-    "modelId": "<GUID ЭТОЙ модели>",
-    "layerId": 2
+    "metaId": "<НОВЫЙ GUID>"
   }
 ]
 ```
+
+Владелец ребра (`modelMetaId` / `modelId` / `layerId`) — этот же `model.json`.
+В файл не пиши: ядро проставит их при применении.
 
 Почему это не формальность:
 - порядок компиляции моделей — топологический по зависимостям; без ребра

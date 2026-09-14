@@ -53,8 +53,7 @@ API/интеграции), команда — это то, что нажимае
     "reloadAfterExecution": true,
     "metaId": "<GUID-команды>",
     "name": "<Имя>",
-    "modelId": "<GUID модели>", "layerId": 1
-  },
+    "modelId": "<GUID модели>" },
   "subtypeBindings": [
     { "metaId": "<GUID-привязки>", "documentCommandMetaId": "<GUID-команды>",
       "documentSubtypeMetaId": "<GUID подтипа, из которого доступна команда>" }
@@ -77,8 +76,7 @@ API/интеграции), команда — это то, что нажимае
     "executionOrder": 0,
     "metaId": "<GUID-скрипта, тот же что scriptMetaId выше>",
     "name": "<Имя>Script",
-    "modelId": "<GUID модели>", "layerId": 1
-  }
+    "modelId": "<GUID модели>" }
 }
 ```
 

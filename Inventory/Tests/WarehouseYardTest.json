@@ -8,9 +8,6 @@
     "isExtension": false,
     "metaId": "b7c4e2a1-5d38-4f09-8e16-2a9c0d7b4e53",
     "name": "WarehouseYardTest",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T21:45:00",
-    "modifiedDateTime": "2026-09-03T21:45:00"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   }
 }

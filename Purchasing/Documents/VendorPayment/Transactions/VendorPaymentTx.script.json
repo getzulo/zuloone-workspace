@@ -8,9 +8,6 @@
     "executionOrder": 1,
     "metaId": "801fabfb-f0df-4ca4-af48-9dfb6053d2d7",
     "name": "VendorPaymentTx",
-    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T09:32:51.5903935",
-    "modifiedDateTime": "2026-09-09T10:22:16.2912197"
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
   }
 }

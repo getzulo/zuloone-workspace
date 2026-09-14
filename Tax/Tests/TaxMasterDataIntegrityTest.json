@@ -8,9 +8,6 @@
     "isExtension": false,
     "metaId": "1fa2e33c-207f-4b4b-bd1c-9a56e213128e",
     "name": "TaxMasterDataIntegrityTest",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-02T15:27:21.1492381",
-    "modifiedDateTime": "2026-09-02T16:34:04.3127181"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   }
 }

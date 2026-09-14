@@ -5,6 +5,8 @@
     "caption": "Saudi VAT (ZATCA)",
     "captionRu": "НДС КСА (ZATCA)",
     "caption_ru": "НДС КСА (ZATCA)",
+    "captionAr": "ضريبة القيمة المضافة السعودية (ZATCA)",
+    "caption_ar": "ضريبة القيمة المضافة السعودية (ZATCA)",
     "when": "country",
     "country": "SA",
     "sort": 25

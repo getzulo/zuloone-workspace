@@ -13,10 +13,7 @@
     "reloadAfterExecution": true,
     "metaId": "d6f8a0b2-4e5c-4d7f-9a3b-1c2d3e4f5a6b",
     "name": "FillPurchasePrices",
-    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T11:00:00",
-    "modifiedDateTime": "2026-09-02T11:00:00"
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
   },
   "subtypeBindings": [
     {

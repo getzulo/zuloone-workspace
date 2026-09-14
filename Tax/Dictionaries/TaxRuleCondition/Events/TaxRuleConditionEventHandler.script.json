@@ -8,9 +8,6 @@
     "executionOrder": 0,
     "metaId": "b1852f42-f9a3-436a-983a-e755c41c7f8a",
     "name": "TaxRuleConditionEventHandler",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-09-01T10:08:20.3049902",
-    "modifiedDateTime": "2026-09-01T10:08:20.3049903"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   }
 }

@@ -16,10 +16,7 @@
     "isExtension": false,
     "metaId": "57100701-0000-4000-8000-000000000000",
     "name": "PutAwayTask",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-08-27T21:51:30.7336988",
-    "modifiedDateTime": "2026-09-12T02:43:31.9212723"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   },
   "headerFields": [
     {
@@ -38,10 +35,7 @@
       "isTranslatable": false,
       "metaId": "57100703-0000-4000-8000-000000000000",
       "name": "FromCell",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:51:30.7337028",
-      "modifiedDateTime": "2026-08-27T21:51:30.7337028"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "documentTypeMetaId": "57100701-0000-4000-8000-000000000000",
@@ -61,10 +55,7 @@
       "isTranslatable": false,
       "metaId": "57100702-0000-4000-8000-000000000000",
       "name": "ID",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:51:30.7337007",
-      "modifiedDateTime": "2026-09-03T12:28:57.3732631"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ],
   "subtypes": [
@@ -80,10 +71,7 @@
       "isInitial": true,
       "isReadOnly": false,
       "metaId": "57100704-0000-4000-8000-000000000000",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:51:30.7337061",
-      "modifiedDateTime": "2026-08-27T21:51:30.7337061"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "documentTypeMetaId": "57100701-0000-4000-8000-000000000000",
@@ -97,10 +85,7 @@
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "57100705-0000-4000-8000-000000000000",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:51:30.7337078",
-      "modifiedDateTime": "2026-09-01T12:54:59.9112437"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ],
   "tableParts": [
@@ -110,10 +95,7 @@
       "isCloneable": true,
       "metaId": "57100706-0000-4000-8000-000000000000",
       "name": "Lines",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:51:30.7337097",
-      "modifiedDateTime": "2026-08-27T21:51:30.7337097"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ],
   "subtypeTransactionScripts": [
@@ -123,10 +105,7 @@
       "executionOrder": 1,
       "metaId": "57100707-0000-4000-8000-000000000000",
       "name": "",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T21:51:30.7337111",
-      "modifiedDateTime": "2026-08-27T21:51:30.7337111"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ],
   "subtypeTransitions": [
@@ -135,20 +114,14 @@
       "toSubtypeMetaId": "57100705-0000-4000-8000-000000000000",
       "metaId": "4b026cc9-1e35-4687-9e44-a3d15f92c0b8",
       "name": "Draft->Confirmed",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "fromSubtypeMetaId": "57100705-0000-4000-8000-000000000000",
       "toSubtypeMetaId": "57100704-0000-4000-8000-000000000000",
       "metaId": "5c137dda-2f46-4798-8f55-b4e260a3d1c9",
       "name": "Confirmed->Draft",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-01T00:00:00",
-      "modifiedDateTime": "2026-09-01T00:00:00"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

@@ -18,10 +18,7 @@
     "isExtension": false,
     "metaId": "f330a37a-a4d4-5565-9969-3f689aae5730",
     "name": "SalesSettings",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-08-26T20:56:54.0115009",
-    "modifiedDateTime": "2026-09-12T02:43:31.3630335"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   },
   "fields": [
     {
@@ -40,10 +37,7 @@
       "isCalculated": false,
       "metaId": "1d1a0e39-dadd-50f9-a74f-4f17517e5027",
       "name": "AllowBackorder",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:54.011535",
-      "modifiedDateTime": "2026-08-26T20:56:54.0115351"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "dictionaryMetaId": "f330a37a-a4d4-5565-9969-3f689aae5730",
@@ -61,10 +55,7 @@
       "isCalculated": false,
       "metaId": "06ede618-4403-5234-8734-528dd48e613c",
       "name": "DefaultPaymentTermDays",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:54.0115472",
-      "modifiedDateTime": "2026-08-26T20:56:54.0115472"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "dictionaryMetaId": "f330a37a-a4d4-5565-9969-3f689aae5730",
@@ -83,10 +74,7 @@
       "isCalculated": false,
       "metaId": "263449bb-f30c-45a5-a2e6-a136129deebc",
       "name": "ID",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:54.0410619",
-      "modifiedDateTime": "2026-08-26T20:56:54.0410619"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

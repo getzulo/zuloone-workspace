@@ -21,10 +21,7 @@
     "isExtension": false,
     "metaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
     "name": "CustomerContact",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-09-09T13:28:58.0983529",
-    "modifiedDateTime": "2026-09-12T02:43:30.9257145"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   },
   "fields": [
     {
@@ -44,10 +41,7 @@
       "isCalculated": false,
       "metaId": "7d9e8487-7c81-4e2a-b6b4-09b4e14055c7",
       "name": "Customer",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.0983968",
-      "modifiedDateTime": "2026-09-09T13:28:58.0983968"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
@@ -67,10 +61,7 @@
       "isCalculated": false,
       "metaId": "2372f707-e20a-4ce5-a636-ec2786551c7f",
       "name": "Email",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.0986772",
-      "modifiedDateTime": "2026-09-09T13:28:58.0986773"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
@@ -89,10 +80,7 @@
       "isCalculated": false,
       "metaId": "99c56bf7-b518-4dc8-8db8-a7af98364556",
       "name": "ID",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.197867",
-      "modifiedDateTime": "2026-09-09T13:28:58.1978671"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
@@ -111,10 +99,7 @@
       "isCalculated": false,
       "metaId": "e82eb617-3e5a-4c7e-a387-0141ff454edd",
       "name": "IsPrimary",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.0986793",
-      "modifiedDateTime": "2026-09-09T13:28:58.0986794"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
@@ -134,10 +119,7 @@
       "isCalculated": false,
       "metaId": "1a09b798-cec1-4d1f-bc64-08a3ce2c348c",
       "name": "Name",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.0983828",
-      "modifiedDateTime": "2026-09-09T13:28:58.0983828"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "ba720e1e-5d28-432b-a012-5516c3bd50c7",
@@ -157,10 +139,7 @@
       "isCalculated": false,
       "metaId": "0892a9d7-2434-45dd-97d0-87988766ed0a",
       "name": "Phone",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.0986734",
-      "modifiedDateTime": "2026-09-09T13:28:58.0986734"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

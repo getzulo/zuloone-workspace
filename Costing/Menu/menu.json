@@ -10,10 +10,7 @@
       "targetType": "Group",
       "metaId": "2d5a9c30-6f1e-4b4c-9d0a-3e6f9b2c5d10",
       "name": "Costing",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T22:14:04.9387267",
-      "modifiedDateTime": "2026-09-12T02:43:32.6108948"
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     },
     {
       "caption": "Registers",
@@ -24,10 +21,7 @@
       "targetType": "Group",
       "metaId": "3e6b0d41-7a2f-4c5d-8e1b-4f7a0c3d6e20",
       "name": "Registers",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T22:14:04.9387372",
-      "modifiedDateTime": "2026-09-12T02:43:32.9042716"
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     },
     {
       "caption": "Settings",
@@ -38,10 +32,7 @@
       "targetType": "Group",
       "metaId": "5e6148f3-d77e-55c2-89a8-cd4e92a6f34e",
       "name": "Settings",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:53.0240755",
-      "modifiedDateTime": "2026-09-12T02:43:32.9111449"
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     },
     {
       "caption": "Costing settings",
@@ -54,10 +45,7 @@
       "targetMetaId": "dab95d48-61e1-56c4-b852-6964435dc152",
       "metaId": "3d4c7791-6b28-51b8-bfdd-fa92fe694fee",
       "name": "CostingSettings",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:53.0240774",
-      "modifiedDateTime": "2026-09-12T02:43:33.6068906"
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     },
     {
       "caption": "Inventory value",
@@ -70,10 +58,7 @@
       "targetMetaId": "7e0b4d85-1a6f-4c9d-8e5b-8f1a4c7d0e60",
       "metaId": "4f7c1e52-8b3a-4d6e-9f2c-5a8b1d4e7f30",
       "name": "InventoryValue",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T22:14:04.9387405",
-      "modifiedDateTime": "2026-09-12T02:43:32.9603783"
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     }
   ]
 }

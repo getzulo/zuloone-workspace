@@ -5,10 +5,7 @@
     "isExtension": false,
     "metaId": "c5c80a37-5d51-4ee7-9a4e-075d5017824d",
     "name": "PriceTypeKind",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T11:58:13.811",
-    "modifiedDateTime": "2026-09-03T12:54:36.1610681"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   },
   "values": [
     {
@@ -20,10 +17,7 @@
       "description": "Цена вводится вручную по строкам цен номенклатуры (PriceListItem)",
       "metaId": "84c8f137-2576-449e-bd77-7f6736ed3af4",
       "name": "Base",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:58:13.811",
-      "modifiedDateTime": "2026-09-03T12:54:36.1682163"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "enumMetaId": "c5c80a37-5d51-4ee7-9a4e-075d5017824d",
@@ -34,10 +28,7 @@
       "description": "Цена вычисляется от BasePriceType с наценкой MarkupPercent",
       "metaId": "e5f68209-3df7-49d3-bf0f-4b3b19f29398",
       "name": "Calculated",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T11:58:13.811",
-      "modifiedDateTime": "2026-09-02T11:58:13.811"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

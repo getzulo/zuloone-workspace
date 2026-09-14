@@ -13,10 +13,7 @@
     "reloadAfterExecution": true,
     "metaId": "3e086ce0-2bb4-42a3-aee4-9b028dc1f7fe",
     "name": "PostSalesReturn",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T06:30:00",
-    "modifiedDateTime": "2026-09-03T06:30:00"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   },
   "subtypeBindings": [
     {

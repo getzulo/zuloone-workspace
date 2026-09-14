@@ -36,8 +36,7 @@ description: Написать интеграционный тест ZuloOne — 
     "isActive": true,
     "groupName": "Бизнес-слой.<Контур>",
     "metaId": "<GUID>", "name": "<Имя>",
-    "modelId": "<GUID модели>", "layerId": 1
-  }
+    "modelId": "<GUID модели>" }
 }
 ```
 

@@ -16,10 +16,7 @@
     "isExtension": false,
     "metaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
     "name": "SalesReturn",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-09-03T00:00:00",
-    "modifiedDateTime": "2026-09-12T02:43:31.9674505"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   },
   "headerFields": [
     {
@@ -37,10 +34,7 @@
       "isTranslatable": false,
       "metaId": "5704dc9d-55da-44f4-9f92-4e05c2f685af",
       "name": "Customer",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.0262769",
-      "modifiedDateTime": "2026-09-03T02:56:19.0262769"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
@@ -60,10 +54,7 @@
       "isTranslatable": false,
       "metaId": "ad8f9da4-5ef6-40eb-8d6a-8f2a102330df",
       "name": "ID",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.2079649",
-      "modifiedDateTime": "2026-09-03T12:28:57.3967991"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
@@ -80,10 +71,7 @@
       "isTranslatable": false,
       "metaId": "0e69d711-0a0d-44da-a7f0-d1834c2beec9",
       "name": "Location",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.0262861",
-      "modifiedDateTime": "2026-09-03T02:56:19.0262862"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
@@ -100,10 +88,7 @@
       "isTranslatable": false,
       "metaId": "4c25ebf9-5f6e-406b-b4f6-7459ac5da004",
       "name": "OriginalInvoice",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.0262888",
-      "modifiedDateTime": "2026-09-03T02:56:19.0262889"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypes": [
@@ -118,10 +103,7 @@
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "cdca5392-769e-42a8-b18b-dbfccb23db80",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.0263044",
-      "modifiedDateTime": "2026-09-03T02:56:19.0263045"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
@@ -134,10 +116,7 @@
       "isInitial": true,
       "isReadOnly": false,
       "metaId": "d99b8bc8-0a57-4959-8e89-6f06a5cbb843",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.0262969",
-      "modifiedDateTime": "2026-09-03T02:56:19.026297"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "tableParts": [
@@ -147,10 +126,7 @@
       "isCloneable": true,
       "metaId": "fbf1c3f1-043a-4eb5-b624-022f5b2a71a1",
       "name": "Lines",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.0263099",
-      "modifiedDateTime": "2026-09-03T02:56:19.0263099"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypeTransactionScripts": [
@@ -160,10 +136,7 @@
       "executionOrder": 1,
       "metaId": "a8b3d10a-ddb5-477d-a5a2-4bbfa4ee9649",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.0263184",
-      "modifiedDateTime": "2026-09-03T02:56:19.0263184"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "subtypeMetaId": "cdca5392-769e-42a8-b18b-dbfccb23db80",
@@ -171,10 +144,7 @@
       "executionOrder": 2,
       "metaId": "e8910327-36e8-4680-a5e4-1714b689c110",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.0263231",
-      "modifiedDateTime": "2026-09-03T02:56:19.0263231"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "subtypeMetaId": "cdca5392-769e-42a8-b18b-dbfccb23db80",
@@ -182,10 +152,7 @@
       "executionOrder": 3,
       "metaId": "5e5eccfb-078b-411d-848d-78efe206cf0b",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.0263251",
-      "modifiedDateTime": "2026-09-03T02:56:19.0263252"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypeTransitions": [
@@ -194,10 +161,7 @@
       "toSubtypeMetaId": "cdca5392-769e-42a8-b18b-dbfccb23db80",
       "metaId": "abff59dd-25f9-4ac6-a0ec-31286b82a822",
       "name": "Draft->Posted",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-03T02:56:19.026332",
-      "modifiedDateTime": "2026-09-03T02:56:19.0263321"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

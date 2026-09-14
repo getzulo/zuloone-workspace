@@ -5,6 +5,8 @@
     "caption": "Store cell types",
     "captionRu": "Типы ячеек",
     "caption_ru": "Типы ячеек",
+    "captionAr": "أنواع الخلايا",
+    "caption_ar": "أنواع الخلايا",
     "when": "once",
     "sort": 18
   },
@@ -14,6 +16,8 @@
     "caption": "Base price types",
     "captionRu": "Базовые типы цен",
     "caption_ru": "Базовые типы цен",
+    "captionAr": "أنواع الأسعار الأساسية",
+    "caption_ar": "أنواع الأسعار الأساسية",
     "when": "once",
     "sort": 19
   }

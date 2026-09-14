@@ -16,10 +16,7 @@
     "isExtension": false,
     "metaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
     "name": "CustomerPayment",
-    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-    "layerId": 2,
-    "createdDateTime": "2026-08-27T18:16:38.0154519",
-    "modifiedDateTime": "2026-09-12T02:43:31.7225423"
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
   },
   "headerFields": [
     {
@@ -40,10 +37,7 @@
       "isTranslatable": false,
       "metaId": "68c52836-bbd8-468a-bbe8-f1a4b1ca820e",
       "name": "ID",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T18:16:38.0554432",
-      "modifiedDateTime": "2026-09-09T11:25:36.7948566"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
@@ -61,10 +55,7 @@
       "isTranslatable": false,
       "metaId": "a21b4cd7-ebc9-418a-857f-eacefdb3c959",
       "name": "LegalEntity",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T14:27:57.2984364",
-      "modifiedDateTime": "2026-09-02T14:27:57.2984365"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypes": [
@@ -79,10 +70,7 @@
       "isInitial": true,
       "isReadOnly": false,
       "metaId": "1c2d3e4f-5a6b-4c7d-9e8f-0a1b2c3d4e5f",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T18:16:38.0157442",
-      "modifiedDateTime": "2026-08-27T18:16:38.0157442"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
       "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
@@ -95,10 +83,7 @@
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "2d3e4f5a-6b7c-4d8e-8f9a-1b2c3d4e5f6a",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T18:16:38.0157584",
-      "modifiedDateTime": "2026-08-28T13:34:56.357813"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "tableParts": [
@@ -108,10 +93,7 @@
       "isCloneable": true,
       "metaId": "3e4f5a6b-7c8d-4e9f-9a0b-2c3d4e5f6a7b",
       "name": "Lines",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-08-27T18:16:38.0157625",
-      "modifiedDateTime": "2026-08-27T18:16:38.0157625"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypeTransactionScripts": [
@@ -121,10 +103,7 @@
       "executionOrder": 1,
       "metaId": "17d9299a-30be-470b-90b8-e5260e33966c",
       "name": "",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T00:00:00",
-      "modifiedDateTime": "2026-09-09T00:00:00"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

@@ -15,10 +15,7 @@
     "isExtension": false,
     "metaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
     "name": "GL",
-    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-    "layerId": 1,
-    "createdDateTime": "2026-08-25T15:28:35.948293",
-    "modifiedDateTime": "2026-09-12T02:43:32.2142313"
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
   },
   "resources": [
     {
@@ -31,10 +28,7 @@
       "displayOrder": 2,
       "metaId": "5e0eb5d9-040d-469f-80b1-c63ab03c6032",
       "name": "Credit",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:28:35.9496304",
-      "modifiedDateTime": "2026-08-25T15:28:35.9496304"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
@@ -46,10 +40,7 @@
       "displayOrder": 1,
       "metaId": "adceee8e-2471-4ca6-8a8b-2fc301245637",
       "name": "Debit",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:28:35.949279",
-      "modifiedDateTime": "2026-08-25T15:28:35.949279"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
@@ -61,10 +52,7 @@
       "displayOrder": 4,
       "metaId": "22b3c4d5-e6f7-4081-9203-b4c5d6e7f801",
       "name": "ManagementCredit",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
@@ -76,10 +64,7 @@
       "displayOrder": 3,
       "metaId": "11a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f0",
       "name": "ManagementDebit",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
@@ -91,10 +76,7 @@
       "displayOrder": 6,
       "metaId": "44d5e6f7-0819-42a3-b425-d6e7f8091234",
       "name": "TaxCredit",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
@@ -106,10 +88,7 @@
       "displayOrder": 5,
       "metaId": "33c4d5e6-f708-4192-a314-c5d6e7f80912",
       "name": "TaxDebit",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-09-02T00:00:00",
-      "modifiedDateTime": "2026-09-02T00:00:00"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     }
   ],
   "analytics": [
@@ -120,10 +99,7 @@
       "isRequired": true,
       "metaId": "96ade6c5-959b-4dc3-91c7-737b528de3b8",
       "name": "GL-Account",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:28:35.9498389",
-      "modifiedDateTime": "2026-08-25T15:28:35.949839"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
@@ -132,10 +108,7 @@
       "isRequired": true,
       "metaId": "cca02cdb-e9a6-4898-b9f6-21dfc4044de0",
       "name": "GL-FiscalPeriod",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:28:35.950213",
-      "modifiedDateTime": "2026-08-25T15:28:35.9502131"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
@@ -144,10 +117,7 @@
       "isRequired": true,
       "metaId": "330d5e3e-9878-48c1-8fc6-77c49643d07a",
       "name": "GL-LegalEntity",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T15:28:35.9502101",
-      "modifiedDateTime": "2026-08-25T15:28:35.9502101"
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     }
   ]
 }

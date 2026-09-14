@@ -9,9 +9,6 @@
     "executionOrder": 20,
     "metaId": "4b8e2f61-9d35-4a07-8c6b-7f1a3d5e9c28",
     "name": "SalesInvoiceLoyaltyDiscountHandler",
-    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40",
-    "layerId": 2,
-    "createdDateTime": "2026-09-02T11:50:00",
-    "modifiedDateTime": "2026-09-02T10:20:09.6967881"
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
   }
 }

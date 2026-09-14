@@ -8,9 +8,6 @@
     "description": "Reusable analytic over the Region dictionary",
     "metaId": "2b25c77b-1c0d-41a4-aa5d-ee1bae4977a3",
     "name": "Region",
-    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-    "layerId": 1,
-    "createdDateTime": "2026-08-22T04:17:48.1076441",
-    "modifiedDateTime": "2026-08-22T04:17:48.1076442"
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
   }
 }

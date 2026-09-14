@@ -6,13 +6,11 @@
     "isSystem": false,
     "isSealed": false,
     "isEnabled": true,
-    "modelVersion": "1.0.0",
+    "modelVersion": "1.0.1",
     "metaId": "390cbabb-1f33-47db-afd7-b78fb78afae9",
     "name": "TestBenchExt",
     "modelId": "00000000-0000-0000-0000-000000000000",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T21:19:21.1473497",
-    "modifiedDateTime": "2026-08-28T18:27:20.4301008"
+    "layerId": 2
   },
   "dependencies": [
     {
@@ -20,10 +18,7 @@
       "dependsOnModelMetaId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29",
       "metaId": "aabc6c07-241c-4954-8b0a-b20244eb4388",
       "name": "TestBenchExt->TestBench",
-      "modelId": "390cbabb-1f33-47db-afd7-b78fb78afae9",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T21:19:21.1553948",
-      "modifiedDateTime": "2026-08-25T21:19:21.1553949"
+      "modelId": "390cbabb-1f33-47db-afd7-b78fb78afae9"
     }
   ]
 }

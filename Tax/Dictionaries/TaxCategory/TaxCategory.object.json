@@ -21,10 +21,7 @@
     "isExtension": false,
     "metaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
     "name": "TaxCategory",
-    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-    "layerId": 1,
-    "createdDateTime": "2026-08-25T16:23:32.1205706",
-    "modifiedDateTime": "2026-09-12T02:43:31.508792"
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
   },
   "fields": [
     {
@@ -45,10 +42,7 @@
       "isCalculated": false,
       "metaId": "bcb10f79-3b88-441d-bfd7-a05f94109c28",
       "name": "Code",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:32.1206016",
-      "modifiedDateTime": "2026-08-25T16:23:32.1206016"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
@@ -68,10 +62,7 @@
       "isCalculated": false,
       "metaId": "3d111a93-ca50-4df6-aeff-fb743e301224",
       "name": "ID",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:32.1392277",
-      "modifiedDateTime": "2026-08-25T16:23:32.1392278"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
@@ -91,10 +82,7 @@
       "isCalculated": false,
       "metaId": "e286c838-816c-4a83-9e1f-4d3ab1a520c3",
       "name": "Name",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:32.1206075",
-      "modifiedDateTime": "2026-08-25T16:23:32.1206075"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
@@ -113,10 +101,7 @@
       "isCalculated": false,
       "metaId": "a69076e4-c248-4285-b07c-fcb090a3614f",
       "name": "Tax",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:32.1205928",
-      "modifiedDateTime": "2026-08-25T16:23:32.1205928"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
@@ -136,10 +121,7 @@
       "isCalculated": false,
       "metaId": "e6a27949-027c-487b-827b-e7e2eb12cca2",
       "name": "Treatment",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "layerId": 1,
-      "createdDateTime": "2026-08-25T16:23:32.1206093",
-      "modifiedDateTime": "2026-08-25T16:23:32.1206094"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

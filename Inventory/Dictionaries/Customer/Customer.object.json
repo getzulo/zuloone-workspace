@@ -20,10 +20,7 @@
     "isExtension": false,
     "metaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
     "name": "Customer",
-    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-    "layerId": 2,
-    "createdDateTime": "2026-08-25T17:30:51.1082779",
-    "modifiedDateTime": "2026-09-12T02:43:30.908694"
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
   },
   "fields": [
     {
@@ -43,10 +40,7 @@
       "isCalculated": false,
       "metaId": "1afbd1f3-b6d7-4712-a6aa-b0961c64ac54",
       "name": "Address",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.5873995",
-      "modifiedDateTime": "2026-09-09T13:28:58.5873996"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -65,10 +59,7 @@
       "isCalculated": false,
       "metaId": "a181f868-201d-49c3-9128-f22b851a3775",
       "name": "CreditLimit",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.5874063",
-      "modifiedDateTime": "2026-09-09T13:28:58.5874063"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -88,10 +79,7 @@
       "isCalculated": false,
       "metaId": "b7bf0735-ec78-4d5d-a941-49c0334d9e21",
       "name": "CustomerType",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:30:51.1083319",
-      "modifiedDateTime": "2026-08-25T17:30:51.1083319"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -111,10 +99,7 @@
       "isCalculated": false,
       "metaId": "efc32090-49ab-4557-b7af-33cca9fa2843",
       "name": "Email",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:30:51.1083276",
-      "modifiedDateTime": "2026-08-25T17:30:51.1083277"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -134,10 +119,7 @@
       "isCalculated": false,
       "metaId": "081a9e22-b149-41fa-8799-98a031c9ffcc",
       "name": "ID",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:30:51.1436326",
-      "modifiedDateTime": "2026-08-25T17:30:51.1436328"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -157,10 +139,7 @@
       "isCalculated": false,
       "metaId": "9c9129ef-114b-4016-8438-a999b89a0c4b",
       "name": "Name",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:30:51.1083083",
-      "modifiedDateTime": "2026-08-25T17:30:51.1083083"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -179,10 +158,7 @@
       "isCalculated": false,
       "metaId": "3b3622d0-9a65-4166-abd4-6abb8a78c4c9",
       "name": "PaymentTerm",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-09T13:28:58.5874019",
-      "modifiedDateTime": "2026-09-09T13:28:58.5874019"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -202,10 +178,7 @@
       "isCalculated": false,
       "metaId": "ac1d77b0-9ee9-454c-8021-817efcb306cb",
       "name": "Phone",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:30:51.1083248",
-      "modifiedDateTime": "2026-08-25T17:30:51.1083248"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -225,10 +198,7 @@
       "isCalculated": false,
       "metaId": "9d91d3f2-af75-4d65-bb80-df6a55ce9c0d",
       "name": "PriceType",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-09-02T09:23:31.1021566",
-      "modifiedDateTime": "2026-09-03T12:54:36.4276584"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
       "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
@@ -248,10 +218,7 @@
       "isCalculated": false,
       "metaId": "a0d4ee5b-2432-4a45-b676-4fa939aa2967",
       "name": "TaxRegistrationNumber",
-      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "layerId": 2,
-      "createdDateTime": "2026-08-25T17:30:51.1083297",
-      "modifiedDateTime": "2026-08-25T17:30:51.1083297"
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

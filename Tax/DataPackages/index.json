@@ -5,6 +5,8 @@
     "caption": "Tax directions",
     "captionRu": "Направления налога",
     "caption_ru": "Направления налога",
+    "captionAr": "اتجاهات الضريبة",
+    "caption_ar": "اتجاهات الضريبة",
     "when": "once",
     "sort": 21
   },
@@ -14,6 +16,8 @@
     "caption": "VAT",
     "captionRu": "НДС",
     "caption_ru": "НДС",
+    "captionAr": "ضريبة القيمة المضافة",
+    "caption_ar": "ضريبة القيمة المضافة",
     "when": "once",
     "sort": 22
   }

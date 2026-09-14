@@ -18,10 +18,7 @@
     "isExtension": false,
     "metaId": "e8c8174d-fd25-5eb9-b255-2209f294e1bf",
     "name": "PurchasingSettings",
-    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-    "layerId": 2,
-    "createdDateTime": "2026-08-26T20:56:52.2930769",
-    "modifiedDateTime": "2026-09-12T02:43:31.3168532"
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
   },
   "fields": [
     {
@@ -40,10 +37,7 @@
       "isCalculated": false,
       "metaId": "c235e5be-105f-53de-b771-ff76771b1717",
       "name": "AutoReceiveOnOrder",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:52.293103",
-      "modifiedDateTime": "2026-08-26T20:56:52.293103"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
       "dictionaryMetaId": "e8c8174d-fd25-5eb9-b255-2209f294e1bf",
@@ -61,10 +55,7 @@
       "isCalculated": false,
       "metaId": "9258b3b3-2da3-5059-8086-199d1c99366c",
       "name": "DefaultPaymentTermDays",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:52.2931144",
-      "modifiedDateTime": "2026-08-26T20:56:52.2931144"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
       "dictionaryMetaId": "e8c8174d-fd25-5eb9-b255-2209f294e1bf",
@@ -83,10 +74,7 @@
       "isCalculated": false,
       "metaId": "f07d8e2d-54c1-4d2a-84a2-173274a9b126",
       "name": "ID",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "layerId": 2,
-      "createdDateTime": "2026-08-26T20:56:52.3768241",
-      "modifiedDateTime": "2026-08-26T20:56:52.3768241"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ]
 }
