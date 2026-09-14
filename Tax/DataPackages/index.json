@@ -1,0 +1,20 @@
+[
+  {
+    "id": "tax-directions",
+    "file": "tax-directions.json",
+    "caption": "Tax directions",
+    "captionRu": "Направления налога",
+    "caption_ru": "Направления налога",
+    "when": "once",
+    "sort": 21
+  },
+  {
+    "id": "vat",
+    "file": "vat.json",
+    "caption": "VAT",
+    "captionRu": "НДС",
+    "caption_ru": "НДС",
+    "when": "once",
+    "sort": 22
+  }
+]

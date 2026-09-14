@@ -1,0 +1,200 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "vat",
+    "entities": [
+      {
+        "entity": "TaxAuthority",
+        "table": "TaxAuthority",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "TaxJurisdiction",
+        "table": "TaxJurisdiction",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "Tax",
+        "table": "Tax",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "TaxCategory",
+        "table": "TaxCategory",
+        "kind": "Dictionary",
+        "businessKey": ["Tax", "Code"],
+        "mode": "insert",
+        "rowCount": 5
+      },
+      {
+        "entity": "TaxCode",
+        "table": "TaxCode",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 5
+      }
+    ]
+  },
+  "data": {
+    "TaxAuthority": [
+      {
+        "Code": "INTL",
+        "Name": "International",
+        "CountryCode": "ZZ",
+        "IsActive": true,
+        "Name_ru": "Международный",
+        "Name_ar": "دولي"
+      }
+    ],
+    "TaxJurisdiction": [
+      {
+        "Code": "INTL",
+        "Name": "International",
+        "CountryCode": "ZZ",
+        "Level": 0,
+        "Name_ru": "Международная",
+        "Name_ar": "دولية"
+      }
+    ],
+    "Tax": [
+      {
+        "Code": "VAT",
+        "Name": "Value Added Tax",
+        "EffectiveFrom": "2000-01-01T00:00:00Z",
+        "Authority": { "$ref": "TaxAuthority", "key": { "Code": "INTL" } },
+        "Jurisdiction": { "$ref": "TaxJurisdiction", "key": { "Code": "INTL" } },
+        "Name_ru": "Налог на добавленную стоимость",
+        "Name_ar": "ضريبة القيمة المضافة"
+      }
+    ],
+    "TaxCategory": [
+      {
+        "Code": "STANDARD",
+        "Name": "Standard",
+        "Treatment": "STANDARD",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "Name_ru": "Стандартный",
+        "Name_ar": "قياسي"
+      },
+      {
+        "Code": "ZERO_RATED",
+        "Name": "Zero-rated",
+        "Treatment": "ZERO_RATED",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "Name_ru": "Нулевая ставка",
+        "Name_ar": "صفرية"
+      },
+      {
+        "Code": "EXEMPT",
+        "Name": "Exempt",
+        "Treatment": "EXEMPT",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "Name_ru": "Освобождён",
+        "Name_ar": "معفى"
+      },
+      {
+        "Code": "OUT_OF_SCOPE",
+        "Name": "Out of scope",
+        "Treatment": "OUT_OF_SCOPE",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "Name_ru": "Вне области",
+        "Name_ar": "خارج النطاق"
+      },
+      {
+        "Code": "REVERSE_CHARGE",
+        "Name": "Reverse charge",
+        "Treatment": "REVERSE_CHARGE",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "Name_ru": "Обратное обложение",
+        "Name_ar": "الاحتساب العكسي"
+      }
+    ],
+    "TaxCode": [
+      {
+        "Code": "STD",
+        "Name": "Standard",
+        "EffectiveFrom": "2000-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "STANDARD",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Стандартный",
+        "Name_ar": "قياسي"
+      },
+      {
+        "Code": "ZERO",
+        "Name": "Zero-rated",
+        "EffectiveFrom": "2000-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "ZERO_RATED",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Нулевая ставка",
+        "Name_ar": "صفرية"
+      },
+      {
+        "Code": "EXEMPT",
+        "Name": "Exempt",
+        "EffectiveFrom": "2000-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EXEMPT",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Освобождён",
+        "Name_ar": "معفى"
+      },
+      {
+        "Code": "OOS",
+        "Name": "Out of scope",
+        "EffectiveFrom": "2000-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "OUT_OF_SCOPE",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Вне области",
+        "Name_ar": "خارج النطاق"
+      },
+      {
+        "Code": "RC",
+        "Name": "Reverse charge",
+        "EffectiveFrom": "2000-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "REVERSE_CHARGE",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Обратное обложение",
+        "Name_ar": "الاحتساب العكسي"
+      }
+    ]
+  }
+}

@@ -109,7 +109,7 @@
       "caption": "Name",
       "caption_ar": "الاسم",
       "caption_ru": "Наименование",
-      "isTranslatable": false,
+      "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,
       "metaId": "52007b08-5eb1-4349-8645-d79f11830497",
@@ -141,6 +141,28 @@
       "layerId": 1,
       "createdDateTime": "2026-08-22T02:01:49.7256758",
       "modifiedDateTime": "2026-08-22T03:43:38.9257322"
+    },
+    {
+      "dictionaryMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
+      "fieldName": "Currency",
+      "edtMetaId": "8d2b209b-68a9-41ed-bf05-f069a12dbe2c",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Currency",
+      "caption_ar": "العملة",
+      "caption_ru": "Валюта",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a7d4e21c-6b8f-4c3a-91e0-5d2b8f4a1c73",
+      "name": "Currency",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "layerId": 1,
+      "createdDateTime": "2026-09-14T01:00:00",
+      "modifiedDateTime": "2026-09-14T01:00:00"
     }
   ]
 }

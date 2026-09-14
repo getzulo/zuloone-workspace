@@ -1,0 +1,20 @@
+[
+  {
+    "id": "store-cell-types",
+    "file": "store-cell-types.json",
+    "caption": "Store cell types",
+    "captionRu": "Типы ячеек",
+    "caption_ru": "Типы ячеек",
+    "when": "once",
+    "sort": 18
+  },
+  {
+    "id": "price-types",
+    "file": "price-types.json",
+    "caption": "Base price types",
+    "captionRu": "Базовые типы цен",
+    "caption_ru": "Базовые типы цен",
+    "when": "once",
+    "sort": 19
+  }
+]

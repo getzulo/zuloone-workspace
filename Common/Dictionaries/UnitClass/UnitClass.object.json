@@ -82,7 +82,7 @@
       "isUnique": false,
       "caption": "Name",
       "caption_ru": "Наименование",
-      "isTranslatable": false,
+      "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,
       "metaId": "42b21e91-c477-4d7e-b576-24cf30329cc2",

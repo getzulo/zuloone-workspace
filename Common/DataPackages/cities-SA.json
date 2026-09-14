@@ -36,7 +36,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Рияд",
+        "Name_ar": "منطقة الرياض"
       },
       {
         "Name": "Makkah Region",
@@ -45,7 +47,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Мекка",
+        "Name_ar": "منطقة مكة المكرمة"
       },
       {
         "Name": "Eastern Province",
@@ -54,7 +58,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Восточная провинция",
+        "Name_ar": "المنطقة الشرقية"
       },
       {
         "Name": "Madinah Region",
@@ -63,7 +69,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Медина",
+        "Name_ar": "منطقة المدينة المنورة"
       },
       {
         "Name": "Al-Qassim Region",
@@ -72,7 +80,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Касим",
+        "Name_ar": "منطقة القصيم"
       },
       {
         "Name": "Hail Region",
@@ -81,7 +91,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Хаиль",
+        "Name_ar": "منطقة حائل"
       },
       {
         "Name": "Tabuk Region",
@@ -90,7 +102,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Табук",
+        "Name_ar": "منطقة تبوك"
       },
       {
         "Name": "Northern Borders Region",
@@ -99,7 +113,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Северная граница",
+        "Name_ar": "منطقة الحدود الشمالية"
       },
       {
         "Name": "Jazan Region",
@@ -108,7 +124,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Джизан",
+        "Name_ar": "منطقة جازان"
       },
       {
         "Name": "Najran Region",
@@ -117,7 +135,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Наджран",
+        "Name_ar": "منطقة نجران"
       },
       {
         "Name": "Al-Bahah Region",
@@ -126,7 +146,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Эль-Баха",
+        "Name_ar": "منطقة الباحة"
       },
       {
         "Name": "Al-Jawf Region",
@@ -135,7 +157,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Эль-Джауф",
+        "Name_ar": "منطقة الجوف"
       },
       {
         "Name": "Asir Region",
@@ -144,7 +168,9 @@
           "key": {
             "CodeISO2": "SA"
           }
-        }
+        },
+        "Name_ru": "Асир",
+        "Name_ar": "منطقة عسير"
       }
     ],
     "City": [
@@ -167,7 +193,9 @@
             },
             "Name": "Riyadh Region"
           }
-        }
+        },
+        "Name_ru": "Эр-Рияд",
+        "Name_ar": "الرياض"
       },
       {
         "Name": "Jeddah",
@@ -188,7 +216,9 @@
             },
             "Name": "Makkah Region"
           }
-        }
+        },
+        "Name_ru": "Джидда",
+        "Name_ar": "جدة"
       },
       {
         "Name": "Makkah",
@@ -209,7 +239,9 @@
             },
             "Name": "Makkah Region"
           }
-        }
+        },
+        "Name_ru": "Мекка",
+        "Name_ar": "مكة المكرمة"
       },
       {
         "Name": "Madinah",
@@ -230,7 +262,9 @@
             },
             "Name": "Madinah Region"
           }
-        }
+        },
+        "Name_ru": "Медина",
+        "Name_ar": "المدينة المنورة"
       },
       {
         "Name": "Dammam",
@@ -251,7 +285,9 @@
             },
             "Name": "Eastern Province"
           }
-        }
+        },
+        "Name_ru": "Даммам",
+        "Name_ar": "الدمام"
       },
       {
         "Name": "Khobar",
@@ -272,7 +308,9 @@
             },
             "Name": "Eastern Province"
           }
-        }
+        },
+        "Name_ru": "Эль-Хубар",
+        "Name_ar": "الخبر"
       },
       {
         "Name": "Dhahran",
@@ -293,7 +331,9 @@
             },
             "Name": "Eastern Province"
           }
-        }
+        },
+        "Name_ru": "Дахран",
+        "Name_ar": "الظهران"
       },
       {
         "Name": "Jubail",
@@ -314,7 +354,9 @@
             },
             "Name": "Eastern Province"
           }
-        }
+        },
+        "Name_ru": "Эль-Джубайль",
+        "Name_ar": "الجبيل"
       },
       {
         "Name": "Hofuf",
@@ -335,7 +377,9 @@
             },
             "Name": "Eastern Province"
           }
-        }
+        },
+        "Name_ru": "Эль-Хуфуф",
+        "Name_ar": "الهفوف"
       },
       {
         "Name": "Qatif",
@@ -356,7 +400,9 @@
             },
             "Name": "Eastern Province"
           }
-        }
+        },
+        "Name_ru": "Эль-Катиф",
+        "Name_ar": "القطيف"
       },
       {
         "Name": "Taif",
@@ -377,7 +423,9 @@
             },
             "Name": "Makkah Region"
           }
-        }
+        },
+        "Name_ru": "Таиф",
+        "Name_ar": "الطائف"
       },
       {
         "Name": "Yanbu",
@@ -398,7 +446,9 @@
             },
             "Name": "Madinah Region"
           }
-        }
+        },
+        "Name_ru": "Янбу",
+        "Name_ar": "ينبع"
       },
       {
         "Name": "Buraidah",
@@ -419,7 +469,9 @@
             },
             "Name": "Al-Qassim Region"
           }
-        }
+        },
+        "Name_ru": "Бурайда",
+        "Name_ar": "بريدة"
       },
       {
         "Name": "Hail",
@@ -440,7 +492,9 @@
             },
             "Name": "Hail Region"
           }
-        }
+        },
+        "Name_ru": "Хаиль",
+        "Name_ar": "حائل"
       },
       {
         "Name": "Tabuk",
@@ -461,7 +515,9 @@
             },
             "Name": "Tabuk Region"
           }
-        }
+        },
+        "Name_ru": "Табук",
+        "Name_ar": "تبوك"
       },
       {
         "Name": "Abha",
@@ -482,7 +538,9 @@
             },
             "Name": "Asir Region"
           }
-        }
+        },
+        "Name_ru": "Абха",
+        "Name_ar": "أبها"
       },
       {
         "Name": "Khamis Mushait",
@@ -503,7 +561,9 @@
             },
             "Name": "Asir Region"
           }
-        }
+        },
+        "Name_ru": "Хамис-Мушайт",
+        "Name_ar": "خميس مشيط"
       },
       {
         "Name": "Jazan",
@@ -524,7 +584,9 @@
             },
             "Name": "Jazan Region"
           }
-        }
+        },
+        "Name_ru": "Джизан",
+        "Name_ar": "جازان"
       },
       {
         "Name": "Najran",
@@ -545,7 +607,9 @@
             },
             "Name": "Najran Region"
           }
-        }
+        },
+        "Name_ru": "Наджран",
+        "Name_ar": "نجران"
       },
       {
         "Name": "Arar",
@@ -566,7 +630,9 @@
             },
             "Name": "Northern Borders Region"
           }
-        }
+        },
+        "Name_ru": "Арар",
+        "Name_ar": "عرعر"
       },
       {
         "Name": "Sakaka",
@@ -587,7 +653,9 @@
             },
             "Name": "Al-Jawf Region"
           }
-        }
+        },
+        "Name_ru": "Сакака",
+        "Name_ar": "سكاكا"
       },
       {
         "Name": "Al Bahah",
@@ -608,7 +676,9 @@
             },
             "Name": "Al-Bahah Region"
           }
-        }
+        },
+        "Name_ru": "Эль-Баха",
+        "Name_ar": "الباحة"
       }
     ]
   }

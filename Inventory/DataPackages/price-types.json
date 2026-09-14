@@ -1,0 +1,38 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "price-types",
+    "entities": [
+      {
+        "entity": "PriceType",
+        "table": "PriceType",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Name"
+        ],
+        "mode": "insert",
+        "rowCount": 2
+      }
+    ]
+  },
+  "data": {
+    "PriceType": [
+      {
+        "Name": "Base sale",
+        "Direction": 0,
+        "Kind": 0,
+        "IsDisabled": false,
+        "Name_ru": "Базовая продажа",
+        "Name_ar": "بيع أساسي"
+      },
+      {
+        "Name": "Base purchase",
+        "Direction": 1,
+        "Kind": 0,
+        "IsDisabled": false,
+        "Name_ru": "Базовая закупка",
+        "Name_ar": "شراء أساسي"
+      }
+    ]
+  }
+}

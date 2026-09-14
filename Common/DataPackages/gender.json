@@ -1,0 +1,37 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "gender",
+    "entities": [
+      {
+        "entity": "Gender",
+        "table": "Gender",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Name"
+        ],
+        "mode": "insert",
+        "rowCount": 3
+      }
+    ]
+  },
+  "data": {
+    "Gender": [
+      {
+        "Name": "Male",
+        "Name_ru": "Мужской",
+        "Name_ar": "ذكر"
+      },
+      {
+        "Name": "Female",
+        "Name_ru": "Женский",
+        "Name_ar": "أنثى"
+      },
+      {
+        "Name": "Unspecified",
+        "Name_ru": "Не указан",
+        "Name_ar": "غير محدد"
+      }
+    ]
+  }
+}

@@ -130,7 +130,7 @@
       "caption": "Name",
       "caption_ar": "الاسم",
       "caption_ru": "Наименование",
-      "isTranslatable": false,
+      "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,
       "metaId": "5d6ace4b-a348-47c4-9e3f-e0598e4dc7e6",

@@ -1,0 +1,139 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "vat-SA",
+    "entities": [
+      {
+        "entity": "TaxAuthority",
+        "table": "TaxAuthority",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "TaxJurisdiction",
+        "table": "TaxJurisdiction",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "TaxRate",
+        "table": "TaxRate",
+        "kind": "Dictionary",
+        "businessKey": ["Tax", "Code"],
+        "mode": "insert",
+        "rowCount": 2
+      },
+      {
+        "entity": "TaxCode",
+        "table": "TaxCode",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 4
+      }
+    ]
+  },
+  "data": {
+    "TaxAuthority": [
+      {
+        "Code": "ZATCA",
+        "Name": "Zakat, Tax and Customs Authority",
+        "CountryCode": "SA",
+        "IsActive": true,
+        "Name_ru": "Управление закята, налогов и таможни",
+        "Name_ar": "هيئة الزكاة والضريبة والجمارك"
+      }
+    ],
+    "TaxJurisdiction": [
+      {
+        "Code": "SA",
+        "Name": "Saudi Arabia",
+        "CountryCode": "SA",
+        "Level": 0,
+        "Name_ru": "Саудовская Аравия",
+        "Name_ar": "المملكة العربية السعودية"
+      }
+    ],
+    "TaxRate": [
+      {
+        "Code": "VAT5",
+        "Rate": 0.05,
+        "EffectiveFrom": "2018-01-01T00:00:00Z",
+        "EffectiveTo": "2020-06-30T23:59:59Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+      },
+      {
+        "Code": "VAT15",
+        "Rate": 0.15,
+        "EffectiveFrom": "2020-07-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+      }
+    ],
+    "TaxCode": [
+      {
+        "Code": "S",
+        "Name": "Standard (ZATCA)",
+        "EffectiveFrom": "2018-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "STANDARD",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Стандартный (ZATCA)",
+        "Name_ar": "قياسي (ZATCA)"
+      },
+      {
+        "Code": "Z",
+        "Name": "Zero-rated (ZATCA)",
+        "EffectiveFrom": "2018-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "ZERO_RATED",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Нулевая ставка (ZATCA)",
+        "Name_ar": "صفرية (ZATCA)"
+      },
+      {
+        "Code": "E",
+        "Name": "Exempt (ZATCA)",
+        "EffectiveFrom": "2018-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EXEMPT",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Освобождён (ZATCA)",
+        "Name_ar": "معفى (ZATCA)"
+      },
+      {
+        "Code": "O",
+        "Name": "Out of scope (ZATCA)",
+        "EffectiveFrom": "2018-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "OUT_OF_SCOPE",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Вне области (ZATCA)",
+        "Name_ar": "خارج النطاق (ZATCA)"
+      }
+    ]
+  }
+}

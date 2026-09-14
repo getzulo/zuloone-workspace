@@ -1,0 +1,64 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "payment-terms",
+    "entities": [
+      {
+        "entity": "PaymentTerm",
+        "table": "PaymentTerm",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Name"
+        ],
+        "mode": "insert",
+        "rowCount": 7
+      }
+    ]
+  },
+  "data": {
+    "PaymentTerm": [
+      {
+        "Name": "Immediate",
+        "Days": 0,
+        "Name_ru": "Сразу",
+        "Name_ar": "فوري"
+      },
+      {
+        "Name": "Net 7",
+        "Days": 7,
+        "Name_ru": "Нетто 7",
+        "Name_ar": "صافي 7"
+      },
+      {
+        "Name": "Net 14",
+        "Days": 14,
+        "Name_ru": "Нетто 14",
+        "Name_ar": "صافي 14"
+      },
+      {
+        "Name": "Net 30",
+        "Days": 30,
+        "Name_ru": "Нетто 30",
+        "Name_ar": "صافي 30"
+      },
+      {
+        "Name": "Net 45",
+        "Days": 45,
+        "Name_ru": "Нетто 45",
+        "Name_ar": "صافي 45"
+      },
+      {
+        "Name": "Net 60",
+        "Days": 60,
+        "Name_ru": "Нетто 60",
+        "Name_ar": "صافي 60"
+      },
+      {
+        "Name": "Net 90",
+        "Days": 90,
+        "Name_ru": "Нетто 90",
+        "Name_ar": "صافي 90"
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "tax-directions",
+    "entities": [
+      {
+        "entity": "TaxDirection",
+        "table": "TaxDirection",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Code"
+        ],
+        "mode": "insert",
+        "rowCount": 4
+      }
+    ]
+  },
+  "data": {
+    "TaxDirection": [
+      {
+        "Code": "INPUT",
+        "Name": "Input",
+        "Name_ru": "Входящий",
+        "Name_ar": "وارد"
+      },
+      {
+        "Code": "OUTPUT",
+        "Name": "Output",
+        "Name_ru": "Исходящий",
+        "Name_ar": "صادر"
+      },
+      {
+        "Code": "WITHHOLDING",
+        "Name": "Withholding",
+        "Name_ru": "Удержание",
+        "Name_ar": "استقطاع"
+      },
+      {
+        "Code": "OTHER",
+        "Name": "Other",
+        "Name_ru": "Прочее",
+        "Name_ar": "أخرى"
+      }
+    ]
+  }
+}

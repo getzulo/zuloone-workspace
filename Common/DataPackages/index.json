@@ -9,6 +9,24 @@
     "sort": 10
   },
   {
+    "id": "payment-terms",
+    "file": "payment-terms.json",
+    "caption": "Payment terms",
+    "captionRu": "Условия оплаты",
+    "caption_ru": "Условия оплаты",
+    "when": "once",
+    "sort": 15
+  },
+  {
+    "id": "gender",
+    "file": "gender.json",
+    "caption": "Genders",
+    "captionRu": "Пол",
+    "caption_ru": "Пол",
+    "when": "once",
+    "sort": 16
+  },
+  {
     "id": "cities-SA",
     "file": "cities-SA.json",
     "caption": "Saudi cities",

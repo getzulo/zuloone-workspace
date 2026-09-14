@@ -1,0 +1,12 @@
+[
+  {
+    "id": "vat-SA",
+    "file": "vat-SA.json",
+    "caption": "Saudi VAT (ZATCA)",
+    "captionRu": "НДС КСА (ZATCA)",
+    "caption_ru": "НДС КСА (ZATCA)",
+    "when": "country",
+    "country": "SA",
+    "sort": 25
+  }
+]

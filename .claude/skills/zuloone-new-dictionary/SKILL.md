@@ -216,6 +216,49 @@ public partial class <Имя>EventHandler : TypedDictionaryEventHandler<<Имя>
 ] }
 ```
 
+## 5а. Заливка записей — `DataPackages/` своей модели
+
+У каждой модели может быть свой набор пакетов: мастер настройки тенанта
+читает **все** `{Модель}/DataPackages/index.json` и заливает `when: "once"`
+одной кнопкой (страны — Common, условия оплаты — тоже Common, у Sales/Tax
+могут быть свои).
+
+```
+<Модель>/DataPackages/index.json
+<Модель>/DataPackages/<файл>.json
+```
+
+`index.json` — массив:
+
+```json
+[
+  {
+    "id": "payment-terms",
+    "file": "payment-terms.json",
+    "caption": "Payment terms",
+    "caption_ru": "Условия оплаты",
+    "when": "once",
+    "sort": 15
+  }
+]
+```
+
+`when`: `once` — общий каталог при «Залить справочники»; `country` + `country`
+(ISO2) — после выбора страны; `manual` — отдельная кнопка. Ссылки на другие
+справочники — `$ref` по бизнес-ключу, как в `Common/DataPackages`. Повтор
+заливает только пустые поля, уже правленое не затирает.
+
+Страновые данные живут в модели локализации, не в общей. Пример: `Tax/vat`
+(`when: once`) — общий НДС (категории STANDARD/ZERO_RATED/…, коды STD/ZERO/…);
+`LocalizationSaudiArabia/vat-SA` (`when: country`, `country: SA`) — только
+добавки КСА (ZATCA, юрисдикция SA, ставки 5%/15%, коды S/Z/E/O). Не дублируй
+в страновом пакете общие категории и коды.
+
+Подписи записей — на трёх языках системы: `Name` (английский, колонка
+по умолчанию), рядом `Name_ru` и `Name_ar`. Поле `Name` должно быть
+`isTranslatable: true`, иначе суффиксы игнорируются. Повтор не затирает
+уже введённый перевод.
+
 ## 6. Проверка — обязательно
 
 Скилл `zuloone-verify`: синк применил → компиляция Ok → схема синхронизирована →

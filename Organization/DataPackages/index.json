@@ -1,0 +1,11 @@
+[
+  {
+    "id": "division-types",
+    "file": "division-types.json",
+    "caption": "Division types",
+    "captionRu": "Типы подразделений",
+    "caption_ru": "Типы подразделений",
+    "when": "once",
+    "sort": 17
+  }
+]

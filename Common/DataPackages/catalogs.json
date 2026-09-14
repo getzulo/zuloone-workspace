@@ -4,16 +4,6 @@
     "profile": "catalogs",
     "entities": [
       {
-        "entity": "Country",
-        "table": "Country",
-        "kind": "Dictionary",
-        "businessKey": [
-          "CodeISO2"
-        ],
-        "mode": "insert",
-        "rowCount": 248
-      },
-      {
         "entity": "Currency",
         "table": "Currency",
         "kind": "Dictionary",
@@ -24,6 +14,16 @@
         "rowCount": 155
       },
       {
+        "entity": "Country",
+        "table": "Country",
+        "kind": "Dictionary",
+        "businessKey": [
+          "CodeISO2"
+        ],
+        "mode": "insert",
+        "rowCount": 248
+      },
+      {
         "entity": "UnitClass",
         "table": "UnitClass",
         "kind": "Dictionary",
@@ -31,7 +31,7 @@
           "Code"
         ],
         "mode": "insert",
-        "rowCount": 4
+        "rowCount": 6
       },
       {
         "entity": "UnitOfMeasure",
@@ -41,7 +41,7 @@
           "Code"
         ],
         "mode": "insert",
-        "rowCount": 9
+        "rowCount": 19
       }
     ]
   },
@@ -51,2278 +51,4484 @@
         "CodeISO2": "AF",
         "CodeISO3": "AFG",
         "Name": "Afghanistan",
-        "PhoneCode": "+93"
+        "PhoneCode": "+93",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "AFN"
+          }
+        },
+        "Name_ru": "Афганистан",
+        "Name_ar": "أفغانستان"
       },
       {
         "CodeISO2": "AL",
         "CodeISO3": "ALB",
         "Name": "Albania",
-        "PhoneCode": "+355"
+        "PhoneCode": "+355",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ALL"
+          }
+        },
+        "Name_ru": "Албания",
+        "Name_ar": "ألبانيا"
       },
       {
         "CodeISO2": "DZ",
         "CodeISO3": "DZA",
         "Name": "Algeria",
-        "PhoneCode": "+213"
+        "PhoneCode": "+213",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "DZD"
+          }
+        },
+        "Name_ru": "Алжир",
+        "Name_ar": "الجزائر"
       },
       {
         "CodeISO2": "AS",
         "CodeISO3": "ASM",
         "Name": "American Samoa",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Американское Самоа",
+        "Name_ar": "ساموا الأمريكية"
       },
       {
         "CodeISO2": "AD",
         "CodeISO3": "AND",
         "Name": "Andorra",
-        "PhoneCode": "+376"
+        "PhoneCode": "+376",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Андорра",
+        "Name_ar": "أندورا"
       },
       {
         "CodeISO2": "AO",
         "CodeISO3": "AGO",
         "Name": "Angola",
-        "PhoneCode": "+244"
+        "PhoneCode": "+244",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "AOA"
+          }
+        },
+        "Name_ru": "Ангола",
+        "Name_ar": "أنغولا"
       },
       {
         "CodeISO2": "AI",
         "CodeISO3": "AIA",
         "Name": "Anguilla",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XCD"
+          }
+        },
+        "Name_ru": "Ангилья",
+        "Name_ar": "أنغويلا"
       },
       {
         "CodeISO2": "AQ",
         "CodeISO3": "ATA",
-        "Name": "Antarctica"
+        "Name": "Antarctica",
+        "Name_ru": "Антарктида",
+        "Name_ar": "أنتاركتيكا"
       },
       {
         "CodeISO2": "AG",
         "CodeISO3": "ATG",
         "Name": "Antigua and Barbuda",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XCD"
+          }
+        },
+        "Name_ru": "Антигуа и Барбуда",
+        "Name_ar": "أنتيغوا وبربودا"
       },
       {
         "CodeISO2": "AR",
         "CodeISO3": "ARG",
         "Name": "Argentina",
-        "PhoneCode": "+54"
+        "PhoneCode": "+54",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ARS"
+          }
+        },
+        "Name_ru": "Аргентина",
+        "Name_ar": "الأرجنتين"
       },
       {
         "CodeISO2": "AM",
         "CodeISO3": "ARM",
         "Name": "Armenia",
-        "PhoneCode": "+374"
+        "PhoneCode": "+374",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "AMD"
+          }
+        },
+        "Name_ru": "Армения",
+        "Name_ar": "أرمينيا"
       },
       {
         "CodeISO2": "AW",
         "CodeISO3": "ABW",
         "Name": "Aruba",
-        "PhoneCode": "+297"
+        "PhoneCode": "+297",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "AWG"
+          }
+        },
+        "Name_ru": "Аруба",
+        "Name_ar": "أروبا"
       },
       {
         "CodeISO2": "AU",
         "CodeISO3": "AUS",
         "Name": "Australia",
-        "PhoneCode": "+61"
+        "PhoneCode": "+61",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "AUD"
+          }
+        },
+        "Name_ru": "Австралия",
+        "Name_ar": "أستراليا"
       },
       {
         "CodeISO2": "AT",
         "CodeISO3": "AUT",
         "Name": "Austria",
-        "PhoneCode": "+43"
+        "PhoneCode": "+43",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Австрия",
+        "Name_ar": "النمسا"
       },
       {
         "CodeISO2": "AZ",
         "CodeISO3": "AZE",
         "Name": "Azerbaijan",
-        "PhoneCode": "+994"
+        "PhoneCode": "+994",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "AZN"
+          }
+        },
+        "Name_ru": "Азербайджан",
+        "Name_ar": "أذربيجان"
       },
       {
         "CodeISO2": "BS",
         "CodeISO3": "BHS",
         "Name": "Bahamas",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BSD"
+          }
+        },
+        "Name_ru": "Багамы",
+        "Name_ar": "جزر البهاما"
       },
       {
         "CodeISO2": "BH",
         "CodeISO3": "BHR",
         "Name": "Bahrain",
-        "PhoneCode": "+973"
+        "PhoneCode": "+973",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BHD"
+          }
+        },
+        "Name_ru": "Бахрейн",
+        "Name_ar": "البحرين"
       },
       {
         "CodeISO2": "BD",
         "CodeISO3": "BGD",
         "Name": "Bangladesh",
-        "PhoneCode": "+880"
+        "PhoneCode": "+880",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BDT"
+          }
+        },
+        "Name_ru": "Бангладеш",
+        "Name_ar": "بنغلاديش"
       },
       {
         "CodeISO2": "BB",
         "CodeISO3": "BRB",
         "Name": "Barbados",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BBD"
+          }
+        },
+        "Name_ru": "Барбадос",
+        "Name_ar": "بربادوس"
       },
       {
         "CodeISO2": "BY",
         "CodeISO3": "BLR",
         "Name": "Belarus",
-        "PhoneCode": "+375"
+        "PhoneCode": "+375",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BYN"
+          }
+        },
+        "Name_ru": "Беларусь",
+        "Name_ar": "بيلاروس"
       },
       {
         "CodeISO2": "BE",
         "CodeISO3": "BEL",
         "Name": "Belgium",
-        "PhoneCode": "+32"
+        "PhoneCode": "+32",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Бельгия",
+        "Name_ar": "بلجيكا"
       },
       {
         "CodeISO2": "BZ",
         "CodeISO3": "BLZ",
         "Name": "Belize",
-        "PhoneCode": "+501"
+        "PhoneCode": "+501",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BZD"
+          }
+        },
+        "Name_ru": "Белиз",
+        "Name_ar": "بليز"
       },
       {
         "CodeISO2": "BJ",
         "CodeISO3": "BEN",
         "Name": "Benin",
-        "PhoneCode": "+229"
+        "PhoneCode": "+229",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XOF"
+          }
+        },
+        "Name_ru": "Бенин",
+        "Name_ar": "بنين"
       },
       {
         "CodeISO2": "BM",
         "CodeISO3": "BMU",
         "Name": "Bermuda",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BMD"
+          }
+        },
+        "Name_ru": "Бермудские о-ва",
+        "Name_ar": "برمودا"
       },
       {
         "CodeISO2": "BT",
         "CodeISO3": "BTN",
         "Name": "Bhutan",
-        "PhoneCode": "+975"
+        "PhoneCode": "+975",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BTN"
+          }
+        },
+        "Name_ru": "Бутан",
+        "Name_ar": "بوتان"
       },
       {
         "CodeISO2": "BO",
         "CodeISO3": "BOL",
         "Name": "Bolivia",
-        "PhoneCode": "+591"
+        "PhoneCode": "+591",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BOB"
+          }
+        },
+        "Name_ru": "Боливия",
+        "Name_ar": "بوليفيا"
       },
       {
         "CodeISO2": "BQ",
         "CodeISO3": "BES",
         "Name": "Bonaire, Sint Eustatius and Saba",
-        "PhoneCode": "+599"
+        "PhoneCode": "+599",
+        "Name_ru": "Бонэйр, Синт-Эстатиус и Саба",
+        "Name_ar": "هولندا الكاريبية"
       },
       {
         "CodeISO2": "BA",
         "CodeISO3": "BIH",
         "Name": "Bosnia and Herzegovina",
-        "PhoneCode": "+387"
+        "PhoneCode": "+387",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BAM"
+          }
+        },
+        "Name_ru": "Босния и Герцеговина",
+        "Name_ar": "البوسنة والهرسك"
       },
       {
         "CodeISO2": "BW",
         "CodeISO3": "BWA",
         "Name": "Botswana",
-        "PhoneCode": "+267"
+        "PhoneCode": "+267",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BWP"
+          }
+        },
+        "Name_ru": "Ботсвана",
+        "Name_ar": "بوتسوانا"
       },
       {
         "CodeISO2": "BV",
         "CodeISO3": "BVT",
-        "Name": "Bouvet Island"
+        "Name": "Bouvet Island",
+        "Name_ru": "о-в Буве",
+        "Name_ar": "جزيرة بوفيه"
       },
       {
         "CodeISO2": "BR",
         "CodeISO3": "BRA",
         "Name": "Brazil",
-        "PhoneCode": "+55"
+        "PhoneCode": "+55",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BRL"
+          }
+        },
+        "Name_ru": "Бразилия",
+        "Name_ar": "البرازيل"
       },
       {
         "CodeISO2": "IO",
         "CodeISO3": "IOT",
         "Name": "British Indian Ocean Territory",
-        "PhoneCode": "+246"
+        "PhoneCode": "+246",
+        "Name_ru": "Британская территория в Индийском океане",
+        "Name_ar": "الإقليم البريطاني في المحيط الهندي"
       },
       {
         "CodeISO2": "BN",
         "CodeISO3": "BRN",
         "Name": "Brunei Darussalam",
-        "PhoneCode": "+673"
+        "PhoneCode": "+673",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BND"
+          }
+        },
+        "Name_ru": "Бруней-Даруссалам",
+        "Name_ar": "بروناي"
       },
       {
         "CodeISO2": "BG",
         "CodeISO3": "BGR",
         "Name": "Bulgaria",
-        "PhoneCode": "+359"
+        "PhoneCode": "+359",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BGN"
+          }
+        },
+        "Name_ru": "Болгария",
+        "Name_ar": "بلغاريا"
       },
       {
         "CodeISO2": "BF",
         "CodeISO3": "BFA",
         "Name": "Burkina Faso",
-        "PhoneCode": "+226"
+        "PhoneCode": "+226",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XOF"
+          }
+        },
+        "Name_ru": "Буркина-Фасо",
+        "Name_ar": "بوركينا فاسو"
       },
       {
         "CodeISO2": "BI",
         "CodeISO3": "BDI",
         "Name": "Burundi",
-        "PhoneCode": "+257"
+        "PhoneCode": "+257",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "BIF"
+          }
+        },
+        "Name_ru": "Бурунди",
+        "Name_ar": "بوروندي"
       },
       {
         "CodeISO2": "CV",
         "CodeISO3": "CPV",
         "Name": "Cabo Verde",
-        "PhoneCode": "+238"
+        "PhoneCode": "+238",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "CVE"
+          }
+        },
+        "Name_ru": "Кабо-Верде",
+        "Name_ar": "الرأس الأخضر"
       },
       {
         "CodeISO2": "KH",
         "CodeISO3": "KHM",
         "Name": "Cambodia",
-        "PhoneCode": "+855"
+        "PhoneCode": "+855",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "KHR"
+          }
+        },
+        "Name_ru": "Камбоджа",
+        "Name_ar": "كمبوديا"
       },
       {
         "CodeISO2": "CM",
         "CodeISO3": "CMR",
         "Name": "Cameroon",
-        "PhoneCode": "+237"
+        "PhoneCode": "+237",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XAF"
+          }
+        },
+        "Name_ru": "Камерун",
+        "Name_ar": "الكاميرون"
       },
       {
         "CodeISO2": "CA",
         "CodeISO3": "CAN",
         "Name": "Canada",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "CAD"
+          }
+        },
+        "Name_ru": "Канада",
+        "Name_ar": "كندا"
       },
       {
         "CodeISO2": "KY",
         "CodeISO3": "CYM",
         "Name": "Cayman Islands",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "KYD"
+          }
+        },
+        "Name_ru": "Острова Кайман",
+        "Name_ar": "جزر كايمان"
       },
       {
         "CodeISO2": "CF",
         "CodeISO3": "CAF",
         "Name": "Central African Republic",
-        "PhoneCode": "+236"
+        "PhoneCode": "+236",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XAF"
+          }
+        },
+        "Name_ru": "Центрально-Африканская Республика",
+        "Name_ar": "جمهورية أفريقيا الوسطى"
       },
       {
         "CodeISO2": "TD",
         "CodeISO3": "TCD",
         "Name": "Chad",
-        "PhoneCode": "+235"
+        "PhoneCode": "+235",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XAF"
+          }
+        },
+        "Name_ru": "Чад",
+        "Name_ar": "تشاد"
       },
       {
         "CodeISO2": "CL",
         "CodeISO3": "CHL",
         "Name": "Chile",
-        "PhoneCode": "+56"
+        "PhoneCode": "+56",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "CLP"
+          }
+        },
+        "Name_ru": "Чили",
+        "Name_ar": "تشيلي"
       },
       {
         "CodeISO2": "CN",
         "CodeISO3": "CHN",
         "Name": "China",
-        "PhoneCode": "+86"
+        "PhoneCode": "+86",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "CNY"
+          }
+        },
+        "Name_ru": "Китай",
+        "Name_ar": "الصين"
       },
       {
         "CodeISO2": "CX",
         "CodeISO3": "CXR",
         "Name": "Christmas Island",
-        "PhoneCode": "+61"
+        "PhoneCode": "+61",
+        "Name_ru": "о-в Рождества",
+        "Name_ar": "جزيرة كريسماس"
       },
       {
         "CodeISO2": "CC",
         "CodeISO3": "CCK",
         "Name": "Cocos (Keeling) Islands",
-        "PhoneCode": "+61"
+        "PhoneCode": "+61",
+        "Name_ru": "Кокосовые о-ва",
+        "Name_ar": "جزر كوكوس (كيلينغ)"
       },
       {
         "CodeISO2": "CO",
         "CodeISO3": "COL",
         "Name": "Colombia",
-        "PhoneCode": "+57"
+        "PhoneCode": "+57",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "COP"
+          }
+        },
+        "Name_ru": "Колумбия",
+        "Name_ar": "كولومبيا"
       },
       {
         "CodeISO2": "KM",
         "CodeISO3": "COM",
         "Name": "Comoros",
-        "PhoneCode": "+269"
+        "PhoneCode": "+269",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "KMF"
+          }
+        },
+        "Name_ru": "Коморы",
+        "Name_ar": "جزر القمر"
       },
       {
         "CodeISO2": "CG",
         "CodeISO3": "COG",
         "Name": "Congo",
-        "PhoneCode": "+242"
+        "PhoneCode": "+242",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XAF"
+          }
+        },
+        "Name_ru": "Конго - Браззавиль",
+        "Name_ar": "الكونغو - برازافيل"
       },
       {
         "CodeISO2": "CD",
         "CodeISO3": "COD",
         "Name": "Congo, Democratic Republic of the",
-        "PhoneCode": "+243"
+        "PhoneCode": "+243",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "CDF"
+          }
+        },
+        "Name_ru": "Конго - Киншаса",
+        "Name_ar": "الكونغو - كينشاسا"
       },
       {
         "CodeISO2": "CK",
         "CodeISO3": "COK",
         "Name": "Cook Islands",
-        "PhoneCode": "+682"
+        "PhoneCode": "+682",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "NZD"
+          }
+        },
+        "Name_ru": "Острова Кука",
+        "Name_ar": "جزر كوك"
       },
       {
         "CodeISO2": "CR",
         "CodeISO3": "CRI",
         "Name": "Costa Rica",
-        "PhoneCode": "+506"
+        "PhoneCode": "+506",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "CRC"
+          }
+        },
+        "Name_ru": "Коста-Рика",
+        "Name_ar": "كوستاريكا"
       },
       {
         "CodeISO2": "CI",
         "CodeISO3": "CIV",
         "Name": "Côte d'Ivoire",
-        "PhoneCode": "+225"
+        "PhoneCode": "+225",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XOF"
+          }
+        },
+        "Name_ru": "Кот-д’Ивуар",
+        "Name_ar": "ساحل العاج"
       },
       {
         "CodeISO2": "HR",
         "CodeISO3": "HRV",
         "Name": "Croatia",
-        "PhoneCode": "+385"
+        "PhoneCode": "+385",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Хорватия",
+        "Name_ar": "كرواتيا"
       },
       {
         "CodeISO2": "CU",
         "CodeISO3": "CUB",
         "Name": "Cuba",
-        "PhoneCode": "+53"
+        "PhoneCode": "+53",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "CUP"
+          }
+        },
+        "Name_ru": "Куба",
+        "Name_ar": "كوبا"
       },
       {
         "CodeISO2": "CW",
         "CodeISO3": "CUW",
         "Name": "Curaçao",
-        "PhoneCode": "+599"
+        "PhoneCode": "+599",
+        "Name_ru": "Кюрасао",
+        "Name_ar": "كوراساو"
       },
       {
         "CodeISO2": "CY",
         "CodeISO3": "CYP",
         "Name": "Cyprus",
-        "PhoneCode": "+357"
+        "PhoneCode": "+357",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Кипр",
+        "Name_ar": "قبرص"
       },
       {
         "CodeISO2": "CZ",
         "CodeISO3": "CZE",
         "Name": "Czechia",
-        "PhoneCode": "+420"
+        "PhoneCode": "+420",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "CZK"
+          }
+        },
+        "Name_ru": "Чехия",
+        "Name_ar": "التشيك"
       },
       {
         "CodeISO2": "DK",
         "CodeISO3": "DNK",
         "Name": "Denmark",
-        "PhoneCode": "+45"
+        "PhoneCode": "+45",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "DKK"
+          }
+        },
+        "Name_ru": "Дания",
+        "Name_ar": "الدانمرك"
       },
       {
         "CodeISO2": "DJ",
         "CodeISO3": "DJI",
         "Name": "Djibouti",
-        "PhoneCode": "+253"
+        "PhoneCode": "+253",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "DJF"
+          }
+        },
+        "Name_ru": "Джибути",
+        "Name_ar": "جيبوتي"
       },
       {
         "CodeISO2": "DM",
         "CodeISO3": "DMA",
         "Name": "Dominica",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XCD"
+          }
+        },
+        "Name_ru": "Доминика",
+        "Name_ar": "دومينيكا"
       },
       {
         "CodeISO2": "DO",
         "CodeISO3": "DOM",
         "Name": "Dominican Republic",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "DOP"
+          }
+        },
+        "Name_ru": "Доминиканская Республика",
+        "Name_ar": "جمهورية الدومينيكان"
       },
       {
         "CodeISO2": "EC",
         "CodeISO3": "ECU",
         "Name": "Ecuador",
-        "PhoneCode": "+593"
+        "PhoneCode": "+593",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Эквадор",
+        "Name_ar": "الإكوادور"
       },
       {
         "CodeISO2": "EG",
         "CodeISO3": "EGY",
         "Name": "Egypt",
-        "PhoneCode": "+20"
+        "PhoneCode": "+20",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EGP"
+          }
+        },
+        "Name_ru": "Египет",
+        "Name_ar": "مصر"
       },
       {
         "CodeISO2": "SV",
         "CodeISO3": "SLV",
         "Name": "El Salvador",
-        "PhoneCode": "+503"
+        "PhoneCode": "+503",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Сальвадор",
+        "Name_ar": "السلفادور"
       },
       {
         "CodeISO2": "GQ",
         "CodeISO3": "GNQ",
         "Name": "Equatorial Guinea",
-        "PhoneCode": "+240"
+        "PhoneCode": "+240",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XAF"
+          }
+        },
+        "Name_ru": "Экваториальная Гвинея",
+        "Name_ar": "غينيا الاستوائية"
       },
       {
         "CodeISO2": "ER",
         "CodeISO3": "ERI",
         "Name": "Eritrea",
-        "PhoneCode": "+291"
+        "PhoneCode": "+291",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ERN"
+          }
+        },
+        "Name_ru": "Эритрея",
+        "Name_ar": "إريتريا"
       },
       {
         "CodeISO2": "EE",
         "CodeISO3": "EST",
         "Name": "Estonia",
-        "PhoneCode": "+372"
+        "PhoneCode": "+372",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Эстония",
+        "Name_ar": "إستونيا"
       },
       {
         "CodeISO2": "SZ",
         "CodeISO3": "SWZ",
         "Name": "Eswatini",
-        "PhoneCode": "+268"
+        "PhoneCode": "+268",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SZL"
+          }
+        },
+        "Name_ru": "Эсватини",
+        "Name_ar": "إسواتيني"
       },
       {
         "CodeISO2": "ET",
         "CodeISO3": "ETH",
         "Name": "Ethiopia",
-        "PhoneCode": "+251"
+        "PhoneCode": "+251",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ETB"
+          }
+        },
+        "Name_ru": "Эфиопия",
+        "Name_ar": "إثيوبيا"
       },
       {
         "CodeISO2": "FK",
         "CodeISO3": "FLK",
         "Name": "Falkland Islands",
-        "PhoneCode": "+500"
+        "PhoneCode": "+500",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "FKP"
+          }
+        },
+        "Name_ru": "Фолклендские о-ва",
+        "Name_ar": "جزر فوكلاند"
       },
       {
         "CodeISO2": "FO",
         "CodeISO3": "FRO",
         "Name": "Faroe Islands",
-        "PhoneCode": "+298"
+        "PhoneCode": "+298",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "DKK"
+          }
+        },
+        "Name_ru": "Фарерские о-ва",
+        "Name_ar": "جزر فارو"
       },
       {
         "CodeISO2": "FJ",
         "CodeISO3": "FJI",
         "Name": "Fiji",
-        "PhoneCode": "+679"
+        "PhoneCode": "+679",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "FJD"
+          }
+        },
+        "Name_ru": "Фиджи",
+        "Name_ar": "فيجي"
       },
       {
         "CodeISO2": "FI",
         "CodeISO3": "FIN",
         "Name": "Finland",
-        "PhoneCode": "+358"
+        "PhoneCode": "+358",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Финляндия",
+        "Name_ar": "فنلندا"
       },
       {
         "CodeISO2": "FR",
         "CodeISO3": "FRA",
         "Name": "France",
-        "PhoneCode": "+33"
+        "PhoneCode": "+33",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Франция",
+        "Name_ar": "فرنسا"
       },
       {
         "CodeISO2": "GF",
         "CodeISO3": "GUF",
         "Name": "French Guiana",
-        "PhoneCode": "+594"
+        "PhoneCode": "+594",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Французская Гвиана",
+        "Name_ar": "غويانا الفرنسية"
       },
       {
         "CodeISO2": "PF",
         "CodeISO3": "PYF",
         "Name": "French Polynesia",
-        "PhoneCode": "+689"
+        "PhoneCode": "+689",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XPF"
+          }
+        },
+        "Name_ru": "Французская Полинезия",
+        "Name_ar": "بولينيزيا الفرنسية"
       },
       {
         "CodeISO2": "TF",
         "CodeISO3": "ATF",
-        "Name": "French Southern Territories"
+        "Name": "French Southern Territories",
+        "Name_ru": "Французские Южные территории",
+        "Name_ar": "الأقاليم الجنوبية الفرنسية"
       },
       {
         "CodeISO2": "GA",
         "CodeISO3": "GAB",
         "Name": "Gabon",
-        "PhoneCode": "+241"
+        "PhoneCode": "+241",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XAF"
+          }
+        },
+        "Name_ru": "Габон",
+        "Name_ar": "الغابون"
       },
       {
         "CodeISO2": "GM",
         "CodeISO3": "GMB",
         "Name": "Gambia",
-        "PhoneCode": "+220"
+        "PhoneCode": "+220",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GMD"
+          }
+        },
+        "Name_ru": "Гамбия",
+        "Name_ar": "غامبيا"
       },
       {
         "CodeISO2": "GE",
         "CodeISO3": "GEO",
         "Name": "Georgia",
-        "PhoneCode": "+995"
+        "PhoneCode": "+995",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GEL"
+          }
+        },
+        "Name_ru": "Грузия",
+        "Name_ar": "جورجيا"
       },
       {
         "CodeISO2": "DE",
         "CodeISO3": "DEU",
         "Name": "Germany",
-        "PhoneCode": "+49"
+        "PhoneCode": "+49",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Германия",
+        "Name_ar": "ألمانيا"
       },
       {
         "CodeISO2": "GH",
         "CodeISO3": "GHA",
         "Name": "Ghana",
-        "PhoneCode": "+233"
+        "PhoneCode": "+233",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GHS"
+          }
+        },
+        "Name_ru": "Гана",
+        "Name_ar": "غانا"
       },
       {
         "CodeISO2": "GI",
         "CodeISO3": "GIB",
         "Name": "Gibraltar",
-        "PhoneCode": "+350"
+        "PhoneCode": "+350",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GIP"
+          }
+        },
+        "Name_ru": "Гибралтар",
+        "Name_ar": "جبل طارق"
       },
       {
         "CodeISO2": "GR",
         "CodeISO3": "GRC",
         "Name": "Greece",
-        "PhoneCode": "+30"
+        "PhoneCode": "+30",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Греция",
+        "Name_ar": "اليونان"
       },
       {
         "CodeISO2": "GL",
         "CodeISO3": "GRL",
         "Name": "Greenland",
-        "PhoneCode": "+299"
+        "PhoneCode": "+299",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "DKK"
+          }
+        },
+        "Name_ru": "Гренландия",
+        "Name_ar": "غرينلاند"
       },
       {
         "CodeISO2": "GD",
         "CodeISO3": "GRD",
         "Name": "Grenada",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XCD"
+          }
+        },
+        "Name_ru": "Гренада",
+        "Name_ar": "غرينادا"
       },
       {
         "CodeISO2": "GP",
         "CodeISO3": "GLP",
         "Name": "Guadeloupe",
-        "PhoneCode": "+590"
+        "PhoneCode": "+590",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Гваделупа",
+        "Name_ar": "غوادلوب"
       },
       {
         "CodeISO2": "GU",
         "CodeISO3": "GUM",
         "Name": "Guam",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Гуам",
+        "Name_ar": "غوام"
       },
       {
         "CodeISO2": "GT",
         "CodeISO3": "GTM",
         "Name": "Guatemala",
-        "PhoneCode": "+502"
+        "PhoneCode": "+502",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GTQ"
+          }
+        },
+        "Name_ru": "Гватемала",
+        "Name_ar": "غواتيمالا"
       },
       {
         "CodeISO2": "GG",
         "CodeISO3": "GGY",
         "Name": "Guernsey",
-        "PhoneCode": "+44"
+        "PhoneCode": "+44",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GBP"
+          }
+        },
+        "Name_ru": "Гернси",
+        "Name_ar": "غيرنزي"
       },
       {
         "CodeISO2": "GN",
         "CodeISO3": "GIN",
         "Name": "Guinea",
-        "PhoneCode": "+224"
+        "PhoneCode": "+224",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GNF"
+          }
+        },
+        "Name_ru": "Гвинея",
+        "Name_ar": "غينيا"
       },
       {
         "CodeISO2": "GW",
         "CodeISO3": "GNB",
         "Name": "Guinea-Bissau",
-        "PhoneCode": "+245"
+        "PhoneCode": "+245",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XOF"
+          }
+        },
+        "Name_ru": "Гвинея-Бисау",
+        "Name_ar": "غينيا بيساو"
       },
       {
         "CodeISO2": "GY",
         "CodeISO3": "GUY",
         "Name": "Guyana",
-        "PhoneCode": "+592"
+        "PhoneCode": "+592",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GYD"
+          }
+        },
+        "Name_ru": "Гайана",
+        "Name_ar": "غيانا"
       },
       {
         "CodeISO2": "HT",
         "CodeISO3": "HTI",
         "Name": "Haiti",
-        "PhoneCode": "+509"
+        "PhoneCode": "+509",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "HTG"
+          }
+        },
+        "Name_ru": "Гаити",
+        "Name_ar": "هايتي"
       },
       {
         "CodeISO2": "HM",
         "CodeISO3": "HMD",
-        "Name": "Heard Island and McDonald Islands"
+        "Name": "Heard Island and McDonald Islands",
+        "Name_ru": "о-ва Херд и Макдональд",
+        "Name_ar": "جزيرة هيرد وجزر ماكدونالد"
       },
       {
         "CodeISO2": "VA",
         "CodeISO3": "VAT",
         "Name": "Holy See",
-        "PhoneCode": "+39"
+        "PhoneCode": "+39",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Ватикан",
+        "Name_ar": "الفاتيكان"
       },
       {
         "CodeISO2": "HN",
         "CodeISO3": "HND",
         "Name": "Honduras",
-        "PhoneCode": "+504"
+        "PhoneCode": "+504",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "HNL"
+          }
+        },
+        "Name_ru": "Гондурас",
+        "Name_ar": "هندوراس"
       },
       {
         "CodeISO2": "HK",
         "CodeISO3": "HKG",
         "Name": "Hong Kong",
-        "PhoneCode": "+852"
+        "PhoneCode": "+852",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "HKD"
+          }
+        },
+        "Name_ru": "Гонконг (САР)",
+        "Name_ar": "هونغ كونغ الصينية (منطقة إدارية خاصة)"
       },
       {
         "CodeISO2": "HU",
         "CodeISO3": "HUN",
         "Name": "Hungary",
-        "PhoneCode": "+36"
+        "PhoneCode": "+36",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "HUF"
+          }
+        },
+        "Name_ru": "Венгрия",
+        "Name_ar": "هنغاريا"
       },
       {
         "CodeISO2": "IS",
         "CodeISO3": "ISL",
         "Name": "Iceland",
-        "PhoneCode": "+354"
+        "PhoneCode": "+354",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ISK"
+          }
+        },
+        "Name_ru": "Исландия",
+        "Name_ar": "آيسلندا"
       },
       {
         "CodeISO2": "IN",
         "CodeISO3": "IND",
         "Name": "India",
-        "PhoneCode": "+91"
+        "PhoneCode": "+91",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "INR"
+          }
+        },
+        "Name_ru": "Индия",
+        "Name_ar": "الهند"
       },
       {
         "CodeISO2": "ID",
         "CodeISO3": "IDN",
         "Name": "Indonesia",
-        "PhoneCode": "+62"
+        "PhoneCode": "+62",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "IDR"
+          }
+        },
+        "Name_ru": "Индонезия",
+        "Name_ar": "إندونيسيا"
       },
       {
         "CodeISO2": "IR",
         "CodeISO3": "IRN",
         "Name": "Iran",
-        "PhoneCode": "+98"
+        "PhoneCode": "+98",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "IRR"
+          }
+        },
+        "Name_ru": "Иран",
+        "Name_ar": "إيران"
       },
       {
         "CodeISO2": "IQ",
         "CodeISO3": "IRQ",
         "Name": "Iraq",
-        "PhoneCode": "+964"
+        "PhoneCode": "+964",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "IQD"
+          }
+        },
+        "Name_ru": "Ирак",
+        "Name_ar": "العراق"
       },
       {
         "CodeISO2": "IE",
         "CodeISO3": "IRL",
         "Name": "Ireland",
-        "PhoneCode": "+353"
+        "PhoneCode": "+353",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Ирландия",
+        "Name_ar": "أيرلندا"
       },
       {
         "CodeISO2": "IM",
         "CodeISO3": "IMN",
         "Name": "Isle of Man",
-        "PhoneCode": "+44"
+        "PhoneCode": "+44",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GBP"
+          }
+        },
+        "Name_ru": "о-в Мэн",
+        "Name_ar": "جزيرة مان"
       },
       {
         "CodeISO2": "IL",
         "CodeISO3": "ISR",
         "Name": "Israel",
-        "PhoneCode": "+972"
+        "PhoneCode": "+972",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ILS"
+          }
+        },
+        "Name_ru": "Израиль",
+        "Name_ar": "إسرائيل"
       },
       {
         "CodeISO2": "IT",
         "CodeISO3": "ITA",
         "Name": "Italy",
-        "PhoneCode": "+39"
+        "PhoneCode": "+39",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Италия",
+        "Name_ar": "إيطاليا"
       },
       {
         "CodeISO2": "JM",
         "CodeISO3": "JAM",
         "Name": "Jamaica",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "JMD"
+          }
+        },
+        "Name_ru": "Ямайка",
+        "Name_ar": "جامايكا"
       },
       {
         "CodeISO2": "JP",
         "CodeISO3": "JPN",
         "Name": "Japan",
-        "PhoneCode": "+81"
+        "PhoneCode": "+81",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "JPY"
+          }
+        },
+        "Name_ru": "Япония",
+        "Name_ar": "اليابان"
       },
       {
         "CodeISO2": "JE",
         "CodeISO3": "JEY",
         "Name": "Jersey",
-        "PhoneCode": "+44"
+        "PhoneCode": "+44",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GBP"
+          }
+        },
+        "Name_ru": "Джерси",
+        "Name_ar": "جيرسي"
       },
       {
         "CodeISO2": "JO",
         "CodeISO3": "JOR",
         "Name": "Jordan",
-        "PhoneCode": "+962"
+        "PhoneCode": "+962",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "JOD"
+          }
+        },
+        "Name_ru": "Иордания",
+        "Name_ar": "الأردن"
       },
       {
         "CodeISO2": "KZ",
         "CodeISO3": "KAZ",
         "Name": "Kazakhstan",
-        "PhoneCode": "+7"
+        "PhoneCode": "+7",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "KZT"
+          }
+        },
+        "Name_ru": "Казахстан",
+        "Name_ar": "كازاخستان"
       },
       {
         "CodeISO2": "KE",
         "CodeISO3": "KEN",
         "Name": "Kenya",
-        "PhoneCode": "+254"
+        "PhoneCode": "+254",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "KES"
+          }
+        },
+        "Name_ru": "Кения",
+        "Name_ar": "كينيا"
       },
       {
         "CodeISO2": "KI",
         "CodeISO3": "KIR",
         "Name": "Kiribati",
-        "PhoneCode": "+686"
+        "PhoneCode": "+686",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "AUD"
+          }
+        },
+        "Name_ru": "Кирибати",
+        "Name_ar": "كيريباتي"
       },
       {
         "CodeISO2": "KP",
         "CodeISO3": "PRK",
         "Name": "Korea, Democratic People's Republic of",
-        "PhoneCode": "+850"
+        "PhoneCode": "+850",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "KPW"
+          }
+        },
+        "Name_ru": "КНДР",
+        "Name_ar": "كوريا الشمالية"
       },
       {
         "CodeISO2": "KR",
         "CodeISO3": "KOR",
         "Name": "Korea, Republic of",
-        "PhoneCode": "+82"
+        "PhoneCode": "+82",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "KRW"
+          }
+        },
+        "Name_ru": "Республика Корея",
+        "Name_ar": "كوريا الجنوبية"
       },
       {
         "CodeISO2": "KW",
         "CodeISO3": "KWT",
         "Name": "Kuwait",
-        "PhoneCode": "+965"
+        "PhoneCode": "+965",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "KWD"
+          }
+        },
+        "Name_ru": "Кувейт",
+        "Name_ar": "الكويت"
       },
       {
         "CodeISO2": "KG",
         "CodeISO3": "KGZ",
         "Name": "Kyrgyzstan",
-        "PhoneCode": "+996"
+        "PhoneCode": "+996",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "KGS"
+          }
+        },
+        "Name_ru": "Киргизия",
+        "Name_ar": "قيرغيزستان"
       },
       {
         "CodeISO2": "LA",
         "CodeISO3": "LAO",
         "Name": "Lao People's Democratic Republic",
-        "PhoneCode": "+856"
+        "PhoneCode": "+856",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "LAK"
+          }
+        },
+        "Name_ru": "Лаос",
+        "Name_ar": "لاوس"
       },
       {
         "CodeISO2": "LV",
         "CodeISO3": "LVA",
         "Name": "Latvia",
-        "PhoneCode": "+371"
+        "PhoneCode": "+371",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Латвия",
+        "Name_ar": "لاتفيا"
       },
       {
         "CodeISO2": "LB",
         "CodeISO3": "LBN",
         "Name": "Lebanon",
-        "PhoneCode": "+961"
+        "PhoneCode": "+961",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "LBP"
+          }
+        },
+        "Name_ru": "Ливан",
+        "Name_ar": "لبنان"
       },
       {
         "CodeISO2": "LS",
         "CodeISO3": "LSO",
         "Name": "Lesotho",
-        "PhoneCode": "+266"
+        "PhoneCode": "+266",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "LSL"
+          }
+        },
+        "Name_ru": "Лесото",
+        "Name_ar": "ليسوتو"
       },
       {
         "CodeISO2": "LR",
         "CodeISO3": "LBR",
         "Name": "Liberia",
-        "PhoneCode": "+231"
+        "PhoneCode": "+231",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "LRD"
+          }
+        },
+        "Name_ru": "Либерия",
+        "Name_ar": "ليبيريا"
       },
       {
         "CodeISO2": "LY",
         "CodeISO3": "LBY",
         "Name": "Libya",
-        "PhoneCode": "+218"
+        "PhoneCode": "+218",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "LYD"
+          }
+        },
+        "Name_ru": "Ливия",
+        "Name_ar": "ليبيا"
       },
       {
         "CodeISO2": "LI",
         "CodeISO3": "LIE",
         "Name": "Liechtenstein",
-        "PhoneCode": "+423"
+        "PhoneCode": "+423",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "CHF"
+          }
+        },
+        "Name_ru": "Лихтенштейн",
+        "Name_ar": "ليختنشتاين"
       },
       {
         "CodeISO2": "LT",
         "CodeISO3": "LTU",
         "Name": "Lithuania",
-        "PhoneCode": "+370"
+        "PhoneCode": "+370",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Литва",
+        "Name_ar": "ليتوانيا"
       },
       {
         "CodeISO2": "LU",
         "CodeISO3": "LUX",
         "Name": "Luxembourg",
-        "PhoneCode": "+352"
+        "PhoneCode": "+352",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Люксембург",
+        "Name_ar": "لوكسمبورغ"
       },
       {
         "CodeISO2": "MO",
         "CodeISO3": "MAC",
         "Name": "Macao",
-        "PhoneCode": "+853"
+        "PhoneCode": "+853",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MOP"
+          }
+        },
+        "Name_ru": "Макао (САР)",
+        "Name_ar": "ماكاو الصينية (منطقة إدارية خاصة)"
       },
       {
         "CodeISO2": "MG",
         "CodeISO3": "MDG",
         "Name": "Madagascar",
-        "PhoneCode": "+261"
+        "PhoneCode": "+261",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MGA"
+          }
+        },
+        "Name_ru": "Мадагаскар",
+        "Name_ar": "مدغشقر"
       },
       {
         "CodeISO2": "MW",
         "CodeISO3": "MWI",
         "Name": "Malawi",
-        "PhoneCode": "+265"
+        "PhoneCode": "+265",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MWK"
+          }
+        },
+        "Name_ru": "Малави",
+        "Name_ar": "ملاوي"
       },
       {
         "CodeISO2": "MY",
         "CodeISO3": "MYS",
         "Name": "Malaysia",
-        "PhoneCode": "+60"
+        "PhoneCode": "+60",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MYR"
+          }
+        },
+        "Name_ru": "Малайзия",
+        "Name_ar": "ماليزيا"
       },
       {
         "CodeISO2": "MV",
         "CodeISO3": "MDV",
         "Name": "Maldives",
-        "PhoneCode": "+960"
+        "PhoneCode": "+960",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MVR"
+          }
+        },
+        "Name_ru": "Мальдивы",
+        "Name_ar": "جزر المالديف"
       },
       {
         "CodeISO2": "ML",
         "CodeISO3": "MLI",
         "Name": "Mali",
-        "PhoneCode": "+223"
+        "PhoneCode": "+223",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XOF"
+          }
+        },
+        "Name_ru": "Мали",
+        "Name_ar": "مالي"
       },
       {
         "CodeISO2": "MT",
         "CodeISO3": "MLT",
         "Name": "Malta",
-        "PhoneCode": "+356"
+        "PhoneCode": "+356",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Мальта",
+        "Name_ar": "مالطا"
       },
       {
         "CodeISO2": "MH",
         "CodeISO3": "MHL",
         "Name": "Marshall Islands",
-        "PhoneCode": "+692"
+        "PhoneCode": "+692",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Маршалловы Острова",
+        "Name_ar": "جزر مارشال"
       },
       {
         "CodeISO2": "MQ",
         "CodeISO3": "MTQ",
         "Name": "Martinique",
-        "PhoneCode": "+596"
+        "PhoneCode": "+596",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Мартиника",
+        "Name_ar": "جزر المارتينيك"
       },
       {
         "CodeISO2": "MR",
         "CodeISO3": "MRT",
         "Name": "Mauritania",
-        "PhoneCode": "+222"
+        "PhoneCode": "+222",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MRU"
+          }
+        },
+        "Name_ru": "Мавритания",
+        "Name_ar": "موريتانيا"
       },
       {
         "CodeISO2": "MU",
         "CodeISO3": "MUS",
         "Name": "Mauritius",
-        "PhoneCode": "+230"
+        "PhoneCode": "+230",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MUR"
+          }
+        },
+        "Name_ru": "Маврикий",
+        "Name_ar": "موريشيوس"
       },
       {
         "CodeISO2": "YT",
         "CodeISO3": "MYT",
         "Name": "Mayotte",
-        "PhoneCode": "+262"
+        "PhoneCode": "+262",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Майотта",
+        "Name_ar": "مايوت"
       },
       {
         "CodeISO2": "MX",
         "CodeISO3": "MEX",
         "Name": "Mexico",
-        "PhoneCode": "+52"
+        "PhoneCode": "+52",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MXN"
+          }
+        },
+        "Name_ru": "Мексика",
+        "Name_ar": "المكسيك"
       },
       {
         "CodeISO2": "FM",
         "CodeISO3": "FSM",
         "Name": "Micronesia",
-        "PhoneCode": "+691"
+        "PhoneCode": "+691",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Федеративные Штаты Микронезии",
+        "Name_ar": "ميكرونيزيا"
       },
       {
         "CodeISO2": "MD",
         "CodeISO3": "MDA",
         "Name": "Moldova",
-        "PhoneCode": "+373"
+        "PhoneCode": "+373",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MDL"
+          }
+        },
+        "Name_ru": "Молдова",
+        "Name_ar": "مولدوفا"
       },
       {
         "CodeISO2": "MC",
         "CodeISO3": "MCO",
         "Name": "Monaco",
-        "PhoneCode": "+377"
+        "PhoneCode": "+377",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Монако",
+        "Name_ar": "موناكو"
       },
       {
         "CodeISO2": "MN",
         "CodeISO3": "MNG",
         "Name": "Mongolia",
-        "PhoneCode": "+976"
+        "PhoneCode": "+976",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MNT"
+          }
+        },
+        "Name_ru": "Монголия",
+        "Name_ar": "منغوليا"
       },
       {
         "CodeISO2": "ME",
         "CodeISO3": "MNE",
         "Name": "Montenegro",
-        "PhoneCode": "+382"
+        "PhoneCode": "+382",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Черногория",
+        "Name_ar": "الجبل الأسود"
       },
       {
         "CodeISO2": "MS",
         "CodeISO3": "MSR",
         "Name": "Montserrat",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XCD"
+          }
+        },
+        "Name_ru": "Монтсеррат",
+        "Name_ar": "مونتيسيرات"
       },
       {
         "CodeISO2": "MA",
         "CodeISO3": "MAR",
         "Name": "Morocco",
-        "PhoneCode": "+212"
+        "PhoneCode": "+212",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MAD"
+          }
+        },
+        "Name_ru": "Марокко",
+        "Name_ar": "المغرب"
       },
       {
         "CodeISO2": "MZ",
         "CodeISO3": "MOZ",
         "Name": "Mozambique",
-        "PhoneCode": "+258"
+        "PhoneCode": "+258",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MZN"
+          }
+        },
+        "Name_ru": "Мозамбик",
+        "Name_ar": "موزمبيق"
       },
       {
         "CodeISO2": "MM",
         "CodeISO3": "MMR",
         "Name": "Myanmar",
-        "PhoneCode": "+95"
+        "PhoneCode": "+95",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MMK"
+          }
+        },
+        "Name_ru": "Мьянма (Бирма)",
+        "Name_ar": "ميانمار (بورما)"
       },
       {
         "CodeISO2": "NA",
         "CodeISO3": "NAM",
         "Name": "Namibia",
-        "PhoneCode": "+264"
+        "PhoneCode": "+264",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "NAD"
+          }
+        },
+        "Name_ru": "Намибия",
+        "Name_ar": "ناميبيا"
       },
       {
         "CodeISO2": "NR",
         "CodeISO3": "NRU",
         "Name": "Nauru",
-        "PhoneCode": "+674"
+        "PhoneCode": "+674",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "AUD"
+          }
+        },
+        "Name_ru": "Науру",
+        "Name_ar": "ناورو"
       },
       {
         "CodeISO2": "NP",
         "CodeISO3": "NPL",
         "Name": "Nepal",
-        "PhoneCode": "+977"
+        "PhoneCode": "+977",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "NPR"
+          }
+        },
+        "Name_ru": "Непал",
+        "Name_ar": "نيبال"
       },
       {
         "CodeISO2": "NL",
         "CodeISO3": "NLD",
         "Name": "Netherlands",
-        "PhoneCode": "+31"
+        "PhoneCode": "+31",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Нидерланды",
+        "Name_ar": "هولندا"
       },
       {
         "CodeISO2": "NC",
         "CodeISO3": "NCL",
         "Name": "New Caledonia",
-        "PhoneCode": "+687"
+        "PhoneCode": "+687",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XPF"
+          }
+        },
+        "Name_ru": "Новая Каледония",
+        "Name_ar": "كاليدونيا الجديدة"
       },
       {
         "CodeISO2": "NZ",
         "CodeISO3": "NZL",
         "Name": "New Zealand",
-        "PhoneCode": "+64"
+        "PhoneCode": "+64",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "NZD"
+          }
+        },
+        "Name_ru": "Новая Зеландия",
+        "Name_ar": "نيوزيلندا"
       },
       {
         "CodeISO2": "NI",
         "CodeISO3": "NIC",
         "Name": "Nicaragua",
-        "PhoneCode": "+505"
+        "PhoneCode": "+505",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "NIO"
+          }
+        },
+        "Name_ru": "Никарагуа",
+        "Name_ar": "نيكاراغوا"
       },
       {
         "CodeISO2": "NE",
         "CodeISO3": "NER",
         "Name": "Niger",
-        "PhoneCode": "+227"
+        "PhoneCode": "+227",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XOF"
+          }
+        },
+        "Name_ru": "Нигер",
+        "Name_ar": "النيجر"
       },
       {
         "CodeISO2": "NG",
         "CodeISO3": "NGA",
         "Name": "Nigeria",
-        "PhoneCode": "+234"
+        "PhoneCode": "+234",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "NGN"
+          }
+        },
+        "Name_ru": "Нигерия",
+        "Name_ar": "نيجيريا"
       },
       {
         "CodeISO2": "NU",
         "CodeISO3": "NIU",
         "Name": "Niue",
-        "PhoneCode": "+683"
+        "PhoneCode": "+683",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "NZD"
+          }
+        },
+        "Name_ru": "Ниуэ",
+        "Name_ar": "نيوي"
       },
       {
         "CodeISO2": "NF",
         "CodeISO3": "NFK",
         "Name": "Norfolk Island",
-        "PhoneCode": "+672"
+        "PhoneCode": "+672",
+        "Name_ru": "о-в Норфолк",
+        "Name_ar": "جزيرة نورفولك"
       },
       {
         "CodeISO2": "MK",
         "CodeISO3": "MKD",
         "Name": "North Macedonia",
-        "PhoneCode": "+389"
+        "PhoneCode": "+389",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "MKD"
+          }
+        },
+        "Name_ru": "Северная Македония",
+        "Name_ar": "مقدونيا الشمالية"
       },
       {
         "CodeISO2": "MP",
         "CodeISO3": "MNP",
         "Name": "Northern Mariana Islands",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Северные Марианские о-ва",
+        "Name_ar": "جزر ماريانا الشمالية"
       },
       {
         "CodeISO2": "NO",
         "CodeISO3": "NOR",
         "Name": "Norway",
-        "PhoneCode": "+47"
+        "PhoneCode": "+47",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "NOK"
+          }
+        },
+        "Name_ru": "Норвегия",
+        "Name_ar": "النرويج"
       },
       {
         "CodeISO2": "OM",
         "CodeISO3": "OMN",
         "Name": "Oman",
-        "PhoneCode": "+968"
+        "PhoneCode": "+968",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "OMR"
+          }
+        },
+        "Name_ru": "Оман",
+        "Name_ar": "عُمان"
       },
       {
         "CodeISO2": "PK",
         "CodeISO3": "PAK",
         "Name": "Pakistan",
-        "PhoneCode": "+92"
+        "PhoneCode": "+92",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "PKR"
+          }
+        },
+        "Name_ru": "Пакистан",
+        "Name_ar": "باكستان"
       },
       {
         "CodeISO2": "PW",
         "CodeISO3": "PLW",
         "Name": "Palau",
-        "PhoneCode": "+680"
+        "PhoneCode": "+680",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Палау",
+        "Name_ar": "بالاو"
       },
       {
         "CodeISO2": "PS",
         "CodeISO3": "PSE",
         "Name": "Palestine, State of",
-        "PhoneCode": "+970"
+        "PhoneCode": "+970",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ILS"
+          }
+        },
+        "Name_ru": "Палестинские территории",
+        "Name_ar": "الأراضي الفلسطينية"
       },
       {
         "CodeISO2": "PA",
         "CodeISO3": "PAN",
         "Name": "Panama",
-        "PhoneCode": "+507"
+        "PhoneCode": "+507",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "PAB"
+          }
+        },
+        "Name_ru": "Панама",
+        "Name_ar": "بنما"
       },
       {
         "CodeISO2": "PG",
         "CodeISO3": "PNG",
         "Name": "Papua New Guinea",
-        "PhoneCode": "+675"
+        "PhoneCode": "+675",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "PGK"
+          }
+        },
+        "Name_ru": "Папуа — Новая Гвинея",
+        "Name_ar": "بابوا غينيا الجديدة"
       },
       {
         "CodeISO2": "PY",
         "CodeISO3": "PRY",
         "Name": "Paraguay",
-        "PhoneCode": "+595"
+        "PhoneCode": "+595",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "PYG"
+          }
+        },
+        "Name_ru": "Парагвай",
+        "Name_ar": "باراغواي"
       },
       {
         "CodeISO2": "PE",
         "CodeISO3": "PER",
         "Name": "Peru",
-        "PhoneCode": "+51"
+        "PhoneCode": "+51",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "PEN"
+          }
+        },
+        "Name_ru": "Перу",
+        "Name_ar": "بيرو"
       },
       {
         "CodeISO2": "PH",
         "CodeISO3": "PHL",
         "Name": "Philippines",
-        "PhoneCode": "+63"
+        "PhoneCode": "+63",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "PHP"
+          }
+        },
+        "Name_ru": "Филиппины",
+        "Name_ar": "الفلبين"
       },
       {
         "CodeISO2": "PN",
         "CodeISO3": "PCN",
         "Name": "Pitcairn",
-        "PhoneCode": "+64"
+        "PhoneCode": "+64",
+        "Name_ru": "о-ва Питкэрн",
+        "Name_ar": "جزر بيتكيرن"
       },
       {
         "CodeISO2": "PL",
         "CodeISO3": "POL",
         "Name": "Poland",
-        "PhoneCode": "+48"
+        "PhoneCode": "+48",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "PLN"
+          }
+        },
+        "Name_ru": "Польша",
+        "Name_ar": "بولندا"
       },
       {
         "CodeISO2": "PT",
         "CodeISO3": "PRT",
         "Name": "Portugal",
-        "PhoneCode": "+351"
+        "PhoneCode": "+351",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Португалия",
+        "Name_ar": "البرتغال"
       },
       {
         "CodeISO2": "PR",
         "CodeISO3": "PRI",
         "Name": "Puerto Rico",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Пуэрто-Рико",
+        "Name_ar": "بورتوريكو"
       },
       {
         "CodeISO2": "QA",
         "CodeISO3": "QAT",
         "Name": "Qatar",
-        "PhoneCode": "+974"
+        "PhoneCode": "+974",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "QAR"
+          }
+        },
+        "Name_ru": "Катар",
+        "Name_ar": "قطر"
       },
       {
         "CodeISO2": "RE",
         "CodeISO3": "REU",
         "Name": "Réunion",
-        "PhoneCode": "+262"
+        "PhoneCode": "+262",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Реюньон",
+        "Name_ar": "روينيون"
       },
       {
         "CodeISO2": "RO",
         "CodeISO3": "ROU",
         "Name": "Romania",
-        "PhoneCode": "+40"
+        "PhoneCode": "+40",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "RON"
+          }
+        },
+        "Name_ru": "Румыния",
+        "Name_ar": "رومانيا"
       },
       {
         "CodeISO2": "RU",
         "CodeISO3": "RUS",
         "Name": "Russian Federation",
-        "PhoneCode": "+7"
+        "PhoneCode": "+7",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "RUB"
+          }
+        },
+        "Name_ru": "Россия",
+        "Name_ar": "روسيا"
       },
       {
         "CodeISO2": "RW",
         "CodeISO3": "RWA",
         "Name": "Rwanda",
-        "PhoneCode": "+250"
+        "PhoneCode": "+250",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "RWF"
+          }
+        },
+        "Name_ru": "Руанда",
+        "Name_ar": "رواندا"
       },
       {
         "CodeISO2": "BL",
         "CodeISO3": "BLM",
         "Name": "Saint Barthélemy",
-        "PhoneCode": "+590"
+        "PhoneCode": "+590",
+        "Name_ru": "Сен-Бартелеми",
+        "Name_ar": "سان بارتليمي"
       },
       {
         "CodeISO2": "SH",
         "CodeISO3": "SHN",
         "Name": "Saint Helena, Ascension and Tristan da Cunha",
-        "PhoneCode": "+290"
+        "PhoneCode": "+290",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SHP"
+          }
+        },
+        "Name_ru": "о-в Св. Елены",
+        "Name_ar": "سانت هيلينا"
       },
       {
         "CodeISO2": "KN",
         "CodeISO3": "KNA",
         "Name": "Saint Kitts and Nevis",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XCD"
+          }
+        },
+        "Name_ru": "Сент-Китс и Невис",
+        "Name_ar": "سانت كيتس ونيفيس"
       },
       {
         "CodeISO2": "LC",
         "CodeISO3": "LCA",
         "Name": "Saint Lucia",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XCD"
+          }
+        },
+        "Name_ru": "Сент-Люсия",
+        "Name_ar": "سانت لوسيا"
       },
       {
         "CodeISO2": "MF",
         "CodeISO3": "MAF",
         "Name": "Saint Martin (French part)",
-        "PhoneCode": "+590"
+        "PhoneCode": "+590",
+        "Name_ru": "Сен-Мартен",
+        "Name_ar": "سان مارتن"
       },
       {
         "CodeISO2": "PM",
         "CodeISO3": "SPM",
         "Name": "Saint Pierre and Miquelon",
-        "PhoneCode": "+508"
+        "PhoneCode": "+508",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Сен-Пьер и Микелон",
+        "Name_ar": "سان بيير ومكويلون"
       },
       {
         "CodeISO2": "VC",
         "CodeISO3": "VCT",
         "Name": "Saint Vincent and the Grenadines",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XCD"
+          }
+        },
+        "Name_ru": "Сент-Винсент и Гренадины",
+        "Name_ar": "سانت فنسنت وجزر غرينادين"
       },
       {
         "CodeISO2": "WS",
         "CodeISO3": "WSM",
         "Name": "Samoa",
-        "PhoneCode": "+685"
+        "PhoneCode": "+685",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "WST"
+          }
+        },
+        "Name_ru": "Самоа",
+        "Name_ar": "ساموا"
       },
       {
         "CodeISO2": "SM",
         "CodeISO3": "SMR",
         "Name": "San Marino",
-        "PhoneCode": "+378"
+        "PhoneCode": "+378",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Сан-Марино",
+        "Name_ar": "سان مارينو"
       },
       {
         "CodeISO2": "ST",
         "CodeISO3": "STP",
         "Name": "Sao Tome and Principe",
-        "PhoneCode": "+239"
+        "PhoneCode": "+239",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "STN"
+          }
+        },
+        "Name_ru": "Сан-Томе и Принсипи",
+        "Name_ar": "ساو تومي وبرينسيبي"
       },
       {
         "CodeISO2": "SA",
         "CodeISO3": "SAU",
         "Name": "Saudi Arabia",
-        "PhoneCode": "+966"
+        "PhoneCode": "+966",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SAR"
+          }
+        },
+        "Name_ru": "Саудовская Аравия",
+        "Name_ar": "المملكة العربية السعودية"
       },
       {
         "CodeISO2": "SN",
         "CodeISO3": "SEN",
         "Name": "Senegal",
-        "PhoneCode": "+221"
+        "PhoneCode": "+221",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XOF"
+          }
+        },
+        "Name_ru": "Сенегал",
+        "Name_ar": "السنغال"
       },
       {
         "CodeISO2": "RS",
         "CodeISO3": "SRB",
         "Name": "Serbia",
-        "PhoneCode": "+381"
+        "PhoneCode": "+381",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "RSD"
+          }
+        },
+        "Name_ru": "Сербия",
+        "Name_ar": "صربيا"
       },
       {
         "CodeISO2": "SC",
         "CodeISO3": "SYC",
         "Name": "Seychelles",
-        "PhoneCode": "+248"
+        "PhoneCode": "+248",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SCR"
+          }
+        },
+        "Name_ru": "Сейшельские Острова",
+        "Name_ar": "سيشل"
       },
       {
         "CodeISO2": "SL",
         "CodeISO3": "SLE",
         "Name": "Sierra Leone",
-        "PhoneCode": "+232"
+        "PhoneCode": "+232",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SLE"
+          }
+        },
+        "Name_ru": "Сьерра-Леоне",
+        "Name_ar": "سيراليون"
       },
       {
         "CodeISO2": "SG",
         "CodeISO3": "SGP",
         "Name": "Singapore",
-        "PhoneCode": "+65"
+        "PhoneCode": "+65",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SGD"
+          }
+        },
+        "Name_ru": "Сингапур",
+        "Name_ar": "سنغافورة"
       },
       {
         "CodeISO2": "SX",
         "CodeISO3": "SXM",
         "Name": "Sint Maarten (Dutch part)",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ANG"
+          }
+        },
+        "Name_ru": "Синт-Мартен",
+        "Name_ar": "سانت مارتن"
       },
       {
         "CodeISO2": "SK",
         "CodeISO3": "SVK",
         "Name": "Slovakia",
-        "PhoneCode": "+421"
+        "PhoneCode": "+421",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Словакия",
+        "Name_ar": "سلوفاكيا"
       },
       {
         "CodeISO2": "SI",
         "CodeISO3": "SVN",
         "Name": "Slovenia",
-        "PhoneCode": "+386"
+        "PhoneCode": "+386",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Словения",
+        "Name_ar": "سلوفينيا"
       },
       {
         "CodeISO2": "SB",
         "CodeISO3": "SLB",
         "Name": "Solomon Islands",
-        "PhoneCode": "+677"
+        "PhoneCode": "+677",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SBD"
+          }
+        },
+        "Name_ru": "Соломоновы Острова",
+        "Name_ar": "جزر سليمان"
       },
       {
         "CodeISO2": "SO",
         "CodeISO3": "SOM",
         "Name": "Somalia",
-        "PhoneCode": "+252"
+        "PhoneCode": "+252",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SOS"
+          }
+        },
+        "Name_ru": "Сомали",
+        "Name_ar": "الصومال"
       },
       {
         "CodeISO2": "ZA",
         "CodeISO3": "ZAF",
         "Name": "South Africa",
-        "PhoneCode": "+27"
+        "PhoneCode": "+27",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ZAR"
+          }
+        },
+        "Name_ru": "Южно-Африканская Республика",
+        "Name_ar": "جنوب أفريقيا"
       },
       {
         "CodeISO2": "GS",
         "CodeISO3": "SGS",
-        "Name": "South Georgia and the South Sandwich Islands"
+        "Name": "South Georgia and the South Sandwich Islands",
+        "Name_ru": "Южная Георгия и Южные Сандвичевы о-ва",
+        "Name_ar": "جورجيا الجنوبية وجزر ساندويتش الجنوبية"
       },
       {
         "CodeISO2": "SS",
         "CodeISO3": "SSD",
         "Name": "South Sudan",
-        "PhoneCode": "+211"
+        "PhoneCode": "+211",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SSP"
+          }
+        },
+        "Name_ru": "Южный Судан",
+        "Name_ar": "جنوب السودان"
       },
       {
         "CodeISO2": "ES",
         "CodeISO3": "ESP",
         "Name": "Spain",
-        "PhoneCode": "+34"
+        "PhoneCode": "+34",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "EUR"
+          }
+        },
+        "Name_ru": "Испания",
+        "Name_ar": "إسبانيا"
       },
       {
         "CodeISO2": "LK",
         "CodeISO3": "LKA",
         "Name": "Sri Lanka",
-        "PhoneCode": "+94"
+        "PhoneCode": "+94",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "LKR"
+          }
+        },
+        "Name_ru": "Шри-Ланка",
+        "Name_ar": "سريلانكا"
       },
       {
         "CodeISO2": "SD",
         "CodeISO3": "SDN",
         "Name": "Sudan",
-        "PhoneCode": "+249"
+        "PhoneCode": "+249",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SDG"
+          }
+        },
+        "Name_ru": "Судан",
+        "Name_ar": "السودان"
       },
       {
         "CodeISO2": "SR",
         "CodeISO3": "SUR",
         "Name": "Suriname",
-        "PhoneCode": "+597"
+        "PhoneCode": "+597",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SRD"
+          }
+        },
+        "Name_ru": "Суринам",
+        "Name_ar": "سورينام"
       },
       {
         "CodeISO2": "SJ",
         "CodeISO3": "SJM",
         "Name": "Svalbard and Jan Mayen",
-        "PhoneCode": "+47"
+        "PhoneCode": "+47",
+        "Name_ru": "Шпицберген и Ян-Майен",
+        "Name_ar": "سفالبارد وجان ماين"
       },
       {
         "CodeISO2": "SE",
         "CodeISO3": "SWE",
         "Name": "Sweden",
-        "PhoneCode": "+46"
+        "PhoneCode": "+46",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SEK"
+          }
+        },
+        "Name_ru": "Швеция",
+        "Name_ar": "السويد"
       },
       {
         "CodeISO2": "CH",
         "CodeISO3": "CHE",
         "Name": "Switzerland",
-        "PhoneCode": "+41"
+        "PhoneCode": "+41",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "CHF"
+          }
+        },
+        "Name_ru": "Швейцария",
+        "Name_ar": "سويسرا"
       },
       {
         "CodeISO2": "SY",
         "CodeISO3": "SYR",
         "Name": "Syrian Arab Republic",
-        "PhoneCode": "+963"
+        "PhoneCode": "+963",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "SYP"
+          }
+        },
+        "Name_ru": "Сирия",
+        "Name_ar": "سوريا"
       },
       {
         "CodeISO2": "TW",
         "CodeISO3": "TWN",
         "Name": "Taiwan",
-        "PhoneCode": "+886"
+        "PhoneCode": "+886",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "TWD"
+          }
+        },
+        "Name_ru": "Тайвань",
+        "Name_ar": "تايوان"
       },
       {
         "CodeISO2": "TJ",
         "CodeISO3": "TJK",
         "Name": "Tajikistan",
-        "PhoneCode": "+992"
+        "PhoneCode": "+992",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "TJS"
+          }
+        },
+        "Name_ru": "Таджикистан",
+        "Name_ar": "طاجيكستان"
       },
       {
         "CodeISO2": "TZ",
         "CodeISO3": "TZA",
         "Name": "Tanzania",
-        "PhoneCode": "+255"
+        "PhoneCode": "+255",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "TZS"
+          }
+        },
+        "Name_ru": "Танзания",
+        "Name_ar": "تنزانيا"
       },
       {
         "CodeISO2": "TH",
         "CodeISO3": "THA",
         "Name": "Thailand",
-        "PhoneCode": "+66"
+        "PhoneCode": "+66",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "THB"
+          }
+        },
+        "Name_ru": "Таиланд",
+        "Name_ar": "تايلاند"
       },
       {
         "CodeISO2": "TL",
         "CodeISO3": "TLS",
         "Name": "Timor-Leste",
-        "PhoneCode": "+670"
+        "PhoneCode": "+670",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Восточный Тимор",
+        "Name_ar": "تيمور - ليشتي"
       },
       {
         "CodeISO2": "TG",
         "CodeISO3": "TGO",
         "Name": "Togo",
-        "PhoneCode": "+228"
+        "PhoneCode": "+228",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XOF"
+          }
+        },
+        "Name_ru": "Того",
+        "Name_ar": "توغو"
       },
       {
         "CodeISO2": "TK",
         "CodeISO3": "TKL",
         "Name": "Tokelau",
-        "PhoneCode": "+690"
+        "PhoneCode": "+690",
+        "Name_ru": "Токелау",
+        "Name_ar": "توكيلو"
       },
       {
         "CodeISO2": "TO",
         "CodeISO3": "TON",
         "Name": "Tonga",
-        "PhoneCode": "+676"
+        "PhoneCode": "+676",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "TOP"
+          }
+        },
+        "Name_ru": "Тонга",
+        "Name_ar": "تونغا"
       },
       {
         "CodeISO2": "TT",
         "CodeISO3": "TTO",
         "Name": "Trinidad and Tobago",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "TTD"
+          }
+        },
+        "Name_ru": "Тринидад и Тобаго",
+        "Name_ar": "ترينيداد وتوباغو"
       },
       {
         "CodeISO2": "TN",
         "CodeISO3": "TUN",
         "Name": "Tunisia",
-        "PhoneCode": "+216"
+        "PhoneCode": "+216",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "TND"
+          }
+        },
+        "Name_ru": "Тунис",
+        "Name_ar": "تونس"
       },
       {
         "CodeISO2": "TR",
         "CodeISO3": "TUR",
         "Name": "Türkiye",
-        "PhoneCode": "+90"
+        "PhoneCode": "+90",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "TRY"
+          }
+        },
+        "Name_ru": "Турция",
+        "Name_ar": "تركيا"
       },
       {
         "CodeISO2": "TM",
         "CodeISO3": "TKM",
         "Name": "Turkmenistan",
-        "PhoneCode": "+993"
+        "PhoneCode": "+993",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "TMT"
+          }
+        },
+        "Name_ru": "Туркменистан",
+        "Name_ar": "تركمانستان"
       },
       {
         "CodeISO2": "TC",
         "CodeISO3": "TCA",
         "Name": "Turks and Caicos Islands",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "о-ва Тёркс и Кайкос",
+        "Name_ar": "جزر توركس وكايكوس"
       },
       {
         "CodeISO2": "TV",
         "CodeISO3": "TUV",
         "Name": "Tuvalu",
-        "PhoneCode": "+688"
+        "PhoneCode": "+688",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "AUD"
+          }
+        },
+        "Name_ru": "Тувалу",
+        "Name_ar": "توفالو"
       },
       {
         "CodeISO2": "UG",
         "CodeISO3": "UGA",
         "Name": "Uganda",
-        "PhoneCode": "+256"
+        "PhoneCode": "+256",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "UGX"
+          }
+        },
+        "Name_ru": "Уганда",
+        "Name_ar": "أوغندا"
       },
       {
         "CodeISO2": "UA",
         "CodeISO3": "UKR",
         "Name": "Ukraine",
-        "PhoneCode": "+380"
+        "PhoneCode": "+380",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "UAH"
+          }
+        },
+        "Name_ru": "Украина",
+        "Name_ar": "أوكرانيا"
       },
       {
         "CodeISO2": "AE",
         "CodeISO3": "ARE",
         "Name": "United Arab Emirates",
-        "PhoneCode": "+971"
+        "PhoneCode": "+971",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "AED"
+          }
+        },
+        "Name_ru": "ОАЭ",
+        "Name_ar": "الإمارات العربية المتحدة"
       },
       {
         "CodeISO2": "GB",
         "CodeISO3": "GBR",
         "Name": "United Kingdom",
-        "PhoneCode": "+44"
+        "PhoneCode": "+44",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "GBP"
+          }
+        },
+        "Name_ru": "Великобритания",
+        "Name_ar": "المملكة المتحدة"
       },
       {
         "CodeISO2": "US",
         "CodeISO3": "USA",
         "Name": "United States of America",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Соединенные Штаты",
+        "Name_ar": "الولايات المتحدة"
       },
       {
         "CodeISO2": "UM",
         "CodeISO3": "UMI",
-        "Name": "United States Minor Outlying Islands"
+        "Name": "United States Minor Outlying Islands",
+        "Name_ru": "Внешние малые о-ва (США)",
+        "Name_ar": "جزر الولايات المتحدة النائية"
       },
       {
         "CodeISO2": "UY",
         "CodeISO3": "URY",
         "Name": "Uruguay",
-        "PhoneCode": "+598"
+        "PhoneCode": "+598",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "UYU"
+          }
+        },
+        "Name_ru": "Уругвай",
+        "Name_ar": "أوروغواي"
       },
       {
         "CodeISO2": "UZ",
         "CodeISO3": "UZB",
         "Name": "Uzbekistan",
-        "PhoneCode": "+998"
+        "PhoneCode": "+998",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "UZS"
+          }
+        },
+        "Name_ru": "Узбекистан",
+        "Name_ar": "أوزبكستان"
       },
       {
         "CodeISO2": "VU",
         "CodeISO3": "VUT",
         "Name": "Vanuatu",
-        "PhoneCode": "+678"
+        "PhoneCode": "+678",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "VUV"
+          }
+        },
+        "Name_ru": "Вануату",
+        "Name_ar": "فانواتو"
       },
       {
         "CodeISO2": "VE",
         "CodeISO3": "VEN",
         "Name": "Venezuela",
-        "PhoneCode": "+58"
+        "PhoneCode": "+58",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "VES"
+          }
+        },
+        "Name_ru": "Венесуэла",
+        "Name_ar": "فنزويلا"
       },
       {
         "CodeISO2": "VN",
         "CodeISO3": "VNM",
         "Name": "Viet Nam",
-        "PhoneCode": "+84"
+        "PhoneCode": "+84",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "VND"
+          }
+        },
+        "Name_ru": "Вьетнам",
+        "Name_ar": "فيتنام"
       },
       {
         "CodeISO2": "VG",
         "CodeISO3": "VGB",
         "Name": "Virgin Islands (British)",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Виргинские о-ва (Великобритания)",
+        "Name_ar": "جزر فيرجن البريطانية"
       },
       {
         "CodeISO2": "VI",
         "CodeISO3": "VIR",
         "Name": "Virgin Islands (U.S.)",
-        "PhoneCode": "+1"
+        "PhoneCode": "+1",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "USD"
+          }
+        },
+        "Name_ru": "Виргинские о-ва (США)",
+        "Name_ar": "جزر فيرجن التابعة للولايات المتحدة"
       },
       {
         "CodeISO2": "WF",
         "CodeISO3": "WLF",
         "Name": "Wallis and Futuna",
-        "PhoneCode": "+681"
+        "PhoneCode": "+681",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "XPF"
+          }
+        },
+        "Name_ru": "Уоллис и Футуна",
+        "Name_ar": "جزر والس وفوتونا"
       },
       {
         "CodeISO2": "EH",
         "CodeISO3": "ESH",
         "Name": "Western Sahara",
-        "PhoneCode": "+212"
+        "PhoneCode": "+212",
+        "Name_ru": "Западная Сахара",
+        "Name_ar": "الصحراء الغربية"
       },
       {
         "CodeISO2": "YE",
         "CodeISO3": "YEM",
         "Name": "Yemen",
-        "PhoneCode": "+967"
+        "PhoneCode": "+967",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "YER"
+          }
+        },
+        "Name_ru": "Йемен",
+        "Name_ar": "اليمن"
       },
       {
         "CodeISO2": "ZM",
         "CodeISO3": "ZMB",
         "Name": "Zambia",
-        "PhoneCode": "+260"
+        "PhoneCode": "+260",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ZMW"
+          }
+        },
+        "Name_ru": "Замбия",
+        "Name_ar": "زامبيا"
       },
       {
         "CodeISO2": "ZW",
         "CodeISO3": "ZWE",
         "Name": "Zimbabwe",
-        "PhoneCode": "+263"
+        "PhoneCode": "+263",
+        "Currency": {
+          "$ref": "Currency",
+          "key": {
+            "Code": "ZWG"
+          }
+        },
+        "Name_ru": "Зимбабве",
+        "Name_ar": "زيمبابوي"
       }
     ],
     "Currency": [
       {
         "Code": "AED",
         "Name": "UAE Dirham",
-        "Symbol": "د.إ"
+        "Symbol": "د.إ",
+        "Name_ru": "Дирхам ОАЭ",
+        "Name_ar": "درهم إماراتي"
       },
       {
         "Code": "AFN",
         "Name": "Afghani",
-        "Symbol": "؋"
+        "Symbol": "؋",
+        "Name_ru": "Афгани",
+        "Name_ar": "أفغاني"
       },
       {
         "Code": "ALL",
         "Name": "Lek",
-        "Symbol": "L"
+        "Symbol": "L",
+        "Name_ru": "Албанский лек",
+        "Name_ar": "ليك ألباني"
       },
       {
         "Code": "AMD",
         "Name": "Armenian Dram",
-        "Symbol": "֏"
+        "Symbol": "֏",
+        "Name_ru": "Армянский драм",
+        "Name_ar": "درام أرميني"
       },
       {
         "Code": "ANG",
         "Name": "Netherlands Antillean Guilder",
-        "Symbol": "ƒ"
+        "Symbol": "ƒ",
+        "Name_ru": "Нидерландский антильский гульден",
+        "Name_ar": "غيلدر أنتيلي هولندي"
       },
       {
         "Code": "AOA",
         "Name": "Kwanza",
-        "Symbol": "Kz"
+        "Symbol": "Kz",
+        "Name_ru": "Ангольская кванза",
+        "Name_ar": "كوانزا أنجولي"
       },
       {
         "Code": "ARS",
         "Name": "Argentine Peso",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Аргентинское песо",
+        "Name_ar": "بيزو أرجنتيني"
       },
       {
         "Code": "AUD",
         "Name": "Australian Dollar",
-        "Symbol": "A$"
+        "Symbol": "A$",
+        "Name_ru": "Австралийский доллар",
+        "Name_ar": "دولار أسترالي"
       },
       {
         "Code": "AWG",
         "Name": "Aruban Florin",
-        "Symbol": "ƒ"
+        "Symbol": "ƒ",
+        "Name_ru": "Арубанский флорин",
+        "Name_ar": "فلورن أروبي"
       },
       {
         "Code": "AZN",
         "Name": "Azerbaijan Manat",
-        "Symbol": "₼"
+        "Symbol": "₼",
+        "Name_ru": "Азербайджанский манат",
+        "Name_ar": "مانات أذربيجان"
       },
       {
         "Code": "BAM",
         "Name": "Convertible Mark",
-        "Symbol": "KM"
+        "Symbol": "KM",
+        "Name_ru": "Конвертируемая марка Боснии и Герцеговины",
+        "Name_ar": "مارك البوسنة والهرسك قابل للتحويل"
       },
       {
         "Code": "BBD",
         "Name": "Barbados Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Барбадосский доллар",
+        "Name_ar": "دولار بربادوسي"
       },
       {
         "Code": "BDT",
         "Name": "Taka",
-        "Symbol": "৳"
+        "Symbol": "৳",
+        "Name_ru": "Бангладешская така",
+        "Name_ar": "تاكا بنجلاديشي"
       },
       {
         "Code": "BGN",
         "Name": "Bulgarian Lev",
-        "Symbol": "лв"
+        "Symbol": "лв",
+        "Name_ru": "Болгарский лев",
+        "Name_ar": "ليف بلغاري"
       },
       {
         "Code": "BHD",
         "Name": "Bahraini Dinar",
-        "Symbol": "BD"
+        "Symbol": "BD",
+        "Name_ru": "Бахрейнский динар",
+        "Name_ar": "دينار بحريني"
       },
       {
         "Code": "BIF",
         "Name": "Burundi Franc",
-        "Symbol": "FBu"
+        "Symbol": "FBu",
+        "Name_ru": "Бурундийский франк",
+        "Name_ar": "فرنك بروندي"
       },
       {
         "Code": "BMD",
         "Name": "Bermudian Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Бермудский доллар",
+        "Name_ar": "دولار برمودي"
       },
       {
         "Code": "BND",
         "Name": "Brunei Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Брунейский доллар",
+        "Name_ar": "دولار بروناي"
       },
       {
         "Code": "BOB",
         "Name": "Boliviano",
-        "Symbol": "Bs"
+        "Symbol": "Bs",
+        "Name_ru": "Боливийский боливиано",
+        "Name_ar": "بوليفيانو بوليفي"
       },
       {
         "Code": "BRL",
         "Name": "Brazilian Real",
-        "Symbol": "R$"
+        "Symbol": "R$",
+        "Name_ru": "Бразильский реал",
+        "Name_ar": "ريال برازيلي"
       },
       {
         "Code": "BSD",
         "Name": "Bahamian Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Багамский доллар",
+        "Name_ar": "دولار باهامي"
       },
       {
         "Code": "BTN",
         "Name": "Ngultrum",
-        "Symbol": "Nu"
+        "Symbol": "Nu",
+        "Name_ru": "Бутанский нгултрум",
+        "Name_ar": "نولتوم بوتاني"
       },
       {
         "Code": "BWP",
         "Name": "Pula",
-        "Symbol": "P"
+        "Symbol": "P",
+        "Name_ru": "Ботсванская пула",
+        "Name_ar": "بولا بتسواني"
       },
       {
         "Code": "BYN",
         "Name": "Belarusian Ruble",
-        "Symbol": "Br"
+        "Symbol": "Br",
+        "Name_ru": "Белорусский рубль",
+        "Name_ar": "روبل بيلاروسي"
       },
       {
         "Code": "BZD",
         "Name": "Belize Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Белизский доллар",
+        "Name_ar": "دولار بليزي"
       },
       {
         "Code": "CAD",
         "Name": "Canadian Dollar",
-        "Symbol": "C$"
+        "Symbol": "C$",
+        "Name_ru": "Канадский доллар",
+        "Name_ar": "دولار كندي"
       },
       {
         "Code": "CDF",
         "Name": "Congolese Franc",
-        "Symbol": "FC"
+        "Symbol": "FC",
+        "Name_ru": "Конголезский франк",
+        "Name_ar": "فرنك كونغولي"
       },
       {
         "Code": "CHF",
         "Name": "Swiss Franc",
-        "Symbol": "CHF"
+        "Symbol": "CHF",
+        "Name_ru": "Швейцарский франк",
+        "Name_ar": "فرنك سويسري"
       },
       {
         "Code": "CLP",
         "Name": "Chilean Peso",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Чилийское песо",
+        "Name_ar": "بيزو شيلي"
       },
       {
         "Code": "CNY",
         "Name": "Yuan Renminbi",
-        "Symbol": "¥"
+        "Symbol": "¥",
+        "Name_ru": "Китайский юань",
+        "Name_ar": "يوان صيني"
       },
       {
         "Code": "COP",
         "Name": "Colombian Peso",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Колумбийское песо",
+        "Name_ar": "بيزو كولومبي"
       },
       {
         "Code": "CRC",
         "Name": "Costa Rican Colon",
-        "Symbol": "₡"
+        "Symbol": "₡",
+        "Name_ru": "Костариканский колон",
+        "Name_ar": "كولن كوستا ريكي"
       },
       {
         "Code": "CUP",
         "Name": "Cuban Peso",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Кубинское песо",
+        "Name_ar": "بيزو كوبي"
       },
       {
         "Code": "CVE",
         "Name": "Cabo Verde Escudo",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Эскудо Кабо-Верде",
+        "Name_ar": "اسكودو الرأس الخضراء"
       },
       {
         "Code": "CZK",
         "Name": "Czech Koruna",
-        "Symbol": "Kč"
+        "Symbol": "Kč",
+        "Name_ru": "Чешская крона",
+        "Name_ar": "كرونة تشيكية"
       },
       {
         "Code": "DJF",
         "Name": "Djibouti Franc",
-        "Symbol": "Fdj"
+        "Symbol": "Fdj",
+        "Name_ru": "Франк Джибути",
+        "Name_ar": "فرنك جيبوتي"
       },
       {
         "Code": "DKK",
         "Name": "Danish Krone",
-        "Symbol": "kr"
+        "Symbol": "kr",
+        "Name_ru": "Датская крона",
+        "Name_ar": "كرونة دانماركي"
       },
       {
         "Code": "DOP",
         "Name": "Dominican Peso",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Доминиканское песо",
+        "Name_ar": "بيزو الدومنيكان"
       },
       {
         "Code": "DZD",
         "Name": "Algerian Dinar",
-        "Symbol": "DA"
+        "Symbol": "DA",
+        "Name_ru": "Алжирский динар",
+        "Name_ar": "دينار جزائري"
       },
       {
         "Code": "EGP",
         "Name": "Egyptian Pound",
-        "Symbol": "E£"
+        "Symbol": "E£",
+        "Name_ru": "Египетский фунт",
+        "Name_ar": "جنيه مصري"
       },
       {
         "Code": "ERN",
         "Name": "Nakfa",
-        "Symbol": "Nfk"
+        "Symbol": "Nfk",
+        "Name_ru": "Накфа",
+        "Name_ar": "ناكفا أريتري"
       },
       {
         "Code": "ETB",
         "Name": "Ethiopian Birr",
-        "Symbol": "Br"
+        "Symbol": "Br",
+        "Name_ru": "Эфиопский быр",
+        "Name_ar": "بير أثيوبي"
       },
       {
         "Code": "EUR",
         "Name": "Euro",
-        "Symbol": "€"
+        "Symbol": "€",
+        "Name_ru": "Евро",
+        "Name_ar": "يورو"
       },
       {
         "Code": "FJD",
         "Name": "Fiji Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Доллар Фиджи",
+        "Name_ar": "دولار فيجي"
       },
       {
         "Code": "FKP",
         "Name": "Falkland Islands Pound",
-        "Symbol": "£"
+        "Symbol": "£",
+        "Name_ru": "Фунт Фолклендских островов",
+        "Name_ar": "جنيه جزر فوكلاند"
       },
       {
         "Code": "GBP",
         "Name": "Pound Sterling",
-        "Symbol": "£"
+        "Symbol": "£",
+        "Name_ru": "Британский фунт стерлингов",
+        "Name_ar": "جنيه إسترليني"
       },
       {
         "Code": "GEL",
         "Name": "Lari",
-        "Symbol": "₾"
+        "Symbol": "₾",
+        "Name_ru": "Грузинский лари",
+        "Name_ar": "لارى جورجي"
       },
       {
         "Code": "GHS",
         "Name": "Ghana Cedi",
-        "Symbol": "₵"
+        "Symbol": "₵",
+        "Name_ru": "Ганский седи",
+        "Name_ar": "سيدي غانا"
       },
       {
         "Code": "GIP",
         "Name": "Gibraltar Pound",
-        "Symbol": "£"
+        "Symbol": "£",
+        "Name_ru": "Гибралтарский фунт",
+        "Name_ar": "جنيه جبل طارق"
       },
       {
         "Code": "GMD",
         "Name": "Dalasi",
-        "Symbol": "D"
+        "Symbol": "D",
+        "Name_ru": "Гамбийский даласи",
+        "Name_ar": "دلاسي جامبي"
       },
       {
         "Code": "GNF",
         "Name": "Guinean Franc",
-        "Symbol": "FG"
+        "Symbol": "FG",
+        "Name_ru": "Гвинейский франк",
+        "Name_ar": "فرنك غينيا"
       },
       {
         "Code": "GTQ",
         "Name": "Quetzal",
-        "Symbol": "Q"
+        "Symbol": "Q",
+        "Name_ru": "Гватемальский кетсаль",
+        "Name_ar": "كوتزال جواتيمالا"
       },
       {
         "Code": "GYD",
         "Name": "Guyana Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Гайанский доллар",
+        "Name_ar": "دولار غيانا"
       },
       {
         "Code": "HKD",
         "Name": "Hong Kong Dollar",
-        "Symbol": "HK$"
+        "Symbol": "HK$",
+        "Name_ru": "Гонконгский доллар",
+        "Name_ar": "دولار هونغ كونغ"
       },
       {
         "Code": "HNL",
         "Name": "Lempira",
-        "Symbol": "L"
+        "Symbol": "L",
+        "Name_ru": "Гондурасская лемпира",
+        "Name_ar": "ليمبيرا هنداروس"
       },
       {
         "Code": "HTG",
         "Name": "Gourde",
-        "Symbol": "G"
+        "Symbol": "G",
+        "Name_ru": "Гаитянский гурд",
+        "Name_ar": "جوردى هايتي"
       },
       {
         "Code": "HUF",
         "Name": "Forint",
-        "Symbol": "Ft"
+        "Symbol": "Ft",
+        "Name_ru": "Венгерский форинт",
+        "Name_ar": "فورينت مجري"
       },
       {
         "Code": "IDR",
         "Name": "Rupiah",
-        "Symbol": "Rp"
+        "Symbol": "Rp",
+        "Name_ru": "Индонезийская рупия",
+        "Name_ar": "روبية إندونيسية"
       },
       {
         "Code": "ILS",
         "Name": "New Israeli Sheqel",
-        "Symbol": "₪"
+        "Symbol": "₪",
+        "Name_ru": "Новый израильский шекель",
+        "Name_ar": "شيكل إسرائيلي جديد"
       },
       {
         "Code": "INR",
         "Name": "Indian Rupee",
-        "Symbol": "₹"
+        "Symbol": "₹",
+        "Name_ru": "Индийская рупия",
+        "Name_ar": "روبية هندي"
       },
       {
         "Code": "IQD",
         "Name": "Iraqi Dinar",
-        "Symbol": "ع.د"
+        "Symbol": "ع.د",
+        "Name_ru": "Иракский динар",
+        "Name_ar": "دينار عراقي"
       },
       {
         "Code": "IRR",
         "Name": "Iranian Rial",
-        "Symbol": "﷼"
+        "Symbol": "﷼",
+        "Name_ru": "Иранский риал",
+        "Name_ar": "ريال إيراني"
       },
       {
         "Code": "ISK",
         "Name": "Iceland Krona",
-        "Symbol": "kr"
+        "Symbol": "kr",
+        "Name_ru": "Исландская крона",
+        "Name_ar": "كرونه أيسلندي"
       },
       {
         "Code": "JMD",
         "Name": "Jamaican Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Ямайский доллар",
+        "Name_ar": "دولار جامايكي"
       },
       {
         "Code": "JOD",
         "Name": "Jordanian Dinar",
-        "Symbol": "JD"
+        "Symbol": "JD",
+        "Name_ru": "Иорданский динар",
+        "Name_ar": "دينار أردني"
       },
       {
         "Code": "JPY",
         "Name": "Yen",
-        "Symbol": "¥"
+        "Symbol": "¥",
+        "Name_ru": "Японская иена",
+        "Name_ar": "ين ياباني"
       },
       {
         "Code": "KES",
         "Name": "Kenyan Shilling",
-        "Symbol": "KSh"
+        "Symbol": "KSh",
+        "Name_ru": "Кенийский шиллинг",
+        "Name_ar": "شلن كينيي"
       },
       {
         "Code": "KGS",
         "Name": "Som",
-        "Symbol": "сом"
+        "Symbol": "сом",
+        "Name_ru": "Киргизский сом",
+        "Name_ar": "سوم قيرغستاني"
       },
       {
         "Code": "KHR",
         "Name": "Riel",
-        "Symbol": "KHR"
+        "Symbol": "KHR",
+        "Name_ru": "Камбоджийский риель",
+        "Name_ar": "رييال كمبودي"
       },
       {
         "Code": "KMF",
         "Name": "Comorian Franc",
-        "Symbol": "CF"
+        "Symbol": "CF",
+        "Name_ru": "Франк Коморских Островов",
+        "Name_ar": "فرنك جزر القمر"
       },
       {
         "Code": "KPW",
         "Name": "North Korean Won",
-        "Symbol": "₩"
+        "Symbol": "₩",
+        "Name_ru": "Северокорейская вона",
+        "Name_ar": "وون كوريا الشمالية"
       },
       {
         "Code": "KRW",
         "Name": "Won",
-        "Symbol": "₩"
+        "Symbol": "₩",
+        "Name_ru": "Южнокорейская вона",
+        "Name_ar": "وون كوريا الجنوبية"
       },
       {
         "Code": "KWD",
         "Name": "Kuwaiti Dinar",
-        "Symbol": "KD"
+        "Symbol": "KD",
+        "Name_ru": "Кувейтский динар",
+        "Name_ar": "دينار كويتي"
       },
       {
         "Code": "KYD",
         "Name": "Cayman Islands Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Доллар Каймановых островов",
+        "Name_ar": "دولار جزر كيمن"
       },
       {
         "Code": "KZT",
         "Name": "Tenge",
-        "Symbol": "₸"
+        "Symbol": "₸",
+        "Name_ru": "Казахский тенге",
+        "Name_ar": "تينغ كازاخستاني"
       },
       {
         "Code": "LAK",
         "Name": "Lao Kip",
-        "Symbol": "₭"
+        "Symbol": "₭",
+        "Name_ru": "Лаосский кип",
+        "Name_ar": "كيب لاوسي"
       },
       {
         "Code": "LBP",
         "Name": "Lebanese Pound",
-        "Symbol": "ل.ل"
+        "Symbol": "ل.ل",
+        "Name_ru": "Ливанский фунт",
+        "Name_ar": "جنيه لبناني"
       },
       {
         "Code": "LKR",
         "Name": "Sri Lanka Rupee",
-        "Symbol": "Rs"
+        "Symbol": "Rs",
+        "Name_ru": "Шри-ланкийская рупия",
+        "Name_ar": "روبية سريلانكية"
       },
       {
         "Code": "LRD",
         "Name": "Liberian Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Либерийский доллар",
+        "Name_ar": "دولار ليبيري"
       },
       {
         "Code": "LSL",
         "Name": "Loti",
-        "Symbol": "L"
+        "Symbol": "L",
+        "Name_ru": "Лоти",
+        "Name_ar": "لوتي ليسوتو"
       },
       {
         "Code": "LYD",
         "Name": "Libyan Dinar",
-        "Symbol": "LD"
+        "Symbol": "LD",
+        "Name_ru": "Ливийский динар",
+        "Name_ar": "دينار ليبي"
       },
       {
         "Code": "MAD",
         "Name": "Moroccan Dirham",
-        "Symbol": "د.م."
+        "Symbol": "د.م.",
+        "Name_ru": "Марокканский дирхам",
+        "Name_ar": "درهم مغربي"
       },
       {
         "Code": "MDL",
         "Name": "Moldovan Leu",
-        "Symbol": "L"
+        "Symbol": "L",
+        "Name_ru": "Молдавский лей",
+        "Name_ar": "ليو مولدوفي"
       },
       {
         "Code": "MGA",
         "Name": "Malagasy Ariary",
-        "Symbol": "Ar"
+        "Symbol": "Ar",
+        "Name_ru": "Малагасийский ариари",
+        "Name_ar": "أرياري مدغشقر"
       },
       {
         "Code": "MKD",
         "Name": "Denar",
-        "Symbol": "ден"
+        "Symbol": "ден",
+        "Name_ru": "Македонский денар",
+        "Name_ar": "دينار مقدوني"
       },
       {
         "Code": "MMK",
         "Name": "Kyat",
-        "Symbol": "K"
+        "Symbol": "K",
+        "Name_ru": "Мьянманский кьят",
+        "Name_ar": "كيات ميانمار"
       },
       {
         "Code": "MNT",
         "Name": "Tugrik",
-        "Symbol": "₮"
+        "Symbol": "₮",
+        "Name_ru": "Монгольский тугрик",
+        "Name_ar": "توغروغ منغولي"
       },
       {
         "Code": "MOP",
         "Name": "Pataca",
-        "Symbol": "MOP$"
+        "Symbol": "MOP$",
+        "Name_ru": "Патака Макао",
+        "Name_ar": "باتاكا ماكاوي"
       },
       {
         "Code": "MRU",
         "Name": "Ouguiya",
-        "Symbol": "UM"
+        "Symbol": "UM",
+        "Name_ru": "Угия",
+        "Name_ar": "أوقية"
       },
       {
         "Code": "MUR",
         "Name": "Mauritius Rupee",
-        "Symbol": "₨"
+        "Symbol": "₨",
+        "Name_ru": "Маврикийская рупия",
+        "Name_ar": "روبية موريشيوسية"
       },
       {
         "Code": "MVR",
         "Name": "Rufiyaa",
-        "Symbol": "Rf"
+        "Symbol": "Rf",
+        "Name_ru": "Мальдивская руфия",
+        "Name_ar": "روفيه جزر المالديف"
       },
       {
         "Code": "MWK",
         "Name": "Malawi Kwacha",
-        "Symbol": "MK"
+        "Symbol": "MK",
+        "Name_ru": "Малавийская квача",
+        "Name_ar": "كواشا مالاوي"
       },
       {
         "Code": "MXN",
         "Name": "Mexican Peso",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Мексиканское песо",
+        "Name_ar": "بيزو مكسيكي"
       },
       {
         "Code": "MYR",
         "Name": "Malaysian Ringgit",
-        "Symbol": "RM"
+        "Symbol": "RM",
+        "Name_ru": "Малайзийский ринггит",
+        "Name_ar": "رينغيت ماليزي"
       },
       {
         "Code": "MZN",
         "Name": "Mozambique Metical",
-        "Symbol": "MT"
+        "Symbol": "MT",
+        "Name_ru": "Мозамбикский метикал",
+        "Name_ar": "متكال موزمبيقي"
       },
       {
         "Code": "NAD",
         "Name": "Namibia Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Доллар Намибии",
+        "Name_ar": "دولار ناميبي"
       },
       {
         "Code": "NGN",
         "Name": "Naira",
-        "Symbol": "₦"
+        "Symbol": "₦",
+        "Name_ru": "Нигерийская найра",
+        "Name_ar": "نايرا نيجيري"
       },
       {
         "Code": "NIO",
         "Name": "Cordoba Oro",
-        "Symbol": "C$"
+        "Symbol": "C$",
+        "Name_ru": "Никарагуанская кордоба",
+        "Name_ar": "قرطبة نيكاراغوا"
       },
       {
         "Code": "NOK",
         "Name": "Norwegian Krone",
-        "Symbol": "kr"
+        "Symbol": "kr",
+        "Name_ru": "Норвежская крона",
+        "Name_ar": "كرونة نرويجية"
       },
       {
         "Code": "NPR",
         "Name": "Nepalese Rupee",
-        "Symbol": "Rs"
+        "Symbol": "Rs",
+        "Name_ru": "Непальская рупия",
+        "Name_ar": "روبية نيبالي"
       },
       {
         "Code": "NZD",
         "Name": "New Zealand Dollar",
-        "Symbol": "NZ$"
+        "Symbol": "NZ$",
+        "Name_ru": "Новозеландский доллар",
+        "Name_ar": "دولار نيوزيلندي"
       },
       {
         "Code": "OMR",
         "Name": "Rial Omani",
-        "Symbol": "ر.ع."
+        "Symbol": "ر.ع.",
+        "Name_ru": "Оманский риал",
+        "Name_ar": "ريال عماني"
       },
       {
         "Code": "PAB",
         "Name": "Balboa",
-        "Symbol": "B/."
+        "Symbol": "B/.",
+        "Name_ru": "Панамское бальбоа",
+        "Name_ar": "بالبوا بنمي"
       },
       {
         "Code": "PEN",
         "Name": "Sol",
-        "Symbol": "S/"
+        "Symbol": "S/",
+        "Name_ru": "Перуанский соль",
+        "Name_ar": "سول البيرو"
       },
       {
         "Code": "PGK",
         "Name": "Kina",
-        "Symbol": "K"
+        "Symbol": "K",
+        "Name_ru": "Кина Папуа – Новой Гвинеи",
+        "Name_ar": "كينا بابوا غينيا الجديدة"
       },
       {
         "Code": "PHP",
         "Name": "Philippine Peso",
-        "Symbol": "₱"
+        "Symbol": "₱",
+        "Name_ru": "Филиппинское песо",
+        "Name_ar": "بيزو فلبيني"
       },
       {
         "Code": "PKR",
         "Name": "Pakistan Rupee",
-        "Symbol": "₨"
+        "Symbol": "₨",
+        "Name_ru": "Пакистанская рупия",
+        "Name_ar": "روبية باكستاني"
       },
       {
         "Code": "PLN",
         "Name": "Zloty",
-        "Symbol": "zł"
+        "Symbol": "zł",
+        "Name_ru": "Польский злотый",
+        "Name_ar": "زلوتي بولندي"
       },
       {
         "Code": "PYG",
         "Name": "Guarani",
-        "Symbol": "₲"
+        "Symbol": "₲",
+        "Name_ru": "Парагвайский гуарани",
+        "Name_ar": "جواراني باراجواي"
       },
       {
         "Code": "QAR",
         "Name": "Qatari Rial",
-        "Symbol": "ر.ق"
+        "Symbol": "ر.ق",
+        "Name_ru": "Катарский риал",
+        "Name_ar": "ريال قطري"
       },
       {
         "Code": "RON",
         "Name": "Romanian Leu",
-        "Symbol": "lei"
+        "Symbol": "lei",
+        "Name_ru": "Румынский лей",
+        "Name_ar": "ليو روماني"
       },
       {
         "Code": "RSD",
         "Name": "Serbian Dinar",
-        "Symbol": "дин"
+        "Symbol": "дин",
+        "Name_ru": "Сербский динар",
+        "Name_ar": "دينار صربي"
       },
       {
         "Code": "RUB",
         "Name": "Russian Ruble",
-        "Symbol": "₽"
+        "Symbol": "₽",
+        "Name_ru": "Российский рубль",
+        "Name_ar": "روبل روسي"
       },
       {
         "Code": "RWF",
         "Name": "Rwanda Franc",
-        "Symbol": "FRw"
+        "Symbol": "FRw",
+        "Name_ru": "Франк Руанды",
+        "Name_ar": "فرنك رواندي"
       },
       {
         "Code": "SAR",
         "Name": "Saudi Riyal",
-        "Symbol": "﷼"
+        "Symbol": "﷼",
+        "Name_ru": "Саудовский риял",
+        "Name_ar": "ريال سعودي"
       },
       {
         "Code": "SBD",
         "Name": "Solomon Islands Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Доллар Соломоновых Островов",
+        "Name_ar": "دولار جزر سليمان"
       },
       {
         "Code": "SCR",
         "Name": "Seychelles Rupee",
-        "Symbol": "₨"
+        "Symbol": "₨",
+        "Name_ru": "Сейшельская рупия",
+        "Name_ar": "روبية سيشيلية"
       },
       {
         "Code": "SDG",
         "Name": "Sudanese Pound",
-        "Symbol": "£"
+        "Symbol": "£",
+        "Name_ru": "Суданский фунт",
+        "Name_ar": "جنيه سوداني"
       },
       {
         "Code": "SEK",
         "Name": "Swedish Krona",
-        "Symbol": "kr"
+        "Symbol": "kr",
+        "Name_ru": "Шведская крона",
+        "Name_ar": "كرونة سويدية"
       },
       {
         "Code": "SGD",
         "Name": "Singapore Dollar",
-        "Symbol": "S$"
+        "Symbol": "S$",
+        "Name_ru": "Сингапурский доллар",
+        "Name_ar": "دولار سنغافوري"
       },
       {
         "Code": "SHP",
         "Name": "Saint Helena Pound",
-        "Symbol": "£"
+        "Symbol": "£",
+        "Name_ru": "Фунт острова Святой Елены",
+        "Name_ar": "جنيه سانت هيلين"
       },
       {
         "Code": "SLE",
         "Name": "Leone",
-        "Symbol": "Le"
+        "Symbol": "Le",
+        "Name_ru": "Леоне",
+        "Name_ar": "ليون"
       },
       {
         "Code": "SOS",
         "Name": "Somali Shilling",
-        "Symbol": "Sh"
+        "Symbol": "Sh",
+        "Name_ru": "Сомалийский шиллинг",
+        "Name_ar": "شلن صومالي"
       },
       {
         "Code": "SRD",
         "Name": "Surinam Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Суринамский доллар",
+        "Name_ar": "دولار سورينامي"
       },
       {
         "Code": "SSP",
         "Name": "South Sudanese Pound",
-        "Symbol": "£"
+        "Symbol": "£",
+        "Name_ru": "Южносуданский фунт",
+        "Name_ar": "جنيه جنوب السودان"
       },
       {
         "Code": "STN",
         "Name": "Dobra",
-        "Symbol": "Db"
+        "Symbol": "Db",
+        "Name_ru": "Добра",
+        "Name_ar": "دوبرا"
       },
       {
         "Code": "SVC",
         "Name": "El Salvador Colon",
-        "Symbol": "₡"
+        "Symbol": "₡",
+        "Name_ru": "Сальвадорский колон",
+        "Name_ar": "كولون سلفادوري"
       },
       {
         "Code": "SYP",
         "Name": "Syrian Pound",
-        "Symbol": "£"
+        "Symbol": "£",
+        "Name_ru": "Сирийский фунт",
+        "Name_ar": "ليرة سورية"
       },
       {
         "Code": "SZL",
         "Name": "Lilangeni",
-        "Symbol": "L"
+        "Symbol": "L",
+        "Name_ru": "Свазилендский лилангени",
+        "Name_ar": "ليلانجيني سوازيلندي"
       },
       {
         "Code": "THB",
         "Name": "Baht",
-        "Symbol": "฿"
+        "Symbol": "฿",
+        "Name_ru": "Таиландский бат",
+        "Name_ar": "باخت تايلاندي"
       },
       {
         "Code": "TJS",
         "Name": "Somoni",
-        "Symbol": "SM"
+        "Symbol": "SM",
+        "Name_ru": "Таджикский сомони",
+        "Name_ar": "سوموني طاجيكستاني"
       },
       {
         "Code": "TMT",
         "Name": "Turkmenistan New Manat",
-        "Symbol": "m"
+        "Symbol": "m",
+        "Name_ru": "Новый туркменский манат",
+        "Name_ar": "مانات تركمانستان"
       },
       {
         "Code": "TND",
         "Name": "Tunisian Dinar",
-        "Symbol": "DT"
+        "Symbol": "DT",
+        "Name_ru": "Тунисский динар",
+        "Name_ar": "دينار تونسي"
       },
       {
         "Code": "TOP",
         "Name": "Pa’anga",
-        "Symbol": "T$"
+        "Symbol": "T$",
+        "Name_ru": "Тонганская паанга",
+        "Name_ar": "بانغا تونغا"
       },
       {
         "Code": "TRY",
         "Name": "Turkish Lira",
-        "Symbol": "₺"
+        "Symbol": "₺",
+        "Name_ru": "Турецкая лира",
+        "Name_ar": "ليرة تركية"
       },
       {
         "Code": "TTD",
         "Name": "Trinidad and Tobago Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Доллар Тринидада и Тобаго",
+        "Name_ar": "دولار ترينداد وتوباجو"
       },
       {
         "Code": "TWD",
         "Name": "New Taiwan Dollar",
-        "Symbol": "NT$"
+        "Symbol": "NT$",
+        "Name_ru": "Новый тайваньский доллар",
+        "Name_ar": "دولار تايواني"
       },
       {
         "Code": "TZS",
         "Name": "Tanzanian Shilling",
-        "Symbol": "TSh"
+        "Symbol": "TSh",
+        "Name_ru": "Танзанийский шиллинг",
+        "Name_ar": "شلن تنزاني"
       },
       {
         "Code": "UAH",
         "Name": "Hryvnia",
-        "Symbol": "₴"
+        "Symbol": "₴",
+        "Name_ru": "Украинская гривна",
+        "Name_ar": "هريفنيا أوكراني"
       },
       {
         "Code": "UGX",
         "Name": "Uganda Shilling",
-        "Symbol": "USh"
+        "Symbol": "USh",
+        "Name_ru": "Угандийский шиллинг",
+        "Name_ar": "شلن أوغندي"
       },
       {
         "Code": "USD",
         "Name": "US Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Доллар США",
+        "Name_ar": "دولار أمريكي"
       },
       {
         "Code": "UYU",
         "Name": "Peso Uruguayo",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Уругвайское песо",
+        "Name_ar": "بيزو اوروغواي"
       },
       {
         "Code": "UZS",
         "Name": "Uzbekistan Sum",
-        "Symbol": "soʻm"
+        "Symbol": "soʻm",
+        "Name_ru": "Узбекский сум",
+        "Name_ar": "سوم أوزبكستاني"
       },
       {
         "Code": "VES",
         "Name": "Bolívar Soberano",
-        "Symbol": "Bs"
+        "Symbol": "Bs",
+        "Name_ru": "Суверенный боливар",
+        "Name_ar": "بوليفار سيادي"
       },
       {
         "Code": "VND",
         "Name": "Dong",
-        "Symbol": "₫"
+        "Symbol": "₫",
+        "Name_ru": "Вьетнамский донг",
+        "Name_ar": "دونج فيتنامي"
       },
       {
         "Code": "VUV",
         "Name": "Vatu",
-        "Symbol": "VT"
+        "Symbol": "VT",
+        "Name_ru": "Вату Вануату",
+        "Name_ar": "فاتو فانواتو"
       },
       {
         "Code": "WST",
         "Name": "Tala",
-        "Symbol": "T"
+        "Symbol": "T",
+        "Name_ru": "Самоанская тала",
+        "Name_ar": "تالا ساموا"
       },
       {
         "Code": "XAF",
         "Name": "CFA Franc BEAC",
-        "Symbol": "FCFA"
+        "Symbol": "FCFA",
+        "Name_ru": "Франк КФА ВЕАС",
+        "Name_ar": "فرنك وسط أفريقي"
       },
       {
         "Code": "XCD",
         "Name": "East Caribbean Dollar",
-        "Symbol": "$"
+        "Symbol": "$",
+        "Name_ru": "Восточно-карибский доллар",
+        "Name_ar": "دولار شرق الكاريبي"
       },
       {
         "Code": "XOF",
         "Name": "CFA Franc BCEAO",
-        "Symbol": "CFA"
+        "Symbol": "CFA",
+        "Name_ru": "Франк КФА ВСЕАО",
+        "Name_ar": "فرنك غرب أفريقي"
       },
       {
         "Code": "XPF",
         "Name": "CFP Franc",
-        "Symbol": "₣"
+        "Symbol": "₣",
+        "Name_ru": "Французский тихоокеанский франк",
+        "Name_ar": "فرنك سي إف بي"
       },
       {
         "Code": "YER",
         "Name": "Yemeni Rial",
-        "Symbol": "﷼"
+        "Symbol": "﷼",
+        "Name_ru": "Йеменский риал",
+        "Name_ar": "ريال يمني"
       },
       {
         "Code": "ZAR",
         "Name": "Rand",
-        "Symbol": "R"
+        "Symbol": "R",
+        "Name_ru": "Южноафриканский рэнд",
+        "Name_ar": "راند جنوب أفريقيا"
       },
       {
         "Code": "ZMW",
         "Name": "Zambian Kwacha",
-        "Symbol": "ZK"
+        "Symbol": "ZK",
+        "Name_ru": "Замбийская квача",
+        "Name_ar": "كواشا زامبي"
       },
       {
         "Code": "ZWG",
         "Name": "Zimbabwe Gold",
-        "Symbol": "ZiG"
+        "Symbol": "ZiG",
+        "Name_ru": "Зимбабвийское золото",
+        "Name_ar": "ذهب زيمبابوي"
       }
     ],
     "UnitClass": [
       {
         "Code": "COUNT",
-        "Name": "Count"
+        "Name": "Count",
+        "Name_ru": "Количество",
+        "Name_ar": "العدد"
       },
       {
         "Code": "MASS",
-        "Name": "Mass"
+        "Name": "Mass",
+        "Name_ru": "Масса",
+        "Name_ar": "الكتلة"
       },
       {
         "Code": "LENGTH",
-        "Name": "Length"
+        "Name": "Length",
+        "Name_ru": "Длина",
+        "Name_ar": "الطول"
       },
       {
         "Code": "VOLUME",
-        "Name": "Volume"
+        "Name": "Volume",
+        "Name_ru": "Объём",
+        "Name_ar": "الحجم"
+      },
+      {
+        "Code": "AREA",
+        "Name": "Area",
+        "Name_ru": "Площадь",
+        "Name_ar": "المساحة"
+      },
+      {
+        "Code": "TIME",
+        "Name": "Time",
+        "Name_ru": "Время",
+        "Name_ar": "الوقت"
       }
     ],
     "UnitOfMeasure": [
@@ -2336,7 +4542,49 @@
           "key": {
             "Code": "COUNT"
           }
-        }
+        },
+        "Name_ru": "Штука",
+        "Name_ar": "قطعة"
+      },
+      {
+        "Code": "BOX",
+        "Name": "Box",
+        "DecimalPlaces": 0,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "COUNT"
+          }
+        },
+        "Name_ru": "Коробка",
+        "Name_ar": "صندوق"
+      },
+      {
+        "Code": "PAL",
+        "Name": "Pallet",
+        "DecimalPlaces": 0,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "COUNT"
+          }
+        },
+        "Name_ru": "Паллета",
+        "Name_ar": "منصة"
+      },
+      {
+        "Code": "MG",
+        "Name": "Milligram",
+        "DecimalPlaces": 1,
+        "RatioToBase": 0.001,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "MASS"
+          }
+        },
+        "Name_ru": "Миллиграмм",
+        "Name_ar": "ملليغرام"
       },
       {
         "Code": "G",
@@ -2348,7 +4596,9 @@
           "key": {
             "Code": "MASS"
           }
-        }
+        },
+        "Name_ru": "Грамм",
+        "Name_ar": "غرام"
       },
       {
         "Code": "KG",
@@ -2360,7 +4610,9 @@
           "key": {
             "Code": "MASS"
           }
-        }
+        },
+        "Name_ru": "Килограмм",
+        "Name_ar": "كيلوغرام"
       },
       {
         "Code": "T",
@@ -2372,7 +4624,9 @@
           "key": {
             "Code": "MASS"
           }
-        }
+        },
+        "Name_ru": "Тонна",
+        "Name_ar": "طن"
       },
       {
         "Code": "MM",
@@ -2384,7 +4638,9 @@
           "key": {
             "Code": "LENGTH"
           }
-        }
+        },
+        "Name_ru": "Миллиметр",
+        "Name_ar": "ملليمتر"
       },
       {
         "Code": "CM",
@@ -2396,7 +4652,9 @@
           "key": {
             "Code": "LENGTH"
           }
-        }
+        },
+        "Name_ru": "Сантиметр",
+        "Name_ar": "سنتيمتر"
       },
       {
         "Code": "M",
@@ -2408,7 +4666,23 @@
           "key": {
             "Code": "LENGTH"
           }
-        }
+        },
+        "Name_ru": "Метр",
+        "Name_ar": "متر"
+      },
+      {
+        "Code": "KM",
+        "Name": "Kilometre",
+        "DecimalPlaces": 3,
+        "RatioToBase": 1000,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "LENGTH"
+          }
+        },
+        "Name_ru": "Километр",
+        "Name_ar": "كيلومتر"
       },
       {
         "Code": "ML",
@@ -2420,7 +4694,9 @@
           "key": {
             "Code": "VOLUME"
           }
-        }
+        },
+        "Name_ru": "Миллилитр",
+        "Name_ar": "ملليلتر"
       },
       {
         "Code": "L",
@@ -2432,7 +4708,93 @@
           "key": {
             "Code": "VOLUME"
           }
-        }
+        },
+        "Name_ru": "Литр",
+        "Name_ar": "لتر"
+      },
+      {
+        "Code": "M3",
+        "Name": "Cubic metre",
+        "DecimalPlaces": 3,
+        "RatioToBase": 1000,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "VOLUME"
+          }
+        },
+        "Name_ru": "Кубический метр",
+        "Name_ar": "متر مكعب"
+      },
+      {
+        "Code": "CM2",
+        "Name": "Square centimetre",
+        "DecimalPlaces": 2,
+        "RatioToBase": 0.0001,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "AREA"
+          }
+        },
+        "Name_ru": "Квадратный сантиметр",
+        "Name_ar": "سنتيمتر مربع"
+      },
+      {
+        "Code": "M2",
+        "Name": "Square metre",
+        "DecimalPlaces": 3,
+        "RatioToBase": 1,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "AREA"
+          }
+        },
+        "Name_ru": "Квадратный метр",
+        "Name_ar": "متر مربع"
+      },
+      {
+        "Code": "HA",
+        "Name": "Hectare",
+        "DecimalPlaces": 2,
+        "RatioToBase": 10000,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "AREA"
+          }
+        },
+        "Name_ru": "Гектар",
+        "Name_ar": "هكتار"
+      },
+      {
+        "Code": "MIN",
+        "Name": "Minute",
+        "DecimalPlaces": 1,
+        "RatioToBase": 60,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "TIME"
+          }
+        },
+        "Name_ru": "Минута",
+        "Name_ar": "دقيقة"
+      },
+      {
+        "Code": "HR",
+        "Name": "Hour",
+        "DecimalPlaces": 2,
+        "RatioToBase": 3600,
+        "UnitClass": {
+          "$ref": "UnitClass",
+          "key": {
+            "Code": "TIME"
+          }
+        },
+        "Name_ru": "Час",
+        "Name_ar": "ساعة"
       }
     ]
   }

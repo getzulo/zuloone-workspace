@@ -1,0 +1,46 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "division-types",
+    "entities": [
+      {
+        "entity": "DivisionType",
+        "table": "DivisionType",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Code"
+        ],
+        "mode": "insert",
+        "rowCount": 4
+      }
+    ]
+  },
+  "data": {
+    "DivisionType": [
+      {
+        "Code": "OFFICE",
+        "Name": "Office",
+        "Name_ru": "Офис",
+        "Name_ar": "مكتب"
+      },
+      {
+        "Code": "PLANT",
+        "Name": "Plant",
+        "Name_ru": "Завод",
+        "Name_ar": "مصنع"
+      },
+      {
+        "Code": "WAREHOUSE",
+        "Name": "Warehouse",
+        "Name_ru": "Склад",
+        "Name_ar": "مستودع"
+      },
+      {
+        "Code": "SALESPOINT",
+        "Name": "Sales point",
+        "Name_ru": "Точка продаж",
+        "Name_ar": "نقطة بيع"
+      }
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "store-cell-types",
+    "entities": [
+      {
+        "entity": "StoreCellType",
+        "table": "StoreCellType",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Code"
+        ],
+        "mode": "insert",
+        "rowCount": 3
+      }
+    ]
+  },
+  "data": {
+    "StoreCellType": [
+      {
+        "Code": "RECEIVING",
+        "Name": "Receiving",
+        "Purpose": 1,
+        "Name_ru": "Приёмка",
+        "Name_ar": "استلام"
+      },
+      {
+        "Code": "STORAGE",
+        "Name": "Storage",
+        "Purpose": 2,
+        "Name_ru": "Хранение",
+        "Name_ar": "تخزين"
+      },
+      {
+        "Code": "PICKING",
+        "Name": "Picking",
+        "Purpose": 3,
+        "Name_ru": "Отбор",
+        "Name_ar": "انتقاء"
+      }
+    ]
+  }
+}
