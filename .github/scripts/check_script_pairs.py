@@ -78,12 +78,22 @@ def subtype_tx_script_ids(path: Path) -> list[str]:
     return ids
 
 
-def job_script_meta_id(path: Path) -> str | None:
+OWNER_KINDS = {
+    "Job",
+    "UserCommand",
+    "DictionaryCommand",
+    "DictionaryListCommand",
+    "DocumentCommand",
+    "DocumentListCommand",
+}
+
+
+def owner_script_meta_id(path: Path) -> str | None:
     try:
         data = json.loads(path.read_text(encoding="utf-8-sig"))
     except (OSError, json.JSONDecodeError):
         return None
-    if not isinstance(data, dict) or data.get("kind") != "Job":
+    if not isinstance(data, dict) or data.get("kind") not in OWNER_KINDS:
         return None
     obj = data.get("object")
     if not isinstance(obj, dict):
@@ -107,14 +117,16 @@ def main() -> int:
             scripts_by_id[meta] = rel
         cs = rel[: -len(".script.json")] + ".cs"
         on_disk = (root / cs).is_file()
-        if on_disk and cs not in files:
+        if not on_disk:
+            errors.append(f"{rel}: code file missing ({Path(cs).name})")
+        elif cs not in files:
             why = "ignored by .gitignore" if cs in hidden else "not tracked"
             errors.append(f"{rel} is tracked, sibling {cs} is {why}")
 
     for rel in sorted(files):
-        if "/Jobs/" not in rel or rel.endswith(".script.json"):
+        if rel.endswith(".script.json"):
             continue
-        script_id = job_script_meta_id(root / rel)
+        script_id = owner_script_meta_id(root / rel)
         if not script_id:
             continue
         if script_id not in scripts_by_id:
@@ -153,7 +165,7 @@ def main() -> int:
         for line in errors:
             print(f"  {line}")
         return 1
-    print("Script pairs: every tracked envelope has its code; jobs and subtype tx bindings resolve.")
+    print("Script pairs: every tracked envelope has its code; jobs, commands and subtype tx bindings resolve.")
     return 0
 
 

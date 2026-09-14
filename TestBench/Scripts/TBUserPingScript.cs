@@ -1,9 +1,0 @@
-// "TestBench.Commands": global user command — the "user-ok" marker.
-public partial class TBUserPingCommand
-{
-    public override async Task ExecuteAsync(IDictionary<string, object?> parameters, IList<ClientAction> clientActions)
-    {
-        clientActions.Add(ClientAction.Message("user-ok", "success"));
-        await Task.CompletedTask;
-    }
-}

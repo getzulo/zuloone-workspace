@@ -37,6 +37,11 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
 
     private async Task<Setup> SetupAsync(bool splitRates = false)
     {
+        // Stand leftover ClosedPeriod (e.g. 2025-12-31) is not rolled back by
+        // another process. A 2024 invoice must not depend on whoever last
+        // closed the year on this database.
+        await Db.SetAccountingPeriodsAsync(null, null);
+
         var currency = DictionaryManager.NewRecord<Currency>();
         currency.Name = "Riyal";
         currency.Code = "SAR";

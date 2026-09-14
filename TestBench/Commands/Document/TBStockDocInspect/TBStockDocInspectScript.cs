@@ -1,5 +1,5 @@
-// «Ядерные тесты.Команды»: команда документа TBStockDoc (привязана только к
-// подтипу Receipt) — типизированный хук читает документ и возвращает его подтип.
+// "TestBench.Commands": TBStockDoc document command (Receipt subtype only) —
+// the typed hook reads the document and returns its subtype.
 public partial class TBStockDocInspectCommand
 {
     public override async Task ExecuteAsync(TBStockDoc document, CommandContext context)

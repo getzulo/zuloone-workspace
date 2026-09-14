@@ -1,5 +1,5 @@
-// «Ядерные тесты.Команды»: команда справочника TBWarehouse — типизированный хук
-// получает загруженную запись и возвращает её имя клиентским сообщением.
+// "TestBench.Commands": TBWarehouse dictionary command — the typed hook
+// receives the loaded record and returns its name as a client message.
 public partial class TBWarehouseInfoCommand
 {
     public override async Task ExecuteAsync(TBWarehouse record, CommandContext context)

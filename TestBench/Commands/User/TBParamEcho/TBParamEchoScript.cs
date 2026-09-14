@@ -1,5 +1,5 @@
-// «Ядерные тесты.Скрипты»: эхо параметров с их рантайм-типами — проверяет
-// типизированную инжекцию дефолтов MIQS ScriptUserParameter.
+// "TestBench.Scripts": echoes parameters with their runtime types — verifies
+// typed default injection of MIQS ScriptUserParameter.
 public partial class TBParamEchoCommand
 {
     public override async Task ExecuteAsync(IDictionary<string, object?> parameters, IList<ClientAction> clientActions)

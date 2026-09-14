@@ -1,4 +1,4 @@
-// «Ядерные тесты.Команды»: глобальная пользовательская команда — маркер «user-ok».
+// "TestBench.Commands": global user command — the "user-ok" marker.
 public partial class TBUserPingCommand
 {
     public override async Task ExecuteAsync(IDictionary<string, object?> parameters, IList<ClientAction> clientActions)

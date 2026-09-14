@@ -1,4 +1,4 @@
-// «Ядерные тесты.Команды»: команда списка документов TBStockDoc — считает выборку.
+// "TestBench.Commands": TBStockDoc list command — counts the selection.
 public partial class TBStockDocTallyCommand
 {
     public override async Task ExecuteAsync(IReadOnlyList<TBStockDoc> documents, CommandContext context)

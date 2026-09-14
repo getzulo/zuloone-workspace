@@ -13,8 +13,7 @@ public class WorkspaceDeployTest : IntegrationTestScriptBase
     [IntegrationTest("Workspace: deploy pipeline applies and rolls back")]
     public async Task DeployAppliesAndRollsBack()
     {
-        var root = Path.Combine(Path.GetTempPath(), "zuloone-ws-deploy");
-        if (Directory.Exists(root)) Directory.Delete(root, true);
+        var root = Path.Combine(Path.GetTempPath(), "zuloone-ws-deploy-" + Guid.NewGuid().ToString("N"));
         try
         {
             await Db.ExportWorkspaceAsync(root);
