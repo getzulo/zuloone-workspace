@@ -243,6 +243,18 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
+      "caption": "Tax rule actions",
+      "caption_ru": "Действия правил",
+      "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
+      "displayOrder": 8,
+      "icon": "fluent-color:flash-24",
+      "targetType": "Dictionary",
+      "targetMetaId": "7bf2d1e5-3c84-4029-8b6f-9e4d2c1a5f38",
+      "metaId": "d158374b-92ea-4685-81c5-f4a38270b59e",
+      "name": "TaxRuleAction",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
       "caption": "Authority submissions",
       "caption_ar": "سجل التسليم للجهة",
       "caption_ru": "Журнал сдачи",

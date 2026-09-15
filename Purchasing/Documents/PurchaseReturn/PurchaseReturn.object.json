@@ -21,19 +21,22 @@
   "headerFields": [
     {
       "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
-      "fieldName": "Supplier",
-      "caption": "Supplier",
-      "caption_ru": "Поставщик",
-      "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
-      "isSystem": false,
+      "fieldName": "ID",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
       "isRequired": true,
-      "displayOrder": 1,
-      "isIndexed": false,
-      "isUnique": false,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
       "isVisible": true,
       "isTranslatable": false,
-      "metaId": "ea663439-5a5f-4643-9bf6-d2e4554badcf",
-      "name": "Supplier",
+      "metaId": "51a8be3c-10ca-4a43-af0f-9a63c7cda4d5",
+      "name": "ID",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
@@ -69,22 +72,26 @@
       "metaId": "845d416b-cd8d-45b0-b977-69f7ed327210",
       "name": "OriginalOrder",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+      "fieldName": "Supplier",
+      "caption": "Supplier",
+      "caption_ru": "Поставщик",
+      "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "ea663439-5a5f-4643-9bf6-d2e4554badcf",
+      "name": "Supplier",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ],
   "subtypes": [
-    {
-      "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
-      "name": "Draft",
-      "caption": "Draft",
-      "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
-      "displayOrder": 1,
-      "isInitial": true,
-      "isReadOnly": false,
-      "metaId": "f0ca5af5-ed70-496a-b2b8-19abddeb33c9",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
-    },
     {
       "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
       "name": "Posted",
@@ -96,6 +103,19 @@
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "b3887c15-7aa9-4d81-af3c-ff7277c4cea7",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+      "name": "Draft",
+      "caption": "Draft",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "f0ca5af5-ed70-496a-b2b8-19abddeb33c9",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ],

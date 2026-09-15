@@ -1,4 +1,5 @@
 #nullable enable
+using System.Collections.Generic;
 using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
@@ -100,7 +101,13 @@ public partial class SalesCreditNoteEventHandler : TypedDocumentEventHandler<Sal
         var taxPoint = note.DocumentDate == default ? DateTime.UtcNow.Date : note.DocumentDate.Date;
         var calc = await context.GetService<ITaxService>()
             .CreateReversalAsync(legalEntity, "OUTPUT", taxBase,
-                $"Sales credit note {header.MetaId:D}", taxPoint);
+                $"Sales credit note {header.MetaId:D}", taxPoint,
+                new Dictionary<string, object?>
+                {
+                    ["document.type"] = "SalesCreditNote",
+                    ["direction"] = "OUTPUT",
+                    ["amount"] = taxBase,
+                });
         if (calc.HasValue)
             await docs.AddLinkAsync(header.MetaId, calc.Value);
 

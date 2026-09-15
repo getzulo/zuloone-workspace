@@ -40,6 +40,7 @@ public partial class TaxService
     private readonly IDictionaryManager<LegalEntity> _legalEntities;
     private readonly IDictionaryManager<TaxRule> _rules;
     private readonly IDictionaryManager<TaxRuleCondition> _ruleConditions;
+    private readonly IDictionaryManager<TaxRuleAction> _ruleActions;
     private readonly IDocumentManager _documents;
     private readonly IDocumentPostingService _posting;
 
@@ -52,6 +53,7 @@ public partial class TaxService
         IDictionaryManager<LegalEntity> legalEntities,
         IDictionaryManager<TaxRule> rules,
         IDictionaryManager<TaxRuleCondition> ruleConditions,
+        IDictionaryManager<TaxRuleAction> ruleActions,
         IDocumentManager documents,
         IDocumentPostingService posting)
     {
@@ -63,6 +65,7 @@ public partial class TaxService
         _legalEntities = legalEntities;
         _rules = rules;
         _ruleConditions = ruleConditions;
+        _ruleActions = ruleActions;
         _documents = documents;
         _posting = posting;
     }
@@ -302,8 +305,6 @@ public partial class TaxService
         var taxCode = matchedRule?.TaxCode ?? await ResolveDefaultTaxCodeAsync();
         if (taxCode is null || taxCode == Guid.Empty) return null;
 
-        var rate = await RequireRateAsync(taxCode.Value, taxPoint);
-
         var direction = (await _directions.GetRecordsAsync($"Code = '{directionCode}'")).FirstOrDefault();
         if (direction is null) return null;
 
@@ -322,14 +323,23 @@ public partial class TaxService
             ["MatchedRule"] = matchedRule?.MetaId,
         });
 
-        calc.Lines.Add(new TaxCalculationLinesTablePartRow
+        foreach (var action in await ResolveActionsAsync(matchedRule, taxCode.Value))
         {
-            Direction = direction.MetaId,
-            TaxCode = taxCode.Value,
-            RateValue = rate,
-            TaxBase = signedBase,
-            TaxAmount = CalculateTax(signedBase, rate),
-        });
+            var lineRate = action.Rate ?? await RequireRateAsync(action.Code, taxPoint);
+            var amount = CalculateTax(signedBase, lineRate);
+            var codeRow = await _codes.GetRecordAsync(action.Code);
+            calc.Lines.Add(new TaxCalculationLinesTablePartRow
+            {
+                Direction = direction.MetaId,
+                TaxCode = action.Code,
+                TaxCategory = codeRow?.TaxCategory ?? Guid.Empty,
+                RateValue = lineRate,
+                TaxBase = signedBase,
+                TaxAmount = amount,
+                RecoverableAmount = RecoverableOf(amount, codeRow?.NonRecoverablePct ?? 0m),
+                RateOverridden = action.Rate.HasValue,
+            });
+        }
 
         await _documents.SaveDocumentAsync(calc);
         await _posting.SetSubtypeAsync(TaxCalculationType, calc.MetaId, "Finalized");
@@ -339,6 +349,34 @@ public partial class TaxService
     /// <summary>Tax amount = base × rate (fraction), rounded to money precision.</summary>
     public decimal CalculateTax(decimal baseAmount, decimal rate)
         => Math.Round(baseAmount * rate, GlobalConstants.Get<int?>("AmountScale") ?? 2, MidpointRounding.AwayFromZero);
+
+    /// <summary>Recoverable VAT: <paramref name="nonRecoverablePct"/> 0–100.
+    /// Zero (the default on a new code) means the whole amount is recoverable.</summary>
+    public decimal RecoverableOf(decimal taxAmount, decimal nonRecoverablePct)
+    {
+        if (nonRecoverablePct <= 0m) return taxAmount;
+        if (nonRecoverablePct >= 100m) return 0m;
+        return Math.Round(taxAmount * (1m - nonRecoverablePct / 100m),
+            GlobalConstants.Get<int?>("AmountScale") ?? 2, MidpointRounding.AwayFromZero);
+    }
+
+    /// <summary>Actions of the matched rule, or the single header/default code
+    /// when the rule has none — so existing one-code rules stay unchanged.</summary>
+    private async Task<List<(Guid Code, decimal? Rate)>> ResolveActionsAsync(TaxRule? rule, Guid fallbackCode)
+    {
+        if (rule is not null)
+        {
+            var rows = (await _ruleActions.GetRecordsAsync($"TaxRule = '{rule.MetaId}'"))
+                .OrderBy(a => a.DisplayOrder)
+                .ThenBy(a => a.MetaId)
+                .Where(a => a.TaxCode != Guid.Empty)
+                .Select(a => (a.TaxCode, a.RateOverride == 0m ? (decimal?)null : a.RateOverride))
+                .ToList();
+            if (rows.Count > 0) return rows;
+        }
+
+        return new List<(Guid Code, decimal? Rate)> { (fallbackCode, null) };
+    }
 
     /// <summary>
     /// Rate EFFECTIVE on the date (default — today): TaxCode → Tax → TaxRate.

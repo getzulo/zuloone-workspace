@@ -141,6 +141,38 @@
       "metaId": "580a0a94-3abe-4617-a82a-f608d0b85d18",
       "name": "TaxRate",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
+      "fieldName": "RecoverableAmount",
+      "caption": "Recoverable amount",
+      "caption_ru": "К возмещению",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 9,
+      "metaId": "f37a596d-b40c-48a7-83e7-16c5a492d7b0",
+      "name": "RecoverableAmount",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
+      "fieldName": "RateOverridden",
+      "caption": "Rate overridden",
+      "caption_ru": "Ставка вручную",
+      "baseType": "Boolean",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 10,
+      "metaId": "159c7b8f-d62e-4ac9-a509-38e7c6b4f9d2",
+      "name": "RateOverridden",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

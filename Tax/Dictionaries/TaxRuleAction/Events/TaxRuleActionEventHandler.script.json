@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TaxRuleAction",
+    "objectMetaId": "7bf2d1e5-3c84-4029-8b6f-9e4d2c1a5f38",
+    "executionOrder": 0,
+    "metaId": "d4bf8f9e-9a13-49a6-be80-211c14ec8bda",
+    "name": "TaxRuleActionEventHandler",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

@@ -47,6 +47,9 @@ public partial class TaxCodeEventHandler : TypedDictionaryEventHandler<TaxCode>
         if (record.EffectiveTo.HasValue && record.EffectiveFrom > record.EffectiveTo.Value)
             return EventResult.Cancel("Окно действия задано наоборот: дата начала позже даты окончания");
 
+        if (record.NonRecoverablePct < 0m || record.NonRecoverablePct > 100m)
+            return EventResult.Cancel("Невозместимая доля должна быть от 0 до 100%");
+
         if (record.TaxCategory != Guid.Empty)
         {
             var category = await context.GetService<IDictionaryManager<TaxCategory>>()
