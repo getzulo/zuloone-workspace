@@ -33,30 +33,6 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         if (!prior.Success) return prior;
         if (header.DiscountPercent < 0m || header.DiscountPercent > 100m)
             return EventResult.Cancel("Скидка на счёте должна быть в диапазоне от 0 до 100%");
-        if (!isNew)
-            await MergeStoredHeaderAsync(header, context);
-
-        var onDate = header.DocumentDate != default ? header.DocumentDate : DateTime.UtcNow;
-        var contracts = context.GetService<ISalesContractService>();
-        var stamp = await contracts.ResolveStampAsync(
-            header.Customer, header.Outlet, header.Contract, onDate);
-        if (header.Customer == Guid.Empty && stamp.TryGetValue("Customer", out var c) && c is Guid stampedCustomer)
-            header.Customer = stampedCustomer;
-        if (header.Outlet == Guid.Empty && stamp.TryGetValue("Outlet", out var o) && o is Guid stampedOutlet)
-            header.Outlet = stampedOutlet;
-        if (header.Contract == Guid.Empty && stamp.TryGetValue("Contract", out var k) && k is Guid stampedContract)
-            header.Contract = stampedContract;
-        if (header.PaymentTerm == Guid.Empty && stamp.TryGetValue("PaymentTerm", out var p) && p is Guid term)
-            header.PaymentTerm = term;
-        if (header.Contact == Guid.Empty && stamp.TryGetValue("Contact", out var n) && n is Guid stampedContact)
-            header.Contact = stampedContact;
-        if (header.LegalEntity == Guid.Empty && stamp.TryGetValue("LegalEntity", out var le) && le is Guid legal)
-            header.LegalEntity = legal;
-
-        var pair = await contracts.ValidatePairAsync(
-            header.Customer, header.Outlet, header.Contract, onDate);
-        if (pair != null)
-            return EventResult.Cancel(pair);
 
         // Copy PaymentTerm and primary Contact from Customer when still empty.
         if (header.Customer != Guid.Empty)
@@ -80,19 +56,6 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
         }
 
         return EventResult.Ok();
-    }
-
-    private static async Task MergeStoredHeaderAsync(SalesInvoice header, EventContext context)
-    {
-        if (header.MetaId == Guid.Empty) return;
-        var stored = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
-        if (stored is null) return;
-        if (header.Customer == Guid.Empty) header.Customer = stored.Customer;
-        if (header.Outlet == Guid.Empty) header.Outlet = stored.Outlet;
-        if (header.Contract == Guid.Empty) header.Contract = stored.Contract;
-        if (header.Location == Guid.Empty) header.Location = stored.Location;
-        if (header.LegalEntity == Guid.Empty) header.LegalEntity = stored.LegalEntity;
-        if (header.DocumentDate == default) header.DocumentDate = stored.DocumentDate;
     }
 
     // MIQS AfterSave: runs after ANY save (insert or update).
@@ -189,36 +152,10 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
             if (resolved.HasValue)
             {
                 header.LegalEntity = resolved.Value;
-                current = resolved.Value;
                 await context.GetService<IDocumentManager>().UpdateDocumentAsync(
                     SalesInvoiceType, header.MetaId,
                     new Dictionary<string, object?> { ["LegalEntity"] = resolved.Value });
             }
-        }
-
-        var issued = full ?? header;
-        var contractSvc = context.GetService<ISalesContractService>();
-        var onDate = issued.DocumentDate != default ? issued.DocumentDate : DateTime.UtcNow;
-        var pair = await contractSvc.ValidatePairAsync(
-            issued.Customer, issued.Outlet, issued.Contract, onDate);
-        if (pair != null)
-            return EventResult.Cancel(pair);
-        if (issued.Contract != Guid.Empty)
-        {
-            var contract = await context.GetService<IDictionaryManager<SalesContract>>()
-                .GetRecordAsync(issued.Contract);
-            if (contract is not null)
-            {
-                var currencyError = await contractSvc.CheckCurrencyAsync(contract.Currency, current);
-                if (currencyError != null)
-                    return EventResult.Cancel(currencyError);
-            }
-
-            var pricing = context.GetService<IPricingService>();
-            var amount = lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice, issued.DiscountPercent));
-            var settlement = await contractSvc.CheckSettlementAsync(issued.Customer, issued.Contract, amount);
-            if (settlement != null)
-                return EventResult.Cancel(settlement);
         }
 
         // Compared to the register balance, which is in the item BASE unit —
@@ -323,7 +260,7 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
             // otherwise invoice and tax would date differently, and a
             // back-dated document would use today's rate.
             var calc = await context.GetService<ITaxService>()
-                .CreateCalculationAsync(legalEntity, "OUTPUT", taxBase, $"Sales invoice {header.MetaId:D}",
+                .CreateCalculationAsync(legalEntity, "OUTPUT", taxBase, $"Sales invoice {header.Number}",
                     TaxPointOf(header), await TaxContextAsync(invoice, taxBase, context));
             if (calc.HasValue)
                 await docs.AddLinkAsync(header.MetaId, calc.Value);

@@ -56,11 +56,8 @@ public partial class SaudiVatTx
 
         var vat = tax.CalculateTax(baseAmount, rate);
         if (vat > 0m)
-        {
             transactions.Add(new RegisterMovementSpec("VatPayable")
                 .An(Analytics.VatPayable.Customer, document.Customer)
-                .An(Analytics.VatPayable.SalesContract, document.Contract)
                 .Res("Amount", vat));
-        }
     }
 }

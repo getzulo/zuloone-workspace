@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1059,
+    "nextValue": 1000,
     "resetPolicy": "None",
     "metaId": "53fe88e6-2e26-420a-9a9f-3bb6ffbe557e",
     "name": "DeliveryTripSeq",

@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1003,
+    "nextValue": 1001,
     "resetPolicy": "None",
     "metaId": "22dbc348-aa64-485f-9ed3-d6818b8279e9",
     "name": "BrandSeq",

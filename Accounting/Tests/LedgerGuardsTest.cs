@@ -26,9 +26,7 @@ using ZuloOne.Runtime.Generated;
 public class LedgerGuardsTest : IntegrationTestScriptBase
 {
     private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
-    private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
     private static IGeneralLedgerService Gl => GetService<IGeneralLedgerService>();
-    private static IFiscalPeriodService Fiscal => GetService<IFiscalPeriodService>();
 
     private Guid _currency;
     private Guid _legalEntity;
@@ -255,78 +253,5 @@ public class LedgerGuardsTest : IntegrationTestScriptBase
 
         Assert.IsTrue(reason.Contains("не проводимый") || reason.Contains("группа"),
             "профиль с кодом счёта-группы обязан быть отклонён с внятной причиной, факт: {0}", reason);
-    }
-
-    [IntegrationTest("Нет календарного периода — ClosedReason пустой, операции не блокируются")]
-    public async Task NoCalendarIsNotARefusal()
-    {
-        var reason = await Fiscal.ClosedReasonAsync(new DateTime(2099, 6, 15));
-        Assert.IsTrue(reason == null,
-            "без строки FiscalPeriod на дату отказ быть не должен, факт: {0}", reason);
-    }
-
-    [IntegrationTest("Движок не проводит журнал в закрытый месяц")]
-    public async Task EngineRefusesJournalInClosedPeriod()
-    {
-        await PartyAsync();
-        var year = await YearAsync(2026);
-        var january = await PeriodAsync(year, "P01", new DateTime(2026, 1, 1), new DateTime(2026, 1, 31));
-        var cash = await AccountAsync("1000", "Cash", AccountType.Asset);
-        var revenue = await AccountAsync("4000", "Revenue", AccountType.Income);
-
-        var entry = await DocumentManager.NewDocumentAsync<JournalEntry>();
-        entry.LegalEntity = _legalEntity;
-        entry.Currency = _currency;
-        entry.FiscalPeriod = january.MetaId;
-        entry.DocumentDate = new DateTime(2026, 1, 15);
-        entry.Description = $"Closed-month journal {Db.NewId():N}";
-        entry.Lines.Add(new JournalEntryLinesTablePartRow { Account = cash, Debit = 50m, Credit = 0m });
-        entry.Lines.Add(new JournalEntryLinesTablePartRow { Account = revenue, Debit = 0m, Credit = 50m });
-        await DocumentManager.SaveDocumentAsync(entry);
-
-        january.Status = "Closed";
-        await DictionaryManager.SaveRecordAsync(january);
-
-        var reason = string.Empty;
-        try
-        {
-            entry.Subtype = JournalEntry.Subtypes.Posted;
-            await DocumentManager.SaveDocumentAsync(entry);
-        }
-        catch (Exception ex) { reason = ex.Message; }
-
-        Assert.IsTrue(reason.Contains("закрыт"),
-            "проведение журнала в закрытый месяц обязан отклонить движок, факт: {0}", reason);
-    }
-
-    [IntegrationTest("Команда журнала называет закрытый период")]
-    public async Task JournalCommandNamesClosedPeriod()
-    {
-        await PartyAsync();
-        var year = await YearAsync(2026);
-        var january = await PeriodAsync(year, "P01", new DateTime(2026, 1, 1), new DateTime(2026, 1, 31));
-        var cash = await AccountAsync("1000", "Cash", AccountType.Asset);
-        var revenue = await AccountAsync("4000", "Revenue", AccountType.Income);
-
-        var entry = await DocumentManager.NewDocumentAsync<JournalEntry>();
-        entry.LegalEntity = _legalEntity;
-        entry.Currency = _currency;
-        entry.FiscalPeriod = january.MetaId;
-        entry.DocumentDate = new DateTime(2026, 1, 18);
-        entry.Description = $"Closed-month command {Db.NewId():N}";
-        entry.Lines.Add(new JournalEntryLinesTablePartRow { Account = cash, Debit = 25m, Credit = 0m });
-        entry.Lines.Add(new JournalEntryLinesTablePartRow { Account = revenue, Debit = 0m, Credit = 25m });
-        await DocumentManager.SaveDocumentAsync(entry);
-
-        january.Status = "Closed";
-        await DictionaryManager.SaveRecordAsync(january);
-
-        var commandId = await Db.FindCommandIdAsync("document", "PostJournalEntry");
-        var run = await Db.ExecuteDocumentCommandAsync(commandId, entry.MetaId);
-        Assert.IsTrue(!run.Success || string.Join("; ", run.ClientMessages).Contains("закрыт"),
-            "команда обязана отказать в закрытый месяц: success={0} messages={1}",
-            run.Success, string.Join("; ", run.ClientMessages));
-        Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("закрыт"),
-            "пользователь видит причину: {0}", string.Join("; ", run.ClientMessages));
     }
 }

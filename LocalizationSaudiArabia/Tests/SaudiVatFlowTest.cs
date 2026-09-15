@@ -33,8 +33,6 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
         public Guid Location;
         public Guid Item;
         public Guid Customer;
-        public Guid Outlet;
-        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync(bool splitRates = false)
@@ -128,28 +126,7 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
 
         await TaxCircuitAsync(splitRates);
 
-        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
-        outlet.Name = "Shop A";
-        outlet.Customer = customer.MetaId;
-        outlet = await DictionaryManager.SaveRecordAsync(outlet);
-
-        var contract = DictionaryManager.NewRecord<SalesContract>();
-        contract.Name = "A-2026";
-        contract.Outlet = outlet.MetaId;
-        contract.Currency = currency.MetaId;
-        contract.SettlementKind = SettlementKind.Credit;
-        contract.EffectiveFrom = new DateTime(2020, 1, 1);
-        contract.LegalEntity = legalEntity.MetaId;
-        contract = await DictionaryManager.SaveRecordAsync(contract);
-
-        return new Setup
-        {
-            Location = cell.MetaId,
-            Item = item.MetaId,
-            Customer = customer.MetaId,
-            Outlet = outlet.MetaId,
-            Contract = contract.MetaId,
-        };
+        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
     }
 
     /// <summary>
@@ -234,7 +211,7 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
         await DictionaryManager.SaveRecordAsync(settings);
     }
 
-    // Срез по клиенту: договор на VatPayable необязателен.
+    // VatPayable несёт одну динамическую аналитику Customer.
     private static Task<decimal> VatAsync(Setup s)
         => TotalsManager.GetBalanceAsync("VatPayable", "Amount",
             new Dictionary<string, object?> { ["Customer"] = s.Customer });
@@ -253,8 +230,6 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
 
         var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         invoice.Customer = s.Customer;
-        invoice.Outlet = s.Outlet;
-        invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 10m, UnitPrice = 10m });
         await DocumentManager.SaveDocumentAsync(invoice);
@@ -288,8 +263,6 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
 
         var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         invoice.Customer = s.Customer;
-        invoice.Outlet = s.Outlet;
-        invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         invoice.DocumentDate = new DateTime(2024, 6, 1);   // окно старой ставки
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 10m, UnitPrice = 10m });

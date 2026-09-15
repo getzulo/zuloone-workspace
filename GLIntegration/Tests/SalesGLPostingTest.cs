@@ -109,20 +109,6 @@ public class SalesGLPostingTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
-        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
-        outlet.Name = "Shop A";
-        outlet.Customer = customer.MetaId;
-        outlet = await DictionaryManager.SaveRecordAsync(outlet);
-
-        var contract = DictionaryManager.NewRecord<SalesContract>();
-        contract.Name = "A-2026";
-        contract.Outlet = outlet.MetaId;
-        contract.Currency = currency.MetaId;
-        contract.SettlementKind = SettlementKind.Credit;
-        contract.EffectiveFrom = new DateTime(2020, 1, 1);
-        contract.LegalEntity = legalEntity.MetaId;
-        contract = await DictionaryManager.SaveRecordAsync(contract);
-
         // Настроенные счета разноски (коды совпадают с профилем AccountingSettings).
         // AccountType — ГЕНЕРЁННЫЙ ENUM, а не строка: строковый литерал здесь просто
         // не скомпилируется.
@@ -177,8 +163,6 @@ public class SalesGLPostingTest : IntegrationTestScriptBase
         // идём объявленным маршрутом Draft → Issued.
         var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         invoice.Customer = customer.MetaId;
-        invoice.Outlet = outlet.MetaId;
-        invoice.Contract = contract.MetaId;
         invoice.Location = cell.MetaId;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = item.MetaId, Quantity = 3m, UnitPrice = 5m });
         await DocumentManager.SaveDocumentAsync(invoice);
@@ -294,20 +278,6 @@ public class SalesGLPostingTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
-        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
-        outlet.Name = "Shop A";
-        outlet.Customer = customer.MetaId;
-        outlet = await DictionaryManager.SaveRecordAsync(outlet);
-
-        var contract = DictionaryManager.NewRecord<SalesContract>();
-        contract.Name = "A-2026";
-        contract.Outlet = outlet.MetaId;
-        contract.Currency = currency.MetaId;
-        contract.SettlementKind = SettlementKind.Credit;
-        contract.EffectiveFrom = new DateTime(2020, 1, 1);
-        contract.LegalEntity = legalEntity.MetaId;
-        contract = await DictionaryManager.SaveRecordAsync(contract);
-
         var receivable = DictionaryManager.NewRecord<ChartOfAccounts>();
         receivable.Code = "1200";
         receivable.Name = "Accounts receivable";
@@ -352,8 +322,6 @@ public class SalesGLPostingTest : IntegrationTestScriptBase
 
         var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         invoice.Customer = customer.MetaId;
-        invoice.Outlet = outlet.MetaId;
-        invoice.Contract = contract.MetaId;
         invoice.Location = cell.MetaId;
         invoice.DiscountPercent = 20m;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = item.MetaId, Quantity = 10m, UnitPrice = 10m });

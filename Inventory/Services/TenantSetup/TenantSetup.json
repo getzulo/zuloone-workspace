@@ -1,7 +1,7 @@
 {
   "kind": "Service",
   "object": {
-    "description": "Каркас тенанта: пакеты посева, юрлицо / склад, штамп профиля BuySell",
+    "description": "Каркас тенанта: статус пакетов посева и создание юрлица / подразделения / склада",
     "namespace": "ZuloOne.Services",
     "scriptMetaId": "b28f1d52-7c3e-409b-8d4f-6e2a9b3c5d81",
     "metaId": "a17e0c41-6b2d-4f8a-9c3e-5d1f8a2b4c70",

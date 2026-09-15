@@ -29,7 +29,7 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
     private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
     private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
 
-    private async Task<(Guid Cell, Guid Item, Guid Customer, Guid Currency, Guid Outlet, Guid Contract)> SetupAsync()
+    private async Task<(Guid Cell, Guid Item, Guid Customer, Guid Currency)> SetupAsync()
     {
         var currency = DictionaryManager.NewRecord<Currency>();
         currency.Name = "Saudi Riyal";
@@ -113,24 +113,11 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
-        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
-        outlet.Name = "Shop A";
-        outlet.Customer = customer.MetaId;
-        outlet = await DictionaryManager.SaveRecordAsync(outlet);
-
-        var contract = DictionaryManager.NewRecord<SalesContract>();
-        contract.Name = "A-2026";
-        contract.Outlet = outlet.MetaId;
-        contract.Currency = currency.MetaId;
-        contract.SettlementKind = SettlementKind.Credit;
-        contract.EffectiveFrom = new DateTime(2020, 1, 1);
-        contract = await DictionaryManager.SaveRecordAsync(contract);
-
         await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
             new Dictionary<string, object?> { ["Cell"] = cell.MetaId, ["Item"] = item.MetaId },
             new Dictionary<string, decimal> { ["Qty"] = 100m });
 
-        return (cell.MetaId, item.MetaId, customer.MetaId, currency.MetaId, outlet.MetaId, contract.MetaId);
+        return (cell.MetaId, item.MetaId, customer.MetaId, currency.MetaId);
     }
 
     /// <summary>Налоговый контур: справочники + код налога по умолчанию в настройках.
@@ -210,18 +197,14 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
     }
 
     /// <summary>Черновик счёта на одну строку — ещё НЕ выставлен.</summary>
-    private static async Task<SalesInvoice> NewInvoiceAsync(
-        (Guid Cell, Guid Item, Guid Customer, Guid Currency, Guid Outlet, Guid Contract) s,
-        decimal quantity, decimal unitPrice)
+    private static async Task<SalesInvoice> NewInvoiceAsync(Guid customer, Guid cell, Guid item, decimal quantity, decimal unitPrice)
     {
         // Подтип не передаём: NewDocumentAsync обязан взять НАЧАЛЬНЫЙ подтип типа
         // документа (Draft) сам.
         var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
-        invoice.Customer = s.Customer;
-        invoice.Outlet = s.Outlet;
-        invoice.Contract = s.Contract;
-        invoice.Location = s.Cell;
-        invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = quantity, UnitPrice = unitPrice });
+        invoice.Customer = customer;
+        invoice.Location = cell;
+        invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = item, Quantity = quantity, UnitPrice = unitPrice });
         await DocumentManager.SaveDocumentAsync(invoice);
         return invoice;
     }
@@ -233,7 +216,7 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         await ConfigureTaxAsync();
 
         // 4 × 25 = 100 базы, ставка 15% → налог 15.
-        var inv = await NewInvoiceAsync(s, 4m, 25m);
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 4m, 25m);
 
         // Состояние ДО перехода: расчёт налога рождает именно ВЫСТАВЛЕНИЕ.
         // Без этой проверки «один расчёт» ниже проходит и тогда, когда счёт
@@ -281,7 +264,7 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
             new Dictionary<string, object?> { ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Quantity"] = 100m, ["Amount"] = 700m });
 
-        var inv = await NewInvoiceAsync(s, 4m, 25m);
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 4m, 25m);
         inv.Subtype = SalesInvoice.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
 
@@ -317,7 +300,7 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
             c.ConditionGroup = 0;
         });
 
-        var inv = await NewInvoiceAsync(s, 4m, 25m);
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 4m, 25m);
         inv.Subtype = SalesInvoice.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
 
@@ -376,7 +359,7 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
     {
         var s = await SetupAsync();
 
-        var inv = await NewInvoiceAsync(s, 2m, 10m);
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 2m, 10m);
         var draft = await DocumentManager.GetDocumentAsync<SalesInvoice>(inv.MetaId);
         Assert.IsTrue(draft!.LegalEntity == Guid.Empty,
             "у черновика юрлица ещё нет — его проставляет именно выставление");
@@ -419,7 +402,7 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         other.Currency = s.Currency;
         other = await DictionaryManager.SaveRecordAsync(other);
 
-        var inv = await NewInvoiceAsync(s, 2m, 10m);
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 2m, 10m);
         inv.LegalEntity = other.MetaId;
         await DocumentManager.SaveDocumentAsync(inv);
 
@@ -444,7 +427,7 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
             await DictionaryManager.SaveRecordAsync(taxRows[0]);
         }
 
-        var inv = await NewInvoiceAsync(s, 2m, 10m);
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 2m, 10m);
         Assert.IsTrue(inv.Subtype == SalesInvoice.Subtypes.Draft,
             "новый счёт стартует в начальном подтипе Draft, факт {0}", inv.Subtype);
 
@@ -467,7 +450,7 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
         // настройка, и счёт без НДС уходить клиенту не должен.
         await ConfigureTaxAsync(rateTo: new DateTime(2020, 12, 31));
 
-        var inv = await NewInvoiceAsync(s, 4m, 25m);
+        var inv = await NewInvoiceAsync(s.Customer, s.Cell, s.Item, 4m, 25m);
 
         // Отказ приходит ИСКЛЮЧЕНИЕМ, а бросок происходит внутри окружающей
         // транзакции прогона и обрекает её. Поэтому после catch к базе больше не
@@ -529,8 +512,6 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
 
         var order = await DocumentManager.NewDocumentAsync<SalesOrder>();
         order.Customer = s.Customer;
-        order.Outlet = s.Outlet;
-        order.Contract = s.Contract;
         order.Location = s.Cell;
         order.DeliveryDate = DateTime.UtcNow.Date.AddDays(1);
         order.Lines.Add(new SalesOrderLinesTablePartRow { Item = s.Item, Quantity = 4m, UnitPrice = 25m });

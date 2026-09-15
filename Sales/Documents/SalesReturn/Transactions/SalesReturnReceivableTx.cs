@@ -12,7 +12,6 @@ public partial class SalesReturnReceivableTx
             if (amount == 0m) continue;
             transactions.Add(new RegisterMovementSpec("Receivable")
                 .An(Analytics.Receivable.Customer, document.Customer)
-                .An(Analytics.Receivable.SalesContract, document.Contract)
                 .Res("Amount", -amount));
         }
     }

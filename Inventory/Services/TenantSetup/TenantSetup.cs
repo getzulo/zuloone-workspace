@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using ZuloOne.Managers;
 using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
-using ZuloOne.Services.Contracts;
 
 // Tenant skeleton: IDataPackageService applies dictionary packages;
 // here only what a package cannot cover — legal-entity name and store.
@@ -41,13 +40,11 @@ public partial class TenantSetup
             });
         }
 
-        var profile = await ScriptServices.Get<ITradeProfileService>().CurrentNameAsync();
         return new Dictionary<string, object?>
         {
             ["hasLegalEntity"] = hasLe,
             ["defaultCountryIso2"] = iso,
             ["defaultCurrencyCode"] = settings?.DefaultCurrencyCode,
-            ["tradeProfile"] = profile,
             ["packages"] = packList,
         };
     }
@@ -137,7 +134,6 @@ public partial class TenantSetup
         }
 
         await WriteDefaultsAsync(country, currency);
-        await ScriptServices.Get<ITradeProfileService>().EnsureBuySellAsync();
 
         return new Dictionary<string, object?>
         {
@@ -145,7 +141,6 @@ public partial class TenantSetup
             ["legalEntityId"] = le.MetaId.ToString(),
             ["createdLegalEntity"] = createdLe,
             ["createdStore"] = createdStore,
-            ["tradeProfile"] = await ScriptServices.Get<ITradeProfileService>().CurrentNameAsync(),
         };
     }
 

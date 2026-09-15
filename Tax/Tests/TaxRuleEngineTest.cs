@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Runtime.Testing;
@@ -356,80 +355,6 @@ public class TaxRuleEngineTest : IntegrationTestScriptBase
             "правило не спрашивали — поле пустое");
         Assert.IsTrue(calc.Lines[0].TaxAmount == 50m,
             "1000 × 5% = 50 по коду из настроек, факт {0}", calc.Lines[0].TaxAmount);
-    }
-
-    [IntegrationTest("Два действия правила дают две строки расчёта")]
-    public async Task TwoActionsWriteTwoLines()
-    {
-        var vat = await NewTaxCodeAsync(0.15m);
-        var excise = await NewTaxCodeAsync(0.10m);
-        var rule = await NewRuleAsync(vat, 10);
-        await NewRecordAsync<TaxRuleAction>(a =>
-        {
-            a.TaxRule = rule;
-            a.TaxCode = vat;
-            a.DisplayOrder = 1;
-        });
-        await NewRecordAsync<TaxRuleAction>(a =>
-        {
-            a.TaxRule = rule;
-            a.TaxCode = excise;
-            a.DisplayOrder = 2;
-        });
-
-        await EnsureOutputDirectionAsync();
-        var calcId = await Svc.CreateCalculationAsync(
-            await NewLegalEntityAsync(), "OUTPUT", 1000m, $"Two actions {Uniq()}", Today,
-            Ctx(("amount", 1000m)));
-        Assert.IsNotNull(calcId, "расчёт создан");
-
-        var calc = await GetService<ZuloOne.Managers.IDocumentManager>().GetDocumentAsync<TaxCalculation>(calcId!.Value);
-        Assert.IsTrue(calc!.Lines.Count == 2, "две строки — два налога, факт {0}", calc.Lines.Count);
-        var amounts = calc.Lines.Select(l => l.TaxAmount).OrderBy(x => x).ToList();
-        Assert.IsTrue(amounts[0] == 100m && amounts[1] == 150m,
-            "1000×10% и 1000×15%, факт {0} и {1}", amounts[0], amounts[1]);
-        Assert.IsTrue(calc.Lines.All(l => l.RecoverableAmount == l.TaxAmount),
-            "без доли невозместимого к возмещению = вся сумма");
-    }
-
-    [IntegrationTest("RateOverride на действии подменяет ставку кода")]
-    public async Task ActionRateOverrideWins()
-    {
-        var code = await NewTaxCodeAsync(0.15m);
-        var rule = await NewRuleAsync(code, 10);
-        await NewRecordAsync<TaxRuleAction>(a =>
-        {
-            a.TaxRule = rule;
-            a.TaxCode = code;
-            a.RateOverride = 0.05m;
-        });
-
-        await EnsureOutputDirectionAsync();
-        var calcId = await Svc.CreateCalculationAsync(
-            await NewLegalEntityAsync(), "OUTPUT", 1000m, $"Override {Uniq()}", Today,
-            Ctx(("amount", 1000m)));
-        var calc = await GetService<ZuloOne.Managers.IDocumentManager>().GetDocumentAsync<TaxCalculation>(calcId!.Value);
-        Assert.IsTrue(calc!.Lines[0].RateValue == 0.05m, "ставка с действия, факт {0}", calc.Lines[0].RateValue);
-        Assert.IsTrue(calc.Lines[0].TaxAmount == 50m, "1000 × 5% = 50, факт {0}", calc.Lines[0].TaxAmount);
-    }
-
-    [IntegrationTest("Невозместимая доля штампует RecoverableAmount")]
-    public async Task PartialRecoverableStampsAmount()
-    {
-        var code = await NewTaxCodeAsync(0.15m);
-        var row = await RecordAsync<TaxCode>(code);
-        row!.NonRecoverablePct = 40m;
-        await GetService<ZuloOne.Managers.IDictionaryManager<TaxCode>>().SaveRecordAsync(row);
-        await SetDefaultAsync(row.Code);
-
-        await EnsureOutputDirectionAsync();
-        var calcId = await Svc.CreateCalculationAsync(
-            await NewLegalEntityAsync(), "OUTPUT", 1000m, $"Recover {Uniq()}", Today);
-        var calc = await GetService<ZuloOne.Managers.IDocumentManager>().GetDocumentAsync<TaxCalculation>(calcId!.Value);
-        Assert.IsTrue(calc!.Lines[0].TaxAmount == 150m, "налог 150, факт {0}", calc.Lines[0].TaxAmount);
-        Assert.IsTrue(calc.Lines[0].RecoverableAmount == 90m,
-            "60% от 150 = 90, факт {0}", calc.Lines[0].RecoverableAmount);
-        Assert.IsTrue(Svc.RecoverableOf(150m, 40m) == 90m, "формула сервиса совпадает со штампом");
     }
 
     /// <summary>Юрлицо со страной и валютой — обязательные ссылки расчёта.</summary>

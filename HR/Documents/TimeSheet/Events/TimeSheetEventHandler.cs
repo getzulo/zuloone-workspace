@@ -1,7 +1,4 @@
 #nullable enable
-using System.Collections.Generic;
-using System.Linq;
-
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for TimeSheet documents.
@@ -12,38 +9,12 @@ namespace ZuloOne.Runtime.Generated;
 public partial class TimeSheetEventHandler : TypedDocumentEventHandler<TimeSheet>
 {
     // Building a new document server-side: seed header defaults (number, date).
-    public override async Task<EventResult> OnBeforeCreateAsync(TimeSheet header, EventContext context)
-    {
-        var prior = await next(header, context);
-        if (!prior.Success) return prior;
-
-        if (DayOf(header.PeriodFrom) == null && DayOf(header.PeriodTo) == null)
-        {
-            var today = DateTime.UtcNow.Date;
-            var start = new DateTime(today.Year, today.Month, 1);
-            header.PeriodFrom = start;
-            header.PeriodTo = start.AddMonths(1).AddDays(-1);
-        }
-
-        return EventResult.Ok();
-    }
+    public override Task<EventResult> OnBeforeCreateAsync(TimeSheet header, EventContext context)
+        => next(header, context);
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
-    public override async Task<EventResult> OnBeforeSaveAsync(TimeSheet header, bool isNew, EventContext context)
-    {
-        var prior = await next(header, isNew, context);
-        if (!prior.Success) return prior;
-
-        var from = DayOf(header.PeriodFrom);
-        var to = DayOf(header.PeriodTo);
-        if (from != null && to != null && from > to)
-            return EventResult.Cancel("Дата начала периода не может быть позже даты окончания.");
-
-        if (header.Days.Count > 0)
-            RollupHours(header);
-
-        return EventResult.Ok();
-    }
+    public override Task<EventResult> OnBeforeSaveAsync(TimeSheet header, bool isNew, EventContext context)
+        => next(header, isNew, context);
 
     // MIQS AfterSave: runs after ANY save (insert or update).
     public override Task<EventResult> OnAfterSaveAsync(TimeSheet header, bool isNew, EventContext context)
@@ -95,39 +66,8 @@ public partial class TimeSheetEventHandler : TypedDocumentEventHandler<TimeSheet
         var prior = await next(header, context);
         if (!prior.Success) return prior;
 
-        var from = DayOf(header.PeriodFrom);
-        var to = DayOf(header.PeriodTo);
-        if (from != null && to != null)
-            context.Data["description"] = $"{from:yyyy-MM-dd} – {to:yyyy-MM-dd}";
+        // context.Data["description"] = "TimeSheet " + header.Number;
         return EventResult.Ok();
-    }
-
-    private static DateTime? DayOf(object? value)
-        => value is DateTime d && d != default ? d.Date : null;
-
-    private static void RollupHours(TimeSheet sheet)
-    {
-        if (sheet.Days.Count == 0) return;
-        var byEmp = sheet.Days
-            .Where(d => d.Employee != Guid.Empty)
-            .GroupBy(d => d.Employee)
-            .ToDictionary(g => g.Key, g => g.Sum(x => x.Hours));
-        var seen = new HashSet<Guid>();
-        for (var i = sheet.Lines.Count - 1; i >= 0; i--)
-        {
-            var emp = sheet.Lines[i].Employee;
-            if (byEmp.TryGetValue(emp, out var hours))
-            {
-                sheet.Lines[i].Hours = hours;
-                seen.Add(emp);
-            }
-            else sheet.Lines.RemoveAt(i);
-        }
-        foreach (var pair in byEmp)
-        {
-            if (seen.Contains(pair.Key)) continue;
-            sheet.Lines.Add(new TimeSheetLinesTablePartRow { Employee = pair.Key, Hours = pair.Value });
-        }
     }
 
     // An insert/update failed: return Error("friendly text") to replace the raw DB error.

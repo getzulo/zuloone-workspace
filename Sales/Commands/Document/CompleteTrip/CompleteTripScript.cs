@@ -1,6 +1,8 @@
+using System.Linq;
 using ZuloOne.Managers;
-using ZuloOne.Services.Contracts;
 
+// "Complete trip": the same stop checks as dispatch. ISalesFulfillmentService
+// .CompleteTripAsync is called from OnAfterPost — do not call it from here or invoices double.
 public partial class CompleteTripCommand
 {
     public override async Task ExecuteAsync(DeliveryTrip document, CommandContext context)
@@ -9,10 +11,14 @@ public partial class CompleteTripCommand
         var full = await docs.GetDocumentAsync<DeliveryTrip>(document.MetaId);
         if (full == null) return;
 
-        var reason = await context.GetService<IDeliveryService>().ValidateTripAsync(full.MetaId);
-        if (reason != null)
+        if (full.Lines.Count == 0)
         {
-            context.AddClientAction(ClientAction.Message(reason));
+            context.AddClientAction(ClientAction.Message("Нельзя завершить пустой рейс: добавьте точки."));
+            return;
+        }
+        if (full.Lines.Any(l => l.SalesOrder == Guid.Empty))
+        {
+            context.AddClientAction(ClientAction.Message("У каждой точки должен быть заказ."));
             return;
         }
 

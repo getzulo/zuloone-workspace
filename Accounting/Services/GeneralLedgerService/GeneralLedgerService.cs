@@ -4,9 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
-using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
-using ZuloOne.Services.Contracts;
 
 // Service "GeneralLedgerService": IGeneralLedgerService contract. The single
 // point that posts subledgers (sales, purchasing, payroll) into the general
@@ -145,6 +143,13 @@ public partial class GeneralLedgerService
         return matching[0];
     }
 
+    /// <summary>Closed-period flag. Status is a string (a closed set not yet
+    /// expressed in metadata), so comparison is case-insensitive and follows
+    /// "anything that is not Open is closed": a typo in the status must
+    /// FORBID posting, not allow it.</summary>
+    private static bool IsPeriodOpen(FiscalPeriod period)
+        => string.Equals(period.Status, "Open", StringComparison.OrdinalIgnoreCase);
+
     /// <summary>Post a balanced Dr/Cr journal entry by account CODES from the profile.
     /// Returns the journal-entry id or null if posting is impossible OR this fact
     /// is already posted.
@@ -187,12 +192,21 @@ public partial class GeneralLedgerService
         var period = await ResolvePeriodRecordAsync(date);
         if (period == null) return null;
 
-        // Closed month: the predicate lives on IFiscalPeriodService (and the
-        // platform IFiscalCalendar hook). Here it is a quiet skip — PostAsync is
-        // best-effort. The loud refuse is DocumentPostingService, which calls
-        // the same service before any register movement is written or reversed.
-        if (await ScriptServices.Get<IFiscalPeriodService>().ClosedReasonAsync(date) != null)
-            return null;
+        // A CLOSED PERIOD ACCEPTS NO NEW FACTS. The check arrived together with
+        // dating the journal entry by the DOCUMENT date: before that, landing in
+        // a past month was impossible at all, and now it is possible — so a
+        // closed month must be guarded explicitly.
+        //
+        // THE BOUNDARY HERE IS NEITHER THE ONLY NOR THE STRONGEST. The platform
+        // has its own, global one (IAccountingPeriodService.ClosedPeriod):
+        // DocumentPostingService checks it on EVERY posting, so it also holds
+        // documents that have no general-ledger leg at all. It is set by an
+        // operator via /api/accounting-periods — under a named right and with an
+        // audit record — and is NOT derived automatically from the period
+        // status: one date cannot express "February closed, January open", and
+        // the right to move it is deliberately separate from the right to edit
+        // the dictionary.
+        if (!IsPeriodOpen(period)) return null;
 
         // The journal entry is created by the typed document manager: it issues
         // MetaId and a number from the sequence, runs OnBeforeCreate/OnBeforeInsert

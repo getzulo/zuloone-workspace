@@ -26,8 +26,6 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         public Guid Location;
         public Guid Item;
         public Guid Customer;
-        public Guid Outlet;
-        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync()
@@ -113,28 +111,7 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
-        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
-        outlet.Name = "Shop A";
-        outlet.Customer = customer.MetaId;
-        outlet = await DictionaryManager.SaveRecordAsync(outlet);
-
-        var contract = DictionaryManager.NewRecord<SalesContract>();
-        contract.Name = "A-2026";
-        contract.Outlet = outlet.MetaId;
-        contract.Currency = currency.MetaId;
-        contract.SettlementKind = SettlementKind.Credit;
-        contract.EffectiveFrom = new DateTime(2020, 1, 1);
-        contract.LegalEntity = legalEntity.MetaId;
-        contract = await DictionaryManager.SaveRecordAsync(contract);
-
-        return new Setup
-        {
-            Location = cell.MetaId,
-            Item = item.MetaId,
-            Customer = customer.MetaId,
-            Outlet = outlet.MetaId,
-            Contract = contract.MetaId,
-        };
+        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
     }
 
     private static Task<decimal> StockAsync(Setup s)
@@ -173,8 +150,6 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
     {
         var order = await DocumentManager.NewDocumentAsync<SalesOrder>();
         order.Customer = s.Customer;
-        order.Outlet = s.Outlet;
-        order.Contract = s.Contract;
         order.Location = s.Location;
         order.DeliveryDate = DateTime.UtcNow.Date.AddDays(1);
         order.Lines.Add(new SalesOrderLinesTablePartRow { Item = s.Item, Quantity = qty, UnitPrice = price });
@@ -356,8 +331,6 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         // Use POS path (IssueInvoice: Draft→Issued directly) for return setup.
         var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         invoice.Customer = s.Customer;
-        invoice.Outlet = s.Outlet;
-        invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 4m, UnitPrice = 5m });
         await DocumentManager.SaveDocumentAsync(invoice);
@@ -365,8 +338,6 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
 
         var ret = await DocumentManager.NewDocumentAsync<SalesReturn>();
         ret.Customer = s.Customer;
-        ret.Outlet = s.Outlet;
-        ret.Contract = s.Contract;
         ret.Location = s.Location;
         ret.OriginalInvoice = invoice.MetaId;
         ret.Lines.Add(new SalesReturnLinesTablePartRow { Item = s.Item, Quantity = 4m, UnitPrice = 5m });

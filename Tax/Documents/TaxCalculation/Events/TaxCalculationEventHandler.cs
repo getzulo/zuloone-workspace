@@ -70,7 +70,7 @@ public partial class TaxCalculationEventHandler : TypedDocumentEventHandler<TaxC
             // Comparison is EXACT. Both values came from columns of the same EDT
             // TaxRateValue — decimal(9,6), so a mismatch can only be real; and on
             // a large base the sixth decimal place is money.
-            if (line.RateOverridden != true && effective.Value != line.RateValue)
+            if (effective.Value != line.RateValue)
                 return EventResult.Cancel(
                     $"Ставка строки {line.RateValue} не действовала на {taxPoint:yyyy-MM-dd}: "
                     + $"действующая ставка {effective.Value}");
@@ -78,7 +78,7 @@ public partial class TaxCalculationEventHandler : TypedDocumentEventHandler<TaxC
             // Rounding is taken from the service: money precision is the global
             // AmountScale setting, and the calculation and its check must not have
             // two different opinions about how many digits the amount has.
-            var expected = tax.CalculateTax(line.TaxBase, line.RateValue);
+            var expected = tax.CalculateTax(line.TaxBase, effective.Value);
             if (Math.Abs(expected - line.TaxAmount) > 0.01m)
                 return EventResult.Cancel($"Сумма налога {line.TaxAmount} не сходится с базой×ставкой ({expected})");
         }

@@ -22,14 +22,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
     // Helpers
     // ──────────────────────────────────────────────────────────────────────
 
-    private sealed class LocationKit
-    {
-        public Guid Location;
-        public Guid Currency;
-        public Guid LegalEntity;
-    }
-
-    private async Task<LocationKit> MakeLocationAsync()
+    private async Task<Guid> MakeLocationAsync()
     {
         var currency = DictionaryManager.NewRecord<Currency>();
         currency.Name = "Euro";
@@ -89,12 +82,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         cell.CellNumber = 1;
         cell = await DictionaryManager.SaveRecordAsync(cell);
 
-        return new LocationKit
-        {
-            Location = cell.MetaId,
-            Currency = currency.MetaId,
-            LegalEntity = legalEntity.MetaId,
-        };
+        return cell.MetaId;
     }
 
     // ──────────────────────────────────────────────────────────────────────
@@ -207,7 +195,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
     [IntegrationTest("Новый SalesOrder копирует PaymentTerm и Contact из клиента")]
     public async Task SalesOrderCopiesPaymentTermAndContact()
     {
-        var loc = await MakeLocationAsync();
+        var location = await MakeLocationAsync();
 
         var pt = DictionaryManager.NewRecord<PaymentTerm>();
         pt.Name = "Net 15";
@@ -219,20 +207,6 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer.PaymentTerm = pt.MetaId;
         customer = await DictionaryManager.SaveRecordAsync(customer);
-
-        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
-        outlet.Name = "Shop A";
-        outlet.Customer = customer.MetaId;
-        outlet = await DictionaryManager.SaveRecordAsync(outlet);
-
-        var contract = DictionaryManager.NewRecord<SalesContract>();
-        contract.Name = "A-2026";
-        contract.Outlet = outlet.MetaId;
-        contract.Currency = loc.Currency;
-        contract.SettlementKind = SettlementKind.Credit;
-        contract.EffectiveFrom = new DateTime(2020, 1, 1);
-        contract.LegalEntity = loc.LegalEntity;
-        contract = await DictionaryManager.SaveRecordAsync(contract);
 
         var cc = DictionaryManager.NewRecord<CustomerContact>();
         cc.Customer = customer.MetaId;
@@ -261,9 +235,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         // Create SalesOrder — OnBeforeSave(isNew=true) should copy PaymentTerm + Contact
         var order = await DocumentManager.NewDocumentAsync<SalesOrder>();
         order.Customer = customer.MetaId;
-        order.Outlet = outlet.MetaId;
-        order.Contract = contract.MetaId;
-        order.Location = loc.Location;
+        order.Location = location;
         order.DeliveryDate = DateTime.UtcNow.AddDays(7);
         order.Lines.Add(new SalesOrderLinesTablePartRow { Item = item.MetaId, Quantity = 1m, UnitPrice = 10m });
         await DocumentManager.SaveDocumentAsync(order);
@@ -284,7 +256,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
     [IntegrationTest("Новый SalesInvoice копирует PaymentTerm и Contact из клиента")]
     public async Task SalesInvoiceCopiesPaymentTermAndContact()
     {
-        var loc = await MakeLocationAsync();
+        var location = await MakeLocationAsync();
 
         var pt = DictionaryManager.NewRecord<PaymentTerm>();
         pt.Name = "Net 45";
@@ -296,20 +268,6 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer.PaymentTerm = pt.MetaId;
         customer = await DictionaryManager.SaveRecordAsync(customer);
-
-        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
-        outlet.Name = "Shop A";
-        outlet.Customer = customer.MetaId;
-        outlet = await DictionaryManager.SaveRecordAsync(outlet);
-
-        var contract = DictionaryManager.NewRecord<SalesContract>();
-        contract.Name = "A-2026";
-        contract.Outlet = outlet.MetaId;
-        contract.Currency = loc.Currency;
-        contract.SettlementKind = SettlementKind.Credit;
-        contract.EffectiveFrom = new DateTime(2020, 1, 1);
-        contract.LegalEntity = loc.LegalEntity;
-        contract = await DictionaryManager.SaveRecordAsync(contract);
 
         var cc = DictionaryManager.NewRecord<CustomerContact>();
         cc.Customer = customer.MetaId;
@@ -338,9 +296,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         // Create SalesInvoice — OnBeforeSave(isNew=true) should copy PaymentTerm + Contact
         var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         invoice.Customer = customer.MetaId;
-        invoice.Outlet = outlet.MetaId;
-        invoice.Contract = contract.MetaId;
-        invoice.Location = loc.Location;
+        invoice.Location = location;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = item.MetaId, Quantity = 1m, UnitPrice = 20m });
         await DocumentManager.SaveDocumentAsync(invoice);
 
