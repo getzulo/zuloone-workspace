@@ -293,6 +293,18 @@
       "metaId": "89020230-cc57-4208-8a9d-db7d0223c05a",
       "name": "SalesReturn",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": "Sales credit notes",
+      "caption_ru": "Кредит-ноты",
+      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
+      "displayOrder": 5,
+      "icon": "fluent-color:document-arrow-left-24",
+      "targetType": "Document",
+      "targetMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
+      "metaId": "b78b5e49-3536-4eaa-9687-c88ccf589b00",
+      "name": "SalesCreditNote",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

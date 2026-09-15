@@ -323,7 +323,7 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesI
             // otherwise invoice and tax would date differently, and a
             // back-dated document would use today's rate.
             var calc = await context.GetService<ITaxService>()
-                .CreateCalculationAsync(legalEntity, "OUTPUT", taxBase, $"Sales invoice {header.Number}",
+                .CreateCalculationAsync(legalEntity, "OUTPUT", taxBase, $"Sales invoice {header.MetaId:D}",
                     TaxPointOf(header), await TaxContextAsync(invoice, taxBase, context));
             if (calc.HasValue)
                 await docs.AddLinkAsync(header.MetaId, calc.Value);

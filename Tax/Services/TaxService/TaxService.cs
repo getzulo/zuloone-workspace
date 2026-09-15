@@ -254,6 +254,25 @@ public partial class TaxService
         DateTime? taxPointDate = null, Dictionary<string, object?>? context = null)
     {
         if (taxBase <= 0m || legalEntity == Guid.Empty) return null;
+        return await WriteCalculationAsync(legalEntity, directionCode, taxBase, reason, taxPointDate, context);
+    }
+
+    /// <summary>Credit-note / return: same determination as
+    /// <see cref="CreateCalculationAsync"/>, but TaxBase and TaxAmount are
+    /// negated so TaxLedger nets. Input taxBase is the original positive base.</summary>
+    public async Task<Guid?> CreateReversalAsync(
+        Guid legalEntity, string directionCode, decimal taxBase, string reason,
+        DateTime? taxPointDate = null, Dictionary<string, object?>? context = null)
+    {
+        if (taxBase <= 0m || legalEntity == Guid.Empty) return null;
+        return await WriteCalculationAsync(legalEntity, directionCode, -taxBase, reason, taxPointDate, context);
+    }
+
+    private async Task<Guid?> WriteCalculationAsync(
+        Guid legalEntity, string directionCode, decimal signedBase, string reason,
+        DateTime? taxPointDate, Dictionary<string, object?>? context)
+    {
+        if (signedBase == 0m || legalEntity == Guid.Empty) return null;
 
         // ONE REASON — ONE CALCULATION. reason carries the source document
         // ("Sales invoice <number>"), so a repeat means re-determining THE SAME tax.
@@ -308,8 +327,8 @@ public partial class TaxService
             Direction = direction.MetaId,
             TaxCode = taxCode.Value,
             RateValue = rate,
-            TaxBase = taxBase,
-            TaxAmount = CalculateTax(taxBase, rate),
+            TaxBase = signedBase,
+            TaxAmount = CalculateTax(signedBase, rate),
         });
 
         await _documents.SaveDocumentAsync(calc);

@@ -28,6 +28,8 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
         public Guid Piece;
         public Guid Box;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync()
@@ -142,6 +144,20 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
         customer.PriceType = list.MetaId;
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
         return new Setup
         {
             Location = cell.MetaId,
@@ -149,6 +165,8 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
             Piece = piece.MetaId,
             Box = box.MetaId,
             Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
         };
     }
 
@@ -159,6 +177,8 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
 
         var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         // Первая строка без цены — её и заполняем; вторая с ценой руками.
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, Unit = s.Piece });
@@ -200,6 +220,8 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
 
         var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 2m, Unit = s.Piece });
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = orphan.MetaId, Quantity = 1m, Unit = s.Piece });
@@ -226,6 +248,8 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
 
         var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 1m, Unit = s.Piece, UnitPrice = 10m });
         await DocumentManager.SaveDocumentAsync(inv);

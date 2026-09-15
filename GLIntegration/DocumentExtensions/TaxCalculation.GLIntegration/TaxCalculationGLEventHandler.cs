@@ -90,13 +90,17 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
         var le = await context.GetService<IDictionaryManager<LegalEntity>>().GetRecordAsync(header.LegalEntity);
         if (le == null) return posted;
 
-        if (output > 0m && !string.IsNullOrWhiteSpace(settings.VatPayableAccountCode))
+        if (output != 0m && !string.IsNullOrWhiteSpace(settings.VatPayableAccountCode))
         {
+            var amount = output > 0m ? output : -output;
+            var debit = output > 0m ? settings.ArAccountCode : settings.VatPayableAccountCode;
+            var credit = output > 0m ? settings.VatPayableAccountCode : settings.ArAccountCode;
             var jeId = await gl.PostAsync(
-                calc.DocumentDate, le.MetaId, le.Currency, output,
-                settings.ArAccountCode, settings.VatPayableAccountCode,
-                "Output VAT " + header.MetaId,
-                "Дебиторка (налог с покупателя)", "НДС к уплате",
+                calc.DocumentDate, le.MetaId, le.Currency, amount,
+                debit, credit,
+                (output > 0m ? "Output VAT " : "Output VAT reversal ") + header.MetaId,
+                output > 0m ? "Дебиторка (налог с покупателя)" : "НДС к уплате",
+                output > 0m ? "НДС к уплате" : "Дебиторка (сторно налога)",
                 TaxCircuits);
             if (jeId.HasValue) posted.Add(jeId.Value);
         }
@@ -143,29 +147,9 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
         var metadata = context.GetService<IMetadataService>();
         var registers = await metadata.GetAllRegistersAsync();
 
-        if (output > 0m)
-        {
-            var invoice = await docs.GetDocumentAsync<SalesInvoice>(parent.Value);
-            if (invoice != null && invoice.Customer != Guid.Empty)
-            {
-                var existing = await totals.QueryMovementsAsync(
-                    "Receivable", $"[DocumentMetaId] = '{header.MetaId}'");
-                if (existing.Count == 0)
-                {
-                    // Customer/SalesContract on Receivable are dynamic analytics, not TB_ columns.
-                    var receivableId = registers.First(r =>
-                        string.Equals(r.Name, "Receivable", StringComparison.OrdinalIgnoreCase)).MetaId;
-                    await movements.PostMovementAsync(receivableId, header.MetaId, calc.DocumentDate,
-                        new Dictionary<string, object?>(),
-                        new Dictionary<string, decimal> { ["Amount"] = output },
-                        analytics: new Dictionary<string, object?>
-                        {
-                            ["Customer"] = invoice.Customer,
-                            ["SalesContract"] = invoice.Contract,
-                        });
-                }
-            }
-        }
+        // Output VAT on Receivable is written by SalesReceivableTx (gross when
+        // TaxRateApplied is set). A second leg here doubled the tax. Input
+        // Payable still has no tax on the purchase TX — keep that seam.
 
         if (input > 0m)
         {
@@ -199,7 +183,14 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
         {
             var number = reason[salesPrefix.Length..];
             if (string.IsNullOrWhiteSpace(number)) return null;
+            if (Guid.TryParse(number, out var invoiceId))
+            {
+                var byId = await docs.GetDocumentAsync<SalesInvoice>(invoiceId);
+                if (byId != null) return byId.MetaId;
+            }
             var invoices = await docs.QueryDocumentsAsync<SalesInvoice>($"ID = '{escaped(number)}'");
+            if (invoices.Count == 0)
+                invoices = await docs.QueryDocumentsAsync<SalesInvoice>($"Number = '{escaped(number)}'");
             if (invoices.Count > 0) return invoices[0].MetaId;
         }
         else if (reason.StartsWith(purchasePrefix, StringComparison.Ordinal))

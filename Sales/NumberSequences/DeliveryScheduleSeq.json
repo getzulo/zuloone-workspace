@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1045,
     "resetPolicy": "None",
     "metaId": "a0c35982-0a21-49bc-ada9-7f4cd031efa5",
     "name": "DeliveryScheduleSeq",

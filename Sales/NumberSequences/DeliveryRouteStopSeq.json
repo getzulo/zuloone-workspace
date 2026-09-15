@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1150,
     "resetPolicy": "None",
     "metaId": "096ae551-74bf-4037-962a-51060a06cfad",
     "name": "DeliveryRouteStopSeq",

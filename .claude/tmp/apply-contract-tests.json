@@ -1,0 +1,22 @@
+{
+  "force": true,
+  "files": [
+    "Sales/Tests/FillSalesPricesTest.json",
+    "Sales/Tests/PriceCaptureTest.json",
+    "Sales/Tests/SalesMasterDataTest.json",
+    "Sales/Tests/SalesOutputTaxTest.json",
+    "Sales/Tests/AutoPickFromOrderTest.json",
+    "Sales/model.json",
+    "CRM/Tests/LoyaltyDiscountTest.json",
+    "CRM/Tests/LoyaltyFlowTest.json",
+    "CRM/model.json",
+    "GLIntegration/Tests/SalesGLPostingTest.json",
+    "GLIntegration/Tests/OutputVatGLTest.json",
+    "GLIntegration/Tests/CostOfSalesGLTest.json",
+    "GLIntegration/Tests/CircuitGLTest.json",
+    "GLIntegration/Tests/ReceivableTaxSeamTest.json",
+    "GLIntegration/Tests/WarehouseTaskFlowTest.json",
+    "GLIntegration/Tests/UnitAwareTradeCycleTest.json",
+    "GLIntegration/model.json"
+  ]
+}

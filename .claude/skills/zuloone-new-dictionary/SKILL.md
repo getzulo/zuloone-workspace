@@ -207,8 +207,8 @@ public partial class <Имя>EventHandler : TypedDictionaryEventHandler<<Имя>
 
 Карточка зовёт `POST /api/events/dictionary/field` на каждое поле — так же,
 как грид строк зовёт `tablepart/field`. `OnValidateField` отклоняет значение;
-`OnFieldChanged` заполняет зависимые поля. Save гоняет те же хуки в
-`DataService`.
+`OnFieldChanged` заполняет зависимые поля (только пустые — Save гоняет те же
+хуки). Save идёт через `DataService`.
 
 ## 5. Пункт меню — `Menu/menu.json` своей модели
 

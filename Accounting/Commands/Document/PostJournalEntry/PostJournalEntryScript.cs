@@ -19,6 +19,12 @@ public partial class PostJournalEntryCommand
 
         var gl = context.GetService<IGeneralLedgerService>();
         var date = full.DocumentDate == default ? DateTime.UtcNow.Date : full.DocumentDate.Date;
+        var closed = await context.GetService<IFiscalPeriodService>().ClosedReasonAsync(date);
+        if (closed != null)
+        {
+            context.AddClientAction(ClientAction.Message(closed));
+            return;
+        }
         if (await gl.ResolvePeriodAsync(date) is null)
         {
             context.AddClientAction(ClientAction.Message(

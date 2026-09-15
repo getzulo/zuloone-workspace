@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "PurchaseReturn",
+    "objectMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+    "executionOrder": 2,
+    "metaId": "704a21d8-7f8d-4665-a90c-8fe8d74c3613",
+    "name": "PurchaseReturnPayableTx",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}

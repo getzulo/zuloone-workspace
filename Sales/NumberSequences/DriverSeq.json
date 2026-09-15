@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1270,
     "resetPolicy": "None",
     "metaId": "1edaffa1-044e-461e-a570-a4bcfbed46d4",
     "name": "DriverSeq",

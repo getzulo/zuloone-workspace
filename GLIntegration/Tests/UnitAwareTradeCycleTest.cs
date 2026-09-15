@@ -54,6 +54,8 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         public Guid Box;           // единица ввода
         public Guid Supplier;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     // ───────────────────────────── мастер-данные ─────────────────────────────
@@ -176,6 +178,20 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
         // НАЛОГОВЫЙ КОНТУР. Нужен потому, что страновой НДС КСА больше не берёт
         // ставку из плоской константы: выставление счёта фиксирует на документе
         // ставку, подобранную по налоговому коду и ДАТЕ счёта. Без контура ставки
@@ -188,6 +204,7 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
             MainStore = main.Store, ShopStore = shop.Store,
             Item = item.MetaId, Piece = piece, Box = box,
             Supplier = supplier.MetaId, Customer = customer.MetaId,
+            Outlet = outlet.MetaId, Contract = contract.MetaId,
         };
     }
 
@@ -339,6 +356,8 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
     {
         var doc = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         doc.Customer = s.Customer;
+        doc.Outlet = s.Outlet;
+        doc.Contract = s.Contract;
         doc.Location = s.MainCell;
         doc.Lines.Add(new SalesInvoiceLinesTablePartRow
         {

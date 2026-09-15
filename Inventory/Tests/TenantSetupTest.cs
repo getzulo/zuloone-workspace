@@ -62,6 +62,10 @@ public class TenantSetupTest : IntegrationTestScriptBase
         Assert.IsTrue(Equals(first["ok"], true), "первый ApplyOrg должен пройти");
         Assert.IsTrue(Equals(first["createdLegalEntity"], true), "первое юрлицо создаётся");
         Assert.IsTrue(Equals(first["createdStore"], true), "первый склад создаётся");
+        Assert.IsTrue(Equals(first["tradeProfile"], "BuySell"),
+            "новый тенант — купил-продал, факт {0}", first["tradeProfile"]);
+        Assert.IsTrue(await GetService<ITradeProfileService>().IsBuySellAsync(),
+            "ApplyOrg штампует BuySell");
 
         var les = await DictionaryManager.GetRecordsAsync<LegalEntity>($"RegistrationNumber = '{reg}'");
         Assert.AreEqual(1, les.Count, "ровно одно юрлицо с этим регномером");

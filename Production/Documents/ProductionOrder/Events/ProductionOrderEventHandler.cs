@@ -25,6 +25,14 @@ namespace ZuloOne.Runtime.Generated;
 // register, allowNegativeBalance=true).
 public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<ProductionOrder>
 {
+    public override async Task<EventResult> OnBeforeSaveAsync(ProductionOrder header, bool isNew, EventContext context)
+    {
+        var prior = await next(header, isNew, context);
+        if (!prior.Success) return prior;
+        var block = await context.GetService<ITradeProfileService>().ProductionBlockReasonAsync();
+        if (block != null) return EventResult.Cancel(block);
+        return EventResult.Ok();
+    }
 
     public override async Task<EventResult> OnAfterSaveAsync(ProductionOrder header, bool isNew, EventContext context){
         var prior = await next(header, isNew, context);
@@ -61,7 +69,10 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         var prior = await next(document, context);
         if (!prior.Success) return prior;
 
-        if (document.Subtype != "Finished")
+        var block = await context.GetService<ITradeProfileService>().ProductionBlockReasonAsync();
+        if (block != null) return EventResult.Cancel(block);
+
+        if (document.Subtype != "Finished" && document.Subtype != "Released")
             return EventResult.Ok();
 
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<ProductionOrder>(document.MetaId);
@@ -82,13 +93,24 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         var demand = ComponentDemand(components);
 
         var stock = context.GetService<ITotalsManager>();
+        var own = new Dictionary<Guid, decimal>();
+        foreach (var row in await stock.QueryMovementsAsync(
+            "Stock", $"[DocumentMetaId] = '{document.MetaId}'"))
+        {
+            if (row["Item"] is not Guid item) continue;
+            var qty = row["Qty"] is null ? 0m : Convert.ToDecimal(row["Qty"]);
+            own[item] = (own.TryGetValue(item, out var d) ? d : 0m) + qty;
+        }
+
         foreach (var kv in demand)
         {
             var bal = await stock.GetBalanceAsync("Stock",
                 new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = location });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
-            if (kv.Value > onHand)
-                return EventResult.Cancel($"Недостаточно компонента на ячейке: требуется {kv.Value}, в наличии {onHand}");
+            var alreadyTaken = own.TryGetValue(kv.Key, out var taken) ? taken : 0m;
+            var available = onHand - alreadyTaken;
+            if (kv.Value > available)
+                return EventResult.Cancel($"Недостаточно компонента на ячейке: требуется {kv.Value}, в наличии {available}");
         }
 
         return EventResult.Ok();

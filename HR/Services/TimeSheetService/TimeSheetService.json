@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Timesheet fill: standard 40-hour week for the division, TimeOff exceptions, roll-up of daily hours into payroll lines",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "576ce4b9-149c-426f-8890-992eb3f224cb",
+    "metaId": "b145cc2f-df60-4e56-98f9-5ef61195f1f2",
+    "name": "TimeSheetService",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

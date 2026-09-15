@@ -1,0 +1,8 @@
+{
+  "force": true,
+  "files": [
+    "Sales/TableParts/SalesInvoiceLines/Events/SalesInvoiceLinesEventHandler.script.json",
+    "Sales/TableParts/SalesOrderLines/Events/SalesOrderLinesEventHandler.script.json",
+    "Sales/model.json"
+  ]
+}

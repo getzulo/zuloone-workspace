@@ -26,6 +26,8 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
         public Guid Picking;
         public Guid Item;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Yard> SetupAsync()
@@ -96,6 +98,20 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
         return new Yard
         {
             Receiving = await NewCellAsync(zone.MetaId, StoreCellPurpose.Receiving, "R-01", 1),
@@ -103,6 +119,8 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
             Picking = await NewCellAsync(zone.MetaId, StoreCellPurpose.Picking, "P-01", 3),
             Item = item.MetaId,
             Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
         };
     }
 
@@ -143,6 +161,8 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
     {
         var order = await DocumentManager.NewDocumentAsync<SalesOrder>();
         order.Customer = y.Customer;
+        order.Outlet = y.Outlet;
+        order.Contract = y.Contract;
         order.Location = location;
         order.DeliveryDate = DateTime.UtcNow.Date.AddDays(1);
         order.Lines.Add(new SalesOrderLinesTablePartRow { Item = y.Item, Quantity = qty, UnitPrice = 5m });

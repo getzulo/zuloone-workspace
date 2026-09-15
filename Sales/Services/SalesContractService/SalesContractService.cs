@@ -169,16 +169,16 @@ public partial class SalesContractService
         if (kind == SettlementKind.Unspecified || kind == SettlementKind.CashOnDelivery)
             return null;
 
-        var owed = await ReceivableOfAsync(customerId);
-
         if (kind == SettlementKind.Prepaid)
         {
-            if (owed + documentAmount > 0m)
+            var prepaidOwed = await ReceivableOfAsync(customerId, contractId);
+            if (prepaidOwed + documentAmount > 0m)
                 return "По договору предоплата: сначала примите аванс, покрывающий сумму документа";
             return null;
         }
 
         var limit = contract.CreditLimit;
+        var owed = await ReceivableOfAsync(customerId, limit > 0m ? contractId : Guid.Empty);
         if (limit <= 0m)
         {
             var customer = await _customers.GetRecordAsync(customerId);
@@ -191,9 +191,14 @@ public partial class SalesContractService
         return null;
     }
 
-    private Task<decimal> ReceivableOfAsync(Guid customerId)
-        => _totals.GetBalanceAsync("Receivable", "Amount",
-            new Dictionary<string, object?> { ["Customer"] = customerId });
+    // Contract limit / prepaid — this slice. Customer-wide limit — all slices.
+    private Task<decimal> ReceivableOfAsync(Guid customerId, Guid contractId)
+    {
+        var slice = new Dictionary<string, object?> { ["Customer"] = customerId };
+        if (contractId != Guid.Empty)
+            slice["SalesContract"] = contractId;
+        return _totals.GetBalanceAsync("Receivable", "Amount", slice);
+    }
 
     private static bool Covers(SalesContract c, DateTime day)
         => c.EffectiveFrom.Date <= day

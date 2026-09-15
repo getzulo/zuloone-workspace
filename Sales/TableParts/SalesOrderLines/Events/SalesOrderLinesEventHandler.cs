@@ -32,7 +32,7 @@ public partial class SalesOrderLinesEventHandler : TypedTablePartEventHandler<Sa
         if (fieldName == "Item")
         {
             var item = await context.GetService<IDictionaryManager<Item>>().GetRecordAsync(row.Item);
-            if (item is not null && item.UnitOfMeasure != Guid.Empty)
+            if (row.Unit == Guid.Empty && item is not null && item.UnitOfMeasure != Guid.Empty)
                 row.Unit = item.UnitOfMeasure;
             if (row.Quantity <= 0m) row.Quantity = 1m;
         }
@@ -56,6 +56,6 @@ public partial class SalesOrderLinesEventHandler : TypedTablePartEventHandler<Sa
         }
         price ??= await pricing.ResolveSalePriceAsync(
             row.Item, row.Unit, customer == Guid.Empty ? null : customer, onDate);
-        if (price != null) row.UnitPrice = price.Value;
+        if (price != null && row.UnitPrice <= 0m) row.UnitPrice = price.Value;
     }
 }

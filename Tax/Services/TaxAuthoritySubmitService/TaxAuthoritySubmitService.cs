@@ -1,62 +1,69 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ZuloOne.Core.Services;
 using ZuloOne.Managers;
+using ZuloOne.Runtime;
 
 // Mock channel to the tax authority.
 //
 // Scripts are forbidden HttpClient, files and processes — the security policy
-// will reject such code on import. So "submit" is always accepted locally and
-// returns a MOCK-OK receipt. A legal-entity connection, if present, only lands
-// in the string; its absence is not an error: a stand without a government
-// system must still post filing and payment as before.
+// will reject such code on import. Each attempt writes an append-only
+// TaxSubmission row. Managers are resolved at call time: this service is often
+// constructed inside a short-lived ScriptServices scope that is already
+// disposed when Submit* runs.
 public partial class TaxAuthoritySubmitService
 {
-    private readonly IDocumentManager _documents;
-    private readonly IDictionaryManager<TaxAuthorityConnection> _connections;
-
-    public TaxAuthoritySubmitService(
-        IDocumentManager documents,
-        IDictionaryManager<TaxAuthorityConnection> connections)
-    {
-        _documents = documents;
-        _connections = connections;
-    }
-
-    /// <summary>Accept a return. Always succeeds, even without a document or a connection.</summary>
+    /// <summary>File a return. Writes a journal row; rejects only when the connection asks the mock to.</summary>
     public Task<string> SubmitReturnAsync(Guid taxReturnId)
-        => AcceptAsync("RETURN", taxReturnId, async () =>
+        => SubmitAsync("RETURN", taxReturnId, async () =>
         {
-            var doc = await _documents.GetDocumentAsync<TaxReturn>(taxReturnId);
+            var doc = await ScriptServices.Get<IDocumentManager>().GetDocumentAsync<TaxReturn>(taxReturnId);
             return doc?.LegalEntity ?? Guid.Empty;
         });
 
-    /// <summary>Accept a tax payment. Always succeeds, even without a document or a connection.</summary>
+    /// <summary>File a tax payment. Same journal, same mock knob.</summary>
     public Task<string> SubmitPaymentAsync(Guid taxPaymentId)
-        => AcceptAsync("PAYMENT", taxPaymentId, async () =>
+        => SubmitAsync("PAYMENT", taxPaymentId, async () =>
         {
-            var doc = await _documents.GetDocumentAsync<TaxPayment>(taxPaymentId);
+            var doc = await ScriptServices.Get<IDocumentManager>().GetDocumentAsync<TaxPayment>(taxPaymentId);
             return doc?.LegalEntity ?? Guid.Empty;
         });
 
-    private async Task<string> AcceptAsync(string kind, Guid id, Func<Task<Guid>> legalEntity)
+    private async Task<string> SubmitAsync(string kind, Guid sourceId, Func<Task<Guid>> legalEntity)
     {
-        var receipt = $"MOCK-OK:{kind}:{id:N}";
-        try
-        {
-            var le = await legalEntity();
-            if (le == Guid.Empty) return receipt;
+        var le = Guid.Empty;
+        try { le = await legalEntity(); }
+        catch { }
 
-            var rows = await _connections.GetRecordsAsync($"LegalEntity = '{le}'", take: 1);
-            var code = rows.FirstOrDefault()?.Code;
-            if (!string.IsNullOrWhiteSpace(code))
-                return $"{receipt}:{code}";
-        }
-        catch
+        var dict = ScriptServices.Get<IDictionaryManager>();
+        TaxAuthorityConnection? conn = null;
+        if (le != Guid.Empty)
         {
-            // No document or dictionary — the mock still accepts.
+            var rows = await dict.GetRecordsAsync<TaxAuthorityConnection>($"LegalEntity = '{le}'", take: 1);
+            conn = rows.FirstOrDefault();
         }
+
+        var reject = conn != null && conn.IsMockReject;
+        var receipt = reject
+            ? $"MOCK-REJECT:{kind}:{sourceId:N}"
+            : $"MOCK-OK:{kind}:{sourceId:N}";
+        if (!string.IsNullOrWhiteSpace(conn?.Code))
+            receipt += $":{conn.Code}";
+
+        var row = dict.NewRecord<TaxSubmission>();
+        row.Kind = kind;
+        row.SourceId = sourceId;
+        row.LegalEntity = le;
+        row.Authority = conn?.Authority ?? Guid.Empty;
+        row.ConnectionCode = conn?.Code ?? string.Empty;
+        row.Environment = conn == null ? string.Empty : conn.Environment.ToString();
+        row.SubmittedAt = DateTime.UtcNow;
+        row.Status = reject ? "Rejected" : "Accepted";
+        row.Receipt = receipt;
+        row.ResponseMessage = reject
+            ? "Мок налогового органа отклонил сдачу (IsMockReject)."
+            : "Мок налогового органа принял сдачу.";
+        await dict.SaveRecordAsync(row);
 
         return receipt;
     }

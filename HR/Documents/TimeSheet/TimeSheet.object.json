@@ -3,7 +3,7 @@
   "object": {
     "caption": "Time sheet",
     "caption_ru": "Табель",
-    "description": "Отработанные часы по сотрудникам за период. Сам движений не делает — это документ-источник: команда «Начислить ФОТ» превращает часы в начисление по ставке должности.",
+    "description": "Сетка явок за период: автозаполнение 40-часовой недели, исключения из TimeOff, ручные галки. Итог часов в Lines — источник для «Начислить ФОТ».",
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "6b7c8d9e-0f1a-4b2c-8d3e-5f6a7b8c9d0b",
@@ -34,6 +34,40 @@
       "isTranslatable": false,
       "metaId": "8b9c0d1e-2f3a-4b4c-8d5e-7f8a9b0c1d2a",
       "name": "Division",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+    },
+    {
+      "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
+      "fieldName": "PeriodFrom",
+      "caption": "Period from",
+      "caption_ru": "Период с",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "5c123383-f711-4a2d-86c5-b43ca9c2511c",
+      "name": "PeriodFrom",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+    },
+    {
+      "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
+      "fieldName": "PeriodTo",
+      "caption": "Period to",
+      "caption_ru": "Период по",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "bc0122d0-6669-4b87-bf56-fb124ac5cbae",
+      "name": "PeriodTo",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
@@ -92,6 +126,14 @@
       "isCloneable": true,
       "metaId": "3c4d5e6f-7a8b-4c9d-9e0f-2a3b4c5d6e7c",
       "name": "Lines",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+    },
+    {
+      "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
+      "tablePartTypeMetaId": "4bb6c61d-363b-427f-b731-5aca442f023b",
+      "isCloneable": true,
+      "metaId": "b651dc9e-02b0-4c9d-8e1d-fc994c5fa818",
+      "name": "Days",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ]

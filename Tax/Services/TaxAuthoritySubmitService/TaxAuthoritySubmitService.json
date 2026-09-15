@@ -1,7 +1,7 @@
 {
   "kind": "Service",
   "object": {
-    "description": "Мок отправки декларации и оплаты в налоговый орган. Сеть не зовётся: скриптам HttpClient запрещён, стенд всегда «принимает».",
+    "description": "Канал сдачи в налоговый орган. Сеть не зовётся: скриптам HttpClient запрещён. Каждая попытка пишет строку TaxSubmission; мок принимает, если на подключении юрлица не стоит IsMockReject.",
     "namespace": "ZuloOne.Services",
     "scriptMetaId": "8d2f6b47-1c90-4a53-ae18-4e7c0d5a3b26",
     "metaId": "5e8a1c34-9d62-4f17-b3e0-2c7d4a6f1b85",

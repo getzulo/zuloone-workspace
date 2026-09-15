@@ -46,7 +46,7 @@ public partial class <Документ>LinesEventHandler
         var prior = await next(row, fieldName, value, context);
         if (!prior.Success) return prior;
         var header = Owner<<Документ>>(context); // шапка из памяти формы
-        // if (fieldName == "Item") { row.Unit = …; row.UnitPrice = …; }
+        // Persist тоже зовёт этот хук: заполняй только пустые Unit / UnitPrice.
         return EventResult.Ok();
     }
 }
@@ -54,7 +54,8 @@ public partial class <Документ>LinesEventHandler
 
 `objectType: "TablePart"`, `objectMetaId` = GUID **типа** строк.
 `OnValidateField` отклоняет значение; `OnFieldChanged` заполняет зависимые
-поля. Грид зовёт `POST /api/events/tablepart/field` на каждую клетку.
+поля — только пустые, потому что Save гоняет те же хуки. Грид зовёт
+`POST /api/events/tablepart/field` на каждую клетку.
 
 ```json
 {

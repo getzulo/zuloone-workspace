@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "description": "Timesheet day kind: work, vacation, sick, absence",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "cb3ac037-4b61-45bc-9aca-ea95f18abdfc",
+    "isRequired": false,
+    "metaId": "5dda0dc4-8a55-437e-99c6-6b1fb5ed663d",
+    "name": "AttendanceDayKindEdt",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

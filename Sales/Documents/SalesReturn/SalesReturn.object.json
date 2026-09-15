@@ -3,7 +3,7 @@
   "object": {
     "caption": "Sales return",
     "caption_ru": "Возврат от покупателя",
-    "description": "Товар вернулся с точки: склад +, долг −, выручка −. НДС не сторнируется — отдельная кредит-нота, её здесь нет.",
+    "description": "Товар вернулся с точки: склад +, долг −, выручка −. НДС сторнирует отдельная кредит-нота (SalesCreditNote).",
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "b9f244e4-d347-4739-a61d-2de72f9de637",

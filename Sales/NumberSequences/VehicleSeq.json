@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1300,
     "resetPolicy": "None",
     "metaId": "7307595c-3aa6-4b8f-b22c-12effa7a8bcd",
     "name": "VehicleSeq",

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
@@ -12,19 +11,10 @@ using ZuloOne.Services.Contracts;
 // demand — IN THE COMPONENT'S STOCK UNITS.
 //
 // The BOM is specified PER BATCH, not per unit: OutputQty is how many finished
-// goods one recipe run yields. Demand = QtyPer × (order / OutputQty). A recipe
-// "10 sandwiches from 20 g of sausage" on an order of 10 sandwiches needs 20 g,
-// not 200: without dividing by OutputQty the field would be decorative, and the
-// calculation would be wrong by exactly OutputQty.
+// goods one recipe run yields. Demand = QtyPer × (order / OutputQty).
 //
-// The BOM line has its own unit (sausage is specified in grams and stored in
-// kilograms), so the result is converted to the item unit by the shared
-// UnitConversionService — which also rounds to the target unit's precision.
-//
-// Data is read via typed IDictionaryManager<T>. A foreign service is taken
-// through ScriptServices: model contracts live in the service registry, not in
-// DI, so they cannot be constructor-injected. Inventory is a Production
-// dependency, so the contract is compiled by the time this file compiles.
+// A line with Explode = false (the default) is demanded as stock. Explode =
+// true walks that component's own BOM and merges the leaves. A cycle throws.
 public partial class BomService
 {
     private readonly IDictionaryManager<BillOfMaterials> _boms;
@@ -41,39 +31,68 @@ public partial class BomService
         _items = items;
     }
 
-    public async Task<Dictionary<Guid, decimal>> ExpandByProductAsync(Guid product, decimal qty)
+    public Task<Dictionary<Guid, decimal>> ExpandByProductAsync(Guid product, decimal qty)
+        => ExpandAsync(product, qty, new HashSet<Guid>());
+
+    private async Task<Dictionary<Guid, decimal>> ExpandAsync(Guid product, decimal qty, HashSet<Guid> trail)
     {
         var result = new Dictionary<Guid, decimal>();
+        if (product == Guid.Empty) return result;
 
-        var bom = (await _boms.GetRecordsAsync($"Product = '{product}'")).FirstOrDefault();
-        if (bom == null) return result;
+        if (!trail.Add(product))
+            throw new InvalidOperationException(
+                "Цикл в спецификации: изделие ссылается само на себя через разворачиваемые компоненты.");
 
-        // OutputQty ≤ 0 — a recipe with no stated yield: treat as "per unit",
-        // otherwise a divide-by-zero would fail posting.
-        var batches = bom.OutputQty > 0m ? qty / bom.OutputQty : qty;
-
-        // Item converter, not the generic one: "2 boxes of a component" now means
-        // a box of THIS component (one item has 12 pieces, another 6), whereas
-        // the old global "box = 12" rule was wrong for every other item.
-        var conversion = ScriptServices.Get<IItemQuantityConverter>();
-
-        foreach (var comp in await _components.GetRecordsAsync($"Bom = '{bom.MetaId}'"))
+        try
         {
-            var need = comp.QtyPer * batches;
+            var bom = (await _boms.GetRecordsAsync($"Product = '{product}'")).FirstOrDefault();
+            if (bom == null) return result;
 
-            var item = await _items.GetRecordAsync(comp.Component);
-            if (item != null && comp.Unit != Guid.Empty && comp.Unit != item.UnitOfMeasure)
+            var batches = bom.OutputQty > 0m ? qty / bom.OutputQty : qty;
+            var conversion = ScriptServices.Get<IItemQuantityConverter>();
+
+            foreach (var comp in await _components.GetRecordsAsync($"Bom = '{bom.MetaId}'"))
             {
-                // No conversion rule — silently treating grams as kilograms is not allowed.
-                need = await conversion.ToBaseRoundedAsync(comp.Component, need, comp.Unit)
-                    ?? throw new InvalidOperationException(
-                        $"Нет правила перевода единиц для компонента спецификации «{bom.Name}»: "
-                        + "количество задано в одной единице, а номенклатура хранится в другой. "
-                        + "Заведите упаковку товара или коэффициент к базовой единице.");
+                var need = await NeedInStockUnitAsync(bom.Name, comp, batches, conversion);
+                if (comp.Explode)
+                {
+                    var nested = await ExpandAsync(comp.Component, need, trail);
+                    if (nested.Count == 0)
+                        Add(result, comp.Component, need);
+                    else
+                        foreach (var kv in nested)
+                            Add(result, kv.Key, kv.Value);
+                }
+                else
+                {
+                    Add(result, comp.Component, need);
+                }
             }
-
-            result[comp.Component] = (result.TryGetValue(comp.Component, out var acc) ? acc : 0m) + need;
         }
+        finally
+        {
+            trail.Remove(product);
+        }
+
         return result;
     }
+
+    private async Task<decimal> NeedInStockUnitAsync(
+        string bomName, BomComponent comp, decimal batches, IItemQuantityConverter conversion)
+    {
+        var need = comp.QtyPer * batches;
+        var item = await _items.GetRecordAsync(comp.Component);
+        if (item != null && comp.Unit != Guid.Empty && comp.Unit != item.UnitOfMeasure)
+        {
+            need = await conversion.ToBaseRoundedAsync(comp.Component, need, comp.Unit)
+                ?? throw new InvalidOperationException(
+                    $"Нет правила перевода единиц для компонента спецификации «{bomName}»: "
+                    + "количество задано в одной единице, а номенклатура хранится в другой. "
+                    + "Заведите упаковку товара или коэффициент к базовой единице.");
+        }
+        return need;
+    }
+
+    private static void Add(Dictionary<Guid, decimal> result, Guid item, decimal qty)
+        => result[item] = (result.TryGetValue(item, out var acc) ? acc : 0m) + qty;
 }

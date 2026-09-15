@@ -1,0 +1,14 @@
+{
+  "kind": "Widget",
+  "object": {
+    "caption": "Timesheet grid",
+    "caption_ru": "Сетка табеля",
+    "widgetType": "timesheet-grid",
+    "width": 12,
+    "height": 8,
+    "surface": "form",
+    "metaId": "f945518f-f93f-4df9-92fd-ce19dcef0227",
+    "name": "TimesheetGrid",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

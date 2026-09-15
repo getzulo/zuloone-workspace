@@ -173,6 +173,26 @@
       "metaId": "8e07b64f-8c4d-5c4e-8312-8086677cdfdf",
       "name": "WorkHoursPerDay",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+    },
+    {
+      "dictionaryMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
+      "fieldName": "WeeklyHours",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 4,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Work hours per week",
+      "caption_ru": "Рабочих часов в неделю",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "4a42c9c7-d5e0-4159-b8ce-31ec0546758c",
+      "name": "WeeklyHours",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ]
 }

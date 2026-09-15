@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "ReleaseProduction",
+    "objectMetaId": "4b5c6d7e-8f90-4123-ab4c-5d6e7f8a9b0c",
+    "executionOrder": 0,
+    "metaId": "5c6d7e8f-9012-4234-bc5d-6e7f8a9b0c1d",
+    "name": "ReleaseProductionScript",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}

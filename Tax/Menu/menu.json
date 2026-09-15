@@ -241,6 +241,19 @@
       "metaId": "6ce4a925-84c6-4007-9195-b2364f701b5c",
       "name": "TaxRule",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "caption": "Authority submissions",
+      "caption_ar": "سجل التسليم للجهة",
+      "caption_ru": "Журнал сдачи",
+      "parentMetaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
+      "displayOrder": 3,
+      "icon": "fluent-color:document-folder-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "b6e4b2a8-19c3-4f50-8a17-5d9e2c1b0f63",
+      "metaId": "f8f1a4c6-23d7-4b90-a5c2-6e9d0f1b3a84",
+      "name": "TaxSubmission",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

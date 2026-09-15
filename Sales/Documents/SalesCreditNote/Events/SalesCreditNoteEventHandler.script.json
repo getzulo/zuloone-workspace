@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SalesCreditNote",
+    "objectMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
+    "executionOrder": 0,
+    "metaId": "23a86bdc-93be-4eec-b31e-ea0cdb46af7d",
+    "name": "SalesCreditNoteEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}
