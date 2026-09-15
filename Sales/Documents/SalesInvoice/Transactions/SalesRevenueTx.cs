@@ -13,6 +13,7 @@ public partial class SalesRevenueTx
             transactions.Add(new RegisterMovementSpec("Revenue")
                 .An(Analytics.Revenue.Item, line.Item)
                 .An(Analytics.Revenue.Customer, document.Customer)
+                .An(Analytics.Revenue.SalesContract, document.Contract)
                 .Res("Amount", pricing.LineAmount(line.Quantity, line.UnitPrice, document.DiscountPercent)));
         }
     }

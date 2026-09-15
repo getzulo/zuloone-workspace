@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "CustomerPaymentLines",
+    "objectMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
+    "executionOrder": 0,
+    "metaId": "cc129bd9-d6b1-49e4-b5e9-e5e63434aaf7",
+    "name": "CustomerPaymentLinesEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

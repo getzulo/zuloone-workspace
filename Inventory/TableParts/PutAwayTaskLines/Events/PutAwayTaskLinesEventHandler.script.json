@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "PutAwayTaskLines",
+    "objectMetaId": "57100708-0000-4000-8000-000000000000",
+    "executionOrder": 0,
+    "metaId": "d2271bce-5aea-42f5-8982-e4cb31c47d49",
+    "name": "PutAwayTaskLinesEventHandler",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+  }
+}

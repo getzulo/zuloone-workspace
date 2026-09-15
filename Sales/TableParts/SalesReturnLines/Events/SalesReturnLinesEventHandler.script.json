@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "SalesReturnLines",
+    "objectMetaId": "eb86d586-9824-4e21-a980-df099deca489",
+    "executionOrder": 0,
+    "metaId": "ca19ef21-1f4b-402f-a7d2-a0ac826cd242",
+    "name": "SalesReturnLinesEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

@@ -18,6 +18,23 @@ public partial class IssueInvoiceCommand
             return;
         }
 
+        var onDate = full.DocumentDate != default ? full.DocumentDate : DateTime.UtcNow;
+        var contracts = context.GetService<ISalesContractService>();
+        var pair = await contracts.ValidatePairAsync(full.Customer, full.Outlet, full.Contract, onDate);
+        if (pair != null)
+        {
+            context.AddClientAction(ClientAction.Message(pair));
+            return;
+        }
+        var pricing = context.GetService<IPricingService>();
+        var amount = full.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice, full.DiscountPercent));
+        var settlement = await contracts.CheckSettlementAsync(full.Customer, full.Contract, amount);
+        if (settlement != null)
+        {
+            context.AddClientAction(ClientAction.Message(settlement));
+            return;
+        }
+
         var cellSvc = context.GetService<IStoreCellService>();
         if (await cellSvc.IsWarehouseDisciplineOnAsync() &&
             !await cellSvc.IsCellAllowedForAsync(full.Location, StoreCellPurpose.Picking))

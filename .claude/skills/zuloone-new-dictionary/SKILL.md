@@ -194,8 +194,21 @@ public partial class <Имя>EventHandler : TypedDictionaryEventHandler<<Имя>
         // if (string.IsNullOrEmpty(record.Name)) return EventResult.Cancel("Наименование обязательно");
         return EventResult.Ok();
     }
+
+    // Live from the card (no Save): OnValidateField then OnFieldChanged.
+    // public override async Task<EventResult> OnFieldChangedAsync(<Имя> record, string fieldName, object? value, EventContext context)
+    // {
+    //     var prior = await next(record, fieldName, value, context);
+    //     if (!prior.Success) return prior;
+    //     return EventResult.Ok();
+    // }
 }
 ```
+
+Карточка зовёт `POST /api/events/dictionary/field` на каждое поле — так же,
+как грид строк зовёт `tablepart/field`. `OnValidateField` отклоняет значение;
+`OnFieldChanged` заполняет зависимые поля. Save гоняет те же хуки в
+`DataService`.
 
 ## 5. Пункт меню — `Menu/menu.json` своей модели
 

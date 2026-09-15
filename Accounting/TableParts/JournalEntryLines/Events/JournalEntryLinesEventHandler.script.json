@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "JournalEntryLines",
+    "objectMetaId": "187c3b91-3133-46c2-8ed5-49adfe9ddf2f",
+    "executionOrder": 0,
+    "metaId": "9e5789bd-ebc4-47ec-9c51-58de40fb1397",
+    "name": "JournalEntryLinesEventHandler",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+  }
+}

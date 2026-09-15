@@ -28,6 +28,8 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
         public Guid Location;
         public Guid Item;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync()
@@ -114,10 +116,31 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
-        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
+        return new Setup
+        {
+            Location = cell.MetaId,
+            Item = item.MetaId,
+            Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
+        };
     }
 
-    // Receivable и Revenue несут только динамическую аналитику Customer.
+    // Срез по клиенту суммирует все договоры; договор на движении обязателен.
     private static Task<decimal> SumAsync(string register, Setup s)
         => TotalsManager.GetBalanceAsync(register, "Amount",
             new Dictionary<string, object?> { ["Customer"] = s.Customer });
@@ -137,6 +160,8 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
         // Подтип не передаём: документ обязан стартовать в НАЧАЛЬНОМ подтипе (Draft).
         var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
         await DocumentManager.SaveDocumentAsync(inv);
@@ -157,7 +182,7 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
 
         // Оплата — ОТДЕЛЬНЫЙ документ, а не смена подтипа счёта.
         var pay = await DocumentManager.NewDocumentAsync<CustomerPayment>();
-        pay.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Amount = 15m });
+        pay.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Contract = s.Contract, Amount = 15m });
         await DocumentManager.SaveDocumentAsync(pay);
         Assert.IsTrue(await SumAsync("Receivable", s) == 15m,
             "черновик оплаты долг не трогает, факт {0}", await SumAsync("Receivable", s));
@@ -202,6 +227,8 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
 
         var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
         await DocumentManager.SaveDocumentAsync(inv);

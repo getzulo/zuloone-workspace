@@ -33,6 +33,29 @@ description: Создать новый документ ZuloOne — шапка, 
 
 ## 1. Тип табличной части — `TableParts/<Документ>Lines.json`
 
+Поле строки (товар, количество) без Save — хуки типа ТЧ, не шапки
+документа. Пара `TableParts/<Имя>/Events/<Имя>EventHandler.*`:
+
+```csharp
+public partial class <Документ>LinesEventHandler
+    : TypedTablePartEventHandler<<Документ>LinesTablePartRow>
+{
+    public override async Task<EventResult> OnFieldChangedAsync(
+        <Документ>LinesTablePartRow row, string fieldName, object? value, EventContext context)
+    {
+        var prior = await next(row, fieldName, value, context);
+        if (!prior.Success) return prior;
+        var header = Owner<<Документ>>(context); // шапка из памяти формы
+        // if (fieldName == "Item") { row.Unit = …; row.UnitPrice = …; }
+        return EventResult.Ok();
+    }
+}
+```
+
+`objectType: "TablePart"`, `objectMetaId` = GUID **типа** строк.
+`OnValidateField` отклоняет значение; `OnFieldChanged` заполняет зависимые
+поля. Грид зовёт `POST /api/events/tablepart/field` на каждую клетку.
+
 ```json
 {
   "kind": "TablePartType",
@@ -160,6 +183,9 @@ public partial class <Имя><Подтип><Цель>Tx
 
 База `TypedDocumentEventHandler<<Имя>>`. Ключевые хуки:
 
+- `OnValidateFieldAsync` / `OnFieldChangedAsync` — поле шапки без Save
+  (`POST /api/events/document/field`). Строки уже на `header.Lines`,
+  если форма прислала граф. Считалки (валюта, склад) пиши здесь;
 - `OnBeforePostAsync` — валидация перед проведением состояния;
   `EventResult.Cancel("причина")` блокирует переход;
 - `OnAfterPostAsync` — состояние проведено: здесь порождаются связанные

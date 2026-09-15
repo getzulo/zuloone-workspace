@@ -152,13 +152,17 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
                     "Receivable", $"[DocumentMetaId] = '{header.MetaId}'");
                 if (existing.Count == 0)
                 {
-                    // Customer on Receivable is a dynamic analytic, not a TB_ column.
+                    // Customer/SalesContract on Receivable are dynamic analytics, not TB_ columns.
                     var receivableId = registers.First(r =>
                         string.Equals(r.Name, "Receivable", StringComparison.OrdinalIgnoreCase)).MetaId;
                     await movements.PostMovementAsync(receivableId, header.MetaId, calc.DocumentDate,
                         new Dictionary<string, object?>(),
                         new Dictionary<string, decimal> { ["Amount"] = output },
-                        analytics: new Dictionary<string, object?> { ["Customer"] = invoice.Customer });
+                        analytics: new Dictionary<string, object?>
+                        {
+                            ["Customer"] = invoice.Customer,
+                            ["SalesContract"] = invoice.Contract,
+                        });
                 }
             }
         }

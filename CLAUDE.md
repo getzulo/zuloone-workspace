@@ -156,6 +156,7 @@ live**: сохранил файл → через 2–4 секунды он пр�
 |---|---|---|
 | События справочника | `<Имя>EventHandler : TypedDictionaryEventHandler<Имя>` | да, сам |
 | События документа | `<Имя>EventHandler : TypedDocumentEventHandler<Имя>` | да, сам |
+| События табличной части | `<Имя>EventHandler : TypedTablePartEventHandler<<Имя>TablePartRow>` | да, сам. Родитель: `Owner<Документ>(context)` |
 | Транзакционный скрипт | `public partial class <ИмяTx>` + `override GetTransactions(<Документ> document, TransactionPairCollection, TransactionCollection)` | НЕТ — генерит платформа |
 | Команда документа | `<Имя>Command : DocumentCommandBase<Документ>` + `override ExecuteAsync(<Документ> document, CommandContext context)` | НЕТ — генерит платформа |
 | Драйвер итогов (хук) | `public partial class <Имя>TotalDriver` — переопределяет хуки расчёта | НЕТ — генерит платформа |

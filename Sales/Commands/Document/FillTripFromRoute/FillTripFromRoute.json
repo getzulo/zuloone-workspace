@@ -1,0 +1,25 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Fill from route",
+    "caption_ar": "تعبئة من المسار",
+    "caption_ru": "Набрать с маршрута",
+    "scriptMetaId": "3e5b1711-e68f-4dfa-b553-ff189640ff7d",
+    "parameterMode": "None",
+    "displayOrder": 0,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "8130d00b-830f-4e2d-b24c-c213c6e02d6b",
+    "name": "FillTripFromRoute",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "ee4e4141-8e2c-41d7-b19d-37384478af81",
+      "documentCommandMetaId": "8130d00b-830f-4e2d-b24c-c213c6e02d6b",
+      "documentSubtypeMetaId": "d9d69160-83c9-45de-a29e-af61a3828d16"
+    }
+  ]
+}

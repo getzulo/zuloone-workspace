@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "VendorPaymentLines",
+    "objectMetaId": "0c84bba6-3b2c-40b2-ad4b-7741de111447",
+    "executionOrder": 0,
+    "metaId": "7aa601af-b61a-487d-9b63-6fa175dfb605",
+    "name": "VendorPaymentLinesEventHandler",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}

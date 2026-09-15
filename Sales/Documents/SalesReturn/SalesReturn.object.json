@@ -21,6 +21,23 @@
   "headerFields": [
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
+      "fieldName": "Contract",
+      "caption": "Contract",
+      "caption_ru": "Договор",
+      "edtMetaId": "83e80aa1-218b-4684-845d-272f72cc8bf3",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "c12a7bd2-13c6-404f-b44e-5812636babb5",
+      "name": "Contract",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
       "fieldName": "Customer",
       "caption": "Customer",
       "caption_ru": "Клиент",
@@ -71,6 +88,23 @@
       "isTranslatable": false,
       "metaId": "0e69d711-0a0d-44da-a7f0-d1834c2beec9",
       "name": "Location",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
+      "fieldName": "Outlet",
+      "caption": "Outlet",
+      "caption_ru": "Торговая точка",
+      "edtMetaId": "91560c1f-7be1-40df-a1e4-e65eaa794958",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "f1e2c2fe-4a0e-4e28-8253-2b5d61a2aa55",
+      "name": "Outlet",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {

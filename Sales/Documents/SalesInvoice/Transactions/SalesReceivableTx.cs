@@ -16,6 +16,7 @@ public partial class SalesReceivableTx
         {
             transactions.Add(new RegisterMovementSpec("Receivable")
                 .An(Analytics.Receivable.Customer, document.Customer)
+                .An(Analytics.Receivable.SalesContract, document.Contract)
                 .Res("Amount", pricing.LineAmount(line.Quantity, line.UnitPrice, document.DiscountPercent)));
         }
     }

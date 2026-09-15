@@ -1,0 +1,13 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "nextValue": 1042,
+    "resetPolicy": "None",
+    "metaId": "45c2a182-4f95-4db2-929d-eaf49d755dc2",
+    "name": "SalesContractSeq",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

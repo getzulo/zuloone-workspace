@@ -138,7 +138,7 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         => TotalsManager.GetBalanceAsync("LoyaltyPoints", "Points",
             new Dictionary<string, object?> { ["Customer"] = customer });
 
-    // Receivable и Revenue несут только динамическую аналитику Customer.
+    // Срез по клиенту: договор на движениях необязателен.
     private static Task<decimal> SumAsync(string register, Setup s)
         => TotalsManager.GetBalanceAsync(register, "Amount",
             new Dictionary<string, object?> { ["Customer"] = s.Customer });

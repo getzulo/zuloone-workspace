@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "PayrollPaymentLines",
+    "objectMetaId": "92379308-4a1c-4e8d-9f2b-6c3a7e5d1b40",
+    "executionOrder": 0,
+    "metaId": "b59d6486-090f-4234-8a65-741da2dee069",
+    "name": "PayrollPaymentLinesEventHandler",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

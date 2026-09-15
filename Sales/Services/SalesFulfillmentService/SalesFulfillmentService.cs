@@ -137,6 +137,10 @@ public partial class SalesFulfillmentService
         invoice.Customer = order.Customer;
         invoice.Location = order.Location;
         invoice.SourceOrder = order.MetaId;
+        if (order.Outlet != Guid.Empty)
+            invoice.Outlet = order.Outlet;
+        if (order.Contract != Guid.Empty)
+            invoice.Contract = order.Contract;
         if (order.DeliveryDate != default)
             invoice.DocumentDate = order.DeliveryDate.Date;
         if (order.Contact != Guid.Empty)
@@ -196,15 +200,14 @@ public partial class SalesFulfillmentService
             if (order.Subtype == "Delivered" || order.Subtype == "Cancelled")
                 continue;
 
-            var outcome = (stop.Outcome ?? string.Empty).Trim();
-            if (string.Equals(outcome, "Refused", StringComparison.OrdinalIgnoreCase))
+            if (stop.Outcome == StopOutcome.Refused)
             {
                 if (order.Subtype == "Confirmed")
                     await _posting.SetSubtypeAsync(SalesOrderType, order.MetaId, "Cancelled");
                 continue;
             }
 
-            if (string.Equals(outcome, "Partial", StringComparison.OrdinalIgnoreCase)
+            if (stop.Outcome == StopOutcome.Partial
                 && stop.QtyShipped > 0m
                 && order.Lines.Count == 1)
             {

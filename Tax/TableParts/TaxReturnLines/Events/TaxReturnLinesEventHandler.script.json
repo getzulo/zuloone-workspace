@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "TaxReturnLines",
+    "objectMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
+    "executionOrder": 0,
+    "metaId": "3236e4c2-629e-4c18-9ea8-ddceb0912124",
+    "name": "TaxReturnLinesEventHandler",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

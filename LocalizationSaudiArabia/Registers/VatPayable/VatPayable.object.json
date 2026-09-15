@@ -38,6 +38,15 @@
       "metaId": "5e9a2b18-6d3c-4f0a-9b4e-8c1d3f9a6b20",
       "name": "VatPayable-Customer",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "registerMetaId": "3c7e0f96-4b1a-4d8e-9f2c-6a9b1d7e4f00",
+      "analyticMetaId": "992849cd-d7d0-4e7e-b399-b7460d296df7",
+      "displayOrder": 2,
+      "isRequired": true,
+      "metaId": "30cb27c2-ef05-4f79-8dad-2c46758eb4a5",
+      "name": "VatPayable-SalesContract",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
     }
   ]
 }
