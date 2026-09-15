@@ -1,8 +1,8 @@
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// «Утвердить расчёт»: ставка строки — та, что ITaxService видит на TaxPointDate,
-// сумма = CalculateTax(база, ставка). Не invent свою арифметику.
+// "Finalize calculation": the line rate is the one ITaxService sees on TaxPointDate,
+// amount = CalculateTax(base, rate). Do not invent your own arithmetic.
 public partial class FinalizeTaxCalculationCommand
 {
     public override async Task ExecuteAsync(TaxCalculation document, CommandContext context)

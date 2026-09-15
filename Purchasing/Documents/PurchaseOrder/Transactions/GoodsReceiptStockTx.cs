@@ -1,13 +1,13 @@
 #nullable enable
 using System;
 
-// Оприходование заказа поставщику: +количество на принимающую ячейку. Stock —
-// односторонний накопительный регистр, поэтому встречной ноги нет, а остаток
-// ячейки и есть фактическое наличие.
+// Receipting a purchase order: +quantity onto the receiving cell. Stock is a
+// one-sided accumulation register, so there is no counter-leg, and the cell
+// balance is physical on-hand.
 //
-// В регистр уходит BaseQuantity (базовая единица товара, считает платформа при
-// сохранении строки); ноль = «единица не указана, пересчёта не было» → введённое
-// количество и есть базовое. Заказ на 5 ящиков приходует 60 штук, а НЕ 5.
+// The register gets BaseQuantity (the item's base unit, computed by the platform
+// on line save); zero = "unit not specified, no conversion" → the entered
+// quantity is the base. An order for 5 boxes receipts 60 pieces, NOT 5.
 public partial class GoodsReceiptStockTx
 {
 

@@ -1,16 +1,17 @@
 #nullable enable
 using ZuloOne.Services.Contracts;
 
-// Себестоимость: оприходование заказа поставщику наполняет регистр стоимости
-// запасов — приход по каждой строке даёт +Value (сумма строки из PricingService)
-// и +Qty по товару. Средняя себестоимость товара = Value / Qty (в отчётах).
-// Скрипт живёт в Costing и цепляется к подтипу PurchaseOrder.Received.
+// Costing: receiving a purchase order fills the inventory-value
+// register — each line's receipt gives +Value (line amount from
+// PricingService) and +Qty by item. Average item cost = Value / Qty
+// (in reports). The script lives in Costing and attaches to
+// PurchaseOrder.Received.
 //
-// Тот же разрыв конвенций, что и в ReceiptFifoTx, в одном операторе: Value — на
-// ВВЕДЁННОМ количестве (цена задана за введённую единицу: 5 ящиков × цена за
-// ящик), Qty — на БАЗОВОМ. Иначе Value/Qty дало бы цену за ящик, а умножалась бы
-// она на остаток Stock, который считается в штуках, — оценка запаса разъехалась бы
-// ровно в коэффициент упаковки.
+// The same convention split as in ReceiptFifoTx, in one operator: Value
+// is on the ENTERED quantity (price is for the entered unit: 5 boxes ×
+// price per box), Qty is on the BASE. Otherwise Value/Qty would be a
+// per-box price multiplied by a Stock balance counted in pieces — inventory
+// valuation would drift by exactly the pack factor.
 public partial class ReceiptCostTx
 {
     protected override void GetTransactions(PurchaseOrder document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

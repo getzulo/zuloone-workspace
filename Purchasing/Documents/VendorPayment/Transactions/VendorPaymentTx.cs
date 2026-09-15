@@ -1,11 +1,11 @@
 #nullable enable
 
-// Оплата поставщику гасит кредиторку: по каждой строке −Amount в разрезе
-// поставщика. Заказ на покупку при этом НЕ трогается — он остаётся
-// оприходованным, склад и начисленный долг на месте. Именно поэтому оплата
-// вынесена в отдельный документ, а не сделана подтипом заказа: смена подтипа
-// снимает движения прошлого состояния и обнулила бы вместе с долгом ещё и
-// приход на склад (тот же урок, что записан в MarkPaidScript на стороне продаж).
+// A vendor payment settles payables: each line −Amount by supplier. The purchase
+// order is NOT touched — it stays received, stock and the accrued debt stay put.
+// That is why payment is a separate document, not an order subtype: a subtype
+// change lifts the previous state's movements and would zero out the stock
+// receipt along with the debt (the same lesson recorded in MarkPaidScript on
+// the sales side).
 public partial class VendorPaymentTx
 {
     protected override void GetTransactions(VendorPayment document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

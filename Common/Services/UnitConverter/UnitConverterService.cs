@@ -3,26 +3,26 @@ using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Runtime.Generated;
 
-// Перевод количеств между единицами измерения ОДНОГО вида величины.
+// Convert quantities between units of measure of ONE quantity class.
 //
-// Модель: у каждой единицы есть вид величины (UnitClass) и коэффициент к базовой
-// единице этого вида (RatioToBase — сколько базовых в одной этой). Перевод —
-// qty × from.RatioToBase / to.RatioToBase. Отсюда три свойства, которых не было
-// у попарных правил:
-//   • ТРАНЗИТИВНОСТЬ БЕСПЛАТНА: тонна → грамм считается без правила «тонна-грамм»,
-//     потому что обе единицы выражены через грамм;
-//   • N ЧИСЕЛ ВМЕСТО N² ПРАВИЛ, и противоречивую тройку (тонна→грамм ≠
-//     тонна→килограмм × килограмм→грамм) стало нечем выразить;
-//   • ПЕРЕВОД МЕЖДУ ВИДАМИ НЕВОЗМОЖЕН ПО ПОСТРОЕНИЮ — «килограмм в метр» это не
-//     «правило не найдено», а разные величины.
+// Model: each unit has a quantity class (UnitClass) and a ratio to the base
+// unit of that class (RatioToBase — how many base units in one of this).
+// Conversion is qty × from.RatioToBase / to.RatioToBase. Hence three properties
+// pairwise rules did not have:
+//   • TRANSITIVITY IS FREE: tonne → gram computes without a "tonne-gram" rule,
+//     because both units are expressed through the gram;
+//   • N NUMBERS INSTEAD OF N² RULES, and a contradictory triple (tonne→gram ≠
+//     tonne→kilogram × kilogram→gram) has nothing to express it with;
+//   • CROSS-CLASS CONVERSION IS IMPOSSIBLE BY CONSTRUCTION — "kilogram to
+//     metre" is not "rule not found", it is different quantities.
 //
-// Живёт в Common (слой 1) сознательно: на Common ссылаются все модели, поэтому
-// пересчёт стал доступен и базовым — Tax, Accounting, Organization, — которые
-// раньше не могли перевести единицы вообще.
+// Lives in Common (layer 1) on purpose: every model references Common, so
+// conversion became available to base models too — Tax, Accounting,
+// Organization — which previously could not convert units at all.
 //
-// Товарные упаковки («коробка ЭТОГО товара = 12 штук») здесь принципиально
-// отсутствуют: они зависят от номенклатуры, а номенклатура живёт слоем выше.
-// Ими занимается ItemQuantityConverter в Inventory.
+// Item packs ("a box of THIS item = 12 pieces") are deliberately absent here:
+// they depend on the item, and items live a layer above. ItemQuantityConverter
+// in Inventory handles those.
 public partial class UnitConverter
 {
     private readonly IDictionaryManager<UnitOfMeasure> _units;
@@ -30,12 +30,12 @@ public partial class UnitConverter
     public UnitConverter(IDictionaryManager<UnitOfMeasure> units) => _units = units;
 
     /// <summary>
-    /// Перевод количества между единицами одного вида; null — перевести нечем:
-    /// разные виды величины, либо у единицы нет коэффициента (так задаются
-    /// упаковки вроде коробки, у которых он зависит от товара).
+    /// Convert a quantity between units of one class; null — nothing to convert
+    /// with: different quantity classes, or the unit has no ratio (that is how
+    /// packs like a box are specified, whose ratio depends on the item).
     ///
-    /// Тождество возвращает количество, а НЕ null: единица сама в себя — это
-    /// корректный перевод, а не отсутствие правила.
+    /// Identity returns the quantity, NOT null: a unit into itself is a valid
+    /// conversion, not a missing rule.
     /// </summary>
     public async Task<decimal?> ConvertAsync(decimal quantity, Guid fromUnit, Guid toUnit)
     {
@@ -49,21 +49,21 @@ public partial class UnitConverter
     }
 
     /// <summary>
-    /// Чистая арифметика перевода — без обращений к базе. Вынесена отдельно,
-    /// чтобы платформенный конвертер (который обязан читать только через
-    /// соединение платформы) считал ТЕМ ЖЕ выражением, а не своей копией.
+    /// Pure conversion arithmetic — no database calls. Extracted so the platform
+    /// converter (which must read only through the platform connection) computes
+    /// by THE SAME expression, not its own copy.
     /// </summary>
     public static decimal? ConvertByRatio(
         decimal quantity, Guid fromClass, decimal fromRatio, Guid toClass, decimal toRatio)
     {
         if (fromClass == Guid.Empty || toClass == Guid.Empty) return null;
-        if (fromClass != toClass) return null;              // масса в длину не переводится
-        if (fromRatio <= 0m || toRatio <= 0m) return null;  // коэффициента нет (упаковка)
+        if (fromClass != toClass) return null;              // mass does not convert to length
+        if (fromRatio <= 0m || toRatio <= 0m) return null;  // no ratio (a pack)
 
         return quantity * fromRatio / toRatio;
     }
 
-    /// <summary>Перевод с округлением до точности целевой единицы.</summary>
+    /// <summary>Conversion rounded to the target unit's precision.</summary>
     public async Task<decimal?> ConvertRoundedAsync(decimal quantity, Guid fromUnit, Guid toUnit)
     {
         var converted = await ConvertAsync(quantity, fromUnit, toUnit);
@@ -71,7 +71,7 @@ public partial class UnitConverter
         return Round(converted.Value, await PrecisionAsync(toUnit));
     }
 
-    /// <summary>Знаков после запятой у единицы; иначе глобальная QuantityScale.</summary>
+    /// <summary>Decimal places of the unit; otherwise the global QuantityScale.</summary>
     public async Task<int> PrecisionAsync(Guid unit)
     {
         var u = await _units.GetRecordAsync(unit);
@@ -79,13 +79,13 @@ public partial class UnitConverter
     }
 
     /// <summary>
-    /// Коэффициент перевода — для отображения. Для пересчёта количеств зовите
-    /// ConvertAsync: он не теряет разряды на промежуточном делении.
+    /// Conversion factor — for display. For quantity conversion call
+    /// ConvertAsync: it does not lose digits on an intermediate division.
     /// </summary>
     public async Task<decimal?> FactorAsync(Guid fromUnit, Guid toUnit)
         => fromUnit == toUnit ? 1m : await ConvertAsync(1m, fromUnit, toUnit);
 
-    /// <summary>Округление количества — одно на все входы.</summary>
+    /// <summary>Quantity rounding — one for every entry point.</summary>
     public static decimal Round(decimal value, int scale)
         => Math.Round(value, Math.Max(0, Math.Min(scale, 28)), MidpointRounding.AwayFromZero);
 

@@ -1,7 +1,7 @@
 using ZuloOne.Managers;
 
-// Команда «Упаковано»: переход Picking → Packing.
-// Резерв сохраняется (скрипт SalesInvoiceReserveTx привязан и к Packing).
+// Mark-packed command: Picking → Packing.
+// The reserve stays (SalesInvoiceReserveTx is bound to Packing as well).
 public partial class MarkPackedCommand
 {
     public override async Task ExecuteAsync(SalesInvoice document, CommandContext context)

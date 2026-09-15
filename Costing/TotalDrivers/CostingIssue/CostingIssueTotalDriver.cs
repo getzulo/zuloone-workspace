@@ -4,70 +4,75 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
-// ZuloOne.Managers и ZuloOne.Totals целиком не открываются: имена
-// TransactionCollection / TransactionPairCollection / ITotalsManager есть и в
-// пространстве проводок документа, и в пространстве итогов.
+// ZuloOne.Managers and ZuloOne.Totals are not opened wholesale: the names
+// TransactionCollection / TransactionPairCollection / ITotalsManager exist
+// both in the document-posting space and in the totals space.
 using ITotalsManager = ZuloOne.Managers.ITotalsManager;
 using TransactionCollection = ZuloOne.Totals.TransactionCollection;
 using TransactionPairCollection = ZuloOne.Totals.TransactionPairCollection;
 
-// ═══ ДРАЙВЕР ВЫБЫТИЯ СЕБЕСТОИМОСТИ ═══════════════════════════════════════════
+// ═══ COST-ISSUE DRIVER ══════════════════════════════════════════════════════
 //
-// Расходную ногу себестоимости порождает НЕ документ, а движение склада: драйвер
-// висит на регистре Stock, видит ВЕСЬ набор проводок проводимого документа
-// (платформа зовёт ValidateTransactions каждому драйверу цепочки, отдавая ему
-// полный набор), а затем — уже после того, как движения записаны, — списывает
-// себестоимость выбывшего количества.
+// The cost issue leg is produced NOT by the document, but by a warehouse
+// movement: the driver hangs on the Stock register, sees the FULL set of
+// postings of the document being posted (the platform calls
+// ValidateTransactions on every driver in the chain, handing it the full
+// set), and then — after the movements are written — writes off the cost of
+// the issued quantity.
 //
-// ПОЧЕМУ НЕ ПРОВОДКИ НА ДОКУМЕНТАХ. Списывать себестоимость обязаны продажа,
-// списание, отпуск в производство, отбор со склада и любой будущий расходный
-// документ. Ножка в каждом транзакционном скрипте — это N копий одного правила,
-// которые разъезжаются: достаточно завести документ и забыть про себестоимость.
-// Правило одно и живёт в одном месте: УМЕНЬШИЛСЯ СКЛАДСКОЙ ОСТАТОК — списалась
-// себестоимость. Модель Costing из-за этого не заводит ни документов, ни
-// проводок, ни сервисов: у неё регистры, настройка и два драйвера.
+// WHY NOT POSTINGS ON THE DOCUMENTS. Cost must be written off by a sale,
+// a write-off, a production issue, a warehouse pick, and any future issue
+// document. A leg in every transactional script is N copies of one rule
+// that drift: it is enough to create a document and forget about cost.
+// The rule is one and lives in one place: WAREHOUSE ON-HAND WENT DOWN —
+// cost was written off. Because of this the Costing model creates neither
+// documents, nor postings, nor services: it has registers, a setting, and
+// two drivers.
 //
-// ЧИСТОЕ количество по товару, а не отдельные проводки. Перемещение между
-// ячейками — это ДВА движения Stock по одному товару (−24 из FromCell, +24 в
-// ToCell). Товар не выбыл: он переехал. Считай драйвер каждую отрицательную
-// проводку выбытием — перемещение списывало бы себестоимость, и оценка запаса
-// падала бы при переносе коробки с полки на полку. Поэтому движения
-// СХЛОПЫВАЮТСЯ по товару в пределах документа, и списывается только чистый
-// минус. Производственный заказ (−компоненты, +изделие) схлопывается по РАЗНЫМ
-// товарам и потому списывает ровно компоненты.
+// NET quantity by item, not individual postings. A transfer between cells
+// is TWO Stock movements on one item (−24 from FromCell, +24 to ToCell).
+// The item did not leave: it moved. If the driver treated every negative
+// posting as a disposal — a transfer would write off cost, and inventory
+// valuation would drop when a box is moved from shelf to shelf. So
+// movements are COLLAPSED by item within the document, and only a net
+// minus is written off. A production order (−components, +finished good)
+// collapses by DIFFERENT items and therefore writes off exactly the
+// components.
 //
-// КОЛИЧЕСТВО УЖЕ НОРМАЛИЗОВАНО. В Stock все транзакционные скрипты пишут
-// BaseQuantity (базовую единицу товара) — драйвер читает регистр, а не строки
-// документа, и потому не может перепутать «5 ящиков» со «60 штуками» в принципе.
-// Слои себестоимости заведены тем же приходом в той же базовой единице.
+// QUANTITY IS ALREADY NORMALIZED. All transactional scripts write
+// BaseQuantity (the item's base unit) to Stock — the driver reads the
+// register, not document lines, and therefore cannot confuse «5 boxes»
+// with «60 pieces» in principle. Cost layers were opened by the same
+// receipt in the same base unit.
 //
-// СКОЛЬКО списывать. Себестоимость есть только у того количества, приход
-// которого её зафиксировал: партии в ItemCostFifo создаёт оприходование заказа
-// поставщику. Выбытие количества, которого в партиях нет (тестовые остатки,
-// заведённые прямыми движениями регистра, инвентаризационные излишки прошлого,
-// выпуск производства), списывать нечем — берётся минимум из выбывшего и
-// наличного в партиях. Иначе движок отклонил бы перерасход слоёв и уронил
-// проведение документа, который к себестоимости отношения не имеет.
+// HOW MUCH to write off. Cost exists only for the quantity whose receipt
+// recorded it: ItemCostFifo lots are created by receiving a purchase
+// order. Issuing quantity that is not in the lots (test balances opened
+// as direct register movements, past stock-count surpluses, production
+// output) has nothing to write off against — the minimum of issued and
+// on-hand in lots is taken. Otherwise the engine would reject layer
+// over-issue and fail a document that has nothing to do with costing.
 //
-// ЧЕМ оценивать — решает не этот драйвер: регистр ItemCostFifo считается своим
-// драйвером CostingValuation, и метод (FIFO/AVG) с округлением берутся там из
-// CostingSettings. Здесь берётся ФАКТ: сумма, на которую движок уменьшил
-// партии, и ровно она списывается из стоимости запасов. Так две величины не
-// могут разъехаться по построению — какой бы метод ни выбрали в настройках.
+// WHAT to value at is not this driver's decision: the ItemCostFifo
+// register is computed by its own CostingValuation driver, and the method
+// (FIFO/AVG) with rounding is taken there from CostingSettings. Here the
+// FACT is taken: the amount by which the engine reduced the lots, and
+// exactly that is written off from inventory value. So the two quantities
+// cannot drift by construction — whichever method is chosen in settings.
 public partial class CostingIssueTotalDriver
 {
     private const string StockQuantity = "Qty";
     private const string StockItem = "Item";
 
-    // Чистое движение по товару за документ: минус — выбытие, плюс/ноль — нет.
+    // Net movement by item for the document: minus — disposal, plus/zero — none.
     private readonly Dictionary<Guid, decimal> _netByItem = new();
 
     /// <summary>
-    /// Платформа отдаёт сюда ВЕСЬ набор проводок документа — всех регистров
-    /// цепочки. Берём только свои и складываем по товару. Смотрим одиночные
-    /// проводки, а не пары: Stock объявлен регистром ОДИНАРНОЙ записи (остаток =
-    /// фактический on-hand, встречной ноги «External» нет), и парная проводка на
-    /// него платформой не принимается вовсе.
+    /// The platform hands the FULL set of the document's postings here — all
+    /// registers in the chain. We take only our own and sum by item. We look
+    /// at single postings, not pairs: Stock is declared as a SINGLE-entry
+    /// register (balance = actual on-hand, there is no counterpart «External»
+    /// leg), and a paired posting is not accepted on it by the platform at all.
     /// </summary>
     public override void ValidateTransactions(
         TransactionPairCollection transactionPairs, TransactionCollection transactions)
@@ -84,20 +89,20 @@ public partial class CostingIssueTotalDriver
     }
 
     /// <summary>
-    /// Движения склада уже записаны — списываем себестоимость выбывшего.
-    /// Хук синхронный, а списание идёт через менеджеры: это единственная точка
-    /// жизненного цикла драйвера ПОСЛЕ записи движений, и соединения регистра в
-    /// ней уже нет — обращение к БД отсюда не превращает окружающую транзакцию
-    /// в распределённую.
+    /// Warehouse movements are already written — write off the cost of what left.
+    /// The hook is synchronous, and the write-off goes through managers: this
+    /// is the only point in the driver's life AFTER movements are written, and
+    /// the register connection is already gone — a DB call from here does not
+    /// turn the surrounding transaction into a distributed one.
     /// </summary>
     public override void EndDocument(DateTime transactionDate, Guid docId)
     {
         base.EndDocument(transactionDate, docId);
 
         var issues = _netByItem.Where(kv => kv.Value < 0m).ToList();
-        // Экземпляр драйвера живёт одно проведение, но обнуляем явно: EndDocument
-        // — публичный хук, и повторный вызов не должен списать себестоимость
-        // второй раз.
+        // The driver instance lives for one posting, but we clear explicitly:
+        // EndDocument is a public hook, and a second call must not write off
+        // cost a second time.
         _netByItem.Clear();
         if (issues.Count == 0) return;
 
@@ -109,11 +114,12 @@ public partial class CostingIssueTotalDriver
     {
         var totals = GetService<ITotalsManager>();
 
-        // InventoryValue разрезан ДИНАМИЧЕСКОЙ аналитикой Item (обязательной), а
-        // ITotalsManager.PostMovementAsync аналитики не принимает — движение без
-        // неё регистр отклонит. Поэтому именно эта проводка идёт через движок
-        // регистров, единственный, чья сигнатура их несёт. (Дырка в контракте
-        // менеджера, а не в дисциплине: закрывать её — правка платформы.)
+        // InventoryValue is sliced by a DYNAMIC Item analytic (required), and
+        // ITotalsManager.PostMovementAsync does not accept analytics — a movement
+        // without it will be rejected by the register. So this posting goes
+        // through the register engine, the only one whose signature carries
+        // them. (A hole in the manager contract, not in discipline: closing
+        // it is a platform change.)
         var movements = GetService<IRegisterMovementService>();
         var inventoryValueId = (await GetService<IMetadataService>().GetAllRegistersAsync())
             .First(r => string.Equals(r.Name, "InventoryValue", StringComparison.OrdinalIgnoreCase)).MetaId;
@@ -128,9 +134,9 @@ public partial class CostingIssueTotalDriver
 
             var valueBefore = await totals.GetBalanceAsync("ItemCostFifo", "Amount", key);
 
-            // Расход по партиям: Amount движок ЗАМЕНИТ себестоимостью, которую
-            // посчитает драйвер регистра (FIFO или AVG — по настройке), поэтому
-            // здесь он ноль.
+            // Lot issue: the engine WILL REPLACE Amount with the cost that
+            // the register driver computes (FIFO or AVG — per the setting),
+            // so here it is zero.
             await totals.PostMovementAsync("ItemCostFifo", docId, movementDate, key,
                 new Dictionary<string, decimal> { ["Quantity"] = -take, ["Amount"] = 0m });
 

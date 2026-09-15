@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 
-// Мок канала в налоговый орган.
+// Mock channel to the tax authority.
 //
-// Скриптам запрещены HttpClient, файлы и процессы — политика безопасности
-// отклонит такой код при импорте. Поэтому «отправка» всегда принимается
-// локально и возвращает квитанцию MOCK-OK. Подключение юрлица, если оно есть,
-// только попадает в строку; его отсутствие не ошибка: стенд без госсистемы
-// обязан проводить сдачу и оплату как прежде.
+// Scripts are forbidden HttpClient, files and processes — the security policy
+// will reject such code on import. So "submit" is always accepted locally and
+// returns a MOCK-OK receipt. A legal-entity connection, if present, only lands
+// in the string; its absence is not an error: a stand without a government
+// system must still post filing and payment as before.
 public partial class TaxAuthoritySubmitService
 {
     private readonly IDocumentManager _documents;
@@ -24,7 +24,7 @@ public partial class TaxAuthoritySubmitService
         _connections = connections;
     }
 
-    /// <summary>Принять декларацию. Всегда успешно, даже без документа и без подключения.</summary>
+    /// <summary>Accept a return. Always succeeds, even without a document or a connection.</summary>
     public Task<string> SubmitReturnAsync(Guid taxReturnId)
         => AcceptAsync("RETURN", taxReturnId, async () =>
         {
@@ -32,7 +32,7 @@ public partial class TaxAuthoritySubmitService
             return doc?.LegalEntity ?? Guid.Empty;
         });
 
-    /// <summary>Принять оплату налога. Всегда успешно, даже без документа и без подключения.</summary>
+    /// <summary>Accept a tax payment. Always succeeds, even without a document or a connection.</summary>
     public Task<string> SubmitPaymentAsync(Guid taxPaymentId)
         => AcceptAsync("PAYMENT", taxPaymentId, async () =>
         {
@@ -55,7 +55,7 @@ public partial class TaxAuthoritySubmitService
         }
         catch
         {
-            // Нет документа или справочника — мок всё равно принимает.
+            // No document or dictionary — the mock still accepts.
         }
 
         return receipt;

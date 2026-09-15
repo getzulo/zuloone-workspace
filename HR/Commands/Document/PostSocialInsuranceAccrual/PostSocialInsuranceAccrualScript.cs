@@ -1,9 +1,9 @@
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// «Провести взносы»: суммы строк сверяются с ISocialInsuranceService
-// (ставки и потолок из HRSettings). CreateAccrualAsync — порождение из ФОТ,
-// не кнопка этого документа.
+// "Post contributions": line amounts are checked against ISocialInsuranceService
+// (rates and ceiling from HRSettings). CreateAccrualAsync is spawned from payroll,
+// not this document's button.
 public partial class PostSocialInsuranceAccrualCommand
 {
     public override async Task ExecuteAsync(SocialInsuranceAccrual document, CommandContext context)

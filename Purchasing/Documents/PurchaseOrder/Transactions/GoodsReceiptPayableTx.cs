@@ -1,8 +1,8 @@
 #nullable enable
 using ZuloOne.Services.Contracts;
 
-// Признаёт кредиторку перед поставщиком по строке (сумма — общий PricingService,
-// количество × цена), в разрезе поставщика.
+// Recognizes payables to the vendor per line (amount — shared PricingService,
+// quantity × price), sliced by supplier.
 public partial class GoodsReceiptPayableTx
 {
     protected override void GetTransactions(PurchaseOrder document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

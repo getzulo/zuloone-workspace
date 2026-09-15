@@ -5,28 +5,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 
-// Сборка налоговой декларации за период.
+// Build a tax return for a period.
 //
-// Декларация — это СДАВАЕМЫЙ ДОКУМЕНТ, а не расчёт на лету: то, что отправлено в
-// налоговый орган, должно быть видно ровно в том виде, в каком отправлено, и
-// после сдачи не меняться (подтип Filed помечен isReadOnly). Поэтому BuildAsync
-// не возвращает сводку — он СОЗДАЁТ документ TaxReturn в черновике и отдаёт его
-// идентификатор.
+// A return is a FILABLE DOCUMENT, not an on-the-fly calculation: what was sent
+// to the tax authority must be visible exactly as sent, and must not change
+// after filing (the Filed subtype is marked isReadOnly). So BuildAsync does not
+// return a summary — it CREATES a TaxReturn document as a draft and hands back
+// its id.
 //
-// Отдельно: сводные типы здесь ПРИВАТНЫЕ намеренно. Публичные методы сервиса
-// образуют контракт I<Имя>, который собирается в отдельную сборку РАНЬШЕ моделей
-// и типов из скрипта не видит; вложенный DTO в сигнатуре ломает компиляцию
-// контрактов — и не своего сервиса, а ВСЕХ сразу.
+// Separately: summary types here are PRIVATE on purpose. Public service methods
+// form the I<Name> contract, which is compiled in a separate assembly BEFORE
+// models and cannot see script types; a nested DTO in a signature breaks
+// contract compilation — and not of this service, but of ALL of them at once.
 //
-// Разрезы TaxLedger (код налога, направление, юрлицо) — ДИНАМИЧЕСКИЕ аналитики:
-// в строке движения лежит не значение, а ссылка на неизменяемый набор значений
-// (AnalyticSetMetaId). Поэтому «сгруппировать по коду» не выражается фильтром по
-// колонке: движения читаются за период, наборы разворачиваются пакетом через
-// AnalyticSetService.ExpandAsync, и группировка идёт уже в памяти.
+// TaxLedger slices (tax code, direction, legal entity) are DYNAMIC analytics:
+// a movement row holds not a value but a reference to an immutable value set
+// (AnalyticSetMetaId). So "group by code" is not a column filter: movements are
+// read for the period, sets are expanded in a batch via
+// AnalyticSetService.ExpandAsync, and grouping happens in memory.
 //
-// Налог к уплате = ВЫХОДНОЙ − ВХОДНОЙ. Знак берётся из направления, а не из знака
-// суммы: в леджер обе стороны пишутся положительными, и вычитание входного —
-// это правило декларации, а не свойство данных.
+// Tax payable = OUTPUT − INPUT. The sign comes from the direction, not from the
+// amount sign: both sides are written to the ledger as positives, and subtracting
+// input is a return rule, not a property of the data.
 public partial class TaxReturnService
 {
     private static readonly Guid TaxLedgerRegister = Guid.Parse("6955f3f7-088a-418e-bf6d-a37eedfe16b8");
@@ -51,7 +51,7 @@ public partial class TaxReturnService
         _documents = documents;
     }
 
-    /// <summary>Строка сводки: один налоговый код в одном направлении.</summary>
+    /// <summary>Summary line: one tax code in one direction.</summary>
     private sealed class Line
     {
         public Guid TaxCode;
@@ -62,10 +62,10 @@ public partial class TaxReturnService
     }
 
     /// <summary>
-    /// Собрать декларацию за период и вернуть id созданного документа (черновик).
-    /// Границы ВКЛЮЧИТЕЛЬНЫЕ — «с 1 по 31 января» означает, что 31 января входит:
-    /// налоговый период задают датами, а не полуинтервалом, и потерянный последний
-    /// день — это потерянные документы.
+    /// Build a return for a period and return the created document id (draft).
+    /// Bounds are INCLUSIVE — "from 1 through 31 January" means 31 January is in:
+    /// a tax period is given as dates, not a half-interval, and a lost last day
+    /// is lost documents.
     /// </summary>
     public async Task<Guid> BuildAsync(Guid legalEntity, DateTime periodFrom, DateTime periodTo)
     {
@@ -102,7 +102,7 @@ public partial class TaxReturnService
         return doc.MetaId;
     }
 
-    /// <summary>Движения периода, свёрнутые в пары (код, направление).</summary>
+    /// <summary>Period movements folded into (code, direction) pairs.</summary>
     private async Task<List<Line>> CollectAsync(Guid legalEntity, DateTime from, DateTime to)
     {
         var upper = to.AddDays(1).AddTicks(-1);
@@ -126,7 +126,7 @@ public partial class TaxReturnService
             var setId = AsGuid(movement, "AnalyticSetMetaId");
             if (setId == Guid.Empty || !sets.TryGetValue(setId, out var values)) continue;
 
-            // Чужое юрлицо в этой декларации не участвует.
+            // Another legal entity does not participate in this return.
             if (ValueGuid(values, "LegalEntity") != legalEntity) continue;
 
             var code = ValueGuid(values, "TaxCode");

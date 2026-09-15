@@ -1,17 +1,18 @@
 #nullable enable
 using System;
 
-// Выпуск приходует готовое изделие: +количество на ячейку выпуска. Stock
-// односторонний, встречной ноги нет.
+// Output receipts the finished good: +quantity onto the output cell. Stock is
+// one-sided, there is no counter-leg.
 //
-// Количество выпуска объявлено с пересчётом В ШАПКЕ (Quantity + Unit →
-// BaseQuantity по Product.UnitOfMeasure): изделие можно заказать «2 паллеты», а
-// на склад лечь должно столько штук, сколько в паллете. Ноль = «единица не
-// указана, пересчёта не было» → введённое количество и есть базовое.
+// Output quantity is declared with conversion ON THE HEADER (Quantity + Unit →
+// BaseQuantity by Product.UnitOfMeasure): the good can be ordered as "2 pallets",
+// but stock must receive as many pieces as a pallet holds. Zero = "unit not
+// specified, no conversion" → the entered quantity is the base.
 //
-// Своего округления здесь БОЛЬШЕ НЕТ: значение приходит округлённым по точности
-// самой единицы (UnitOfMeasure.DecimalPlaces), а прежний RoundQuantity округлял
-// второй раз и по другой настройке — два спорящих округления и есть баг.
+// There is NO local rounding here any more: the value arrives already rounded
+// to the unit's own precision (UnitOfMeasure.DecimalPlaces), and the old
+// RoundQuantity rounded a second time under a different setting — two
+// disagreeing roundings were the bug.
 public partial class ProductionOutputTx
 {
 

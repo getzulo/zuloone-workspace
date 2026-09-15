@@ -6,31 +6,34 @@ using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 
-// ═══ СЕБЕСТОИМОСТЬ БЕЗВОЗМЕЗДНОГО ПРИХОДА ════════════════════════════════════
+// ═══ COST OF AN UNCOMPENSATED RECEIPT ═══════════════════════════════════════
 //
-// Драйвер CostingIssue закрывает только РАСХОДНУЮ сторону: уменьшился складской
-// остаток — списалась себестоимость. Приходную он намеренно не трогает, потому
-// что положительное нетто бывает разной природы: заказ поставщику заводит партию
-// сам (ReceiptFifoTx), выпуск производства — сам (ProductionOrderEventHandler),
-// а излишек и пересчёт вверх не заводили её НИКТО. Товар появлялся на складе без
-// партии и потом молча списывался по нулю: Math.Min(-net, onHand) в драйвере
-// брал ноль наличного в партиях, и стоимость запаса не уменьшалась вовсе.
+// The CostingIssue driver covers only the ISSUE side: warehouse on-hand went
+// down — cost was written off. It deliberately does not touch the receipt
+// side, because a positive net has different natures: a purchase order opens
+// a lot itself (ReceiptFifoTx), a production output opens one itself
+// (ProductionOrderEventHandler), while surplus and a recount-up opened one
+// for NOBODY. Goods appeared in the warehouse without a lot and were then
+// silently written off at zero: Math.Min(-net, onHand) in the driver took
+// zero on-hand in lots, and inventory value did not decrease at all.
 //
-// ЧЕМ оценивать излишек. Покупной цены у него нет по определению — товар не
-// покупали, а нашли. Берётся ТЕКУЩАЯ СРЕДНЯЯ товара (Amount/Quantity по открытым
-// партиям): найденные единицы того же товара стоят столько же, сколько уже
-// лежащие. Средняя от этого не меняется — приход по средней её сохраняет, и
-// оценка запаса растёт ровно на стоимость найденного.
+// WHAT to value the surplus at. It has no purchase price by definition —
+// the goods were not bought, they were found. The item's CURRENT AVERAGE
+// is taken (Amount/Quantity of open lots): found units of the same item
+// cost as much as those already on the shelf. The average does not change
+// from this — a receipt at average preserves it, and inventory valuation
+// grows by exactly the cost of what was found.
 //
-// Партий нет вовсе (товар никогда не покупали) — цены нет и взяться ей неоткуда,
-// партия заводится нулевой. Это честный ноль, а не потерянная стоимость: в
-// системе нет ни одного факта о том, сколько этот товар стоит.
+// No lots at all (the item was never purchased) — there is no price and
+// nowhere for one to come from, so the lot is opened at zero. That is an
+// honest zero, not lost cost: the system has no fact about what this item
+// is worth.
 //
-// ПОЧЕМУ ПО ДВИЖЕНИЯМ, А НЕ ПО СТРОКАМ ДОКУМЕНТА. Строки у корректировки и у
-// инвентаризации разные (Quantity против CountedQty, у второй ещё и дельта к
-// остатку), а движения Stock — одни и те же и уже нормализованы в базовую
-// единицу. Считая нетто по движениям документа, сервис работает одинаково для
-// обоих и переживёт любой третий документ такого рода.
+// WHY FROM MOVEMENTS, NOT FROM DOCUMENT LINES. Adjustment and stock-count
+// lines differ (Quantity vs CountedQty, and the latter also has a delta to
+// on-hand), while Stock movements are the same and already normalized to
+// the base unit. Computing net from the document's movements, the service
+// works the same for both and will survive any third document of this kind.
 public partial class SurplusCostingService
 {
     private readonly ITotalsManager _totals;
@@ -48,13 +51,13 @@ public partial class SurplusCostingService
     }
 
     /// <summary>
-    /// Завести партии себестоимости на всё, что документ добавил на склад сверх
-    /// того, что списал. Возвращает заведённую стоимость (0 — приходовать нечего).
+    /// Open cost lots for everything the document added to the warehouse
+    /// beyond what it wrote off. Returns the captured cost (0 — nothing to receive).
     /// </summary>
     public async Task<decimal> CaptureSurplusAsync(Guid documentMetaId, DateTime movementDate)
     {
-        // Нетто по товару в пределах документа: перемещение (−из ячейки, +в
-        // ячейку) даёт ноль и партий не заводит, ровно как не списывает их драйвер.
+        // Net by item within the document: a transfer (−from cell, +to
+        // cell) yields zero and opens no lots, just as the driver writes none off.
         var net = new Dictionary<Guid, decimal>();
         foreach (var row in await _totals.QueryMovementsAsync("Stock", $"[DocumentMetaId] = '{documentMetaId}'"))
         {
@@ -82,9 +85,9 @@ public partial class SurplusCostingService
             await _totals.PostMovementAsync("ItemCostFifo", documentMetaId, movementDate, key,
                 new Dictionary<string, decimal> { ["Quantity"] = qty, ["Amount"] = amount });
 
-            // InventoryValue разрезан ДИНАМИЧЕСКОЙ аналитикой Item, а
-            // ITotalsManager.PostMovementAsync аналитики не принимает — эта
-            // проводка идёт через движок регистров, как и у драйвера списания.
+            // InventoryValue is sliced by a DYNAMIC Item analytic, and
+            // ITotalsManager.PostMovementAsync does not accept analytics — this
+            // posting goes through the register engine, same as the write-off driver.
             await _movements.PostMovementAsync(
                 inventoryValueId, documentMetaId, movementDate,
                 new Dictionary<string, object?>(),

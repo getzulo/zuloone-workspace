@@ -1,7 +1,7 @@
 using ZuloOne.Managers;
 
-// Команда «Отгружено»: переход Packing → Shipped.
-// Резерв сохраняется (скрипт SalesInvoiceReserveTx привязан и к Shipped).
+// Mark-shipped command: Packing → Shipped.
+// The reserve stays (SalesInvoiceReserveTx is bound to Shipped as well).
 public partial class MarkShippedCommand
 {
     public override async Task ExecuteAsync(SalesInvoice document, CommandContext context)

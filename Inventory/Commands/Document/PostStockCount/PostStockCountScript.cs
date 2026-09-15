@@ -1,8 +1,8 @@
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// «Провести инвентаризацию»: факт в базовой единице через конвертер.
-// Дельту (факт − система) пишет OnBeforePost через IDataService.
+// "Post stock count": counted qty in the base unit via the converter.
+// OnBeforePost writes the delta (counted − system) via IDataService.
 public partial class PostStockCountCommand
 {
     public override async Task ExecuteAsync(StockCount document, CommandContext context)

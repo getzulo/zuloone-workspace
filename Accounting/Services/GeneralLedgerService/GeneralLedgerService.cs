@@ -6,29 +6,33 @@ using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
-// Сервис "GeneralLedgerService": контракт IGeneralLedgerService. Единая точка
-// разноски субледжеров (продажи, закупки, ФОТ) в главную книгу. Подсистема
-// решает ЧТО и НА КАКИЕ счета разнести, вся механика проводки — здесь.
+// Service "GeneralLedgerService": IGeneralLedgerService contract. The single
+// point that posts subledgers (sales, purchasing, payroll) into the general
+// ledger. The subsystem decides WHAT and TO WHICH accounts; all journal
+// mechanics live here.
 //
-// Счета берутся из ПРОФИЛЯ — одиночного справочника AccountingSettings (форма
-// настроек модуля), а не из глобальных констант: план счетов настраивается в UI.
+// Accounts are taken from the PROFILE — the singleton AccountingSettings
+// dictionary (the module settings form), not from global constants: the chart
+// is configured in the UI.
 //
-// ВАЖНО про DI: зависимости резолвятся ЛЕНИВО из scope, а НЕ через конструктор.
-// Платформенные менеджеры берут контекст через IDbContextFactory — каждый создаёт
-// СВОЁ соединение, и конструктор, разрешающий их пачкой внутри уже открытой
-// транзакции проведения, заставляет её повышаться до распределённой (в контейнере
-// нет MSDTC → "Failure while attempting to promote transaction"). Ленивый резолв
-// повторяет поведение инлайн-кода: по одному менеджеру за раз.
+// IMPORTANT about DI: dependencies are resolved LAZILY from the scope, NOT
+// through the constructor. Platform managers take context via IDbContextFactory
+// — each creates ITS OWN connection, and a constructor that resolves them as a
+// batch inside an already-open posting transaction forces it to promote to
+// distributed (the container has no MSDTC → "Failure while attempting to
+// promote transaction"). Lazy resolve repeats inline-code behaviour: one
+// manager at a time.
 //
-// Разноска BEST-EFFORT: нет счетов/периода/юрлица → null, вызывающий тихо пропускает.
+// Posting is BEST-EFFORT: no accounts / period / legal entity → null, the
+// caller skips quietly.
 public partial class GeneralLedgerService
 {
     private static readonly Guid JournalEntryType = Guid.Parse("188246b3-5ed0-4da0-98cb-a86b6da36581");
 
-    // Менеджеры инжектятся обычным образом. Захватывать IServiceProvider и
-    // резолвить из него лениво НЕЛЬЗЯ: сервис живёт дольше своего scope, и к
-    // моменту события after-post (оно выполняется уже после закрытия области)
-    // такой провайдер выдаёт ObjectDisposedException — разноска молча пропадала.
+    // Managers are injected the ordinary way. Capturing IServiceProvider and
+    // resolving from it lazily is FORBIDDEN: the service outlives its scope, and
+    // by the after-post event (it runs after the scope is closed) such a
+    // provider throws ObjectDisposedException — posting disappeared silently.
     private readonly IDictionaryManager<AccountingSettings> _settings;
     private readonly IDictionaryManager<ChartOfAccounts> _accounts;
     private readonly IDictionaryManager<FiscalPeriod> _periods;
@@ -49,11 +53,11 @@ public partial class GeneralLedgerService
         _posting = posting;
     }
 
-    /// <summary>Профиль настроек учёта (одна запись); null, если ещё не заполнен.</summary>
+    /// <summary>Accounting settings profile (one record); null if not filled yet.</summary>
     public async Task<AccountingSettings?> GetSettingsAsync()
         => (await _settings.GetRecordsAsync()).FirstOrDefault();
 
-    /// <summary>Счёт плана счетов по коду; null, если код пуст или счёт не найден.</summary>
+    /// <summary>Chart account by code; null if the code is empty or the account is not found.</summary>
     public async Task<Guid?> ResolveAccountAsync(string code)
     {
         if (string.IsNullOrWhiteSpace(code)) return null;
@@ -62,65 +66,64 @@ public partial class GeneralLedgerService
     }
 
     /// <summary>
-    /// Причина, по которой код счёта НЕ годится для проводок, — или null, если
-    /// годится.
+    /// Why an account code is NOT fit for postings — or null if it is.
     ///
-    /// ЧТО СЧИТАЕТСЯ ПРОБЛЕМОЙ, А ЧТО НЕТ. Пустой код и код НЕСУЩЕСТВУЮЩЕГО
-    /// счёта означают одно: «эта нога ещё не настроена». Это законное состояние —
-    /// профиль заполняют до того, как достроен план счетов, а разноска такую
-    /// ногу тихо пропускает, как и раньше. Ругаться на это значит запретить
-    /// сохранить профиль, пока не заведён каждый счёт из двенадцати.
+    /// WHAT IS A PROBLEM AND WHAT IS NOT. An empty code and a NON-EXISTENT
+    /// account code mean the same: "this leg is not configured yet". That is a
+    /// lawful state — the profile is filled before the chart is finished, and
+    /// posting skips such a leg quietly, as before. Complaining about it would
+    /// forbid saving the profile until every one of the twelve accounts exists.
     ///
-    /// Проблема — код СУЩЕСТВУЮЩЕГО счёта, который помечен НЕпроводимым. Это уже
-    /// не «не настроено», а настроено НЕВЕРНО: поле выглядит заполненным, счёт в
-    /// плане есть, а проводки на него не будет никогда. Именно этот случай надо
-    /// поймать там, где человек видит поле.
+    /// The problem is a code of an EXISTING account marked UNPOSTABLE. That is
+    /// no longer "not configured" but configured WRONG: the field looks filled,
+    /// the account is in the chart, and a posting to it will never happen. That
+    /// is the case to catch where the person sees the field.
     ///
-    /// ОДНО ПРАВИЛО НА ДВЕ ДВЕРИ: сохранение профиля настроек и сама разноска
-    /// (ResolvePairAsync отсеивает непроводимые счета тем же признаком).
-    /// Проводки принимают только ЛИСТЬЯ: у счёта-группы собственный остаток
-    /// обязан быть суммой подчинённых, и прямая проводка на него её ломает.
-    /// Ставить IsPostable группе не даёт ChartOfAccountsEventHandler.
+    /// ONE RULE FOR TWO DOORS: saving the settings profile and posting itself
+    /// (ResolvePairAsync filters unpostable accounts by the same flag).
+    /// Postings accept only LEAVES: a group account's own balance must be the
+    /// sum of children, and a direct posting to it breaks that. Setting
+    /// IsPostable on a group is blocked by ChartOfAccountsEventHandler.
     /// </summary>
     public async Task<string?> AccountCodeProblemAsync(string code)
     {
         if (string.IsNullOrWhiteSpace(code)) return null;
 
         var account = (await _accounts.GetRecordsAsync($"Code = '{code}'")).FirstOrDefault();
-        if (account is null) return null;   // счёта ещё нет — «не настроено», не ошибка
+        if (account is null) return null;   // account not there yet — "not configured", not an error
         if (!account.IsPostable)
             return $"счёт «{code}» ({account.Name}) не проводимый — это группа, "
                  + "проводки принимают только конечные счета";
         return null;
     }
 
-    /// <summary>Пара счетов ОДНИМ запросом. Каждый вызов менеджера — это два
-    /// обращения к БД (метаданные таблицы + данные), а каждое берёт соединение из
-    /// пула и вступает в транзакцию проведения; лишние round-trip'ы толкают её к
-    /// повышению до распределённой. Поэтому дебет и кредит ищутся вместе.</summary>
+    /// <summary>A pair of accounts in ONE query. Each manager call is two DB
+    /// hits (table metadata + data), and each takes a connection from the pool
+    /// and joins the posting transaction; extra round-trips push it toward a
+    /// distributed promotion. So debit and credit are looked up together.</summary>
     private async Task<(Guid? Debit, Guid? Credit)> ResolvePairAsync(string debitCode, string creditCode)
     {
         if (string.IsNullOrWhiteSpace(debitCode) || string.IsNullOrWhiteSpace(creditCode)) return (null, null);
         var accounts = _accounts;
         var found = await accounts.GetRecordsAsync($"Code = '{debitCode}' OR Code = '{creditCode}'");
-        // Непроводимый счёт (группа) отсеивается здесь же: для вызывающего это
-        // неотличимо от «счёта нет», и это верно — разносить не на что в обоих
-        // случаях. Настройку с таким кодом ловит обработчик профиля, где отказ
-        // виден человеку.
+        // An unpostable account (group) is filtered here too: to the caller this
+        // is indistinguishable from "no account", and that is correct — there is
+        // nothing to post to in either case. A setting with such a code is caught
+        // by the profile handler, where the refusal is visible to the person.
         return (found.FirstOrDefault(a => a.Code == debitCode && a.IsPostable)?.MetaId,
                 found.FirstOrDefault(a => a.Code == creditCode && a.IsPostable)?.MetaId);
     }
 
-    /// <summary>Учётный период, покрывающий дату; null, если такого периода нет.</summary>
+    /// <summary>Fiscal period covering the date; null if there is no such period.</summary>
     public async Task<Guid?> ResolvePeriodAsync(DateTime date)
         => (await ResolvePeriodRecordAsync(date))?.MetaId;
 
     /// <summary>
-    /// Запись учётного периода, покрывающего дату. НЕСКОЛЬКО подходящих периодов —
-    /// порча мастер-данных: отчётность за месяц зависела бы от порядка строк в
-    /// справочнике. Это не разрешается молча «взять первый» — отказ называет оба
-    /// периода, чтобы настройку можно было починить (ровно как TaxService
-    /// поступает с пересекающимися ставками).
+    /// Fiscal-period record covering the date. SEVERAL matching periods —
+    /// corrupted master data: monthly reporting would depend on row order in the
+    /// dictionary. That is not silently allowed as "take the first" — the refusal
+    /// names both periods so the setting can be fixed (exactly as TaxService
+    /// treats overlapping rates).
     /// </summary>
     private async Task<FiscalPeriod?> ResolvePeriodRecordAsync(DateTime date)
     {
@@ -140,20 +143,20 @@ public partial class GeneralLedgerService
         return matching[0];
     }
 
-    /// <summary>Признак закрытого периода. Статус — строка (закрытый набор, который
-    /// метаданными пока не выражен), поэтому сравнение регистронезависимое и по
-    /// принципу «всё, что не Open, — закрыто»: опечатка в статусе обязана
-    /// ЗАПРЕЩАТЬ проводку, а не разрешать её.</summary>
+    /// <summary>Closed-period flag. Status is a string (a closed set not yet
+    /// expressed in metadata), so comparison is case-insensitive and follows
+    /// "anything that is not Open is closed": a typo in the status must
+    /// FORBID posting, not allow it.</summary>
     private static bool IsPeriodOpen(FiscalPeriod period)
         => string.Equals(period.Status, "Open", StringComparison.OrdinalIgnoreCase);
 
-    /// <summary>Разнести сбалансированную проводку Dr/Cr по КОДАМ счетов из профиля.
-    /// Возвращает id проводки или null, если разноска невозможна ИЛИ этот факт уже
-    /// разнесён.
+    /// <summary>Post a balanced Dr/Cr journal entry by account CODES from the profile.
+    /// Returns the journal-entry id or null if posting is impossible OR this fact
+    /// is already posted.
     ///
-    /// Контуры: торговые проводки по умолчанию пишут финансовую и управленческую
-    /// книги (FIN,MGT). Налоговые ноги передают «FIN,TAX», чтобы управленческая
-    /// книга оставалась нетто без НДС — налог живёт отдельной проводкой в FIN+TAX.
+    /// Circuits: trade postings write the financial and management books by
+    /// default (FIN,MGT). Tax legs pass "FIN,TAX" so the management book stays
+    /// net of VAT — tax lives in a separate journal entry in FIN+TAX.
     /// </summary>
     public async Task<Guid?> PostAsync(
         DateTime date, Guid legalEntity, Guid currency, decimal amount,
@@ -163,23 +166,22 @@ public partial class GeneralLedgerService
     {
         if (amount <= 0m || legalEntity == Guid.Empty) return null;
 
-        // ОДНО ОПИСАНИЕ — ОДНА ПРОВОДКА. Описание несёт id документа-источника и
-        // назначение ("Sales invoice <id>", "Cost of sales <id>", "Purchase order
-        // <id>"), поэтому повтор означает повторную разноску ТОГО ЖЕ факта, а не
-        // второй факт.
+        // ONE DESCRIPTION — ONE JOURNAL ENTRY. The description carries the source
+        // document id and the purpose ("Sales invoice <id>", "Cost of sales <id>",
+        // "Purchase order <id>"), so a repeat means re-posting THE SAME fact, not
+        // a second fact.
         //
-        // Защита не теоретическая: событие after-post документа выполняется ДВАЖДЫ,
-        // когда его же проведение дописывает движения через менеджер — так делает
-        // драйвер CostingIssue, списывая себестоимость проданного. Без этой
-        // проверки любая продажа товара, у которого есть слои себестоимости,
-        // удваивала в книге и выручку, и себестоимость (поймано тестом
-        // CostOfSalesGLTest; старый SalesGLPostingTest этого не видел, потому что
-        // заводит остаток прямым движением регистра — списывать нечего, и события
-        // хватало одного).
+        // The guard is not theoretical: the document's after-post event runs
+        // TWICE when its own posting appends movements through the manager — that
+        // is what the CostingIssue driver does when it writes off sold cost.
+        // Without this check any sale of an item that has cost layers doubled both
+        // revenue and COGS in the book (caught by CostOfSalesGLTest; the old
+        // SalesGLPostingTest missed it because it seeds stock with a direct
+        // register movement — nothing to write off, and one event was enough).
         //
-        // Отмена и перепроведение документа сюда тоже приходят: и там повтор
-        // блокировать ПРАВИЛЬНО — первую проводку никто не сторнировал, она
-        // осталась в книге.
+        // Unpost and re-post of the document also land here: blocking a repeat
+        // there is CORRECT — the first journal entry was never reversed, it
+        // stayed in the book.
         var alreadyPosted = await _documents.CountDocumentsAsync<JournalEntry>(
             $"Description = '{description.Replace("'", "''")}'");
         if (alreadyPosted > 0) return null;
@@ -190,25 +192,26 @@ public partial class GeneralLedgerService
         var period = await ResolvePeriodRecordAsync(date);
         if (period == null) return null;
 
-        // ЗАКРЫТЫЙ ПЕРИОД НЕ ПРИНИМАЕТ НОВЫХ ФАКТОВ. Проверка появилась вместе с
-        // тем, что проводка стала датироваться датой ДОКУМЕНТА: до этого попасть
-        // в прошлый месяц было нельзя вовсе, а теперь можно — и закрытый месяц
-        // надо защищать явно.
+        // A CLOSED PERIOD ACCEPTS NO NEW FACTS. The check arrived together with
+        // dating the journal entry by the DOCUMENT date: before that, landing in
+        // a past month was impossible at all, and now it is possible — so a
+        // closed month must be guarded explicitly.
         //
-        // ГРАНИЦА ЗДЕСЬ НЕ ЕДИНСТВЕННАЯ И НЕ САМАЯ СИЛЬНАЯ. У платформы есть своя,
-        // глобальная (IAccountingPeriodService.ClosedPeriod): её проверяет
-        // DocumentPostingService на КАЖДОМ проведении, то есть она держит и те
-        // документы, у которых ноги в главную книгу нет вовсе. Выставляется она
-        // оператором через /api/accounting-periods — под именованным правом и с
-        // записью в аудит, — и автоматически из статуса периода НЕ выводится:
-        // одна дата не выражает «февраль закрыт, январь открыт», а право на её
-        // сдвиг умышленно отделено от права редактировать справочник.
+        // THE BOUNDARY HERE IS NEITHER THE ONLY NOR THE STRONGEST. The platform
+        // has its own, global one (IAccountingPeriodService.ClosedPeriod):
+        // DocumentPostingService checks it on EVERY posting, so it also holds
+        // documents that have no general-ledger leg at all. It is set by an
+        // operator via /api/accounting-periods — under a named right and with an
+        // audit record — and is NOT derived automatically from the period
+        // status: one date cannot express "February closed, January open", and
+        // the right to move it is deliberately separate from the right to edit
+        // the dictionary.
         if (!IsPeriodOpen(period)) return null;
 
-        // Проводка создаётся типизированным менеджером документов: он сам выдаёт
-        // MetaId и номер из нумератора, исполняет OnBeforeCreate/OnBeforeInsert и
-        // валидацию обязательных полей, а строки пишет из табличной части.
-        // Перевод в «Проведено» исполняет GLPostingTx → движения по регистру GL.
+        // The journal entry is created by the typed document manager: it issues
+        // MetaId and a number from the sequence, runs OnBeforeCreate/OnBeforeInsert
+        // and required-field validation, and writes lines from the table part.
+        // The transition to Posted runs GLPostingTx → movements on the GL register.
         var documents = _documents;
         var entry = await documents.NewDocumentAsync<JournalEntry>("Draft", new Dictionary<string, object?>
         {

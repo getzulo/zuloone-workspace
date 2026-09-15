@@ -1,8 +1,8 @@
 using System.Linq;
 using ZuloOne.Managers;
 
-// «Отметить доставленным»: строки заказа на месте. InvoiceOrderAsync —
-// OnAfterPost доставки, отсюда не звать (второй счёт).
+// "Mark delivered": order lines must be present. InvoiceOrderAsync runs in
+// OnAfterPost of delivery — do not call it from here (a second invoice).
 public partial class MarkDeliveredCommand
 {
     public override async Task ExecuteAsync(SalesOrder document, CommandContext context)

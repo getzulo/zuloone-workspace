@@ -6,15 +6,15 @@ using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
-// Соцстрах: взносы с фонда оплаты труда. Ставки и потолок базы — НАСТРОЙКИ
-// (HRSettings), а не константы в коде: у каждой страны свои, и они меняются
-// законом чаще, чем код. Для КСА (GOSI) типично 9.75% с работника и 11.75% с
-// работодателя за граждан, 2% с работодателя за иностранцев, потолок базы
-// 45 000 SAR — но это данные стенда, а не знание сервиса.
+// Social insurance: contributions on the payroll fund. Rates and the wage ceiling
+// are SETTINGS (HRSettings), not constants in code: each country has its own, and
+// they change by law more often than the code. For KSA (GOSI) typical figures are
+// 9.75% employee and 11.75% employer for nationals, 2% employer for foreigners,
+// wage ceiling 45 000 SAR — but that is stand data, not service knowledge.
 //
-// Гражданство сотрудника сравнивается со страной регистрации работодателя
-// (HRSettings.HomeCountry): «свой» — полная ставка, «иностранец» — только
-// ставка работодателя за иностранцев (у работника взноса нет).
+// The employee's nationality is compared to the employer's registration country
+// (HRSettings.HomeCountry): "local" — full rate, "foreigner" — employer foreign
+// rate only (the employee has no contribution).
 public partial class SocialInsuranceService
 {
     private readonly IDictionaryManager<HRSettings> _settings;
@@ -34,10 +34,10 @@ public partial class SocialInsuranceService
         _posting = posting;
     }
 
-    /// <summary>Тип документа SocialInsuranceAccrual — цель перевода в Posted.</summary>
+    /// <summary>SocialInsuranceAccrual document type — the target of the Posted transition.</summary>
     private static readonly Guid SocialInsuranceAccrualType = Guid.Parse("a0d03063-af77-4fd0-886b-223a9731f105");
 
-    /// <summary>Взносы с одной базы: (работник, работодатель). Оба нуля — контур не настроен.</summary>
+    /// <summary>Contributions on one base: (employee, employer). Both zeros — the contour is not configured.</summary>
     public async Task<(decimal Employee, decimal Employer)> CalculateAsync(Guid employee, decimal grossAmount)
     {
         if (grossAmount <= 0m) return (0m, 0m);
@@ -45,8 +45,8 @@ public partial class SocialInsuranceService
         var s = (await _settings.GetRecordsAsync("1 = 1")).FirstOrDefault();
         if (s is null) return (0m, 0m);
 
-        // Потолок базы: взнос считается с меньшего из зарплаты и потолка.
-        // Ноль/отсутствие потолка = потолка нет, а не «база ноль».
+        // Wage ceiling: the contribution is taken from the lesser of pay and ceiling.
+        // Zero / missing ceiling = no ceiling, not "base is zero".
         var ceiling = s.SocialInsuranceWageCeiling;
         var contributoryBase = ceiling > 0m && grossAmount > ceiling ? ceiling : grossAmount;
 
@@ -64,7 +64,7 @@ public partial class SocialInsuranceService
             Math.Round(contributoryBase * s.SocialInsuranceEmployerRate, scale, MidpointRounding.AwayFromZero));
     }
 
-    /// <summary>База взноса после применения потолка — для отображения в строке начисления.</summary>
+    /// <summary>Contributory base after the ceiling — for display on the accrual line.</summary>
     public async Task<decimal> ContributoryBaseAsync(decimal grossAmount)
     {
         var s = (await _settings.GetRecordsAsync("1 = 1")).FirstOrDefault();
@@ -73,9 +73,9 @@ public partial class SocialInsuranceService
     }
 
     /// <summary>
-    /// Порождает ПРОВЕДЁННОЕ начисление взносов по парам «сотрудник → начислено».
-    /// null, если контур не настроен или взносы вышли нулевыми: соцстрах —
-    /// необязательный контур, без него начисление ФОТ проводится как раньше.
+    /// Spawns a POSTED contribution accrual from "employee → accrued" pairs.
+    /// null if the contour is not configured or contributions came out zero:
+    /// social insurance is optional; without it payroll posts as before.
     /// </summary>
     public async Task<Guid?> CreateAccrualAsync(Guid division, IEnumerable<KeyValuePair<Guid, decimal>> gross)
     {
@@ -101,14 +101,14 @@ public partial class SocialInsuranceService
             new Dictionary<string, object?> { ["Division"] = division });
         foreach (var r in rows) doc.Lines.Add(r);
 
-        // Сохраняем ЧЕРНОВИКОМ и только потом переводим: подтип Posted заперт
-        // (isReadOnly), и строки, записанные уже в нём, гард отклонит.
+        // Save as a DRAFT and only then transition: the Posted subtype is locked
+        // (isReadOnly), and lines written already in it will be rejected by the guard.
         await _documents.SaveDocumentAsync(doc);
         await _posting.SetSubtypeAsync(SocialInsuranceAccrualType, doc.MetaId, "Posted");
         return doc.MetaId;
     }
 
-    /// <summary>Гражданин страны регистрации работодателя? Без данных считаем «своим».</summary>
+    /// <summary>National of the employer's registration country? Missing data is treated as "local".</summary>
     private async Task<bool> IsLocalNationalAsync(Guid employee, HRSettings settings)
     {
         var home = settings.HomeCountry;
@@ -116,8 +116,9 @@ public partial class SocialInsuranceService
 
         var e = await _employees.GetRecordAsync(employee);
         var nationality = e?.Nationality ?? Guid.Empty;
-        // Гражданство не заполнено — не повод лишать сотрудника взносов: считаем
-        // своим, а не иностранцем. Иначе пустое поле молча урезало бы отчисления.
+        // Nationality not filled — not a reason to deny the employee contributions:
+        // treat as local, not foreign. Otherwise an empty field would silently cut
+        // the deductions.
         return nationality == Guid.Empty || nationality == home;
     }
 }
