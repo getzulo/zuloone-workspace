@@ -1,46 +1,42 @@
 #nullable enable
 using ZuloOne.Services.Contracts;
 
-// Saudi Arabia VAT on invoice issue — accrual into the localization's
-// OWN VatPayable register.
+// НДС Саудовской Аравии на выставлении счёта — начисление в СВОЙ регистр
+// локализации VatPayable.
 //
-// WHY THIS SCRIPT LIVES HERE, NOT IN SALES. It used to sit in the Sales
-// model under the name SalesVatTx — meaning country logic was written into
-// the universal sales module. The compiler did not catch this: both the
-// rate constant and the register are addressed by STRINGS
-// (`GlobalConstants.Get("SaudiVatRate")`, `RegisterMovementSpec("VatPayable")`),
-// and inter-model dependency checks work on types. The layer was pushed
-// exactly where the platform has no control, and for a customer in another
-// country this code still ran on every invoice — silently yielding zero
-// because they have no Saudi constant.
+// ПОЧЕМУ ЭТОТ СКРИПТ ЖИВЁТ ЗДЕСЬ, А НЕ В SALES. Раньше он лежал в модели Sales
+// под именем SalesVatTx — то есть страновая логика была прописана в
+// универсальном модуле продаж. Компилятор этого не ловил: и константа ставки, и
+// регистр адресуются СТРОКАМИ (`GlobalConstants.Get("SaudiVatRate")`,
+// `RegisterMovementSpec("VatPayable")`), а проверка зависимостей между моделями
+// работает по типам. Слой продавили ровно там, где у платформы нет контроля, и
+// у клиента в другой стране этот код всё равно исполнялся на каждом счёте —
+// молча давая ноль, потому что саудовской константы у него нет.
 //
-// Now the owner is the localization model: it depends on Sales (not the
-// other way around), and its objects ship with the country package. The
-// invoice itself is untouched: the script is in the type pool, and Issued
-// is attached by a checkbox (the binding row).
+// Теперь владелец — модель локализации: она зависит от Sales (а не наоборот),
+// и её объекты уезжают вместе со страновым пакетом. Счёт при этом не тронут:
+// скрипт в пуле типа, на Issued вешается галкой (строка привязки).
 //
-// This does NOT cancel the universal contour: the same tax independently
-// lands in Tax.TaxLedger via TaxCalculation, which the invoice event
-// produces by determination rules. Here — a country slice for ZATCA
-// reporting.
+// Универсальный контур это НЕ отменяет: тот же налог независимо попадает в
+// Tax.TaxLedger через TaxCalculation, который порождает событие счёта по
+// правилам определения. Здесь — страновой срез для отчётности ZATCA.
 //
-// Line base is the shared PricingService, the tax ITSELF is
-// TaxService.CalculateTax (base × rate with rounding): tax calculation
-// lives in the tax service, not smeared across postings.
+// База строки — общий PricingService, САМ налог — TaxService.CalculateTax (база
+// × ставка с округлением): налоговый расчёт живёт в налоговом сервисе, а не
+// размазан по проводкам.
 //
-// THE RATE IS TAKEN FROM THE DOCUMENT, not from a constant. Previously
-// this was `GlobalConstants.Get<decimal>("SaudiVatRate")` — a flat 0.15
-// WITH NO DATE, a second source of truth next to the dated TaxRate
-// dictionary. While the rate did not change, there was no difference; on
-// the day of the change TaxLedger would go by the new rate and VatPayable
-// would stay on the old one, and they would drift silently. A back-dated
-// invoice would be computed here at today's rate, and in the universal
-// contour — at the rate that was in force.
+// СТАВКА БЕРЁТСЯ С ДОКУМЕНТА, а не из константы. Раньше здесь стояло
+// `GlobalConstants.Get<decimal>("SaudiVatRate")` — плоское 0.15 БЕЗ ДАТЫ, второй
+// источник истины рядом с датированным справочником TaxRate. Пока ставка не
+// менялась, разницы не было; в день изменения TaxLedger пошёл бы по новой
+// ставке, а VatPayable остался бы на старой, и расходились бы они молча. Счёт,
+// выставленный задним числом, и вовсе считался бы здесь по сегодняшней ставке,
+// а в универсальном контуре — по действовавшей.
 //
-// Now `TaxRateApplied` pins on the invoice the rate picked by the tax
-// contour on the document date (SalesInvoiceEventHandler.OnBeforePost).
-// Zero means the tax contour is not configured — then there is simply no
-// posting, same as before when the constant was missing.
+// Теперь `TaxRateApplied` фиксирует на счёте ставку, подобранную налоговым
+// контуром на дату документа (SalesInvoiceEventHandler.OnBeforePost). Ноль
+// означает, что налоговый контур не настроен, — тогда проводки просто нет, как
+// и раньше при отсутствующей константе.
 public partial class SaudiVatTx
 {
     protected override void GetTransactions(SalesInvoice document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

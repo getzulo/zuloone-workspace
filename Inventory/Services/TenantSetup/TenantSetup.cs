@@ -6,8 +6,8 @@ using ZuloOne.Managers;
 using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 
-// Tenant skeleton: IDataPackageService applies dictionary packages;
-// here only what a package cannot cover — legal-entity name and store.
+// Каркас тенанта: пакеты справочников заливает IDataPackageService,
+// здесь только то, что пакет не закроет — имя юрлица и склад.
 public partial class TenantSetup
 {
     private static IDictionaryManager Live => ScriptServices.Get<IDictionaryManager>();

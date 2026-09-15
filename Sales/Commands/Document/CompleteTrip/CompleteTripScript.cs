@@ -1,8 +1,8 @@
 using System.Linq;
 using ZuloOne.Managers;
 
-// "Complete trip": the same stop checks as dispatch. ISalesFulfillmentService
-// .CompleteTripAsync is called from OnAfterPost — do not call it from here or invoices double.
+// «Завершить рейс»: те же проверки точек, что у диспатча. ISalesFulfillmentService
+// .CompleteTripAsync зовёт OnAfterPost — отсюда не вызывать, иначе счета удвоятся.
 public partial class CompleteTripCommand
 {
     public override async Task ExecuteAsync(DeliveryTrip document, CommandContext context)

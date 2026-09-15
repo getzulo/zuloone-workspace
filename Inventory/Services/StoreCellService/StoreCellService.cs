@@ -7,11 +7,11 @@ using ZuloOne.Managers;
 using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 
-// Unified warehouse-cell resolution (MIQS). The store is derived from the cell
-// via the zone (StoreCell.StoreZone.Store), plus lookup of default
-// receiving/storage/picking cells by cell type (StoreCellType.Name). Reused by
-// Purchasing/Production/Sales postings and GL integration so cell ids are not
-// hardcoded. StoreZone/Store/Type are required → on the entity they are Guid (not Guid?).
+// Единый резолвинг ячеек склада (MIQS). Склад выводится из ячейки через зону
+// (StoreCell.StoreZone.Store), плюс поиск дефолтных ячеек приёмки/хранения/отбора
+// по типу ячейки (StoreCellType.Name). Переиспользуется проводками Purchasing/
+// Production/Sales и GL-интеграцией, чтобы не хардкодить id ячеек.
+// Поля StoreZone/Store/Type обязательные → у сущности это Guid (не Guid?).
 public partial class StoreCellService
 {
     private readonly IDictionaryManager<StoreCell> _cells;
@@ -37,25 +37,25 @@ public partial class StoreCellService
         _settings = settings;
     }
 
-    // Saving a dictionary record from a service via inject drops a disposed IServiceProvider
-    // (the handler re-resolves IStoreCellService). Same as PricingService.
+    // Запись справочника из сервиса через инжект роняет disposed IServiceProvider
+    // (обработчик снова резолвит IStoreCellService). Как у PricingService.
     private static IDictionaryManager<StoreCell> LiveCells => ScriptServices.Get<IDictionaryManager<StoreCell>>();
     private static IDictionaryManager<StoreZone> LiveZones => ScriptServices.Get<IDictionaryManager<StoreZone>>();
     private static IDictionaryManager<StoreCellType> LiveTypes => ScriptServices.Get<IDictionaryManager<StoreCellType>>();
     private static IDictionaryManager<Store> LiveStores => ScriptServices.Get<IDictionaryManager<Store>>();
 
     /// <summary>
-    /// Whether warehouse discipline is on: receipt only into receiving, shipment
-    /// only from picking, tasks in between. OFF by default: turning it on
-    /// at once would forbid everything that today puts goods into an arbitrary cell.
+    /// Включена ли адресная дисциплина: приход только в приёмку, отгрузка только
+    /// из отбора, между ними — задания. По умолчанию ВЫКЛЮЧЕНА: включение
+    /// разом запретило бы всё, что сегодня кладёт товар в произвольную ячейку.
     /// </summary>
     public async Task<bool> IsWarehouseDisciplineOnAsync()
         => (await _settings.GetRecordsAsync("1 = 1")).FirstOrDefault()?.EnforceWarehouseTasks ?? false;
 
     /// <summary>
-    /// Cell purpose — via its type. `Unspecified` means both "type without a
-    /// purpose" and "no cell at all": for discipline that is the same answer
-    /// "this cell does not fit the role", and there is no reason to split them.
+    /// Назначение ячейки — через её тип. `Unspecified` означает и «тип без
+    /// назначения», и «ячейки нет вовсе»: для дисциплины это один и тот же ответ
+    /// «в этой роли ячейка не годится», и разделять их незачем.
     /// </summary>
     public async Task<StoreCellPurpose> GetCellPurposeAsync(Guid cell)
     {
@@ -65,14 +65,14 @@ public partial class StoreCellService
         return t?.Purpose ?? StoreCellPurpose.Unspecified;
     }
 
-    /// <summary>Whether the cell fits the role — honoring the flag. Discipline off
-    /// → any cell fits: that is backward compatibility.</summary>
+    /// <summary>Годится ли ячейка для роли — с учётом флага. Дисциплина выключена
+    /// → годится любая: это и есть обратная совместимость.</summary>
     public async Task<bool> IsCellAllowedForAsync(Guid cell, StoreCellPurpose purpose)
         => !await IsWarehouseDisciplineOnAsync() || await GetCellPurposeAsync(cell) == purpose;
 
-    /// <summary>Store cell with a given PURPOSE (v1 — first match).
-    /// Replaces lookup by type NAME: the name is free text, the role is a set
-    /// in metadata.</summary>
+    /// <summary>Ячейка склада с заданным НАЗНАЧЕНИЕМ (v1 — первая подходящая).
+    /// Пришла на смену подбору по ИМЕНИ типа: имя — свободный текст, роль — набор
+    /// в метаданных.</summary>
     public async Task<Guid?> GetCellByPurposeAsync(Guid store, StoreCellPurpose purpose)
     {
         var typeIds = new HashSet<Guid>(
@@ -88,12 +88,12 @@ public partial class StoreCellService
         return null;
     }
 
-    /// <summary>Where to put away received goods: this store's storage cell.</summary>
+    /// <summary>Куда раскладывать принятое: ячейка хранения этого склада.</summary>
     public Task<Guid?> SuggestStorageCellAsync(Guid store) => GetCellByPurposeAsync(store, StoreCellPurpose.Storage);
 
-    /// <summary>All cells of the store (via zones). Needed so free stock under
-    /// discipline looks at the whole store: goods are still in storage while the
-    /// order points at a picking cell.</summary>
+    /// <summary>Все ячейки склада (через зоны). Нужно, чтобы свободный остаток
+    /// при дисциплине смотрел на склад целиком: товар ещё в хранении, а заказ
+    /// указывает ячейку отбора.</summary>
     public async Task<List<Guid>> GetCellsOfStoreAsync(Guid store)
     {
         var zoneIds = new HashSet<Guid>(
@@ -105,7 +105,7 @@ public partial class StoreCellService
         return ids;
     }
 
-    /// <summary>Cell's store: StoreCell → StoreZone → Store.</summary>
+    /// <summary>Склад ячейки: StoreCell → StoreZone → Store.</summary>
     public async Task<Guid?> GetStoreAsync(Guid cell)
     {
         var c = await _cells.GetRecordAsync(cell);
@@ -115,10 +115,10 @@ public partial class StoreCellService
     }
 
     /// <summary>
-    /// Legal entity that owns the cell: StoreCell → StoreZone → Store →
-    /// Division → LegalEntity. The accounting contour (taxes, GL) is kept by
-    /// legal entity, while warehouse documents know only the cell — this chain
-    /// is the bridge, so it lives here instead of being copied into handlers.
+    /// Юрлицо, которому принадлежит ячейка: StoreCell → StoreZone → Store →
+    /// Division → LegalEntity. Учётный контур (налоги, GL) ведётся по юрлицу, а
+    /// документы складских операций знают только ячейку — эта цепочка и есть
+    /// мост между ними, поэтому она живёт здесь, а не копируется в обработчики.
     /// </summary>
     public async Task<Guid?> GetLegalEntityAsync(Guid cell)
     {
@@ -130,7 +130,7 @@ public partial class StoreCellService
         return d?.LegalEntity;
     }
 
-    /// <summary>First store cell whose type has the given name (Receiving/Storage/Picking).</summary>
+    /// <summary>Первая ячейка склада с типом заданного имени (Receiving/Storage/Picking).</summary>
     public async Task<Guid?> GetDefaultCellByTypeAsync(Guid store, string typeName)
     {
         var type = (await _types.GetRecordsAsync($"Name = '{typeName}'")).FirstOrDefault();
@@ -149,14 +149,14 @@ public partial class StoreCellService
     public Task<Guid?> GetDefaultPickingCellAsync(Guid store) => GetDefaultCellByTypeAsync(store, "Picking");
     public Task<Guid?> GetDefaultOutputCellAsync(Guid store) => GetDefaultCellByTypeAsync(store, "Picking");
 
-    /// <summary>Suggested storage cell for the item (v1 — first Storage cell of the store).</summary>
+    /// <summary>Рекомендуемая ячейка хранения под товар (v1 — первая Storage-ячейка склада).</summary>
     public Task<Guid?> SuggestPutAwayCellAsync(Guid store, Guid item) => GetDefaultCellByTypeAsync(store, "Storage");
 
     /// <summary>
-    /// Finish the store's three-role cells if any are missing. Idempotent:
-    /// receiving/storage/picking already present — creates nothing. A new store
-    /// with discipline on and "turn the flag on" in settings call this so
-    /// working data can be enabled without drawing cells by hand.
+    /// Дособрать складу ячейки трёх ролей, если какой-то нет. Идемпотентно:
+    /// уже есть приёмка/хранение/отбор — ничего не плодит. Новый склад при
+    /// включённой дисциплине и «включить флаг» на настройках зовут это, чтобы
+    /// рабочие данные можно было включить, не рисуя ячейки руками.
     /// </summary>
     public async Task<int> EnsureYardAsync(Guid store)
     {
@@ -171,8 +171,8 @@ public partial class StoreCellService
         return created;
     }
 
-    /// <summary>Stamp Purpose on types named after a role and finish every
-    /// store's yard. Returns how many cells were created.</summary>
+    /// <summary>Проставить Purpose типам с именем роли и дособрать дворы всех
+    /// складов. Возвращает, сколько ячеек создано.</summary>
     public async Task<int> PrepareAllYardsAsync()
     {
         await InferTypePurposesAsync();

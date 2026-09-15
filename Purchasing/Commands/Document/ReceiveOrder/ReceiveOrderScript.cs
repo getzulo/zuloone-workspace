@@ -2,8 +2,8 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// "Receive goods": RECEIVING cell and an effective tax rate on the receipt date.
-// CreateCalculationAsync / put-away task — OnAfterPost; not called from here.
+// «Принять товар»: ячейка ПРИЁМКИ и действующая ставка налога на дату прихода.
+// CreateCalculationAsync / задание раскладки — OnAfterPost, отсюда не зовём.
 public partial class ReceiveOrderCommand
 {
     public override async Task ExecuteAsync(PurchaseOrder document, CommandContext context)

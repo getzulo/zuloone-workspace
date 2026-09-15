@@ -1,15 +1,15 @@
 #nullable enable
 using System;
 
-// Shipment on the invoice: −quantity from the sale cell. Stock is single-entry,
-// there is no counter-leg. Over-sale protection lives in
-// SalesInvoiceEventHandler.OnBeforePostAsync: the engine does not check, because
-// the register allows a negative balance.
+// Отгрузка по счёту: −количество с ячейки продажи. Stock односторонний, встречной
+// ноги нет. Защита от перепродажи — в событии
+// SalesInvoiceEventHandler.OnBeforePostAsync: движковой проверки нет, потому что
+// регистр допускает отрицательный остаток.
 //
-// The register gets BaseQuantity (the item's base unit, computed by the platform
-// when the line is saved); zero = "unit not specified, no conversion" → the
-// entered quantity is the base. The invoice's money legs (Receivable/Revenue/VAT)
-// stay on the ENTERED Quantity: the invoice sold 5 boxes at a per-box price.
+// В регистр уходит BaseQuantity (базовая единица товара, считает платформа при
+// сохранении строки); ноль = «единица не указана, пересчёта не было» → введённое
+// количество и есть базовое. Денежные ноги счёта (Receivable/Revenue/VAT) при
+// этом остаются на ВВЕДЁННОМ Quantity: в счёте продано 5 ящиков по цене за ящик.
 public partial class SalesStockTx
 {
 

@@ -78,10 +78,20 @@ public class CircuitGLTest : IntegrationTestScriptBase
         zone.IsBarcodeTracking = false;
         zone = await DictionaryManager.SaveRecordAsync(zone);
 
-        var cellType = DictionaryManager.NewRecord<StoreCellType>();
-        cellType.Code = $"PICK-{Db.NewId():N}"[..12];
-        cellType.Name = "Picking";
-        cellType = await DictionaryManager.SaveRecordAsync(cellType);
+        // Prefer the seeded classifier. A new row draws StoreCellTypeSeq,
+        // often still on 1000–1002 after a model apply — the same IDs the
+        // data pack already used (IX_StoreCellType_ID). On PostgreSQL that
+        // unique violation aborts the test transaction (25P02) before the
+        // insert-retry can draw another number.
+        var cellType = (await DictionaryManager.GetRecordsAsync<StoreCellType>("Code = 'PICKING'", take: 1))
+            .FirstOrDefault();
+        if (cellType == null)
+        {
+            cellType = DictionaryManager.NewRecord<StoreCellType>();
+            cellType.Code = $"PICK-{Db.NewId():N}"[..12];
+            cellType.Name = "Picking";
+            cellType = await DictionaryManager.SaveRecordAsync(cellType);
+        }
 
         var cell = DictionaryManager.NewRecord<StoreCell>();
         cell.Name = "P-01";

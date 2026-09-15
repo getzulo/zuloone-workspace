@@ -1,8 +1,8 @@
 #nullable enable
 
-// Delta is already on the line (QtyDelta): the handler computed it when the
-// draft was saved. Here only the Stock movement — the CostingIssue driver will
-// see a minus and write off lots; a plus is picked up by ISurplusCostingService.
+// Дельта уже на строке (QtyDelta): обработчик посчитал её при сохранении
+// черновика. Здесь только проводка в Stock — драйвер CostingIssue увидит минус
+// и спишет партии; плюс подхватит ISurplusCostingService.
 public partial class StockCountTx
 {
     protected override void GetTransactions(StockCount document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

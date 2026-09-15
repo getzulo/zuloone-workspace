@@ -2,9 +2,9 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// "Post issue": demand in the base unit (converter) against the cell balance
-// (IStockAvailabilityService). Stock allows a minus — the engine will not
-// stop an over-limit itself.
+// «Провести расход»: спрос в базовой единице (конвертер) против остатка ячейки
+// (IStockAvailabilityService). Регистр Stock допускает минус — движок сам не
+// остановит сверхлимит.
 public partial class PostGoodsIssueCommand
 {
     public override async Task ExecuteAsync(GoodsIssue document, CommandContext context)

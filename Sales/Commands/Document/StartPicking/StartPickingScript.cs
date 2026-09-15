@@ -1,7 +1,7 @@
 using ZuloOne.Managers;
 
-// Start-picking command: Reserved → Picking.
-// The reserve stays (SalesInvoiceReserveTx is bound to Picking as well).
+// Команда «Начать отбор»: переход Reserved → Picking.
+// Резерв остаётся (скрипт SalesInvoiceReserveTx привязан и к Picking).
 public partial class StartPickingCommand
 {
     public override async Task ExecuteAsync(SalesInvoice document, CommandContext context)

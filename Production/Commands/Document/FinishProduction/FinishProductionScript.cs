@@ -2,9 +2,9 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// "Finish production": components must be present (expand is the ExpandBom
-// command; we do not write the BOM from here). Component demand in the base
-// unit against the output cell's on-hand.
+// «Завершить выпуск»: компоненты должны быть (разворот — команда ExpandBom,
+// отсюда BOM не пишем). Спрос комплектующих в базовой единице против остатка
+// ячейки выпуска.
 public partial class FinishProductionCommand
 {
     public override async Task ExecuteAsync(ProductionOrder document, CommandContext context)

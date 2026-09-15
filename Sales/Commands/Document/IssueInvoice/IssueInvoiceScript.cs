@@ -2,8 +2,8 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// "Issue invoice": PICKING cell, stock in the base unit, tax rate
-// on the invoice date. CreateCalculationAsync and the legal-entity stamp — OnBefore/AfterPost.
+// «Выставить счёт»: ячейка ОТБОРА, остаток в базовой единице, ставка налога
+// на дату счёта. CreateCalculationAsync и штамп юрлица — OnBefore/AfterPost.
 public partial class IssueInvoiceCommand
 {
     public override async Task ExecuteAsync(SalesInvoice document, CommandContext context)

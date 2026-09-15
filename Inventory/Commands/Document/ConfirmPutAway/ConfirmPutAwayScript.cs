@@ -2,10 +2,10 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// "Confirm put-away": cell discipline (receiving → storage) and the balance
-// in the receiving cell — via IStoreCellService / IStockAvailabilityService.
-// Quantity goes to the register in the base unit: IItemQuantityConverter, if
-// the platform has not yet filled BaseQuantity.
+// «Подтвердить приёмку»: дисциплина ячеек (приёмка → хранение) и остаток
+// в ячейке приёмки — через IStoreCellService / IStockAvailabilityService.
+// Количество в регистр идёт в базовой единице: IItemQuantityConverter, если
+// платформа ещё не заполнила BaseQuantity.
 public partial class ConfirmPutAwayCommand
 {
     public override async Task ExecuteAsync(PutAwayTask document, CommandContext context)

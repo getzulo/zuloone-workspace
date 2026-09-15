@@ -1,17 +1,15 @@
 #nullable enable
 
-// A payment to the social-insurance fund settles the liability: each line subtracts
-// both contribution sides — the share withheld from the employee and the employer
-// share. The contribution accrual is NOT touched: both the calculation itself and
-// the withholding from the employee liability stay posted. That is why the payment
-// is a separate document, not an accrual subtype — a subtype change would lift
-// the previous state's movements and, along with the fund liability, return the
-// withheld amount to the employee (the same lesson as MarkPaidScript on the
-// sales side).
+// Платёж в фонд соцстраха гасит обязательство: по каждой строке минусом обе
+// стороны взноса — и удержанная у работника доля, и доля работодателя. Начисление
+// взносов при этом НЕ трогается: и сам расчёт, и удержание из задолженности перед
+// сотрудником остаются проведёнными. Именно поэтому платёж вынесен в отдельный
+// документ, а не сделан подтипом начисления — смена подтипа сняла бы движения
+// прошлого состояния и вместе с обязательством перед фондом вернула бы работнику
+// удержанное (тот же урок, что в MarkPaidScript на стороне продаж).
 //
-// The slice is exactly the same as the accrual (Employee + Division) — otherwise
-// the minus would land on a different analytics combination and the liability
-// would not close.
+// Разрез строго тот же, что у начисления (Сотрудник + Подразделение) — иначе
+// минус лёг бы в другую комбинацию аналитик и обязательство не закрылось бы.
 public partial class SocialInsurancePaymentTx
 {
     protected override void GetTransactions(SocialInsurancePayment document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

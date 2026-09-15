@@ -1,10 +1,10 @@
 #nullable enable
 
-// Reserve for the realization. Used while the invoice is in transit (Reserved → Picking → Packing → Shipped).
-// Transition to Issued LIFTS this reserve (the script is not bound to Issued)
-// and WRITES the warehouse write-off via SalesStockTx / SalesRevenueTx / SalesReceivableTx.
-// Named separately from SalesOrderReserveTx — script type names must be unique
-// across the workspace.
+// Резерв под реализацию. Используется пока счёт в пути (Reserved → Picking → Packing → Shipped).
+// Переход в Issued СНИМАЕТ этот резерв (скрипт не привязан к Issued)
+// и ЗАПИСЫВАЕТ списание склада скриптами SalesStockTx / SalesRevenueTx / SalesReceivableTx.
+// Класс назван отдельно от SalesOrderReserveTx, т.к. имена классов скриптов уникальны
+// во всём воркспейсе.
 public partial class SalesInvoiceReserveTx
 {
     protected override void GetTransactions(SalesInvoice document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

@@ -2,7 +2,7 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// "Post transfer": source-cell balance in the base unit.
+// «Провести перемещение»: остаток исходной ячейки в базовой единице.
 public partial class PostStockTransferCommand
 {
     public override async Task ExecuteAsync(StockTransfer document, CommandContext context)

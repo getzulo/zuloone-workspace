@@ -6,30 +6,30 @@ using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
-// Service "TaxService": ITaxService contract. Tax calculation in one place —
-// resolve the EFFECTIVE rate by tax code and date (TaxCode → Tax → TaxRate)
-// and the tax amount (base × rate, rounded to money precision). The rate is
-// stored as a fraction (0.15 = 15%); money precision is the global AmountScale.
+// Сервис "TaxService": контракт ITaxService. Налоговый расчёт в одном месте —
+// подбор ДЕЙСТВУЮЩЕЙ ставки по налоговому коду и дате (TaxCode → Tax → TaxRate)
+// и сумма налога (база × ставка, округлённая до денежной точности). Ставка
+// хранится долей (0.15 = 15%), точность денег — глобальная настройка AmountScale.
 //
-// DATING. The effective window is carried by ALL THREE contour dictionaries —
-// Tax, TaxCode and TaxRate: each has EffectiveFrom (required) and EffectiveTo
-// (optional, NULL = "open-ended"). A rate applies to a document when the
-// document date sits in all three windows: a cancelled tax yields no rate, a
-// retired code yields no rate, and the rate itself is the one effective ON
-// THAT DATE — not the last one created.
+// ДАТИРОВАНИЕ. Окно действия несут ВСЕ ТРИ справочника контура — Tax, TaxCode и
+// TaxRate: у каждого EffectiveFrom (обязательное) и EffectiveTo (необязательное,
+// NULL = «бессрочно»). Ставка применима к документу, когда дата документа лежит
+// в окне всех трёх: отменённый налог ставки не даёт, вышедший из употребления
+// код ставки не даёт, а сама ставка берётся та, что действовала В ТУ ДАТУ, —
+// не последняя заведённая.
 //
-// WHY the rate is looked up by tax, not read from TaxCode.TaxRate. A tax's
-// rate history is the TaxRate rows that share a Tax and have non-overlapping
-// windows ("historical rate is immutable" in the dictionary description).
-// TaxCode.TaxRate records the rate current at CODE CREATION and, by construction,
-// goes stale on the first change; picking by it would calculate last year's
-// invoice at today's rate. Splitting versions by the CODE itself is also
-// impossible: TaxCode.Code is unique, a second row with the same code for a
-// new period cannot be created. So TaxCode.TaxRate is the original binding of
-// the code to the tax, not the answer to "how many percent on this date".
+// ПОЧЕМУ ставка ищется по налогу, а не читается из TaxCode.TaxRate. История
+// ставок налога — это и есть строки TaxRate с общим Tax и непересекающимися
+// окнами («historical rate is immutable» в описании справочника). TaxCode.TaxRate
+// фиксирует ставку, актуальную на момент ЗАВЕДЕНИЯ кода, и по построению
+// устаревает при первом же её изменении; выбирать по нему — значит считать
+// прошлогодний счёт по сегодняшней ставке. Развести версии самим КОДОМ тоже
+// нельзя: TaxCode.Code объявлен уникальным, второй строки с тем же кодом на
+// новый период не завести. Поэтому TaxCode.TaxRate — исходная привязка кода к
+// налогу, а не ответ на вопрос «сколько процентов на эту дату».
 //
-// CalculateTax is SYNCHRONOUS (safe for postings). ResolveRateAsync is async
-// (dictionary reads), for events / commands / reports / API.
+// CalculateTax — СИНХРОННЫЙ (годится для проводок). ResolveRateAsync — async
+// (чтение справочников), для событий/команд/отчётов/API.
 public partial class TaxService
 {
     private readonly IDictionaryManager<Tax> _taxes;
@@ -67,29 +67,28 @@ public partial class TaxService
         _posting = posting;
     }
 
-    /// <summary>TaxCalculation document type — the target of the Finalized transition.</summary>
+    /// <summary>Тип документа TaxCalculation — цель перевода в Finalized.</summary>
     private static readonly Guid TaxCalculationType = Guid.Parse("1e07e7a9-d80f-4067-bc65-e40c96d4feee");
 
     /// <summary>
-    /// Effective window: a record applies to a date when EffectiveFrom ≤ date ≤ EffectiveTo.
-    /// Bounds are INCLUSIVE — EffectiveTo is captioned "effective THROUGH", not "until".
-    /// NULL on either side means an open window; EffectiveFrom is currently required
-    /// on all three dictionaries, but the predicate does not rely on that:
-    /// requiredness is a metadata property, not a domain law.
-    /// CALENDAR days are compared: a rate closed on 31.12 must cover a document
-    /// from 31.12 14:00.
+    /// Окно действия: запись применима к дате, когда EffectiveFrom ≤ дата ≤ EffectiveTo.
+    /// Границы ВКЛЮЧИТЕЛЬНЫ — EffectiveTo подписано «действует ПО», а не «до».
+    /// NULL с любой стороны означает открытое окно; EffectiveFrom сейчас объявлено
+    /// обязательным во всех трёх справочниках, но предикат на это не опирается:
+    /// обязательность — свойство метаданных, а не закон предметной области.
+    /// Сравниваются КАЛЕНДАРНЫЕ дни: ставка, закрытая 31.12, обязана покрывать
+    /// документ от 31.12 14:00.
     /// </summary>
     private static bool IsEffectiveOn(DateTime? from, DateTime? to, DateTime date)
         => (from is null || from.Value.Date <= date.Date)
         && (to is null || date.Date <= to.Value.Date);
 
     /// <summary>
-    /// Default tax code from module settings; null if the contour is not configured.
-    /// This is a CONFIGURATION question, not a date: Code is unique, there is exactly
-    /// one row. Whether it is effective on the document date is decided by
-    /// ResolveRateAsync, so "contour not configured" (no tax, that is normal) and
-    /// "configured but not effective on this date" (tax lost, that is an accident)
-    /// do not collapse into the same null.
+    /// Код налога по умолчанию из настроек модуля; null, если контур не настроен.
+    /// Это вопрос КОНФИГУРАЦИИ, а не даты: Code объявлен уникальным, строка ровно
+    /// одна. Действует ли она на дату документа — решает ResolveRateAsync, чтобы
+    /// «контур не настроен» (налога нет, это норма) и «настроен, но на эту дату не
+    /// действует» (налог потерян, это авария) не сливались в один и тот же null.
     /// </summary>
     public async Task<Guid?> ResolveDefaultTaxCodeAsync()
     {
@@ -99,24 +98,22 @@ public partial class TaxService
     }
 
     /// <summary>
-    /// RULE ENGINE: which tax-determination rule fires for this transaction
-    /// context and this date. Returns THE RULE ITSELF, not just the code — the
-    /// caller needs both the code (<c>TaxCode</c>) and an explanation
-    /// (<c>Code</c>/<c>Name</c>), otherwise "why 15% here" has no answer. Null —
-    /// none fired.
+    /// ДВИЖОК ПРАВИЛ: какое правило определения налога срабатывает на этот контекст
+    /// сделки и эту дату. Возвращает САМО ПРАВИЛО, а не только код, — вызывающему
+    /// нужен и код (<c>TaxCode</c>), и объяснение (<c>Code</c>/<c>Name</c>), иначе
+    /// «почему тут 15%» становится вопросом без ответа. Null — не сработало ни одно.
     ///
-    /// CONTEXT IS A DICTIONARY, NOT A CLASS. Service contracts are compiled in a
-    /// separate assembly that cannot see types declared in scripts: a
-    /// TaxTransactionContext class in a public signature would break contracts of
-    /// ALL stand services. A dictionary of flat paths ("buyer.type", "item.group",
-    /// "amount") survives that boundary — and also keeps the engine decoupled from
-    /// the document: Sales puts its own, Purchasing its own, and the engine does
-    /// not know about them.
+    /// КОНТЕКСТ — СЛОВАРЬ, А НЕ КЛАСС. Контракты сервисов собираются отдельной
+    /// сборкой, которая не видит типов, объявленных в скриптах: класс
+    /// TaxTransactionContext в публичной сигнатуре сломал бы контракты ВСЕХ
+    /// сервисов стенда. Словарь плоских путей («buyer.type», «item.group»,
+    /// «amount») эту границу переживает — и заодно оставляет движок развязанным с
+    /// документом: Sales кладёт своё, Purchasing своё, а движок про них не знает.
     ///
-    /// MATCH ORDER. Rules are sorted by Priority (smaller first), then by later
-    /// EffectiveFrom, then by condition count: of two equally prioritized rules
-    /// the MORE SPECIFIC wins. Otherwise the outcome would depend on row order
-    /// in the table, i.e. be random.
+    /// ПОРЯДОК РАЗБОРА. Правила сортируются по Priority (меньше — раньше), при
+    /// равенстве — по более позднему EffectiveFrom, затем по числу условий: из двух
+    /// одинаково приоритетных выигрывает БОЛЕЕ СПЕЦИФИЧНОЕ. Иначе исход зависел бы
+    /// от порядка строк в таблице, то есть был бы случайным.
     /// </summary>
     public async Task<TaxRule?> ResolveRuleAsync(Dictionary<string, object?> context, DateTime? taxPointDate = null)
     {
@@ -127,10 +124,10 @@ public partial class TaxService
             .ToList();
         if (candidates.Count == 0) return null;
 
-        // Conditions are read in ONE query for all candidate rules, not one query
-        // per rule: each manager call is a DB hit inside an already-open posting
-        // transaction, and extra round-trips push it toward a distributed
-        // promotion (see GeneralLedgerService).
+        // Условия читаются ОДНИМ запросом на все правила-кандидаты, а не по запросу
+        // на правило: каждый вызов менеджера — это обращение к БД внутри уже идущей
+        // транзакции проведения, и лишние round-trip'ы толкают её к повышению до
+        // распределённой (см. GeneralLedgerService).
         var conditions = (await _ruleConditions.GetRecordsAsync("1 = 1"))
             .GroupBy(c => c.TaxRule)
             .ToDictionary(g => g.Key, g => g.ToList());
@@ -150,9 +147,9 @@ public partial class TaxService
     }
 
     /// <summary>
-    /// Conditions of ONE group are AND, different groups are OR: "(A and B) or (C)".
-    /// A rule WITHOUT conditions always matches — a lawful "catch-all" placed last
-    /// by priority instead of a default code.
+    /// Условия ОДНОЙ группы соединяются И, разные группы — ИЛИ: «(A и B) или (C)».
+    /// Правило БЕЗ условий срабатывает всегда — это законный «общий случай»,
+    /// который ставят последним приоритетом вместо кода по умолчанию.
     /// </summary>
     private static bool Matches(List<TaxRuleCondition> conditions, Dictionary<string, object?> context)
     {
@@ -164,13 +161,14 @@ public partial class TaxService
     }
 
     /// <summary>
-    /// One condition: a context value against the expected, with an enum operator.
-    /// The operator set is CLOSED and lives in metadata (<c>TaxRuleOperator</c>),
-    /// not as a string whitelist in this code: a rule with a typo in the operator
-    /// cannot be created at all.
+    /// Одно условие: значение из контекста против эталона, оператором из
+    /// перечисления. Набор операторов ЗАКРЫТ и живёт в метаданных
+    /// (<c>TaxRuleOperator</c>), а не белым списком строк в этом коде: правило с
+    /// опечаткой в операторе невозможно завести в принципе.
     ///
-    /// String comparison is case-insensitive and trimmed: codes in dictionaries
-    /// and rules are entered by hand, and "B2B" vs "b2b " must not decide the tax.
+    /// Сравнение строк — регистронезависимое и без пробелов по краям: коды в
+    /// справочниках и в правилах заводят руками, и «B2B» против «b2b » не должно
+    /// решать судьбу налога.
     /// </summary>
     private static bool Evaluate(TaxRuleCondition condition, Dictionary<string, object?> context)
     {
@@ -194,9 +192,9 @@ public partial class TaxService
                 return !Split(expected).Any(v => SameText(actual, v));
         }
 
-        // Numeric operators. A value that is not a number fails the condition —
-        // silently, not by exception: one broken rule must not fail posting of a
-        // document it does not even apply to.
+        // Числовые операторы. Значение, которое числом не читается, условие не
+        // выполняет — молча, а не исключением: одно кривое правило не должно
+        // ронять проведение документа, к которому оно даже не относится.
         if (!TryNumber(actual, out var left)) return false;
 
         if (condition.Operator == TaxRuleOperator.Between)
@@ -226,28 +224,28 @@ public partial class TaxService
     private static List<string> Split(string? value)
         => (value ?? string.Empty).Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
 
-    /// <summary>Invariant culture: a rule "amount &gt; 1000.50" must parse the same
-    /// on any stand, not depend on the server locale.</summary>
+    /// <summary>Инвариантная культура: правило «сумма &gt; 1000.50» обязано читаться
+    /// одинаково на любом стенде, а не зависеть от локали сервера.</summary>
     private static bool TryNumber(string? text, out decimal value)
         => decimal.TryParse((text ?? string.Empty).Trim(),
             System.Globalization.NumberStyles.Any,
             System.Globalization.CultureInfo.InvariantCulture, out value);
 
     /// <summary>
-    /// Spawns a POSTED tax calculation on the given base and returns its id.
-    /// <paramref name="taxPointDate"/> is the tax-event date (the source document
-    /// date); the rate is resolved on it too, otherwise the document and its tax
-    /// would be dated differently. Unspecified — today.
+    /// Порождает ПРОВЕДЁННЫЙ расчёт налога на заданную базу и возвращает его id.
+    /// <paramref name="taxPointDate"/> — дата налогового события (дата документа-
+    /// источника); по ней же подбирается ставка, иначе документ и его налог
+    /// датировались бы по-разному. Не задана — сегодняшний день.
     ///
-    /// Returns null when the tax contour is not configured (no default code,
-    /// direction or legal entity) — that is NOT an error: the source document
-    /// must post as before on a stand without taxes. But a contour that is
-    /// configured and still yields no rate on the document date is an ERROR, and
-    /// it is thrown: see RequireRateAsync.
+    /// Возвращает null, когда налоговый контур не настроен (нет кода по умолчанию,
+    /// направления или юрлица) — это НЕ ошибка: документ-источник обязан
+    /// проводиться как раньше на стенде без налогов. Но контур, который настроен и
+    /// при этом не даёт ставки на дату документа, — ОШИБКА, и она бросается:
+    /// см. RequireRateAsync.
     ///
-    /// Here, not in the invoice and receipt handlers, because input and output
-    /// differ by the direction code alone — everything else matches, and they
-    /// must not drift: both land in one ledger and one return.
+    /// Здесь, а не в обработчиках счёта и прихода, потому что вход и выход
+    /// отличаются ровно кодом направления — всё остальное совпадает, и разъехаться
+    /// им нельзя: и то и другое попадает в один леджер и одну декларацию.
     /// </summary>
     public async Task<Guid?> CreateCalculationAsync(
         Guid legalEntity, string directionCode, decimal taxBase, string reason,
@@ -255,30 +253,29 @@ public partial class TaxService
     {
         if (taxBase <= 0m || legalEntity == Guid.Empty) return null;
 
-        // ONE REASON — ONE CALCULATION. reason carries the source document
-        // ("Sales invoice <number>"), so a repeat means re-determining THE SAME tax.
+        // ОДНА ПРИЧИНА — ОДИН РАСЧЁТ. reason несёт документ-источник ("Sales invoice
+        // <номер>"), поэтому повтор означает повторное определение ТОГО ЖЕ налога.
         //
-        // The guard is required, not just in case: the source document's after-post
-        // event runs TWICE when its own posting appends movements through the
-        // manager — which is exactly what the CostingIssue driver does when it
-        // writes off sold cost. Without the check EVERY sale of an item with cost
-        // layers would open two calculations, doubling output tax in both the
-        // ledger and the return (caught by SalesOutputTaxTest —
-        // CostLayersDoNotDuplicateOutputTax; ordinary tests miss this because they
-        // seed stock with a direct register movement, so there is nothing to write
-        // off).
+        // Защита обязательна, а не на всякий случай: событие after-post
+        // документа-источника выполняется ДВАЖДЫ, когда его же проведение дописывает
+        // движения через менеджер, — а именно это делает драйвер CostingIssue,
+        // списывая себестоимость проданного. Без проверки КАЖДАЯ продажа товара со
+        // слоями себестоимости заводила два расчёта, удваивая выходной налог и в
+        // леджере, и в декларации (поймано SalesOutputTaxTest —
+        // CostLayersDoNotDuplicateOutputTax; обычные тесты этого не видят, потому
+        // что заводят остаток прямым движением регистра, и списывать нечего).
         var already = await _documents.CountDocumentsAsync<TaxCalculation>(
             $"DeterminationReason = '{reason.Replace("'", "''")}'");
         if (already > 0) return null;
 
         var taxPoint = (taxPointDate ?? DateTime.UtcNow).Date;
 
-        // The CODE is determined by a rule; settings apply only when rules are silent.
-        // That order is deliberate: rules are data a bookkeeper creates for their
-        // country and deals, and DefaultTaxCode is one row for the whole stand.
-        // Backward compatibility is complete: no context (or no rules) — behaviour
-        // is exactly as before, so turning the engine on does not touch stands
-        // already running.
+        // КОД ОПРЕДЕЛЯЕТ ПРАВИЛО, а настройка — только когда правила молчат.
+        // Порядок именно такой: правила — это данные, которые заводит бухгалтер под
+        // свою страну и свои сделки, а DefaultTaxCode — одна строка на весь стенд.
+        // Обратная совместимость при этом полная: контекст не передали (или правил
+        // нет) — поведение ровно прежнее, поэтому включение движка не трогает уже
+        // работающие стенды.
         var matchedRule = context is null ? null : await ResolveRuleAsync(context, taxPoint);
         var taxCode = matchedRule?.TaxCode ?? await ResolveDefaultTaxCodeAsync();
         if (taxCode is null || taxCode == Guid.Empty) return null;
@@ -297,9 +294,8 @@ public partial class TaxService
             ["Currency"] = le.Currency,
             ["TaxPointDate"] = taxPoint,
             ["DeterminationReason"] = reason,
-            // The matched rule is written ON THE CALCULATION: the rule may later be
-            // edited or disabled, and the calculation is immutable and must explain
-            // its own rate.
+            // Сработавшее правило пишется НА РАСЧЁТ: правило потом отредактируют или
+            // выключат, а расчёт неизменен и обязан сам объяснять свою ставку.
             ["MatchedRule"] = matchedRule?.MetaId,
         });
 
@@ -317,26 +313,25 @@ public partial class TaxService
         return calc.MetaId;
     }
 
-    /// <summary>Tax amount = base × rate (fraction), rounded to money precision.</summary>
+    /// <summary>Сумма налога = база × ставка (доля), округлённая до денежной точности.</summary>
     public decimal CalculateTax(decimal baseAmount, decimal rate)
         => Math.Round(baseAmount * rate, GlobalConstants.Get<int?>("AmountScale") ?? 2, MidpointRounding.AwayFromZero);
 
     /// <summary>
-    /// Rate EFFECTIVE on the date (default — today): TaxCode → Tax → TaxRate.
+    /// Ставка, ДЕЙСТВУЮЩАЯ на дату (по умолчанию — сегодня): TaxCode → Tax → TaxRate.
     ///
-    /// null means "no rate on this date" and covers four cases: the code does not
-    /// exist; the code is outside its window; the tax is outside its window; no
-    /// TaxRate row of this tax covers the date. That is a QUERY answer, not
-    /// permission to compute tax as zero — calculating methods refuse on it
-    /// (RequireRateAsync), because "no rate" and "0% rate" are different things,
-    /// and a silently issued document without tax only surfaces at the tax
-    /// authority.
+    /// null означает «на эту дату ставки нет» и покрывает четыре случая: кода не
+    /// существует; код вне своего окна; налог вне своего окна; ни одна строка
+    /// TaxRate этого налога дату не покрывает. Это ответ ЗАПРОСА, а не разрешение
+    /// посчитать налог нулём — считающие методы на нём отказывают
+    /// (RequireRateAsync), потому что «ставки нет» и «ставка 0%» — разные вещи, а
+    /// молча выпущенный документ без налога всплывает только у налогового органа.
     ///
-    /// SEVERAL matching rows — corrupted data: rate windows of one tax must not
-    /// overlap. This is NOT silently allowed as "take the last": some documents
-    /// would be calculated at one rate, some at another, and it would only
-    /// diverge on the return. The refusal names both rates so the setting can
-    /// be fixed.
+    /// НЕСКОЛЬКО подходящих строк — порча данных: окна ставок одного налога
+    /// обязаны не пересекаться. Это НЕ разрешается молча, «взять последнюю»: часть
+    /// документов посчиталась бы по одной ставке, часть по другой, и разошлось бы
+    /// это только в декларации. Отказ называет обе ставки, чтобы настройку можно
+    /// было починить.
     /// </summary>
     public async Task<decimal?> ResolveRateAsync(Guid taxCodeId, DateTime? onDate = null)
     {
@@ -349,10 +344,10 @@ public partial class TaxService
         var tax = await _taxes.GetRecordAsync(code.Tax);
         if (tax is null || !IsEffectiveOn(tax.EffectiveFrom, tax.EffectiveTo, date)) return null;
 
-        // Filter by tax goes to SQL; the window is checked in memory: a tax has
-        // a handful of rate-history rows, and a date literal inside a filter
-        // string would depend on the DB dialect (the stand runs on both SQL Server
-        // and PostgreSQL) and on the server language settings.
+        // Отбор по налогу уходит в SQL, окно проверяется в памяти: строк истории
+        // ставок у одного налога единицы, а датный литерал внутри строки-фильтра
+        // зависел бы от диалекта БД (стенд живёт и на SQL Server, и на PostgreSQL)
+        // и от языковых настроек сервера.
         var applicable = (await _rates.GetRecordsAsync($"Tax = '{code.Tax}'"))
             .Where(r => IsEffectiveOn(r.EffectiveFrom, r.EffectiveTo, date))
             .ToList();
@@ -368,50 +363,50 @@ public partial class TaxService
     }
 
     /// <summary>
-    /// A rate of THE SAME tax whose effective window overlaps the given one — or
-    /// null if there is no overlap. <paramref name="excludeRate"/> excludes the
-    /// record being checked, so editing an existing rate does not treat itself
-    /// as an overlap (when creating a new one — <c>Guid.Empty</c>).
+    /// Ставка ТОГО ЖЕ налога, чьё окно действия пересекается с заданным, — или
+    /// null, если пересечения нет. <paramref name="excludeRate"/> исключает саму
+    /// проверяемую запись, чтобы редактирование существующей ставки не считало
+    /// пересечением её саму (при заведении новой — <c>Guid.Empty</c>).
     ///
-    /// WHY THE RULE LIVES HERE, NOT IN THE DICTIONARY HANDLER. The condition on
-    /// which <see cref="ResolveRateAsync"/> REFUSES to calculate ("more than one
-    /// rate matched") and the condition on which a second rate is not allowed to
-    /// be created are the same condition. If their definitions drifted even by
-    /// one day of the window bound, the dictionary would start accepting an
-    /// arrangement on which tax calculation fails — i.e. an input error would
-    /// again be caught at invoice issue.
+    /// ПОЧЕМУ ПРАВИЛО ЖИВЁТ ЗДЕСЬ, А НЕ В ОБРАБОТЧИКЕ СПРАВОЧНИКА. Условие, по
+    /// которому <see cref="ResolveRateAsync"/> ОТКАЗЫВАЕТСЯ считать («подошло
+    /// больше одной ставки»), и условие, по которому вторую ставку не дают
+    /// завести, — это одно и то же условие. Разъедься их определения хоть на
+    /// день границы окна, и справочник начал бы принимать расстановку, на которой
+    /// расчёт налога падает, — то есть ошибку ввода снова ловил бы выпуск счёта.
     ///
-    /// Both doors stay and that is not duplication: the handler prevents creating
-    /// corruption, and the refusal in ResolveRateAsync is the last line of
-    /// defence for data loaded past events (import, migration, direct SQL).
+    /// Две двери остаются обе и это не дублирование: обработчик не даёт создать
+    /// порчу, а отказ в ResolveRateAsync — последний рубеж для данных, залитых в
+    /// обход событий (импорт, миграция, прямой SQL).
     /// </summary>
     public async Task<TaxRate?> FindOverlappingRateAsync(
         Guid tax, Guid excludeRate, DateTime from, DateTime? to)
     {
         if (tax == Guid.Empty) return null;
 
-        // Filter by tax goes to SQL; windows are compared in memory — for the
-        // same reason as in ResolveRateAsync: a date literal in a filter string
-        // would depend on the DB dialect and the server language settings.
+        // Отбор по налогу уходит в SQL, окна сравниваются в памяти — по той же
+        // причине, что и в ResolveRateAsync: датный литерал в строке-фильтре
+        // зависел бы от диалекта БД и языковых настроек сервера.
         return (await _rates.GetRecordsAsync($"Tax = '{tax}'"))
             .FirstOrDefault(r => r.MetaId != excludeRate
                 && WindowsOverlap(from, to, r.EffectiveFrom, r.EffectiveTo));
     }
 
-    /// <summary>Whether two effective windows overlap. An empty end date means
-    /// a window open on the right: "from this date onward".</summary>
+    /// <summary>Пересекаются ли два окна действия. Пустая дата окончания означает
+    /// окно, открытое справа: «с этой даты и далее».</summary>
     private static bool WindowsOverlap(DateTime aFrom, DateTime? aTo, DateTime bFrom, DateTime? bTo)
         => aFrom.Date <= (bTo?.Date ?? DateTime.MaxValue)
         && bFrom.Date <= (aTo?.Date ?? DateTime.MaxValue);
 
-    /// <summary>Tax amount by code on a date: resolves the effective rate and computes.
-    /// No rate on the date — REFUSE, not zero (zero is indistinguishable from "not taxable").</summary>
+    /// <summary>Сумма налога по коду на дату: подбирает действующую ставку и считает.
+    /// Ставки на дату нет — ОТКАЗ, а не ноль (ноль неотличим от «не облагается»).</summary>
     public async Task<decimal> CalculateByCodeAsync(decimal baseAmount, Guid taxCodeId, DateTime? onDate = null)
         => CalculateTax(baseAmount, await RequireRateAsync(taxCodeId, (onDate ?? DateTime.UtcNow).Date));
 
     /// <summary>
-    /// Rate on the date — or a refusal. The door for paths that MUST get a number:
-    /// returning null here means issuing a document without tax and telling no one.
+    /// Ставка на дату — или отказ. Дверь для путей, которые ОБЯЗАНЫ получить число:
+    /// вернуть здесь null значит выпустить документ без налога и не сказать об этом
+    /// никому.
     /// </summary>
     private async Task<decimal> RequireRateAsync(Guid taxCodeId, DateTime date)
     {

@@ -1,19 +1,18 @@
 #nullable enable
 using System;
 
-// Output writes off components from stock: −quantity from the cell. Stock is
-// one-sided, there is no counter-leg. A shortage is rejected in
+// Выпуск списывает компоненты со склада: −количество с ячейки. Stock
+// односторонний, встречной ноги нет. Нехватка отклоняется в
 // ProductionOrderEventHandler.OnBeforePostAsync.
 //
-// The register gets BaseQuantity (the item's base unit, computed by the platform
-// on line save); zero = "unit not specified, no conversion" → the entered
-// QtyRequired is the base — that is how BOM-expanded lines arrive: BomService
-// already returns demand in the component's stock unit.
+// В регистр уходит BaseQuantity (базовая единица товара, считает платформа при
+// сохранении строки); ноль = «единица не указана, пересчёта не было» → введённое
+// QtyRequired и есть базовое — именно так приходят строки, развёрнутые из
+// спецификации: BomService уже отдаёт потребность в складской единице компонента.
 //
-// There is NO local rounding here any more: the value arrives already rounded
-// to the unit's own precision (UnitOfMeasure.DecimalPlaces), and the old
-// RoundQuantity rounded a second time under a different setting — two
-// disagreeing roundings were the bug.
+// Своего округления здесь БОЛЬШЕ НЕТ: значение приходит округлённым по точности
+// самой единицы (UnitOfMeasure.DecimalPlaces), а прежний RoundQuantity округлял
+// второй раз и по другой настройке — два спорящих округления и есть баг.
 public partial class ProductionConsumeTx
 {
 

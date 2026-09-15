@@ -9,9 +9,9 @@ using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// Evening order → morning invoice. The invoice is not created by hand from an
-// event: one service covers both a single delivery and a trip. A repeat call
-// finds the already-issued invoice by SourceOrder and does not spawn a second.
+// Вечерний заказ → утренний счёт. Счёт не создаётся руками из события: один
+// сервис закрывает и одиночную доставку, и рейс. Повторный вызов находит уже
+// выставленный счёт по SourceOrder и не плодит второй.
 public partial class SalesFulfillmentService
 {
     private static readonly Guid SalesInvoiceType = Guid.Parse("34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3");
@@ -35,14 +35,14 @@ public partial class SalesFulfillmentService
         _data = data;
     }
 
-    // A foreign model service — not in the constructor: the ISalesFulfillmentService
-    // factory then fails to start ("service is not available"). Same as PricingService.
+    // Чужой модельный сервис — не в конструктор: фабрика ISalesFulfillmentService
+    // тогда не поднимается («service is not available»). Как у PricingService.
     private static IStoreCellService Cells => ScriptServices.Get<IStoreCellService>();
 
-    /// <summary>Available = Stock − ReservedStock. Without discipline — by the
-    /// order cell. With discipline the goods are still in storage while the order
-    /// points at picking: look at every cell of that cell's store, otherwise
-    /// confirmation always reports "no stock".</summary>
+    /// <summary>Свободно = Stock − ReservedStock. Без дисциплины — по ячейке
+    /// заказа. С дисциплиной товар ещё в хранении, а заказ указывает отбор:
+    /// смотрим все ячейки склада этой ячейки, иначе подтверждение всегда «нет
+    /// остатка».</summary>
     public async Task<decimal> AvailableQtyAsync(Guid cell, Guid item)
     {
         if (cell == Guid.Empty || item == Guid.Empty) return 0m;
@@ -68,12 +68,12 @@ public partial class SalesFulfillmentService
     }
 
     /// <summary>
-    /// Draft pick task for a confirmed order. The invoice writes off from picking —
-    /// the task must appear BEFORE the invoice, from confirmation. A draft, not
-    /// a posting: physically the goods are still in storage.
+    /// Черновик отбора под подтверждённый заказ. Счёт списывает из отбора —
+    /// задание обязано появиться РАНЬШЕ счёта, из подтверждения. Черновик, не
+    /// проведение: физически товар ещё в хранении.
     ///
-    /// Idempotent by graph edge (like put-away on a receipt). Discipline off
-    /// or no storage cell — no task, the order is still confirmed.
+    /// Идемпотентно по ребру графа (как раскладка у прихода). Дисциплина выкл
+    /// или нет ячейки хранения — задания нет, заказ подтверждается.
     /// </summary>
     public async Task<Guid> EnsurePickTaskAsync(Guid orderId)
     {
@@ -115,8 +115,8 @@ public partial class SalesFulfillmentService
         return task.MetaId;
     }
 
-    /// <summary>Issue an invoice for the order. Empty Guid — no lines to ship
-    /// or the order was not found. An already-issued invoice is returned as-is.</summary>
+    /// <summary>Выставить счёт по заказу. Пустой Guid — строк на отгрузку нет
+    /// или заказ не найден. Уже выставленный счёт возвращается как есть.</summary>
     public async Task<Guid> InvoiceOrderAsync(Guid orderId)
     {
         if (orderId == Guid.Empty) return Guid.Empty;
@@ -166,9 +166,9 @@ public partial class SalesFulfillmentService
         return invoice.MetaId;
     }
 
-    /// <summary>Invoice issued (Issued) — the source order becomes Delivered.
-    /// Call after the invoice SaveDocumentAsync, not from OnAfterPost: a nested
-    /// SetSubtypeAsync is swallowed by the platform there.</summary>
+    /// <summary>Счёт выставлен (Issued) — заказ-источник становится Delivered.
+    /// Вызывать после SaveDocumentAsync счёта, не из OnAfterPost: вложенный
+    /// SetSubtypeAsync там глотается платформой.</summary>
     public async Task MarkSourceOrderDeliveredAsync(Guid invoiceId)
     {
         if (invoiceId == Guid.Empty) return;
@@ -181,8 +181,8 @@ public partial class SalesFulfillmentService
             await _posting.SetSubtypeAsync(SalesOrderType, sourceOrder, SalesOrder.Subtypes.Delivered);
     }
 
-    /// <summary>Close trip stops: refused → Cancelled, otherwise Delivered
-    /// (the invoice is set by the order handler). Repeat-safe.</summary>
+    /// <summary>Закрыть точки рейса: отказ → Cancelled, иначе Delivered
+    /// (счёт ставит обработчик заказа). Повтор безопасен.</summary>
     public async Task CompleteTripAsync(Guid tripId)
     {
         var trip = await _documents.GetDocumentAsync<DeliveryTrip>(tripId);

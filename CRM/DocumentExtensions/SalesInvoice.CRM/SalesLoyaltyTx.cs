@@ -4,36 +4,34 @@ using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// CRM MODEL extension of the sales invoice: on issue the customer earns points.
-// Line amount comes from the shared PricingService so points, revenue and VAT
-// are computed from ONE base. The script lives in CRM and attaches to the
-// SalesInvoice.Issued subtype — the engine runs it in the posting chain.
+// Расширение счёта продажи МОДЕЛЬЮ CRM: при выставлении клиент получает баллы.
+// Сумма строки — общий PricingService, чтобы баллы, выручка и НДС считались от
+// ОДНОЙ базы. Скрипт живёт в CRM и цепляется к подтипу SalesInvoice.Issued —
+// движок исполняет его в цепочке проведения.
 //
-// RATE AND SWITCH — A SETTING, NOT A CONSTANT IN CODE. CRMSettings declares
-// PointsPerCurrencyUnit and LoyaltyEnabled; until then neither was read by
-// a single line — the rate was hard-coded 1:1, and «turn loyalty off»
-// turned nothing off.
+// КУРС И РУБИЛЬНИК — НАСТРОЙКА, А НЕ КОНСТАНТА В КОДЕ. CRMSettings объявляет
+// PointsPerCurrencyUnit и LoyaltyEnabled; до этого ни то, ни другое не читалось
+// ни одной строкой — курс был жёстко зашит 1:1, а «выключить лояльность» не
+// выключало ничего.
 //
-// Settings are read ONCE in the field initializer, not inside GetTransactions:
-// the script instance lives for one posting, so this is «fresh settings on
-// every posting», and the DB call happens before the register connection is
-// opened (the same trick as in CostingValuationTotalDriver).
+// Настройки читаются ОДИН РАЗ в инициализаторе поля, а не внутри GetTransactions:
+// экземпляр скрипта живёт одно проведение, так что это и есть «свежие настройки
+// на каждое проведение», и обращение к БД происходит до того, как открыто
+// соединение регистра (тот же приём, что в CostingValuationTotalDriver).
 //
-// COMPATIBILITY AND THE OPTIONAL-BOOLEAN TRAP. LoyaltyEnabled is declared
-// optional, and an optional Boolean on the platform is NOT nullable:
-// «unset» is indistinguishable from «off». CRMSettings records were created
-// before the flag started being read at all, so every existing one is false.
-// Trust it literally and the change would silently turn loyalty off on every
-// stand where someone once opened and saved the CRM settings form — with no
-// error in the log.
+// СОВМЕСТИМОСТЬ И ЛОВУШКА НЕОБЯЗАТЕЛЬНОГО BOOLEAN. LoyaltyEnabled объявлен
+// необязательным, а необязательный Boolean в платформе НЕ nullable: «не
+// заполнено» неотличимо от «выключено». Записи CRMSettings заводились до того,
+// как флаг вообще начал читаться, поэтому у всех существующих он false. Если
+// доверять ему буквально, правка молча выключила бы лояльность на каждом стенде,
+// где кто-то однажды открыл и сохранил форму настроек — без единой ошибки в логе.
 //
-// So the sign that «the module is configured» is NOT the flag, but a
-// positive rate:
-//   no record at all            → work as before, 1 point per currency unit;
-//   record exists, rate unset   → loyalty was never configured, also as before;
-//   record exists, rate is set  → configured on purpose; flag and rate beat the code.
-// That way the switch really turns things off, but only for whoever flipped
-// it on purpose, not for everyone else.
+// Поэтому признаком «модуль настроен» служит НЕ флаг, а положительный курс:
+//   записи нет вовсе          → работаем как раньше, 1 балл за единицу валюты;
+//   запись есть, курс не задан → модуль лояльности не настраивали, тоже как раньше;
+//   запись есть, курс задан    → настраивали осознанно, флаг и курс главнее кода.
+// Так рубильник действительно выключает, но только у того, кто его осознанно
+// трогал, а не у всех подряд.
 public partial class SalesLoyaltyTx
 {
     private readonly (bool Enabled, decimal Rate) _loyalty = ReadLoyaltySettings();

@@ -1,8 +1,7 @@
 public partial class TimeSheetTransactionsScript
 {
-    // The timesheet does not move registers: it only records hours. Payroll is
-    // accrued by AccruePayrollCommand — it creates PayrollAccrual, which has its
-    // own postings.
+    // Табель не двигает регистры: он только фиксирует часы. Начисление ФОТ
+    // делает AccruePayrollCommand — создаёт PayrollAccrual, у того свои проводки.
     protected override void GetTransactions(TimeSheet document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
     {
     }

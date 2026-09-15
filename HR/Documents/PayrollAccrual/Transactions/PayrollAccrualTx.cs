@@ -4,13 +4,13 @@ public partial class PayrollAccrualTx
     {
         foreach (var line in document.Lines)
         {
-            // Accrued payroll by division and employee (expense register).
+            // Начисленный ФОТ по подразделению и сотруднику (затратный регистр).
             transactions.Add(new RegisterMovementSpec("Payroll")
                 .An(Analytics.Payroll.Division, document.Division)
                 .An(Analytics.Payroll.Employee, line.Employee)
                 .Res("Amount", line.Amount));
 
-            // Liability to the employee — grows by the accrued amount.
+            // Задолженность перед сотрудником — растёт на сумму начисления.
             transactions.Add(new RegisterMovementSpec("PayrollLiability")
                 .An(Analytics.PayrollLiability.Employee, line.Employee)
                 .Res("Amount", line.Amount));

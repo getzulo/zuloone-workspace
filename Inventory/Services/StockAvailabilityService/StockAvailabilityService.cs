@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 
-// On-hand check in a cell: whether `qty` of `item` is available in
-// `cell` on the Stock register. Reused by Production/Sales before a write-off
-// strictly from the picking cell.
+// Проверка наличия остатка в ячейке: хватает ли `qty` товара `item` в ячейке
+// `cell` по регистру Stock. Переиспружется Production/Sales перед списанием строго
+// из ячейки отбора.
 public partial class StockAvailabilityService
 {
     private readonly ITotalsManager _totals;
@@ -16,16 +16,16 @@ public partial class StockAvailabilityService
         _totals = totals;
     }
 
-    /// <summary>Current on-hand of the item in the cell on Stock (0 if there is no row).</summary>
+    /// <summary>Текущий остаток товара в ячейке по регистру Stock (0, если строки нет).</summary>
     public async Task<decimal> OnHandAsync(Guid cell, Guid item)
     {
-        // A missing balance row is zero, not an error; the manager already
-        // treats it that way, so there is no null check here anymore.
+        // Отсутствующая строка остатка — это ноль, а не ошибка; менеджер трактует
+        // её так сам, поэтому проверки на null здесь больше нет.
         return await _totals.GetBalanceAsync("Stock", "Qty",
             new Dictionary<string, object?> { ["Item"] = item, ["Cell"] = cell });
     }
 
-    /// <summary>Whether the cell has enough on-hand for the required quantity.</summary>
+    /// <summary>Хватает ли остатка в ячейке под требуемое количество.</summary>
     public async Task<bool> HasSufficientStockAsync(Guid cell, Guid item, decimal qty)
         => await OnHandAsync(cell, item) >= qty;
 }
