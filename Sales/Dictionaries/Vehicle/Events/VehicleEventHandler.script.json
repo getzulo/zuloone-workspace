@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "Vehicle",
+    "objectMetaId": "5956ee6f-d3bc-416d-b155-1315728f9884",
+    "executionOrder": 0,
+    "metaId": "fd1973be-fc90-414d-9fde-dea1c1267c8f",
+    "name": "VehicleEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

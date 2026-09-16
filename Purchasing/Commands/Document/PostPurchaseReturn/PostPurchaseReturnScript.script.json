@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "PostPurchaseReturn",
+    "objectMetaId": "907ad297-4a7b-499e-b460-b59606313950",
+    "executionOrder": 0,
+    "metaId": "c46c6d29-ccb1-44b2-90ae-98ebe62847ce",
+    "name": "PostPurchaseReturnScript",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}

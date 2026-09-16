@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "UserCommand",
+    "objectType": "Command",
+    "objectName": "PlanDeliveryWave",
+    "objectMetaId": "a91c4e20-7d3b-4f18-9e6a-2c5d8b1f0473",
+    "executionOrder": 0,
+    "metaId": "b02d5f31-8e4c-4029-af7b-3d6e9c201584",
+    "name": "PlanDeliveryWaveScript",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

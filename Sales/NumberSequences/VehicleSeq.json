@@ -1,0 +1,13 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "nextValue": 1300,
+    "resetPolicy": "None",
+    "metaId": "7307595c-3aa6-4b8f-b22c-12effa7a8bcd",
+    "name": "VehicleSeq",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

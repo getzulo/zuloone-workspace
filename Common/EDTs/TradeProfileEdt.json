@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "description": "Tenant trade shape: full ERP or buy-sell without production",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "9e2c5a71-4b38-4d6f-9c1a-7e8f0d2b3c45",
+    "isRequired": false,
+    "metaId": "4d6e8f0a-2b3c-4d4e-bf50-6b7c8d9e0f13",
+    "name": "TradeProfileEdt",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "SalesContract",
+    "objectMetaId": "1bda6e1e-3ccc-4bf2-9996-59a0592466a3",
+    "executionOrder": 0,
+    "metaId": "fe612ce3-24d6-44a5-a7f3-6c08442235a7",
+    "name": "SalesContractEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

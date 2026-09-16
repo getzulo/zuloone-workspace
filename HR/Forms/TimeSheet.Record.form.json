@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":3,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Division\"},{\"type\":\"field\",\"name\":\"PeriodFrom\"},{\"type\":\"field\",\"name\":\"PeriodTo\"}]},{\"type\":\"tabs\",\"tabs\":[{\"key\":\"part:Days\"},{\"key\":\"part:Lines\"}]}]}",
+    "metaId": "82955819-08c5-43b4-bd2a-7b7e97741a38",
+    "name": "TimeSheet.Record",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

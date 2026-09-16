@@ -1,0 +1,39 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "Tenant trade shape. Zero is Unspecified so an empty field does not silently become BuySell on existing tenants.",
+    "isExtension": false,
+    "metaId": "9e2c5a71-4b38-4d6f-9c1a-7e8f0d2b3c45",
+    "name": "TradeProfile",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  },
+  "values": [
+    {
+      "enumMetaId": "9e2c5a71-4b38-4d6f-9c1a-7e8f0d2b3c45",
+      "value": 2,
+      "displayOrder": 2,
+      "description": "Buy and sell only. Production orders are refused.",
+      "metaId": "3c5d7e9f-1a2b-4c3d-ae4f-5a6b7c8d9e02",
+      "name": "BuySell",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "enumMetaId": "9e2c5a71-4b38-4d6f-9c1a-7e8f0d2b3c45",
+      "value": 1,
+      "displayOrder": 1,
+      "description": "Full ERP including production.",
+      "metaId": "2b4c6d8e-0f1a-4b2c-9d3e-4f5a6b7c8d91",
+      "name": "Full",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "enumMetaId": "9e2c5a71-4b38-4d6f-9c1a-7e8f0d2b3c45",
+      "value": 0,
+      "displayOrder": 0,
+      "description": "Not set. Must be zero: the generated enum is non-nullable. Behaves as Full.",
+      "metaId": "1a3b5c7d-9e0f-4a1b-8c2d-3e4f5a6b7c80",
+      "name": "Unspecified",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": "Purchase return",
+    "caption_ru": "Возврат поставщику",
+    "description": "Товар уходит обратно поставщику: склад −, кредиторка − (нетто). Входной НДС не сторнируется — отдельная кредит-нота закупки, её здесь нет.",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "c06c5f44-1e5c-434a-86e3-5a79cba11e7a",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:arrow-square-up-32",
+    "largeIconName": "fluent-color:arrow-square-up-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+    "name": "PurchaseReturn",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+      "fieldName": "ID",
+      "caption": "Number",
+      "caption_ar": "الرقم",
+      "caption_ru": "Номер",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "51a8be3c-10ca-4a43-af0f-9a63c7cda4d5",
+      "name": "ID",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+      "fieldName": "Location",
+      "caption": "Return from",
+      "caption_ru": "Ячейка возврата",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "b5619767-9bb4-4f80-8be7-3aa1f2efe8f1",
+      "name": "Location",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+      "fieldName": "OriginalOrder",
+      "caption": "Original order",
+      "caption_ru": "Исходный заказ",
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "845d416b-cd8d-45b0-b977-69f7ed327210",
+      "name": "OriginalOrder",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+      "fieldName": "Supplier",
+      "caption": "Supplier",
+      "caption_ru": "Поставщик",
+      "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "ea663439-5a5f-4643-9bf6-d2e4554badcf",
+      "name": "Supplier",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+      "name": "Posted",
+      "caption": "Posted",
+      "subtypeValue": "Posted",
+      "subtypeCaption": "Posted",
+      "subtypeCaption_ru": "Проведён",
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "b3887c15-7aa9-4d81-af3c-ff7277c4cea7",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+      "name": "Draft",
+      "caption": "Draft",
+      "subtypeValue": "Draft",
+      "subtypeCaption": "Draft",
+      "subtypeCaption_ru": "Черновик",
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "f0ca5af5-ed70-496a-b2b8-19abddeb33c9",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
+      "tablePartTypeMetaId": "29a67066-412c-4d57-ae75-22f47ac69ecc",
+      "isCloneable": true,
+      "metaId": "9c8c90b6-16e3-4199-9d21-e17932319225",
+      "name": "Lines",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "b3887c15-7aa9-4d81-af3c-ff7277c4cea7",
+      "scriptMetaId": "fbc2a59e-16f2-40f4-9995-ecbbf6f8ba09",
+      "executionOrder": 1,
+      "metaId": "9ee55ff3-87b9-41b1-b5b8-7729b356b6e8",
+      "name": "",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "subtypeMetaId": "b3887c15-7aa9-4d81-af3c-ff7277c4cea7",
+      "scriptMetaId": "704a21d8-7f8d-4665-a90c-8fe8d74c3613",
+      "executionOrder": 2,
+      "metaId": "39c0a838-7c90-40aa-83d1-751be90b8d08",
+      "name": "",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "f0ca5af5-ed70-496a-b2b8-19abddeb33c9",
+      "toSubtypeMetaId": "b3887c15-7aa9-4d81-af3c-ff7277c4cea7",
+      "metaId": "b6d41679-4629-4821-86ed-b575d9913713",
+      "name": "Draft->Posted",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ]
+}

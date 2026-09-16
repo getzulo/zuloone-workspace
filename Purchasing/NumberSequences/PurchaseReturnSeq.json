@@ -1,0 +1,13 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "nextValue": 1002,
+    "resetPolicy": "None",
+    "metaId": "c06c5f44-1e5c-434a-86e3-5a79cba11e7a",
+    "name": "PurchaseReturnSeq",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}
