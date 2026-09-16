@@ -32,12 +32,16 @@
     "(platform run 104, commit 3780ba76). Compiling this tree on .93 is CS0103",
     "in Common and TestBench, then DependencyFailed for everyone else.",
     "",
+    "TypedTablePartEventHandler arrived after 114 (platform run 120, live field",
+    "eval). Line handlers in this tree declare that base; compiling them on .114",
+    "is CS0246 in Accounting, then DependencyFailed for everyone else.",
+    "",
     "So the order is fixed and one-way: a platform that reads what CI writes",
     "reaches the registry FIRST, this pin moves to it SECOND, and only then may",
     "the tree change shape. Bumping this line before the platform exists ships",
     "an image whose tenants boot healthy with no business layer."
   ],
-  "platformImage": "localhost:5000/zuloone-core:2026.0.114",
+  "platformImage": "localhost:5000/zuloone-core:2026.0.120",
 
   "$comment_exclude": [
     "Models with NO bundle exported for them.",

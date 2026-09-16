@@ -82,7 +82,7 @@ docker exec "$PG" pg_isready -U ug -q
 # Re-probing costs nothing and removes the race; reporting the failure costs a
 # line and removes the guesswork.
 #
-# CoreDevelopmentMode matches the compile stand. The pin (2026.0.114) installs
+# CoreDevelopmentMode matches the compile stand. The pin (2026.0.120) installs
 # the tree under PlatformInstallScope, then backfills ID fields OUTSIDE it —
 # on a tenant that write is "Sales is a Zulo product model and is read-only"
 # and the process dies before /health. The first successful gate ran on an
