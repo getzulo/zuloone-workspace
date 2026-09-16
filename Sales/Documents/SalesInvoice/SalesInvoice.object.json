@@ -1,9 +1,9 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Sales invoice",
-    "caption_ar": "فاتورة مبيعات",
-    "caption_ru": "Счёт-фактура",
+    "caption": "Sales realization",
+    "caption_ar": "تحقيق المبيعات",
+    "caption_ru": "Реализация",
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "61c2bfe7-e9ee-44b8-93ce-2ebe8e55424d",
