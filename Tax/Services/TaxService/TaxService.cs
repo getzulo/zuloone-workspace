@@ -317,6 +317,56 @@ public partial class TaxService
         return calc.MetaId;
     }
 
+    /// <summary>
+    /// Same contour as <see cref="CreateCalculationAsync"/>, but the ledger
+    /// movement is negated: a credit note / purchase return must unwind the
+    /// original OUTPUT/INPUT, not post a second positive calculation.
+    /// </summary>
+    public async Task<Guid?> CreateReversalAsync(
+        Guid legalEntity, string directionCode, decimal taxBase, string reason,
+        DateTime? taxPointDate = null, Dictionary<string, object?>? context = null)
+    {
+        if (taxBase <= 0m || legalEntity == Guid.Empty) return null;
+
+        var already = await _documents.CountDocumentsAsync<TaxCalculation>(
+            $"DeterminationReason = '{reason.Replace("'", "''")}'");
+        if (already > 0) return null;
+
+        var taxPoint = (taxPointDate ?? DateTime.UtcNow).Date;
+        var matchedRule = context is null ? null : await ResolveRuleAsync(context, taxPoint);
+        var taxCode = matchedRule?.TaxCode ?? await ResolveDefaultTaxCodeAsync();
+        if (taxCode is null || taxCode == Guid.Empty) return null;
+
+        var rate = await RequireRateAsync(taxCode.Value, taxPoint);
+        var direction = (await _directions.GetRecordsAsync($"Code = '{directionCode}'")).FirstOrDefault();
+        if (direction is null) return null;
+
+        var le = await _legalEntities.GetRecordAsync(legalEntity);
+        if (le is null) return null;
+
+        var calc = await _documents.NewDocumentAsync<TaxCalculation>("Draft", new Dictionary<string, object?>
+        {
+            ["LegalEntity"] = le.MetaId,
+            ["Currency"] = le.Currency,
+            ["TaxPointDate"] = taxPoint,
+            ["DeterminationReason"] = reason,
+            ["MatchedRule"] = matchedRule?.MetaId,
+        });
+
+        calc.Lines.Add(new TaxCalculationLinesTablePartRow
+        {
+            Direction = direction.MetaId,
+            TaxCode = taxCode.Value,
+            RateValue = rate,
+            TaxBase = -taxBase,
+            TaxAmount = -CalculateTax(taxBase, rate),
+        });
+
+        await _documents.SaveDocumentAsync(calc);
+        await _posting.SetSubtypeAsync(TaxCalculationType, calc.MetaId, "Finalized");
+        return calc.MetaId;
+    }
+
     /// <summary>Tax amount = base × rate (fraction), rounded to money precision.</summary>
     public decimal CalculateTax(decimal baseAmount, decimal rate)
         => Math.Round(baseAmount * rate, GlobalConstants.Get<int?>("AmountScale") ?? 2, MidpointRounding.AwayFromZero);
