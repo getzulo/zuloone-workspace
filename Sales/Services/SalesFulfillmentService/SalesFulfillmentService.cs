@@ -196,15 +196,14 @@ public partial class SalesFulfillmentService
             if (order.Subtype == "Delivered" || order.Subtype == "Cancelled")
                 continue;
 
-            var outcome = (stop.Outcome ?? string.Empty).Trim();
-            if (string.Equals(outcome, "Refused", StringComparison.OrdinalIgnoreCase))
+            if (stop.Outcome == StopOutcome.Refused)
             {
                 if (order.Subtype == "Confirmed")
                     await _posting.SetSubtypeAsync(SalesOrderType, order.MetaId, "Cancelled");
                 continue;
             }
 
-            if (string.Equals(outcome, "Partial", StringComparison.OrdinalIgnoreCase)
+            if (stop.Outcome == StopOutcome.Partial
                 && stop.QtyShipped > 0m
                 && order.Lines.Count == 1)
             {
