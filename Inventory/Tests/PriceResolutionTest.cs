@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
@@ -793,4 +794,115 @@ public class PriceResolutionTest : IntegrationTestScriptBase
             s.Item, s.Piece, s.Customer, new DateTime(2026, 4, 1, 0, 0, 0));
         Assert.IsTrue(nextDay == null, "1 апреля уже вне окна, факт {0}", nextDay);
     }
+
+    [IntegrationTest("ResolveSaleAsync: явный тип договора важнее типа клиента")]
+    public async Task ResolveSaleUsesExplicitTypeNotCustomer()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        await PriceAsync(s, s.Piece, 110m);
+
+        var wholesale = DictionaryManager.NewRecord<PriceType>();
+        wholesale.Name = "Оптовая";
+        wholesale.Direction = PriceDirection.Sale;
+        wholesale = await DictionaryManager.SaveRecordAsync(wholesale);
+        await PriceAsync(s, s.Piece, 100m, list: wholesale.MetaId);
+
+        var byContract = await pricing.ResolveSaleAsync(
+            s.Item, s.Piece, s.Customer, March, wholesale.MetaId, 1m, null);
+        Assert.IsTrue(Dec(byContract, "Price") == 100m, "договорный тип 100, факт {0}", byContract["Price"]);
+        Assert.IsTrue((string)byContract["Source"]! == "PriceType", "источник PriceType, факт {0}", byContract["Source"]);
+
+        var byCustomer = await pricing.ResolveSaleAsync(
+            s.Item, s.Piece, s.Customer, March, Guid.Empty, 1m, null);
+        Assert.IsTrue(Dec(byCustomer, "Price") == 110m, "пустой тип → прайс клиента 110, факт {0}", byCustomer["Price"]);
+        Assert.IsTrue((string)byCustomer["Source"]! == "CustomerPriceType",
+            "источник CustomerPriceType, факт {0}", byCustomer["Source"]);
+        Assert.IsTrue(Dec(byCustomer, "Price") == await pricing.ResolveSalePriceAsync(s.Item, s.Piece, s.Customer, March),
+            "пустой тип обязан совпасть с ResolveSalePriceAsync");
+    }
+
+    [IntegrationTest("ResolveSaleAsync: цена товара по договору 90 при типе 100; ListPrice остаётся 100")]
+    public async Task ResolveSaleOverrideReplacesListAndKeepsListPrice()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        var wholesale = DictionaryManager.NewRecord<PriceType>();
+        wholesale.Name = "Оптовая";
+        wholesale.Direction = PriceDirection.Sale;
+        wholesale = await DictionaryManager.SaveRecordAsync(wholesale);
+        await PriceAsync(s, s.Piece, 100m, list: wholesale.MetaId);
+
+        var extras = new Dictionary<string, object?> { ["OverridePrice"] = 90m };
+        var result = await pricing.ResolveSaleAsync(
+            s.Item, s.Piece, s.Customer, March, wholesale.MetaId, 1m, extras);
+        Assert.IsTrue(Dec(result, "Price") == 90m, "override 90, факт {0}", result["Price"]);
+        Assert.IsTrue(Dec(result, "ListPrice") == 100m, "ListPrice 100, факт {0}", result["ListPrice"]);
+        Assert.IsTrue((string)result["Source"]! == "Override", "источник Override, факт {0}", result["Source"]);
+        Assert.IsTrue(((string)result["Explanation"]!).Contains("100.00")
+            && ((string)result["Explanation"]!).Contains("90.00"),
+            "пояснение содержит тип и override, факт: {0}", result["Explanation"]);
+    }
+
+    [IntegrationTest("ResolveSaleAsync: порог 100 шт 5% с 90 даёт 85.50; 99 шт остаются 90")]
+    public async Task ResolveSaleQtyBreakAppliesAtThreshold()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        var wholesale = DictionaryManager.NewRecord<PriceType>();
+        wholesale.Name = "Оптовая";
+        wholesale.Direction = PriceDirection.Sale;
+        wholesale = await DictionaryManager.SaveRecordAsync(wholesale);
+        await PriceAsync(s, s.Piece, 100m, list: wholesale.MetaId);
+
+        var extras = new Dictionary<string, object?>
+        {
+            ["OverridePrice"] = 90m,
+            ["QtyBreaks"] = new List<Dictionary<string, object?>>
+            {
+                new() { ["MinQty"] = 100m, ["DiscountPercent"] = 5m },
+            },
+        };
+
+        var at100 = await pricing.ResolveSaleAsync(
+            s.Item, s.Piece, s.Customer, March, wholesale.MetaId, 100m, extras);
+        Assert.IsTrue(Dec(at100, "Price") == 85.50m, "90 − 5% = 85.50, факт {0}", at100["Price"]);
+        Assert.IsTrue(Dec(at100, "QtyDiscountPercent") == 5m, "скидка 5, факт {0}", at100["QtyDiscountPercent"]);
+        var text = (string)at100["Explanation"]!;
+        Assert.IsTrue(text.Contains("Оптовая") && text.Contains("5%") && text.Contains("85.50"),
+            "пояснение: тип, 5% и итог, факт: {0}", text);
+
+        var at99 = await pricing.ResolveSaleAsync(
+            s.Item, s.Piece, s.Customer, March, wholesale.MetaId, 99m, extras);
+        Assert.IsTrue(Dec(at99, "Price") == 90m, "ниже порога остаётся 90, факт {0}", at99["Price"]);
+    }
+
+    [IntegrationTest("ResolveSaleAsync: порог товара прячет общий порог сделки")]
+    public async Task ResolveSaleItemBreakHidesBlanket()
+    {
+        var s = await SeedAsync();
+        var pricing = GetService<IPricingService>();
+        var wholesale = DictionaryManager.NewRecord<PriceType>();
+        wholesale.Name = "Оптовая";
+        wholesale.Direction = PriceDirection.Sale;
+        wholesale = await DictionaryManager.SaveRecordAsync(wholesale);
+        await PriceAsync(s, s.Piece, 100m, list: wholesale.MetaId);
+
+        var extras = new Dictionary<string, object?>
+        {
+            ["QtyBreaks"] = new List<Dictionary<string, object?>>
+            {
+                new() { ["Item"] = Guid.Empty, ["MinQty"] = 1m, ["DiscountPercent"] = 50m },
+                new() { ["Item"] = s.Item, ["MinQty"] = 1m, ["DiscountPercent"] = 5m },
+            },
+        };
+
+        var result = await pricing.ResolveSaleAsync(
+            s.Item, s.Piece, s.Customer, March, wholesale.MetaId, 1m, extras);
+        Assert.IsTrue(Dec(result, "Price") == 95m, "специфика товара 5%, не общий 50%, факт {0}", result["Price"]);
+        Assert.IsTrue(Dec(result, "QtyDiscountPercent") == 5m, "скидка 5, факт {0}", result["QtyDiscountPercent"]);
+    }
+
+    private static decimal Dec(Dictionary<string, object?> row, string key)
+        => Convert.ToDecimal(row[key]);
 }

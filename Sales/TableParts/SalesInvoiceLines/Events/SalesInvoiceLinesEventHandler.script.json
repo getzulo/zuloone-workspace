@@ -6,6 +6,7 @@
     "objectName": "SalesInvoiceLines",
     "objectMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
     "executionOrder": 0,
+    "developerComments": "Wave 1: draft price on live field + document save",
     "metaId": "10cc9a50-8e2a-4068-9f8f-a1d99b0b94f9",
     "name": "SalesInvoiceLinesEventHandler",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"

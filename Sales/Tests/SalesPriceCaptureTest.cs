@@ -7,7 +7,7 @@ using ZuloOne.Runtime.Generated;
 
 // Проведение счёта НЕ пишет историю цен. Захват — явный вызов сервиса
 // (Inventory/Tests/PriceCaptureTest), не побочный эффект Issued.
-public class PriceCaptureTest : IntegrationTestScriptBase
+public class SalesPriceCaptureTest : IntegrationTestScriptBase
 {
     private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
     private static IDocumentManager DocumentManager => GetService<IDocumentManager>();

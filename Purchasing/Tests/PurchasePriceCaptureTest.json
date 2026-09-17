@@ -7,7 +7,7 @@
     "groupName": "Бизнес-слой.Товародвижение",
     "isExtension": false,
     "metaId": "fc50c3f9-812f-4114-b02a-ebcf397e4ed6",
-    "name": "PriceCaptureTest",
+    "name": "PurchasePriceCaptureTest",
     "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
   }
 }

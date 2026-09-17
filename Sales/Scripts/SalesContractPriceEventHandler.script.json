@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "LinkTable",
+    "objectName": "LT_SalesContractPrice",
+    "objectMetaId": "a2872425-6cb9-46cf-9766-efdac89cec77",
+    "executionOrder": 0,
+    "metaId": "059cfcf2-b245-43d6-9942-1cc8facfe6fd",
+    "name": "SalesContractPriceEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

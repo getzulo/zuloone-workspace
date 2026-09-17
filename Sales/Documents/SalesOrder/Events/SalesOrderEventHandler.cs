@@ -1,4 +1,5 @@
 #nullable enable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZuloOne.Managers;
@@ -49,7 +50,32 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
             }
         }
 
+        await PriceDraftLinesAsync(header, context);
         return EventResult.Ok();
+    }
+
+    private static bool IsDraft(string? subtype)
+        => string.IsNullOrEmpty(subtype)
+           || string.Equals(subtype, "Draft", StringComparison.Ordinal);
+
+    private static async Task PriceDraftLinesAsync(SalesOrder header, EventContext context)
+    {
+        if (!IsDraft(header.Subtype) || header.Lines == null || header.Lines.Count == 0)
+            return;
+        var fill = context.GetService<ISalesLinePricing>();
+        var onDate = header.DeliveryDate != default ? header.DeliveryDate : DateTime.UtcNow;
+        foreach (var line in header.Lines)
+        {
+            var applied = await fill.ApplyFieldAsync(
+                line.Unit == Guid.Empty ? "Item" : "Quantity",
+                line.Item, line.Unit, line.Quantity, line.UnitPrice, line.PriceExplanation,
+                header.Customer, header.Contract, onDate);
+            if (applied.TryGetValue("Unit", out var u) && u is Guid unit) line.Unit = unit;
+            if (applied.TryGetValue("Quantity", out var q) && q != null) line.Quantity = Convert.ToDecimal(q);
+            if (applied.TryGetValue("UnitPrice", out var p) && p != null) line.UnitPrice = Convert.ToDecimal(p);
+            if (applied.TryGetValue("PriceExplanation", out var e))
+                line.PriceExplanation = e as string ?? "";
+        }
     }
 
     // SetSubtype / a dirty-field save send a partial header. Empty Guid here

@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Подбор цены строки продажи: договор → extras → IPricingService.ResolveSaleAsync, запись UnitPrice и PriceExplanation.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "b55e285a-c819-4e91-bab0-512df737e130",
+    "metaId": "85a2fd54-5874-46e0-8802-fc82ca41f92a",
+    "name": "SalesLinePricing",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

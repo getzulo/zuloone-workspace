@@ -81,7 +81,34 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
             }
         }
 
+        await PriceDraftLinesAsync(header, context);
         return EventResult.Ok();
+    }
+
+    private static bool IsDraft(string? subtype)
+        => string.IsNullOrEmpty(subtype)
+           || string.Equals(subtype, "Draft", StringComparison.Ordinal);
+
+    // Table-part persist hooks do not see the header, so contract type would
+    // fall through to the customer. Draft save is the place that has both.
+    private static async Task PriceDraftLinesAsync(SalesRealization header, EventContext context)
+    {
+        if (!IsDraft(header.Subtype) || header.Lines == null || header.Lines.Count == 0)
+            return;
+        var fill = context.GetService<ISalesLinePricing>();
+        var onDate = header.DocumentDate != default ? header.DocumentDate : DateTime.UtcNow;
+        foreach (var line in header.Lines)
+        {
+            var applied = await fill.ApplyFieldAsync(
+                line.Unit == Guid.Empty ? "Item" : "Quantity",
+                line.Item, line.Unit, line.Quantity, line.UnitPrice, line.PriceExplanation,
+                header.Customer, header.Contract, onDate);
+            if (applied.TryGetValue("Unit", out var u) && u is Guid unit) line.Unit = unit;
+            if (applied.TryGetValue("Quantity", out var q) && q != null) line.Quantity = Convert.ToDecimal(q);
+            if (applied.TryGetValue("UnitPrice", out var p) && p != null) line.UnitPrice = Convert.ToDecimal(p);
+            if (applied.TryGetValue("PriceExplanation", out var e))
+                line.PriceExplanation = e as string ?? "";
+        }
     }
 
     private static async Task MergeStoredHeaderAsync(SalesRealization header, EventContext context)

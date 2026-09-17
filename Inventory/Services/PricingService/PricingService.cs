@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
@@ -60,6 +62,73 @@ public partial class PricingService
     /// <summary>Цена ровно этого типа, без умолчания карточки. Нет цены — null.</summary>
     public Task<decimal?> ResolveForTypeAsync(Guid item, Guid unit, Guid priceType, DateTime onDate)
         => ResolvePriceForTypeAsync(item, unit, priceType, onDate.Date, depth: 0);
+
+    /// <summary>Продажа: тип (договор или клиент) → overlays сделки → одна строка
+    /// «откуда цена». Inventory не знает SalesContract: overlays приходят числами.</summary>
+    public async Task<Dictionary<string, object?>> ResolveSaleAsync(
+        Guid item, Guid unit, Guid? customer, DateTime onDate,
+        Guid priceType, decimal quantity,
+        Dictionary<string, object?>? extras)
+    {
+        extras ??= new Dictionary<string, object?>();
+        var day = onDate.Date;
+        string? typeName = null;
+        var source = "None";
+        decimal? list = null;
+
+        if (priceType != Guid.Empty)
+        {
+            var type = await _types.GetRecordAsync(priceType);
+            typeName = type?.Name;
+            list = await ResolvePriceForTypeAsync(item, unit, priceType, day, 0);
+            if (list != null) source = "PriceType";
+        }
+        else
+        {
+            var customerType = await PriceTypeOfAsync(customer, sale: true);
+            if (customerType is Guid ct)
+            {
+                var type = await _types.GetRecordAsync(ct);
+                typeName = type?.Name;
+                list = await ResolvePriceForTypeAsync(item, unit, ct, day, 0);
+                if (list != null) source = "CustomerPriceType";
+            }
+        }
+
+        if (list == null)
+        {
+            var card = await ResolveAsync(item, unit, null, day, sale: true);
+            if (card != null)
+            {
+                list = card;
+                source = "ItemDefault";
+            }
+        }
+
+        decimal? overlay = null;
+        if (extras.TryGetValue("OverridePrice", out var ov) && ov != null)
+        {
+            var n = Convert.ToDecimal(ov, CultureInfo.InvariantCulture);
+            if (n > 0m) overlay = n;
+        }
+
+        var brk = PickQtyBreak(item, quantity, extras);
+        var working = overlay ?? list;
+        if (working == null)
+            return PackSale(null, "None", "Цена не задана", list, null);
+
+        var scale = GlobalConstants.Get<int?>("AmountScale") ?? 2;
+        var final = working.Value;
+        if (brk is { Percent: var pct } && pct > 0m)
+            final = working.Value * (1m - pct / 100m);
+        final = Math.Round(final, scale, MidpointRounding.AwayFromZero);
+
+        if (overlay != null) source = "Override";
+
+        return PackSale(final, source,
+            FormatSaleExplanation(source, typeName, list, overlay, brk, final),
+            list, brk?.Percent);
+    }
 
     /// <summary>Ручная/загрузка. Те же проверки, что при сохранении строки.</summary>
     public async Task<Guid> SetPriceAsync(
@@ -319,6 +388,105 @@ public partial class PricingService
     private static bool WindowsOverlap(DateTime? aFrom, DateTime? aTo, DateTime? bFrom, DateTime? bTo)
         => (aFrom?.Date ?? DateTime.MinValue.Date) <= (bTo?.Date ?? DateTime.MaxValue.Date)
         && (bFrom?.Date ?? DateTime.MinValue.Date) <= (aTo?.Date ?? DateTime.MaxValue.Date);
+
+    private static (decimal Percent, decimal MinQty)? PickQtyBreak(
+        Guid item, decimal quantity, Dictionary<string, object?> extras)
+    {
+        if (!extras.TryGetValue("QtyBreaks", out var raw) || raw == null)
+            return null;
+
+        var rows = new List<(Guid Item, decimal MinQty, decimal Percent)>();
+        foreach (var row in EnumerateBreakRows(raw))
+        {
+            var min = DecimalOf(row, "MinQty");
+            var pct = DecimalOf(row, "DiscountPercent");
+            if (min is not decimal minQty || minQty <= 0m) continue;
+            if (pct is not decimal percent || percent < 0m || percent > 100m) continue;
+            if (quantity < minQty) continue;
+            rows.Add((GuidOf(row, "Item"), minQty, percent));
+        }
+        if (rows.Count == 0) return null;
+
+        var specific = rows.Where(r => r.Item == item && item != Guid.Empty).ToList();
+        var pool = specific.Count > 0 ? specific : rows.Where(r => r.Item == Guid.Empty).ToList();
+        if (pool.Count == 0) return null;
+
+        var best = pool.OrderByDescending(r => r.MinQty).First();
+        return (best.Percent, best.MinQty);
+    }
+
+    private static IEnumerable<Dictionary<string, object?>> EnumerateBreakRows(object raw)
+    {
+        if (raw is Dictionary<string, object?> one)
+        {
+            yield return one;
+            yield break;
+        }
+
+        if (raw is not IEnumerable seq || raw is string) yield break;
+        foreach (var item in seq)
+        {
+            if (item is Dictionary<string, object?> dict)
+                yield return dict;
+            else if (item is IDictionary map)
+            {
+                var copy = new Dictionary<string, object?>(StringComparer.OrdinalIgnoreCase);
+                foreach (DictionaryEntry e in map)
+                    copy[e.Key?.ToString() ?? ""] = e.Value;
+                yield return copy;
+            }
+        }
+    }
+
+    private static decimal? DecimalOf(Dictionary<string, object?> row, string key)
+    {
+        if (!row.TryGetValue(key, out var v) || v == null) return null;
+        try { return Convert.ToDecimal(v, CultureInfo.InvariantCulture); }
+        catch { return null; }
+    }
+
+    private static Guid GuidOf(Dictionary<string, object?> row, string key)
+    {
+        if (!row.TryGetValue(key, out var v) || v == null) return Guid.Empty;
+        if (v is Guid g) return g;
+        return Guid.TryParse(v.ToString(), out var parsed) ? parsed : Guid.Empty;
+    }
+
+    private static Dictionary<string, object?> PackSale(
+        decimal? price, string source, string explanation, decimal? list, decimal? qtyDiscount)
+        => new()
+        {
+            ["Price"] = price,
+            ["Source"] = source,
+            ["Explanation"] = explanation,
+            ["ListPrice"] = list,
+            ["QtyDiscountPercent"] = qtyDiscount,
+        };
+
+    private static string FormatSaleExplanation(
+        string source, string? typeName, decimal? list, decimal? overlay,
+        (decimal Percent, decimal MinQty)? brk, decimal final)
+    {
+        var type = string.IsNullOrWhiteSpace(typeName) ? "тип цен" : typeName;
+        string head;
+        if (source == "Override" && list != null && overlay != null && brk == null)
+            head = $"Договор: тип «{type}» {Money(list.Value)}; цена товара по договору {Money(overlay.Value)}";
+        else if (source is "PriceType" or "Override")
+            head = $"Договор: тип «{type}» {Money(overlay ?? list ?? final)}";
+        else if (source == "CustomerPriceType")
+            head = $"Тип цен клиента «{type}» → {Money(overlay ?? list ?? final)}";
+        else if (source == "ItemDefault")
+            head = $"Умолчание карточки → {Money(overlay ?? list ?? final)}";
+        else
+            head = "Цена не задана";
+
+        if (brk is { Percent: var pct, MinQty: var min } && pct > 0m)
+            head += $"; скидка за {min:0} шт {pct:0.##}%; итог {Money(final)}";
+        return head;
+    }
+
+    private static string Money(decimal value)
+        => value.ToString("0.00", CultureInfo.InvariantCulture);
 
     private static async Task<decimal?> ConvertPriceAsync(Guid item, decimal price, Guid fromUnit, Guid toUnit)
     {

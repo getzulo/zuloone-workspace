@@ -7,7 +7,7 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.12.0",
+    "modelVersion": "1.13.1",
     "metaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "name": "Sales",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -28,7 +28,7 @@
     },
     {
       "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "minVersion": "1.0.0",
+      "minVersion": "1.8.0",
       "metaId": "63123de8-8665-4c29-bd4a-6ef1223fb19f",
       "name": "Sales->Inventory"
     },
