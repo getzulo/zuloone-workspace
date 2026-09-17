@@ -97,6 +97,10 @@ jobs:
         shell: bash
         run: python3 .github/scripts/check_model_deps.py
 
+      - name: Script envelopes must name the object they point at
+        shell: bash
+        run: python3 .github/scripts/check_script_bindings.py
+
       - name: A release must change something
         if: steps.ver.outputs.release == 'true'
         shell: bash
