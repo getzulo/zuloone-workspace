@@ -3,7 +3,6 @@
   "object": {
     "caption": "CommandButtons",
     "widgetType": "command-buttons",
-    "configJson": "{\"chrome\":{\"showTitle\":true,\"title\":\"\",\"density\":\"comfortable\"},\"desktop\":{},\"form\":{\"commandMetaIds\":[\"cc3226f5-7b55-48b0-8c4c-19cba6437933\"]}}",
     "width": 4,
     "height": 4,
     "surface": "form",

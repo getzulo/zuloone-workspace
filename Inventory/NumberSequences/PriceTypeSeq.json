@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1102,
+    "nextValue": 1176,
     "resetPolicy": "None",
     "metaId": "2ab9c0ec-b21c-47fb-8443-935a5d21dd36",
     "name": "PriceTypeSeq",

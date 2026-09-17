@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1001,
+    "nextValue": 1007,
     "resetPolicy": "None",
     "metaId": "57100204-0000-4000-8000-000000000000",
     "name": "StockCountSeq",

@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1012,
+    "nextValue": 1016,
     "resetPolicy": "None",
     "metaId": "7f0a5c43-9b8d-4e2f-8a3c-4d7e8f5b1c60",
     "name": "LoyaltyRedemptionSeq",

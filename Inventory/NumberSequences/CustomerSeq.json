@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1650,
+    "nextValue": 1794,
     "resetPolicy": "None",
     "metaId": "bda2a06d-895b-486b-9787-b435ccf9e006",
     "name": "CustomerSeq",

@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1006,
+    "nextValue": 1015,
     "resetPolicy": "None",
     "metaId": "a81c3e70-4d2f-4b91-9e6a-2c5f8d0b1a47",
     "name": "TaxSubmissionSeq",

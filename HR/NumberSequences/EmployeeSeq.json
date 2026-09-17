@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1059,
+    "nextValue": 1087,
     "resetPolicy": "None",
     "metaId": "6baabe10-39e3-4f74-9c90-dc23aff9b396",
     "name": "EmployeeSeq",

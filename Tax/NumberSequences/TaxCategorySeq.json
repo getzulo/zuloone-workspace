@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1162,
+    "nextValue": 1234,
     "resetPolicy": "None",
     "metaId": "e5bfd88a-d896-4853-9eb0-fe57a9b0264f",
     "name": "TaxCategorySeq",

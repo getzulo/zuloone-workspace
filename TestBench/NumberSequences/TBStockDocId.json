@@ -6,7 +6,7 @@
     "padLength": 6,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 1,
+    "nextValue": 32,
     "resetPolicy": "None",
     "metaId": "b7bf4172-a42d-4741-a6d4-d8d09aafc5b0",
     "name": "TBStockDocId",

@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1006,
+    "nextValue": 1007,
     "resetPolicy": "None",
     "metaId": "86655a91-5aeb-4d64-814e-5827ed01b2b9",
     "name": "TimeOffSeq",

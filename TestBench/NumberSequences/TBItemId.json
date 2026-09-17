@@ -6,7 +6,7 @@
     "padLength": 6,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 1,
+    "nextValue": 8,
     "resetPolicy": "None",
     "metaId": "36290921-5416-478b-adda-6503ac7fafd9",
     "name": "TBItemId",

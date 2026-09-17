@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1036,
+    "nextValue": 1060,
     "resetPolicy": "None",
     "metaId": "32f38bfa-eecb-4ed9-be85-08070381dc84",
     "name": "PositionSeq",

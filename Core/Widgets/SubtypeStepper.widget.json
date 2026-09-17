@@ -3,8 +3,7 @@
   "object": {
     "caption": "SubtypeStepper",
     "widgetType": "subtype-stepper",
-    "configJson": "{\"chrome\":{\"showTitle\":true,\"title\":\"\",\"density\":\"comfortable\"},\"desktop\":{},\"form\":{}}",
-    "width": 2,
+    "width": 4,
     "height": 4,
     "surface": "form",
     "metaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a105",

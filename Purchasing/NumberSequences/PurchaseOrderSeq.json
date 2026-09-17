@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1059,
+    "nextValue": 1121,
     "resetPolicy": "None",
     "metaId": "d32cc2dd-2d6f-4d83-9be9-a0bb6ce0cb0b",
     "name": "PurchaseOrderSeq",

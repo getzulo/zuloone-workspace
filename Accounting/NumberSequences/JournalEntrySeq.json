@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1104,
+    "nextValue": 1142,
     "resetPolicy": "None",
     "metaId": "7fb35a80-4de3-4f0f-8d3a-32802c834366",
     "name": "JournalEntrySeq",

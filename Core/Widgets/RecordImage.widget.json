@@ -3,7 +3,6 @@
   "object": {
     "caption": "RecordImage",
     "widgetType": "record-image",
-    "configJson": "{\"chrome\":{\"showTitle\":true,\"title\":\"\",\"density\":\"comfortable\"},\"desktop\":{},\"form\":{}}",
     "width": 4,
     "height": 4,
     "surface": "form",
