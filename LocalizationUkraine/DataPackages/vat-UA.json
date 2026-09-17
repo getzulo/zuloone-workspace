@@ -1,0 +1,138 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "vat-UA",
+    "entities": [
+      {
+        "entity": "TaxAuthority",
+        "table": "TaxAuthority",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "TaxJurisdiction",
+        "table": "TaxJurisdiction",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "TaxRate",
+        "table": "TaxRate",
+        "kind": "Dictionary",
+        "businessKey": ["Tax", "Code"],
+        "mode": "insert",
+        "rowCount": 2
+      },
+      {
+        "entity": "TaxCode",
+        "table": "TaxCode",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 4
+      }
+    ]
+  },
+  "data": {
+    "TaxAuthority": [
+      {
+        "Code": "DPS",
+        "Name": "State Tax Service of Ukraine",
+        "CountryCode": "UA",
+        "IsActive": true,
+        "Name_ru": "Государственная налоговая служба Украины",
+        "Name_uk": "Державна податкова служба України"
+      }
+    ],
+    "TaxJurisdiction": [
+      {
+        "Code": "UA",
+        "Name": "Ukraine",
+        "CountryCode": "UA",
+        "Level": 0,
+        "Name_ru": "Украина",
+        "Name_uk": "Україна"
+      }
+    ],
+    "TaxRate": [
+      {
+        "Code": "VAT20",
+        "Rate": 0.20,
+        "EffectiveFrom": "2014-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+      },
+      {
+        "Code": "VAT7",
+        "Rate": 0.07,
+        "EffectiveFrom": "2014-04-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+      }
+    ],
+    "TaxCode": [
+      {
+        "Code": "UA-S",
+        "Name": "Standard 20% (Ukraine)",
+        "EffectiveFrom": "2014-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "STANDARD",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Стандарт 20% (Украина)",
+        "Name_uk": "Стандарт 20% (Україна)"
+      },
+      {
+        "Code": "UA-7",
+        "Name": "Reduced 7% (Ukraine)",
+        "EffectiveFrom": "2014-04-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "STANDARD",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Пониженная 7% (Украина)",
+        "Name_uk": "Знижена 7% (Україна)"
+      },
+      {
+        "Code": "UA-Z",
+        "Name": "Zero-rated (Ukraine)",
+        "EffectiveFrom": "2014-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "ZERO_RATED",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Нулевая ставка (Украина)",
+        "Name_uk": "Нульова ставка (Україна)"
+      },
+      {
+        "Code": "UA-E",
+        "Name": "Exempt (Ukraine)",
+        "EffectiveFrom": "2014-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EXEMPT",
+            "Tax": { "$ref": "Tax", "key": { "Code": "VAT" } }
+          }
+        },
+        "Name_ru": "Освобождён (Украина)",
+        "Name_uk": "Звільнено (Україна)"
+      }
+    ]
+  }
+}

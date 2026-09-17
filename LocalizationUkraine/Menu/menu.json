@@ -1,0 +1,66 @@
+{
+  "kind": "Menu",
+  "items": [
+    {
+      "caption": "Ukraine",
+      "caption_ru": "Украина",
+      "caption_uk": "Україна",
+      "displayOrder": 12,
+      "icon": "fluent-color:building-government-32",
+      "targetType": "Group",
+      "metaId": "b9b14276-a8a9-400a-beb2-a01c58334a14",
+      "name": "Ukraine",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": "Registers",
+      "caption_ru": "Итоги",
+      "caption_uk": "Підсумки",
+      "parentMetaId": "b9b14276-a8a9-400a-beb2-a01c58334a14",
+      "displayOrder": 0,
+      "icon": "fluent-color:table-48",
+      "targetType": "Group",
+      "metaId": "cddd5022-8771-48f0-a706-6fc04e1ceded",
+      "name": "Registers",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": "Settings",
+      "caption_ru": "Настройки",
+      "caption_uk": "Налаштування",
+      "parentMetaId": "b9b14276-a8a9-400a-beb2-a01c58334a14",
+      "displayOrder": 1,
+      "icon": "fluent-color:settings-48",
+      "targetType": "Group",
+      "metaId": "d6c936fa-5987-4df4-8031-162b451b174f",
+      "name": "Settings",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": "Ukraine settings",
+      "caption_ru": "Настройки Украины",
+      "caption_uk": "Налаштування України",
+      "parentMetaId": "d6c936fa-5987-4df4-8031-162b451b174f",
+      "displayOrder": 0,
+      "icon": "fluent-color:building-government-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "metaId": "7f834b73-0f50-4016-9376-695a8abe696b",
+      "name": "LocalizationUkraineSettings",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": "Ukraine VAT payable",
+      "caption_ru": "ПДВ к уплате",
+      "caption_uk": "ПДВ до сплати",
+      "parentMetaId": "cddd5022-8771-48f0-a706-6fc04e1ceded",
+      "displayOrder": 0,
+      "icon": "fluent-color:receipt-32",
+      "targetType": "Register",
+      "targetMetaId": "653951ac-f10e-48fd-bf25-35b538352422",
+      "metaId": "935e9b27-f079-4ed0-9bec-465fff3641ff",
+      "name": "UaVatPayable",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

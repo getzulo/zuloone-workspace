@@ -1,0 +1,13 @@
+[
+  {
+    "id": "vat-UA",
+    "file": "vat-UA.json",
+    "caption": "Ukraine VAT (PDV)",
+    "captionRu": "НДС Украины (ПДВ)",
+    "caption_ru": "НДС Украины (ПДВ)",
+    "caption_uk": "ПДВ України",
+    "when": "country",
+    "country": "UA",
+    "sort": 26
+  }
+]

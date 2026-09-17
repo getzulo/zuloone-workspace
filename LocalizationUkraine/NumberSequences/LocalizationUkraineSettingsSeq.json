@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "0aaba3eb-954f-441e-a154-70d5f26a154e",
+    "name": "LocalizationUkraineSettingsSeq",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

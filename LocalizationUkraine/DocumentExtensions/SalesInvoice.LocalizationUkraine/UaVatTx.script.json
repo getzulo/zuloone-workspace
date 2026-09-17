@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "63f686d8-1dd7-486e-ab46-5fabfd9a1c92",
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "SalesRealization",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "executionOrder": 7,
+    "metaId": "291b0afe-1c2e-4611-8b07-58f26b7f8646",
+    "name": "UaVatTx",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

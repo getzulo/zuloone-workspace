@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "370f48e1-19ed-4bca-a463-0b7f1ed115c3",
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "SalesCreditNote",
+    "objectMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
+    "executionOrder": 3,
+    "metaId": "d57fbcd9-e064-4f89-89d7-18d2d6025a7f",
+    "name": "UaCreditVatTx",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

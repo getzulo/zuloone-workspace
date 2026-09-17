@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "LocalizationUkraineSettings",
+    "objectMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+    "executionOrder": 0,
+    "metaId": "ad9b47cb-cc4c-4632-aadf-f9e77f561502",
+    "name": "LocalizationUkraineSettingsEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

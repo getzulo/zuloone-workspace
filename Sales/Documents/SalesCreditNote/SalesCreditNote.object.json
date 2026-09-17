@@ -196,6 +196,14 @@
       "metaId": "9ec99853-fdb3-4053-b118-1db91d998d42",
       "name": "",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "subtypeMetaId": "615d7027-6869-4f85-a4f4-5ebea5ae8aac",
+      "scriptMetaId": "d57fbcd9-e064-4f89-89d7-18d2d6025a7f",
+      "executionOrder": 3,
+      "metaId": "c426ebf1-9355-44c2-9fe2-6ae66af4a111",
+      "name": "PostedTx",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ],
   "subtypeTransitions": [

@@ -1,0 +1,36 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Локализация Украина: НДС (ПДВ) на продажах, регистр UaVatPayable",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "1d269769-c682-4655-be04-4e00fd39eb08",
+    "name": "LocalizationUkraine",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 3
+  },
+  "dependencies": [
+    {
+      "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "minVersion": "1.8.0",
+      "metaId": "7461653f-3f84-41db-8af7-ef301b2b0e21",
+      "name": "LocalizationUkraine->Inventory"
+    },
+    {
+      "dependsOnModelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "minVersion": "1.13.1",
+      "metaId": "f9318f4f-c381-4f46-ab5a-06bf43eff5e7",
+      "name": "LocalizationUkraine->Sales"
+    },
+    {
+      "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "minVersion": "1.0.0",
+      "metaId": "40747c2f-33aa-4064-9b48-1424c86704bd",
+      "name": "LocalizationUkraine->Tax"
+    }
+  ]
+}
