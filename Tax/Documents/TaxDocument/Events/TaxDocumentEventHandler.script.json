@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "TaxDocument",
+    "objectMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
+    "executionOrder": 0,
+    "metaId": "fc9b598b-98b3-4829-9d4f-dd354a7e844a",
+    "developerComments": "EInvoiceKind — not DocumentType (system guid).",
+    "name": "TaxDocumentEventHandler",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

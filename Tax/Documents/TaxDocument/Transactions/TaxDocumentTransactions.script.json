@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "TaxDocument",
+    "objectMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
+    "executionOrder": 0,
+    "metaId": "fb126276-4e88-4c7a-b5e7-a8c144bc0caf",
+    "name": "TaxDocumentTransactions",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

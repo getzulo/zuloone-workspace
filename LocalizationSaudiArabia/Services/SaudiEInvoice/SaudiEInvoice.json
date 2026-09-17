@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Enqueue a TaxDocument for a Saudi issued invoice or posted credit note. Mock submit only; no HTTPS.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "92d0cc88-27ca-4329-8c1a-97bef6d6abc7",
+    "metaId": "6053dac7-2049-4dcd-a898-14afe6da5df0",
+    "name": "SaudiEInvoice",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

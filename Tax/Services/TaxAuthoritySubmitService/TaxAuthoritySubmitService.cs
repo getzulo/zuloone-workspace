@@ -29,6 +29,14 @@ public partial class TaxAuthoritySubmitService
             return doc?.LegalEntity ?? Guid.Empty;
         });
 
+    /// <summary>File an e-invoice envelope (TaxDocument). Mock only; the host connector replaces this later.</summary>
+    public Task<string> SubmitDocumentAsync(Guid taxDocumentId)
+        => SubmitAsync("EINVOICE", taxDocumentId, async () =>
+        {
+            var doc = await ScriptServices.Get<IDocumentManager>().GetDocumentAsync<TaxDocument>(taxDocumentId);
+            return doc?.LegalEntity ?? Guid.Empty;
+        });
+
     private async Task<string> SubmitAsync(string kind, Guid sourceId, Func<Task<Guid>> legalEntity)
     {
         var le = Guid.Empty;
