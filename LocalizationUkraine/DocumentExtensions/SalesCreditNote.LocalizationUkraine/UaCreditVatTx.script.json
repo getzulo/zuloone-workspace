@@ -8,6 +8,7 @@
     "objectMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
     "executionOrder": 3,
     "metaId": "d57fbcd9-e064-4f89-89d7-18d2d6025a7f",
+    "developerComments": "Stamp document.Outlet — contracts belong to CustomerOutlet.",
     "name": "UaCreditVatTx",
     "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
   }

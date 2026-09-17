@@ -17,6 +17,8 @@ public class UkraineVatFlowTest : IntegrationTestScriptBase
     {
         public Guid Location;
         public Guid Item;
+        public Guid LegalEntity;
+        public Guid Currency;
         public Guid Customer;
         public Guid Outlet;
         public Guid Contract;
@@ -129,6 +131,8 @@ public class UkraineVatFlowTest : IntegrationTestScriptBase
         {
             Location = cell.MetaId,
             Item = item.MetaId,
+            LegalEntity = legalEntity.MetaId,
+            Currency = currency.MetaId,
             Customer = customer.MetaId,
             Outlet = outlet.MetaId,
             Contract = contract.MetaId,
@@ -209,9 +213,13 @@ public class UkraineVatFlowTest : IntegrationTestScriptBase
         await DictionaryManager.SaveRecordAsync(settings);
     }
 
-    private static Task<decimal> VatAsync(Setup s)
+    private static Task<decimal> VatAsync(Setup s, Guid? outlet = null)
         => TotalsManager.GetBalanceAsync("UaVatPayable", "Amount",
-            new Dictionary<string, object?> { ["Customer"] = s.Customer });
+            new Dictionary<string, object?>
+            {
+                ["Customer"] = s.Customer,
+                ["CustomerOutlet"] = outlet ?? s.Outlet,
+            });
 
     private async Task StockAsync(Setup s)
         => await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
@@ -296,5 +304,45 @@ public class UkraineVatFlowTest : IntegrationTestScriptBase
         var run = await Db.ExecuteDocumentCommandAsync(commandId, note.MetaId);
         Assert.IsTrue(run.Success, "PostSalesCreditNote: {0}", run.Message ?? "");
         Assert.IsTrue(await VatAsync(s) == 0m, "после кредит-ноты ПДВ 0, факт {0}", await VatAsync(s));
+    }
+
+    [IntegrationTest("ПДВ разных торговых точек одного клиента не смешивается")]
+    public async Task OutletSliceIsolated()
+    {
+        var s = await SetupAsync();
+        await StockAsync(s);
+
+        var shopB = DictionaryManager.NewRecord<CustomerOutlet>();
+        shopB.Name = "Shop B";
+        shopB.Customer = s.Customer;
+        shopB = await DictionaryManager.SaveRecordAsync(shopB);
+
+        var contractB = DictionaryManager.NewRecord<SalesContract>();
+        contractB.Name = "UA-SHOP-B";
+        contractB.Outlet = shopB.MetaId;
+        contractB.Currency = s.Currency;
+        contractB.SettlementKind = SettlementKind.Credit;
+        contractB.EffectiveFrom = new DateTime(2020, 1, 1);
+        contractB.LegalEntity = s.LegalEntity;
+        contractB = await DictionaryManager.SaveRecordAsync(contractB);
+
+        await IssueAsync(s, 10m, 10m);
+
+        var b = new Setup
+        {
+            Location = s.Location,
+            Item = s.Item,
+            LegalEntity = s.LegalEntity,
+            Currency = s.Currency,
+            Customer = s.Customer,
+            Outlet = shopB.MetaId,
+            Contract = contractB.MetaId,
+        };
+        await IssueAsync(b, 5m, 10m);
+
+        Assert.IsTrue(await VatAsync(s) == 20m, "точка A: 20, факт {0}", await VatAsync(s));
+        Assert.IsTrue(await VatAsync(b) == 10m, "точка B: 10, факт {0}", await VatAsync(b));
+        Assert.IsTrue(await VatAsync(s, shopB.MetaId) == 10m,
+            "срез точки B по guid: 10, факт {0}", await VatAsync(s, shopB.MetaId));
     }
 }

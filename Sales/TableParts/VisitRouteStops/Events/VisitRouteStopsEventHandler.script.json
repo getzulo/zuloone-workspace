@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "VisitRouteStops",
+    "objectMetaId": "12c3a5b9-f6d4-478a-9b50-a48796e2d3ca",
+    "executionOrder": 0,
+    "metaId": "6718fc30-4b29-4cf1-80a5-f9dd5d593931",
+    "name": "VisitRouteStopsEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
+    "description": "Assign the field sales person who owns this customer on mobile.",
+    "metaId": "de8f6297-b290-4368-f71c-604464c0a0a8",
+    "name": "Customer.Sales",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
+      "extensionMetaId": "de8f6297-b290-4368-f71c-604464c0a0a8",
+      "fieldName": "SalesPerson",
+      "name": "SalesPerson",
+      "caption": "Sales person",
+      "caption_ru": "Агент",
+      "edtMetaId": "735f03b4-f08e-4cf4-ac2c-52a065210a96",
+      "displayOrder": 50,
+      "isVisible": true,
+      "metaId": "ef9073a8-c3a1-4479-082d-715575d1b1b9",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ]
+}

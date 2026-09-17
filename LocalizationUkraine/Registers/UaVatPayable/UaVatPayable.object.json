@@ -43,8 +43,17 @@
     },
     {
       "registerMetaId": "653951ac-f10e-48fd-bf25-35b538352422",
-      "analyticMetaId": "992849cd-d7d0-4e7e-b399-b7460d296df7",
+      "analyticMetaId": "b7786ebf-8e36-4cb1-bcc3-fb493c5feb80",
       "displayOrder": 2,
+      "isRequired": true,
+      "metaId": "0c1f8ee8-6942-415a-ab7c-6d77ac82f371",
+      "name": "UaVatPayable-CustomerOutlet",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "653951ac-f10e-48fd-bf25-35b538352422",
+      "analyticMetaId": "992849cd-d7d0-4e7e-b399-b7460d296df7",
+      "displayOrder": 3,
       "isRequired": true,
       "metaId": "cc782c12-4599-4de2-b23e-93d7644fd785",
       "name": "UaVatPayable-SalesContract",

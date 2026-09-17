@@ -1,0 +1,16 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Decimal",
+    "description": "Battery charge percent (5,1)",
+    "precision": 5,
+    "scale": 1,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "c4ab1425-6244-456f-8458-61b2506a6ea8",
+    "name": "BatteryLevel",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

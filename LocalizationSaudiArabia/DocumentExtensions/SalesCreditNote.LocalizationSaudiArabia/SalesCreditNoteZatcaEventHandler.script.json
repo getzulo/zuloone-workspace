@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "a66cbb43-3762-4d6d-a8eb-f0dc2c8ef086",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SalesCreditNote",
+    "objectMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
+    "executionOrder": 0,
+    "metaId": "184e0c1c-1c9d-49c3-a2a8-97d45f1d5f39",
+    "name": "SalesCreditNoteZatcaEventHandler",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

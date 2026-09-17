@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "5d0c8a37-2b91-4e46-8f73-1a6c4e9b0d52",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SalesRealization",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "executionOrder": 0,
+    "metaId": "effdc607-9a71-45f0-b991-ab2877c959d5",
+    "name": "SalesInvoiceZatcaEventHandler",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

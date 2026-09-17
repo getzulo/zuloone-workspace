@@ -1,0 +1,105 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "Agent GPS log",
+    "caption_ar": "سجل مواقع الوكيل",
+    "caption_ru": "GPS-трек агента",
+    "description": "Регистр сведений: точка трека агента на момент recordedAt (Period). Пишется фоновой отправкой SubmitGpsTrack после StartShift.",
+    "isObsolete": false,
+    "iconName": "fluent-color:location-ripple-24",
+    "largeIconName": "fluent-color:location-ripple-24",
+    "registerEngineType": "Information",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
+    "name": "AgentGpsLog",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
+      "fieldName": "Agent",
+      "caption": "Agent",
+      "caption_ar": "الوكيل",
+      "caption_ru": "Агент",
+      "edtMetaId": "735f03b4-f08e-4cf4-ac2c-52a065210a96",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "12c3a5cb-f6d4-47ac-8b50-a4879704e4dc",
+      "name": "Agent",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
+      "fieldName": "Accuracy",
+      "caption": "Accuracy, m",
+      "caption_ar": "الدقة",
+      "caption_ru": "Точность, м",
+      "isOperational": false,
+      "edtMetaId": "c90ab8af-f4ee-474f-b4ef-00fbbf316a56",
+      "displayOrder": 3,
+      "metaId": "45f6d8fe-2907-4adf-8e83-d7bacb37170f",
+      "name": "Accuracy",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
+      "fieldName": "Battery",
+      "caption": "Battery, %",
+      "caption_ar": "البطارية",
+      "caption_ru": "Заряд, %",
+      "isOperational": false,
+      "edtMetaId": "c4ab1425-6244-456f-8458-61b2506a6ea8",
+      "displayOrder": 5,
+      "metaId": "6718fb20-4b29-4cf1-80a5-f9dced593931",
+      "name": "Battery",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
+      "fieldName": "Lat",
+      "caption": "Latitude",
+      "caption_ar": "خط العرض",
+      "caption_ru": "Широта",
+      "isOperational": true,
+      "edtMetaId": "c90ab8af-f4ee-474f-b4ef-00fbbf316a56",
+      "displayOrder": 1,
+      "metaId": "23d4b6dc-07e5-48bd-8c61-b598a815f5ed",
+      "name": "Lat",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
+      "fieldName": "Lng",
+      "caption": "Longitude",
+      "caption_ar": "خط الطول",
+      "caption_ru": "Долгота",
+      "isOperational": true,
+      "edtMetaId": "c90ab8af-f4ee-474f-b4ef-00fbbf316a56",
+      "displayOrder": 2,
+      "metaId": "34e5c7ed-18f6-49ce-8d72-c6a9b92606fe",
+      "name": "Lng",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
+      "fieldName": "Speed",
+      "caption": "Speed",
+      "caption_ar": "السرعة",
+      "caption_ru": "Скорость",
+      "isOperational": false,
+      "edtMetaId": "c90ab8af-f4ee-474f-b4ef-00fbbf316a56",
+      "displayOrder": 4,
+      "metaId": "5607ea0f-3a18-4be0-8f94-e8cbdc482820",
+      "name": "Speed",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ]
+}
