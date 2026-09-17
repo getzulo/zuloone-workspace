@@ -60,6 +60,24 @@
       "metaId": "04a26153-206b-47dd-b62d-ad77efff571d",
       "name": "Name",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "abb0b19e-9453-4d51-bd29-ebb07cc869b8",
+      "fieldName": "UserId",
+      "caption": "Login user",
+      "caption_ru": "Пользователь входа",
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 10,
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "isCalculated": false,
+      "metaId": "f0a184b9-d4b2-458a-893e-826686e2c2ca",
+      "name": "UserId",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }
