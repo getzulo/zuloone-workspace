@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1070,
     "resetPolicy": "None",
     "metaId": "4d1e3f8c-6b9a-4c2d-8e5f-3a7b8c4d9e20",
     "name": "BomComponentSeq",

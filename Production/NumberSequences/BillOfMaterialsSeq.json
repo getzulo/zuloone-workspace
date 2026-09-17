@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1064,
     "resetPolicy": "None",
     "metaId": "3c9d2e7b-5a8f-4b1c-9d4e-2f6a7b3c8d10",
     "name": "BillOfMaterialsSeq",

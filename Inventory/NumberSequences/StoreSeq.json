@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1728,
     "resetPolicy": "None",
     "metaId": "aa184189-9deb-4d74-aad1-b887148949f5",
     "name": "StoreSeq",

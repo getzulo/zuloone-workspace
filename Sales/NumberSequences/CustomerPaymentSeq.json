@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 31,
     "resetPolicy": "None",
     "metaId": "6d7e8f9a-0b1c-4d2e-8f3a-5b6c7d8e9f0a",
     "name": "CustomerPaymentSeq",

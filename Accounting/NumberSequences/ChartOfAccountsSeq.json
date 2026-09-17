@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1500,
     "resetPolicy": "None",
     "metaId": "e22d996b-f021-4489-abc0-7c604562c853",
     "name": "ChartOfAccountsSeq",

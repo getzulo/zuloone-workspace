@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1158,
     "resetPolicy": "None",
     "metaId": "78d7d342-defe-49ce-8851-e7aad300dd64",
     "name": "FiscalPeriodSeq",

@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1012,
     "resetPolicy": "None",
     "metaId": "6ae1c0d4-2b73-4f18-9a5e-8d3c1b0f4e27",
     "name": "TaxRuleActionSeq",

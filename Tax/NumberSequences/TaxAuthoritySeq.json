@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1121,
     "resetPolicy": "None",
     "metaId": "43a2fb6e-93bf-4cd7-9ad3-11b884b62bb1",
     "name": "TaxAuthoritySeq",

@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1018,
     "resetPolicy": "None",
     "metaId": "2bef5048-42e9-4367-bcb0-02a619e82531",
     "name": "SalesCreditNoteSeq",

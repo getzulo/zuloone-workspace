@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 5,
     "resetPolicy": "None",
     "metaId": "6dc9cc7d-271e-5fed-8b84-c0d49907102a",
     "name": "ProductionSettingsSeq",

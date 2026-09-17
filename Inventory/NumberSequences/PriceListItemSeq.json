@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
     "resetPolicy": "None",
     "metaId": "02cbff68-8ad3-402b-abc9-9fd94cc2802c",
     "name": "PriceListItemSeq",

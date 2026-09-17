@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1206,
     "resetPolicy": "None",
     "metaId": "676e00a2-1800-48ed-9156-d11be81150de",
     "name": "SalesOrderSeq",

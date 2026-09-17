@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1255,
     "resetPolicy": "None",
     "metaId": "61c2bfe7-e9ee-44b8-93ce-2ebe8e55424d",
     "name": "SalesInvoiceSeq",

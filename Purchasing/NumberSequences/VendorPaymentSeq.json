@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1013,
     "resetPolicy": "None",
     "metaId": "248ec066-f881-4693-9030-541d487f3125",
     "name": "VendorPaymentSeq",

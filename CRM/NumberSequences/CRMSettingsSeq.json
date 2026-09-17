@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 13,
     "resetPolicy": "None",
     "metaId": "211b66ad-b4f4-5904-8222-42f310577a8f",
     "name": "CRMSettingsSeq",

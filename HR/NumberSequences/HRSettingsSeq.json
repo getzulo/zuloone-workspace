@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 12,
     "resetPolicy": "None",
     "metaId": "ea2f2fb4-92b6-5d3c-9f29-3275bef84232",
     "name": "HRSettingsSeq",

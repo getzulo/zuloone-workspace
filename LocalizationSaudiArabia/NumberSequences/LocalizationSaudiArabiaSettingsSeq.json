@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 1,
     "resetPolicy": "None",
     "metaId": "fcd1180a-02b0-59c4-85c9-ea94ae8ff843",
     "name": "LocalizationSaudiArabiaSettingsSeq",

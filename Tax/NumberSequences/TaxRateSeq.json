@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1245,
     "resetPolicy": "None",
     "metaId": "fdcc498a-b6e8-42f0-a43a-40ae1f4b3e70",
     "name": "TaxRateSeq",

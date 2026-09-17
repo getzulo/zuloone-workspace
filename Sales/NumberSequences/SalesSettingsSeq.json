@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1,
     "increment": 1,
-    "nextValue": 2,
     "resetPolicy": "None",
     "metaId": "1a51bbca-cb23-5e1f-9e8f-ec0b4a3bb826",
     "name": "SalesSettingsSeq",
