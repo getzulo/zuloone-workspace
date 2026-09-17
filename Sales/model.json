@@ -7,7 +7,7 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.11.1",
+    "modelVersion": "1.12.0",
     "metaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "name": "Sales",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -22,7 +22,7 @@
     },
     {
       "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
-      "minVersion": "1.0.0",
+      "minVersion": "1.4.0",
       "metaId": "cc60ad14-9756-4591-9c5d-09e63461e8d7",
       "name": "Sales->Common"
     },

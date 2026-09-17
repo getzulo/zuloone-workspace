@@ -22,6 +22,17 @@
     "sort": 15
   },
   {
+    "id": "delivery-terms",
+    "file": "delivery-terms.json",
+    "caption": "Delivery terms",
+    "captionRu": "Условия поставки",
+    "caption_ru": "Условия поставки",
+    "captionAr": "شروط التسليم",
+    "caption_ar": "شروط التسليم",
+    "when": "once",
+    "sort": 17
+  },
+  {
     "id": "gender",
     "file": "gender.json",
     "caption": "Genders",

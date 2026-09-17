@@ -163,6 +163,19 @@
       "metaId": "57e75dfe-3bd4-4bb5-b5d2-e7a22f0a25ca",
       "name": "PaymentTerm",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "caption": "Delivery terms",
+      "caption_ar": "شروط التسليم",
+      "caption_ru": "Условия поставки",
+      "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
+      "displayOrder": 10,
+      "icon": "fluent-color:vehicle-truck-48",
+      "targetType": "Dictionary",
+      "targetMetaId": "2255b5f1-4b4a-4a0e-b550-bd5fabee1b57",
+      "metaId": "ba3a4fe2-a326-40f0-a32b-4e4ccb69b0f2",
+      "name": "DeliveryTerm",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     }
   ]
 }

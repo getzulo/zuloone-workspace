@@ -48,6 +48,8 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
             header.Contract = stampedContract;
         if (header.PaymentTerm == Guid.Empty && stamp.TryGetValue("PaymentTerm", out var p) && p is Guid term)
             header.PaymentTerm = term;
+        if (header.DeliveryTerm == Guid.Empty && stamp.TryGetValue("DeliveryTerm", out var d) && d is Guid delivery)
+            header.DeliveryTerm = delivery;
         if (header.Contact == Guid.Empty && stamp.TryGetValue("Contact", out var n) && n is Guid stampedContact)
             header.Contact = stampedContact;
         if (header.LegalEntity == Guid.Empty && stamp.TryGetValue("LegalEntity", out var le) && le is Guid legal)

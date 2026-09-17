@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "DeliveryTerm",
+    "objectMetaId": "2255b5f1-4b4a-4a0e-b550-bd5fabee1b57",
+    "executionOrder": 0,
+    "metaId": "0b86ae5d-3008-40c9-ac19-3f03c463a913",
+    "name": "DeliveryTermEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  }
+}

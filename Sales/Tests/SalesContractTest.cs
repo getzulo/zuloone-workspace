@@ -215,6 +215,58 @@ public class SalesContractTest : IntegrationTestScriptBase
             "сервис находит тот же договор");
     }
 
+    [IntegrationTest("Заказ и счёт штампуют условие поставки с договора")]
+    public async Task OrderAndInvoiceStampDeliveryTerm()
+    {
+        var s = await SetupAsync();
+        var term = DictionaryManager.NewRecord<DeliveryTerm>();
+        term.Code = $"z{Guid.NewGuid():N}"[..6];
+        term.Name = "Test term";
+        term = await DictionaryManager.SaveRecordAsync(term);
+        term = await DictionaryManager.GetRecordAsync<DeliveryTerm>(term.MetaId)
+            ?? throw new InvalidOperationException("условие поставки не читается после сохранения");
+        Assert.IsTrue(term.Code == term.Code.ToUpperInvariant() && term.Code.Length > 0,
+            "код нормализуется в верхний регистр, факт {0}", term.Code);
+
+        var duplicate = DictionaryManager.NewRecord<DeliveryTerm>();
+        duplicate.Code = term.Code.ToLowerInvariant();
+        duplicate.Name = "Other";
+        try
+        {
+            await DictionaryManager.SaveRecordAsync(duplicate);
+            Assert.IsTrue(false, "дубль кода должен быть отклонён");
+        }
+        catch (Exception ex)
+        {
+            Assert.IsTrue(ex.Message.Contains("уже есть"), "текст отказа: {0}", ex.Message);
+        }
+
+        var contract = await DictionaryManager.GetRecordAsync<SalesContract>(s.Contract);
+        contract!.DeliveryTerm = term.MetaId;
+        await DictionaryManager.SaveRecordAsync(contract);
+
+        var order = await DocumentManager.NewDocumentAsync<SalesOrder>();
+        order.Customer = s.Customer;
+        order.Outlet = s.Outlet;
+        order.Location = s.Location;
+        order.DeliveryDate = new DateTime(2026, 3, 1);
+        await DocumentManager.SaveDocumentAsync(order);
+        var loadedOrder = await DocumentManager.GetDocumentAsync<SalesOrder>(order.MetaId);
+        Assert.IsTrue(loadedOrder!.DeliveryTerm == term.MetaId,
+            "заказ штампует DeliveryTerm, факт {0}", loadedOrder.DeliveryTerm);
+
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
+        invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Location = s.Location;
+        invoice.DocumentDate = new DateTime(2026, 3, 1);
+        invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 1m, UnitPrice = 10m });
+        await DocumentManager.SaveDocumentAsync(invoice);
+        var loadedInvoice = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
+        Assert.IsTrue(loadedInvoice!.DeliveryTerm == term.MetaId,
+            "счёт штампует DeliveryTerm, факт {0}", loadedInvoice.DeliveryTerm);
+    }
+
     [IntegrationTest("Чужой договор на заказе отклоняется")]
     public async Task ForeignContractIsRejected()
     {

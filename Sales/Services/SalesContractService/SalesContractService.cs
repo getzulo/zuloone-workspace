@@ -106,6 +106,8 @@ public partial class SalesContractService
                     stamp["Outlet"] = contract.Outlet;
                 if (contract.PaymentTerm != Guid.Empty)
                     stamp["PaymentTerm"] = contract.PaymentTerm;
+                if (contract.DeliveryTerm != Guid.Empty)
+                    stamp["DeliveryTerm"] = contract.DeliveryTerm;
                 if (contract.LegalEntity != Guid.Empty)
                     stamp["LegalEntity"] = contract.LegalEntity;
             }

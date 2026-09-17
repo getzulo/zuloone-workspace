@@ -76,6 +76,8 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
             header.Contract = contract;
         if (header.PaymentTerm == Guid.Empty && stamp.TryGetValue("PaymentTerm", out var p) && p is Guid term)
             header.PaymentTerm = term;
+        if (header.DeliveryTerm == Guid.Empty && stamp.TryGetValue("DeliveryTerm", out var d) && d is Guid delivery)
+            header.DeliveryTerm = delivery;
         if (header.Contact == Guid.Empty && stamp.TryGetValue("Contact", out var n) && n is Guid contact)
             header.Contact = contact;
     }

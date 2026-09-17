@@ -147,6 +147,8 @@ public partial class SalesFulfillmentService
             invoice.Contact = order.Contact;
         if (order.PaymentTerm != Guid.Empty)
             invoice.PaymentTerm = order.PaymentTerm;
+        if (order.DeliveryTerm != Guid.Empty)
+            invoice.DeliveryTerm = order.DeliveryTerm;
         if (order.DiscountPercent != 0m)
             invoice.DiscountPercent = order.DiscountPercent;
 

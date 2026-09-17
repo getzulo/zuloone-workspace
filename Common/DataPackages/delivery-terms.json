@@ -1,0 +1,88 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "delivery-terms",
+    "entities": [
+      {
+        "entity": "DeliveryTerm",
+        "table": "DeliveryTerm",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Code"
+        ],
+        "mode": "insert",
+        "rowCount": 11
+      }
+    ]
+  },
+  "data": {
+    "DeliveryTerm": [
+      {
+        "Code": "EXW",
+        "Name": "Ex Works",
+        "Name_ru": "Франко-завод",
+        "Name_ar": "تسليم المصنع"
+      },
+      {
+        "Code": "FCA",
+        "Name": "Free Carrier",
+        "Name_ru": "Франко-перевозчик",
+        "Name_ar": "تسليم الناقل"
+      },
+      {
+        "Code": "FAS",
+        "Name": "Free Alongside Ship",
+        "Name_ru": "Франко вдоль борта судна",
+        "Name_ar": "تسليم جانب السفينة"
+      },
+      {
+        "Code": "FOB",
+        "Name": "Free On Board",
+        "Name_ru": "Франко-борт",
+        "Name_ar": "تسليم على متن السفينة"
+      },
+      {
+        "Code": "CFR",
+        "Name": "Cost and Freight",
+        "Name_ru": "Стоимость и фрахт",
+        "Name_ar": "التكلفة وأجرة الشحن"
+      },
+      {
+        "Code": "CIF",
+        "Name": "Cost, Insurance and Freight",
+        "Name_ru": "Стоимость, страхование и фрахт",
+        "Name_ar": "التكلفة والتأمين وأجرة الشحن"
+      },
+      {
+        "Code": "CPT",
+        "Name": "Carriage Paid To",
+        "Name_ru": "Перевозка оплачена до",
+        "Name_ar": "النقل مدفوع إلى"
+      },
+      {
+        "Code": "CIP",
+        "Name": "Carriage and Insurance Paid To",
+        "Name_ru": "Перевозка и страхование оплачены до",
+        "Name_ar": "النقل والتأمين مدفوعان إلى"
+      },
+      {
+        "Code": "DAP",
+        "Name": "Delivered at Place",
+        "Name_ru": "Поставка в месте",
+        "Name_ar": "التسليم في المكان"
+      },
+      {
+        "Code": "DPU",
+        "Name": "Delivered at Place Unloaded",
+        "Name_ru": "Поставка в месте с выгрузкой",
+        "Name_ar": "التسليم في المكان بعد التفريغ"
+      },
+      {
+        "Code": "DDP",
+        "Name": "Delivered Duty Paid",
+        "Name_ru": "Поставка с оплатой пошлин",
+        "Name_ar": "التسليم مع دفع الرسوم"
+      }
+    ]
+  }
+}

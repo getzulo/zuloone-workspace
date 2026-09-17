@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "d8853fa9-a4ae-4d43-a1c2-0010f6e4e61a",
+    "name": "DeliveryTermSeq",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  }
+}
