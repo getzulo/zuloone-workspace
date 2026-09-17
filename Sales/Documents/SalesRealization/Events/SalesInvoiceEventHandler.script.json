@@ -3,7 +3,7 @@
   "object": {
     "scriptType": "EventHandler",
     "objectType": "Document",
-    "objectName": "SalesInvoice",
+    "objectName": "SalesRealization",
     "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
     "executionOrder": 0,
     "metaId": "d80810ab-9e8c-44fd-850b-6de7594db6fb",

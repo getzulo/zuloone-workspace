@@ -488,26 +488,32 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
             "продажа 1 ящика снимает 12 ШТУК: 36 − 12 = 24, а не {0}", mainAfterSale);
         Assert.IsTrue(await StockAsync(s.ShopCell, s.Item) == 21m, "продажа с MAIN склад SHOP не трогает");
 
-        // Деньги счёта — по введённой единице: 1 ящик × 300.
-        var receivable = await TotalAsync("Receivable", "Amount") - receivable0;
-        var revenue = await TotalAsync("Revenue", "Amount") - revenue0;
-        Assert.IsTrue(receivable == 300m, "дебиторка = 1 ящик × 300 = 300, а не {0}", receivable);
-        Assert.IsTrue(revenue == 300m, "выручка = 300, а не {0}", revenue);
-
-        // НДС КСА от той же базы. Ставка читается С ДОКУМЕНТА, а не из глобальной
-        // константы: страновой скрипт берёт её из поля TaxRateApplied, куда
-        // выставление счёта записывает ставку, действовавшую на дату документа.
-        // Раньше тест сверялся с ТЕМ ЖЕ плоским числом, что и код, и потому
-        // повторял его ошибку: после смены ставки оба брали новую — включая
-        // счета за прошлый период. Регистр читается по ИМЕНИ через ITotalsManager:
-        // типовой зависимости от модели локализации это не создаёт.
+        // Ставка читается С ДОКУМЕНТА, а не из глобальной константы: страновой
+        // скрипт берёт её из поля TaxRateApplied, куда выставление счёта
+        // записывает ставку, действовавшую на дату документа. Раньше тест
+        // сверялся с ТЕМ ЖЕ плоским числом, что и код, и потому повторял его
+        // ошибку: после смены ставки оба брали новую — включая счета за прошлый
+        // период. Регистр читается по ИМЕНИ через ITotalsManager: типовой
+        // зависимости от модели локализации это не создаёт.
         var issued = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
         var vatRate = issued?.TaxRateApplied ?? 0m;
         Assert.IsTrue(vatRate > 0m,
             "выставление обязано зафиксировать на счёте действующую ставку налога, факт {0}", vatRate);
+        var vatOnSale = Math.Round(300m * vatRate, 2, MidpointRounding.AwayFromZero);
+
+        // Деньги счёта — по введённой единице: 1 ящик × 300.
+        // ВЫРУЧКА нетто, ДЕБИТОРКА с налогом: покупатель должен брутто, и гасит
+        // её брутто-платёж (ReceivableTaxSeamTest). Ожидание считается от ставки
+        // НА ДОКУМЕНТЕ — зашитые сюда 300 держались лишь потому, что страновой
+        // НДС молча не начислялся, пока у скриптов было устаревшее objectName.
+        var receivable = await TotalAsync("Receivable", "Amount") - receivable0;
+        var revenue = await TotalAsync("Revenue", "Amount") - revenue0;
+        Assert.IsTrue(receivable == 300m + vatOnSale,
+            "дебиторка = нетто 300 + НДС {0} = {1}, а не {2}", vatOnSale, 300m + vatOnSale, receivable);
+        Assert.IsTrue(revenue == 300m, "выручка = 300, а не {0}", revenue);
+
         var vat = await TotalAsync("VatPayable", "Amount") - vat0;
-        Assert.IsTrue(vat == Math.Round(300m * vatRate, 2, MidpointRounding.AwayFromZero),
-            "НДС = 300 × {0} , а не {1}", vatRate, vat);
+        Assert.IsTrue(vat == vatOnSale, "НДС = 300 × {0} , а не {1}", vatRate, vat);
 
         // ── ИТОГ ЦИКЛА ───────────────────────────────────────────────────────
         // 60 закуплено − 3 списано − 12 продано = 45 штук в наличии, из них

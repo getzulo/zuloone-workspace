@@ -3,7 +3,7 @@
   "object": {
     "scriptType": "PrintForm",
     "objectType": "Document",
-    "objectName": "SalesInvoice",
+    "objectName": "SalesRealization",
     "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
     "executionOrder": 0,
     "metaId": "06efe5a7-11b3-4aba-ad6b-cf9dc147bce9",

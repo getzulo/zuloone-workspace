@@ -3,7 +3,7 @@
   "object": {
     "scriptType": "TransactionScript",
     "objectType": "Document",
-    "objectName": "SalesInvoice",
+    "objectName": "SalesRealization",
     "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
     "executionOrder": 1,
     "metaId": "3091fc32-12ab-4600-847b-aab135687bdf",
