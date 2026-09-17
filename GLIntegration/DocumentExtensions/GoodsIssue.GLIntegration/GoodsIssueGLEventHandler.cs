@@ -12,6 +12,7 @@ namespace ZuloOne.Runtime.Generated;
 //
 // An issue is a non-sale disposal, so the write-off account, not COGS:
 // otherwise an internal transfer of goods would distort gross margin.
+[ExtensionOf("GoodsIssue")]
 public partial class GoodsIssueGLEventHandler : TypedDocumentEventHandler<GoodsIssue>
 {
     public override async Task<EventResult> OnAfterPostAsync(GoodsIssue document, EventContext context){

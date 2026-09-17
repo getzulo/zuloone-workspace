@@ -35,6 +35,7 @@ namespace ZuloOne.Runtime.Generated;
 // loss line stop being readable. Descriptions differ («Stock adjustment {id}»
 // and «Stock adjustment surplus {id}») so GL idempotency does not collapse
 // two facts into one posting. A zero lot — PostSurplusAsync returns null.
+[ExtensionOf("StockAdjustment")]
 public partial class StockAdjustmentGLEventHandler : TypedDocumentEventHandler<StockAdjustment>
 {
     public override async Task<EventResult> OnAfterPostAsync(StockAdjustment document, EventContext context){

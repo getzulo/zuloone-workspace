@@ -22,6 +22,7 @@ namespace ZuloOne.Runtime.Generated;
 // carries the legal entity itself, as an optional field: if unset, the payment
 // still clears the register as before, and there is simply no posting (the same
 // best-effort policy as every other leg).
+[ExtensionOf("VendorPayment")]
 public partial class VendorPaymentGLEventHandler : TypedDocumentEventHandler<VendorPayment>
 {
     public override async Task<EventResult> OnAfterPostAsync(VendorPayment document, EventContext context){

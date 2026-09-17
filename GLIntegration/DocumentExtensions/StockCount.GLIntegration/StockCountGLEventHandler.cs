@@ -28,6 +28,7 @@ namespace ZuloOne.Runtime.Generated;
 // A zero lot (no purchase history) — PostSurplusAsync returns null.
 // This link runs after Costing (the layer is already opened); the amount is
 // read from ItemCostFifo.
+[ExtensionOf("StockCount")]
 public partial class StockCountGLEventHandler : TypedDocumentEventHandler<StockCount>
 {
     public override async Task<EventResult> OnAfterPostAsync(StockCount document, EventContext context){

@@ -29,6 +29,7 @@ namespace ZuloOne.Runtime.Generated;
 // LEGAL ENTITY — A HEADER FIELD: the payment has neither a warehouse nor a
 // source invoice, and the customer has no link to a legal entity. If unset,
 // the payment still clears the register as before, and there is no posting.
+[ExtensionOf("CustomerPayment")]
 public partial class CustomerPaymentGLEventHandler : TypedDocumentEventHandler<CustomerPayment>
 {
     public override async Task<EventResult> OnAfterPostAsync(CustomerPayment document, EventContext context){

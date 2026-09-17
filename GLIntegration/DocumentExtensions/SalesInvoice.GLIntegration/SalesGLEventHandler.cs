@@ -26,6 +26,7 @@ namespace ZuloOne.Runtime.Generated;
 // No profile — GetSettingsAsync returns null, no journal. A real posting
 // failure must not be swallowed: OnAfterPost does not roll back the
 // document, and an empty catch hid the cause from the log.
+[ExtensionOf("SalesRealization")]
 public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesRealization>
 {
     public override async Task<EventResult> OnAfterPostAsync(SalesRealization document, EventContext context){

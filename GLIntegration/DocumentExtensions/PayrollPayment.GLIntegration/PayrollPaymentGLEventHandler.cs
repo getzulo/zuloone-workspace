@@ -26,6 +26,7 @@ namespace ZuloOne.Runtime.Generated;
 // The class name is deliberately different from PayrollGLEventHandler: script
 // class names are unique across the whole workspace, and a collision would
 // displace the accrual handler.
+[ExtensionOf("PayrollPayment")]
 public partial class PayrollPaymentGLEventHandler : TypedDocumentEventHandler<PayrollPayment>
 {
     public override async Task<EventResult> OnAfterPostAsync(PayrollPayment document, EventContext context){

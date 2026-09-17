@@ -40,14 +40,13 @@ description: Создать новый документ ZuloOne — шапка, 
 public partial class <Документ>LinesEventHandler
     : TypedTablePartEventHandler<<Документ>LinesTablePartRow>
 {
-    public override async Task<EventResult> OnFieldChangedAsync(
+    // Владелец ТЧ — звено 0 цепочки, next() не зовёт (его зовут расширения сверху).
+    public override Task<EventResult> OnFieldChangedAsync(
         <Документ>LinesTablePartRow row, string fieldName, object? value, EventContext context)
     {
-        var prior = await next(row, fieldName, value, context);
-        if (!prior.Success) return prior;
         var header = Owner<<Документ>>(context); // шапка из памяти формы
         // Persist тоже зовёт этот хук: заполняй только пустые Unit / UnitPrice.
-        return EventResult.Ok();
+        return Task.FromResult(EventResult.Ok());
     }
 }
 ```
@@ -210,8 +209,8 @@ public partial class <Имя><Подтип><Цель>Tx
 ```csharp
 public override async Task<EventResult> OnAfterPostAsync(PurchaseOrder header, EventContext context)
 {
-    var prior = await next(header, context);
-    if (!prior.Success) return prior;
+    // Владелец: next() не зовём. В обработчике ЧУЖОГО документа класс несёт
+    // [ExtensionOf("PurchaseOrder")], и тогда next() обязателен.
     if (header.Subtype != "Received") return EventResult.Ok();
 
     var docs = context.GetService<IDocumentManager>();

@@ -18,6 +18,7 @@ namespace ZuloOne.Runtime.Generated;
 // LEGAL ENTITY — A HEADER FIELD. If unset, the payment posts as before and
 // there is no journal entry (best-effort: missing setup must not break existing
 // documents).
+[ExtensionOf("TaxPayment")]
 public partial class TaxPaymentGLEventHandler : TypedDocumentEventHandler<TaxPayment>
 {
     public override async Task<EventResult> OnAfterPostAsync(TaxPayment document, EventContext context){

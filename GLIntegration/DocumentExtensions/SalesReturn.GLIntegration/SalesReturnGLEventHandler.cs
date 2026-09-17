@@ -10,6 +10,7 @@ namespace ZuloOne.Runtime.Generated;
 // Mirror of SalesGL: a sale is Dr receivables / Cr revenue, a return is the reverse.
 // Legal entity from the return cell (the document has no field). If the books
 // are not configured — the return posts, and there is no journal entry.
+[ExtensionOf("SalesReturn")]
 public partial class SalesReturnGLEventHandler : TypedDocumentEventHandler<SalesReturn>
 {
     public override async Task<EventResult> OnAfterPostAsync(SalesReturn document, EventContext context){

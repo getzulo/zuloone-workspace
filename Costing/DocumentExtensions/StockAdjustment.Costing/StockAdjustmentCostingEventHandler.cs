@@ -16,6 +16,7 @@ namespace ZuloOne.Runtime.Generated;
 //
 // A shortage (net minus) does not get here: CostingIssue writes it off.
 // Lot date is the document's DocumentDate, not the day «Post» was clicked.
+[ExtensionOf("StockAdjustment")]
 public partial class StockAdjustmentCostingEventHandler : TypedDocumentEventHandler<StockAdjustment>
 {
     public override async Task<EventResult> OnAfterPostAsync(StockAdjustment document, EventContext context){

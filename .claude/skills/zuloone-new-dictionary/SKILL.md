@@ -187,20 +187,19 @@ namespace ZuloOne.Runtime.Generated;
 
 public partial class <Имя>EventHandler : TypedDictionaryEventHandler<<Имя>>
 {
-    public override async Task<EventResult> OnBeforeSaveAsync(<Имя> record, bool isNew, EventContext context)
+    // ВЛАДЕЛЕЦ: обработчик в модели самого справочника — звено 0 цепочки,
+    // ниже некого, next() НЕ зовёт. Переопределяй ТОЛЬКО нужные хуки:
+    // лишний override — мёртвая строка, а не «шаблон».
+    public override Task<EventResult> OnBeforeSaveAsync(<Имя> record, bool isNew, EventContext context)
     {
-        var prior = await next(record, isNew, context);
-        if (!prior.Success) return prior;
-        // if (string.IsNullOrEmpty(record.Name)) return EventResult.Cancel("Наименование обязательно");
-        return EventResult.Ok();
+        // if (string.IsNullOrEmpty(record.Name)) return Task.FromResult(EventResult.Cancel("Наименование обязательно"));
+        return Task.FromResult(EventResult.Ok());
     }
 
     // Live from the card (no Save): OnValidateField then OnFieldChanged.
-    // public override async Task<EventResult> OnFieldChangedAsync(<Имя> record, string fieldName, object? value, EventContext context)
+    // public override Task<EventResult> OnFieldChangedAsync(<Имя> record, string fieldName, object? value, EventContext context)
     // {
-    //     var prior = await next(record, fieldName, value, context);
-    //     if (!prior.Success) return prior;
-    //     return EventResult.Ok();
+    //     return Task.FromResult(EventResult.Ok());
     // }
 }
 ```

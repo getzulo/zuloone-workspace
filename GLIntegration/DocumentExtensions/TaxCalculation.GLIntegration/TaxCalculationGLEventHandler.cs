@@ -41,6 +41,7 @@ namespace ZuloOne.Runtime.Generated;
 // portion is not folded into inventory cost: there is no recoverability
 // dictionary, so all input tax is treated as recoverable. When recoverability
 // arrives, it belongs on TaxCode, not as a separate posting here.
+[ExtensionOf("TaxCalculation")]
 public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<TaxCalculation>
 {
     private const string OutputDirection = "OUTPUT";

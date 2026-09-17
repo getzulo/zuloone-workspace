@@ -20,6 +20,7 @@ namespace ZuloOne.Runtime.Generated;
 //
 // Posting amount is BOTH contribution shares: one payment goes to the fund;
 // the split into withheld and employer-accrued exists only for reporting.
+[ExtensionOf("SocialInsurancePayment")]
 public partial class SocialInsurancePaymentGLEventHandler : TypedDocumentEventHandler<SocialInsurancePayment>
 {
     public override async Task<EventResult> OnAfterPostAsync(SocialInsurancePayment document, EventContext context){

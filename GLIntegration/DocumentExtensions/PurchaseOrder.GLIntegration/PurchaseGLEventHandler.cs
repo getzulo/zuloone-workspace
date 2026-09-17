@@ -13,6 +13,7 @@ namespace ZuloOne.Runtime.Generated;
 // A CHAIN link of PurchaseOrder handlers from GLIntegration (see the note in
 // SalesGLEventHandler): the class keeps the base handler name, otherwise the
 // script competes with it and never runs at all.
+[ExtensionOf("PurchaseOrder")]
 public partial class PurchaseGLEventHandler : TypedDocumentEventHandler<PurchaseOrder>
 {
     public override async Task<EventResult> OnAfterPostAsync(PurchaseOrder document, EventContext context){

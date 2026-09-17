@@ -80,6 +80,7 @@ tx), прививка меню.
 #nullable enable
 namespace ZuloOne.Runtime.Generated;
 
+[ExtensionOf("Country")]                  // обязателен на чужом объекте, иначе ZOCOC004
 public partial class CountryWmsEventHandler : TypedDictionaryEventHandler<Country>
 {
     public override async Task<EventResult> OnBeforeSaveAsync(Country record, bool isNew, EventContext context)
@@ -93,11 +94,22 @@ public partial class CountryWmsEventHandler : TypedDictionaryEventHandler<Countr
 }
 ```
 
-Правила: в `next` — те же аргументы, что у метода; забытый `next` — **ZOCOC001**;
-`[Replace]` глотает цепочку намеренно; второй `next` в одном override бросает;
-отключение модели снимает её звено. `override` — против виртуала платформы,
+Правила: класс обязан нести `[ExtensionOf("<Цель>")]` — имя сверяется с конвертом
+скрипта, иначе **ZOCOC004** (и он же, если атрибут повесить на обработчик СВОЕЙ
+модели: это владелец); в `next` — те же аргументы, что у метода; забытый `next` —
+**ZOCOC001**; `[Replace]` глотает цепочку намеренно; второй `next` в одном override
+бросает; отключение модели снимает её звено. Владелец (обработчик в модели самого
+объекта) — звено 0: он без атрибута и без `next`. `override` — против виртуала платформы,
 не против чужого обработчика. `base.` / `super()` здесь не нужны и не работают
 как CoC.
+
+**Владелец — ровно один скрипт, и он уже создан.** При создании справочника или
+документа платформа засеивает `<Имя>EventHandler` в модели объекта — это и есть
+звено 0. Логику владельца пиши В НЁМ. Второй обработчик в СВОЕЙ же модели рядом —
+не «ещё один владелец», а звено ВЫШЕ него: `next` обязателен (иначе ZOCOC001),
+хотя `[ExtensionOf]` он не несёт — модель-то своя. Порядок звеньев —
+`(владелец, потом слой, потом имя)`: до этого решали слой и имя, и
+`SalesGLEventHandler` оказывался внутреннее `SalesInvoiceEventHandler` по алфавиту.
 
 Полоска в дизайнере: владелец слева, ты справа; стрелки = направление `next`.
 Вики: `wiki/developer/chain-of-command.md`.

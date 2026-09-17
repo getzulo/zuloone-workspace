@@ -14,6 +14,7 @@ namespace ZuloOne.Runtime.Generated;
 // same mechanics as payroll, sales, and purchasing.
 //
 // Legal entity is taken along Division → LegalEntity, same as PayrollGLEventHandler.
+[ExtensionOf("SocialInsuranceAccrual")]
 public partial class SocialInsuranceGLEventHandler : TypedDocumentEventHandler<SocialInsuranceAccrual>
 {
     public override async Task<EventResult> OnAfterPostAsync(SocialInsuranceAccrual document, EventContext context){

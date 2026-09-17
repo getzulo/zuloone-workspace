@@ -14,6 +14,7 @@ namespace ZuloOne.Runtime.Generated;
 //
 // Legal entity is taken along Division → LegalEntity: the accrual has
 // neither a warehouse nor a counterparty, only Division.
+[ExtensionOf("PayrollAccrual")]
 public partial class PayrollGLEventHandler : TypedDocumentEventHandler<PayrollAccrual>
 {
     public override async Task<EventResult> OnAfterPostAsync(PayrollAccrual document, EventContext context){

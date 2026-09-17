@@ -26,6 +26,7 @@ namespace ZuloOne.Runtime.Generated;
 // Tier comes from the ACCUMULATED points balance, not a field on the
 // customer, so it cannot drift from actual points. Balance is read before
 // this invoice awards points — the invoice is not posted yet.
+[ExtensionOf("SalesRealization")]
 public partial class SalesInvoiceLoyaltyDiscountHandler : TypedDocumentEventHandler<SalesRealization>
 {
     public override async Task<EventResult> OnBeforeSaveAsync(SalesRealization header, bool isNew, EventContext context)

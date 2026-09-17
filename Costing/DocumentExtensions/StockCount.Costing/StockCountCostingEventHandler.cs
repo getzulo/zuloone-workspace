@@ -17,6 +17,7 @@ namespace ZuloOne.Runtime.Generated;
 // A recount DOWN (shortage) does not get here: CostingIssue writes it off.
 // Lot date is CountDate, the same date the document stamps Stock movements
 // with. UtcNow here would put the layer on today for a back-dated count.
+[ExtensionOf("StockCount")]
 public partial class StockCountCostingEventHandler : TypedDocumentEventHandler<StockCount>
 {
     public override async Task<EventResult> OnAfterPostAsync(StockCount document, EventContext context){

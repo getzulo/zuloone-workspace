@@ -5,6 +5,7 @@ using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
+[ExtensionOf("PurchaseReturn")]
 
 public partial class PurchaseReturnGLEventHandler : TypedDocumentEventHandler<PurchaseReturn>
 {
