@@ -7,7 +7,7 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.0.0",
+    "modelVersion": "1.1.0",
     "metaId": "1d269769-c682-4655-be04-4e00fd39eb08",
     "name": "LocalizationUkraine",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -16,7 +16,7 @@
   "dependencies": [
     {
       "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
-      "minVersion": "1.8.0",
+      "minVersion": "1.9.0",
       "metaId": "7461653f-3f84-41db-8af7-ef301b2b0e21",
       "name": "LocalizationUkraine->Inventory"
     },

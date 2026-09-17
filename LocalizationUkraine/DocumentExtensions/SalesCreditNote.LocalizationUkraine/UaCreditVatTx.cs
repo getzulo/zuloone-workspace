@@ -19,6 +19,7 @@ public partial class UaCreditVatTx
         {
             transactions.Add(new RegisterMovementSpec("UaVatPayable")
                 .An(Analytics.UaVatPayable.Customer, document.Customer)
+                .An(Analytics.UaVatPayable.CustomerOutlet, document.Outlet)
                 .An(Analytics.UaVatPayable.SalesContract, document.Contract)
                 .Res("Amount", -vat));
         }

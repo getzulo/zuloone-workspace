@@ -19,6 +19,7 @@ public partial class SaudiCreditVatTx
         {
             transactions.Add(new RegisterMovementSpec("VatPayable")
                 .An(Analytics.VatPayable.Customer, document.Customer)
+                .An(Analytics.VatPayable.CustomerOutlet, document.Outlet)
                 .An(Analytics.VatPayable.SalesContract, document.Contract)
                 .Res("Amount", -vat));
         }
