@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "ab5c3e43-8f6d-4024-c4e9-3d102f8c6c54",
+    "name": "AgentVisitSeq",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

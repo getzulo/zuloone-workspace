@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "String",
+    "description": "Idempotency key of a mobile push action (uuid text, 36)",
+    "length": 36,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "52f75637-ea7c-45d6-ae23-0b7a267acd99",
+    "name": "IdempotencyKey",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

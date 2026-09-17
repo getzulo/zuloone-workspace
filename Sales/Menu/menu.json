@@ -305,6 +305,32 @@
       "metaId": "d371c682-ba72-4eea-97be-5ce9ee10da50",
       "name": "DeliverySchedule",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": "Visit routes",
+      "caption_ar": "مسارات الزيارات",
+      "caption_ru": "Маршруты визитов",
+      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
+      "displayOrder": 10,
+      "icon": "fluent-color:map-24",
+      "targetType": "Document",
+      "targetMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
+      "metaId": "34e5c8fd-18f6-49ce-8d72-c6aa2a26060e",
+      "name": "VisitRoute",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": "Agent visits",
+      "caption_ar": "زيارات الوكلاء",
+      "caption_ru": "Визиты агентов",
+      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
+      "displayOrder": 11,
+      "icon": "fluent-color:location-ripple-24",
+      "targetType": "Document",
+      "targetMetaId": "9a4b2d32-7e5c-4f13-b3d8-2c0f1e7b5b43",
+      "metaId": "45f6d90e-2907-4adf-8e83-d7bb3b37171f",
+      "name": "AgentVisit",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

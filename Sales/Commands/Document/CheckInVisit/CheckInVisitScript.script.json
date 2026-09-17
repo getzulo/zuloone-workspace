@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "CheckInVisit",
+    "objectMetaId": "ab5c3e54-8f6d-4035-c4e9-3d10308c6c65",
+    "executionOrder": 0,
+    "metaId": "bc6d4f65-907e-4146-d5fa-4e2131ae7d76",
+    "name": "CheckInVisitScript",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

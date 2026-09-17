@@ -1,0 +1,30 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Check in",
+    "caption_ar": "تسجيل الوصول",
+    "caption_ru": "Чек-ин",
+    "scriptMetaId": "bc6d4f65-907e-4146-d5fa-4e2131ae7d76",
+    "parameterMode": "None",
+    "displayOrder": 0,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "ab5c3e54-8f6d-4035-c4e9-3d10308c6c65",
+    "name": "CheckInVisit",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "46546b53-2437-453a-b602-ca37c8608f50",
+      "documentCommandMetaId": "ab5c3e54-8f6d-4035-c4e9-3d10308c6c65",
+      "documentSubtypeMetaId": "f0a18397-d4b2-4568-193e-826574c0b1a8"
+    },
+    {
+      "metaId": "cd7e5076-a18f-4257-e60b-5f3242bf8e87",
+      "documentCommandMetaId": "ab5c3e54-8f6d-4035-c4e9-3d10308c6c65",
+      "documentSubtypeMetaId": "ef907286-c3a1-4457-082d-715463bfa097"
+    }
+  ]
+}

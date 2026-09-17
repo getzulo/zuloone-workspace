@@ -1,0 +1,92 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "Mobile command receipt",
+    "caption_ar": "إيصال أوامر الجوال",
+    "caption_ru": "Квитанции мобильных команд",
+    "description": "Регистр сведений идемпотентности: по idempotencyKey хранит действие, статус, сериализованный ответ и созданный объект. Period — момент обработки (UTC). Повтор ключа отдаёт сохранённый ответ.",
+    "isObsolete": false,
+    "iconName": "fluent-color:phone-checkmark-20",
+    "largeIconName": "fluent-color:phone-checkmark-20",
+    "registerEngineType": "Information",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
+    "name": "MobileCommandReceipt",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
+      "fieldName": "Key",
+      "caption": "Idempotency key",
+      "caption_ar": "مفتاح التكرار",
+      "caption_ru": "Ключ идемпотентности",
+      "edtMetaId": "52f75637-ea7c-45d6-ae23-0b7a267acd99",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "893a1d42-6d4b-4e13-a2c7-1bfe0f7b5b53",
+      "name": "Key",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
+      "fieldName": "Action",
+      "caption": "Action",
+      "caption_ar": "الإجراء",
+      "caption_ru": "Действие",
+      "isOperational": true,
+      "edtMetaId": "7c47dc3a-c980-4ba8-8933-ece055d30fff",
+      "displayOrder": 1,
+      "metaId": "9a4b2e53-7e5c-4f24-b3d8-2c10208c6c64",
+      "name": "Action",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
+      "fieldName": "Entity",
+      "caption": "Entity",
+      "caption_ar": "الكائن",
+      "caption_ru": "Объект",
+      "isOperational": false,
+      "edtMetaId": "bf220c2e-53d9-4d52-a2d8-10e17a506c33",
+      "displayOrder": 4,
+      "metaId": "cd7e5186-a18f-4257-e60b-5f3353bf9f97",
+      "name": "Entity",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
+      "fieldName": "Response",
+      "caption": "Response",
+      "caption_ar": "الاستجابة",
+      "caption_ru": "Ответ",
+      "isOperational": false,
+      "edtMetaId": "7e912476-df65-49bb-940b-d790308f8975",
+      "displayOrder": 3,
+      "metaId": "bc6d4075-907e-4146-d5fa-4e2242ae8e86",
+      "name": "Response",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
+      "fieldName": "Status",
+      "caption": "Status",
+      "caption_ar": "الحالة",
+      "caption_ru": "Статус",
+      "isOperational": true,
+      "edtMetaId": "1a92e85e-a549-4d7e-b32a-8baa9448b6ed",
+      "displayOrder": 2,
+      "metaId": "ab5c3f64-8f6d-4035-c4e9-3d11319d7d75",
+      "name": "Status",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "String",
+    "description": "Mobile push action name (CreateSalesOrder, ExecuteCommand, LogVisit, ResolvePrice, SubmitGpsTrack)",
+    "length": 64,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "7c47dc3a-c980-4ba8-8933-ece055d30fff",
+    "name": "MobileActionName",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

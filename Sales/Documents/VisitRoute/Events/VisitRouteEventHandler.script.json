@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "VisitRoute",
+    "objectMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
+    "executionOrder": 0,
+    "metaId": "5607eb1f-3a18-4be0-8f94-e8cc4c482820",
+    "name": "VisitRouteEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}
