@@ -30,6 +30,26 @@
     },
     {
       "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
+      "fieldName": "Outlet",
+      "caption": "Outlet",
+      "caption_ar": "نقطة البيع",
+      "caption_ru": "Точка",
+      "edtMetaId": "91560c1f-7be1-40df-a1e4-e65eaa794958",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "0c663e1d-bbe5-41a8-8f5e-ab5d596c350d",
+      "referenceName": "CustomerOutlet",
+      "displayOrder": 5,
+      "metaId": "39bad4dc-0f21-4199-9535-ecd21f684c14",
+      "name": "Outlet",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
       "fieldName": "QtyShipped",
       "caption": "Shipped qty",
       "caption_ru": "Выдано",
@@ -74,23 +94,6 @@
       "displayOrder": 2,
       "metaId": "23b85119-84e9-435c-a423-42098dc7db5a",
       "name": "StopSequence",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
-      "fieldName": "Outlet",
-      "caption": "Outlet",
-      "caption_ru": "Точка",
-      "caption_ar": "نقطة البيع",
-      "edtMetaId": "91560c1f-7be1-40df-a1e4-e65eaa794958",
-      "isRequired": false,
-      "isVisible": true,
-      "isLogged": false,
-      "isSystem": false,
-      "isReference": false,
-      "displayOrder": 5,
-      "metaId": "39bad4dc-0f21-4199-9535-ecd21f684c14",
-      "name": "Outlet",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]

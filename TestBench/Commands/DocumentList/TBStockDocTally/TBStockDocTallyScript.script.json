@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentListCommand",
+    "objectType": "Command",
+    "objectName": "TBStockDocTally",
+    "objectMetaId": "6f09da54-43c1-4462-a52a-e1904be66155",
+    "executionOrder": 0,
+    "metaId": "f22de76e-4dbe-44b5-9d41-e44959a89fe1",
+    "name": "TBStockDocTallyScript",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+  }
+}

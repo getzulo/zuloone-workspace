@@ -1,12 +1,12 @@
 using System.Linq;
 
-// "Fill prices" command on a purchase-order draft. Mirror of the invoice
-// command: the same ladder, purchase side only — the price list is taken from
-// the vendor, and the card default is DefaultPurchasePrice.
+// Команда «Заполнить цены» на черновике заказа поставщику. Зеркало команды
+// счёта: та же лестница, только сторона закупочная — прайс берётся у
+// поставщика, а умолчание карточки — DefaultPurchasePrice.
 //
-// Only empty prices are filled: a price entered by hand (agreed with the
-// vendor) is left alone. Why this is a command, not auto-fill on line entry —
-// see FillSalesPricesScript.
+// Заполняются только пустые цены: введённую руками цену (согласованную с
+// поставщиком) подбор не трогает. Подробнее о том, почему это команда, а не
+// автоподстановка при вводе строки — в FillSalesPricesScript.
 public partial class FillPurchasePricesCommand
 {
     public override async Task ExecuteAsync(PurchaseOrder document, CommandContext context)

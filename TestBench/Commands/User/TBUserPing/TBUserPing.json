@@ -1,0 +1,16 @@
+{
+  "kind": "UserCommand",
+  "object": {
+    "caption": "TBUserPing",
+    "scriptMetaId": "c5b8b8c5-9fc6-48c6-9940-cf02d2e1d4f3",
+    "parameterMode": "None",
+    "displayOrder": 0,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "62075b75-a056-4dc4-80c2-1b8159e1431b",
+    "name": "TBUserPing",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+  }
+}

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Managers;
-// Генерённые классы (Currency, Item, SalesInvoice, SalesInvoiceLinesTablePartRow…).
+// Генерённые классы (Currency, Item, SalesRealization, SalesInvoiceLinesTablePartRow…).
 // Тестовым скриптам этот namespace НЕ приходит глобальным using'ом.
 using ZuloOne.Runtime.Generated;
 
@@ -20,7 +20,7 @@ using ZuloOne.Runtime.Generated;
 // отсутствующей константе.
 //
 // Данные строятся типизированно через менеджеры: справочники — NewRecord<T> →
-// SaveRecordAsync, счёт — NewDocumentAsync<SalesInvoice> → SalesInvoiceLinesTablePartRow
+// SaveRecordAsync, счёт — NewDocumentAsync<SalesRealization> → SalesInvoiceLinesTablePartRow
 // → SaveDocumentAsync, выставление — присваивание подтипа плюс сохранение.
 public class SaudiVatFlowTest : IntegrationTestScriptBase
 {
@@ -33,6 +33,8 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
         public Guid Location;
         public Guid Item;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync(bool splitRates = false)
@@ -126,7 +128,28 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
 
         await TaxCircuitAsync(splitRates);
 
-        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
+        return new Setup
+        {
+            Location = cell.MetaId,
+            Item = item.MetaId,
+            Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
+        };
     }
 
     /// <summary>
@@ -211,7 +234,7 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
         await DictionaryManager.SaveRecordAsync(settings);
     }
 
-    // VatPayable несёт одну динамическую аналитику Customer.
+    // Срез по клиенту: договор на VatPayable необязателен.
     private static Task<decimal> VatAsync(Setup s)
         => TotalsManager.GetBalanceAsync("VatPayable", "Amount",
             new Dictionary<string, object?> { ["Customer"] = s.Customer });
@@ -228,18 +251,20 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Qty"] = 20m });
 
-        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 10m, UnitPrice = 10m });
         await DocumentManager.SaveDocumentAsync(invoice);
 
         // Черновик налога не начисляет. Проверка ДО перехода обязательна:
-        // SalesInvoice объявлен postOnSave, и без неё «НДС 15» ниже подтвердилось бы
+        // SalesRealization объявлен postOnSave, и без неё «НДС 15» ниже подтвердилось бы
         // даже если переход Draft → Issued не сделал ничего.
         Assert.IsTrue(await VatAsync(s) == 0m, "черновик счёта не должен начислять НДС, факт {0}", await VatAsync(s));
 
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
 
         // База 10 × 10 = 100; НДС 15% = 15.
@@ -261,19 +286,21 @@ public class SaudiVatFlowTest : IntegrationTestScriptBase
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Qty"] = 20m });
 
-        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         invoice.DocumentDate = new DateTime(2024, 6, 1);   // окно старой ставки
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 10m, UnitPrice = 10m });
         await DocumentManager.SaveDocumentAsync(invoice);
 
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
 
         // Ставка зафиксирована НА ДОКУМЕНТЕ — проверяется отдельно от суммы: без
         // этого провал ниже не отличить от ошибки в расчёте базы.
-        var issued = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
+        var issued = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
         Assert.IsTrue(issued != null && issued.TaxRateApplied == 0.15m,
             "на счёте обязана быть ставка, действовавшая 2024-06-01 (0.15), факт {0}",
             issued?.TaxRateApplied);

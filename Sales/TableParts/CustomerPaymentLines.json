@@ -30,25 +30,6 @@
     },
     {
       "tablePartTypeMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
-      "fieldName": "Customer",
-      "caption": "Customer",
-      "caption_ru": "Покупатель",
-      "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
-      "isRequired": true,
-      "isVisible": true,
-      "isLogged": false,
-      "isSystem": false,
-      "isReference": true,
-      "referenceKind": "Dictionary",
-      "referenceMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
-      "referenceName": "Customer",
-      "displayOrder": 1,
-      "metaId": "8f9a0b1c-2d3e-4f4a-8b5c-7d8e9f0a1b2c",
-      "name": "Customer",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "tablePartTypeMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
       "fieldName": "Contract",
       "caption": "Contract",
       "caption_ru": "Договор",
@@ -64,6 +45,25 @@
       "displayOrder": 3,
       "metaId": "67fc2de9-a44c-4037-9329-3d50ad569136",
       "name": "Contract",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
+      "fieldName": "Customer",
+      "caption": "Customer",
+      "caption_ru": "Покупатель",
+      "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
+      "referenceName": "Customer",
+      "displayOrder": 1,
+      "metaId": "8f9a0b1c-2d3e-4f4a-8b5c-7d8e9f0a1b2c",
+      "name": "Customer",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]

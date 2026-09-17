@@ -20,6 +20,8 @@ public class CircuitGLTest : IntegrationTestScriptBase
         public Guid Cell;
         public Guid Item;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync()
@@ -115,6 +117,20 @@ public class CircuitGLTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
         await TotalsManager.PostMovementAsync("Stock", null, today,
             new Dictionary<string, object?> { ["Cell"] = cell.MetaId, ["Item"] = item.MetaId },
             new Dictionary<string, decimal> { ["Qty"] = 100m });
@@ -154,6 +170,8 @@ public class CircuitGLTest : IntegrationTestScriptBase
             Cell = cell.MetaId,
             Item = item.MetaId,
             Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
         };
     }
 
@@ -231,15 +249,17 @@ public class CircuitGLTest : IntegrationTestScriptBase
         await DictionaryManager.SaveRecordAsync(settings);
     }
 
-    private static async Task<SalesInvoice> IssueAsync(Setup s, decimal quantity, decimal unitPrice)
+    private static async Task<SalesRealization> IssueAsync(Setup s, decimal quantity, decimal unitPrice)
     {
-        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
         invoice.Location = s.Cell;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = quantity, UnitPrice = unitPrice });
         await DocumentManager.SaveDocumentAsync(invoice);
 
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
         return invoice;
     }

@@ -26,26 +26,6 @@
   "fields": [
     {
       "dictionaryMetaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
-      "fieldName": "ID",
-      "baseType": "String",
-      "length": 50,
-      "isSystem": true,
-      "isRequired": true,
-      "displayOrder": 0,
-      "description": "System identifier issued by the bound number sequence (read-only, unique)",
-      "isIndexed": true,
-      "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "99c56818-6e78-4dcb-ba30-44710428b12b",
-      "name": "ID",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
-    },
-    {
-      "dictionaryMetaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
       "fieldName": "Code",
       "baseType": "String",
       "length": 16,
@@ -62,6 +42,26 @@
       "isCalculated": false,
       "metaId": "a1f8c3d2-6b4e-4e9a-8c2d-1f7b5a9e3c40",
       "name": "Code",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "dictionaryMetaId": "8cea578c-fe79-4fc1-9bc8-d07f8f5b5f7c",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "caption_ar": "معرف",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "99c56818-6e78-4dcb-ba30-44710428b12b",
+      "name": "ID",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {

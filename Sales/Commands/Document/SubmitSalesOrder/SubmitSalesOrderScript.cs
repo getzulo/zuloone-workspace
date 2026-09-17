@@ -1,7 +1,7 @@
 using ZuloOne.Managers;
 
-// Submit-order command: Draft → Submitted.
-// Light check that lines exist; everything else is on approval (ApproveSalesOrder).
+// Команда «Отправить заказ»: переход Draft → Submitted.
+// Лёгкая проверка наличия строк; всё остальное — на согласовании (ApproveSalesOrder).
 public partial class SubmitSalesOrderCommand
 {
     public override async Task ExecuteAsync(SalesOrder document, CommandContext context)

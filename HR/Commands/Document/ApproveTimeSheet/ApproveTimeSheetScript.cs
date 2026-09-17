@@ -1,6 +1,6 @@
-// "Approve timesheet" command on the TimeSheet source subtype: transition to Approved.
-// Domain checks live in OnBeforePost; here — empty document and subtype change.
-// The engine replaces postings of the target state (Mix semantics).
+// Команда «Утвердить табель» на подтипе-источнике TimeSheet: переход в Approved.
+// Проверки предметной области живут в OnBeforePost; здесь — пустой документ
+// и смена подтипа. Движок заменяет проводки целевого состояния (семантика Mix).
 public partial class ApproveTimeSheetCommand
 {
     public override async Task ExecuteAsync(TimeSheet document, CommandContext context)

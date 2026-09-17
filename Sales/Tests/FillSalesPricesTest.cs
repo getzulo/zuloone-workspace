@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Testing;
 // Обязательно: тестовым скриптам этот namespace НЕ выдаётся глобальным using —
-// без него генерированные классы (SalesInvoice, PriceType…) не находятся.
+// без него генерированные классы (SalesRealization, PriceType…) не находятся.
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
@@ -28,6 +28,8 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
         public Guid Piece;
         public Guid Box;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync()
@@ -142,6 +144,20 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
         customer.PriceType = list.MetaId;
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
         return new Setup
         {
             Location = cell.MetaId,
@@ -149,6 +165,8 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
             Piece = piece.MetaId,
             Box = box.MetaId,
             Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
         };
     }
 
@@ -157,8 +175,10 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
     {
         var s = await SetupAsync();
 
-        var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var inv = await DocumentManager.NewDocumentAsync<SalesRealization>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         // Первая строка без цены — её и заполняем; вторая с ценой руками.
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, Unit = s.Piece });
@@ -169,7 +189,7 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
         var run = await Db.ExecuteDocumentCommandAsync(commandId, inv.MetaId);
         Assert.IsTrue(run.Success, "команда должна выполниться: {0}", run.Message ?? "");
 
-        var saved = await DocumentManager.GetDocumentAsync<SalesInvoice>(inv.MetaId);
+        var saved = await DocumentManager.GetDocumentAsync<SalesRealization>(inv.MetaId);
         var byPiece = saved.Lines.First(l => l.Unit == s.Piece);
         var byBox = saved.Lines.First(l => l.Unit == s.Box);
 
@@ -198,8 +218,10 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
         orphan.UnitOfMeasure = s.Piece;
         orphan = await DictionaryManager.SaveRecordAsync(orphan);
 
-        var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var inv = await DocumentManager.NewDocumentAsync<SalesRealization>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 2m, Unit = s.Piece });
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = orphan.MetaId, Quantity = 1m, Unit = s.Piece });
@@ -209,7 +231,7 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
         var run = await Db.ExecuteDocumentCommandAsync(commandId, inv.MetaId);
         Assert.IsTrue(run.Success, "команда должна выполниться: {0}", run.Message ?? "");
 
-        var saved = await DocumentManager.GetDocumentAsync<SalesInvoice>(inv.MetaId);
+        var saved = await DocumentManager.GetDocumentAsync<SalesRealization>(inv.MetaId);
         var priced = saved.Lines.First(l => l.Item == s.Item);
         var unpriced = saved.Lines.First(l => l.Item == orphan.MetaId);
 
@@ -224,8 +246,10 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
     {
         var s = await SetupAsync();
 
-        var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var inv = await DocumentManager.NewDocumentAsync<SalesRealization>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 1m, Unit = s.Piece, UnitPrice = 10m });
         await DocumentManager.SaveDocumentAsync(inv);
@@ -236,7 +260,7 @@ public class FillSalesPricesTest : IntegrationTestScriptBase
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Qty"] = 10m });
 
-        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        inv.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
 
         // Выставленный счёт переподбору цен не подлежит: он уже создал долг и

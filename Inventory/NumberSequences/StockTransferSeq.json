@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1007,
     "resetPolicy": "None",
     "metaId": "ac436074-541b-4d08-a0d0-0cec9e2c2372",
     "name": "StockTransferSeq",

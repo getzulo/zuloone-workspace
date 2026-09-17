@@ -4,18 +4,17 @@ public partial class SocialInsuranceAccrualTx
     {
         foreach (var line in document.Lines)
         {
-            // Both contribution sides live in one register as different resources:
-            // the employer pays them in a single remittance to the fund, but the
-            // share withheld from the employee and the company-paid share land on
-            // different reporting lines.
+            // Обе стороны взноса — в одном регистре разными ресурсами: платит их
+            // работодатель одним платежом в фонд, но удержанная у работника часть
+            // и часть за счёт компании ложатся в разные строки отчётности.
             transactions.Add(new RegisterMovementSpec("SocialInsurance")
                 .An(Analytics.SocialInsurance.Employee, line.Employee)
                 .An(Analytics.SocialInsurance.Division, document.Division)
                 .Res("EmployeeContribution", line.EmployeeContribution)
                 .Res("EmployerContribution", line.EmployerContribution));
 
-            // Withholding: the employee is owed net, not gross — the contribution
-            // share withheld for the fund reduces the liability to them.
+            // Удержание: сотруднику причитается нетто, не gross — доля взноса,
+            // удержанная в его пользу фондом, уменьшает задолженность перед ним.
             transactions.Add(new RegisterMovementSpec("PayrollLiability")
                 .An(Analytics.PayrollLiability.Employee, line.Employee)
                 .Res("Amount", -line.EmployeeContribution));

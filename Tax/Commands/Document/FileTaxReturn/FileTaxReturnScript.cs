@@ -1,7 +1,7 @@
 using ZuloOne.Managers;
 
-// "File return": legal entity is required. SubmitReturnAsync — OnAfterPost Filed,
-// do not call from here (the mock / filing channel runs on posting).
+// «Сдать декларацию»: юрлицо обязательно. SubmitReturnAsync — OnAfterPost Filed,
+// отсюда не звать (мок/канал сдачи сработает при проведении).
 public partial class FileTaxReturnCommand
 {
     public override async Task ExecuteAsync(TaxReturn document, CommandContext context)

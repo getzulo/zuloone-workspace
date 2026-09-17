@@ -2,16 +2,6 @@
   "kind": "Menu",
   "items": [
     {
-      "caption": "BomComponent",
-      "parentMetaId": "9e6f8a4d-1c5b-4d7e-8f8a-8b2c3d9e4f70",
-      "displayOrder": 1,
-      "targetType": "Dictionary",
-      "targetMetaId": "2a7c9e5d-4b8f-4c1a-9d6e-3f7b8c2d1e50",
-      "metaId": "3b2d047a-3539-4e59-a6fb-0329cf50f5a4",
-      "name": "BomComponent",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
       "caption": "Accounting",
       "caption_ar": "المحاسبة",
       "caption_ru": "Бухгалтерия",

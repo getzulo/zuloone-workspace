@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1004,
     "resetPolicy": "None",
     "metaId": "b4ab45db-58f1-4a2e-99c8-ea5756a57a67",
     "name": "PayrollPaymentSeq",

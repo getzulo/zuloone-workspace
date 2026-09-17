@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1605,
+    "nextValue": 1609,
     "resetPolicy": "None",
     "metaId": "45c2a182-4f95-4db2-929d-eaf49d755dc2",
     "name": "SalesContractSeq",

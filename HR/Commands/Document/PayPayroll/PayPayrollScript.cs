@@ -1,6 +1,6 @@
-// "Pay payroll" command on the PayrollPayment source subtype: transition to Paid.
-// Domain checks live in OnBeforePost; here — empty document and subtype change.
-// The engine replaces postings of the target state (Mix semantics).
+// Команда «Выплатить ФОТ» на подтипе-источнике PayrollPayment: переход в Paid.
+// Проверки предметной области живут в OnBeforePost; здесь — пустой документ
+// и смена подтипа. Движок заменяет проводки целевого состояния (семантика Mix).
 public partial class PayPayrollCommand
 {
     public override async Task ExecuteAsync(PayrollPayment document, CommandContext context)

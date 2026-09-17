@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Managers;
-// Генерённые классы (Currency, Item, SalesInvoice, LoyaltyRedemption, LoyaltyTier…).
+// Генерённые классы (Currency, Item, SalesRealization, LoyaltyRedemption, LoyaltyTier…).
 // Тестовым скриптам этот namespace НЕ приходит глобальным using'ом.
 using ZuloOne.Runtime.Generated;
 
 // Покрытие CRM: выставление Sales-инвойса начисляет баллы лояльности
-// (расширение чужой модели через tx-скрипт на подтипе SalesInvoice.Issued),
+// (расширение чужой модели через tx-скрипт на подтипе SalesRealization.Issued),
 // списание уменьшает баланс, переспис отклоняется (allowNegativeBalance=false).
 public class LoyaltyFlowTest : IntegrationTestScriptBase
 {
@@ -22,6 +22,8 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
         public Guid Location;
         public Guid Item;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync()
@@ -108,7 +110,28 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
-        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
+        return new Setup
+        {
+            Location = cell.MetaId,
+            Item = item.MetaId,
+            Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
+        };
     }
 
     // Customer — ФИЗИЧЕСКОЕ измерение регистра, поэтому баланс спрашивается по
@@ -151,19 +174,21 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Qty"] = 10m });
 
-        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
         await DocumentManager.SaveDocumentAsync(invoice);
 
         // Черновик баллов не начисляет. Проверка ДО перехода обязательна:
-        // SalesInvoice объявлен postOnSave, и без неё «15 баллов» ниже подтвердилось
+        // SalesRealization объявлен postOnSave, и без неё «15 баллов» ниже подтвердилось
         // бы даже если переход Draft → Issued не сделал ничего.
         Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 0m,
             "черновик счёта не должен начислять баллы, факт {0}", await PointsBalanceAsync(s.Customer));
 
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
 
         // 3 × 5 = 15 баллов.
@@ -280,13 +305,15 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Qty"] = 10m });
 
-        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
         await DocumentManager.SaveDocumentAsync(invoice);
 
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
         return s;
     }

@@ -1,4 +1,7 @@
 #nullable enable
+using System;
+using ZuloOne.Services.Contracts;
+
 namespace ZuloOne.Runtime.Generated;
 
 // JournalEntry is the foundation of double-entry: a posting is accepted only when it
@@ -31,6 +34,22 @@ public partial class JournalEntryEventHandler : TypedDocumentEventHandler<Journa
 
         if (debit != credit)
             return EventResult.Cancel($"Проводка не сбалансирована: дебет {debit} ≠ кредит {credit}");
+
+        var date = document.DocumentDate == default ? DateTime.UtcNow.Date : document.DocumentDate.Date;
+        var closed = await context.GetService<IFiscalPeriodService>().ClosedReasonAsync(date);
+        if (closed != null) return EventResult.Cancel(closed);
+
+        return EventResult.Ok();
+    }
+
+    public override async Task<EventResult> OnBeforeUnpostAsync(JournalEntry document, EventContext context)
+    {
+        var prior = await next(document, context);
+        if (!prior.Success) return prior;
+
+        var date = document.DocumentDate == default ? DateTime.UtcNow.Date : document.DocumentDate.Date;
+        var closed = await context.GetService<IFiscalPeriodService>().ClosedReasonAsync(date);
+        if (closed != null) return EventResult.Cancel(closed);
 
         return EventResult.Ok();
     }

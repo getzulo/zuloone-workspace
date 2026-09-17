@@ -17,7 +17,7 @@ public partial class SalesCreditNoteEventHandler : TypedDocumentEventHandler<Sal
             return EventResult.Ok();
 
         var invoice = await context.GetService<IDocumentManager>()
-            .GetDocumentAsync<SalesInvoice>(header.OriginalInvoice);
+            .GetDocumentAsync<SalesRealization>(header.OriginalInvoice);
         if (invoice is null)
             return EventResult.Ok();
 
@@ -60,8 +60,8 @@ public partial class SalesCreditNoteEventHandler : TypedDocumentEventHandler<Sal
         if (full.OriginalInvoice == Guid.Empty)
             return EventResult.Cancel("Укажите исходный счёт");
 
-        var invoice = await docs.GetDocumentAsync<SalesInvoice>(full.OriginalInvoice);
-        if (invoice is null || invoice.Subtype != SalesInvoice.Subtypes.Issued)
+        var invoice = await docs.GetDocumentAsync<SalesRealization>(full.OriginalInvoice);
+        if (invoice is null || invoice.Subtype != SalesRealization.Subtypes.Issued)
             return EventResult.Cancel("Кредит-нота только по реализованному счёту");
 
         var pair = await context.GetService<ISalesContractService>()

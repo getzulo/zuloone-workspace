@@ -7,7 +7,7 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.1.4",
+    "modelVersion": "1.0.0",
     "metaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
     "name": "Costing",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -15,20 +15,16 @@
   },
   "dependencies": [
     {
-      "modelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "minVersion": "1.0.0",
       "metaId": "5c8f2b63-9e4d-4a7b-8c3f-6d9e2a5b8c40",
-      "name": "Costing->Inventory",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+      "name": "Costing->Inventory"
     },
     {
-      "modelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
       "dependsOnModelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "minVersion": "1.0.0",
       "metaId": "6d9a3c74-0f5e-4b8c-9d4a-7e0f3b6c9d50",
-      "name": "Costing->Purchasing",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+      "name": "Costing->Purchasing"
     }
   ]
 }

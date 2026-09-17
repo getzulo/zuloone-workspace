@@ -13,6 +13,7 @@ public partial class CustomerPaymentTx
         {
             transactions.Add(new RegisterMovementSpec("Receivable")
                 .An(Analytics.Receivable.Customer, line.Customer)
+                .An(Analytics.Receivable.SalesContract, line.Contract)
                 .Res("Amount", -line.Amount));
         }
     }

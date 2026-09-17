@@ -1,0 +1,67 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "TBLinesTablePartRow",
+    "caption": "TBLines",
+    "tableName": "TP_TBLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "805782c2-f366-4e7b-846b-81c7b1984076",
+    "name": "TBLines",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "805782c2-f366-4e7b-846b-81c7b1984076",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 2,
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 3,
+      "metaId": "66492728-29bc-4b18-b4a6-418d111fa89b",
+      "name": "Amount",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+    },
+    {
+      "tablePartTypeMetaId": "805782c2-f366-4e7b-846b-81c7b1984076",
+      "fieldName": "Item",
+      "caption": "Item",
+      "edtMetaId": "d64b376f-4124-4503-8f28-66870509d54a",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "5929e99f-75f5-4635-9293-b99892d085be",
+      "referenceName": "TBItem",
+      "displayOrder": 1,
+      "metaId": "79595dae-c3a4-4ca1-b908-ffd58837a0c0",
+      "name": "Item",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+    },
+    {
+      "tablePartTypeMetaId": "805782c2-f366-4e7b-846b-81c7b1984076",
+      "fieldName": "Quantity",
+      "caption": "Quantity",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 3,
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "893f601d-7d86-46e7-8e2b-f01fed373585",
+      "name": "Quantity",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+    }
+  ]
+}

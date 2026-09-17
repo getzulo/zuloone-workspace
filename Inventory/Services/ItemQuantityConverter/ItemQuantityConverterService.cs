@@ -6,38 +6,36 @@ using System.Threading;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Runtime.Generated;
-// EXPLICIT using, even though ZuloOne.Runtime.Services is already in script global usings:
-// the generated contract source copies only the file's NON-global usings,
-// and the contract assembly compiles without the script framework. Without this line
-// IQuantityConverter/QuantityConversionRequest in the signature will not resolve (CS0246),
-// and it is not one service that fails — it is the ENTIRE registry.
+// ЯВНЫЙ using, хотя ZuloOne.Runtime.Services уже в global usings скриптов:
+// сгенерированный исходник контракта копирует только НЕ-глобальные using'и файла,
+// а сборка контрактов компилируется без script framework. Без этой строки
+// IQuantityConverter/QuantityConversionRequest в сигнатуре не разрешатся (CS0246),
+// и упадёт НЕ один сервис, а ВЕСЬ реестр.
 using ZuloOne.Runtime.Services;
 
-// Convert a document-line quantity into the ITEM's base unit.
+// Пересчёт количества строки документа в базовую единицу ТОВАРА.
 //
-// Resolution order is specific-to-general, and that order matters:
-//   1. IDENTITY. The line unit matches the item's base unit — return
-//      the quantity. The platform deliberately does NOT short-circuit here, and
-//      null would refuse every line entered in the base
-//      unit, i.e. the vast majority of lines.
-//   2. ITEM PACKAGING (ItemUnit). A "box" without an item is not a quantity: one
-//      item has 12 pieces in it, another has 6. So packaging is asked FIRST
-//      and only for the item on the line.
-//   3. UNIT CLASS (UnitClass + RatioToBase). Kilograms to grams are the same for
-//      any item; the item is not needed here.
-//   4. Otherwise null — "no rule". NO EXCEPTIONS ARE THROWN FROM HERE: refusing
-//      the save is the platform's decision, the converter does not make it.
+// Порядок разбора — от частного к общему, и он существенен:
+//   1. ТОЖДЕСТВО. Единица строки совпадает с базовой единицей товара — вернуть
+//      количество. Платформа намеренно НЕ делает здесь короткого замыкания, и
+//      null означал бы отказ в записи каждой строки, введённой в базовой
+//      единице, то есть подавляющего большинства строк.
+//   2. УПАКОВКА ТОВАРА (ItemUnit). «Коробка» без товара не величина: у одного
+//      товара в ней 12 штук, у другого 6. Поэтому упаковка спрашивается ПЕРВОЙ
+//      и только для того товара, который стоит в строке.
+//   3. ВИД ВЕЛИЧИНЫ (UnitClass + RatioToBase). Килограммы в граммы одинаковы для
+//      любого товара, здесь товар не нужен.
+//   4. Иначе null — «правила нет». ИСКЛЮЧЕНИЙ ОТСЮДА НЕ БРОСАЕМ: отказать в
+//      записи решает платформа, конвертер это решение не принимает.
 //
-// Lives in Inventory, not Common, because packaging references Item, and
-// layer 1 cannot reference it. That is the cost of item packagings: class
-// conversion is available to every model (UnitConverter in Common), item
-// conversion only from layer 2.
+// Живёт в Inventory, а не в Common, потому что упаковка ссылается на Item, и
+// слой 1 на него ссылаться не может. Это цена товарных упаковок: класс-перевод
+// доступен всем моделям (UnitConverter в Common), товарный — только со слоя 2.
 //
-// ALL reads go through request.Reader. Opening our own connection is forbidden:
-// the outer transaction would promote to MSDTC (absent on Linux), and a
-// suppress scope on SQL Server would block on rows locked by the current
-// transaction — a test that seeded packaging inside its own rollback would
-// hang instead of fail.
+// ВСЕ чтения — через request.Reader. Своё соединение открывать нельзя: внешняя
+// транзакция промоутнется в MSDTC (на Linux его нет), а suppress-скоуп на SQL
+// Server заблокируется на строках, залоченных текущей транзакцией, — тест,
+// посеявший упаковку внутри своего отката, повис бы вместо падения.
 public partial class ItemQuantityConverter : IQuantityConverter
 {
     private readonly IDictionaryManager<ItemUnit> _packs;
@@ -54,11 +52,11 @@ public partial class ItemQuantityConverter : IQuantityConverter
         _items = items;
     }
 
-    // ───────────────── application entry ─────────────────
+    // ───────────────── прикладной вход ─────────────────
 
     /// <summary>
-    /// Item quantity in its base unit; null — nothing to convert with.
-    /// First this item's packaging, then the shared unit class.
+    /// Количество товара в его базовой единице; null — перевести нечем.
+    /// Сначала упаковка этого товара, затем общий вид величины.
     /// </summary>
     public async Task<decimal?> ToBaseAsync(Guid item, decimal quantity, Guid fromUnit)
     {
@@ -79,7 +77,7 @@ public partial class ItemQuantityConverter : IQuantityConverter
             quantity, from.UnitClass, from.RatioToBase, to.UnitClass, to.RatioToBase);
     }
 
-    /// <summary>Same, rounded to the item's base-unit precision.</summary>
+    /// <summary>То же с округлением до точности базовой единицы товара.</summary>
     public async Task<decimal?> ToBaseRoundedAsync(Guid item, decimal quantity, Guid fromUnit)
     {
         var converted = await ToBaseAsync(item, quantity, fromUnit);
@@ -91,7 +89,7 @@ public partial class ItemQuantityConverter : IQuantityConverter
         return RoundQty(converted.Value, unit?.DecimalPlaces ?? FallbackScale());
     }
 
-    // ───────────────── platform entry: IQuantityConverter ─────────────────
+    // ───────────────── платформенный вход: IQuantityConverter ─────────────────
 
     public async Task<decimal?> ConvertAsync(QuantityConversionRequest request, CancellationToken ct = default)
     {
@@ -103,11 +101,11 @@ public partial class ItemQuantityConverter : IQuantityConverter
         }
         else
         {
-            // The item-reference field name is not known in advance (on an order
-            // line it is Item, on a BOM line — Component), and it is not on the request.
-            // Approach from the other side: take packagings of this UNIT and check
-            // whether their item appears among the row values. A match is
-            // unambiguous — packaging is bound to the (item, unit) pair.
+            // Имя поля-ссылки на товар заранее неизвестно (в строке заказа это
+            // Item, в составе спецификации — Component), и в запросе его нет.
+            // Идём с другой стороны: берём упаковки этой ЕДИНИЦЫ и проверяем,
+            // встречается ли их товар среди значений строки. Совпадение
+            // однозначно — упаковка привязана к паре (товар, единица).
             var packQty = await PackFactorAsync(request.Reader, request.Row, request.FromUnit, ct);
             converted = packQty.HasValue
                 ? request.Quantity * packQty.Value
@@ -116,14 +114,14 @@ public partial class ItemQuantityConverter : IQuantityConverter
 
         if (!converted.HasValue) return null;
 
-        // Unit precision, capped by the target column scale: a unit with
-        // six places landing in DECIMAL(18,4) would be silently truncated by the driver.
+        // Точность единицы, ограниченная масштабом колонки-приёмника: единица с
+        // шестью знаками, ложась в DECIMAL(18,4), была бы молча обрезана драйвером.
         var scale = Math.Min(
             await UnitPrecisionAsync(request.Reader, request.ToUnit, ct), request.TargetScale);
         return RoundQty(converted.Value, scale);
     }
 
-    /// <summary>How many of the item's base units are in one package; null — no packaging.</summary>
+    /// <summary>Сколько базовых единиц товара в одной упаковке; null — упаковки нет.</summary>
     private static async Task<decimal?> PackFactorAsync(
         IRowReader reader, IReadOnlyDictionary<string, object?> row, Guid unit, CancellationToken ct)
     {
@@ -147,10 +145,10 @@ public partial class ItemQuantityConverter : IQuantityConverter
     }
 
     /// <summary>
-    /// Conversion by ratios to the class base unit. A copy of the Common
-    /// service arithmetic, and not by sloppiness: only the GENERATED contract
-    /// with instance methods is visible outside the model; a static helper of
-    /// another model is not. The rule is the same on both copies.
+    /// Перевод по коэффициентам к базовой единице вида. Копия арифметики из
+    /// сервиса Common, и не по небрежности: наружу из модели торчит только
+    /// СГЕНЕРИРОВАННЫЙ контракт с инстанс-методами, статический помощник чужой
+    /// модели не виден. Правило при этом одно на обе копии.
     /// </summary>
     private static decimal? ByRatio(
         decimal quantity, Guid fromClass, decimal fromRatio, Guid toClass, decimal toRatio)
@@ -172,7 +170,7 @@ public partial class ItemQuantityConverter : IQuantityConverter
         return value is Guid g ? g : Guid.TryParse(value.ToString(), out var p) ? p : Guid.Empty;
     }
 
-    /// <summary>Conversion by unit class — the same rules as in the Common service.</summary>
+    /// <summary>Перевод по виду величины — теми же правилами, что и в сервисе Common.</summary>
     private static async Task<decimal?> ByClassAsync(
         IRowReader reader, decimal quantity, Guid fromUnit, Guid toUnit, CancellationToken ct)
     {

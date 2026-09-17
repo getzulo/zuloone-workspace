@@ -2,9 +2,9 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// "Confirm pick": cells (storage → picking) and base-unit balance are asked
-// of the services, not computed here. OnAfterPost is not called — there are
-// no movements, only a subtype change; events will repeat the same checks on any path.
+// «Подтвердить отбор»: ячейки (хранение → отбор) и остаток в базовой единице
+// спрашиваются у сервисов, а не считаются здесь. OnAfterPost не зовём — проводок
+// нет, только смена подтипа; события повторят те же проверки на любом пути.
 public partial class ConfirmPickCommand
 {
     public override async Task ExecuteAsync(PickTask document, CommandContext context)

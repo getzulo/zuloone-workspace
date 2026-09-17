@@ -93,6 +93,10 @@ jobs:
         shell: bash
         run: python3 .github/scripts/check_script_pairs.py
 
+      - name: Models must only reference what they declare
+        shell: bash
+        run: python3 .github/scripts/check_model_deps.py
+
       - name: A release must change something
         if: steps.ver.outputs.release == 'true'
         shell: bash

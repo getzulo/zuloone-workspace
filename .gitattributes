@@ -1,0 +1,8 @@
+# The ZuloOne server writes every workspace file with LF endings and records a
+# hash of what it wrote in the export ledger. Without this file, core.autocrlf
+# rewrites files to CRLF on checkout; every file then differs from the ledger,
+# and the live-sync export gate HOLDS on ~1700 phantom "changed on disk" paths
+# — the sync silently stops applying anything.
+#
+# Keep LF on checkout for everything the server owns.
+* text=auto eol=lf

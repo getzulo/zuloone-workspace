@@ -1,7 +1,7 @@
 using System.Linq;
 using ZuloOne.Managers;
 
-// "Pay vendor": line amounts. Payable balance is not cut — an advance is lawful.
+// «Оплатить поставщику»: суммы строк. Остаток Payable не режем — аванс законен.
 public partial class PayVendorCommand
 {
     public override async Task ExecuteAsync(VendorPayment document, CommandContext context)

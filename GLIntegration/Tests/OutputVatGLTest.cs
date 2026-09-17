@@ -29,6 +29,8 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         public Guid Cell;
         public Guid Item;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
         public Guid ArAccount;
         public Guid VatAccount;
         public Guid CashAccount;
@@ -121,6 +123,20 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
         await TotalsManager.PostMovementAsync("Stock", null, today,
             new Dictionary<string, object?> { ["Cell"] = cell.MetaId, ["Item"] = item.MetaId },
             new Dictionary<string, decimal> { ["Qty"] = 100m });
@@ -164,6 +180,8 @@ public class OutputVatGLTest : IntegrationTestScriptBase
             Cell = cell.MetaId,
             Item = item.MetaId,
             Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
             ArAccount = arAccount,
             VatAccount = vatAccount,
             CashAccount = cashAccount,
@@ -246,15 +264,17 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         await DictionaryManager.SaveRecordAsync(settings);
     }
 
-    private static async Task<SalesInvoice> IssueAsync(Setup s, decimal quantity, decimal unitPrice)
+    private static async Task<SalesRealization> IssueAsync(Setup s, decimal quantity, decimal unitPrice)
     {
-        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
         invoice.Location = s.Cell;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = quantity, UnitPrice = unitPrice });
         await DocumentManager.SaveDocumentAsync(invoice);
 
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
         return invoice;
     }
@@ -329,8 +349,8 @@ public class OutputVatGLTest : IntegrationTestScriptBase
         var invoice = await IssueAsync(s, 4m, 25m);
         var calc = await TheCalculationAsync(invoice.MetaId);
 
-        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
-        Assert.IsTrue(stored?.Subtype == SalesInvoice.Subtypes.Issued,
+        var stored = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
+        Assert.IsTrue(stored?.Subtype == SalesRealization.Subtypes.Issued,
             "счёт выставлен несмотря на ненастроенный счёт НДС, факт {0}", stored?.Subtype);
 
         var vat = await AccountAsync(calc.MetaId, s.VatAccount);
@@ -364,7 +384,7 @@ public class OutputVatGLTest : IntegrationTestScriptBase
 
         var payment = await DocumentManager.NewDocumentAsync<CustomerPayment>();
         payment.LegalEntity = s.LegalEntity;
-        payment.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Amount = 115m });
+        payment.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Contract = s.Contract, Amount = 115m });
         await DocumentManager.SaveDocumentAsync(payment);
 
         Assert.IsTrue((await AccountAsync(payment.MetaId, s.ArAccount)).Credit == 0m,
@@ -396,7 +416,7 @@ public class OutputVatGLTest : IntegrationTestScriptBase
 
         var payment = await DocumentManager.NewDocumentAsync<CustomerPayment>();
         payment.LegalEntity = s.LegalEntity;
-        payment.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Amount = -500m });
+        payment.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Contract = s.Contract, Amount = -500m });
         await DocumentManager.SaveDocumentAsync(payment);
 
         var reason = string.Empty;

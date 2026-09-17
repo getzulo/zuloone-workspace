@@ -8,35 +8,31 @@ using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// ═══ NON-SALE INVENTORY DISPOSAL — INTO THE GENERAL LEDGER ══════════════════
+// ═══ ВЫБЫТИЕ ЗАПАСОВ МИМО ПРОДАЖИ — В ГЛАВНУЮ КНИГУ ══════════════════════════
 //
-// Receipt debits the inventory account, a sale credits it through COGS.
-// Breakage, shortage and a warehouse issue never hit the books AT ALL: cost
-// left the ItemCostFifo register and stayed on the inventory account forever,
-// so the books overstated inventory by everything written off over history.
+// Приход дебетует счёт запасов, продажа кредитует его через себестоимость. Бой,
+// недостача и отпуск со склада не попадали в книгу ВООБЩЕ: стоимость уходила из
+// регистра ItemCostFifo и оставалась на счёте запасов навсегда, так что книга
+// завышала запас на всё списанное за историю.
 //
-// The logic is shared by two documents (stock adjustment and goods issue),
-// so it lives in a service, and document handlers only decide WHEN to call it.
+// Логика одна на два документа (корректировка остатков и отпуск), поэтому живёт
+// в сервисе, а обработчики документов только решают КОГДА её звать.
 //
-// The amount is the FACT from this document's ItemCostFifo movements, not a
-// recalculation from lines: the valuation method (FIFO/AVG) lives in Costing
-// settings, and repeating it here means drift from inventory accounting on
-// the day the setting changes. Disposal arrives as a negative amount (the
-// engine puts layer cost there) — the write-off posting takes the absolute
-// value. Positive movements are surplus: Costing opens a lot, and the same
-// amount goes into the second leg (PostSurplusAsync).
+// Сумма — ФАКТ из движений ItemCostFifo этого документа, а не пересчёт по
+// строкам: метод оценки (FIFO/AVG) живёт в настройках Costing, и повторять его
+// здесь значит разъехаться с учётом запаса в день смены настройки. Выбытие
+// приходит отрицательной суммой (движок подставляет туда себестоимость слоёв) —
+// в проводку списания идёт модуль. Положительные движения — излишек: Costing
+// заводит партию, и та же сумма уходит во вторую ногу (PostSurplusAsync).
 //
-// The write-off account is ITS OWN, not COGS: cost of goods sold is the cost
-// of what was sold, and gross margin is computed from it. Dumping losses
-// there would distort the margin.
+// Счёт списания СВОЙ, не COGS: себестоимость продаж — это стоимость проданного,
+// и валовая маржа считается по ней. Свалив туда потери, мы исказили бы маржу.
 //
-// Surplus is INCOME, not a write-off reversal. The loss account and COGS stay
-// clean: only a real inventory exit lands there. Dumping a find onto the same
-// account would wipe breakage with receipts and margin/losses would stop
-// being readable.
-// So its own leg: Dr inventory / Cr surplus income. A zero lot (the item was
-// never purchased) — no amount, no posting: there is nothing to invent income
-// from.
+// Излишек — это ДОХОД, а не сторно списания. Счёт потерь и COGS остаются
+// чистыми: туда попадает только реальный уход запаса. Свалив находку на тот же
+// счёт, мы затёрли бы бой приходами и маржа/потери перестали бы читаться.
+// Поэтому своя нога: Dr запасы / Cr доход от излишка. Нулевая партия (товара
+// никогда не покупали) — суммы нет, проводки нет: выдумывать доход не из чего.
 public partial class InventoryWriteOffGLService
 {
     private readonly ITotalsManager _totals;
@@ -63,16 +59,16 @@ public partial class InventoryWriteOffGLService
     }
 
     /// <summary>
-    /// Post the cost this document wrote off. Returns the journal-entry id or
-    /// null if there is nothing to write off or the accounts are not configured.
+    /// Разнести списанную документом себестоимость. Возвращает id проводки или
+    /// null, если списывать нечего либо счета не настроены.
     /// </summary>
-    /// <param name="date">DOCUMENT date, not the posting-day date. From it
-    /// <see cref="IGeneralLedgerService.PostAsync"/> picks the fiscal period,
-    /// so a back-dated document must take its own date into the books —
-    /// otherwise register movements land in one period and the journal entry
-    /// in another, and period reconciliation drifts. The parameter is
-    /// required on purpose: defaulting to today is exactly the bug it is
-    /// meant to prevent.</param>
+    /// <param name="date">Дата ДОКУМЕНТА, а не дня разноски. По ней
+    /// <see cref="IGeneralLedgerService.PostAsync"/> выбирает учётный период,
+    /// поэтому документ, проведённый задним числом, обязан унести в книгу свою
+    /// собственную дату — иначе движения регистров лягут в один период, а
+    /// проводка в другой, и сверка за период разойдётся. Параметр обязателен
+    /// намеренно: подстановка текущей даты по умолчанию — ровно та ошибка,
+    /// которую он призван исключить.</param>
     public async Task<Guid?> PostAsync(Guid documentMetaId, Guid cell, DateTime date, string description)
     {
         var gl = ScriptServices.Get<IGeneralLedgerService>();
@@ -100,14 +96,13 @@ public partial class InventoryWriteOffGLService
     }
 
     /// <summary>
-    /// Post the surplus cost that Costing opened as a lot. Returns the
-    /// journal-entry id or null if there is nothing to receive or the accounts
-    /// are not configured.
+    /// Разнести стоимость излишка, который Costing завёл партией. Возвращает id
+    /// проводки или null, если приходовать нечего либо счета не настроены.
     /// </summary>
     /// <remarks>
-    /// Amount — positive Amount values on this document's ItemCostFifo
-    /// (equivalent: if cost = −Σ Amount and cost &lt; 0, then surplus = −cost).
-    /// Zero surplus lots (no purchase history) yield 0 and do not get here.
+    /// Сумма — положительные Amount по ItemCostFifo этого документа (эквивалент:
+    /// если cost = −Σ Amount и cost &lt; 0, то surplus = −cost). Нулевые партии
+    /// излишка (нет истории закупок) дают 0 и сюда не попадают.
     /// </remarks>
     public async Task<Guid?> PostSurplusAsync(Guid documentMetaId, Guid cell, DateTime date, string description)
     {
@@ -139,7 +134,7 @@ public partial class InventoryWriteOffGLService
             "Приход запасов (излишек)", "Доход от излишка");
     }
 
-    /// <summary>Legal entity — along Cell → Zone → Store → Division → LegalEntity.</summary>
+    /// <summary>Юрлицо — по цепочке Ячейка → Зона → Склад → Подразделение → Юрлицо.</summary>
     private async Task<LegalEntity?> ResolveLegalEntityAsync(Guid cell)
     {
         var loc = await _cells.GetRecordAsync(cell);

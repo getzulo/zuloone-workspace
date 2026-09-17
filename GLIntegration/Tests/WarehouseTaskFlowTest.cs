@@ -7,7 +7,7 @@ using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
 // Живёт в GLIntegration, а не в Inventory: сценарии прихода/отгрузки
-// типизируют PurchaseOrder и SalesInvoice, а Inventory их не видит.
+// типизируют PurchaseOrder и SalesRealization, а Inventory их не видит.
 //
 // АДРЕСНАЯ СКЛАДСКАЯ ДИСЦИПЛИНА.
 //
@@ -35,6 +35,8 @@ public class WarehouseTaskFlowTest : IntegrationTestScriptBase
         public Guid Picking;
         public Guid Item;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
         public Guid Supplier;
     }
 
@@ -110,6 +112,20 @@ public class WarehouseTaskFlowTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
         var supplier = DictionaryManager.NewRecord<Supplier>();
         supplier.Name = "Bolt Supply Co";
         supplier = await DictionaryManager.SaveRecordAsync(supplier);
@@ -122,6 +138,8 @@ public class WarehouseTaskFlowTest : IntegrationTestScriptBase
             Picking = await NewCellAsync(zone.MetaId, StoreCellPurpose.Picking, "P-01", 3),
             Item = item.MetaId,
             Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
             Supplier = supplier.MetaId,
         };
     }
@@ -192,13 +210,15 @@ public class WarehouseTaskFlowTest : IntegrationTestScriptBase
 
     private static async Task SellAsync(Yard y, Guid cell, decimal qty)
     {
-        var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var inv = await DocumentManager.NewDocumentAsync<SalesRealization>();
         inv.Customer = y.Customer;
+        inv.Outlet = y.Outlet;
+        inv.Contract = y.Contract;
         inv.Location = cell;
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = y.Item, Quantity = qty, UnitPrice = 10m });
         await DocumentManager.SaveDocumentAsync(inv);
 
-        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        inv.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
     }
 

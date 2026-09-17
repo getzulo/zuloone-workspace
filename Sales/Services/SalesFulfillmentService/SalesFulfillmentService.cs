@@ -121,11 +121,11 @@ public partial class SalesFulfillmentService
     {
         if (orderId == Guid.Empty) return Guid.Empty;
 
-        var existing = await _documents.CountDocumentsAsync<SalesInvoice>(
+        var existing = await _documents.CountDocumentsAsync<SalesRealization>(
             $"SourceOrder = '{orderId}'");
         if (existing > 0)
         {
-            var found = (await _documents.QueryDocumentsAsync<SalesInvoice>(
+            var found = (await _documents.QueryDocumentsAsync<SalesRealization>(
                 $"SourceOrder = '{orderId}'")).FirstOrDefault();
             return found?.MetaId ?? Guid.Empty;
         }
@@ -133,10 +133,14 @@ public partial class SalesFulfillmentService
         var order = await _documents.GetDocumentAsync<SalesOrder>(orderId);
         if (order == null || order.Lines.Count == 0) return Guid.Empty;
 
-        var invoice = await _documents.NewDocumentAsync<SalesInvoice>();
+        var invoice = await _documents.NewDocumentAsync<SalesRealization>();
         invoice.Customer = order.Customer;
         invoice.Location = order.Location;
         invoice.SourceOrder = order.MetaId;
+        if (order.Outlet != Guid.Empty)
+            invoice.Outlet = order.Outlet;
+        if (order.Contract != Guid.Empty)
+            invoice.Contract = order.Contract;
         if (order.DeliveryDate != default)
             invoice.DocumentDate = order.DeliveryDate.Date;
         if (order.Contact != Guid.Empty)
@@ -172,7 +176,7 @@ public partial class SalesFulfillmentService
     public async Task MarkSourceOrderDeliveredAsync(Guid invoiceId)
     {
         if (invoiceId == Guid.Empty) return;
-        var invoice = await _documents.GetDocumentAsync<SalesInvoice>(invoiceId);
+        var invoice = await _documents.GetDocumentAsync<SalesRealization>(invoiceId);
         var sourceOrder = invoice?.SourceOrder ?? Guid.Empty;
         if (sourceOrder == Guid.Empty) return;
 

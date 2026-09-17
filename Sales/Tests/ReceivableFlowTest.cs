@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Managers;
 // Обязательно: тестовым скриптам этот namespace НЕ выдаётся глобальным using —
-// без него генерированные классы (Currency, SalesInvoice…) не находятся.
+// без него генерированные классы (Currency, SalesRealization…) не находятся.
 using ZuloOne.Runtime.Generated;
 
 // Контур дебиторки: выставленный счёт создаёт долг покупателя, а отдельный
@@ -28,6 +28,8 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
         public Guid Location;
         public Guid Item;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync()
@@ -114,10 +116,31 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
-        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
+        return new Setup
+        {
+            Location = cell.MetaId,
+            Item = item.MetaId,
+            Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
+        };
     }
 
-    // Receivable и Revenue несут только динамическую аналитику Customer.
+    // Срез по клиенту суммирует все договоры; договор на движении обязателен.
     private static Task<decimal> SumAsync(string register, Setup s)
         => TotalsManager.GetBalanceAsync(register, "Amount",
             new Dictionary<string, object?> { ["Customer"] = s.Customer });
@@ -135,8 +158,10 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
             new Dictionary<string, decimal> { ["Qty"] = 10m });
 
         // Подтип не передаём: документ обязан стартовать в НАЧАЛЬНОМ подтипе (Draft).
-        var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var inv = await DocumentManager.NewDocumentAsync<SalesRealization>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
         await DocumentManager.SaveDocumentAsync(inv);
@@ -147,7 +172,7 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(await SumAsync("Receivable", s) == 0m, "черновик счёта не создаёт долг");
         Assert.IsTrue(await SumAsync("Revenue", s) == 0m, "черновик счёта не признаёт выручку");
 
-        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        inv.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
 
         Assert.IsTrue(await SumAsync("Receivable", s) == 15m,
@@ -157,7 +182,7 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
 
         // Оплата — ОТДЕЛЬНЫЙ документ, а не смена подтипа счёта.
         var pay = await DocumentManager.NewDocumentAsync<CustomerPayment>();
-        pay.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Amount = 15m });
+        pay.Lines.Add(new CustomerPaymentLinesTablePartRow { Customer = s.Customer, Contract = s.Contract, Amount = 15m });
         await DocumentManager.SaveDocumentAsync(pay);
         Assert.IsTrue(await SumAsync("Receivable", s) == 15m,
             "черновик оплаты долг не трогает, факт {0}", await SumAsync("Receivable", s));
@@ -169,9 +194,9 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
             "после оплаты долг погашен, факт {0}", await SumAsync("Receivable", s));
 
         // Счёт остаётся выставленным — оплата не отменяет продажу.
-        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(inv.MetaId);
+        var stored = await DocumentManager.GetDocumentAsync<SalesRealization>(inv.MetaId);
         Assert.IsNotNull(stored, "счёт читается после оплаты");
-        Assert.IsTrue(stored!.Subtype == SalesInvoice.Subtypes.Issued,
+        Assert.IsTrue(stored!.Subtype == SalesRealization.Subtypes.Issued,
             "счёт остаётся Issued, факт {0}", stored.Subtype);
 
         Assert.IsTrue(await SumAsync("Revenue", s) == 15m,
@@ -200,20 +225,22 @@ public class ReceivableFlowTest : IntegrationTestScriptBase
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Qty"] = 10m });
 
-        var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var inv = await DocumentManager.NewDocumentAsync<SalesRealization>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
         await DocumentManager.SaveDocumentAsync(inv);
 
-        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        inv.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
         Assert.IsTrue(await SumAsync("Receivable", s) == 15m, "долг признан выставлением");
 
         var reason = string.Empty;
         try
         {
-            inv.Subtype = SalesInvoice.Subtypes.Paid;
+            inv.Subtype = SalesRealization.Subtypes.Paid;
             await DocumentManager.SaveDocumentAsync(inv);
         }
         catch (Exception ex) { reason = ex.Message; }

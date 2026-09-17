@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "b4f29a32-6626-49ea-9825-c18b92caa97e",
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TBItem",
+    "objectMetaId": "5929e99f-75f5-4635-9293-b99892d085be",
+    "executionOrder": 0,
+    "metaId": "ac4276de-c487-449b-84f0-25f1aeefa15c",
+    "name": "TBItemEventHandler_TestBenchExt",
+    "modelId": "390cbabb-1f33-47db-afd7-b78fb78afae9"
+  }
+}

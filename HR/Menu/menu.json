@@ -152,19 +152,6 @@
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {
-      "caption": "Time off",
-      "caption_ar": "الغياب",
-      "caption_ru": "Отсутствия",
-      "parentMetaId": "4aaba8b4-6d1e-4c2a-9b3f-5a7e2d1c4b68",
-      "displayOrder": 2,
-      "icon": "fluent-color:calendar-empty-32",
-      "targetType": "Dictionary",
-      "targetMetaId": "5b30950b-2198-4292-8626-9abec2fcc1e3",
-      "metaId": "94a3484f-1c3a-4d1f-a3fa-fb355364a641",
-      "name": "TimeOff",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
-    },
-    {
       "caption": "Payroll payments",
       "caption_ar": "صرف الرواتب",
       "caption_ru": "Выплаты зарплаты",
@@ -188,6 +175,19 @@
       "targetMetaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6",
       "metaId": "541dae43-d38d-49aa-831d-f7d85fe2f810",
       "name": "SocialInsurance",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+    },
+    {
+      "caption": "Time off",
+      "caption_ar": "الغياب",
+      "caption_ru": "Отсутствия",
+      "parentMetaId": "4aaba8b4-6d1e-4c2a-9b3f-5a7e2d1c4b68",
+      "displayOrder": 2,
+      "icon": "fluent-color:calendar-empty-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "5b30950b-2198-4292-8626-9abec2fcc1e3",
+      "metaId": "94a3484f-1c3a-4d1f-a3fa-fb355364a641",
+      "name": "TimeOff",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {

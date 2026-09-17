@@ -1,0 +1,16 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "slot": "footer",
+    "widgetType": "notes",
+    "widgetMetaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a103",
+    "displayOrder": 0,
+    "width": 6,
+    "height": 3,
+    "metaId": "9869ed20-27e6-43e0-b908-b4ddf2d7b6bf",
+    "name": "SalesInvoice.footer.notes",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

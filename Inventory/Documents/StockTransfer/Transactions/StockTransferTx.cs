@@ -1,13 +1,13 @@
 #nullable enable
 
-// Transfer between cells — TWO single Stock movements (single-entry):
-// outcome −qty at FromCell, income +qty at ToCell. Goods are neither created
-// nor destroyed — they just move between cells.
+// Перемещение между ячейками — ДВЕ одиночные проводки Stock (одинарная запись):
+// outcome −qty у FromCell, income +qty у ToCell. Товар не создаётся и не
+// уничтожается — просто переезжает между ячейками.
 //
-// The register gets BaseQuantity (the item's base unit, computed by the platform
-// when the line is saved); zero = "unit not specified, no conversion" → the
-// entered quantity is the base. Both legs take ONE value — otherwise a transfer
-// would create or destroy goods.
+// В регистр уходит BaseQuantity (базовая единица товара, считает платформа при
+// сохранении строки); ноль = «единица не указана, пересчёта не было» → введённое
+// количество и есть базовое. Обе ноги берут ОДНО значение — иначе перемещение
+// создавало бы или уничтожало товар.
 public partial class StockTransferTx
 {
     protected override void GetTransactions(StockTransfer document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

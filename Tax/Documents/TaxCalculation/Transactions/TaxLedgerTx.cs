@@ -14,7 +14,8 @@ public partial class TaxLedgerTx
                 .An(Analytics.TaxLedger.TaxDirection, line.Direction)
                 .An(Analytics.TaxLedger.LegalEntity, document.LegalEntity)
                 .Res("TaxBase", line.TaxBase)
-                .Res("TaxAmount", line.TaxAmount));
+                .Res("TaxAmount", line.TaxAmount)
+                .Res("RecoverableAmount", line.RecoverableAmount));
         }
     }
 }

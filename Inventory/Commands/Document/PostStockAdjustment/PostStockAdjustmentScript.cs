@@ -2,8 +2,8 @@ using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
-// "Post adjustment": negative lines are a write-off; their demand in the base
-// unit is checked against the cell balance. Positive lines (receipt) do not consume stock.
+// «Провести корректировку»: минусовые строки — списание, их спрос в базовой
+// единице сверяется с остатком ячейки. Плюсовые (оприходование) остаток не жрут.
 public partial class PostStockAdjustmentCommand
 {
     public override async Task ExecuteAsync(StockAdjustment document, CommandContext context)

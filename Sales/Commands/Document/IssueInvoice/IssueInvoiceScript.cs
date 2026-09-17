@@ -6,15 +6,32 @@ using ZuloOne.Services.Contracts;
 // on the invoice date. CreateCalculationAsync and the legal-entity stamp — OnBefore/AfterPost.
 public partial class IssueInvoiceCommand
 {
-    public override async Task ExecuteAsync(SalesInvoice document, CommandContext context)
+    public override async Task ExecuteAsync(SalesRealization document, CommandContext context)
     {
         var docs = context.GetService<IDocumentManager>();
-        var full = await docs.GetDocumentAsync<SalesInvoice>(document.MetaId);
+        var full = await docs.GetDocumentAsync<SalesRealization>(document.MetaId);
         if (full == null) return;
 
         if (full.Lines.Count == 0)
         {
             context.AddClientAction(ClientAction.Message("Нельзя выставить пустой счёт: добавьте строки."));
+            return;
+        }
+
+        var onDate = full.DocumentDate != default ? full.DocumentDate : DateTime.UtcNow;
+        var contracts = context.GetService<ISalesContractService>();
+        var pair = await contracts.ValidatePairAsync(full.Customer, full.Outlet, full.Contract, onDate);
+        if (pair != null)
+        {
+            context.AddClientAction(ClientAction.Message(pair));
+            return;
+        }
+        var pricing = context.GetService<IPricingService>();
+        var amount = full.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice, full.DiscountPercent));
+        var settlement = await contracts.CheckSettlementAsync(full.Customer, full.Contract, amount);
+        if (settlement != null)
+        {
+            context.AddClientAction(ClientAction.Message(settlement));
             return;
         }
 
@@ -63,7 +80,7 @@ public partial class IssueInvoiceCommand
             }
         }
 
-        full.Subtype = SalesInvoice.Subtypes.Issued;
+        full.Subtype = SalesRealization.Subtypes.Issued;
         await docs.SaveDocumentAsync(full);
 
         await context.GetService<ISalesFulfillmentService>()

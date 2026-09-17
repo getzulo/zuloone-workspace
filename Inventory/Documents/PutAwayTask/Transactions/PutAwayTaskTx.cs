@@ -1,11 +1,11 @@
 #nullable enable
 
-// Receiving → storage: TWO single Stock movements per line (single-entry) —
-// minus from the receiving cell (FromCell, header), plus into the storage cell (ToCell, line).
+// Приёмка → хранение: на строку ДВЕ одиночные проводки Stock (одинарная запись) —
+// минус из ячейки приёмки (FromCell, шапка), плюс в ячейку хранения (ToCell, строка).
 //
-// The register gets BaseQuantity (the item's base unit, computed by the platform
-// when the line is saved); zero = "unit not specified, no conversion" → the
-// entered quantity is the base. Both legs take ONE value.
+// В регистр уходит BaseQuantity (базовая единица товара, считает платформа при
+// сохранении строки); ноль = «единица не указана, пересчёта не было» → введённое
+// количество и есть базовое. Обе ноги берут ОДНО значение.
 public partial class PutAwayTaskTx
 {
     protected override void GetTransactions(PutAwayTask document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

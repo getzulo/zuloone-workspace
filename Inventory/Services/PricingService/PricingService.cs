@@ -7,13 +7,13 @@ using ZuloOne.Managers;
 using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 
-// The only door into prices. Invoice, order, the "fill" command, and dictionary
-// handlers do not read rows themselves and do not compare windows — they ask here.
+// Единственная дверь в цены. Счёт, заказ, команда «заполнить» и обработчики
+// справочника не читают строки сами и не сравнивают окна — спрашивают здесь.
 //
-// Four verbs on the outside: resolve, compute amount, set, capture history.
-// Capture is an explicit call (type "from last document"), not a side effect
-// of posting. Auto-writing the customer's type from every invoice would overwrite
-// a shared retail price with someone else's contract price.
+// Снаружи четыре глагола: подбери, посчитай сумму, поставь, захвати историю.
+// Захват — явный вызов (тип «из последнего документа»), не побочный эффект
+// проведения. Автозапись в тип клиента с каждого счёта переписывала бы общую
+// розницу чужой договорной ценой.
 public partial class PricingService
 {
     private static int MaxPriceTypeChainDepth => GlobalConstants.Get<int?>("PriceTypeChainMaxDepth") ?? 20;
@@ -42,8 +42,8 @@ public partial class PricingService
     public decimal LineAmount(decimal quantity, decimal unitPrice)
         => LineAmount(quantity, unitPrice, 0m);
 
-    /// <summary>Discount is a percent (15 = 15%), not a fraction. Every money
-    /// leg of the document must pass the same one.</summary>
+    /// <summary>Скидка — процент (15 = 15%), не доля. Все денежные ноги документа
+    /// обязаны передать одну и ту же.</summary>
     public decimal LineAmount(decimal quantity, decimal unitPrice, decimal discountPercent)
     {
         var gross = quantity * unitPrice;
@@ -57,11 +57,11 @@ public partial class PricingService
     public async Task<decimal?> ResolvePurchasePriceAsync(Guid item, Guid unit, Guid? supplier, DateTime onDate)
         => await ResolveAsync(item, unit, await PriceTypeOfAsync(supplier, sale: false), onDate, sale: false);
 
-    /// <summary>Price of exactly this type, no item-card default. No price — null.</summary>
+    /// <summary>Цена ровно этого типа, без умолчания карточки. Нет цены — null.</summary>
     public Task<decimal?> ResolveForTypeAsync(Guid item, Guid unit, Guid priceType, DateTime onDate)
         => ResolvePriceForTypeAsync(item, unit, priceType, onDate.Date, depth: 0);
 
-    /// <summary>Manual/import. The same checks as when saving a row.</summary>
+    /// <summary>Ручная/загрузка. Те же проверки, что при сохранении строки.</summary>
     public async Task<Guid> SetPriceAsync(
         Guid priceType, Guid item, Guid unit, decimal price, DateTime? from, DateTime? to)
     {
@@ -77,9 +77,9 @@ public partial class PricingService
         var error = await ValidateRowAsync(Guid.Empty, priceType, item, unit, price, from, to);
         if (error != null) throw new InvalidOperationException(error);
 
-        // Write via ScriptServices, not the injected manager:
-        // Save from an inject inside the service drops a disposed IServiceProvider on
-        // GetEventHandler (the handler re-resolves IPricingService).
+        // Пишем через ScriptServices, не через инжектированный менеджер:
+        // Save с инжекта внутри сервиса роняет disposed IServiceProvider на
+        // GetEventHandler (обработчик снова резолвит IPricingService).
         return await ScriptServices.Get<ILinkTableManager>().SaveRecordAsync(row);
     }
 
@@ -89,8 +89,8 @@ public partial class PricingService
     public Task CapturePurchasePriceAsync(Guid item, Guid unit, Guid? supplier, decimal price, DateTime onDate)
         => CapturePriceAsync(item, unit, supplier, sale: false, price, onDate);
 
-    /// <summary>Window-overlap predicate for one triple. Null — no overlap.
-    /// The entity is not on the contract: the IPricingService assembly and the script see different types.</summary>
+    /// <summary>Предикат пересечения окон одной тройки. Null — пересечения нет.
+    /// В контракт не тащим сущность: сборка IPricingService и скрипт видят разные типы.</summary>
     public async Task<Guid?> FindOverlappingAsync(
         Guid priceType, Guid item, Guid unit, Guid excludeRow, DateTime? from, DateTime? to)
     {
@@ -100,7 +100,7 @@ public partial class PricingService
         return clash?.MetaId;
     }
 
-    /// <summary>Type consistency. kind: 0 = Base, 1 = Calculated. Null — valid.</summary>
+    /// <summary>Согласованность типа. kind: 0 = Base, 1 = Calculated. Null — годен.</summary>
     public async Task<string?> ValidateTypeAsync(Guid metaId, int kind, Guid basePriceType, decimal markupPercent)
     {
         if (kind == (int)PriceTypeKind.Base)
@@ -140,7 +140,7 @@ public partial class PricingService
         return null;
     }
 
-    /// <summary>Price row: sign, Base type, window, item unit, overlap.</summary>
+    /// <summary>Строка цены: знак, Base-тип, окно, единица товара, пересечение.</summary>
     public async Task<string?> ValidateRowAsync(
         Guid metaId, Guid priceTypeId, Guid itemId, Guid unit, decimal price, DateTime? from, DateTime? to)
     {
@@ -181,10 +181,10 @@ public partial class PricingService
     }
 
     /// <summary>
-    /// History from an actual deal price: close the covering row a day
-    /// earlier, open a new one. Base only. Past rows with EffectiveTo filled
-    /// are left alone. The document does not call this itself — only whoever
-    /// deliberately keeps a type "from last document".
+    /// История из фактической цены сделки: закрыть действовавшую строку днём
+    /// раньше, открыть новую. Только Base. Прошлое с заполненным EffectiveTo
+    /// не трогаем. Документ сам это не зовёт — только тот, кто сознательно
+    /// ведёт тип «из последнего документа».
     /// </summary>
     private async Task CapturePriceAsync(Guid item, Guid unit, Guid? party, bool sale, decimal price, DateTime onDate)
     {

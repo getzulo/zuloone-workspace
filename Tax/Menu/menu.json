@@ -191,6 +191,19 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
+      "caption": "Authority submissions",
+      "caption_ar": "سجل التسليم للجهة",
+      "caption_ru": "Журнал сдачи",
+      "parentMetaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
+      "displayOrder": 3,
+      "icon": "fluent-color:document-folder-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "b6e4b2a8-19c3-4f50-8a17-5d9e2c1b0f63",
+      "metaId": "f8f1a4c6-23d7-4b90-a5c2-6e9d0f1b3a84",
+      "name": "TaxSubmission",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
       "caption": "Tax authorities",
       "caption_ar": "الهيئات الضريبية",
       "caption_ru": "Налоговые органы",
@@ -252,19 +265,6 @@
       "targetMetaId": "7bf2d1e5-3c84-4029-8b6f-9e4d2c1a5f38",
       "metaId": "d158374b-92ea-4685-81c5-f4a38270b59e",
       "name": "TaxRuleAction",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
-    },
-    {
-      "caption": "Authority submissions",
-      "caption_ar": "سجل التسليم للجهة",
-      "caption_ru": "Журнал сдачи",
-      "parentMetaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
-      "displayOrder": 3,
-      "icon": "fluent-color:document-folder-32",
-      "targetType": "Dictionary",
-      "targetMetaId": "b6e4b2a8-19c3-4f50-8a17-5d9e2c1b0f63",
-      "metaId": "f8f1a4c6-23d7-4b90-a5c2-6e9d0f1b3a84",
-      "name": "TaxSubmission",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]

@@ -7,7 +7,7 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// SalesInvoice Chain of Command link from GLIntegration: on issue, the sale
+// SalesRealization Chain of Command link from GLIntegration: on issue, the sale
 // posts to the general ledger as TWO journals — revenue (Dr AR / Cr revenue)
 // and cost of sales (Dr COGS / Cr inventory).
 //
@@ -26,9 +26,9 @@ namespace ZuloOne.Runtime.Generated;
 // No profile — GetSettingsAsync returns null, no journal. A real posting
 // failure must not be swallowed: OnAfterPost does not roll back the
 // document, and an empty catch hid the cause from the log.
-public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoice>
+public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesRealization>
 {
-    public override async Task<EventResult> OnAfterPostAsync(SalesInvoice document, EventContext context){
+    public override async Task<EventResult> OnAfterPostAsync(SalesRealization document, EventContext context){
         var prior = await next(document, context);
         if (!prior.Success) return prior;
 
@@ -47,14 +47,14 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
         return EventResult.Ok();
     }
 
-    private async Task<Guid?> PostToLedgerAsync(SalesInvoice header, EventContext context)
+    private async Task<Guid?> PostToLedgerAsync(SalesRealization header, EventContext context)
     {
         var gl = context.GetService<IGeneralLedgerService>();
         var settings = await gl.GetSettingsAsync();
         if (settings == null) return null;
 
         // Header-event lines are empty — reload the full document.
-        var inv = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
+        var inv = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesRealization>(header.MetaId);
         if (inv == null) return null;
 
         // Same formula as receivable, revenue, VAT and points: otherwise the
@@ -88,7 +88,7 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
     /// (item was booked by a raw register move, not a receipt) — nothing to
     /// write off, amount zero, no journal.
     /// </summary>
-    private async Task<Guid?> PostCostOfSalesAsync(SalesInvoice header, EventContext context)
+    private async Task<Guid?> PostCostOfSalesAsync(SalesRealization header, EventContext context)
     {
         var gl = context.GetService<IGeneralLedgerService>();
         var settings = await gl.GetSettingsAsync();
@@ -103,7 +103,7 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
                 cost -= Convert.ToDecimal(amount);
         if (cost <= 0m) return null;
 
-        var inv = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
+        var inv = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesRealization>(header.MetaId);
         if (inv == null) return null;
 
         var le = await ResolveLegalEntityAsync(inv, context);
@@ -123,7 +123,7 @@ public partial class SalesGLEventHandler : TypedDocumentEventHandler<SalesInvoic
     /// for another legal entity (agent sale from a foreign warehouse), and
     /// the journal must land where tax and the invoice already are. Empty —
     /// org structure is not filled, posting is skipped.</summary>
-    private static async Task<LegalEntity?> ResolveLegalEntityAsync(SalesInvoice invoice, EventContext context)
+    private static async Task<LegalEntity?> ResolveLegalEntityAsync(SalesRealization invoice, EventContext context)
     {
         if (invoice.LegalEntity == Guid.Empty) return null;
         return await context.GetService<IDictionaryManager<LegalEntity>>().GetRecordAsync(invoice.LegalEntity);

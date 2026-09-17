@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1002,
+    "nextValue": 1003,
     "resetPolicy": "None",
     "metaId": "57101302-0000-4000-8000-000000000000",
     "name": "GoodsIssueSeq",

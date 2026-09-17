@@ -1,12 +1,12 @@
-// "Expand BOM" command on a production-order Draft subtype: fills the
-// Components table part with BOM demand for the given finished-good quantity.
-// Previously order lines were typed by hand even though the BOM is already
-// described in BillOfMaterials/BomComponent.
+// Команда «Развернуть спецификацию» на подтипе Draft производственного заказа:
+// заполняет табличную часть Components потребностью из BOM под заданное
+// количество изделия. Раньше строки заказа набивались руками, хотя спецификация
+// уже описана в BillOfMaterials/BomComponent.
 //
-// BOM expansion lives in BomService — the command is thin: check → expand →
-// write. The script sits in THE SAME model as the service; if the own-model
-// contract is unavailable at compile time, the logic will have to be called
-// another way — compilation will tell.
+// Разворачивание BOM живёт в BomService — команда тонкая: проверить → развернуть
+// → записать. Скрипт лежит в ТОЙ ЖЕ модели, что и сервис; если контракт своей
+// модели окажется недоступен на момент компиляции, логику надо будет позвать
+// иначе — это выясняет компиляция.
 public partial class ExpandBomCommand
 {
     public override async Task ExecuteAsync(ProductionOrder document, CommandContext context)
@@ -17,10 +17,9 @@ public partial class ExpandBomCommand
             return;
         }
 
-        // Expansion uses BASE quantity: the BOM is normalized to the finished
-        // good's stock unit, while Quantity is entered in any (boxes, pallets).
-        // Zero = no conversion, the unit is already base — the same cutoff as in
-        // the postings.
+        // Разворот идёт по БАЗОВОМУ количеству: спецификация нормирована на складскую
+        // единицу изделия, а Quantity вводится в любой (ящики, паллеты). Ноль =
+        // пересчёта не было, единица уже базовая — та же отсечка, что в проводках.
         var bom = context.GetService<IBomService>();
         var outputQty = document.BaseQuantity != 0m ? document.BaseQuantity : document.Quantity;
         var need = await bom.ExpandByProductAsync(document.Product, outputQty);
@@ -30,12 +29,12 @@ public partial class ExpandBomCommand
             return;
         }
 
-        // The document is re-read in full: the command header's table part is empty.
+        // Документ перечитывается целиком: у заголовка из команды табличная часть пуста.
         var docs = context.GetService<IDocumentManager>();
         var full = await docs.GetDocumentAsync<ProductionOrder>(document.MetaId);
         if (full == null) return;
 
-        // Expansion REPLACES the lines: the command is the source of truth for demand.
+        // Разворачивание ЗАМЕЩАЕТ строки: команда — источник истины по потребности.
         full.Components.Clear();
         foreach (var kv in need)
         {

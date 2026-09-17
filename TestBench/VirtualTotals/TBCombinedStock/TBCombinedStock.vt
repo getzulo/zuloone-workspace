@@ -1,0 +1,20 @@
+dim Warehouse(TBWarehouse): en(Warehouse)
+dim Item(TBItem): en(Item)
+var Qty: en(Quantity)
+predicate NamedWh(WAREHOUSE): TBWarehouseByName
+group StockMoves: en(Stock movements)
+  var Qty
+    total TBStock: Quantity
+end
+group FifoMoves: en(FIFO movements)
+  var Qty
+    total TBFifo: Quantity
+end
+group NamedOnly: en(Named warehouses only)
+  var Qty
+    total TBStock: Quantity
+      filter NamedWh(Warehouse)
+end
+group AllMoves: en(Everything)
+  children: StockMoves, FifoMoves
+end

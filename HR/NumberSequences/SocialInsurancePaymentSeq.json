@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1004,
+    "nextValue": 1000,
     "resetPolicy": "None",
     "metaId": "e8db82e5-09c4-431f-8c61-0f87ebb62c60",
     "name": "SocialInsurancePaymentSeq",

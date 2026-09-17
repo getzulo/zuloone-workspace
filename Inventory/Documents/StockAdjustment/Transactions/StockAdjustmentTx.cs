@@ -1,15 +1,15 @@
 #nullable enable
 using System;
 
-// Stock adjustment — a SINGLE Stock movement (single-entry, like warehouse in
-// MIQS): surplus (Quantity > 0) adds qty to the cell, shortage (Quantity < 0)
-// writes it off. Register balance = actual on-hand, no "External" counterparty.
-// Guard against writing off into a minus — in StockAdjustmentEventHandler.OnBeforePostAsync.
+// Корректировка остатков — ОДИНОЧНАЯ проводка Stock (одинарная запись, как склад в
+// MIQS): излишек (Quantity > 0) добавляет qty на ячейку, недостача (Quantity < 0)
+// списывает её. Остаток регистра = фактический on-hand, без контрагента-«External».
+// Защита от списания в минус — в событии StockAdjustmentEventHandler.OnBeforePostAsync.
 //
-// The register gets BaseQuantity (the item's base unit, computed by the platform
-// when the line is saved); zero = "unit not specified, no conversion" → the
-// entered quantity is the base. The sign is kept through conversion, so a
-// shortage stays a shortage.
+// В регистр уходит BaseQuantity (базовая единица товара, считает платформа при
+// сохранении строки); ноль = «единица не указана, пересчёта не было» → введённое
+// количество и есть базовое. Знак при пересчёте сохраняется, так что недостача
+// остаётся недостачей.
 public partial class StockAdjustmentTx
 {
     protected override void GetTransactions(StockAdjustment document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

@@ -9,7 +9,7 @@ using ZuloOne.Managers;
 // Это ровно тот экран, который видит пользователь, поэтому цифры сверяются с ним,
 // а не только с балансовой таблицей.
 using ZuloOne.Core.Services;
-// Генерённые классы (Item, PurchaseOrder, StockTransfer, SalesInvoice, …Row).
+// Генерённые классы (Item, PurchaseOrder, StockTransfer, SalesRealization, …Row).
 // Тест-скриптам этот namespace НЕ приходит глобальным using'ом.
 using ZuloOne.Runtime.Generated;
 
@@ -54,6 +54,8 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         public Guid Box;           // единица ввода
         public Guid Supplier;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     // ───────────────────────────── мастер-данные ─────────────────────────────
@@ -176,6 +178,20 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
         // НАЛОГОВЫЙ КОНТУР. Нужен потому, что страновой НДС КСА больше не берёт
         // ставку из плоской константы: выставление счёта фиксирует на документе
         // ставку, подобранную по налоговому коду и ДАТЕ счёта. Без контура ставки
@@ -188,6 +204,7 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
             MainStore = main.Store, ShopStore = shop.Store,
             Item = item.MetaId, Piece = piece, Box = box,
             Supplier = supplier.MetaId, Customer = customer.MetaId,
+            Outlet = outlet.MetaId, Contract = contract.MetaId,
         };
     }
 
@@ -335,10 +352,12 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         return doc;
     }
 
-    private async Task<SalesInvoice> NewInvoiceAsync(Setup s, decimal boxes)
+    private async Task<SalesRealization> NewInvoiceAsync(Setup s, decimal boxes)
     {
-        var doc = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var doc = await DocumentManager.NewDocumentAsync<SalesRealization>();
         doc.Customer = s.Customer;
+        doc.Outlet = s.Outlet;
+        doc.Contract = s.Contract;
         doc.Location = s.MainCell;
         doc.Lines.Add(new SalesInvoiceLinesTablePartRow
         {
@@ -461,7 +480,7 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         Assert.IsTrue(await TotalAsync("Receivable", "Amount") == receivable0, "черновик счёта дебиторку не признаёт");
         Assert.IsTrue(await TotalAsync("Revenue", "Amount") == revenue0, "черновик счёта выручку не признаёт");
 
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
 
         var mainAfterSale = await StockAsync(s.MainCell, s.Item);
@@ -482,7 +501,7 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         // повторял его ошибку: после смены ставки оба брали новую — включая
         // счета за прошлый период. Регистр читается по ИМЕНИ через ITotalsManager:
         // типовой зависимости от модели локализации это не создаёт.
-        var issued = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
+        var issued = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
         var vatRate = issued?.TaxRateApplied ?? 0m;
         Assert.IsTrue(vatRate > 0m,
             "выставление обязано зафиксировать на счёте действующую ставку налога, факт {0}", vatRate);
@@ -544,7 +563,7 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         await DocumentManager.SaveDocumentAsync(writeOff);
 
         var invoice = await NewInvoiceAsync(s, boxes: 1m);
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
 
         // Балансовая таблица — то, с чем отчёт обязан совпасть.

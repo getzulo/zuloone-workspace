@@ -1,9 +1,9 @@
 #nullable enable
 
-// Tax in the registers lives in TaxLedger (accrual) and in GL (liability);
-// this document only settles the book account. There is no separate TaxPayable
-// register and one must not be introduced here: that would duplicate the ledger
-// and the book with a third contour nobody reconciles.
+// Налог в регистрах живёт в TaxLedger (начисление) и в GL (обязательство);
+// этот документ только гасит счёт в книге. Отдельного регистра TaxPayable
+// нет и заводить его здесь нельзя: это продублировало бы леджер и книгу
+// третьим контуром, который никто не сверяет.
 public partial class TaxPaymentTx
 {
     protected override void GetTransactions(TaxPayment document, TransactionPairCollection transactionPairs, TransactionCollection transactions)

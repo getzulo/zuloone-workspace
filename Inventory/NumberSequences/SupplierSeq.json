@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1073,
     "resetPolicy": "None",
     "metaId": "ecda9808-a17c-47a9-9109-65d00e8de26d",
     "name": "SupplierSeq",

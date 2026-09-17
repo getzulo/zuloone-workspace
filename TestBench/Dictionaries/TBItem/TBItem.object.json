@@ -1,0 +1,59 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": "TBItem",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "36290921-5416-478b-adda-6503ac7fafd9",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "isKernel": false,
+    "iconName": "fluent-color:apps-48",
+    "largeIconName": "fluent-color:apps-48",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "5929e99f-75f5-4635-9293-b99892d085be",
+    "name": "TBItem",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "5929e99f-75f5-4635-9293-b99892d085be",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "0c1e86ec-2bd7-43c1-8b5f-bdfa7d29e676",
+      "name": "ID",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+    },
+    {
+      "dictionaryMetaId": "5929e99f-75f5-4635-9293-b99892d085be",
+      "fieldName": "WarehouseID",
+      "edtMetaId": "d3c586bc-147f-4b02-bbaf-ef9651ce705f",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "WarehouseID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "14c89e11-fd45-42f6-9c40-292d7bef7abb",
+      "name": "WarehouseID",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "FiscalPeriodService",
+    "executionOrder": 0,
+    "metaId": "3a9f1c62-8e4b-4d7a-b2c5-6f0e1d8a9b37",
+    "name": "FiscalPeriodService",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+  }
+}

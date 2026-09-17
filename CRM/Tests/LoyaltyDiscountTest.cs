@@ -31,6 +31,8 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         public Guid Item;
         public Guid Unit;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync()
@@ -117,11 +119,33 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
         await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
             new Dictionary<string, object?> { ["Cell"] = cell.MetaId, ["Item"] = item.MetaId },
             new Dictionary<string, decimal> { ["Qty"] = 100m });
 
-        return new Setup { Location = cell.MetaId, Item = item.MetaId, Unit = unit.MetaId, Customer = customer.MetaId };
+        return new Setup
+        {
+            Location = cell.MetaId,
+            Item = item.MetaId,
+            Unit = unit.MetaId,
+            Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
+        };
     }
 
     private static async Task TierAsync(string name, decimal minPoints, decimal discountPercent)
@@ -138,21 +162,23 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         => TotalsManager.GetBalanceAsync("LoyaltyPoints", "Points",
             new Dictionary<string, object?> { ["Customer"] = customer });
 
-    // Receivable и Revenue несут только динамическую аналитику Customer.
+    // Срез по клиенту суммирует все договоры; договор на движении обязателен.
     private static Task<decimal> SumAsync(string register, Setup s)
         => TotalsManager.GetBalanceAsync(register, "Amount",
             new Dictionary<string, object?> { ["Customer"] = s.Customer });
 
-    private async Task<SalesInvoice> IssueAsync(Setup s, decimal qty, decimal price, decimal? manualDiscount = null)
+    private async Task<SalesRealization> IssueAsync(Setup s, decimal qty, decimal price, decimal? manualDiscount = null)
     {
-        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         if (manualDiscount.HasValue) invoice.DiscountPercent = manualDiscount.Value;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = qty, UnitPrice = price });
         await DocumentManager.SaveDocumentAsync(invoice);
 
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
         return invoice;
     }
@@ -173,7 +199,7 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
 
         // Скидка обязана оказаться В БАЗЕ, а не только в памяти обработчика:
         // проводки читают шапку оттуда.
-        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
+        var stored = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
         Assert.IsTrue(stored.DiscountPercent == 10m,
             "уровень Silver даёт 10%, в документе {0}", stored.DiscountPercent);
 
@@ -199,7 +225,7 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         // Договорённость по сделке — 25%, и уровень её не отменяет.
         var invoice = await IssueAsync(s, qty: 10m, price: 100m, manualDiscount: 25m);
 
-        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
+        var stored = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
         Assert.IsTrue(stored.DiscountPercent == 25m,
             "ручные 25% сохраняются, факт {0}", stored.DiscountPercent);
         Assert.IsTrue(await SumAsync("Revenue", s) == 750m,
@@ -215,7 +241,7 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         // Баллов нет — до уровня клиент не достаёт, и это не ошибка.
         var invoice = await IssueAsync(s, qty: 10m, price: 100m);
 
-        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
+        var stored = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
         Assert.IsTrue(stored.DiscountPercent == 0m,
             "недостигнутый уровень скидки не даёт, факт {0}", stored.DiscountPercent);
         Assert.IsTrue(await SumAsync("Revenue", s) == 1000m,
@@ -269,7 +295,7 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         var s = await SetupAsync();
         var invoice = await IssueAsync(s, qty: 10m, price: 100m, manualDiscount: 100m);
 
-        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
+        var stored = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
         Assert.IsTrue(stored.DiscountPercent == 100m, "скидка 100% сохраняется, факт {0}", stored.DiscountPercent);
         Assert.IsTrue(await SumAsync("Receivable", s) == 0m, "долг при скидке 100% — 0, факт {0}", await SumAsync("Receivable", s));
         Assert.IsTrue(await SumAsync("Revenue", s) == 0m, "выручка при скидке 100% — 0, факт {0}", await SumAsync("Revenue", s));
@@ -313,7 +339,7 @@ public class LoyaltyDiscountTest : IntegrationTestScriptBase
         // Calculated-цепочке (120), а не число, придуманное для теста скидки.
         var invoice = await IssueAsync(s, qty: 10m, price: resolvedPrice!.Value);
 
-        var stored = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
+        var stored = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
         Assert.IsTrue(stored.DiscountPercent == 10m, "уровень Silver даёт 10%, в документе {0}", stored.DiscountPercent);
         // 10 × 120 = 1200, минус 10% = 1080 — обе фичи (цепочка наценок и скидка
         // уровня) обязаны сойтись в ОДНОЙ базе, как и везде в этом документе.

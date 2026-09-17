@@ -6,22 +6,24 @@ using ZuloOne.Services.Contracts;
 // "Fill prices" command on a draft invoice: sets UnitPrice from the customer's
 // price list, and where that is missing — from the item card default.
 //
-// Bulk fill for empty prices on an already-entered invoice. New lines fill
-// live via SalesInvoiceLinesEventHandler.OnFieldChanged (Item / Unit) — this
-// command remains for "fill every blank row at once" after import or paste.
+// Why a command, not auto-fill on line entry: the platform has no per-line hook —
+// dictionary/document events arrive on the HEADER and do not see lines, and
+// SaveDocumentAsync during posting rewrites every line and is forbidden in
+// movements. A command is the only place to walk the lines and save the document
+// as a whole.
 //
 // ONLY empty prices are filled. A price typed by hand is a human decision
 // (agreed discount, disputed item) and must not be overwritten by lookup.
 // Anyone who needs a re-lookup clears the price and clicks again.
 public partial class FillSalesPricesCommand
 {
-    public override async Task ExecuteAsync(SalesInvoice document, CommandContext context)
+    public override async Task ExecuteAsync(SalesRealization document, CommandContext context)
     {
         var docs = context.GetService<IDocumentManager>();
         var pricing = context.GetService<IPricingService>();
 
         // Lines on the command header are empty — the document is re-read.
-        var full = await docs.GetDocumentAsync<SalesInvoice>(document.MetaId);
+        var full = await docs.GetDocumentAsync<SalesRealization>(document.MetaId);
         if (full == null) return;
 
         if (full.Lines.Count == 0)

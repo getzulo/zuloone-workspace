@@ -1,8 +1,8 @@
 using System.Linq;
 using ZuloOne.Managers;
 
-// "Receive payment": line amounts. A customer advance is legal — Receivable
-// balance is not checked.
+// «Принять оплату»: суммы строк. Аванс покупателя законен — остаток Receivable
+// не проверяем.
 public partial class ReceiveCustomerPaymentCommand
 {
     public override async Task ExecuteAsync(CustomerPayment document, CommandContext context)

@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1010,
     "resetPolicy": "None",
     "metaId": "5766b3cf-668f-4085-a216-0559bf99e7a9",
     "name": "PayrollAccrualSeq",

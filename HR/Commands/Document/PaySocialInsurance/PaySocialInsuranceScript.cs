@@ -1,6 +1,6 @@
-// "Pay contributions" command on the SocialInsurancePayment source subtype: transition to Paid.
-// Domain checks live in OnBeforePost; here — empty document and subtype change.
-// The engine replaces postings of the target state (Mix semantics).
+// Команда «Оплатить взносы» на подтипе-источнике SocialInsurancePayment: переход в Paid.
+// Проверки предметной области живут в OnBeforePost; здесь — пустой документ
+// и смена подтипа. Движок заменяет проводки целевого состояния (семантика Mix).
 public partial class PaySocialInsuranceCommand
 {
     public override async Task ExecuteAsync(SocialInsurancePayment document, CommandContext context)

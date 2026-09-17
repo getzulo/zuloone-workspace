@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Managers;
-// Генерённые классы (Currency, Item, SalesInvoice, SalesInvoiceLinesTablePartRow…).
+// Генерённые классы (Currency, Item, SalesRealization, SalesInvoiceLinesTablePartRow…).
 // Тестовым скриптам этот namespace НЕ приходит глобальным using'ом: без него
 // `Currency` связывается с посторонним недоступным типом, и ошибка (CS0122)
 // описывает не ту причину.
@@ -27,6 +27,8 @@ public class SalesFlowTest : IntegrationTestScriptBase
         public Guid Location;
         public Guid Item;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync()
@@ -113,7 +115,28 @@ public class SalesFlowTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
-        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
+        return new Setup
+        {
+            Location = cell.MetaId,
+            Item = item.MetaId,
+            Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
+        };
     }
 
     /// <summary>Остаток ячейки по номенклатуре — срез регистра Stock по обоим измерениям.</summary>
@@ -138,10 +161,12 @@ public class SalesFlowTest : IntegrationTestScriptBase
         await DocumentManager.SaveDocumentAsync(adjustment);
     }
 
-    private async Task<SalesInvoice> NewInvoiceAsync(Setup s, decimal qty, decimal price)
+    private async Task<SalesRealization> NewInvoiceAsync(Setup s, decimal qty, decimal price)
     {
-        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = qty, UnitPrice = price });
         await DocumentManager.SaveDocumentAsync(invoice);
@@ -157,14 +182,14 @@ public class SalesFlowTest : IntegrationTestScriptBase
         var invoice = await NewInvoiceAsync(s, qty: 3m, price: 5m);
 
         // Черновик ничего не отгружает и выручки не признаёт. Проверка ДО перехода
-        // обязательна: SalesInvoice объявлен postOnSave, и без неё утверждения ниже
+        // обязательна: SalesRealization объявлен postOnSave, и без неё утверждения ниже
         // зеленели бы независимо от того, сделал ли переход Draft → Issued хоть что-то.
         Assert.IsTrue(await StockAsync(s) == 10m, "черновик счёта не должен трогать остаток, факт {0}", await StockAsync(s));
         Assert.IsTrue(await RevenueAsync(s) == 0m, "черновик счёта не должен признавать выручку, факт {0}", await RevenueAsync(s));
 
         // Выставление — переход подтипа, то есть присваивание плюс сохранение
         // (MIQS doc.SubtypeID = …; SaveDocument(doc)).
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
 
         var stock = await StockAsync(s);
@@ -180,7 +205,7 @@ public class SalesFlowTest : IntegrationTestScriptBase
         var s = await SetupAsync();
         await StockInAsync(s, 10m);
         var invoice = await NewInvoiceAsync(s, qty: 2m, price: 5m);
-        invoice.Subtype = SalesInvoice.Subtypes.Issued;
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
 
         invoice.DiscountPercent = 50m;
@@ -200,7 +225,7 @@ public class SalesFlowTest : IntegrationTestScriptBase
         var rejected = false;
         try
         {
-            invoice.Subtype = SalesInvoice.Subtypes.Issued;
+            invoice.Subtype = SalesRealization.Subtypes.Issued;
             await DocumentManager.SaveDocumentAsync(invoice);
             // Сюда попадаем, только если охранник НЕ бросил: тогда отказ должен быть
             // виден по регистру. После броска базу не трогаем — бросок портит

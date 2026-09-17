@@ -26,6 +26,8 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         public Guid Location;
         public Guid Item;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
     }
 
     private async Task<Setup> SetupAsync()
@@ -111,7 +113,28 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
-        return new Setup { Location = cell.MetaId, Item = item.MetaId, Customer = customer.MetaId };
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
+        return new Setup
+        {
+            Location = cell.MetaId,
+            Item = item.MetaId,
+            Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
+        };
     }
 
     private static Task<decimal> StockAsync(Setup s)
@@ -150,6 +173,8 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
     {
         var order = await DocumentManager.NewDocumentAsync<SalesOrder>();
         order.Customer = s.Customer;
+        order.Outlet = s.Outlet;
+        order.Contract = s.Contract;
         order.Location = s.Location;
         order.DeliveryDate = DateTime.UtcNow.Date.AddDays(1);
         order.Lines.Add(new SalesOrderLinesTablePartRow { Item = s.Item, Quantity = qty, UnitPrice = price });
@@ -174,11 +199,11 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         await RunCommandAsync("ApproveSalesOrder", order.MetaId);
 
         // Assert 1: invoice exists, SourceOrder set, Subtype == Reserved
-        var invoices = await DocumentManager.QueryDocumentsAsync<SalesInvoice>($"SourceOrder = '{order.MetaId}'");
+        var invoices = await DocumentManager.QueryDocumentsAsync<SalesRealization>($"SourceOrder = '{order.MetaId}'");
         Assert.IsTrue(invoices.Count == 1, "один счёт, факт {0}", invoices.Count);
-        var inv = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoices[0].MetaId);
+        var inv = await DocumentManager.GetDocumentAsync<SalesRealization>(invoices[0].MetaId);
         Assert.IsTrue(inv!.SourceOrder == order.MetaId, "SourceOrder установлен");
-        Assert.IsTrue(inv.Subtype == SalesInvoice.Subtypes.Reserved,
+        Assert.IsTrue(inv.Subtype == SalesRealization.Subtypes.Reserved,
             "счёт в Reserved, факт {0}", inv.Subtype ?? "<null>");
 
         // Assert 2: ReservedStock = qty; Stock unchanged; Receivable = 0
@@ -205,7 +230,7 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         await RunCommandAsync("SubmitSalesOrder", order.MetaId);
         await RunCommandAsync("ApproveSalesOrder", order.MetaId);
 
-        var invoices = await DocumentManager.QueryDocumentsAsync<SalesInvoice>($"SourceOrder = '{order.MetaId}'");
+        var invoices = await DocumentManager.QueryDocumentsAsync<SalesRealization>($"SourceOrder = '{order.MetaId}'");
         var invId = invoices[0].MetaId;
 
         // Assert 3: Picking, Packing, Shipped — still reserved, no receivable
@@ -247,7 +272,7 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
 
         // Programmatic repeat
         var again = await Fulfillment.InvoiceOrderAsync(order.MetaId);
-        var invoices = await DocumentManager.QueryDocumentsAsync<SalesInvoice>($"SourceOrder = '{order.MetaId}'");
+        var invoices = await DocumentManager.QueryDocumentsAsync<SalesRealization>($"SourceOrder = '{order.MetaId}'");
         Assert.IsTrue(invoices.Count == 1 && invoices[0].MetaId == again,
             "повтор вернул тот же счёт, счетов {0}", invoices.Count);
     }
@@ -271,10 +296,10 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(await ReservedAsync(s) == 0m, "резерв снят отменой, факт {0}", await ReservedAsync(s));
         Assert.IsTrue(await StockAsync(s) == 10m, "склад цел, факт {0}", await StockAsync(s));
 
-        var invoices = await DocumentManager.QueryDocumentsAsync<SalesInvoice>($"SourceOrder = '{order.MetaId}'");
+        var invoices = await DocumentManager.QueryDocumentsAsync<SalesRealization>($"SourceOrder = '{order.MetaId}'");
         Assert.IsTrue(invoices.Count == 1, "счёт существует, факт {0}", invoices.Count);
-        var inv = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoices[0].MetaId);
-        Assert.IsTrue(inv!.Subtype == SalesInvoice.Subtypes.Cancelled,
+        var inv = await DocumentManager.GetDocumentAsync<SalesRealization>(invoices[0].MetaId);
+        Assert.IsTrue(inv!.Subtype == SalesRealization.Subtypes.Cancelled,
             "счёт Cancelled, факт {0}", inv.Subtype ?? "<null>");
     }
 
@@ -293,7 +318,7 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(orderReloaded!.Subtype == SalesOrder.Subtypes.Cancelled,
             "заказ Cancelled, факт {0}", orderReloaded.Subtype ?? "<null>");
         Assert.IsTrue(await ReservedAsync(s) == 0m, "резерв 0, факт {0}", await ReservedAsync(s));
-        var invoices = await DocumentManager.QueryDocumentsAsync<SalesInvoice>($"SourceOrder = '{order.MetaId}'");
+        var invoices = await DocumentManager.QueryDocumentsAsync<SalesRealization>($"SourceOrder = '{order.MetaId}'");
         Assert.IsTrue(invoices.Count == 0, "счёт не создан, факт {0}", invoices.Count);
     }
 
@@ -329,8 +354,10 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         await StockInAsync(s, 10m);
 
         // Use POS path (IssueInvoice: Draft→Issued directly) for return setup.
-        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 4m, UnitPrice = 5m });
         await DocumentManager.SaveDocumentAsync(invoice);
@@ -338,6 +365,8 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
 
         var ret = await DocumentManager.NewDocumentAsync<SalesReturn>();
         ret.Customer = s.Customer;
+        ret.Outlet = s.Outlet;
+        ret.Contract = s.Contract;
         ret.Location = s.Location;
         ret.OriginalInvoice = invoice.MetaId;
         ret.Lines.Add(new SalesReturnLinesTablePartRow { Item = s.Item, Quantity = 4m, UnitPrice = 5m });

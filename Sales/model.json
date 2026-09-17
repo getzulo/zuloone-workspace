@@ -8,6 +8,7 @@
     "isEnabled": true,
     "publisher": "ZuloOne",
     "modelVersion": "1.11.0",
+    "compilationError": "MarkShippedScript: CS0246 The type or namespace name 'SalesInvoice' could not be found (are you missing a using directive or an assembly reference?); CS0534 'MarkShippedCommand' does not implement inherited abstract member 'DocumentCommandBase<SalesRealization>.ExecuteAsync(SalesRealization, CommandContext)'; CS0246 The type or namespace name 'SalesInvoice' could not be found (are you missing a using directive or an assembly reference?)",
     "metaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "name": "Sales",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -15,44 +16,34 @@
   },
   "dependencies": [
     {
-      "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "dependsOnModelMetaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "minVersion": "1.0.0",
       "metaId": "2b977df1-8dab-4ce2-b57c-f3246aca7ca5",
-      "name": "Sales->Accounting",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+      "name": "Sales->Accounting"
     },
     {
-      "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "minVersion": "1.0.0",
       "metaId": "cc60ad14-9756-4591-9c5d-09e63461e8d7",
-      "name": "Sales->Common",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+      "name": "Sales->Common"
     },
     {
-      "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "minVersion": "1.0.0",
       "metaId": "63123de8-8665-4c29-bd4a-6ef1223fb19f",
-      "name": "Sales->Inventory",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+      "name": "Sales->Inventory"
     },
     {
-      "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "minVersion": "1.0.0",
       "metaId": "8210acbe-0b01-493e-b589-8d9d2244b898",
-      "name": "Sales->Organization",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+      "name": "Sales->Organization"
     },
     {
-      "modelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "minVersion": "1.0.0",
       "metaId": "e898e296-0661-43cc-805d-2c13a8554763",
-      "name": "Sales->Tax",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+      "name": "Sales->Tax"
     }
   ]
 }

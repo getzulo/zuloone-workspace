@@ -1,0 +1,16 @@
+{
+  "kind": "ObjectWidgetPlacement",
+  "object": {
+    "objectType": "Document",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "slot": "footer",
+    "widgetType": "attachments",
+    "widgetMetaId": "7c3e1a90-4b2d-4f11-9a6e-0d2c8b71a101",
+    "displayOrder": 10,
+    "width": 3,
+    "height": 2,
+    "metaId": "c4b8c766-e1a1-4d9c-9750-37903e6d0172",
+    "name": "SalesInvoice.footer.attachments",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

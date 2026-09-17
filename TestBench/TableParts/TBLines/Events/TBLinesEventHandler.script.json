@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "TBLines",
+    "objectMetaId": "805782c2-f366-4e7b-846b-81c7b1984076",
+    "executionOrder": 0,
+    "metaId": "8d50a7ef-9cdc-4257-aaaf-cd5db6f63715",
+    "name": "TBLinesEventHandler",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+  }
+}

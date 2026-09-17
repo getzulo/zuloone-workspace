@@ -20,6 +20,18 @@
   "resources": [
     {
       "registerMetaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
+      "fieldName": "RecoverableAmount",
+      "caption": "RecoverableAmount",
+      "caption_ru": "К возмещению",
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 3,
+      "metaId": "048b6a7e-c51d-49b8-94f8-27d6b5a3e8c1",
+      "name": "RecoverableAmount",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "registerMetaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
       "fieldName": "TaxAmount",
       "caption": "TaxAmount",
       "isOperational": true,
@@ -38,18 +50,6 @@
       "displayOrder": 1,
       "metaId": "1c4d0b84-46aa-45ac-9a4f-7f5f78eec5fb",
       "name": "TaxBase",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
-    },
-    {
-      "registerMetaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
-      "fieldName": "RecoverableAmount",
-      "caption": "RecoverableAmount",
-      "caption_ru": "К возмещению",
-      "isOperational": true,
-      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
-      "displayOrder": 3,
-      "metaId": "048b6a7e-c51d-49b8-94f8-27d6b5a3e8c1",
-      "name": "RecoverableAmount",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ],

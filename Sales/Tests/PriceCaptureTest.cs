@@ -19,6 +19,8 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         public Guid Item;
         public Guid Piece;
         public Guid Customer;
+        public Guid Outlet;
+        public Guid Contract;
         public Guid PriceType;
     }
 
@@ -117,12 +119,28 @@ public class PriceCaptureTest : IntegrationTestScriptBase
         customer.PriceType = list.MetaId;
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = currency.MetaId;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = legalEntity.MetaId;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
+
         return new Setup
         {
             Location = cell.MetaId,
             Item = item.MetaId,
             Piece = piece.MetaId,
             Customer = customer.MetaId,
+            Outlet = outlet.MetaId,
+            Contract = contract.MetaId,
             PriceType = list.MetaId,
         };
     }
@@ -131,8 +149,10 @@ public class PriceCaptureTest : IntegrationTestScriptBase
     public async Task IssuingDoesNotCaptureLinePrice()
     {
         var s = await SetupAsync();
-        var inv = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        var inv = await DocumentManager.NewDocumentAsync<SalesRealization>();
         inv.Customer = s.Customer;
+        inv.Outlet = s.Outlet;
+        inv.Contract = s.Contract;
         inv.Location = s.Location;
         inv.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Unit = s.Piece, Quantity = 1m, UnitPrice = 15m });
         await DocumentManager.SaveDocumentAsync(inv);
@@ -141,7 +161,7 @@ public class PriceCaptureTest : IntegrationTestScriptBase
             new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
             new Dictionary<string, decimal> { ["Qty"] = 10m });
 
-        inv.Subtype = SalesInvoice.Subtypes.Issued;
+        inv.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);
 
         var rows = await GetService<ILinkTableManager>().GetRecordsAsync<LT_PriceTypeHistory>(

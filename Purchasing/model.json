@@ -7,7 +7,7 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.2.1",
+    "modelVersion": "1.2.0",
     "metaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
     "name": "Purchasing",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -15,44 +15,34 @@
   },
   "dependencies": [
     {
-      "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "dependsOnModelMetaId": "db4dcc49-c937-4647-a527-cff5e3daaa44",
       "minVersion": "1.0.0",
       "metaId": "dfe4267a-5843-4d79-a0be-06c776d61ee0",
-      "name": "Purchasing->Accounting",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+      "name": "Purchasing->Accounting"
     },
     {
-      "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
       "minVersion": "1.0.0",
       "metaId": "bed4d55b-252d-4aaa-9578-7e031c73dd74",
-      "name": "Purchasing->Common",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+      "name": "Purchasing->Common"
     },
     {
-      "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "minVersion": "1.0.0",
       "metaId": "ef7f42b4-cc09-4740-84a1-cec6b3d6af5f",
-      "name": "Purchasing->Inventory",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+      "name": "Purchasing->Inventory"
     },
     {
-      "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
       "minVersion": "1.0.0",
       "metaId": "012e490c-1517-4eac-881e-3a30dc618881",
-      "name": "Purchasing->Organization",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+      "name": "Purchasing->Organization"
     },
     {
-      "modelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
       "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
       "minVersion": "1.0.0",
       "metaId": "06b286d9-4905-4056-ae87-e1c53465223b",
-      "name": "Purchasing->Tax",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+      "name": "Purchasing->Tax"
     }
   ]
 }

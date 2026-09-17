@@ -4,7 +4,7 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
+    "nextValue": 1009,
     "resetPolicy": "None",
     "metaId": "b9f244e4-d347-4739-a61d-2de72f9de637",
     "name": "SalesReturnSeq",

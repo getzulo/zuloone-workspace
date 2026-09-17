@@ -9,7 +9,7 @@ using ZuloOne.Runtime.Generated;
 /// <summary>
 /// Master-data coverage: PaymentTerm, Brand, CustomerContact creation;
 /// extra fields on Customer and Item; automatic copy of PaymentTerm and
-/// primary Contact onto new SalesOrder and SalesInvoice.
+/// primary Contact onto new SalesOrder and SalesRealization.
 /// </summary>
 public class SalesMasterDataTest : IntegrationTestScriptBase
 {
@@ -22,7 +22,14 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
     // Helpers
     // ──────────────────────────────────────────────────────────────────────
 
-    private async Task<Guid> MakeLocationAsync()
+    private sealed class LocationKit
+    {
+        public Guid Location;
+        public Guid Currency;
+        public Guid LegalEntity;
+    }
+
+    private async Task<LocationKit> MakeLocationAsync()
     {
         var currency = DictionaryManager.NewRecord<Currency>();
         currency.Name = "Euro";
@@ -82,7 +89,12 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         cell.CellNumber = 1;
         cell = await DictionaryManager.SaveRecordAsync(cell);
 
-        return cell.MetaId;
+        return new LocationKit
+        {
+            Location = cell.MetaId,
+            Currency = currency.MetaId,
+            LegalEntity = legalEntity.MetaId,
+        };
     }
 
     // ──────────────────────────────────────────────────────────────────────
@@ -195,7 +207,7 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
     [IntegrationTest("Новый SalesOrder копирует PaymentTerm и Contact из клиента")]
     public async Task SalesOrderCopiesPaymentTermAndContact()
     {
-        var location = await MakeLocationAsync();
+        var loc = await MakeLocationAsync();
 
         var pt = DictionaryManager.NewRecord<PaymentTerm>();
         pt.Name = "Net 15";
@@ -207,6 +219,20 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer.PaymentTerm = pt.MetaId;
         customer = await DictionaryManager.SaveRecordAsync(customer);
+
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = loc.Currency;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = loc.LegalEntity;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
 
         var cc = DictionaryManager.NewRecord<CustomerContact>();
         cc.Customer = customer.MetaId;
@@ -235,7 +261,9 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         // Create SalesOrder — OnBeforeSave(isNew=true) should copy PaymentTerm + Contact
         var order = await DocumentManager.NewDocumentAsync<SalesOrder>();
         order.Customer = customer.MetaId;
-        order.Location = location;
+        order.Outlet = outlet.MetaId;
+        order.Contract = contract.MetaId;
+        order.Location = loc.Location;
         order.DeliveryDate = DateTime.UtcNow.AddDays(7);
         order.Lines.Add(new SalesOrderLinesTablePartRow { Item = item.MetaId, Quantity = 1m, UnitPrice = 10m });
         await DocumentManager.SaveDocumentAsync(order);
@@ -250,13 +278,13 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
     }
 
     // ──────────────────────────────────────────────────────────────────────
-    // Test 3: New SalesInvoice copies PaymentTerm and Contact from Customer
+    // Test 3: New SalesRealization copies PaymentTerm and Contact from Customer
     // ──────────────────────────────────────────────────────────────────────
 
-    [IntegrationTest("Новый SalesInvoice копирует PaymentTerm и Contact из клиента")]
+    [IntegrationTest("Новый SalesRealization копирует PaymentTerm и Contact из клиента")]
     public async Task SalesInvoiceCopiesPaymentTermAndContact()
     {
-        var location = await MakeLocationAsync();
+        var loc = await MakeLocationAsync();
 
         var pt = DictionaryManager.NewRecord<PaymentTerm>();
         pt.Name = "Net 45";
@@ -268,6 +296,20 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         customer.CustomerType = "B2B";
         customer.PaymentTerm = pt.MetaId;
         customer = await DictionaryManager.SaveRecordAsync(customer);
+
+        var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
+        outlet.Name = "Shop A";
+        outlet.Customer = customer.MetaId;
+        outlet = await DictionaryManager.SaveRecordAsync(outlet);
+
+        var contract = DictionaryManager.NewRecord<SalesContract>();
+        contract.Name = "A-2026";
+        contract.Outlet = outlet.MetaId;
+        contract.Currency = loc.Currency;
+        contract.SettlementKind = SettlementKind.Credit;
+        contract.EffectiveFrom = new DateTime(2020, 1, 1);
+        contract.LegalEntity = loc.LegalEntity;
+        contract = await DictionaryManager.SaveRecordAsync(contract);
 
         var cc = DictionaryManager.NewRecord<CustomerContact>();
         cc.Customer = customer.MetaId;
@@ -293,18 +335,20 @@ public class SalesMasterDataTest : IntegrationTestScriptBase
         item.Image = TinyPng;
         item = await DictionaryManager.SaveRecordAsync(item);
 
-        // Create SalesInvoice — OnBeforeSave(isNew=true) should copy PaymentTerm + Contact
-        var invoice = await DocumentManager.NewDocumentAsync<SalesInvoice>();
+        // Create SalesRealization — OnBeforeSave(isNew=true) should copy PaymentTerm + Contact
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = customer.MetaId;
-        invoice.Location = location;
+        invoice.Outlet = outlet.MetaId;
+        invoice.Contract = contract.MetaId;
+        invoice.Location = loc.Location;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = item.MetaId, Quantity = 1m, UnitPrice = 20m });
         await DocumentManager.SaveDocumentAsync(invoice);
 
-        var loaded = await DocumentManager.GetDocumentAsync<SalesInvoice>(invoice.MetaId);
-        Assert.IsTrue(loaded is not null, "SalesInvoice загружен");
+        var loaded = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
+        Assert.IsTrue(loaded is not null, "SalesRealization загружен");
         Assert.IsTrue(loaded!.PaymentTerm == pt.MetaId,
-            "SalesInvoice.PaymentTerm скопирован из клиента, факт {0}", loaded.PaymentTerm);
+            "SalesRealization.PaymentTerm скопирован из клиента, факт {0}", loaded.PaymentTerm);
         Assert.IsTrue(loaded.Contact == cc.MetaId,
-            "SalesInvoice.Contact скопирован из основного контакта клиента, факт {0}", loaded.Contact);
+            "SalesRealization.Contact скопирован из основного контакта клиента, факт {0}", loaded.Contact);
     }
 }

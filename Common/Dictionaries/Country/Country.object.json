@@ -66,6 +66,25 @@
     },
     {
       "dictionaryMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
+      "fieldName": "Currency",
+      "edtMetaId": "8d2b209b-68a9-41ed-bf05-f069a12dbe2c",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Currency",
+      "caption_ar": "العملة",
+      "caption_ru": "Валюта",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a7d4e21c-6b8f-4c3a-91e0-5d2b8f4a1c73",
+      "name": "Currency",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "dictionaryMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
       "fieldName": "ID",
       "baseType": "String",
       "length": 50,
@@ -122,25 +141,6 @@
       "isCalculated": false,
       "metaId": "bce1044c-cccc-474f-a47e-632e0b42f8ac",
       "name": "PhoneCode",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
-    },
-    {
-      "dictionaryMetaId": "4fda80f4-d8c2-4c42-9930-d7903e9324de",
-      "fieldName": "Currency",
-      "edtMetaId": "8d2b209b-68a9-41ed-bf05-f069a12dbe2c",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 5,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": "Currency",
-      "caption_ar": "العملة",
-      "caption_ru": "Валюта",
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "a7d4e21c-6b8f-4c3a-91e0-5d2b8f4a1c73",
-      "name": "Currency",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     }
   ]

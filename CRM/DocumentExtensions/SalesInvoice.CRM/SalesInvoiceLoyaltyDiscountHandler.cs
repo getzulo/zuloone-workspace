@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ZuloOne.Runtime.Generated;
 
-// CRM extension of SalesInvoice: on issue, stamp the customer's loyalty-tier
+// CRM extension of SalesRealization: on issue, stamp the customer's loyalty-tier
 // discount on the header.
 //
 // WHERE this runs. Not on post — on the SUBTYPE write. Subtype is owned by a
@@ -26,15 +26,15 @@ namespace ZuloOne.Runtime.Generated;
 // Tier comes from the ACCUMULATED points balance, not a field on the
 // customer, so it cannot drift from actual points. Balance is read before
 // this invoice awards points — the invoice is not posted yet.
-public partial class SalesInvoiceLoyaltyDiscountHandler : TypedDocumentEventHandler<SalesInvoice>
+public partial class SalesInvoiceLoyaltyDiscountHandler : TypedDocumentEventHandler<SalesRealization>
 {
-    public override async Task<EventResult> OnBeforeSaveAsync(SalesInvoice header, bool isNew, EventContext context)
+    public override async Task<EventResult> OnBeforeSaveAsync(SalesRealization header, bool isNew, EventContext context)
     {
         var prior = await next(header, isNew, context);
         if (!prior.Success) return prior;
         if (isNew || header.Subtype != "Issued" || header.MetaId == Guid.Empty) return EventResult.Ok();
 
-        var stored = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesInvoice>(header.MetaId);
+        var stored = await context.GetService<IDocumentManager>().GetDocumentAsync<SalesRealization>(header.MetaId);
         if (stored == null || stored.Customer == Guid.Empty) return EventResult.Ok();
 
         // A hand-entered discount is a person's decision (a deal). Loyalty

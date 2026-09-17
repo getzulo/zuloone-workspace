@@ -60,25 +60,6 @@
     },
     {
       "dictionaryMetaId": "83321261-0387-519e-822b-5128b78e690e",
-      "fieldName": "TradeProfile",
-      "edtMetaId": "4d6e8f0a-2b3c-4d4e-bf50-6b7c8d9e0f13",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 3,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": "Trade profile",
-      "caption_ru": "Профиль торговли",
-      "caption_ar": "ملف التجارة",
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "5e7f9a1b-3c4d-4e5f-c061-7c8d9e0f1a24",
-      "name": "TradeProfile",
-      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
-    },
-    {
-      "dictionaryMetaId": "83321261-0387-519e-822b-5128b78e690e",
       "fieldName": "ID",
       "baseType": "String",
       "length": 50,
@@ -94,6 +75,25 @@
       "isCalculated": false,
       "metaId": "5077de21-4e95-4752-a4d3-8e57de6b8375",
       "name": "ID",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "dictionaryMetaId": "83321261-0387-519e-822b-5128b78e690e",
+      "fieldName": "TradeProfile",
+      "edtMetaId": "4d6e8f0a-2b3c-4d4e-bf50-6b7c8d9e0f13",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": "Trade profile",
+      "caption_ar": "ملف التجارة",
+      "caption_ru": "Профиль торговли",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "5e7f9a1b-3c4d-4e5f-c061-7c8d9e0f1a24",
+      "name": "TradeProfile",
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     }
   ]

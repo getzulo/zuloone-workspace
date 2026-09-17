@@ -1,0 +1,57 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "TBFifo",
+    "isObsolete": false,
+    "iconName": "fluent-color:data-trending-48",
+    "largeIconName": "fluent-color:data-trending-48",
+    "registerEngineType": "FIFO",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "d3674953-8654-47eb-9f9c-f1e376a9871e",
+    "name": "TBFifo",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "d3674953-8654-47eb-9f9c-f1e376a9871e",
+      "fieldName": "Item",
+      "caption": "Item",
+      "edtMetaId": "d64b376f-4124-4503-8f28-66870509d54a",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "31dd73d9-7677-4cc5-8249-7e8cea918e69",
+      "name": "Item",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "d3674953-8654-47eb-9f9c-f1e376a9871e",
+      "fieldName": "Amount",
+      "caption": "Amount",
+      "isOperational": true,
+      "edtMetaId": "b8e8cefa-2069-4b6e-a3bc-cf21362d932a",
+      "displayOrder": 2,
+      "metaId": "d2b84571-4d0a-4d98-bfaa-c02f5bf3cd91",
+      "name": "Amount",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+    },
+    {
+      "registerMetaId": "d3674953-8654-47eb-9f9c-f1e376a9871e",
+      "fieldName": "Quantity",
+      "caption": "Quantity",
+      "isOperational": true,
+      "edtMetaId": "b8e8cefa-2069-4b6e-a3bc-cf21362d932a",
+      "displayOrder": 1,
+      "metaId": "bcf86e9d-cdb1-4ed1-a008-6c0f9a13384c",
+      "name": "Quantity",
+      "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+    }
+  ]
+}

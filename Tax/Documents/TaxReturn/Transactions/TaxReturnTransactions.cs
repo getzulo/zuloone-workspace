@@ -1,7 +1,7 @@
 public partial class TaxReturnTransactionsScript
 {
-    // A return is a snapshot of TaxLedger turnovers, not a source of postings.
-    // The Filed subtype is read-only; the book already received the tax from TaxCalculation.
+    // Декларация — снимок оборотов TaxLedger, не источник проводок.
+    // Подтип Filed только для чтения; книга уже получила налог из TaxCalculation.
     protected override void GetTransactions(TaxReturn document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
     {
     }

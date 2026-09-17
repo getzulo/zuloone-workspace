@@ -17,7 +17,7 @@ public partial class LoyaltyTierEventHandler : TypedDictionaryEventHandler<Loyal
     }
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew == true) or update.
-    // DiscountPercent is stamped onto SalesInvoice and from there hits ALL monetary
+    // DiscountPercent is stamped onto SalesRealization and from there hits ALL monetary
     // legs through PricingService.LineAmount — outside [0, 100] it either means
     // nothing (negative is a markup, not a discount) or flips the sign of the
     // line amount (>100%), and that must be rejected here, not on the invoice.

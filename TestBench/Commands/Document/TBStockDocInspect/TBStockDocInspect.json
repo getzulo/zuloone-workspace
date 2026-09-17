@@ -1,0 +1,23 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "TBStockDocInspect",
+    "scriptMetaId": "78b99c99-9cdc-4fd8-ad6f-b4ac7fc4c3c6",
+    "parameterMode": "None",
+    "displayOrder": 0,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "cbea7348-e1b3-4f70-933e-2c8fa74f3292",
+    "name": "TBStockDocInspect",
+    "modelId": "0ed6ef68-ff4d-4d38-9d6c-9ee31d38bd29"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "f119599d-db58-4760-b67e-1e35a5d861a5",
+      "documentCommandMetaId": "cbea7348-e1b3-4f70-933e-2c8fa74f3292",
+      "documentSubtypeMetaId": "e5523145-7e40-4b80-8ce4-10bf41c97a52"
+    }
+  ]
+}
