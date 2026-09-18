@@ -64,9 +64,15 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         legalEntity.Country = country.MetaId;
         legalEntity.Currency = currency.MetaId;
         legalEntity.TaxRegistrationNumber = "310122393500003";
-        legalEntity.CommercialRegistration = "1010010000";
         legalEntity.LegalAddress = address.MetaId;
         legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
+        await Db.UpdateAsync("LegalEntity", legalEntity.MetaId,
+            new Dictionary<string, object?>
+            {
+                ["CommercialRegistration"] = "1010010000",
+                ["Country"] = country.MetaId,
+                ["Currency"] = currency.MetaId,
+            });
 
         var divisionType = DictionaryManager.NewRecord<DivisionType>();
         divisionType.Code = $"SP-{Db.NewId():N}"[..8];
@@ -283,8 +289,9 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var legal = await DictionaryManager.GetRecordAsync<LegalEntity>(s.LegalEntity);
         Assert.IsTrue(legal?.TaxRegistrationNumber == "310122393500003",
             "VAT продавца, факт {0}", legal?.TaxRegistrationNumber);
-        Assert.IsTrue(legal?.CommercialRegistration == "1010010000",
-            "CRN продавца, факт {0}", legal?.CommercialRegistration);
+        var crn = await Db.GetAsync("LegalEntity", s.LegalEntity);
+        Assert.IsTrue(Convert.ToString(crn?["CommercialRegistration"]) == "1010010000",
+            "CRN продавца, факт {0}", crn?["CommercialRegistration"]);
         Assert.IsTrue(legal?.LegalAddress != Guid.Empty, "юридический адрес задан");
 
         var addr = await DictionaryManager.GetRecordAsync<Address>(legal!.LegalAddress);

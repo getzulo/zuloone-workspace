@@ -159,5 +159,7 @@
       "formula": "sum(Lines.LineAmount)"
     }
   ],
-  "layouts": {}
+  "layouts": {
+    "SalesOrder.printForm": "135993b3-ab31-41e1-aad4-b06bc777e4d4"
+  }
 }

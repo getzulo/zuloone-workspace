@@ -7,7 +7,7 @@
     "groupName": "Бизнес-слой.Налоги",
     "isExtension": false,
     "metaId": "ad01f3e0-2394-4c08-a4c6-8bc05c8a4d33",
-    "developerComments": "Idempotent via Ensure, not re-save Issued (read-only).",
+    "developerComments": "CRN via bag UpdateAsync with Country/Currency so LegalEntityEventHandler does not cancel. Idempotent via Ensure.",
     "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
   }
 }

@@ -7,7 +7,7 @@ using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-public partial class QuotationXrPrintForm : PrintFormBase
+public partial class OrderXrPrintForm : PrintFormBase
 {
     public override SlimTable GetDataTemplate()
         => new SlimTable(Row("", "", "", "", "", "", "", "", 0m, 0m, 0m, 0, "", 0m, "", 0m, 0m));
@@ -16,8 +16,8 @@ public partial class QuotationXrPrintForm : PrintFormBase
     {
         var table = new SlimTable("Report");
         var documents = context.GetService<IDocumentManager>();
-        var quote = await documents.GetDocumentAsync<SalesQuotation>(context.RecordId);
-        if (quote == null)
+        var order = await documents.GetDocumentAsync<SalesOrder>(context.RecordId);
+        if (order == null)
         {
             table.Add(Row("", "", "", "", "", "", "", "", 0m, 0m, 0m, 0, "", 0m, "", 0m, 0m));
             return table;
@@ -26,43 +26,42 @@ public partial class QuotationXrPrintForm : PrintFormBase
         var display = context.GetService<IReferenceDisplay>();
         var pricing = context.GetService<IPricingService>();
         var ct = context.CancellationToken;
-        var customer = await NameAsync(display, "Customer", quote.Customer, ct);
-        var contract = await NameAsync(display, "SalesContract", quote.Contract, ct);
-        var outlet = await NameAsync(display, "CustomerOutlet", quote.Outlet, ct);
+        var customer = await NameAsync(display, "Customer", order.Customer, ct);
+        var contract = await NameAsync(display, "SalesContract", order.Contract, ct);
+        var outlet = await NameAsync(display, "CustomerOutlet", order.Outlet, ct);
+        var location = await NameAsync(display, "StoreCell", order.Location, ct);
 
         decimal subTotal = 0m;
-        foreach (var line in quote.Lines)
+        foreach (var line in order.Lines)
             subTotal += pricing.LineAmount(line.Quantity, line.UnitPrice);
-        var total = pricing.LineAmount(1m, subTotal, quote.DiscountPercent);
+        var total = pricing.LineAmount(1m, subTotal, order.DiscountPercent);
 
         var n = 0;
-        foreach (var line in quote.Lines)
+        foreach (var line in order.Lines)
         {
             n++;
             var amount = pricing.LineAmount(line.Quantity, line.UnitPrice);
             var item = await NameAsync(display, "Item", line.Item, ct);
             var unit = await NameAsync(display, "UnitOfMeasure", line.Unit, ct);
             table.Add(Row(
-                quote.ID ?? "",
-                DateText(quote.DocumentDate),
-                customer, contract, outlet,
-                DateText(quote.ValidUntil),
-                DateText(quote.DeliveryDate),
-                quote.Notes ?? "",
-                quote.DiscountPercent, subTotal, total,
+                order.ID ?? "",
+                DateText(order.DocumentDate),
+                customer, contract, outlet, location,
+                DateText(order.DeliveryDate),
+                order.Notes ?? "",
+                order.DiscountPercent, subTotal, total,
                 n, item, line.Quantity, unit, line.UnitPrice, amount));
         }
 
         if (n == 0)
         {
             table.Add(Row(
-                quote.ID ?? "",
-                DateText(quote.DocumentDate),
-                customer, contract, outlet,
-                DateText(quote.ValidUntil),
-                DateText(quote.DeliveryDate),
-                quote.Notes ?? "",
-                quote.DiscountPercent, subTotal, total,
+                order.ID ?? "",
+                DateText(order.DocumentDate),
+                customer, contract, outlet, location,
+                DateText(order.DeliveryDate),
+                order.Notes ?? "",
+                order.DiscountPercent, subTotal, total,
                 0, "", 0m, "", 0m, 0m));
         }
 
@@ -71,7 +70,7 @@ public partial class QuotationXrPrintForm : PrintFormBase
 
     private static object Row(
         string number, string documentDate, string customer, string contract, string outlet,
-        string validUntil, string deliveryDate, string notes,
+        string location, string deliveryDate, string notes,
         decimal discountPercent, decimal subTotal, decimal total,
         int lineNo, string item, decimal quantity, string unit, decimal unitPrice, decimal amount)
         => new
@@ -81,7 +80,7 @@ public partial class QuotationXrPrintForm : PrintFormBase
             Customer = customer,
             Contract = contract,
             Outlet = outlet,
-            ValidUntil = validUntil,
+            Location = location,
             DeliveryDate = deliveryDate,
             Notes = notes,
             DiscountPercent = discountPercent,
