@@ -20,6 +20,7 @@
       "isUnique": false,
       "caption": "Sales person",
       "caption_ru": "Агент",
+      "caption_uk": "Агент / водій",
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

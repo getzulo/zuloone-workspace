@@ -4,6 +4,7 @@
     "caption": "Receive payment",
     "caption_ar": "قبض الدفعة",
     "caption_ru": "Принять оплату",
+    "caption_uk": "Прийняти оплату",
     "scriptMetaId": "8e68ffd0-1370-435d-af68-fa304671bb89",
     "parameterMode": "None",
     "displayOrder": 1,

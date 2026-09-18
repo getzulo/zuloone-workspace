@@ -3,6 +3,7 @@
   "object": {
     "caption": "Reserved stock",
     "caption_ru": "Резерв",
+    "caption_uk": "Резерв",
     "description": "Количество, занятое подтверждёнными заказами покупателя. Свободно = Stock − Reserved. Снятие — откат подтипа Confirmed.",
     "isObsolete": false,
     "iconName": "fluent-color:lock-closed-48",
@@ -22,6 +23,7 @@
       "fieldName": "Qty",
       "caption": "Qty",
       "caption_ru": "Количество",
+      "caption_uk": "Кількість",
       "isOperational": true,
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "displayOrder": 1,
