@@ -49,11 +49,23 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         country.PhoneCode = "966";
         country = await DictionaryManager.SaveRecordAsync(country);
 
+        var address = DictionaryManager.NewRecord<Address>();
+        address.Name = "Olaya HQ";
+        address.Street = "King Fahd Rd";
+        address.Building = "1234";
+        address.District = "Al Olaya";
+        address.PostalCode = "12211";
+        address.Country = country.MetaId;
+        address = await DictionaryManager.SaveRecordAsync(address);
+
         var legalEntity = DictionaryManager.NewRecord<LegalEntity>();
         legalEntity.Name = "Riyadh Trading";
         legalEntity.RegistrationNumber = $"REG-SA-{Db.NewId():N}"[..16];
         legalEntity.Country = country.MetaId;
         legalEntity.Currency = currency.MetaId;
+        legalEntity.TaxRegistrationNumber = "310122393500003";
+        legalEntity.CommercialRegistration = "1010010000";
+        legalEntity.LegalAddress = address.MetaId;
         legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
 
         var divisionType = DictionaryManager.NewRecord<DivisionType>();
@@ -116,6 +128,9 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var customer = DictionaryManager.NewRecord<Customer>();
         customer.Name = "Buyer Ltd";
         customer.CustomerType = customerType;
+        customer.Address = address.MetaId;
+        if (customerType == "B2B")
+            customer.TaxRegistrationNumber = "300000000000003";
         customer = await DictionaryManager.SaveRecordAsync(customer);
 
         var outlet = DictionaryManager.NewRecord<CustomerOutlet>();
@@ -256,5 +271,46 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var rows = await DictionaryManager.GetRecordsAsync<TaxSubmission>($"SourceId = '{envelopes[0].MetaId}'");
         Assert.IsTrue(rows.Count == 1 && rows[0].Status == "Rejected" && rows[0].Kind == "EINVOICE",
             "журнал Rejected/EINVOICE, факт {0}/{1}", rows.FirstOrDefault()?.Status, rows.FirstOrDefault()?.Kind);
+    }
+
+    [IntegrationTest("Продавец: НДС, CRN, Country+District на адресе; ICV конверта = 1")]
+    public async Task SellerPartyAndFirstIcv()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+
+        var legal = await DictionaryManager.GetRecordAsync<LegalEntity>(s.LegalEntity);
+        Assert.IsTrue(legal?.TaxRegistrationNumber == "310122393500003",
+            "VAT продавца, факт {0}", legal?.TaxRegistrationNumber);
+        Assert.IsTrue(legal?.CommercialRegistration == "1010010000",
+            "CRN продавца, факт {0}", legal?.CommercialRegistration);
+        Assert.IsTrue(legal?.LegalAddress != Guid.Empty, "юридический адрес задан");
+
+        var addr = await DictionaryManager.GetRecordAsync<Address>(legal!.LegalAddress);
+        Assert.IsTrue(addr?.Country != Guid.Empty && addr?.District == "Al Olaya" && addr?.Building == "1234",
+            "Country/District/Building, факт {0}/{1}/{2}", addr?.Country, addr?.District, addr?.Building);
+
+        var invoice = await IssueAsync(s);
+        var envelopes = await EnvelopesAsync(invoice.MetaId);
+        Assert.IsTrue(envelopes.Count == 1 && envelopes[0].InvoiceCounter == 1,
+            "первый ICV=1, факт {0}/{1}", envelopes.Count, envelopes.FirstOrDefault()?.InvoiceCounter);
+    }
+
+    [IntegrationTest("Второй счёт того же юрлица получает ICV=2")]
+    public async Task IcvIncrementsPerLegalEntity()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        var first = await IssueAsync(s);
+        var second = await IssueAsync(s);
+
+        var a = await EnvelopesAsync(first.MetaId);
+        var b = await EnvelopesAsync(second.MetaId);
+        Assert.IsTrue(a.Count == 1 && a[0].InvoiceCounter == 1, "первый ICV=1, факт {0}", a.FirstOrDefault()?.InvoiceCounter);
+        Assert.IsTrue(b.Count == 1 && b[0].InvoiceCounter == 2, "второй ICV=2, факт {0}", b.FirstOrDefault()?.InvoiceCounter);
+        Assert.IsTrue(a[0].LegalEntity == s.LegalEntity && b[0].LegalEntity == s.LegalEntity,
+            "оба конверта того же юрлица");
     }
 }
