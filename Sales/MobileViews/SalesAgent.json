@@ -11,6 +11,7 @@
     { "name": "Item", "mode": "Master", "fields": [] },
     { "name": "Customer", "mode": "Master", "fields": [] },
     { "name": "CustomerOutlet", "mode": "Master", "fields": [] },
+    { "name": "Address", "mode": "Master", "fields": [] },
     { "name": "SalesContract", "mode": "Master", "fields": [] },
     { "name": "SalesPerson", "mode": "Master", "fields": [] },
     { "name": "VisitRoute", "mode": "Transactional", "fields": [] },
