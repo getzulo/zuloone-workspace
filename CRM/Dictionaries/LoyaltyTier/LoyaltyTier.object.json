@@ -64,7 +64,8 @@
       "isUnique": false,
       "caption": {
         "en": "Earn rate",
-        "ru": "Курс начисления"
+        "ru": "Курс начисления",
+        "uk": "Курс нарахування"
       },
       "isTranslatable": false,
       "isVisible": true,
