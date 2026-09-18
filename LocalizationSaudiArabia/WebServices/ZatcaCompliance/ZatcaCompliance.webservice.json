@@ -1,0 +1,116 @@
+{
+  "kind": "WebService",
+  "object": {
+    "scriptMetaId": "e142a121-2e07-4326-ad9c-b73cccd3089f",
+    "listResponse": false,
+    "isEnabled": true,
+    "isDevOnly": true,
+    "requireExplicitRoles": true,
+    "devComments": "Exchanges an OTP and a CSR for a Compliance CSID. Returns a secret — developer stands only, explicit grant required.",
+    "metaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+    "name": "ZatcaCompliance",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "parameters": [
+    {
+      "metaId": "3af15954-ee30-4145-b17c-a56907df91c5",
+      "webServiceMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+      "name": "Otp",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 0,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "5cadd116-a775-4959-a9e7-ac590e68d2f7",
+      "webServiceMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+      "name": "Csr",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 1,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "c572c6ec-029d-4a7f-bd2a-5dc1c61f2848",
+      "webServiceMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+      "name": "ConnectionRef",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 2,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "2d68d0ba-652e-469d-8aa6-7787ffbec9cb",
+      "webServiceMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+      "name": "Ok",
+      "paramType": "bool",
+      "isArray": false,
+      "isResponse": true,
+      "position": 0,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "060da61b-e7e6-4f1f-a9b4-31922e8f951d",
+      "webServiceMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+      "name": "StatusCode",
+      "paramType": "int",
+      "isArray": false,
+      "isResponse": true,
+      "position": 1,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "65a59bdd-7723-4891-b008-04a7101c3af0",
+      "webServiceMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+      "name": "Error",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 2,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "06a62b61-6944-42ef-9546-e96f6def0f5c",
+      "webServiceMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+      "name": "RequestID",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 3,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "326db54e-b6ac-404b-a4b6-9c9e3a503ffd",
+      "webServiceMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+      "name": "BinarySecurityToken",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 4,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "664132b4-0b80-49f1-a979-11664b3f1369",
+      "webServiceMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+      "name": "Secret",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 5,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "fe989b45-7a41-4a0a-a622-36c861fc1290",
+      "webServiceMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+      "name": "Hint",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 6,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "WebService",
+    "objectType": "WebService",
+    "objectName": "ZatcaProductionCsid",
+    "objectMetaId": "5e327b4d-01d9-4dcf-848f-5ccd38b194e8",
+    "description": "Exchanges a Compliance CSID for a Production CSID. Returns a secret — developer stands only, explicit grant required.",
+    "executionOrder": 0,
+    "metaId": "3d750662-1002-410b-9801-0ebdc6c3fcc4",
+    "name": "ZatcaProductionCsidService",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "WebService",
+    "objectType": "WebService",
+    "objectName": "ZatcaCsr",
+    "objectMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+    "description": "Mints a P-256 keypair and a ZATCA-templated CSR. Returns the PRIVATE KEY — developer stands only, explicit grant required, never persisted.",
+    "executionOrder": 0,
+    "metaId": "04c02697-8784-43c6-8d74-35018d67925e",
+    "name": "ZatcaCsrService",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

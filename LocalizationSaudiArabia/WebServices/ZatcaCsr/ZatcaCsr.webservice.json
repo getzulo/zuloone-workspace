@@ -1,0 +1,126 @@
+{
+  "kind": "WebService",
+  "object": {
+    "scriptMetaId": "04c02697-8784-43c6-8d74-35018d67925e",
+    "listResponse": false,
+    "isEnabled": true,
+    "isDevOnly": true,
+    "requireExplicitRoles": true,
+    "devComments": "Mints a P-256 keypair and a ZATCA-templated CSR. Returns the PRIVATE KEY — developer stands only, explicit grant required, never persisted.",
+    "metaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+    "name": "ZatcaCsr",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "parameters": [
+    {
+      "metaId": "1ba4a500-f195-44b9-8927-8b4c44610f94",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "VatNumber",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 0,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "47db6ede-44e8-430a-831f-12eb3df0b10e",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "Organization",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 1,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "a63b7fe9-7e15-4250-bd73-e256384ec9af",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "OrganizationUnit",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 2,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "becfe637-abce-45eb-8e83-0bb30501e187",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "CommonName",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 3,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "78ba80b6-d4a6-4461-9077-d1e5c447456a",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "Environment",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 4,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "4541d31b-a6c2-4cad-a6e9-092ab5ae8d3c",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "Ok",
+      "paramType": "bool",
+      "isArray": false,
+      "isResponse": true,
+      "position": 0,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "f9c23dcc-150e-48fa-8c83-b995204446eb",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "Error",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 1,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "c822bffc-9bd4-4430-9248-5e305681e84f",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "Csr",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 2,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "b2f12fec-bdf7-4e25-93e0-d13b4323ab93",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "PrivateKey",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 3,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "07f29714-5b75-443a-9766-67ffed7165be",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "Template",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 4,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "metaId": "f8dd6826-8ea4-41f3-8766-36b0e53cd923",
+      "webServiceMetaId": "d747898f-fba4-4f51-a533-5716dc582b66",
+      "name": "CommonName",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 5,
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}

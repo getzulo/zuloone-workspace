@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "WebService",
+    "objectType": "WebService",
+    "objectName": "ZatcaCompliance",
+    "objectMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
+    "description": "Exchanges an OTP and a CSR for a Compliance CSID. Returns a secret — developer stands only, explicit grant required.",
+    "executionOrder": 0,
+    "metaId": "e142a121-2e07-4326-ad9c-b73cccd3089f",
+    "name": "ZatcaComplianceService",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}
