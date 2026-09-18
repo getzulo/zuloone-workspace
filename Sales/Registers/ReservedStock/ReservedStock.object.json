@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Reserved stock",
+      "ar": "المخزون المحجوز",
       "ru": "Резерв",
       "uk": "Резерв"
     },
@@ -25,6 +26,7 @@
       "fieldName": "Qty",
       "caption": {
         "en": "Qty",
+        "ar": "الكمية",
         "ru": "Количество",
         "uk": "Кількість"
       },

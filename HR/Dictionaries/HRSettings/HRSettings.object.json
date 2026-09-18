@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "HR settings",
+      "ar": "إعدادات الموارد البشرية",
       "ru": "Настройки модуля",
       "uk": "Налаштування модуля"
     },
@@ -35,6 +36,7 @@
       "isUnique": false,
       "caption": {
         "en": "Home country",
+        "ar": "دولة التسجيل",
         "ru": "Страна регистрации",
         "uk": "Країна реєстрації"
       },
@@ -58,6 +60,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -78,6 +81,7 @@
       "isUnique": false,
       "caption": {
         "en": "Payroll run day of month",
+        "ar": "يوم احتساب الرواتب من الشهر",
         "ru": "День расчёта ФОТ",
         "uk": "День розрахунку зарплати"
       },
@@ -101,6 +105,7 @@
       "isUnique": false,
       "caption": {
         "en": "Social insurance rate, employee",
+        "ar": "نسبة التأمينات، الموظف",
         "ru": "Соцстрах: ставка работника",
         "uk": "Соцстрах: ставка працівника"
       },
@@ -124,6 +129,7 @@
       "isUnique": false,
       "caption": {
         "en": "Social insurance rate, employer",
+        "ar": "نسبة التأمينات، صاحب العمل",
         "ru": "Соцстрах: ставка работодателя",
         "uk": "Соцстрах: ставка роботодавця"
       },
@@ -147,6 +153,7 @@
       "isUnique": false,
       "caption": {
         "en": "Social insurance rate, employer (foreign staff)",
+        "ar": "نسبة التأمينات، صاحب العمل (العمالة الأجنبية)",
         "ru": "Соцстрах: ставка работодателя за иностранцев",
         "uk": "Соцстрах: ставка роботодавця за іноземців"
       },
@@ -168,6 +175,7 @@
       "isUnique": false,
       "caption": {
         "en": "Contributory wage ceiling",
+        "ar": "الحد الأعلى للأجر الخاضع للاشتراك",
         "ru": "Соцстрах: потолок базы",
         "uk": "Соцстрах: стеля бази"
       },
@@ -191,6 +199,7 @@
       "isUnique": false,
       "caption": {
         "en": "Work hours per week",
+        "ar": "ساعات العمل الأسبوعية",
         "ru": "Рабочих часов в неделю",
         "uk": "Робочих годин на тиждень"
       },
@@ -214,6 +223,7 @@
       "isUnique": false,
       "caption": {
         "en": "Work hours per day",
+        "ar": "ساعات العمل اليومية",
         "ru": "Рабочих часов в день",
         "uk": "Робочих годин на день"
       },

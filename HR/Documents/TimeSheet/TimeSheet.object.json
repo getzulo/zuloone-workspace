@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Time sheet",
+      "ar": "سجل الدوام",
       "ru": "Табель",
       "uk": "Табель"
     },
@@ -27,6 +28,7 @@
       "fieldName": "Division",
       "caption": {
         "en": "Division",
+        "ar": "القسم",
         "ru": "Подразделение",
         "uk": "Підрозділ"
       },
@@ -70,6 +72,7 @@
       "fieldName": "PeriodFrom",
       "caption": {
         "en": "Period from",
+        "ar": "الفترة من",
         "ru": "Период с",
         "uk": "Період з"
       },
@@ -90,6 +93,7 @@
       "fieldName": "PeriodTo",
       "caption": {
         "en": "Period to",
+        "ar": "الفترة إلى",
         "ru": "Период по",
         "uk": "Період по"
       },
@@ -112,11 +116,13 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -131,11 +137,13 @@
       "name": "Approved",
       "caption": {
         "en": "Approved",
+        "ar": "معتمد",
         "uk": "Затверджено"
       },
       "subtypeValue": "Approved",
       "subtypeCaption": {
         "en": "Approved",
+        "ar": "معتمد",
         "ru": "Утверждён",
         "uk": "Затверджено"
       },

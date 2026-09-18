@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Receivable",
+      "ar": "الذمم المدينة",
       "ru": "Дебиторка",
       "uk": "Дебіторка"
     },
@@ -25,6 +26,7 @@
       "fieldName": "Amount",
       "caption": {
         "en": "Amount",
+        "ar": "المبلغ",
         "ru": "Сумма",
         "uk": "Сума"
       },

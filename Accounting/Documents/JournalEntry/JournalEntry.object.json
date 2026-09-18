@@ -27,6 +27,7 @@
       "fieldName": "Circuits",
       "caption": {
         "en": "Circuits",
+        "ar": "الدوائر",
         "ru": "Контуры",
         "uk": "Контури"
       },
@@ -92,7 +93,7 @@
       "fieldName": "FiscalPeriod",
       "caption": {
         "en": "Fiscal period",
-        "ar": "المالية الفترة",
+        "ar": "الفترة المالية",
         "ru": "Фискальный период",
         "uk": "Фіскальний період"
       },
@@ -136,7 +137,7 @@
       "fieldName": "LegalEntity",
       "caption": {
         "en": "Legal entity",
-        "ar": "قانوني كيان",
+        "ar": "الكيان القانوني",
         "ru": "Юрлицо",
         "uk": "Юридична особа"
       },
@@ -180,13 +181,13 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
-        "ar": "مرسل",
+        "ar": "مُرحَّل",
         "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
-        "ar": "مرحّل",
+        "ar": "مُرحَّل",
         "ru": "Проведено",
         "uk": "Проведено"
       },

@@ -71,6 +71,7 @@
       "fieldName": "Points",
       "caption": {
         "en": "Points",
+        "ar": "النقاط",
         "ru": "Баллы",
         "uk": "Бали"
       },
@@ -99,6 +100,7 @@
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -113,11 +115,13 @@
       "name": "Redeemed",
       "caption": {
         "en": "Redeemed",
+        "ar": "مستبدلة",
         "uk": "Списано"
       },
       "subtypeValue": "Redeemed",
       "subtypeCaption": {
         "en": "Redeemed",
+        "ar": "مستبدلة",
         "ru": "Списано",
         "uk": "Списано"
       },

@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Loyalty tier",
+      "ar": "مستوى الولاء",
       "ru": "Уровень лояльности",
       "uk": "Рівень лояльності"
     },
@@ -40,6 +41,7 @@
       "isUnique": false,
       "caption": {
         "en": "Discount, %",
+        "ar": "الخصم، ٪",
         "ru": "Скидка, %",
         "uk": "Знижка, %"
       },
@@ -64,6 +66,7 @@
       "isUnique": false,
       "caption": {
         "en": "Earn rate",
+        "ar": "معدل الاكتساب",
         "ru": "Курс начисления",
         "uk": "Курс нарахування"
       },
@@ -87,6 +90,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "ru": "ID",
         "uk": "ID"
       },
@@ -109,6 +113,7 @@
       "isUnique": false,
       "caption": {
         "en": "Max redemption per document",
+        "ar": "حد الاستبدال لكل مستند",
         "ru": "Лимит списания за раз",
         "uk": "Ліміт списання за раз"
       },
@@ -131,6 +136,7 @@
       "isUnique": false,
       "caption": {
         "en": "Minimum points",
+        "ar": "الحد الأدنى للنقاط",
         "ru": "Порог баллов",
         "uk": "Поріг балів"
       },
@@ -153,6 +159,7 @@
       "isUnique": false,
       "caption": {
         "en": "Name",
+        "ar": "الاسم",
         "ru": "Наименование",
         "uk": "Найменування"
       },

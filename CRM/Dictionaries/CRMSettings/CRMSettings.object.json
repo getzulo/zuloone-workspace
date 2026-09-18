@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "CRM settings",
+      "ar": "إعدادات إدارة العملاء",
       "ru": "Настройки модуля",
       "uk": "Налаштування модуля"
     },
@@ -37,6 +38,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -57,6 +59,7 @@
       "isUnique": false,
       "caption": {
         "en": "Loyalty enabled",
+        "ar": "تفعيل الولاء",
         "ru": "Лояльность включена",
         "uk": "Лояльність увімкнена"
       },
@@ -80,6 +83,7 @@
       "isUnique": false,
       "caption": {
         "en": "Loyalty points per currency unit",
+        "ar": "نقاط الولاء لكل وحدة عملة",
         "ru": "Баллов за единицу валюты",
         "uk": "Балів за одиницю валюти"
       },

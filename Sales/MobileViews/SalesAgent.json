@@ -5,6 +5,7 @@
       "id": "route",
       "caption": {
         "en": "Today",
+        "ar": "اليوم",
         "uk": "Сьогодні"
       },
       "entity": "VisitRoute"
@@ -13,6 +14,7 @@
       "id": "customers",
       "caption": {
         "en": "Customers",
+        "ar": "العملاء",
         "uk": "Покупці"
       },
       "entity": "Customer"
@@ -21,6 +23,7 @@
       "id": "catalog",
       "caption": {
         "en": "Catalog",
+        "ar": "الكتالوج",
         "uk": "Каталог"
       },
       "entity": "Item"
@@ -29,6 +32,7 @@
       "id": "orders",
       "caption": {
         "en": "Orders",
+        "ar": "الطلبات",
         "uk": "Замовлення"
       },
       "entity": "SalesOrder"
@@ -37,6 +41,7 @@
       "id": "visits",
       "caption": {
         "en": "Visits",
+        "ar": "الزيارات",
         "uk": "Візити"
       },
       "entity": "AgentVisit"

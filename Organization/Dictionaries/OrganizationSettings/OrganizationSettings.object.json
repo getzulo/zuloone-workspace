@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Organization settings",
+      "ar": "إعدادات المؤسسة",
       "ru": "Настройки модуля",
       "uk": "Налаштування модуля"
     },
@@ -36,6 +37,7 @@
       "isUnique": false,
       "caption": {
         "en": "Application name",
+        "ar": "اسم التطبيق",
         "ru": "Название приложения",
         "uk": "Назва застосунку"
       },
@@ -58,6 +60,7 @@
       "isUnique": false,
       "caption": {
         "en": "Default legal entity code",
+        "ar": "رمز الكيان القانوني الافتراضي",
         "ru": "Код юрлица по умолчанию",
         "uk": "Код юрособи за замовчуванням"
       },
@@ -81,6 +84,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -101,6 +105,7 @@
       "isUnique": false,
       "caption": {
         "en": "Application logo",
+        "ar": "شعار التطبيق",
         "ru": "Логотип приложения",
         "uk": "Логотип застосунку"
       },

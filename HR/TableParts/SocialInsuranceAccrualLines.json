@@ -4,6 +4,7 @@
     "className": "SocialInsuranceAccrualLinesTablePartRow",
     "caption": {
       "en": "Lines",
+      "ar": "السطور",
       "ru": "Строки",
       "uk": "Рядки"
     },
@@ -20,6 +21,7 @@
       "fieldName": "ContributoryBase",
       "caption": {
         "en": "Contributory base",
+        "ar": "وعاء الاشتراك",
         "ru": "База начисления",
         "uk": "База нарахування"
       },
@@ -39,6 +41,7 @@
       "fieldName": "Employee",
       "caption": {
         "en": "Employee",
+        "ar": "الموظف",
         "ru": "Сотрудник",
         "uk": "Співробітник"
       },
@@ -61,6 +64,7 @@
       "fieldName": "EmployeeContribution",
       "caption": {
         "en": "Employee contribution",
+        "ar": "حصة الموظف",
         "ru": "Взнос работника",
         "uk": "Частка працівника"
       },
@@ -80,6 +84,7 @@
       "fieldName": "EmployerContribution",
       "caption": {
         "en": "Employer contribution",
+        "ar": "حصة صاحب العمل",
         "ru": "Взнос работодателя",
         "uk": "Частка роботодавця"
       },

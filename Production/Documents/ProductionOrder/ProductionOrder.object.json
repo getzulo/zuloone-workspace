@@ -3,7 +3,7 @@
   "object": {
     "caption": {
       "en": "Production order",
-      "ar": "الإنتاج الأمر",
+      "ar": "أمر الإنتاج",
       "ru": "Производственный заказ",
       "uk": "Виробниче замовлення"
     },
@@ -167,6 +167,7 @@
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -181,11 +182,13 @@
       "name": "Finished",
       "caption": {
         "en": "Finished",
+        "ar": "مكتمل",
         "uk": "Випущено"
       },
       "subtypeValue": "Finished",
       "subtypeCaption": {
         "en": "Finished",
+        "ar": "مكتمل",
         "ru": "Выпущено",
         "uk": "Випущено"
       },
@@ -200,13 +203,13 @@
       "name": "Released",
       "caption": {
         "en": "Released",
-        "ar": "أُطلق",
+        "ar": "مُصدَر",
         "uk": "У роботі"
       },
       "subtypeValue": "Released",
       "subtypeCaption": {
         "en": "Released",
-        "ar": "قيد التنفيذ",
+        "ar": "مُصدَر",
         "ru": "В работе",
         "uk": "У роботі"
       },

@@ -21,6 +21,7 @@
       "fieldName": "EffectiveFrom",
       "caption": {
         "en": "Effective from",
+        "ar": "سارٍ من",
         "ru": "Действует с",
         "uk": "Діє з"
       },
@@ -40,6 +41,7 @@
       "fieldName": "EffectiveTo",
       "caption": {
         "en": "Effective to",
+        "ar": "سارٍ إلى",
         "ru": "Действует по",
         "uk": "Діє до"
       },
@@ -59,6 +61,7 @@
       "fieldName": "Item",
       "caption": {
         "en": "Item",
+        "ar": "الصنف",
         "ru": "Номенклатура",
         "uk": "Номенклатура"
       },
@@ -79,6 +82,7 @@
       "fieldName": "Price",
       "caption": {
         "en": "Price",
+        "ar": "السعر",
         "ru": "Цена",
         "uk": "Ціна"
       },
@@ -100,6 +104,7 @@
       "fieldName": "SalesContract",
       "caption": {
         "en": "Contract",
+        "ar": "العقد",
         "ru": "Договор",
         "uk": "Договір"
       },
@@ -120,6 +125,7 @@
       "fieldName": "Unit",
       "caption": {
         "en": "Unit",
+        "ar": "الوحدة",
         "ru": "Единица",
         "uk": "Одиниця"
       },

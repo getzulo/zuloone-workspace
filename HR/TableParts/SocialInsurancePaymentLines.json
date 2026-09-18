@@ -4,6 +4,7 @@
     "className": "SocialInsurancePaymentLinesTablePartRow",
     "caption": {
       "en": "Lines",
+      "ar": "السطور",
       "ru": "Строки",
       "uk": "Рядки"
     },
@@ -20,6 +21,7 @@
       "fieldName": "Employee",
       "caption": {
         "en": "Employee",
+        "ar": "الموظف",
         "ru": "Сотрудник",
         "uk": "Співробітник"
       },
@@ -42,6 +44,7 @@
       "fieldName": "EmployeeContribution",
       "caption": {
         "en": "Employee contribution",
+        "ar": "حصة الموظف",
         "ru": "Доля работника",
         "uk": "Частка працівника"
       },
@@ -61,6 +64,7 @@
       "fieldName": "EmployerContribution",
       "caption": {
         "en": "Employer contribution",
+        "ar": "حصة صاحب العمل",
         "ru": "Доля работодателя",
         "uk": "Частка роботодавця"
       },

@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Tax settings",
+      "ar": "إعدادات الضرائب",
       "ru": "Настройки модуля",
       "uk": "Налаштування модуля"
     },
@@ -36,6 +37,7 @@
       "isUnique": false,
       "caption": {
         "en": "Default tax code",
+        "ar": "الرمز الضريبي الافتراضي",
         "ru": "Налоговый код по умолчанию",
         "uk": "Податковий код за замовчуванням"
       },
@@ -59,6 +61,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -79,6 +82,7 @@
       "isUnique": false,
       "caption": {
         "en": "Prices include tax",
+        "ar": "الأسعار شاملة الضريبة",
         "ru": "Цены с учётом налога",
         "uk": "Ціни з урахуванням податку"
       },

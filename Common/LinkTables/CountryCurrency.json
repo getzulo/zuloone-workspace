@@ -20,6 +20,7 @@
       "fieldName": "Country",
       "caption": {
         "en": "Country",
+        "ar": "الدولة",
         "ru": "Страна",
         "uk": "Країна"
       },
@@ -38,6 +39,7 @@
       "fieldName": "Currency",
       "caption": {
         "en": "Currency",
+        "ar": "العملة",
         "ru": "Валюта",
         "uk": "Валюта"
       },
@@ -56,6 +58,7 @@
       "fieldName": "IsPrimary",
       "caption": {
         "en": "Primary",
+        "ar": "أساسية",
         "ru": "Основная",
         "uk": "Основна"
       },

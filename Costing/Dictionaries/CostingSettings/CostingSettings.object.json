@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Costing settings",
+      "ar": "إعدادات التكلفة",
       "ru": "Настройки модуля",
       "uk": "Налаштування модуля"
     },
@@ -36,6 +37,7 @@
       "isUnique": false,
       "caption": {
         "en": "Costing method (AVG/FIFO)",
+        "ar": "طريقة التكلفة (المتوسط/الوارد أولًا)",
         "ru": "Метод себестоимости (AVG/FIFO)",
         "uk": "Метод собівартості (AVG/FIFO)"
       },
@@ -59,6 +61,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -79,6 +82,7 @@
       "isUnique": false,
       "caption": {
         "en": "Round costs",
+        "ar": "تقريب التكاليف",
         "ru": "Округлять себестоимость",
         "uk": "Округлювати собівартість"
       },

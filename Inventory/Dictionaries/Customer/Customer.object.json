@@ -82,7 +82,7 @@
       "isUnique": false,
       "caption": {
         "en": "Customer type",
-        "ar": "العميل النوع",
+        "ar": "نوع العميل",
         "ru": "Тип клиента",
         "uk": "Тип клієнта"
       },

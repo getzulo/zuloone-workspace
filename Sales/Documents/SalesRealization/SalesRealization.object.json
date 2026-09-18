@@ -48,6 +48,7 @@
       "fieldName": "Contract",
       "caption": {
         "en": "Contract",
+        "ar": "العقد",
         "ru": "Договор",
         "uk": "Договір"
       },
@@ -156,6 +157,7 @@
       "fieldName": "Location",
       "caption": {
         "en": "Ship-from location",
+        "ar": "موقع الشحن",
         "ru": "Ячейка отгрузки",
         "uk": "Комірка відвантаження"
       },
@@ -198,6 +200,7 @@
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
+        "ar": "منفذ البيع",
         "ru": "Торговая точка",
         "uk": "Точка"
       },
@@ -260,6 +263,7 @@
       "fieldName": "SourceOrder",
       "caption": {
         "en": "Source order",
+        "ar": "الطلب المصدر",
         "ru": "Заказ-источник",
         "uk": "Замовлення-джерело"
       },
@@ -305,11 +309,13 @@
       "name": "Paid",
       "caption": {
         "en": "Paid",
+        "ar": "مدفوع",
         "uk": "Оплачено"
       },
       "subtypeValue": "Paid",
       "subtypeCaption": {
         "en": "Paid",
+        "ar": "مدفوع",
         "ru": "Оплачено",
         "uk": "Оплачено"
       },
@@ -330,6 +336,7 @@
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -351,6 +358,7 @@
       "subtypeValue": "Issued",
       "subtypeCaption": {
         "en": "Released",
+        "ar": "مُصدَر",
         "ru": "Реализовано",
         "uk": "Реалізовано"
       },
@@ -365,12 +373,14 @@
       "name": "Shipped",
       "caption": {
         "en": "Shipped",
+        "ar": "تم الشحن",
         "ru": "Отгружен",
         "uk": "Відвантажено"
       },
       "subtypeValue": "Shipped",
       "subtypeCaption": {
         "en": "Shipped",
+        "ar": "تم الشحن",
         "ru": "Отгружен",
         "uk": "Відвантажено"
       },
@@ -385,12 +395,14 @@
       "name": "Cancelled",
       "caption": {
         "en": "Cancelled",
+        "ar": "ملغي",
         "ru": "Отменён",
         "uk": "Скасовано"
       },
       "subtypeValue": "Cancelled",
       "subtypeCaption": {
         "en": "Cancelled",
+        "ar": "ملغي",
         "ru": "Отменён",
         "uk": "Скасовано"
       },
@@ -405,12 +417,14 @@
       "name": "Reserved",
       "caption": {
         "en": "Reserved",
+        "ar": "محجوز",
         "ru": "Зарезервирован",
         "uk": "Зарезервовано"
       },
       "subtypeValue": "Reserved",
       "subtypeCaption": {
         "en": "Reserved",
+        "ar": "محجوز",
         "ru": "Зарезервирован",
         "uk": "Зарезервовано"
       },
@@ -425,12 +439,14 @@
       "name": "Picking",
       "caption": {
         "en": "Picking",
+        "ar": "جاري الانتقاء",
         "ru": "Отбор",
         "uk": "Відбір"
       },
       "subtypeValue": "Picking",
       "subtypeCaption": {
         "en": "Picking",
+        "ar": "جاري الانتقاء",
         "ru": "Отбор",
         "uk": "Відбір"
       },
@@ -445,12 +461,14 @@
       "name": "Packing",
       "caption": {
         "en": "Packing",
+        "ar": "جاري التغليف",
         "ru": "Упаковка",
         "uk": "Пакування"
       },
       "subtypeValue": "Packing",
       "subtypeCaption": {
         "en": "Packing",
+        "ar": "جاري التغليف",
         "ru": "Упаковка",
         "uk": "Пакування"
       },

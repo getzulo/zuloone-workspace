@@ -28,6 +28,7 @@
       "fieldName": "Agent",
       "caption": {
         "en": "Agent",
+        "ar": "الوكيل",
         "ru": "Агент",
         "uk": "Агент"
       },
@@ -48,6 +49,7 @@
       "fieldName": "Contact",
       "caption": {
         "en": "Contact",
+        "ar": "جهة الاتصال",
         "ru": "Контактное лицо",
         "uk": "Контакт"
       },
@@ -68,6 +70,7 @@
       "fieldName": "Contract",
       "caption": {
         "en": "Contract",
+        "ar": "العقد",
         "ru": "Договор",
         "uk": "Договір"
       },
@@ -88,6 +91,7 @@
       "fieldName": "Customer",
       "caption": {
         "en": "Customer",
+        "ar": "العميل",
         "ru": "Клиент",
         "uk": "Клієнт"
       },
@@ -108,6 +112,7 @@
       "fieldName": "DeliveryDate",
       "caption": {
         "en": "Delivery date",
+        "ar": "تاريخ التسليم",
         "ru": "Дата доставки",
         "uk": "Дата доставки"
       },
@@ -128,6 +133,7 @@
       "fieldName": "DeliveryTerm",
       "caption": {
         "en": "Delivery term",
+        "ar": "شروط التسليم",
         "ru": "Условия поставки",
         "uk": "Умови постачання"
       },
@@ -148,6 +154,7 @@
       "fieldName": "DiscountPercent",
       "caption": {
         "en": "Discount, %",
+        "ar": "الخصم، ٪",
         "ru": "Скидка, %",
         "uk": "Знижка, %"
       },
@@ -191,6 +198,7 @@
       "fieldName": "Location",
       "caption": {
         "en": "Ship-from location",
+        "ar": "موقع الشحن",
         "ru": "Ячейка отгрузки",
         "uk": "Комірка відвантаження"
       },
@@ -211,6 +219,7 @@
       "fieldName": "Notes",
       "caption": {
         "en": "Notes",
+        "ar": "ملاحظات",
         "ru": "Примечания",
         "uk": "Примітки"
       },
@@ -232,6 +241,7 @@
       "fieldName": "SourceLead",
       "caption": {
         "en": "Source lead",
+        "ar": "العميل المحتمل المصدر",
         "ru": "Лид-источник",
         "uk": "Лід-джерело"
       },
@@ -253,6 +263,7 @@
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
+        "ar": "منفذ البيع",
         "ru": "Торговая точка",
         "uk": "Торгова точка"
       },
@@ -273,6 +284,7 @@
       "fieldName": "PaymentTerm",
       "caption": {
         "en": "Payment term",
+        "ar": "شروط الدفع",
         "ru": "Условия оплаты",
         "uk": "Умови оплати"
       },
@@ -293,6 +305,7 @@
       "fieldName": "ValidUntil",
       "caption": {
         "en": "Valid until",
+        "ar": "صالح حتى",
         "ru": "Действительно до",
         "uk": "Дійсно до"
       },
@@ -315,11 +328,13 @@
       "name": "Converted",
       "caption": {
         "en": "Converted",
+        "ar": "محوَّل",
         "uk": "У замовленні"
       },
       "subtypeValue": "Converted",
       "subtypeCaption": {
         "en": "Converted",
+        "ar": "محوَّل",
         "ru": "В заказе",
         "uk": "У замовленні"
       },
@@ -334,11 +349,13 @@
       "name": "Issued",
       "caption": {
         "en": "Issued",
+        "ar": "صادر",
         "uk": "Виставлено"
       },
       "subtypeValue": "Issued",
       "subtypeCaption": {
         "en": "Issued",
+        "ar": "صادر",
         "ru": "Выставлено",
         "uk": "Виставлено"
       },
@@ -353,11 +370,13 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -372,11 +391,13 @@
       "name": "Cancelled",
       "caption": {
         "en": "Cancelled",
+        "ar": "ملغي",
         "uk": "Скасовано"
       },
       "subtypeValue": "Cancelled",
       "subtypeCaption": {
         "en": "Cancelled",
+        "ar": "ملغي",
         "ru": "Отменено",
         "uk": "Скасовано"
       },

@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Sales order",
+      "ar": "أمر البيع",
       "ru": "Заказ покупателя",
       "uk": "Замовлення покупця"
     },
@@ -27,6 +28,7 @@
       "fieldName": "Agent",
       "caption": {
         "en": "Agent",
+        "ar": "الوكيل",
         "ru": "Агент",
         "uk": "Агент"
       },
@@ -68,6 +70,7 @@
       "fieldName": "Contract",
       "caption": {
         "en": "Contract",
+        "ar": "العقد",
         "ru": "Договор",
         "uk": "Договір"
       },
@@ -88,6 +91,7 @@
       "fieldName": "Customer",
       "caption": {
         "en": "Customer",
+        "ar": "العميل",
         "ru": "Клиент",
         "uk": "Клієнт"
       },
@@ -108,6 +112,7 @@
       "fieldName": "DeliveryDate",
       "caption": {
         "en": "Delivery date",
+        "ar": "تاريخ التسليم",
         "ru": "Дата доставки",
         "uk": "Дата рейсу"
       },
@@ -172,6 +177,7 @@
       "fieldName": "Location",
       "caption": {
         "en": "Ship-from location",
+        "ar": "موقع الشحن",
         "ru": "Ячейка отгрузки",
         "uk": "Комірка відвантаження"
       },
@@ -214,6 +220,7 @@
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
+        "ar": "منفذ البيع",
         "ru": "Торговая точка",
         "uk": "Точка"
       },
@@ -276,6 +283,7 @@
       "fieldName": "Route",
       "caption": {
         "en": "Route",
+        "ar": "المسار",
         "ru": "Маршрут",
         "uk": "Маршрут"
       },
@@ -296,6 +304,7 @@
       "fieldName": "Visit",
       "caption": {
         "en": "Visit",
+        "ar": "الزيارة",
         "ru": "Визит",
         "uk": "Візит"
       },
@@ -316,6 +325,7 @@
       "fieldName": "SourceQuotation",
       "caption": {
         "en": "Source quotation",
+        "ar": "عرض السعر المصدر",
         "ru": "КП-источник",
         "uk": "КП-джерело"
       },
@@ -339,11 +349,13 @@
       "name": "Delivered",
       "caption": {
         "en": "Delivered",
+        "ar": "تم التسليم",
         "uk": "Доставлено"
       },
       "subtypeValue": "Delivered",
       "subtypeCaption": {
         "en": "Delivered",
+        "ar": "تم التسليم",
         "ru": "Доставлен",
         "uk": "Доставлено"
       },
@@ -358,11 +370,13 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -377,11 +391,13 @@
       "name": "Confirmed",
       "caption": {
         "en": "Approved",
+        "ar": "معتمد",
         "uk": "Погоджено"
       },
       "subtypeValue": "Confirmed",
       "subtypeCaption": {
         "en": "Approved",
+        "ar": "معتمد",
         "ru": "Подтверждён",
         "uk": "Погоджено"
       },
@@ -396,11 +412,13 @@
       "name": "Submitted",
       "caption": {
         "en": "Submitted",
+        "ar": "مُقدَّم",
         "uk": "Надіслано"
       },
       "subtypeValue": "Submitted",
       "subtypeCaption": {
         "en": "Submitted",
+        "ar": "مُقدَّم",
         "ru": "Отправлен",
         "uk": "Надіслано"
       },
@@ -415,11 +433,13 @@
       "name": "Cancelled",
       "caption": {
         "en": "Cancelled",
+        "ar": "ملغي",
         "uk": "Скасовано"
       },
       "subtypeValue": "Cancelled",
       "subtypeCaption": {
         "en": "Cancelled",
+        "ar": "ملغي",
         "ru": "Отменён",
         "uk": "Скасовано"
       },

@@ -4,6 +4,7 @@
     "className": "DeliveryTripLinesTablePartRow",
     "caption": {
       "en": "Stops",
+      "ar": "المحطات",
       "ru": "Точки рейса",
       "uk": "Точки рейсу"
     },
@@ -20,6 +21,7 @@
       "fieldName": "Outcome",
       "caption": {
         "en": "Outcome",
+        "ar": "النتيجة",
         "ru": "Итог",
         "uk": "Підсумок"
       },
@@ -39,7 +41,7 @@
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
-        "ar": "نقطة البيع",
+        "ar": "منفذ البيع",
         "ru": "Точка",
         "uk": "Точка"
       },
@@ -62,6 +64,7 @@
       "fieldName": "QtyShipped",
       "caption": {
         "en": "Shipped qty",
+        "ar": "الكمية المشحونة",
         "ru": "Выдано",
         "uk": "Видано"
       },
@@ -81,6 +84,7 @@
       "fieldName": "SalesOrder",
       "caption": {
         "en": "Sales order",
+        "ar": "أمر البيع",
         "ru": "Заказ",
         "uk": "Замовлення покупця"
       },
@@ -100,6 +104,7 @@
       "fieldName": "StopSequence",
       "caption": {
         "en": "Stop",
+        "ar": "المحطة",
         "ru": "Порядок",
         "uk": "Точка маршруту"
       },

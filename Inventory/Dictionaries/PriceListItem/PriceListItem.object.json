@@ -39,7 +39,7 @@
       "isUnique": false,
       "caption": {
         "en": "Effective from",
-        "ar": "ساري من",
+        "ar": "سارٍ من",
         "ru": "Действует с",
         "uk": "Діє з"
       },
@@ -62,7 +62,7 @@
       "isUnique": false,
       "caption": {
         "en": "Effective to",
-        "ar": "ساري حتى",
+        "ar": "سارٍ إلى",
         "ru": "Действует по",
         "uk": "Діє по"
       },
@@ -86,6 +86,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,

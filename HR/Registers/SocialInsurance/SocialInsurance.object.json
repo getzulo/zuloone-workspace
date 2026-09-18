@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Social insurance",
+      "ar": "التأمينات الاجتماعية",
       "ru": "Соцстрах",
       "uk": "Соцстрах"
     },
@@ -24,6 +25,7 @@
       "fieldName": "EmployeeContribution",
       "caption": {
         "en": "Employee contribution",
+        "ar": "حصة الموظف",
         "ru": "Взнос работника",
         "uk": "Частка працівника"
       },
@@ -39,6 +41,7 @@
       "fieldName": "EmployerContribution",
       "caption": {
         "en": "Employer contribution",
+        "ar": "حصة صاحب العمل",
         "ru": "Взнос работодателя",
         "uk": "Частка роботодавця"
       },

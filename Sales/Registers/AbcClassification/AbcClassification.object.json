@@ -66,6 +66,7 @@
       "fieldName": "AbcClass",
       "caption": {
         "en": "ABC",
+        "ar": "ABC",
         "ru": "ABC",
         "uk": "ABC"
       },
@@ -81,6 +82,7 @@
       "fieldName": "Cv",
       "caption": {
         "en": "CV",
+        "ar": "معامل الاختلاف",
         "ru": "CV",
         "uk": "CV"
       },
@@ -96,6 +98,7 @@
       "fieldName": "ManualAbc",
       "caption": {
         "en": "Manual ABC",
+        "ar": "ABC يدوي",
         "ru": "ABC вручную",
         "uk": "ABC вручну"
       },
@@ -111,6 +114,7 @@
       "fieldName": "ManualXyz",
       "caption": {
         "en": "Manual XYZ",
+        "ar": "XYZ يدوي",
         "ru": "XYZ вручную",
         "uk": "XYZ вручну"
       },
@@ -158,6 +162,7 @@
       "fieldName": "XyzClass",
       "caption": {
         "en": "XYZ",
+        "ar": "XYZ",
         "ru": "XYZ",
         "uk": "XYZ"
       },

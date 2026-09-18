@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Common settings",
+      "ar": "الإعدادات العامة",
       "ru": "Настройки модуля",
       "uk": "Налаштування модуля"
     },
@@ -35,6 +36,7 @@
       "isUnique": false,
       "caption": {
         "en": "Default country code",
+        "ar": "رمز الدولة الافتراضية",
         "ru": "Код страны по умолчанию",
         "uk": "Код країни за замовчуванням"
       },
@@ -57,6 +59,7 @@
       "isUnique": false,
       "caption": {
         "en": "Default currency code",
+        "ar": "رمز العملة الافتراضية",
         "ru": "Код валюты по умолчанию",
         "uk": "Код валюти за замовчуванням"
       },
@@ -80,6 +83,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,

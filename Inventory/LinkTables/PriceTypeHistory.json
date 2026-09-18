@@ -21,7 +21,7 @@
       "fieldName": "EffectiveFrom",
       "caption": {
         "en": "Effective from",
-        "ar": "ساري من",
+        "ar": "سارٍ من",
         "ru": "Действует с",
         "uk": "Діє з"
       },
@@ -41,7 +41,7 @@
       "fieldName": "EffectiveTo",
       "caption": {
         "en": "Effective to",
-        "ar": "ساري حتى",
+        "ar": "سارٍ إلى",
         "ru": "Действует по",
         "uk": "Діє по"
       },

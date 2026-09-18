@@ -48,6 +48,7 @@
       "fieldName": "DeterminationReason",
       "caption": {
         "en": "Determination reason",
+        "ar": "سبب التحديد",
         "ru": "Обоснование выбора",
         "uk": "Обґрунтування вибору"
       },
@@ -92,7 +93,7 @@
       "fieldName": "LegalEntity",
       "caption": {
         "en": "Legal entity",
-        "ar": "قانوني كيان",
+        "ar": "الكيان القانوني",
         "ru": "Юрлицо",
         "uk": "Юридична особа"
       },
@@ -135,6 +136,7 @@
       "fieldName": "TaxPointDate",
       "caption": {
         "en": "Tax point date",
+        "ar": "تاريخ الاستحقاق الضريبي",
         "ru": "Дата налогового события",
         "uk": "Дата податкової події"
       },
@@ -157,11 +159,13 @@
       "name": "Finalized",
       "caption": {
         "en": "Finalized",
+        "ar": "نهائي",
         "uk": "Фіналізовано"
       },
       "subtypeValue": "Finalized",
       "subtypeCaption": {
         "en": "Finalized",
+        "ar": "نهائي",
         "ru": "Финализировано",
         "uk": "Фіналізовано"
       },
@@ -182,6 +186,7 @@
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },

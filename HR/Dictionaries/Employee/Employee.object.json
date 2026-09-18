@@ -37,7 +37,7 @@
       "isUnique": false,
       "caption": {
         "en": "Division",
-        "ar": "الفرع",
+        "ar": "القسم",
         "ru": "Подразделение",
         "uk": "Підрозділ"
       },
@@ -59,7 +59,7 @@
       "isUnique": false,
       "caption": {
         "en": "Hire date",
-        "ar": "التوظيف التاريخ",
+        "ar": "تاريخ التوظيف",
         "ru": "Дата найма",
         "uk": "Дата найму"
       },
@@ -149,6 +149,7 @@
       "isUnique": false,
       "caption": {
         "en": "Nationality",
+        "ar": "الجنسية",
         "ru": "Гражданство",
         "uk": "Громадянство"
       },

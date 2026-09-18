@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Purchasing settings",
+      "ar": "إعدادات المشتريات",
       "ru": "Настройки модуля",
       "uk": "Налаштування модуля"
     },
@@ -35,6 +36,7 @@
       "isUnique": false,
       "caption": {
         "en": "Auto-receive on order",
+        "ar": "الاستلام التلقائي عند الطلب",
         "ru": "Авто-приход по заказу",
         "uk": "Авто-прихід за замовленням"
       },
@@ -56,6 +58,7 @@
       "isUnique": false,
       "caption": {
         "en": "Default payment term (days)",
+        "ar": "مهلة السداد الافتراضية (أيام)",
         "ru": "Срок оплаты по умолчанию (дней)",
         "uk": "Строк оплати за замовчуванням (днів)"
       },
@@ -79,6 +82,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,

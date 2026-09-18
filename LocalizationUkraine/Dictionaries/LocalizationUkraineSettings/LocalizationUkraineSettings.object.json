@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Ukraine settings",
+      "ar": "إعدادات أوكرانيا",
       "ru": "Настройки Украины",
       "uk": "Налаштування України"
     },
@@ -35,6 +36,7 @@
       "isUnique": false,
       "caption": {
         "en": "E-invoice (tax invoice) enabled",
+        "ar": "تفعيل الفاتورة الضريبية الإلكترونية",
         "ru": "Электронная налоговая накладная включена",
         "uk": "Електронна податкова накладна увімкнена"
       },
@@ -58,6 +60,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -79,6 +82,7 @@
       "isUnique": false,
       "caption": {
         "en": "VAT registration number (IPN)",
+        "ar": "الرقم الضريبي لضريبة القيمة المضافة (IPN)",
         "ru": "ИНН плательщика НДС",
         "uk": "ІПН платника ПДВ"
       },

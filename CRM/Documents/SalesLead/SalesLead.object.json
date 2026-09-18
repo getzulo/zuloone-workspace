@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Sales lead",
+      "ar": "العميل المحتمل",
       "ru": "Лид",
       "uk": "Лід"
     },
@@ -27,6 +28,7 @@
       "fieldName": "Agent",
       "caption": {
         "en": "Agent",
+        "ar": "الوكيل",
         "ru": "Агент",
         "uk": "Агент"
       },
@@ -47,6 +49,7 @@
       "fieldName": "Contact",
       "caption": {
         "en": "Contact",
+        "ar": "جهة الاتصال",
         "ru": "Контактное лицо",
         "uk": "Контакт"
       },
@@ -67,6 +70,7 @@
       "fieldName": "Contract",
       "caption": {
         "en": "Contract",
+        "ar": "العقد",
         "ru": "Договор",
         "uk": "Договір"
       },
@@ -87,6 +91,7 @@
       "fieldName": "Customer",
       "caption": {
         "en": "Customer",
+        "ar": "العميل",
         "ru": "Клиент",
         "uk": "Клієнт"
       },
@@ -107,6 +112,7 @@
       "fieldName": "DeliveryDate",
       "caption": {
         "en": "Delivery date",
+        "ar": "تاريخ التسليم",
         "ru": "Дата доставки",
         "uk": "Дата доставки"
       },
@@ -127,6 +133,7 @@
       "fieldName": "Email",
       "caption": {
         "en": "Email",
+        "ar": "البريد الإلكتروني",
         "ru": "Эл. почта",
         "uk": "Email"
       },
@@ -171,6 +178,7 @@
       "fieldName": "Location",
       "caption": {
         "en": "Ship-from location",
+        "ar": "موقع الشحن",
         "ru": "Ячейка отгрузки",
         "uk": "Комірка відвантаження"
       },
@@ -191,6 +199,7 @@
       "fieldName": "Notes",
       "caption": {
         "en": "Notes",
+        "ar": "ملاحظات",
         "ru": "Примечания",
         "uk": "Примітки"
       },
@@ -212,6 +221,7 @@
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
+        "ar": "منفذ البيع",
         "ru": "Торговая точка",
         "uk": "Торгова точка"
       },
@@ -232,6 +242,7 @@
       "fieldName": "Phone",
       "caption": {
         "en": "Phone",
+        "ar": "الهاتف",
         "ru": "Телефон",
         "uk": "Телефон"
       },
@@ -253,6 +264,7 @@
       "fieldName": "Source",
       "caption": {
         "en": "Source",
+        "ar": "المصدر",
         "ru": "Источник",
         "uk": "Джерело"
       },
@@ -274,6 +286,7 @@
       "fieldName": "Subject",
       "caption": {
         "en": "Subject",
+        "ar": "الموضوع",
         "ru": "Тема",
         "uk": "Тема"
       },
@@ -297,11 +310,13 @@
       "name": "New",
       "caption": {
         "en": "New",
+        "ar": "جديد",
         "uk": "Новий"
       },
       "subtypeValue": "New",
       "subtypeCaption": {
         "en": "New",
+        "ar": "جديد",
         "ru": "Новый",
         "uk": "Новий"
       },
@@ -316,11 +331,13 @@
       "name": "Quoted",
       "caption": {
         "en": "Quoted",
+        "ar": "مُسعَّر",
         "uk": "У КП"
       },
       "subtypeValue": "Quoted",
       "subtypeCaption": {
         "en": "Quoted",
+        "ar": "مُسعَّر",
         "ru": "В КП",
         "uk": "У КП"
       },
@@ -335,11 +352,13 @@
       "name": "Lost",
       "caption": {
         "en": "Lost",
+        "ar": "خاسر",
         "uk": "Втрачено"
       },
       "subtypeValue": "Lost",
       "subtypeCaption": {
         "en": "Lost",
+        "ar": "خاسر",
         "ru": "Потерян",
         "uk": "Втрачено"
       },
@@ -354,11 +373,13 @@
       "name": "Qualified",
       "caption": {
         "en": "Qualified",
+        "ar": "مؤهل",
         "uk": "Кваліфіковано"
       },
       "subtypeValue": "Qualified",
       "subtypeCaption": {
         "en": "Qualified",
+        "ar": "مؤهل",
         "ru": "Квалифицирован",
         "uk": "Кваліфіковано"
       },

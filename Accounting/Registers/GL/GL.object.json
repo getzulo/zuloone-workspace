@@ -56,6 +56,7 @@
       "fieldName": "ManagementCredit",
       "caption": {
         "en": "Management credit",
+        "ar": "دائن إداري",
         "ru": "Упр. кредит",
         "uk": "Упр. кредит"
       },
@@ -71,6 +72,7 @@
       "fieldName": "ManagementDebit",
       "caption": {
         "en": "Management debit",
+        "ar": "مدين إداري",
         "ru": "Упр. дебет",
         "uk": "Упр. дебет"
       },
@@ -86,6 +88,7 @@
       "fieldName": "TaxCredit",
       "caption": {
         "en": "Tax credit",
+        "ar": "دائن ضريبي",
         "ru": "Нал. кредит",
         "uk": "Под. кредит"
       },
@@ -101,6 +104,7 @@
       "fieldName": "TaxDebit",
       "caption": {
         "en": "Tax debit",
+        "ar": "مدين ضريبي",
         "ru": "Нал. дебет",
         "uk": "Под. дебет"
       },

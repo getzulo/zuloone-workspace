@@ -4,7 +4,7 @@
     "className": "PayrollPaymentLinesTablePartRow",
     "caption": {
       "en": "Payment lines",
-      "ar": "الدفع السطر",
+      "ar": "سطور الدفع",
       "ru": "Строки выплаты",
       "uk": "Рядки виплати"
     },

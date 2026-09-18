@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Accounting settings",
+      "ar": "إعدادات المحاسبة",
       "ru": "Настройки модуля",
       "uk": "Налаштування модуля"
     },
@@ -37,6 +38,7 @@
       "isUnique": false,
       "caption": {
         "en": "Receivables account code",
+        "ar": "رمز حساب الذمم المدينة",
         "ru": "Счёт дебиторки",
         "uk": "Рахунок дебіторки"
       },
@@ -58,6 +60,7 @@
       "isUnique": false,
       "caption": {
         "en": "Auto-post journal entries",
+        "ar": "ترحيل القيود تلقائيًا",
         "ru": "Автопроведение проводок",
         "uk": "Автопроведення проводок"
       },
@@ -81,6 +84,7 @@
       "isUnique": false,
       "caption": {
         "en": "Cash account code",
+        "ar": "رمز حساب النقدية",
         "ru": "Счёт денежных средств",
         "uk": "Рахунок грошових коштів"
       },
@@ -104,6 +108,7 @@
       "isUnique": false,
       "caption": {
         "en": "Cost of goods sold account code",
+        "ar": "رمز حساب تكلفة المبيعات",
         "ru": "Счёт себестоимости продаж",
         "uk": "Рахунок собівартості продажів"
       },
@@ -126,6 +131,7 @@
       "isUnique": false,
       "caption": {
         "en": "Default currency code",
+        "ar": "رمز العملة الافتراضية",
         "ru": "Код валюты по умолчанию",
         "uk": "Код валюти за замовчуванням"
       },
@@ -149,6 +155,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -171,6 +178,7 @@
       "isUnique": false,
       "caption": {
         "en": "Inventory account code",
+        "ar": "رمز حساب المخزون",
         "ru": "Счёт запасов",
         "uk": "Рахунок запасів"
       },
@@ -194,6 +202,7 @@
       "isUnique": false,
       "caption": {
         "en": "Inventory surplus account code",
+        "ar": "رمز حساب فائض المخزون",
         "ru": "Счёт оприходования излишка",
         "uk": "Рахунок оприбуткування надлишку"
       },
@@ -217,6 +226,7 @@
       "isUnique": false,
       "caption": {
         "en": "Inventory write-off account code",
+        "ar": "رمز حساب إعدام المخزون",
         "ru": "Счёт списания запасов",
         "uk": "Рахунок списання запасів"
       },
@@ -240,6 +250,7 @@
       "isUnique": false,
       "caption": {
         "en": "Payables account code",
+        "ar": "رمز حساب الذمم الدائنة",
         "ru": "Счёт кредиторки",
         "uk": "Рахунок кредиторки"
       },
@@ -263,6 +274,7 @@
       "isUnique": false,
       "caption": {
         "en": "Payroll expense account code",
+        "ar": "رمز حساب مصروف الرواتب",
         "ru": "Счёт расходов на оплату труда",
         "uk": "Рахунок витрат на оплату праці"
       },
@@ -286,6 +298,7 @@
       "isUnique": false,
       "caption": {
         "en": "Payroll liability account code",
+        "ar": "رمز حساب التزام الرواتب",
         "ru": "Счёт задолженности по оплате труда",
         "uk": "Рахунок заборгованості з оплати праці"
       },
@@ -309,6 +322,7 @@
       "isUnique": false,
       "caption": {
         "en": "Revenue account code",
+        "ar": "رمز حساب الإيرادات",
         "ru": "Счёт выручки",
         "uk": "Код рахунку виручки"
       },
@@ -332,6 +346,7 @@
       "isUnique": false,
       "caption": {
         "en": "Social insurance expense account code",
+        "ar": "رمز حساب مصروف التأمينات الاجتماعية",
         "ru": "Счёт расходов на соцстрах",
         "uk": "Рахунок витрат на соцстрах"
       },
@@ -355,6 +370,7 @@
       "isUnique": false,
       "caption": {
         "en": "Social insurance payable account code",
+        "ar": "رمز حساب التأمينات الاجتماعية المستحقة",
         "ru": "Счёт задолженности перед фондом соцстраха",
         "uk": "Рахунок заборгованості перед фондом соцстраху"
       },
@@ -378,6 +394,7 @@
       "isUnique": false,
       "caption": {
         "en": "VAT payable account code",
+        "ar": "رمز حساب ضريبة القيمة المضافة المستحقة",
         "ru": "Счёт НДС к уплате",
         "uk": "Рахунок ПДВ до сплати"
       },
@@ -401,6 +418,7 @@
       "isUnique": false,
       "caption": {
         "en": "VAT receivable account code",
+        "ar": "رمز حساب ضريبة القيمة المضافة القابلة للاسترداد",
         "ru": "Счёт НДС к возмещению",
         "uk": "Рахунок ПДВ до відшкодування"
       },

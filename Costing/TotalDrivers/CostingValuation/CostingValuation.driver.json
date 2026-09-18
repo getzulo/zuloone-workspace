@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Costing valuation",
+      "ar": "تقييم التكلفة",
       "uk": "Оцінка собівартості"
     },
     "baseClassName": "FifoTotalDriver",

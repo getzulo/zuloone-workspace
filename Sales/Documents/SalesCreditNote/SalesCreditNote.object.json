@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Sales credit note",
+      "ar": "إشعار خصم المبيعات",
       "ru": "Кредит-нота",
       "uk": "Кредит-нота"
     },
@@ -27,6 +28,7 @@
       "fieldName": "Contract",
       "caption": {
         "en": "Contract",
+        "ar": "العقد",
         "ru": "Договор",
         "uk": "Договір"
       },
@@ -47,6 +49,7 @@
       "fieldName": "Customer",
       "caption": {
         "en": "Customer",
+        "ar": "العميل",
         "ru": "Клиент",
         "uk": "Клієнт"
       },
@@ -90,6 +93,7 @@
       "fieldName": "LegalEntity",
       "caption": {
         "en": "Selling legal entity",
+        "ar": "الكيان القانوني البائع",
         "ru": "Юрлицо продавца",
         "uk": "Юрособа продавця"
       },
@@ -110,6 +114,7 @@
       "fieldName": "OriginalInvoice",
       "caption": {
         "en": "Original invoice",
+        "ar": "الفاتورة الأصلية",
         "ru": "Исходный счёт",
         "uk": "Початковий рахунок"
       },
@@ -130,6 +135,7 @@
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
+        "ar": "منفذ البيع",
         "ru": "Торговая точка",
         "uk": "Точка"
       },
@@ -150,6 +156,7 @@
       "fieldName": "TaxRateApplied",
       "caption": {
         "en": "Applied tax rate",
+        "ar": "معدل الضريبة المطبق",
         "ru": "Применённая ставка налога",
         "uk": "Застосована ставка податку"
       },
@@ -172,11 +179,13 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "ru": "Проведена",
         "uk": "Проведено"
       },
@@ -191,11 +200,13 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },

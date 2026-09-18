@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Sales person",
+      "ar": "مندوب المبيعات",
       "ru": "Агент / водитель",
       "uk": "Агент / водій"
     },
@@ -39,6 +40,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -60,6 +62,7 @@
       "isUnique": false,
       "caption": {
         "en": "Name",
+        "ar": "الاسم",
         "ru": "Наименование",
         "uk": "Найменування"
       },
@@ -75,6 +78,7 @@
       "fieldName": "UserId",
       "caption": {
         "en": "Login user",
+        "ar": "مستخدم الدخول",
         "ru": "Пользователь входа",
         "uk": "Користувач входу"
       },

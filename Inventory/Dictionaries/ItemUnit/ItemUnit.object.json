@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Item units",
+      "ar": "وحدات الصنف",
       "ru": "Упаковки товара",
       "uk": "Упаковки товару"
     },
@@ -39,6 +40,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -59,6 +61,7 @@
       "isUnique": false,
       "caption": {
         "en": "Item",
+        "ar": "الصنف",
         "ru": "Товар",
         "uk": "Товар"
       },
@@ -83,6 +86,7 @@
       "isUnique": false,
       "caption": {
         "en": "Quantity in base unit",
+        "ar": "الكمية بالوحدة الأساسية",
         "ru": "Количество в базовой единице",
         "uk": "Кількість у базовій одиниці"
       },
@@ -104,6 +108,7 @@
       "isUnique": false,
       "caption": {
         "en": "Unit",
+        "ar": "الوحدة",
         "ru": "Единица",
         "uk": "Одиниця"
       },

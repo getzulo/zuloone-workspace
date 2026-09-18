@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Customer payment",
+      "ar": "سداد العميل",
       "ru": "Оплата покупателя",
       "uk": "Оплата покупця"
     },
@@ -50,6 +51,7 @@
       "fieldName": "LegalEntity",
       "caption": {
         "en": "Legal entity",
+        "ar": "الكيان القانوني",
         "ru": "Юрлицо",
         "uk": "Юрособа"
       },
@@ -73,11 +75,13 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -92,11 +96,13 @@
       "name": "Paid",
       "caption": {
         "en": "Paid",
+        "ar": "مدفوع",
         "uk": "Оплачено"
       },
       "subtypeValue": "Paid",
       "subtypeCaption": {
         "en": "Paid",
+        "ar": "مدفوع",
         "ru": "Оплачено",
         "uk": "Оплачено"
       },

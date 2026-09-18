@@ -4,6 +4,7 @@
     "className": "CustomerPaymentLinesTablePartRow",
     "caption": {
       "en": "Lines",
+      "ar": "السطور",
       "ru": "Строки",
       "uk": "Рядки"
     },
@@ -20,6 +21,7 @@
       "fieldName": "Amount",
       "caption": {
         "en": "Amount",
+        "ar": "المبلغ",
         "ru": "Сумма",
         "uk": "Сума"
       },
@@ -39,6 +41,7 @@
       "fieldName": "Contract",
       "caption": {
         "en": "Contract",
+        "ar": "العقد",
         "ru": "Договор",
         "uk": "Договір"
       },
@@ -61,6 +64,7 @@
       "fieldName": "Customer",
       "caption": {
         "en": "Customer",
+        "ar": "العميل",
         "ru": "Покупатель",
         "uk": "Клієнт"
       },

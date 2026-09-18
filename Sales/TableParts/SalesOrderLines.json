@@ -4,6 +4,7 @@
     "className": "SalesOrderLinesTablePartRow",
     "caption": {
       "en": "Lines",
+      "ar": "السطور",
       "ru": "Строки",
       "uk": "Рядки"
     },
@@ -41,6 +42,7 @@
       "fieldName": "Item",
       "caption": {
         "en": "Item",
+        "ar": "الصنف",
         "ru": "Товар",
         "uk": "Номенклатура"
       },
@@ -63,6 +65,7 @@
       "fieldName": "QtyDelivered",
       "caption": {
         "en": "Delivered qty",
+        "ar": "الكمية المسلّمة",
         "ru": "Отгружено",
         "uk": "Відвантажено"
       },
@@ -128,6 +131,7 @@
       "fieldName": "UnitPrice",
       "caption": {
         "en": "Unit price",
+        "ar": "سعر الوحدة",
         "ru": "Цена",
         "uk": "Ціна"
       },

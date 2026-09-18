@@ -79,6 +79,7 @@
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -99,6 +100,7 @@
       "subtypeValue": "Confirmed",
       "subtypeCaption": {
         "en": "Confirmed",
+        "ar": "مؤكد",
         "ru": "Подтверждено",
         "uk": "Підтверджено"
       },

@@ -38,6 +38,7 @@
       "isUnique": false,
       "caption": {
         "en": "From",
+        "ar": "من",
         "ru": "С",
         "uk": "З"
       },
@@ -59,6 +60,7 @@
       "isUnique": false,
       "caption": {
         "en": "To",
+        "ar": "إلى",
         "ru": "По",
         "uk": "По"
       },
@@ -80,6 +82,7 @@
       "isUnique": false,
       "caption": {
         "en": "Employee",
+        "ar": "الموظف",
         "ru": "Сотрудник",
         "uk": "Співробітник"
       },
@@ -103,6 +106,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -123,6 +127,7 @@
       "isUnique": false,
       "caption": {
         "en": "Kind",
+        "ar": "النوع",
         "ru": "Вид",
         "uk": "Вид"
       },
@@ -145,6 +150,7 @@
       "isUnique": false,
       "caption": {
         "en": "Name",
+        "ar": "الاسم",
         "ru": "Наименование",
         "uk": "Найменування"
       },
@@ -167,6 +173,7 @@
       "isUnique": false,
       "caption": {
         "en": "Note",
+        "ar": "ملاحظة",
         "ru": "Примечание",
         "uk": "Примітка"
       },

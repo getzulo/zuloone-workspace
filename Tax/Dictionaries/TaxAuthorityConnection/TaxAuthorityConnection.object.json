@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Authority connections",
+      "ar": "اتصالات الجهات الحكومية",
       "ru": "Подключения к госсистемам",
       "uk": "Підключення до держсистем"
     },
@@ -37,6 +38,7 @@
       "isUnique": false,
       "caption": {
         "en": "Authority",
+        "ar": "الجهة",
         "ru": "Госорган",
         "uk": "Держорган"
       },
@@ -59,6 +61,7 @@
       "isUnique": false,
       "caption": {
         "en": "Base URL",
+        "ar": "عنوان الخدمة",
         "ru": "Адрес сервиса",
         "uk": "Адреса сервісу"
       },
@@ -81,6 +84,7 @@
       "isUnique": true,
       "caption": {
         "en": "Code",
+        "ar": "الكود",
         "ru": "Код",
         "uk": "Код"
       },
@@ -103,6 +107,7 @@
       "isUnique": false,
       "caption": {
         "en": "Credential reference",
+        "ar": "مرجع بيانات الاعتماد",
         "ru": "Ссылка на учётные данные",
         "uk": "Посилання на облікові дані"
       },
@@ -124,6 +129,7 @@
       "isUnique": false,
       "caption": {
         "en": "Environment",
+        "ar": "البيئة",
         "ru": "Среда",
         "uk": "Середовище"
       },
@@ -147,6 +153,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -189,6 +196,7 @@
       "isUnique": false,
       "caption": {
         "en": "Legal entity",
+        "ar": "الكيان القانوني",
         "ru": "Юрлицо",
         "uk": "Юридична особа"
       },
@@ -210,6 +218,7 @@
       "isUnique": false,
       "caption": {
         "en": "Max retries",
+        "ar": "أقصى عدد للمحاولات",
         "ru": "Попыток доставки",
         "uk": "Спроб доставки"
       },
@@ -231,6 +240,7 @@
       "isUnique": false,
       "caption": {
         "en": "Status",
+        "ar": "الحالة",
         "ru": "Состояние",
         "uk": "Статус"
       },
@@ -252,6 +262,7 @@
       "isUnique": false,
       "caption": {
         "en": "Timeout, s",
+        "ar": "المهلة، ثانية",
         "ru": "Таймаут, с",
         "uk": "Таймаут, с"
       },

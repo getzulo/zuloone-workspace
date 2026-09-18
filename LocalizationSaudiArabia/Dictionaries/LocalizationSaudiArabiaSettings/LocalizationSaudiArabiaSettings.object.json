@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "LocalizationSaudiArabia settings",
+      "ar": "إعدادات التوطين السعودي",
       "ru": "Настройки модуля",
       "uk": "Налаштування модуля"
     },
@@ -35,6 +36,7 @@
       "isUnique": false,
       "caption": {
         "en": "E-invoice (ZATCA) enabled",
+        "ar": "تفعيل الفاتورة الإلكترونية (هيئة الزكاة والضريبة والجمارك)",
         "ru": "Э-фактура (ZATCA) включена",
         "uk": "Е-фактура (ZATCA) увімкнена"
       },
@@ -58,6 +60,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -79,6 +82,7 @@
       "isUnique": false,
       "caption": {
         "en": "VAT registration number",
+        "ar": "الرقم الضريبي لضريبة القيمة المضافة",
         "ru": "Номер регистрации НДС",
         "uk": "Номер реєстрації ПДВ"
       },

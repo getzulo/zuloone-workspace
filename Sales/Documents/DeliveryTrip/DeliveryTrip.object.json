@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Delivery trip",
+      "ar": "رحلة التوصيل",
       "ru": "Рейс доставки",
       "uk": "Рейс доставки"
     },
@@ -27,6 +28,7 @@
       "fieldName": "DeliveryDate",
       "caption": {
         "en": "Delivery date",
+        "ar": "تاريخ التسليم",
         "ru": "Дата рейса",
         "uk": "Дата рейсу"
       },
@@ -68,6 +70,7 @@
       "fieldName": "Driver",
       "caption": {
         "en": "Driver",
+        "ar": "السائق",
         "ru": "Водитель",
         "uk": "Водій"
       },
@@ -111,6 +114,7 @@
       "fieldName": "Route",
       "caption": {
         "en": "Route",
+        "ar": "المسار",
         "ru": "Маршрут",
         "uk": "Маршрут"
       },
@@ -154,11 +158,13 @@
       "name": "Completed",
       "caption": {
         "en": "Completed",
+        "ar": "مكتمل",
         "uk": "Завершено"
       },
       "subtypeValue": "Completed",
       "subtypeCaption": {
         "en": "Completed",
+        "ar": "مكتمل",
         "ru": "Завершён",
         "uk": "Завершено"
       },
@@ -173,11 +179,13 @@
       "name": "Dispatched",
       "caption": {
         "en": "Dispatched",
+        "ar": "في الطريق",
         "uk": "Відправлено"
       },
       "subtypeValue": "Dispatched",
       "subtypeCaption": {
         "en": "Dispatched",
+        "ar": "في الطريق",
         "ru": "В рейсе",
         "uk": "Відправлено"
       },
@@ -192,11 +200,13 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },

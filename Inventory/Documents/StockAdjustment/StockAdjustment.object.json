@@ -3,7 +3,7 @@
   "object": {
     "caption": {
       "en": "Stock adjustment",
-      "ar": "المخزون التعديل",
+      "ar": "تسوية المخزون",
       "ru": "Корректировка остатков",
       "uk": "Коригування залишків"
     },
@@ -27,7 +27,7 @@
       "fieldName": "Cell",
       "caption": {
         "en": "Cell",
-        "ar": "الموقع",
+        "ar": "الخلية",
         "ru": "Ячейка",
         "uk": "Комірка"
       },
@@ -95,12 +95,13 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
-        "ar": "مرسل",
+        "ar": "مُرحَّل",
         "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "ru": "Проведено",
         "uk": "Проведено"
       },
@@ -121,6 +122,7 @@
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },

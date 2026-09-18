@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Purchase return",
+      "ar": "مرتجع الشراء",
       "ru": "Возврат поставщику",
       "uk": "Повернення постачальнику"
     },
@@ -50,6 +51,7 @@
       "fieldName": "Location",
       "caption": {
         "en": "Return from",
+        "ar": "موقع الإرجاع",
         "ru": "Ячейка возврата",
         "uk": "Комірка повернення"
       },
@@ -70,6 +72,7 @@
       "fieldName": "OriginalOrder",
       "caption": {
         "en": "Original order",
+        "ar": "الطلب الأصلي",
         "ru": "Исходный заказ",
         "uk": "Вихідне замовлення"
       },
@@ -90,6 +93,7 @@
       "fieldName": "Supplier",
       "caption": {
         "en": "Supplier",
+        "ar": "المورد",
         "ru": "Поставщик",
         "uk": "Постачальник"
       },
@@ -112,11 +116,13 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "ru": "Проведён",
         "uk": "Проведено"
       },
@@ -131,11 +137,13 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },

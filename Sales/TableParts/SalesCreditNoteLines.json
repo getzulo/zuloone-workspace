@@ -4,6 +4,7 @@
     "className": "SalesCreditNoteLinesTablePartRow",
     "caption": {
       "en": "Lines",
+      "ar": "السطور",
       "ru": "Строки",
       "uk": "Рядки"
     },
@@ -20,6 +21,7 @@
       "fieldName": "Item",
       "caption": {
         "en": "Item",
+        "ar": "الصنف",
         "ru": "Товар",
         "uk": "Номенклатура"
       },
@@ -42,6 +44,7 @@
       "fieldName": "Quantity",
       "caption": {
         "en": "Quantity",
+        "ar": "الكمية",
         "ru": "Количество",
         "uk": "Кількість"
       },
@@ -61,6 +64,7 @@
       "fieldName": "UnitPrice",
       "caption": {
         "en": "Unit price",
+        "ar": "سعر الوحدة",
         "ru": "Цена",
         "uk": "Ціна"
       },

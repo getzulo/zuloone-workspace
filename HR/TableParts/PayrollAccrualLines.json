@@ -4,6 +4,7 @@
     "className": "PayrollAccrualLinesTablePartRow",
     "caption": {
       "en": "Accrual lines",
+      "ar": "سطور الاستحقاق",
       "ru": "Строки начисления",
       "uk": "Рядки нарахування"
     },

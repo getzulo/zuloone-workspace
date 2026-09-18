@@ -100,6 +100,7 @@
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -114,12 +115,13 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
-        "ar": "مرسل",
+        "ar": "مُرحَّل",
         "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "ru": "Проведено",
         "uk": "Проведено"
       },

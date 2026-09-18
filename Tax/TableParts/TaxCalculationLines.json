@@ -4,7 +4,7 @@
     "className": "TaxCalculationLinesTablePartRow",
     "caption": {
       "en": "Lines",
-      "ar": "السطر",
+      "ar": "السطور",
       "ru": "Строки",
       "uk": "Рядки"
     },
@@ -44,6 +44,7 @@
       "fieldName": "RateOverridden",
       "caption": {
         "en": "Rate overridden",
+        "ar": "تم تجاوز المعدل",
         "ru": "Ставка вручную",
         "uk": "Ставка вручну"
       },
@@ -83,6 +84,7 @@
       "fieldName": "RecoverableAmount",
       "caption": {
         "en": "Recoverable amount",
+        "ar": "المبلغ القابل للاسترداد",
         "ru": "К возмещению",
         "uk": "До відшкодування"
       },
@@ -122,6 +124,7 @@
       "fieldName": "TaxBase",
       "caption": {
         "en": "Tax base",
+        "ar": "الوعاء الضريبي",
         "ru": "База",
         "uk": "База оподаткування"
       },
@@ -164,7 +167,7 @@
       "fieldName": "TaxCode",
       "caption": {
         "en": "Tax code",
-        "ar": "الضريبة رمز",
+        "ar": "الرمز الضريبي",
         "ru": "Налоговый код",
         "uk": "Податковий код"
       },
@@ -187,6 +190,7 @@
       "fieldName": "TaxRate",
       "caption": {
         "en": "Rate ref",
+        "ar": "مرجع المعدل",
         "ru": "Ставка (ссылка)",
         "uk": "Ставка (посилання)"
       },

@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Inventory settings",
+      "ar": "إعدادات المخزون",
       "ru": "Настройки склада",
       "uk": "Налаштування складу"
     },
@@ -35,6 +36,7 @@
       "isUnique": false,
       "caption": {
         "en": "Default receiving location",
+        "ar": "موقع الاستلام الافتراضي",
         "ru": "Ячейка приёмки по умолчанию",
         "uk": "Комірка приймання за замовчуванням"
       },
@@ -56,6 +58,7 @@
       "isUnique": false,
       "caption": {
         "en": "Default unit of measure",
+        "ar": "وحدة القياس الافتراضية",
         "ru": "Единица измерения по умолчанию",
         "uk": "Одиниця виміру за замовчуванням"
       },
@@ -77,6 +80,7 @@
       "isUnique": false,
       "caption": {
         "en": "Enforce unit conversion",
+        "ar": "إلزام تحويل الوحدات",
         "ru": "Требовать конвертацию единиц",
         "uk": "Вимагати конвертацію одиниць"
       },
@@ -123,6 +127,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,

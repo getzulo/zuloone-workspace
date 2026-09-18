@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Loyalty points",
+      "ar": "نقاط الولاء",
       "ru": "Баллы лояльности",
       "uk": "Бали лояльності"
     },
@@ -24,6 +25,7 @@
       "fieldName": "Customer",
       "caption": {
         "en": "Customer",
+        "ar": "العميل",
         "uk": "Клієнт"
       },
       "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
@@ -43,6 +45,7 @@
       "fieldName": "Points",
       "caption": {
         "en": "Points",
+        "ar": "النقاط",
         "uk": "Бали"
       },
       "isOperational": true,

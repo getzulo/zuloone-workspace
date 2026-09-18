@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Costing issue driver",
+      "ar": "محرك صرف التكلفة",
       "uk": "Драйвер списання собівартості"
     },
     "baseClassName": "DefaultTotalDriver",

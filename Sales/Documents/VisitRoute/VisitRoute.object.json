@@ -117,6 +117,7 @@
       "name": "Closed",
       "caption": {
         "en": "Closed",
+        "ar": "مغلق",
         "uk": "Закрито"
       },
       "subtypeValue": "Closed",
@@ -137,6 +138,7 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
@@ -157,6 +159,7 @@
       "name": "Open",
       "caption": {
         "en": "Open",
+        "ar": "مفتوح",
         "uk": "Відкрито"
       },
       "subtypeValue": "Open",

@@ -39,6 +39,7 @@
       "isUnique": false,
       "caption": {
         "en": "Order",
+        "ar": "الترتيب",
         "ru": "Порядок",
         "uk": "Порядок"
       },
@@ -62,6 +63,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -83,6 +85,7 @@
       "isUnique": false,
       "caption": {
         "en": "Rate override",
+        "ar": "تجاوز المعدل",
         "ru": "Ставка вручную",
         "uk": "Ставка вручну"
       },
@@ -104,6 +107,7 @@
       "isUnique": false,
       "caption": {
         "en": "Tax code",
+        "ar": "الرمز الضريبي",
         "ru": "Налоговый код",
         "uk": "Податковий код"
       },
@@ -125,6 +129,7 @@
       "isUnique": false,
       "caption": {
         "en": "Tax rule",
+        "ar": "قاعدة الضريبة",
         "ru": "Правило",
         "uk": "Правило"
       },

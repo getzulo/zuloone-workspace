@@ -3,7 +3,7 @@
   "object": {
     "caption": {
       "en": "Purchase order",
-      "ar": "الشراء الأمر",
+      "ar": "أمر الشراء",
       "ru": "Заказ поставщику",
       "uk": "Замовлення постачальнику"
     },
@@ -50,7 +50,7 @@
       "fieldName": "Location",
       "caption": {
         "en": "Receiving location",
-        "ar": "الاستقبال الموقع",
+        "ar": "موقع الاستلام",
         "ru": "Ячейка приёмки",
         "uk": "Комірка приймання"
       },
@@ -100,6 +100,7 @@
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -114,11 +115,13 @@
       "name": "Received",
       "caption": {
         "en": "Received",
+        "ar": "مستلم",
         "uk": "Оприбутковано"
       },
       "subtypeValue": "Received",
       "subtypeCaption": {
         "en": "Received",
+        "ar": "مستلم",
         "ru": "Оприходовано",
         "uk": "Оприбутковано"
       },
@@ -133,11 +136,13 @@
       "name": "Ordered",
       "caption": {
         "en": "Ordered",
+        "ar": "تم الطلب",
         "uk": "Замовлено"
       },
       "subtypeValue": "Ordered",
       "subtypeCaption": {
         "en": "Ordered",
+        "ar": "تم الطلب",
         "ru": "Заказано",
         "uk": "Замовлено"
       },

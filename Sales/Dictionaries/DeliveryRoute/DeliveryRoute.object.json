@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Delivery route",
+      "ar": "مسار التوصيل",
       "ru": "Маршрут доставки",
       "uk": "Маршрут доставки"
     },
@@ -105,6 +106,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -148,6 +150,7 @@
       "isUnique": false,
       "caption": {
         "en": "Name",
+        "ar": "الاسم",
         "ru": "Наименование",
         "uk": "Найменування"
       },

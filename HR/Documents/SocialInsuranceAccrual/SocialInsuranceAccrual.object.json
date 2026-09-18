@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Social insurance accrual",
+      "ar": "استحقاق التأمينات الاجتماعية",
       "ru": "Начисление соцстраха",
       "uk": "Нарахування соцстраху"
     },
@@ -26,6 +27,7 @@
       "fieldName": "Division",
       "caption": {
         "en": "Division",
+        "ar": "القسم",
         "ru": "Подразделение",
         "uk": "Підрозділ"
       },
@@ -71,11 +73,13 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -90,11 +94,13 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "ru": "Проведено",
         "uk": "Проведено"
       },

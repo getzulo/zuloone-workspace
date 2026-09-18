@@ -3,7 +3,7 @@
   "object": {
     "caption": {
       "en": "Stock transfer",
-      "ar": "المخزون التحويل",
+      "ar": "تحويل المخزون",
       "ru": "Перемещение остатков",
       "uk": "Переміщення залишків"
     },
@@ -94,12 +94,13 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
-        "ar": "مرسل",
+        "ar": "مُرحَّل",
         "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "ru": "Проведено",
         "uk": "Проведено"
       },
@@ -120,6 +121,7 @@
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },

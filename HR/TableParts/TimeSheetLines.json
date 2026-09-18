@@ -4,6 +4,7 @@
     "className": "TimeSheetLinesTablePartRow",
     "caption": {
       "en": "Lines",
+      "ar": "السطور",
       "ru": "Строки",
       "uk": "Рядки"
     },
@@ -20,6 +21,7 @@
       "fieldName": "Employee",
       "caption": {
         "en": "Employee",
+        "ar": "الموظف",
         "ru": "Сотрудник",
         "uk": "Співробітник"
       },
@@ -42,6 +44,7 @@
       "fieldName": "Hours",
       "caption": {
         "en": "Hours",
+        "ar": "الساعات",
         "ru": "Часы",
         "uk": "Години"
       },

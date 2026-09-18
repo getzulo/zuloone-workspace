@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Sales settings",
+      "ar": "إعدادات المبيعات",
       "ru": "Настройки модуля",
       "uk": "Налаштування модуля"
     },
@@ -35,6 +36,7 @@
       "isUnique": false,
       "caption": {
         "en": "Allow backorder",
+        "ar": "السماح بالطلب المؤجل",
         "ru": "Разрешить дозаказ",
         "uk": "Дозволити дозамовлення"
       },
@@ -56,6 +58,7 @@
       "isUnique": false,
       "caption": {
         "en": "Default payment term (days)",
+        "ar": "مهلة السداد الافتراضية (أيام)",
         "ru": "Срок оплаты по умолчанию (дней)",
         "uk": "Строк оплати за замовчуванням (днів)"
       },
@@ -79,6 +82,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -93,6 +97,7 @@
       "fieldName": "PriceMismatchPercent",
       "caption": {
         "en": "Mobile price mismatch, %",
+        "ar": "فارق السعر من التطبيق، ٪",
         "ru": "Расхождение цены с телефона, %",
         "uk": "Розбіжність ціни з телефона, %"
       },

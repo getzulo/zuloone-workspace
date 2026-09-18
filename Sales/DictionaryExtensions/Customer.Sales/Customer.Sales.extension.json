@@ -20,6 +20,7 @@
       "isUnique": false,
       "caption": {
         "en": "Sales person",
+        "ar": "مندوب المبيعات",
         "ru": "Агент",
         "uk": "Агент / водій"
       },

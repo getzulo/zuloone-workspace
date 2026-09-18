@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Sales return",
+      "ar": "مرتجع المبيعات",
       "ru": "Возврат от покупателя",
       "uk": "Повернення від покупця"
     },
@@ -27,6 +28,7 @@
       "fieldName": "Contract",
       "caption": {
         "en": "Contract",
+        "ar": "العقد",
         "ru": "Договор",
         "uk": "Договір"
       },
@@ -47,6 +49,7 @@
       "fieldName": "Customer",
       "caption": {
         "en": "Customer",
+        "ar": "العميل",
         "ru": "Клиент",
         "uk": "Клієнт"
       },
@@ -90,6 +93,7 @@
       "fieldName": "Location",
       "caption": {
         "en": "Return location",
+        "ar": "موقع الإرجاع",
         "ru": "Ячейка возврата",
         "uk": "Комірка повернення"
       },
@@ -110,6 +114,7 @@
       "fieldName": "OriginalInvoice",
       "caption": {
         "en": "Original invoice",
+        "ar": "الفاتورة الأصلية",
         "ru": "Исходный счёт",
         "uk": "Початковий рахунок"
       },
@@ -130,6 +135,7 @@
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
+        "ar": "منفذ البيع",
         "ru": "Торговая точка",
         "uk": "Точка"
       },
@@ -152,11 +158,13 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
+        "ar": "مُرحَّل",
         "ru": "Проведён",
         "uk": "Проведено"
       },
@@ -171,11 +179,13 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },

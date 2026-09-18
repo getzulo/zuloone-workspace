@@ -206,7 +206,7 @@
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
-        "ar": "نقطة البيع",
+        "ar": "منفذ البيع",
         "ru": "Торговая точка",
         "uk": "Точка"
       },
@@ -294,6 +294,7 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
@@ -314,6 +315,7 @@
       "name": "Open",
       "caption": {
         "en": "Open",
+        "ar": "مفتوح",
         "uk": "Відкрито"
       },
       "subtypeValue": "Open",
@@ -334,6 +336,7 @@
       "name": "Closed",
       "caption": {
         "en": "Closed",
+        "ar": "مغلق",
         "uk": "Закрито"
       },
       "subtypeValue": "Closed",

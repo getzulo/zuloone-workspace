@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Social insurance payment",
+      "ar": "سداد التأمينات الاجتماعية",
       "ru": "Платёж в фонд соцстраха",
       "uk": "Платіж у фонд соцстраху"
     },
@@ -27,6 +28,7 @@
       "fieldName": "Division",
       "caption": {
         "en": "Division",
+        "ar": "القسم",
         "ru": "Подразделение",
         "uk": "Підрозділ"
       },
@@ -72,11 +74,13 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
+        "ar": "مسودة",
         "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
+        "ar": "مسودة",
         "ru": "Черновик",
         "uk": "Чернетка"
       },
@@ -91,11 +95,13 @@
       "name": "Paid",
       "caption": {
         "en": "Paid",
+        "ar": "مدفوع",
         "uk": "Оплачено"
       },
       "subtypeValue": "Paid",
       "subtypeCaption": {
         "en": "Paid",
+        "ar": "مدفوع",
         "ru": "Оплачено",
         "uk": "Оплачено"
       },

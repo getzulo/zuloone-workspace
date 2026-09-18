@@ -4,6 +4,7 @@
     "className": "SalesQuotationLinesTablePartRow",
     "caption": {
       "en": "Lines",
+      "ar": "السطور",
       "ru": "Строки",
       "uk": "Рядки"
     },
@@ -20,6 +21,7 @@
       "fieldName": "BaseQuantity",
       "caption": {
         "en": "Qty in base unit",
+        "ar": "الكمية بالوحدة الأساسية",
         "ru": "Количество в базовой единице",
         "uk": "Кількість у базовій одиниці"
       },
@@ -40,6 +42,7 @@
       "fieldName": "Item",
       "caption": {
         "en": "Item",
+        "ar": "الصنف",
         "ru": "Товар",
         "uk": "Товар"
       },
@@ -62,6 +65,7 @@
       "fieldName": "PriceExplanation",
       "caption": {
         "en": "Price origin",
+        "ar": "مصدر السعر",
         "ru": "Откуда цена",
         "uk": "Звідки ціна"
       },
@@ -82,6 +86,7 @@
       "fieldName": "Quantity",
       "caption": {
         "en": "Quantity",
+        "ar": "الكمية",
         "ru": "Количество",
         "uk": "Кількість"
       },
@@ -104,6 +109,7 @@
       "fieldName": "Unit",
       "caption": {
         "en": "Unit",
+        "ar": "الوحدة",
         "ru": "Единица",
         "uk": "Одиниця"
       },
@@ -126,6 +132,7 @@
       "fieldName": "UnitPrice",
       "caption": {
         "en": "Unit price",
+        "ar": "سعر الوحدة",
         "ru": "Цена",
         "uk": "Ціна"
       },

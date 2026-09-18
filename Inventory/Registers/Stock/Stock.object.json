@@ -3,6 +3,7 @@
   "object": {
     "caption": {
       "en": "Stock",
+      "ar": "المخزون",
       "ru": "Остатки",
       "uk": "Залишки"
     },
@@ -27,6 +28,7 @@
       "fieldName": "Cell",
       "caption": {
         "en": "Cell",
+        "ar": "الخلية",
         "ru": "Ячейка",
         "uk": "Комірка"
       },
@@ -45,6 +47,7 @@
       "fieldName": "Item",
       "caption": {
         "en": "Item",
+        "ar": "الصنف",
         "ru": "Товар",
         "uk": "Товар"
       },
@@ -65,6 +68,7 @@
       "fieldName": "Qty",
       "caption": {
         "en": "Qty",
+        "ar": "الكمية",
         "uk": "К-сть"
       },
       "isOperational": true,

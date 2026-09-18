@@ -21,6 +21,7 @@
       "fieldName": "DiscountPercent",
       "caption": {
         "en": "Discount, %",
+        "ar": "الخصم، ٪",
         "ru": "Скидка, %",
         "uk": "Знижка, %"
       },
@@ -42,6 +43,7 @@
       "fieldName": "Item",
       "caption": {
         "en": "Item",
+        "ar": "الصنف",
         "ru": "Номенклатура",
         "uk": "Номенклатура"
       },
@@ -63,6 +65,7 @@
       "fieldName": "MinQty",
       "caption": {
         "en": "Min quantity",
+        "ar": "الحد الأدنى للكمية",
         "ru": "От количества",
         "uk": "Від кількості"
       },
@@ -84,6 +87,7 @@
       "fieldName": "SalesContract",
       "caption": {
         "en": "Contract",
+        "ar": "العقد",
         "ru": "Договор",
         "uk": "Договір"
       },

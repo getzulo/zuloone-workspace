@@ -150,6 +150,7 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
+        "ar": "معرف",
         "uk": "ID"
       },
       "isTranslatable": false,
@@ -237,7 +238,7 @@
       "isUnique": false,
       "caption": {
         "en": "Outlet",
-        "ar": "نقطة البيع",
+        "ar": "منفذ البيع",
         "ru": "Торговая точка",
         "uk": "Точка"
       },
