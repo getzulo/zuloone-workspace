@@ -12,8 +12,8 @@ using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
 // UBL 2.1 XML on TaxDocument.Payload; queue via IOutboundGateway.
-// SHA-256, CSID and HTTPS stay in the host. Channels Enabled=false: row is
-// written, nothing is posted to Fatoora.
+// SHA-256 and CSID QR tags 7–9 stay in the host. No PEM in this script.
+// Channels Enabled=false: row is written, nothing is posted to Fatoora.
 public partial class SaudiEInvoice
 {
     private static readonly Guid TaxDocumentType = Guid.Parse("cee833d7-fa4c-43fe-bef6-e95633ece906");
@@ -93,9 +93,7 @@ public partial class SaudiEInvoice
                     ["ZatcaInvoiceType"] = invoiceType,
                     ["InvoiceHash"] = envelope.InvoiceHash,
                     ["PreviousInvoiceHash"] = envelope.PreviousInvoiceHash,
-                    ["QrCode"] = ZatcaTlvQr.EncodeUnsigned(
-                        draft.SellerName, draft.VatNumber, draft.Timestamp,
-                        draft.InvoiceTotal, draft.VatTotal, Convert.ToString(envelope.InvoiceHash) ?? string.Empty),
+                    ["QrCode"] = await QrCodeAsync(draft, envelope, legalEntity),
                 });
         }
 
@@ -117,18 +115,7 @@ public partial class SaudiEInvoice
         var xml = Convert.ToString(envelope.Payload) ?? string.Empty;
         if (xml.Length == 0) return;
 
-        string? connectionRef = null;
-        try
-        {
-            if (legalEntity != Guid.Empty)
-            {
-                var rows = await ScriptServices.Get<IDictionaryManager>()
-                    .GetRecordsAsync<TaxAuthorityConnection>($"LegalEntity = '{legalEntity}'", take: 1);
-                if (rows.Count > 0 && !string.IsNullOrWhiteSpace(rows[0].Code))
-                    connectionRef = rows[0].Code;
-            }
-        }
-        catch { /* connection is optional */ }
+        var (connectionRef, _) = await FindConnectionAsync(legalEntity);
 
         var body = "{\"uuid\":\"" + envelope.Uuid.ToString()
             + "\",\"invoiceHash\":\"" + (Convert.ToString(envelope.InvoiceHash) ?? string.Empty)
@@ -154,6 +141,27 @@ public partial class SaudiEInvoice
         {
             // Channel missing, or a second connection inside the posting scope.
             // XML stays on Payload; the host can enqueue later.
+        }
+    }
+
+    private static async Task<string?> CredentialRefAsync(Guid legalEntity)
+        => (await FindConnectionAsync(legalEntity)).CredentialRef;
+
+    private static async Task<(string? ConnectionRef, string? CredentialRef)> FindConnectionAsync(Guid legalEntity)
+    {
+        try
+        {
+            if (legalEntity == Guid.Empty) return (null, null);
+            var rows = await ScriptServices.Get<IDictionaryManager>()
+                .GetRecordsAsync<TaxAuthorityConnection>($"LegalEntity = '{legalEntity}'", take: 1);
+            if (rows.Count == 0) return (null, null);
+            var code = string.IsNullOrWhiteSpace(rows[0].Code) ? null : rows[0].Code;
+            var cred = string.IsNullOrWhiteSpace(rows[0].CredentialRef) ? null : rows[0].CredentialRef;
+            return (code, cred);
+        }
+        catch
+        {
+            return (null, null);
         }
     }
 
@@ -350,6 +358,29 @@ public partial class SaudiEInvoice
         sb.Append("<cac:Price><cbc:PriceAmount currencyID=\"SAR\">").Append(Money(qty == 0m ? 0m : amount / qty)).Append("</cbc:PriceAmount></cac:Price>");
         sb.Append("</cac:").Append(tag).Append('>');
         return sb.ToString();
+    }
+
+    /// <summary>
+    /// The QR the invoice carries. The host signs the hash — the PEM never
+    /// comes here — and the payload is assembled by this model's own ZatcaQr,
+    /// because TLV tags and the 500-character cap are Saudi tax format, not
+    /// something a jurisdiction-neutral kernel should own. No certificate
+    /// configured means tags 1-6 and a QR that is still valid for Phase 2
+    /// reporting.
+    /// </summary>
+    private static async Task<string> QrCodeAsync(
+        UblDraft draft, TaxDocument envelope, Guid legalEntity)
+    {
+        var hash = Convert.ToString(envelope.InvoiceHash) ?? string.Empty;
+        var qr = ScriptServices.Get<IZatcaQr>();
+        var stamp = ScriptServices.Get<IZatcaCsid>()
+            .Stamp(hash, await CredentialRefAsync(legalEntity));
+        return stamp == null
+            ? qr.Encode(draft.SellerName, draft.VatNumber, draft.Timestamp,
+                        draft.InvoiceTotal, draft.VatTotal, hash)
+            : qr.EncodeStamped(draft.SellerName, draft.VatNumber, draft.Timestamp,
+                               draft.InvoiceTotal, draft.VatTotal, hash,
+                               stamp.SignatureBase64, stamp.PublicKeyDer, stamp.CertificateSignature);
     }
 
     private static async Task<string> ItemNameAsync(IDictionaryManager dict, Guid itemId)

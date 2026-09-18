@@ -84,6 +84,36 @@ public class ZatcaQrPrintableTest : IntegrationTestScriptBase
         return Task.CompletedTask;
     }
 
+    [IntegrationTest("Официальный образец ZATCA из QRCodeCreation.pdf кодируется и читается")]
+    public Task OfficialPhase1SampleRoundTrips()
+    {
+        // The worked example published next to the spec: Bobs Records,
+        // 25 Apr 2022, tags 1-5 only. It came across from the platform test
+        // when the format moved — losing the one check against ZATCA's own
+        // numbers would have been the worst part of the move.
+        var qr = Qr.EncodePhase1(
+            "Bobs Records", "310122393500003", "2022-04-25T15:30:00Z", "1000.00", "150.00");
+
+        Assert.IsTrue(!string.IsNullOrEmpty(qr), "образец кодируется");
+        Assert.IsTrue(qr.Length <= 500, "в пределах потолка; факт {0}", qr.Length);
+        Assert.IsTrue(Qr.TagCount(qr) == 5, "фаза 1 — ровно пять тегов; факт {0}", Qr.TagCount(qr));
+        Assert.IsTrue(Qr.DecodeTag(qr, 1) == "Bobs Records", "тег 1; факт '{0}'", Qr.DecodeTag(qr, 1));
+        Assert.IsTrue(Qr.DecodeTag(qr, 2) == "310122393500003", "тег 2; факт '{0}'", Qr.DecodeTag(qr, 2));
+        Assert.IsTrue(Qr.DecodeTag(qr, 3) == "2022-04-25T15:30:00Z", "тег 3; факт '{0}'", Qr.DecodeTag(qr, 3));
+        Assert.IsTrue(Qr.DecodeTag(qr, 4) == "1000.00", "тег 4; факт '{0}'", Qr.DecodeTag(qr, 4));
+        Assert.IsTrue(Qr.DecodeTag(qr, 5) == "150.00", "тег 5; факт '{0}'", Qr.DecodeTag(qr, 5));
+        return Task.CompletedTask;
+    }
+
+    [IntegrationTest("Арабское имя продавца — UTF-8, а не экранирование")]
+    public Task ArabicSellerNameIsUtf8()
+    {
+        var qr = Qr.EncodePhase1("الجواهري العربي", "3101", "2026-09-18T00:00:00Z", "1.00", "0.15");
+        Assert.IsTrue(Qr.DecodeTag(qr, 1) == "الجواهري العربي",
+            "имя возвращается байт в байт; факт '{0}'", Qr.DecodeTag(qr, 1));
+        return Task.CompletedTask;
+    }
+
     [IntegrationTest("Формат QR принадлежит саудовской модели, а не ядру")]
     public Task FormatLivesInTheModel()
     {

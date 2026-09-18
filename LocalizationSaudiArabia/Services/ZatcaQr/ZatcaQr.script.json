@@ -4,7 +4,6 @@
     "scriptType": "Service",
     "objectType": "Service",
     "objectName": "ZatcaQr",
-    "description": "TLV encode/decode + invoice hash for the ZATCA QR. The key never comes here — IZatcaCsid signs and hands back a stamp.",
     "executionOrder": 0,
     "metaId": "1cf78bb8-69dc-4e01-897c-e9db81b4fa9d",
     "name": "ZatcaQr",
