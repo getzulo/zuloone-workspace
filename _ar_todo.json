@@ -1,0 +1,1452 @@
+[
+ {
+  "en": "Draft",
+  "n": 41,
+  "ru": "Черновик"
+ },
+ {
+  "en": "ID",
+  "n": 36,
+  "ru": "ID"
+ },
+ {
+  "en": "Posted",
+  "n": 13,
+  "ru": "Проведён"
+ },
+ {
+  "en": "Paid",
+  "n": 12,
+  "ru": "Оплачено"
+ },
+ {
+  "en": "Lines",
+  "n": 11,
+  "ru": "Строки"
+ },
+ {
+  "en": "Item",
+  "n": 10,
+  "ru": "Товар"
+ },
+ {
+  "en": "Contract",
+  "n": 9,
+  "ru": "Договор"
+ },
+ {
+  "en": "Customer",
+  "n": 8,
+  "ru": "Покупатель"
+ },
+ {
+  "en": "Outlet",
+  "n": 7,
+  "ru": "Торговая точка"
+ },
+ {
+  "en": "Settings",
+  "n": 6,
+  "ru": "Настройки"
+ },
+ {
+  "en": "Cancelled",
+  "n": 6,
+  "ru": "Отменён"
+ },
+ {
+  "en": "Employee",
+  "n": 6,
+  "ru": "Сотрудник"
+ },
+ {
+  "en": "Name",
+  "n": 5,
+  "ru": "Наименование"
+ },
+ {
+  "en": "Unit price",
+  "n": 5,
+  "ru": "Цена"
+ },
+ {
+  "en": "Amount",
+  "n": 5,
+  "ru": "Сумма"
+ },
+ {
+  "en": "Legal entity",
+  "n": 5,
+  "ru": "Юрлицо"
+ },
+ {
+  "en": "Registers",
+  "n": 4,
+  "ru": "Итоги"
+ },
+ {
+  "en": "Delivery date",
+  "n": 4,
+  "ru": "Дата доставки"
+ },
+ {
+  "en": "Ship-from location",
+  "n": 4,
+  "ru": "Ячейка отгрузки"
+ },
+ {
+  "en": "Issued",
+  "n": 4,
+  "ru": "Выставлен"
+ },
+ {
+  "en": "Quantity",
+  "n": 4,
+  "ru": "Количество"
+ },
+ {
+  "en": "Approved",
+  "n": 4,
+  "ru": "Подтверждён"
+ },
+ {
+  "en": "Discount, %",
+  "n": 3,
+  "ru": "Скидка, %"
+ },
+ {
+  "en": "Agent",
+  "n": 3,
+  "ru": "Агент"
+ },
+ {
+  "en": "Unit",
+  "n": 3,
+  "ru": "Единица"
+ },
+ {
+  "en": "Kind",
+  "n": 3,
+  "ru": "Вид"
+ },
+ {
+  "en": "Division",
+  "n": 3,
+  "ru": "Подразделение"
+ },
+ {
+  "en": "Employee contribution",
+  "n": 3,
+  "ru": "Доля работника"
+ },
+ {
+  "en": "Employer contribution",
+  "n": 3,
+  "ru": "Доля работодателя"
+ },
+ {
+  "en": "Supplier",
+  "n": 3,
+  "ru": "Поставщик"
+ },
+ {
+  "en": "Tax code",
+  "n": 3,
+  "ru": "Налоговый код"
+ },
+ {
+  "en": "Default currency code",
+  "n": 2,
+  "ru": "Код валюты по умолчанию"
+ },
+ {
+  "en": "Revenue account code",
+  "n": 2,
+  "ru": "Код счёта выручки"
+ },
+ {
+  "en": "Unit classes",
+  "n": 2,
+  "ru": "Виды величин"
+ },
+ {
+  "en": "Code",
+  "n": 2,
+  "ru": "Код"
+ },
+ {
+  "en": "Points",
+  "n": 2,
+  "ru": "Баллы"
+ },
+ {
+  "en": "Redeemed",
+  "n": 2,
+  "ru": "Списано"
+ },
+ {
+  "en": "Contact",
+  "n": 2,
+  "ru": "Контактное лицо"
+ },
+ {
+  "en": "Notes",
+  "n": 2,
+  "ru": "Примечания"
+ },
+ {
+  "en": "Source",
+  "n": 2,
+  "ru": "Источник"
+ },
+ {
+  "en": "New",
+  "n": 2,
+  "ru": "Новый"
+ },
+ {
+  "en": "Quoted",
+  "n": 2,
+  "ru": "В КП"
+ },
+ {
+  "en": "Lost",
+  "n": 2,
+  "ru": "Потерян"
+ },
+ {
+  "en": "Qualified",
+  "n": 2,
+  "ru": "Квалифицирован"
+ },
+ {
+  "en": "Converted",
+  "n": 2,
+  "ru": "В заказе"
+ },
+ {
+  "en": "Hours",
+  "n": 2,
+  "ru": "Часы"
+ },
+ {
+  "en": "Cell",
+  "n": 2,
+  "ru": "Ячейка"
+ },
+ {
+  "en": "Confirmed",
+  "n": 2,
+  "ru": "Подтверждено"
+ },
+ {
+  "en": "Qty",
+  "n": 2,
+  "ru": "Количество"
+ },
+ {
+  "en": "Invoice hash",
+  "n": 2,
+  "ru": "Хеш фактуры"
+ },
+ {
+  "en": "Ukraine settings",
+  "n": 2,
+  "ru": "Настройки Украины"
+ },
+ {
+  "en": "Ukraine VAT payable",
+  "n": 2,
+  "ru": "ПДВ к уплате"
+ },
+ {
+  "en": "Finished",
+  "n": 2,
+  "ru": "Выпущено"
+ },
+ {
+  "en": "Default payment term (days)",
+  "n": 2,
+  "ru": "Срок оплаты по умолчанию (дней)"
+ },
+ {
+  "en": "Received",
+  "n": 2,
+  "ru": "Оприходовано"
+ },
+ {
+  "en": "Ordered",
+  "n": 2,
+  "ru": "Заказано"
+ },
+ {
+  "en": "Sales person",
+  "n": 2,
+  "ru": "Агент"
+ },
+ {
+  "en": "Open",
+  "n": 2,
+  "ru": ""
+ },
+ {
+  "en": "Closed",
+  "n": 2,
+  "ru": ""
+ },
+ {
+  "en": "Route",
+  "n": 2,
+  "ru": "Маршрут"
+ },
+ {
+  "en": "Completed",
+  "n": 2,
+  "ru": "Завершён"
+ },
+ {
+  "en": "Dispatched",
+  "n": 2,
+  "ru": "В рейсе"
+ },
+ {
+  "en": "Original invoice",
+  "n": 2,
+  "ru": "Исходный счёт"
+ },
+ {
+  "en": "Sales order",
+  "n": 2,
+  "ru": "Заказ"
+ },
+ {
+  "en": "Delivered",
+  "n": 2,
+  "ru": "Доставлен"
+ },
+ {
+  "en": "Submitted",
+  "n": 2,
+  "ru": "Отправлен"
+ },
+ {
+  "en": "Shipped",
+  "n": 2,
+  "ru": "Отгружен"
+ },
+ {
+  "en": "Reserved",
+  "n": 2,
+  "ru": "Зарезервирован"
+ },
+ {
+  "en": "Picking",
+  "n": 2,
+  "ru": "Отбор"
+ },
+ {
+  "en": "Packing",
+  "n": 2,
+  "ru": "Упаковка"
+ },
+ {
+  "en": "Authority",
+  "n": 2,
+  "ru": "Госорган"
+ },
+ {
+  "en": "Finalized",
+  "n": 2,
+  "ru": "Финализировано"
+ },
+ {
+  "en": "Rejected",
+  "n": 2,
+  "ru": "Отклонён"
+ },
+ {
+  "en": "Cleared",
+  "n": 2,
+  "ru": "Клиринг"
+ },
+ {
+  "en": "Reported",
+  "n": 2,
+  "ru": "Отчёт"
+ },
+ {
+  "en": "Account",
+  "n": 1,
+  "ru": "Счёт"
+ },
+ {
+  "en": "Fiscal period",
+  "n": 1,
+  "ru": "Фискальный период"
+ },
+ {
+  "en": "Accounting settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "Receivables account code",
+  "n": 1,
+  "ru": "Счёт дебиторки"
+ },
+ {
+  "en": "Auto-post journal entries",
+  "n": 1,
+  "ru": "Автопроведение проводок"
+ },
+ {
+  "en": "Cash account code",
+  "n": 1,
+  "ru": "Счёт денежных средств"
+ },
+ {
+  "en": "Cost of goods sold account code",
+  "n": 1,
+  "ru": "Счёт себестоимости продаж"
+ },
+ {
+  "en": "Inventory account code",
+  "n": 1,
+  "ru": "Счёт запасов"
+ },
+ {
+  "en": "Inventory surplus account code",
+  "n": 1,
+  "ru": "Счёт оприходования излишка"
+ },
+ {
+  "en": "Inventory write-off account code",
+  "n": 1,
+  "ru": "Счёт списания запасов"
+ },
+ {
+  "en": "Payables account code",
+  "n": 1,
+  "ru": "Счёт кредиторки"
+ },
+ {
+  "en": "Payroll expense account code",
+  "n": 1,
+  "ru": "Счёт расходов на оплату труда"
+ },
+ {
+  "en": "Payroll liability account code",
+  "n": 1,
+  "ru": "Счёт задолженности по оплате труда"
+ },
+ {
+  "en": "Social insurance expense account code",
+  "n": 1,
+  "ru": "Счёт расходов на соцстрах"
+ },
+ {
+  "en": "Social insurance payable account code",
+  "n": 1,
+  "ru": "Счёт задолженности перед фондом соцстраха"
+ },
+ {
+  "en": "VAT payable account code",
+  "n": 1,
+  "ru": "Счёт НДС к уплате"
+ },
+ {
+  "en": "VAT receivable account code",
+  "n": 1,
+  "ru": "Счёт НДС к возмещению"
+ },
+ {
+  "en": "Circuits",
+  "n": 1,
+  "ru": "Контуры"
+ },
+ {
+  "en": "UiCheckForm",
+  "n": 1,
+  "ru": ""
+ },
+ {
+  "en": "Management credit",
+  "n": 1,
+  "ru": "Упр. кредит"
+ },
+ {
+  "en": "Management debit",
+  "n": 1,
+  "ru": "Упр. дебет"
+ },
+ {
+  "en": "Tax credit",
+  "n": 1,
+  "ru": "Нал. кредит"
+ },
+ {
+  "en": "Tax debit",
+  "n": 1,
+  "ru": "Нал. дебет"
+ },
+ {
+  "en": "Measurement precision",
+  "n": 1,
+  "ru": "Точность измерений"
+ },
+ {
+  "en": "Amount scale (decimal places)",
+  "n": 1,
+  "ru": "Знаков после запятой в суммах"
+ },
+ {
+  "en": "Quantity scale (decimal places)",
+  "n": 1,
+  "ru": "Знаков после запятой в количестве"
+ },
+ {
+  "en": "Weight scale (decimal places)",
+  "n": 1,
+  "ru": "Знаков после запятой в весе"
+ },
+ {
+  "en": "Common settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "Default country code",
+  "n": 1,
+  "ru": "Код страны по умолчанию"
+ },
+ {
+  "en": "Decimal places (quantity precision)",
+  "n": 1,
+  "ru": "Знаков после запятой (точность количества)"
+ },
+ {
+  "en": "Ratio to base unit",
+  "n": 1,
+  "ru": "Коэффициент к базовой единице"
+ },
+ {
+  "en": "Unit class",
+  "n": 1,
+  "ru": "Вид величины"
+ },
+ {
+  "en": "Country",
+  "n": 1,
+  "ru": "Страна"
+ },
+ {
+  "en": "Currency",
+  "n": 1,
+  "ru": "Валюта"
+ },
+ {
+  "en": "Primary",
+  "n": 1,
+  "ru": "Основная"
+ },
+ {
+  "en": "Costing settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "Costing method (AVG/FIFO)",
+  "n": 1,
+  "ru": "Метод себестоимости (AVG/FIFO)"
+ },
+ {
+  "en": "Round costs",
+  "n": 1,
+  "ru": "Округлять себестоимость"
+ },
+ {
+  "en": "Item cost (FIFO)",
+  "n": 1,
+  "ru": "Себестоимость товара (FIFO)"
+ },
+ {
+  "en": "Costing issue driver",
+  "n": 1,
+  "ru": ""
+ },
+ {
+  "en": "Costing valuation",
+  "n": 1,
+  "ru": ""
+ },
+ {
+  "en": "Cancel quotation",
+  "n": 1,
+  "ru": "Отменить КП"
+ },
+ {
+  "en": "Create quotation",
+  "n": 1,
+  "ru": "Создать КП"
+ },
+ {
+  "en": "Create sales order",
+  "n": 1,
+  "ru": "Создать заказ"
+ },
+ {
+  "en": "Issue quotation",
+  "n": 1,
+  "ru": "Выставить КП"
+ },
+ {
+  "en": "Mark lost",
+  "n": 1,
+  "ru": "Потерян"
+ },
+ {
+  "en": "Qualify lead",
+  "n": 1,
+  "ru": "Квалифицировать"
+ },
+ {
+  "en": "CRM settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "Loyalty enabled",
+  "n": 1,
+  "ru": "Лояльность включена"
+ },
+ {
+  "en": "Loyalty points per currency unit",
+  "n": 1,
+  "ru": "Баллов за единицу валюты"
+ },
+ {
+  "en": "Loyalty tier",
+  "n": 1,
+  "ru": "Уровень лояльности"
+ },
+ {
+  "en": "Earn rate",
+  "n": 1,
+  "ru": "Курс начисления"
+ },
+ {
+  "en": "Max redemption per document",
+  "n": 1,
+  "ru": "Лимит списания за раз"
+ },
+ {
+  "en": "Minimum points",
+  "n": 1,
+  "ru": "Порог баллов"
+ },
+ {
+  "en": "Sales lead",
+  "n": 1,
+  "ru": "Лид"
+ },
+ {
+  "en": "Email",
+  "n": 1,
+  "ru": "Эл. почта"
+ },
+ {
+  "en": "Phone",
+  "n": 1,
+  "ru": "Телефон"
+ },
+ {
+  "en": "Subject",
+  "n": 1,
+  "ru": "Тема"
+ },
+ {
+  "en": "Quotation",
+  "n": 1,
+  "ru": "Коммерческое предложение"
+ },
+ {
+  "en": "Delivery term",
+  "n": 1,
+  "ru": "Условия поставки"
+ },
+ {
+  "en": "Source lead",
+  "n": 1,
+  "ru": "Лид-источник"
+ },
+ {
+  "en": "Payment term",
+  "n": 1,
+  "ru": "Условия оплаты"
+ },
+ {
+  "en": "Valid until",
+  "n": 1,
+  "ru": "Действительно до"
+ },
+ {
+  "en": "Dictionaries",
+  "n": 1,
+  "ru": "Справочники"
+ },
+ {
+  "en": "Loyalty points",
+  "n": 1,
+  "ru": "Баллы лояльности"
+ },
+ {
+  "en": "Qty in base unit",
+  "n": 1,
+  "ru": "Количество в базовой единице"
+ },
+ {
+  "en": "Price origin",
+  "n": 1,
+  "ru": "Откуда цена"
+ },
+ {
+  "en": "GL posting setup",
+  "n": 1,
+  "ru": "Настройка разноски GL"
+ },
+ {
+  "en": "AR account code",
+  "n": 1,
+  "ru": "Код счёта дебиторки"
+ },
+ {
+  "en": "Accrue payroll",
+  "n": 1,
+  "ru": "Начислить ФОТ"
+ },
+ {
+  "en": "Nationality",
+  "n": 1,
+  "ru": "Гражданство"
+ },
+ {
+  "en": "HR settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "Home country",
+  "n": 1,
+  "ru": "Страна регистрации"
+ },
+ {
+  "en": "Payroll run day of month",
+  "n": 1,
+  "ru": "День расчёта ФОТ"
+ },
+ {
+  "en": "Social insurance rate, employee",
+  "n": 1,
+  "ru": "Соцстрах: ставка работника"
+ },
+ {
+  "en": "Social insurance rate, employer",
+  "n": 1,
+  "ru": "Соцстрах: ставка работодателя"
+ },
+ {
+  "en": "Social insurance rate, employer (foreign staff)",
+  "n": 1,
+  "ru": "Соцстрах: ставка работодателя за иностранцев"
+ },
+ {
+  "en": "Contributory wage ceiling",
+  "n": 1,
+  "ru": "Соцстрах: потолок базы"
+ },
+ {
+  "en": "Work hours per week",
+  "n": 1,
+  "ru": "Рабочих часов в неделю"
+ },
+ {
+  "en": "Work hours per day",
+  "n": 1,
+  "ru": "Рабочих часов в день"
+ },
+ {
+  "en": "From",
+  "n": 1,
+  "ru": "С"
+ },
+ {
+  "en": "To",
+  "n": 1,
+  "ru": "По"
+ },
+ {
+  "en": "Note",
+  "n": 1,
+  "ru": "Примечание"
+ },
+ {
+  "en": "Payroll accrual",
+  "n": 1,
+  "ru": "Начисление ФОТ"
+ },
+ {
+  "en": "Social insurance accrual",
+  "n": 1,
+  "ru": "Начисление соцстраха"
+ },
+ {
+  "en": "Social insurance payment",
+  "n": 1,
+  "ru": "Платёж в фонд соцстраха"
+ },
+ {
+  "en": "Time sheet",
+  "n": 1,
+  "ru": "Табель"
+ },
+ {
+  "en": "Period from",
+  "n": 1,
+  "ru": "Период с"
+ },
+ {
+  "en": "Period to",
+  "n": 1,
+  "ru": "Период по"
+ },
+ {
+  "en": "Social insurance",
+  "n": 1,
+  "ru": "Соцстрах"
+ },
+ {
+  "en": "Accrual lines",
+  "n": 1,
+  "ru": "Строки начисления"
+ },
+ {
+  "en": "Contributory base",
+  "n": 1,
+  "ru": "База начисления"
+ },
+ {
+  "en": "Days",
+  "n": 1,
+  "ru": "Дни"
+ },
+ {
+  "en": "Absent",
+  "n": 1,
+  "ru": "Отсутствует"
+ },
+ {
+  "en": "Manual",
+  "n": 1,
+  "ru": "Вручную"
+ },
+ {
+  "en": "Date",
+  "n": 1,
+  "ru": "Дата"
+ },
+ {
+  "en": "Timesheet grid",
+  "n": 1,
+  "ru": "Сетка табеля"
+ },
+ {
+  "en": "Store",
+  "n": 1,
+  "ru": "Склад"
+ },
+ {
+  "en": "Pricing",
+  "n": 1,
+  "ru": "Ценообразование"
+ },
+ {
+  "en": "Price type chain — max depth",
+  "n": 1,
+  "ru": "Цепочка типов цены — максимальная глубина"
+ },
+ {
+  "en": "Inventory settings",
+  "n": 1,
+  "ru": "Настройки склада"
+ },
+ {
+  "en": "Default receiving location",
+  "n": 1,
+  "ru": "Ячейка приёмки по умолчанию"
+ },
+ {
+  "en": "Default unit of measure",
+  "n": 1,
+  "ru": "Единица измерения по умолчанию"
+ },
+ {
+  "en": "Enforce unit conversion",
+  "n": 1,
+  "ru": "Требовать конвертацию единиц"
+ },
+ {
+  "en": "Item units",
+  "n": 1,
+  "ru": "Упаковки товара"
+ },
+ {
+  "en": "Quantity in base unit",
+  "n": 1,
+  "ru": "Количество в базовой единице"
+ },
+ {
+  "en": "Purchase",
+  "n": 1,
+  "ru": "Закупка"
+ },
+ {
+  "en": "Sale",
+  "n": 1,
+  "ru": "Продажа"
+ },
+ {
+  "en": "Base",
+  "n": 1,
+  "ru": "Базовый"
+ },
+ {
+  "en": "Calculated",
+  "n": 1,
+  "ru": "Динамический"
+ },
+ {
+  "en": "Stock",
+  "n": 1,
+  "ru": "Остатки"
+ },
+ {
+  "en": "Qty delta",
+  "n": 1,
+  "ru": "Дельта"
+ },
+ {
+  "en": "Saudi Arabia",
+  "n": 1,
+  "ru": "Саудовская Аравия"
+ },
+ {
+  "en": "LocalizationSaudiArabia settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "E-invoice (ZATCA) enabled",
+  "n": 1,
+  "ru": "Э-фактура (ZATCA) включена"
+ },
+ {
+  "en": "VAT registration number",
+  "n": 1,
+  "ru": "Номер регистрации НДС"
+ },
+ {
+  "en": "E-invoice UUID",
+  "n": 1,
+  "ru": "UUID э-фактуры"
+ },
+ {
+  "en": "ZATCA invoice type",
+  "n": 1,
+  "ru": "Тип фактуры ZATCA"
+ },
+ {
+  "en": "Previous invoice hash",
+  "n": 1,
+  "ru": "Хеш предыдущей фактуры"
+ },
+ {
+  "en": "QR",
+  "n": 1,
+  "ru": "QR"
+ },
+ {
+  "en": "VAT payable",
+  "n": 1,
+  "ru": "НДС к уплате"
+ },
+ {
+  "en": "E-invoice (tax invoice) enabled",
+  "n": 1,
+  "ru": "Электронная налоговая накладная включена"
+ },
+ {
+  "en": "VAT registration number (IPN)",
+  "n": 1,
+  "ru": "ИНН плательщика НДС"
+ },
+ {
+  "en": "Ukraine",
+  "n": 1,
+  "ru": "Украина"
+ },
+ {
+  "en": "Organization settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "Application name",
+  "n": 1,
+  "ru": "Название приложения"
+ },
+ {
+  "en": "Default legal entity code",
+  "n": 1,
+  "ru": "Код юрлица по умолчанию"
+ },
+ {
+  "en": "Application logo",
+  "n": 1,
+  "ru": "Логотип приложения"
+ },
+ {
+  "en": "Expand bill of materials",
+  "n": 1,
+  "ru": "Развернуть спецификацию"
+ },
+ {
+  "en": "Qty unit",
+  "n": 1,
+  "ru": "Единица расхода"
+ },
+ {
+  "en": "Production settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "Auto-expand BOM",
+  "n": 1,
+  "ru": "Авторазворачивание спецификации"
+ },
+ {
+  "en": "Default output location code",
+  "n": 1,
+  "ru": "Код ячейки выпуска по умолчанию"
+ },
+ {
+  "en": "Place order",
+  "n": 1,
+  "ru": "Заказать"
+ },
+ {
+  "en": "Post purchase return",
+  "n": 1,
+  "ru": "Провести возврат поставщику"
+ },
+ {
+  "en": "Purchasing settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "Auto-receive on order",
+  "n": 1,
+  "ru": "Авто-приход по заказу"
+ },
+ {
+  "en": "Purchase return",
+  "n": 1,
+  "ru": "Возврат поставщику"
+ },
+ {
+  "en": "Return from",
+  "n": 1,
+  "ru": "Ячейка возврата"
+ },
+ {
+  "en": "Original order",
+  "n": 1,
+  "ru": "Исходный заказ"
+ },
+ {
+  "en": "Vendor payment",
+  "n": 1,
+  "ru": "Оплата поставщику"
+ },
+ {
+  "en": "Purchase returns",
+  "n": 1,
+  "ru": "Возвраты поставщикам"
+ },
+ {
+  "en": "Accounts payable",
+  "n": 1,
+  "ru": "Кредиторка"
+ },
+ {
+  "en": "Mark as paid (disabled)",
+  "n": 1,
+  "ru": "Оплатить (отключено)"
+ },
+ {
+  "en": "Post sales credit note",
+  "n": 1,
+  "ru": "Провести кредит-ноту"
+ },
+ {
+  "en": "Delivery route",
+  "n": 1,
+  "ru": "Маршрут доставки"
+ },
+ {
+  "en": "Login user",
+  "n": 1,
+  "ru": "Пользователь входа"
+ },
+ {
+  "en": "Sales settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "Allow backorder",
+  "n": 1,
+  "ru": "Разрешить дозаказ"
+ },
+ {
+  "en": "Mobile price mismatch, %",
+  "n": 1,
+  "ru": "Расхождение цены с телефона, %"
+ },
+ {
+  "en": "Customer payment",
+  "n": 1,
+  "ru": "Оплата покупателя"
+ },
+ {
+  "en": "Delivery trip",
+  "n": 1,
+  "ru": "Рейс доставки"
+ },
+ {
+  "en": "Driver",
+  "n": 1,
+  "ru": "Водитель"
+ },
+ {
+  "en": "Sales credit note",
+  "n": 1,
+  "ru": "Кредит-нота"
+ },
+ {
+  "en": "Selling legal entity",
+  "n": 1,
+  "ru": "Юрлицо продавца"
+ },
+ {
+  "en": "Applied tax rate",
+  "n": 1,
+  "ru": "Применённая ставка налога"
+ },
+ {
+  "en": "Visit",
+  "n": 1,
+  "ru": "Визит"
+ },
+ {
+  "en": "Source quotation",
+  "n": 1,
+  "ru": "КП-источник"
+ },
+ {
+  "en": "Source order",
+  "n": 1,
+  "ru": "Заказ-источник"
+ },
+ {
+  "en": "Released",
+  "n": 1,
+  "ru": "Реализовано"
+ },
+ {
+  "en": "Sales return",
+  "n": 1,
+  "ru": "Возврат от покупателя"
+ },
+ {
+  "en": "Return location",
+  "n": 1,
+  "ru": "Ячейка возврата"
+ },
+ {
+  "en": "Effective from",
+  "n": 1,
+  "ru": "Действует с"
+ },
+ {
+  "en": "Effective to",
+  "n": 1,
+  "ru": "Действует по"
+ },
+ {
+  "en": "Price",
+  "n": 1,
+  "ru": "Цена"
+ },
+ {
+  "en": "Min quantity",
+  "n": 1,
+  "ru": "От количества"
+ },
+ {
+  "en": "Sales credit notes",
+  "n": 1,
+  "ru": "Кредит-ноты"
+ },
+ {
+  "en": "Today",
+  "n": 1,
+  "ru": ""
+ },
+ {
+  "en": "Customers",
+  "n": 1,
+  "ru": ""
+ },
+ {
+  "en": "Catalog",
+  "n": 1,
+  "ru": ""
+ },
+ {
+  "en": "Orders",
+  "n": 1,
+  "ru": ""
+ },
+ {
+  "en": "Visits",
+  "n": 1,
+  "ru": ""
+ },
+ {
+  "en": "ABC",
+  "n": 1,
+  "ru": "ABC"
+ },
+ {
+  "en": "CV",
+  "n": 1,
+  "ru": "CV"
+ },
+ {
+  "en": "Manual ABC",
+  "n": 1,
+  "ru": "ABC вручную"
+ },
+ {
+  "en": "Manual XYZ",
+  "n": 1,
+  "ru": "XYZ вручную"
+ },
+ {
+  "en": "XYZ",
+  "n": 1,
+  "ru": "XYZ"
+ },
+ {
+  "en": "Receivable",
+  "n": 1,
+  "ru": "Дебиторка"
+ },
+ {
+  "en": "Reserved stock",
+  "n": 1,
+  "ru": "Резерв"
+ },
+ {
+  "en": "Stops",
+  "n": 1,
+  "ru": "Точки рейса"
+ },
+ {
+  "en": "Outcome",
+  "n": 1,
+  "ru": "Итог"
+ },
+ {
+  "en": "Shipped qty",
+  "n": 1,
+  "ru": "Выдано"
+ },
+ {
+  "en": "Stop",
+  "n": 1,
+  "ru": "Порядок"
+ },
+ {
+  "en": "Delivered qty",
+  "n": 1,
+  "ru": "Отгружено"
+ },
+ {
+  "en": "Tax direction",
+  "n": 1,
+  "ru": "Направление налога"
+ },
+ {
+  "en": "Authority connections",
+  "n": 1,
+  "ru": "Подключения к госсистемам"
+ },
+ {
+  "en": "Base URL",
+  "n": 1,
+  "ru": "Адрес сервиса"
+ },
+ {
+  "en": "Credential reference",
+  "n": 1,
+  "ru": "Ссылка на учётные данные"
+ },
+ {
+  "en": "Environment",
+  "n": 1,
+  "ru": "Среда"
+ },
+ {
+  "en": "Max retries",
+  "n": 1,
+  "ru": "Попыток доставки"
+ },
+ {
+  "en": "Status",
+  "n": 1,
+  "ru": "Состояние"
+ },
+ {
+  "en": "Timeout, s",
+  "n": 1,
+  "ru": "Таймаут, с"
+ },
+ {
+  "en": "Non-recoverable %",
+  "n": 1,
+  "ru": "Невозместимо, %"
+ },
+ {
+  "en": "Order",
+  "n": 1,
+  "ru": "Порядок"
+ },
+ {
+  "en": "Rate override",
+  "n": 1,
+  "ru": "Ставка вручную"
+ },
+ {
+  "en": "Tax rule",
+  "n": 1,
+  "ru": "Правило"
+ },
+ {
+  "en": "Tax settings",
+  "n": 1,
+  "ru": "Настройки модуля"
+ },
+ {
+  "en": "Default tax code",
+  "n": 1,
+  "ru": "Налоговый код по умолчанию"
+ },
+ {
+  "en": "Prices include tax",
+  "n": 1,
+  "ru": "Цены с учётом налога"
+ },
+ {
+  "en": "Determination reason",
+  "n": 1,
+  "ru": "Обоснование выбора"
+ },
+ {
+  "en": "Tax point date",
+  "n": 1,
+  "ru": "Дата налогового события"
+ },
+ {
+  "en": "External id",
+  "n": 1,
+  "ru": "Внешний id"
+ },
+ {
+  "en": "Invoice type",
+  "n": 1,
+  "ru": "Тип фактуры"
+ },
+ {
+  "en": "Previous hash",
+  "n": 1,
+  "ru": "Хеш предыдущей"
+ },
+ {
+  "en": "Source type",
+  "n": 1,
+  "ru": "Тип источника"
+ },
+ {
+  "en": "UUID",
+  "n": 1,
+  "ru": "UUID"
+ },
+ {
+  "en": "Tax payment",
+  "n": 1,
+  "ru": "Оплата налога"
+ },
+ {
+  "en": "Tax rule actions",
+  "n": 1,
+  "ru": "Действия правил"
+ },
+ {
+  "en": "RecoverableAmount",
+  "n": 1,
+  "ru": "К возмещению"
+ },
+ {
+  "en": "TaxAmount",
+  "n": 1,
+  "ru": ""
+ },
+ {
+  "en": "TaxBase",
+  "n": 1,
+  "ru": ""
+ },
+ {
+  "en": "Rate overridden",
+  "n": 1,
+  "ru": "Ставка вручную"
+ },
+ {
+  "en": "Recoverable amount",
+  "n": 1,
+  "ru": "К возмещению"
+ },
+ {
+  "en": "Tax base",
+  "n": 1,
+  "ru": "База"
+ },
+ {
+  "en": "Rate ref",
+  "n": 1,
+  "ru": "Ставка (ссылка)"
+ }
+]

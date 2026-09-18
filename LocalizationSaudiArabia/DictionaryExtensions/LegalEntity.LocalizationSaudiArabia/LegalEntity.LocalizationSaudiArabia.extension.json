@@ -1,0 +1,36 @@
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+    "description": "Commercial Registration (CRN) for ZATCA seller party — not VAT.",
+    "metaId": "2f846e67-9993-43f1-b2a4-96344e9cd6a1",
+    "name": "LegalEntity.LocalizationSaudiArabia",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "fields": [
+    {
+      "extensionMetaId": "2f846e67-9993-43f1-b2a4-96344e9cd6a1",
+      "dictionaryMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+      "fieldName": "CommercialRegistration",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 51,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Commercial registration",
+        "ar": "السجل التجاري",
+        "ru": "Коммерческая регистрация (CRN)",
+        "uk": "Комерційна реєстрація (CRN)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "02aac5b8-073d-4c39-b5c4-73f461c1818e",
+      "name": "CommercialRegistration",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}

@@ -4,6 +4,7 @@
     "scriptType": "Service",
     "objectType": "Service",
     "objectName": "SaudiEInvoice",
+    "description": "ZATCA envelope + ICV per LegalEntity; mock submit. No HTTPS.",
     "executionOrder": 0,
     "metaId": "92d0cc88-27ca-4329-8c1a-97bef6d6abc7",
     "name": "SaudiEInvoice",

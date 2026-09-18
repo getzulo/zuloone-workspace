@@ -161,6 +161,29 @@
       "metaId": "2cba80c8-b964-4fca-bc31-fd7afc449d4b",
       "name": "RegistrationNumber",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
+    },
+    {
+      "dictionaryMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+      "fieldName": "TaxRegistrationNumber",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax registration number",
+        "ar": "الرقم الضريبي",
+        "ru": "ИНН / НДС",
+        "uk": "Податковий номер"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "14b45854-f56c-4701-a3d6-b324ee770427",
+      "name": "TaxRegistrationNumber",
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     }
   ]
 }

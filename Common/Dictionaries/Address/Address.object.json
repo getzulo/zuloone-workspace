@@ -97,6 +97,51 @@
     },
     {
       "dictionaryMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
+      "fieldName": "Country",
+      "edtMetaId": "c5b40cc4-d521-493a-a7ae-f1d9e2da23c8",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Country",
+        "ar": "الدولة",
+        "ru": "Страна",
+        "uk": "Країна"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7e206d46-6f9c-4c8f-ae59-49a6daa50a94",
+      "name": "Country",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "dictionaryMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
+      "fieldName": "District",
+      "baseType": "String",
+      "length": 128,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "District",
+        "ar": "الحي",
+        "ru": "Район",
+        "uk": "Район"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a4d075fe-fc6d-48c4-b1f6-c988ad534128",
+      "name": "District",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "dictionaryMetaId": "8e2bd784-b178-41b1-9141-54c0c55fc76f",
       "fieldName": "ID",
       "baseType": "String",
       "length": 50,

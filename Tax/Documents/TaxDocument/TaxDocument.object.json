@@ -131,6 +131,27 @@
     },
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
+      "fieldName": "InvoiceCounter",
+      "caption": {
+        "en": "Invoice counter",
+        "ar": "عداد الفاتورة",
+        "ru": "Счётчик ICV",
+        "uk": "Лічильник ICV"
+      },
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 11,
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "d1a0c5a0-b441-4d62-b9ff-40a42ec9bb47",
+      "name": "InvoiceCounter",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "InvoiceType",
       "caption": {
         "en": "Invoice type",

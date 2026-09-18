@@ -46,7 +46,7 @@ public partial class SaudiEInvoice
             var note = await docs.GetDocumentAsync<SalesCreditNote>(sourceId);
             if (note is null) return null;
             customerId = note.Customer;
-            legalEntity = Guid.Empty;
+            legalEntity = note.LegalEntity;
         }
 
         var customer = customerId == Guid.Empty
@@ -63,6 +63,7 @@ public partial class SaudiEInvoice
         envelope.EInvoiceKind = documentType;
         envelope.InvoiceType = invoiceType;
         envelope.Uuid = Guid.NewGuid();
+        envelope.InvoiceCounter = await NextInvoiceCounterAsync(docs, legalEntity);
         await docs.SaveDocumentAsync(envelope);
 
         var posting = ScriptServices.Get<IDocumentPostingService>();
@@ -86,5 +87,20 @@ public partial class SaudiEInvoice
             : invoiceType == "Standard" ? "Cleared" : "Reported";
         await posting.SetSubtypeAsync(TaxDocumentType, envelope.MetaId, target);
         return envelope.MetaId;
+    }
+
+    // ZATCA ICV: sequential per seller (LegalEntity), including rejected envelopes.
+    private static async Task<int> NextInvoiceCounterAsync(IDocumentManager docs, Guid legalEntity)
+    {
+        if (legalEntity == Guid.Empty)
+            return 1;
+        var prior = await docs.QueryDocumentsAsync<TaxDocument>($"LegalEntity = '{legalEntity}'");
+        var max = 0;
+        foreach (var row in prior)
+        {
+            if (row.InvoiceCounter > max)
+                max = row.InvoiceCounter;
+        }
+        return max + 1;
     }
 }
