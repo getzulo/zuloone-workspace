@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "SalesRealization",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "executionOrder": 0,
+    "metaId": "4a52dd96-f404-4f0e-b66e-888c6c427f1e",
+    "name": "ZatcaInvoiceXrPrintForm",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}
