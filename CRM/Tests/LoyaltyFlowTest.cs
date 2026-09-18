@@ -145,13 +145,14 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
             new Dictionary<string, object?> { ["Customer"] = customer },
             new Dictionary<string, decimal> { ["Points"] = points });
 
-    private static async Task TierAsync(string name, decimal minPoints, decimal maxPerDoc)
+    private static async Task TierAsync(string name, decimal minPoints, decimal maxPerDoc, decimal earnRate = 0m)
     {
         var tier = DictionaryManager.NewRecord<LoyaltyTier>();
         tier.Name = name;
         tier.MinPoints = minPoints;
         tier.MaxRedemptionPerDocument = maxPerDoc;
         tier.DiscountPercent = 0m;
+        tier.EarnRate = earnRate;
         await DictionaryManager.SaveRecordAsync(tier);
     }
 
@@ -373,5 +374,47 @@ public class LoyaltyFlowTest : IntegrationTestScriptBase
 
         Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 15m,
             "без настроек 1 балл за единицу валюты: 15, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
+    [IntegrationTest("Курс начисления берётся с достигнутого уровня, а не из настроек")]
+    public async Task EarnRateComesFromReachedTier()
+    {
+        // Настройки говорят 2, Bronze — 1, Silver — 3. Клиент уже Silver
+        // (150 баллов). Если проводка читает настройки — 30; если младший
+        // уровень — 15; правильный ответ — 45.
+        await ConfigureLoyaltyAsync(enabled: true, pointsPerCurrencyUnit: 2m);
+        await TierAsync("Bronze", 0m, 10m, earnRate: 1m);
+        await TierAsync("Silver", 100m, 50m, earnRate: 3m);
+
+        var s = await SetupAsync();
+        await SeedPointsAsync(s.Customer, 150m);
+        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
+            new Dictionary<string, decimal> { ["Qty"] = 10m });
+
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
+        invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
+        invoice.Location = s.Location;
+        invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
+        await DocumentManager.SaveDocumentAsync(invoice);
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(invoice);
+
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 195m,
+            "150 + 3 × 5 × курс Silver 3 = 195, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
+    [IntegrationTest("Нулевой курс уровня не перекрывает настройки")]
+    public async Task ZeroTierEarnRateFallsBackToSettings()
+    {
+        await ConfigureLoyaltyAsync(enabled: true, pointsPerCurrencyUnit: 2m);
+        await TierAsync("Bronze", 0m, 10m, earnRate: 0m);
+
+        var s = await IssueInvoiceAsync();
+
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 30m,
+            "EarnRate 0 на Bronze — курс из настроек: 3 × 5 × 2 = 30, факт {0}", await PointsBalanceAsync(s.Customer));
     }
 }

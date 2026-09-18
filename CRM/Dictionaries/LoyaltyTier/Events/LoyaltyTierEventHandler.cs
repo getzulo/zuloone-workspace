@@ -27,6 +27,8 @@ public partial class LoyaltyTierEventHandler : TypedDictionaryEventHandler<Loyal
 
         if (record.DiscountPercent < 0m || record.DiscountPercent > 100m)
             return EventResult.Cancel("Скидка уровня должна быть в диапазоне от 0 до 100%");
+        if (record.EarnRate < 0m)
+            return EventResult.Cancel("Курс начисления уровня не может быть отрицательным.");
         return EventResult.Ok();
     }
 

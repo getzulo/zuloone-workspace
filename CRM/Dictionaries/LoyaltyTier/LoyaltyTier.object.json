@@ -3,9 +3,10 @@
   "object": {
     "caption": {
       "en": "Loyalty tier",
-      "ru": "Уровень лояльности"
+      "ru": "Уровень лояльности",
+      "uk": "Рівень лояльності"
     },
-    "description": "Ladder of loyalty tiers: the accumulated balance decides the tier, the tier decides redemption limits and the standing discount",
+    "description": "Ladder of loyalty tiers: the accumulated balance decides the tier, the tier decides redemption limits, standing discount and earn rate",
     "isLogged": true,
     "isHierarchical": false,
     "numberSequenceMetaId": "522bfb6c-f133-4cf2-a2d5-3965bc9940fc",
@@ -39,13 +40,37 @@
       "isUnique": false,
       "caption": {
         "en": "Discount, %",
-        "ru": "Скидка, %"
+        "ru": "Скидка, %",
+        "uk": "Знижка, %"
       },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
       "metaId": "7d1e759e-67fb-45df-b409-bc3d660fbbf9",
       "name": "DiscountPercent",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "dictionaryMetaId": "86a86778-40a7-4921-8283-1b2cefb4c3f1",
+      "fieldName": "EarnRate",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 4,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "description": "Points per currency unit at this tier; 0 inherits CRMSettings.PointsPerCurrencyUnit",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Earn rate",
+        "ru": "Курс начисления"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "69b6c50c-3743-4ed7-a62a-bbacd34330c9",
+      "name": "EarnRate",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
@@ -61,7 +86,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ru": "ID"
+        "ru": "ID",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -82,7 +108,8 @@
       "isUnique": false,
       "caption": {
         "en": "Max redemption per document",
-        "ru": "Лимит списания за раз"
+        "ru": "Лимит списания за раз",
+        "uk": "Ліміт списання за раз"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -103,7 +130,8 @@
       "isUnique": false,
       "caption": {
         "en": "Minimum points",
-        "ru": "Порог баллов"
+        "ru": "Порог баллов",
+        "uk": "Поріг балів"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -124,7 +152,8 @@
       "isUnique": false,
       "caption": {
         "en": "Name",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
