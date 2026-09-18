@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "3a69d570-f91a-44ae-b9dc-9cc305c0de18",
+    "name": "SalesQuotationSeq",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

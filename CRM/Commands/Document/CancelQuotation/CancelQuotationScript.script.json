@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "CancelQuotation",
+    "objectMetaId": "fb98dc31-0081-4061-b486-a945e03e0e33",
+    "executionOrder": 0,
+    "metaId": "9908d9b4-c0d8-478c-b74d-ca968b7784c9",
+    "name": "CancelQuotationScript",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

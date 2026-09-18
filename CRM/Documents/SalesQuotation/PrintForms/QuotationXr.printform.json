@@ -1,0 +1,13 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
+    "engine": "Xr",
+    "scriptMetaId": "11c4a904-86c6-4b35-a06d-660559fff1f5",
+    "layoutJson": "{\"schemaVersion\":1,\"paper\":{\"kind\":\"A4\",\"orientation\":\"Portrait\",\"widthMm\":210,\"heightMm\":297},\"margins\":{\"left\":15,\"top\":10,\"right\":15,\"bottom\":10},\"guides\":{\"x\":[],\"y\":[]},\"bands\":[{\"id\":\"topmargin-q1\",\"kind\":\"TopMargin\",\"heightMm\":8,\"controls\":[]},{\"id\":\"pageheader-q2\",\"kind\":\"PageHeader\",\"heightMm\":16,\"controls\":[{\"id\":\"title-q3\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":2,\"wMm\":160,\"hMm\":10,\"text\":\"Quotation\",\"fontSizePt\":16,\"bold\":true,\"visible\":true,\"wordWrap\":true},{\"id\":\"num-q4\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":12,\"wMm\":80,\"hMm\":5,\"binding\":\"Number\",\"text\":\"[Number]\",\"fontSizePt\":9,\"visible\":true,\"wordWrap\":true}]},{\"id\":\"detail-q5\",\"kind\":\"Detail\",\"heightMm\":7,\"controls\":[{\"id\":\"c-item\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":0.5,\"wMm\":40,\"hMm\":6,\"binding\":\"Item\",\"text\":\"[Item]\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true,\"borders\":\"B\"},{\"id\":\"c-qty\",\"type\":\"XRLabel\",\"xMm\":42,\"yMm\":0.5,\"wMm\":30,\"hMm\":6,\"binding\":\"Quantity\",\"text\":\"[Quantity]\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true,\"borders\":\"B\"},{\"id\":\"c-price\",\"type\":\"XRLabel\",\"xMm\":74,\"yMm\":0.5,\"wMm\":33,\"hMm\":6,\"binding\":\"UnitPrice\",\"text\":\"[UnitPrice]\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true,\"borders\":\"B\"},{\"id\":\"c-unit\",\"type\":\"XRLabel\",\"xMm\":110,\"yMm\":0.5,\"wMm\":30,\"hMm\":6,\"binding\":\"Unit\",\"text\":\"[Unit]\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true,\"borders\":\"B\"}],\"dataMember\":\"Lines\"},{\"id\":\"reportfooter-q6\",\"kind\":\"ReportFooter\",\"heightMm\":12,\"controls\":[]},{\"id\":\"pagefooter-q7\",\"kind\":\"PageFooter\",\"heightMm\":12,\"controls\":[{\"id\":\"pg-q8\",\"type\":\"XRPageInfo\",\"xMm\":140,\"yMm\":2,\"wMm\":40,\"hMm\":5,\"pageInfo\":\"NumberOfTotal\",\"hAlign\":\"Right\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true}]},{\"id\":\"bottommargin-q9\",\"kind\":\"BottomMargin\",\"heightMm\":8,\"controls\":[]}]}",
+    "displayOrder": 1,
+    "metaId": "090bee39-6639-47f8-8d6b-bb50c26f6356",
+    "name": "QuotationXr",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Create sales order",
+    "caption_ru": "Создать заказ",
+    "scriptMetaId": "22714f94-6aae-485e-8a4b-e23039802278",
+    "parameterMode": "None",
+    "displayOrder": 2,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "037776b4-d7cb-461a-87dd-a5eca743e61a",
+    "name": "ConvertQuotation",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "94fd2f44-2354-45bd-aa8c-5d86d8a2724b",
+      "documentCommandMetaId": "037776b4-d7cb-461a-87dd-a5eca743e61a",
+      "documentSubtypeMetaId": "2e287167-4126-460f-b314-a261cce41d3d"
+    }
+  ]
+}

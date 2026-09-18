@@ -91,6 +91,20 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
+      "caption": "Sales quotations",
+      "caption_ar": "عروض الأسعار",
+      "caption_ru": "Коммерческие предложения",
+      "caption_uk": "Комерційні пропозиції",
+      "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
+      "displayOrder": 1,
+      "icon": "fluent-color:document-bullet-list-24",
+      "targetType": "Document",
+      "targetMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
+      "metaId": "aa017f7a-46d5-488a-a329-5462ece5e926",
+      "name": "SalesQuotation",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
       "caption": "Loyalty redemptions",
       "caption_ar": "استرداد نقاط الولاء",
       "caption_ru": "Списания баллов",

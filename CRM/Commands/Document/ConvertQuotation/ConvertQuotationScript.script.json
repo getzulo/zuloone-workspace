@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "ConvertQuotation",
+    "objectMetaId": "037776b4-d7cb-461a-87dd-a5eca743e61a",
+    "executionOrder": 0,
+    "metaId": "22714f94-6aae-485e-8a4b-e23039802278",
+    "name": "ConvertQuotationScript",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

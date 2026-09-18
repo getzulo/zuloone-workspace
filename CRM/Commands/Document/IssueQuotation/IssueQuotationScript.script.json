@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "IssueQuotation",
+    "objectMetaId": "9e13843d-ae8f-4816-8f6d-37bd1e07ed35",
+    "executionOrder": 0,
+    "metaId": "1bb9790c-3186-4ee6-bf22-e6df2a56e010",
+    "name": "IssueQuotationScript",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

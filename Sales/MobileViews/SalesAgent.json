@@ -1,38 +1,148 @@
 {
   "role": "SalesAgent",
   "navigation": [
-    { "id": "route", "caption": "Today", "entity": "VisitRoute" },
-    { "id": "customers", "caption": "Customers", "entity": "Customer" },
-    { "id": "catalog", "caption": "Catalog", "entity": "Item" },
-    { "id": "orders", "caption": "Orders", "entity": "SalesOrder" },
-    { "id": "visits", "caption": "Visits", "entity": "AgentVisit" }
+    {
+      "id": "route",
+      "caption": "Today",
+      "caption_uk": "Сьогодні",
+      "entity": "VisitRoute"
+    },
+    {
+      "id": "customers",
+      "caption": "Customers",
+      "caption_uk": "Покупці",
+      "entity": "Customer"
+    },
+    {
+      "id": "catalog",
+      "caption": "Catalog",
+      "caption_uk": "Каталог",
+      "entity": "Item"
+    },
+    {
+      "id": "orders",
+      "caption": "Orders",
+      "caption_uk": "Замовлення",
+      "entity": "SalesOrder"
+    },
+    {
+      "id": "visits",
+      "caption": "Visits",
+      "caption_uk": "Візити",
+      "entity": "AgentVisit"
+    }
   ],
   "entities": [
-    { "name": "Item", "mode": "Master", "fields": [] },
-    { "name": "Customer", "mode": "Master", "fields": [] },
-    { "name": "CustomerOutlet", "mode": "Master", "fields": [] },
-    { "name": "Address", "mode": "Master", "fields": [] },
-    { "name": "SalesContract", "mode": "Master", "fields": [] },
-    { "name": "SalesPerson", "mode": "Master", "fields": [] },
-    { "name": "VisitRoute", "mode": "Transactional", "fields": [] },
-    { "name": "AgentVisit", "mode": "Transactional", "fields": [] },
-    { "name": "SalesOrder", "mode": "Transactional", "fields": [] },
-    { "name": "CachedPrice", "mode": "Projection", "fields": ["ItemId","UnitId","CustomerId","ContractId","MinQty","UnitPrice","Source","Explanation","ListPrice","QtyDiscountPercent"] }
+    {
+      "name": "Item",
+      "mode": "Master",
+      "fields": []
+    },
+    {
+      "name": "Customer",
+      "mode": "Master",
+      "fields": []
+    },
+    {
+      "name": "CustomerOutlet",
+      "mode": "Master",
+      "fields": []
+    },
+    {
+      "name": "Address",
+      "mode": "Master",
+      "fields": []
+    },
+    {
+      "name": "SalesContract",
+      "mode": "Master",
+      "fields": []
+    },
+    {
+      "name": "SalesPerson",
+      "mode": "Master",
+      "fields": []
+    },
+    {
+      "name": "VisitRoute",
+      "mode": "Transactional",
+      "fields": []
+    },
+    {
+      "name": "AgentVisit",
+      "mode": "Transactional",
+      "fields": []
+    },
+    {
+      "name": "SalesOrder",
+      "mode": "Transactional",
+      "fields": []
+    },
+    {
+      "name": "CachedPrice",
+      "mode": "Projection",
+      "fields": [
+        "ItemId",
+        "UnitId",
+        "CustomerId",
+        "ContractId",
+        "MinQty",
+        "UnitPrice",
+        "Source",
+        "Explanation",
+        "ListPrice",
+        "QtyDiscountPercent"
+      ]
+    }
   ],
   "commands": [
-    { "name": "PostOrder", "documentCommand": "SubmitSalesOrder", "entity": "SalesOrder" },
-    { "name": "SaveDraft", "entity": "SalesOrder" },
-    { "name": "ScanBarcode", "entity": "SalesOrder" },
-    { "name": "CheckIn", "documentCommand": "CheckInVisit", "entity": "VisitRoute" },
-    { "name": "CheckOut", "documentCommand": "CheckOutVisit", "entity": "AgentVisit" },
-    { "name": "TakePhoto", "entity": "AgentVisit" },
-    { "name": "SharePdf", "entity": "SalesOrder" },
-    { "name": "StartShift" },
-    { "name": "EndShift" }
+    {
+      "name": "PostOrder",
+      "documentCommand": "SubmitSalesOrder",
+      "entity": "SalesOrder"
+    },
+    {
+      "name": "SaveDraft",
+      "entity": "SalesOrder"
+    },
+    {
+      "name": "ScanBarcode",
+      "entity": "SalesOrder"
+    },
+    {
+      "name": "CheckIn",
+      "documentCommand": "CheckInVisit",
+      "entity": "VisitRoute"
+    },
+    {
+      "name": "CheckOut",
+      "documentCommand": "CheckOutVisit",
+      "entity": "AgentVisit"
+    },
+    {
+      "name": "TakePhoto",
+      "entity": "AgentVisit"
+    },
+    {
+      "name": "SharePdf",
+      "entity": "SalesOrder"
+    },
+    {
+      "name": "StartShift"
+    },
+    {
+      "name": "EndShift"
+    }
   ],
   "expressions": [
-    { "target": "SalesOrderLines.LineAmount", "formula": "round(Quantity * UnitPrice * (1 - DiscountPercent / 100), 2)" },
-    { "target": "SalesOrder.HeaderTotal", "formula": "sum(Lines.LineAmount)" }
+    {
+      "target": "SalesOrderLines.LineAmount",
+      "formula": "round(Quantity * UnitPrice * (1 - DiscountPercent / 100), 2)"
+    },
+    {
+      "target": "SalesOrder.HeaderTotal",
+      "formula": "sum(Lines.LineAmount)"
+    }
   ],
   "layouts": {}
 }

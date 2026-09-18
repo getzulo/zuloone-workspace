@@ -1,0 +1,29 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Cancel quotation",
+    "caption_ru": "Отменить КП",
+    "scriptMetaId": "9908d9b4-c0d8-478c-b74d-ca968b7784c9",
+    "parameterMode": "None",
+    "displayOrder": 3,
+    "beginGroup": true,
+    "isEnabled": true,
+    "requiresConfirmation": true,
+    "reloadAfterExecution": true,
+    "metaId": "fb98dc31-0081-4061-b486-a945e03e0e33",
+    "name": "CancelQuotation",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "360cdca7-6879-425e-9865-ec8635b5772b",
+      "documentCommandMetaId": "fb98dc31-0081-4061-b486-a945e03e0e33",
+      "documentSubtypeMetaId": "b7d492d1-a7a4-465e-b8fe-0f3057f2c024"
+    },
+    {
+      "metaId": "980601f4-aca3-41e1-b720-44d3dc27331e",
+      "documentCommandMetaId": "fb98dc31-0081-4061-b486-a945e03e0e33",
+      "documentSubtypeMetaId": "2e287167-4126-460f-b314-a261cce41d3d"
+    }
+  ]
+}

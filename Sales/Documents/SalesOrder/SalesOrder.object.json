@@ -280,6 +280,24 @@
       "metaId": "12c3a6db-f6d4-47ac-8b50-a4880804e4ec",
       "name": "Visit",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
+      "fieldName": "SourceQuotation",
+      "caption": "Source quotation",
+      "caption_ru": "КП-источник",
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 21,
+      "description": "Коммерческое предложение, из которого создан заказ. Повтор ConvertQuotation не плодит второй заказ.",
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "bc268edc-d8c7-4dbc-941b-e1b3adfb0852",
+      "name": "SourceQuotation",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypes": [

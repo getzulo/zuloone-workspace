@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "SalesQuotationLines",
+    "objectMetaId": "aebe34db-754b-4651-af6d-17c94792aca5",
+    "executionOrder": 0,
+    "metaId": "c222e7c0-d0b4-4905-a390-7b4f047eee3a",
+    "name": "SalesQuotationLinesEventHandler",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

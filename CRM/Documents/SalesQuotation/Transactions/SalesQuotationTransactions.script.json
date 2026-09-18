@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "SalesQuotation",
+    "objectMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
+    "executionOrder": 0,
+    "metaId": "7f5cf1c8-cbb9-4db3-a971-1ab9827bb610",
+    "name": "SalesQuotationTransactions",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Convert an issued sales quotation into a Draft SalesOrder. Idempotent by SourceQuotation.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "9b3a167b-3d90-4938-8949-8524d5a964cf",
+    "metaId": "f8eb14c8-cdea-430b-acf7-92f4fc61b017",
+    "name": "QuotationService",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

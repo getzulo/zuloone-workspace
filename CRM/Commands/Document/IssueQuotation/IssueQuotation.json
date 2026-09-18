@@ -1,0 +1,24 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": "Issue quotation",
+    "caption_ru": "Выставить КП",
+    "scriptMetaId": "1bb9790c-3186-4ee6-bf22-e6df2a56e010",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "9e13843d-ae8f-4816-8f6d-37bd1e07ed35",
+    "name": "IssueQuotation",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "1c408318-4471-4cc3-a91b-b5e59bc85f6e",
+      "documentCommandMetaId": "9e13843d-ae8f-4816-8f6d-37bd1e07ed35",
+      "documentSubtypeMetaId": "b7d492d1-a7a4-465e-b8fe-0f3057f2c024"
+    }
+  ]
+}
