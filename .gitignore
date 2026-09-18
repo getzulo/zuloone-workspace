@@ -3,14 +3,16 @@
 # product — one commit of Local/model.json put Local=1.0.0 on the catalogue.
 Local/
 Tenant/
-# Anchored and slashed ON PURPOSE. A bare "Test*" has no slash, so git matched it
-# against EVERY path component — which made it a rule about "Tests/" folders, not
-# about a stand model. It silently swallowed 104 server-owned files: 52 integration
-# tests across HR, Production, Purchasing, Sales, Tax and TestBench. Already-tracked
-# tests survived (gitignore does not touch tracked files), so nothing looked wrong
-# until a NEW test was written and never reached a commit.
-TestBench/
-TestBenchExt/
+# Local/ and Tenant/ are the stand customization model, seeded by the platform.
+#
+# TestBench/ and TestBenchExt/ are NOT here on purpose, though they are fixtures.
+# Keeping a customer's production clean of them is already done, twice, in
+# .zuloone-release.json: "exclude" builds no bundle for them, and "treeExclude"
+# keeps them out of the distribution image's tree (enforced by stage_tree.py,
+# which ci.yml runs to build dist-workspace/). Hiding them from git does not add
+# to that — it subtracts: CI imports the tree FROM GIT, and the integration tests
+# that prove this workspace works live in those two models. A "TestBench/" line
+# here starved that gate and had already swallowed a new Chain-of-Command test.
 
 # Scratch dumps of API responses, written next to the tree by hand. Three of them
 # (_d/_e/_m.json — dictionaries, EDTs, models) reached a commit on 2026-09-16 and
