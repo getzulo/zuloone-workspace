@@ -29,7 +29,7 @@ description: Создать регистр накопления ZuloOne — ре
 {
   "kind": "Analytic",
   "object": {
-    "caption": "Warehouse", "caption_ru": "Склад",
+    "caption": { "en": "Warehouse", "ru": "Склад" },
     "description": "Reusable analytic over the Warehouse dictionary",
     "edtMetaId": "<GUID Ref-EDT на справочник>",
     "metaId": "<GUID-аналитики>", "name": "<Имя>",
@@ -46,7 +46,7 @@ description: Создать регистр накопления ZuloOne — ре
 {
   "kind": "Register",
   "object": {
-    "caption": "<English caption>", "caption_ru": "<Русская подпись>",
+    "caption": { "en": "<English caption>", "ru": "<Русская подпись>" },
     "registerEngineType": "Standard",
     "isDoubleEntry": false,
     "allowNegativeBalance": true,
@@ -330,7 +330,7 @@ public partial class CustomReport<Имя>
 {
   "kind": "Register",
   "object": {
-    "caption": "Tax rate history", "caption_ru": "История ставок",
+    "caption": { "en": "Tax rate history", "ru": "История ставок" },
     "registerEngineType": "Information",
     "metaId": "<GUID>", "name": "TaxRate",
     "modelId": "<GUID модели>" },

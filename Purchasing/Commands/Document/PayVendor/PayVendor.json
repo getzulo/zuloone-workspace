@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Pay vendor",
-    "caption_ar": "سداد المورد",
-    "caption_ru": "Оплатить поставщику",
+    "caption": {
+      "en": "Pay vendor",
+      "ar": "سداد المورد",
+      "ru": "Оплатить поставщику"
+    },
     "scriptMetaId": "b4f0efe8-99ab-47fb-813c-8a6ab0484e8e",
     "parameterMode": "None",
     "displayOrder": 1,

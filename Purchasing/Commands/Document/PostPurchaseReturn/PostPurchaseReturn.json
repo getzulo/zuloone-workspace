@@ -1,8 +1,10 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Post purchase return",
-    "caption_ru": "Провести возврат поставщику",
+    "caption": {
+      "en": "Post purchase return",
+      "ru": "Провести возврат поставщику"
+    },
     "scriptMetaId": "c46c6d29-ccb1-44b2-90ae-98ebe62847ce",
     "parameterMode": "None",
     "displayOrder": 1,

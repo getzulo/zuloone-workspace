@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Time off",
-    "caption_ar": "الغياب",
-    "caption_ru": "Отсутствия",
+    "caption": {
+      "en": "Time off",
+      "ar": "الغياب",
+      "ru": "Отсутствия"
+    },
     "description": "Vacation, sick leave and other absences. Fill timesheet treats these as exceptions to the standard week.",
     "isLogged": false,
     "isHierarchical": false,
@@ -33,8 +35,10 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "From",
-      "caption_ru": "С",
+      "caption": {
+        "en": "From",
+        "ru": "С"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -51,8 +55,10 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "To",
-      "caption_ru": "По",
+      "caption": {
+        "en": "To",
+        "ru": "По"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -69,8 +75,10 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Employee",
-      "caption_ru": "Сотрудник",
+      "caption": {
+        "en": "Employee",
+        "ru": "Сотрудник"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -106,8 +114,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Kind",
-      "caption_ru": "Вид",
+      "caption": {
+        "en": "Kind",
+        "ru": "Вид"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -125,8 +135,10 @@
       "displayOrder": 0,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -144,8 +156,10 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Note",
-      "caption_ru": "Примечание",
+      "caption": {
+        "en": "Note",
+        "ru": "Примечание"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

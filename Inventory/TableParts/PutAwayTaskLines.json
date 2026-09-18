@@ -2,9 +2,11 @@
   "kind": "TablePartType",
   "object": {
     "className": "PutAwayTaskLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ar": "السطور",
-    "caption_ru": "Строки",
+    "caption": {
+      "en": "Lines",
+      "ar": "السطور",
+      "ru": "Строки"
+    },
     "tableName": "TP_PutAwayTaskLines",
     "softDeletion": false,
     "isLogged": false,
@@ -16,9 +18,11 @@
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
       "fieldName": "BaseQuantity",
-      "caption": "Qty in base unit",
-      "caption_ar": "الكمية بالوحدة الأساسية",
-      "caption_ru": "Количество в базовой единице",
+      "caption": {
+        "en": "Qty in base unit",
+        "ar": "الكمية بالوحدة الأساسية",
+        "ru": "Количество в базовой единице"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": false,
       "isVisible": false,
@@ -34,9 +38,11 @@
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
       "fieldName": "Item",
-      "caption": "Item",
-      "caption_ar": "الصنف",
-      "caption_ru": "Товар",
+      "caption": {
+        "en": "Item",
+        "ar": "الصنف",
+        "ru": "Товар"
+      },
       "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
       "isRequired": true,
       "isVisible": true,
@@ -54,9 +60,11 @@
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
       "fieldName": "Quantity",
-      "caption": "Quantity",
-      "caption_ar": "الكمية",
-      "caption_ru": "Количество",
+      "caption": {
+        "en": "Quantity",
+        "ar": "الكمية",
+        "ru": "Количество"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": true,
       "isVisible": true,
@@ -74,9 +82,11 @@
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
       "fieldName": "ToCell",
-      "caption": "To cell (storage)",
-      "caption_ar": "إلى الخلية",
-      "caption_ru": "В ячейку (хранение)",
+      "caption": {
+        "en": "To cell (storage)",
+        "ar": "إلى الخلية",
+        "ru": "В ячейку (хранение)"
+      },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isRequired": true,
       "isVisible": true,
@@ -94,9 +104,11 @@
     {
       "tablePartTypeMetaId": "57100708-0000-4000-8000-000000000000",
       "fieldName": "Unit",
-      "caption": "Unit",
-      "caption_ar": "الوحدة",
-      "caption_ru": "Единица",
+      "caption": {
+        "en": "Unit",
+        "ar": "الوحدة",
+        "ru": "Единица"
+      },
       "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
       "isRequired": false,
       "isVisible": true,

@@ -1,9 +1,11 @@
 {
   "kind": "Analytic",
   "object": {
-    "caption": "City",
-    "caption_ar": "المدينة",
-    "caption_ru": "Город",
+    "caption": {
+      "en": "City",
+      "ar": "المدينة",
+      "ru": "Город"
+    },
     "edtMetaId": "eaf4aaac-b2e5-4849-a63f-77fe9a44c13b",
     "description": "Reusable analytic over the City dictionary",
     "metaId": "812b8a4e-6def-4e2a-9367-d97a17f8a970",

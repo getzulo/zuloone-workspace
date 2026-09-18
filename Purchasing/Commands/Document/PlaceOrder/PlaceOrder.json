@@ -1,8 +1,10 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Place order",
-    "caption_ru": "Заказать",
+    "caption": {
+      "en": "Place order",
+      "ru": "Заказать"
+    },
     "scriptMetaId": "1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5e",
     "parameterMode": "None",
     "displayOrder": 1,

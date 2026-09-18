@@ -2,9 +2,11 @@
   "kind": "TablePartType",
   "object": {
     "className": "StockCountLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ar": "السطور",
-    "caption_ru": "Строки",
+    "caption": {
+      "en": "Lines",
+      "ar": "السطور",
+      "ru": "Строки"
+    },
     "tableName": "TP_StockCountLines",
     "softDeletion": false,
     "isLogged": false,
@@ -16,9 +18,11 @@
     {
       "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
       "fieldName": "BaseQuantity",
-      "caption": "Qty in base unit",
-      "caption_ar": "الكمية بالوحدة الأساسية",
-      "caption_ru": "Количество в базовой единице",
+      "caption": {
+        "en": "Qty in base unit",
+        "ar": "الكمية بالوحدة الأساسية",
+        "ru": "Количество в базовой единице"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": false,
       "isVisible": false,
@@ -34,9 +38,11 @@
     {
       "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
       "fieldName": "CountedQty",
-      "caption": "Counted qty",
-      "caption_ar": "الكمية المجرودة",
-      "caption_ru": "Факт (насчитано)",
+      "caption": {
+        "en": "Counted qty",
+        "ar": "الكمية المجرودة",
+        "ru": "Факт (насчитано)"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": true,
       "isVisible": true,
@@ -54,9 +60,11 @@
     {
       "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
       "fieldName": "Item",
-      "caption": "Item",
-      "caption_ar": "الصنف",
-      "caption_ru": "Товар",
+      "caption": {
+        "en": "Item",
+        "ar": "الصنف",
+        "ru": "Товар"
+      },
       "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
       "isRequired": true,
       "isVisible": true,
@@ -74,8 +82,10 @@
     {
       "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
       "fieldName": "QtyDelta",
-      "caption": "Qty delta",
-      "caption_ru": "Дельта",
+      "caption": {
+        "en": "Qty delta",
+        "ru": "Дельта"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": false,
       "isVisible": false,
@@ -91,9 +101,11 @@
     {
       "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
       "fieldName": "Unit",
-      "caption": "Unit",
-      "caption_ar": "الوحدة",
-      "caption_ru": "Единица",
+      "caption": {
+        "en": "Unit",
+        "ar": "الوحدة",
+        "ru": "Единица"
+      },
       "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
       "isRequired": false,
       "isVisible": true,

@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Payment terms",
-    "caption_ar": "شروط الدفع",
-    "caption_ru": "Условия оплаты",
+    "caption": {
+      "en": "Payment terms",
+      "ar": "شروط الدفع",
+      "ru": "Условия оплаты"
+    },
     "description": "",
     "isLogged": false,
     "isHierarchical": false,
@@ -33,9 +35,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Days",
-      "caption_ar": "الأيام",
-      "caption_ru": "Дней",
+      "caption": {
+        "en": "Days",
+        "ar": "الأيام",
+        "ru": "Дней"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,9 +76,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,

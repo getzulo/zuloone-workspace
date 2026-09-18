@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Ukraine settings",
-    "caption_ru": "Настройки Украины",
-    "caption_uk": "Налаштування України",
+    "caption": {
+      "en": "Ukraine settings",
+      "ru": "Настройки Украины",
+      "uk": "Налаштування України"
+    },
     "description": "Одиночный настроечный справочник пакета LocalizationUkraine (одна запись, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -31,9 +33,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "E-invoice (tax invoice) enabled",
-      "caption_ru": "Электронная налоговая накладная включена",
-      "caption_uk": "Електронна податкова накладна увімкнена",
+      "caption": {
+        "en": "E-invoice (tax invoice) enabled",
+        "ru": "Электронная налоговая накладная включена",
+        "uk": "Електронна податкова накладна увімкнена"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -70,9 +74,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "VAT registration number (IPN)",
-      "caption_ru": "ИНН плательщика НДС",
-      "caption_uk": "ІПН платника ПДВ",
+      "caption": {
+        "en": "VAT registration number (IPN)",
+        "ru": "ИНН плательщика НДС",
+        "uk": "ІПН платника ПДВ"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

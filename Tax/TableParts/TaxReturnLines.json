@@ -2,9 +2,11 @@
   "kind": "TablePartType",
   "object": {
     "className": "TaxReturnLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ar": "السطور",
-    "caption_ru": "Строки",
+    "caption": {
+      "en": "Lines",
+      "ar": "السطور",
+      "ru": "Строки"
+    },
     "tableName": "TP_TaxReturnLines",
     "softDeletion": false,
     "isLogged": false,
@@ -16,9 +18,11 @@
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
       "fieldName": "Direction",
-      "caption": "Direction",
-      "caption_ar": "الاتجاه",
-      "caption_ru": "Направление",
+      "caption": {
+        "en": "Direction",
+        "ar": "الاتجاه",
+        "ru": "Направление"
+      },
       "edtMetaId": "fa28b007-cf13-48c9-a238-d0117c902ead",
       "isRequired": true,
       "isVisible": true,
@@ -36,9 +40,11 @@
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
       "fieldName": "TaxAmount",
-      "caption": "Tax amount",
-      "caption_ar": "مبلغ الضريبة",
-      "caption_ru": "Сумма налога",
+      "caption": {
+        "en": "Tax amount",
+        "ar": "مبلغ الضريبة",
+        "ru": "Сумма налога"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": false,
       "isVisible": true,
@@ -53,9 +59,11 @@
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
       "fieldName": "TaxBase",
-      "caption": "Tax base",
-      "caption_ar": "الوعاء الضريبي",
-      "caption_ru": "Налоговая база",
+      "caption": {
+        "en": "Tax base",
+        "ar": "الوعاء الضريبي",
+        "ru": "Налоговая база"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": false,
       "isVisible": true,
@@ -70,9 +78,11 @@
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
       "fieldName": "TaxCode",
-      "caption": "Tax code",
-      "caption_ar": "الرمز الضريبي",
-      "caption_ru": "Налоговый код",
+      "caption": {
+        "en": "Tax code",
+        "ar": "الرمز الضريبي",
+        "ru": "Налоговый код"
+      },
       "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
       "isRequired": true,
       "isVisible": true,

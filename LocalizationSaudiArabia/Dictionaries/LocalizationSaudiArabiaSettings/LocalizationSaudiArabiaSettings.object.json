@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "LocalizationSaudiArabia settings",
-    "caption_ru": "Настройки модуля",
+    "caption": {
+      "en": "LocalizationSaudiArabia settings",
+      "ru": "Настройки модуля"
+    },
     "description": "Одиночный настроечный справочник модуля LocalizationSaudiArabia (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -30,8 +32,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "E-invoice (ZATCA) enabled",
-      "caption_ru": "Э-фактура (ZATCA) включена",
+      "caption": {
+        "en": "E-invoice (ZATCA) enabled",
+        "ru": "Э-фактура (ZATCA) включена"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -68,8 +72,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "VAT registration number",
-      "caption_ru": "Номер регистрации НДС",
+      "caption": {
+        "en": "VAT registration number",
+        "ru": "Номер регистрации НДС"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

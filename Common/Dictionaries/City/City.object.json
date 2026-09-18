@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Cities",
-    "caption_ar": "المدن",
-    "caption_ru": "Города",
+    "caption": {
+      "en": "Cities",
+      "ar": "المدن",
+      "ru": "Города"
+    },
     "description": "",
     "isLogged": false,
     "isHierarchical": false,
@@ -33,9 +35,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Country",
-      "caption_ar": "الدولة",
-      "caption_ru": "Страна",
+      "caption": {
+        "en": "Country",
+        "ar": "الدولة",
+        "ru": "Страна"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,8 +58,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -73,9 +79,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,
@@ -92,9 +100,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Region",
-      "caption_ar": "المنطقة",
-      "caption_ru": "Регион",
+      "caption": {
+        "en": "Region",
+        "ar": "المنطقة",
+        "ru": "Регион"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

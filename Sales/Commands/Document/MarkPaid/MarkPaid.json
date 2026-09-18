@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Mark as paid (disabled)",
-    "caption_ru": "Оплатить (отключено)",
-    "caption_uk": "Оплатити (вимкнено)",
+    "caption": {
+      "en": "Mark as paid (disabled)",
+      "ru": "Оплатить (отключено)",
+      "uk": "Оплатити (вимкнено)"
+    },
     "scriptMetaId": "0d1e2f3a-4b5c-4d6e-9f7a-9b0c1d2e3f4a",
     "parameterMode": "None",
     "displayOrder": 1,

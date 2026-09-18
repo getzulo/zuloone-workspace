@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Approve timesheet",
-    "caption_ar": "اعتماد الجدول",
-    "caption_ru": "Утвердить табель",
+    "caption": {
+      "en": "Approve timesheet",
+      "ar": "اعتماد الجدول",
+      "ru": "Утвердить табель"
+    },
     "scriptMetaId": "09732368-679b-4a25-9ed3-1556d68f810c",
     "parameterMode": "None",
     "displayOrder": 1,

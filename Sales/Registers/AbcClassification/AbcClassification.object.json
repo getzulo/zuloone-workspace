@@ -1,10 +1,12 @@
 {
   "kind": "Register",
   "object": {
-    "caption": "ABC classification",
-    "caption_ar": "تصنيف ABC",
-    "caption_ru": "Классификация ABC",
-    "caption_uk": "Класифікація ABC",
+    "caption": {
+      "en": "ABC classification",
+      "ar": "تصنيف ABC",
+      "ru": "Классификация ABC",
+      "uk": "Класифікація ABC"
+    },
     "description": "SliceLast by Profile + Subject (Item or Customer Guid). Recalc writes Period=asOf; ManualAbc/ManualXyz keep a class across runs.",
     "isObsolete": false,
     "iconName": "fluent-color:data-pie-24",
@@ -22,10 +24,12 @@
     {
       "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "fieldName": "Profile",
-      "caption": "Profile",
-      "caption_ar": "الملف",
-      "caption_ru": "Профиль",
-      "caption_uk": "Профіль",
+      "caption": {
+        "en": "Profile",
+        "ar": "الملف",
+        "ru": "Профиль",
+        "uk": "Профіль"
+      },
       "edtMetaId": "5af84ef5-89c0-485e-a632-521c70da482e",
       "isOperational": true,
       "isInformational": false,
@@ -39,10 +43,12 @@
     {
       "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "fieldName": "Subject",
-      "caption": "Subject",
-      "caption_ar": "الموضوع",
-      "caption_ru": "Объект",
-      "caption_uk": "Об’єкт",
+      "caption": {
+        "en": "Subject",
+        "ar": "الموضوع",
+        "ru": "Объект",
+        "uk": "Об’єкт"
+      },
       "edtMetaId": "be233f32-8bc6-472d-806c-d89486f830ac",
       "isOperational": true,
       "isInformational": false,
@@ -58,9 +64,11 @@
     {
       "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "fieldName": "AbcClass",
-      "caption": "ABC",
-      "caption_ru": "ABC",
-      "caption_uk": "ABC",
+      "caption": {
+        "en": "ABC",
+        "ru": "ABC",
+        "uk": "ABC"
+      },
       "isOperational": false,
       "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
       "displayOrder": 1,
@@ -71,9 +79,11 @@
     {
       "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "fieldName": "Cv",
-      "caption": "CV",
-      "caption_ru": "CV",
-      "caption_uk": "CV",
+      "caption": {
+        "en": "CV",
+        "ru": "CV",
+        "uk": "CV"
+      },
       "isOperational": false,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 5,
@@ -84,9 +94,11 @@
     {
       "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "fieldName": "ManualAbc",
-      "caption": "Manual ABC",
-      "caption_ru": "ABC вручную",
-      "caption_uk": "ABC вручну",
+      "caption": {
+        "en": "Manual ABC",
+        "ru": "ABC вручную",
+        "uk": "ABC вручну"
+      },
       "isOperational": false,
       "edtMetaId": "47056cb5-b447-4678-b1ec-3ebda060c909",
       "displayOrder": 6,
@@ -97,9 +109,11 @@
     {
       "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "fieldName": "ManualXyz",
-      "caption": "Manual XYZ",
-      "caption_ru": "XYZ вручную",
-      "caption_uk": "XYZ вручну",
+      "caption": {
+        "en": "Manual XYZ",
+        "ru": "XYZ вручную",
+        "uk": "XYZ вручну"
+      },
       "isOperational": false,
       "edtMetaId": "47056cb5-b447-4678-b1ec-3ebda060c909",
       "displayOrder": 7,
@@ -110,10 +124,12 @@
     {
       "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "fieldName": "Score",
-      "caption": "Score",
-      "caption_ar": "النتيجة",
-      "caption_ru": "Оценка",
-      "caption_uk": "Оцінка",
+      "caption": {
+        "en": "Score",
+        "ar": "النتيجة",
+        "ru": "Оценка",
+        "uk": "Оцінка"
+      },
       "isOperational": false,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 3,
@@ -124,10 +140,12 @@
     {
       "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "fieldName": "Share",
-      "caption": "Share, %",
-      "caption_ar": "الحصة",
-      "caption_ru": "Доля, %",
-      "caption_uk": "Частка, %",
+      "caption": {
+        "en": "Share, %",
+        "ar": "الحصة",
+        "ru": "Доля, %",
+        "uk": "Частка, %"
+      },
       "isOperational": false,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 4,
@@ -138,9 +156,11 @@
     {
       "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "fieldName": "XyzClass",
-      "caption": "XYZ",
-      "caption_ru": "XYZ",
-      "caption_uk": "XYZ",
+      "caption": {
+        "en": "XYZ",
+        "ru": "XYZ",
+        "uk": "XYZ"
+      },
       "isOperational": false,
       "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
       "displayOrder": 2,

@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Price types",
-    "caption_ar": "أنواع الأسعار",
-    "caption_ru": "Типы цен",
+    "caption": {
+      "en": "Price types",
+      "ar": "أنواع الأسعار",
+      "ru": "Типы цен"
+    },
     "description": "Тип цены на сторону сделки. Базовый (Kind=Base) хранит цены в справочнике PriceListItem; история на карточке номенклатуры — развязка PriceTypeHistory. Динамический (Kind=Calculated) вычисляет цену от BasePriceType с наценкой MarkupPercent. Клиенту и поставщику тип цены назначается полем PriceType.",
     "isLogged": true,
     "isHierarchical": false,
@@ -34,9 +36,11 @@
       "description": "Базовый тип цены для Kind=Calculated — от него берётся цена перед применением MarkupPercent. Обязателен при Kind=Calculated, должен быть пуст при Kind=Base (проверяет обработчик). Ссылается на этот же справочник.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Base price type",
-      "caption_ar": "نوع السعر الأساسي",
-      "caption_ru": "Базовый тип цен",
+      "caption": {
+        "en": "Base price type",
+        "ar": "نوع السعر الأساسي",
+        "ru": "Базовый тип цен"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,9 +58,11 @@
       "description": "Продажа или закупка. Прайс продажи никогда не подставляется в заказ поставщику и наоборот.",
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Direction",
-      "caption_ar": "الاتجاه",
-      "caption_ru": "Направление",
+      "caption": {
+        "en": "Direction",
+        "ar": "الاتجاه",
+        "ru": "Направление"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -93,9 +99,11 @@
       "description": "Отключённый тип цены не участвует в подборе. Флаг назван от ОТКЛЮЧЕНИЯ намеренно: необязательный Boolean генерится ненулевым, незаполненный равен false — и рабочим умолчанием обязано быть «тип действует».",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Disabled",
-      "caption_ar": "معطّل",
-      "caption_ru": "Отключён",
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключён"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -113,9 +121,11 @@
       "description": "Базовый — цена вводится вручную в справочнике цен номенклатуры (PriceListItem). Динамический — цена вычисляется от BasePriceType с наценкой MarkupPercent.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Kind",
-      "caption_ar": "النوع",
-      "caption_ru": "Вид",
+      "caption": {
+        "en": "Kind",
+        "ar": "النوع",
+        "ru": "Вид"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -133,9 +143,11 @@
       "description": "Наценка в процентах для Kind=Calculated, применяется к цене BasePriceType. Может быть отрицательной (скидка). Должна быть 0 при Kind=Base (проверяет обработчик).",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Markup %",
-      "caption_ar": "نسبة الزيادة",
-      "caption_ru": "Наценка, %",
+      "caption": {
+        "en": "Markup %",
+        "ar": "نسبة الزيادة",
+        "ru": "Наценка, %"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -153,9 +165,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,

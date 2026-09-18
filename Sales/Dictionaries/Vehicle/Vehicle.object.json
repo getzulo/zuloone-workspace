@@ -1,10 +1,12 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Vehicles",
-    "caption_ar": "المركبات",
-    "caption_ru": "Транспорт",
-    "caption_uk": "Транспорт",
+    "caption": {
+      "en": "Vehicles",
+      "ar": "المركبات",
+      "ru": "Транспорт",
+      "uk": "Транспорт"
+    },
     "description": "Delivery vehicle: plate, kind, capacity.",
     "isLogged": true,
     "isHierarchical": false,
@@ -36,10 +38,12 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Capacity kg",
-      "caption_ar": "الحمولة كغ",
-      "caption_ru": "Грузоподъёмность, кг",
-      "caption_uk": "Вантажопідйомність, кг",
+      "caption": {
+        "en": "Capacity kg",
+        "ar": "الحمولة كغ",
+        "ru": "Грузоподъёмность, кг",
+        "uk": "Вантажопідйомність, кг"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -56,10 +60,12 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Capacity qty",
-      "caption_ar": "السعة",
-      "caption_ru": "Вместимость, шт",
-      "caption_uk": "Місткість, шт",
+      "caption": {
+        "en": "Capacity qty",
+        "ar": "السعة",
+        "ru": "Вместимость, шт",
+        "uk": "Місткість, шт"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -78,8 +84,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_uk": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -96,10 +104,12 @@
       "displayOrder": 6,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Disabled",
-      "caption_ar": "معطّل",
-      "caption_ru": "Отключён",
-      "caption_uk": "Вимкнено",
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключён",
+        "uk": "Вимкнено"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -116,10 +126,12 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Kind",
-      "caption_ar": "النوع",
-      "caption_ru": "Тип",
-      "caption_uk": "Тип",
+      "caption": {
+        "en": "Kind",
+        "ar": "النوع",
+        "ru": "Тип",
+        "uk": "Тип"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -137,10 +149,12 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
-      "caption_uk": "Найменування",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Найменування"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -158,10 +172,12 @@
       "displayOrder": 2,
       "isIndexed": true,
       "isUnique": true,
-      "caption": "Plate",
-      "caption_ar": "اللوحة",
-      "caption_ru": "Госномер",
-      "caption_uk": "Держномер",
+      "caption": {
+        "en": "Plate",
+        "ar": "اللوحة",
+        "ru": "Госномер",
+        "uk": "Держномер"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

@@ -3,32 +3,42 @@
   "navigation": [
     {
       "id": "route",
-      "caption": "Today",
-      "caption_uk": "Сьогодні",
+      "caption": {
+        "en": "Today",
+        "uk": "Сьогодні"
+      },
       "entity": "VisitRoute"
     },
     {
       "id": "customers",
-      "caption": "Customers",
-      "caption_uk": "Покупці",
+      "caption": {
+        "en": "Customers",
+        "uk": "Покупці"
+      },
       "entity": "Customer"
     },
     {
       "id": "catalog",
-      "caption": "Catalog",
-      "caption_uk": "Каталог",
+      "caption": {
+        "en": "Catalog",
+        "uk": "Каталог"
+      },
       "entity": "Item"
     },
     {
       "id": "orders",
-      "caption": "Orders",
-      "caption_uk": "Замовлення",
+      "caption": {
+        "en": "Orders",
+        "uk": "Замовлення"
+      },
       "entity": "SalesOrder"
     },
     {
       "id": "visits",
-      "caption": "Visits",
-      "caption_uk": "Візити",
+      "caption": {
+        "en": "Visits",
+        "uk": "Візити"
+      },
       "entity": "AgentVisit"
     }
   ],

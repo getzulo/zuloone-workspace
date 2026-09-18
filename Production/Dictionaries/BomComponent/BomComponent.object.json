@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "BOM components",
-    "caption_ar": "قائمة المواد المكون",
-    "caption_ru": "Компоненты спецификации",
+    "caption": {
+      "en": "BOM components",
+      "ar": "قائمة المواد المكون",
+      "ru": "Компоненты спецификации"
+    },
     "isLogged": false,
     "isHierarchical": false,
     "numberSequenceMetaId": "4d1e3f8c-6b9a-4c2d-8e5f-3a7b8c4d9e20",
@@ -31,9 +33,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Bill of materials",
-      "caption_ar": "قائمة المواد",
-      "caption_ru": "Спецификация",
+      "caption": {
+        "en": "Bill of materials",
+        "ar": "قائمة المواد",
+        "ru": "Спецификация"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -50,9 +54,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Component",
-      "caption_ar": "المكون",
-      "caption_ru": "Компонент",
+      "caption": {
+        "en": "Component",
+        "ar": "المكون",
+        "ru": "Компонент"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -70,9 +76,11 @@
       "description": "If true, expand this component's own BOM instead of demanding it from stock. Default false keeps today's one-level explode.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Explode",
-      "caption_ar": "تفجير",
-      "caption_ru": "Разворачивать",
+      "caption": {
+        "en": "Explode",
+        "ar": "تفجير",
+        "ru": "Разворачивать"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -91,8 +99,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -109,9 +119,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Qty per unit",
-      "caption_ar": "الكمية لكل الوحدة",
-      "caption_ru": "Кол-во на единицу",
+      "caption": {
+        "en": "Qty per unit",
+        "ar": "الكمية لكل الوحدة",
+        "ru": "Кол-во на единицу"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -129,8 +141,10 @@
       "description": "Единица, в которой задан QtyPer (например «граммы»). При выпуске количество переводится в базовую единицу товара и округляется по её точности. Пусто → QtyPer уже в базовой единице товара.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Qty unit",
-      "caption_ru": "Единица расхода",
+      "caption": {
+        "en": "Qty unit",
+        "ru": "Единица расхода"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

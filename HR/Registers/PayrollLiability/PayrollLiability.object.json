@@ -1,9 +1,11 @@
 {
   "kind": "Register",
   "object": {
-    "caption": "Payroll liability",
-    "caption_ar": "الرواتب الالتزام",
-    "caption_ru": "Задолженность по ФОТ",
+    "caption": {
+      "en": "Payroll liability",
+      "ar": "الرواتب الالتزام",
+      "ru": "Задолженность по ФОТ"
+    },
     "isObsolete": false,
     "iconName": "fluent-color:data-area-32",
     "largeIconName": "fluent-color:data-area-32",
@@ -20,8 +22,10 @@
     {
       "registerMetaId": "8e31292c-3d5a-4f8b-9c2e-7a4f1b6d8e30",
       "fieldName": "Amount",
-      "caption": "Amount",
-      "caption_ar": "المبلغ",
+      "caption": {
+        "en": "Amount",
+        "ar": "المبلغ"
+      },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 1,

@@ -1,9 +1,11 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Tax calculation",
-    "caption_ar": "حساب الضريبة",
-    "caption_ru": "Налоговый расчёт",
+    "caption": {
+      "en": "Tax calculation",
+      "ar": "حساب الضريبة",
+      "ru": "Налоговый расчёт"
+    },
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "658f4207-daa5-4503-a68c-10a6c536b01b",
@@ -22,9 +24,11 @@
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
       "fieldName": "Currency",
-      "caption": "Currency",
-      "caption_ar": "العملة",
-      "caption_ru": "Валюта",
+      "caption": {
+        "en": "Currency",
+        "ar": "العملة",
+        "ru": "Валюта"
+      },
       "edtMetaId": "8d2b209b-68a9-41ed-bf05-f069a12dbe2c",
       "isSystem": false,
       "isRequired": true,
@@ -40,8 +44,10 @@
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
       "fieldName": "DeterminationReason",
-      "caption": "Determination reason",
-      "caption_ru": "Обоснование выбора",
+      "caption": {
+        "en": "Determination reason",
+        "ru": "Обоснование выбора"
+      },
       "baseType": "String",
       "length": 1024,
       "isSystem": false,
@@ -58,9 +64,11 @@
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -78,9 +86,11 @@
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
       "fieldName": "LegalEntity",
-      "caption": "Legal entity",
-      "caption_ar": "قانوني كيان",
-      "caption_ru": "Юрлицо",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "قانوني كيان",
+        "ru": "Юрлицо"
+      },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
       "isRequired": true,
@@ -96,9 +106,11 @@
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
       "fieldName": "MatchedRule",
-      "caption": "Matched rule",
-      "caption_ar": "القاعدة المطابقة",
-      "caption_ru": "Сработавшее правило",
+      "caption": {
+        "en": "Matched rule",
+        "ar": "القاعدة المطابقة",
+        "ru": "Сработавшее правило"
+      },
       "edtMetaId": "39b0d6f1-4082-4c73-8d51-7e920b3c8d16",
       "isSystem": false,
       "isRequired": false,
@@ -115,8 +127,10 @@
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
       "fieldName": "TaxPointDate",
-      "caption": "Tax point date",
-      "caption_ru": "Дата налогового события",
+      "caption": {
+        "en": "Tax point date",
+        "ru": "Дата налогового события"
+      },
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": true,
@@ -136,8 +150,10 @@
       "name": "Finalized",
       "caption": "Finalized",
       "subtypeValue": "Finalized",
-      "subtypeCaption": "Finalized",
-      "subtypeCaption_ru": "Финализировано",
+      "subtypeCaption": {
+        "en": "Finalized",
+        "ru": "Финализировано"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,
@@ -147,11 +163,15 @@
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
       "name": "Draft",
-      "caption": "Draft",
-      "caption_ar": "مسودة",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة"
+      },
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,

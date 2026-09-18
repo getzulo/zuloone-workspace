@@ -1,9 +1,11 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Tax document",
-    "caption_ar": "المستند الضريبي",
-    "caption_ru": "Налоговый документ",
+    "caption": {
+      "en": "Tax document",
+      "ar": "المستند الضريبي",
+      "ru": "Налоговый документ"
+    },
     "description": "Country-blind e-invoice envelope. The country pack fills it; the host connector later signs and posts. Immutable after Cleared/Reported.",
     "isLogged": true,
     "isCloneable": false,
@@ -23,8 +25,10 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "Authority",
-      "caption": "Authority",
-      "caption_ru": "Госорган",
+      "caption": {
+        "en": "Authority",
+        "ru": "Госорган"
+      },
       "edtMetaId": "4b0f4735-e873-4345-8ba8-0fba5cbf4b77",
       "isSystem": false,
       "isRequired": false,
@@ -40,8 +44,10 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "EInvoiceKind",
-      "caption": "Kind",
-      "caption_ru": "Вид",
+      "caption": {
+        "en": "Kind",
+        "ru": "Вид"
+      },
       "baseType": "String",
       "length": 16,
       "isSystem": false,
@@ -58,8 +64,10 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "ExternalId",
-      "caption": "External id",
-      "caption_ru": "Внешний id",
+      "caption": {
+        "en": "External id",
+        "ru": "Внешний id"
+      },
       "baseType": "String",
       "length": 128,
       "isSystem": false,
@@ -76,9 +84,11 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -96,8 +106,10 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "InvoiceHash",
-      "caption": "Invoice hash",
-      "caption_ru": "Хеш фактуры",
+      "caption": {
+        "en": "Invoice hash",
+        "ru": "Хеш фактуры"
+      },
       "baseType": "String",
       "length": 128,
       "isSystem": false,
@@ -114,8 +126,10 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "InvoiceType",
-      "caption": "Invoice type",
-      "caption_ru": "Тип фактуры",
+      "caption": {
+        "en": "Invoice type",
+        "ru": "Тип фактуры"
+      },
       "baseType": "String",
       "length": 16,
       "isSystem": false,
@@ -132,8 +146,10 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "LegalEntity",
-      "caption": "Legal entity",
-      "caption_ru": "Юрлицо",
+      "caption": {
+        "en": "Legal entity",
+        "ru": "Юрлицо"
+      },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
       "isRequired": false,
@@ -149,8 +165,10 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "PreviousInvoiceHash",
-      "caption": "Previous hash",
-      "caption_ru": "Хеш предыдущей",
+      "caption": {
+        "en": "Previous hash",
+        "ru": "Хеш предыдущей"
+      },
       "baseType": "String",
       "length": 128,
       "isSystem": false,
@@ -167,8 +185,10 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "SourceDocumentId",
-      "caption": "Source",
-      "caption_ru": "Источник",
+      "caption": {
+        "en": "Source",
+        "ru": "Источник"
+      },
       "baseType": "Guid",
       "isSystem": false,
       "isRequired": true,
@@ -184,8 +204,10 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "SourceDocumentType",
-      "caption": "Source type",
-      "caption_ru": "Тип источника",
+      "caption": {
+        "en": "Source type",
+        "ru": "Тип источника"
+      },
       "baseType": "String",
       "length": 64,
       "isSystem": false,
@@ -202,8 +224,10 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "Uuid",
-      "caption": "UUID",
-      "caption_ru": "UUID",
+      "caption": {
+        "en": "UUID",
+        "ru": "UUID"
+      },
       "baseType": "Guid",
       "isSystem": false,
       "isRequired": true,
@@ -223,8 +247,10 @@
       "name": "Rejected",
       "caption": "Rejected",
       "subtypeValue": "Rejected",
-      "subtypeCaption": "Rejected",
-      "subtypeCaption_ru": "Отклонён",
+      "subtypeCaption": {
+        "en": "Rejected",
+        "ru": "Отклонён"
+      },
       "displayOrder": 5,
       "isInitial": false,
       "isReadOnly": false,
@@ -236,8 +262,10 @@
       "name": "Cleared",
       "caption": "Cleared",
       "subtypeValue": "Cleared",
-      "subtypeCaption": "Cleared",
-      "subtypeCaption_ru": "Клиринг",
+      "subtypeCaption": {
+        "en": "Cleared",
+        "ru": "Клиринг"
+      },
       "displayOrder": 3,
       "isInitial": false,
       "isReadOnly": true,
@@ -249,8 +277,10 @@
       "name": "Issued",
       "caption": "Issued",
       "subtypeValue": "Issued",
-      "subtypeCaption": "Issued",
-      "subtypeCaption_ru": "Выставлен",
+      "subtypeCaption": {
+        "en": "Issued",
+        "ru": "Выставлен"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": false,
@@ -262,8 +292,10 @@
       "name": "Draft",
       "caption": "Draft",
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -275,8 +307,10 @@
       "name": "Reported",
       "caption": "Reported",
       "subtypeValue": "Reported",
-      "subtypeCaption": "Reported",
-      "subtypeCaption_ru": "Отчёт",
+      "subtypeCaption": {
+        "en": "Reported",
+        "ru": "Отчёт"
+      },
       "displayOrder": 4,
       "isInitial": false,
       "isReadOnly": true,

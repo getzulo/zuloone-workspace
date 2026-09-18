@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Authority submissions",
-    "caption_ar": "سجل التسليم للجهة",
-    "caption_ru": "Журнал сдачи",
+    "caption": {
+      "en": "Authority submissions",
+      "ar": "سجل التسليم للجهة",
+      "ru": "Журнал сдачи"
+    },
     "description": "Append-only journal of filing attempts: one row per SubmitReturn/SubmitPayment. The mock writes Accepted or Rejected; a country package keeps writing here.",
     "isLogged": true,
     "isHierarchical": false,
@@ -33,9 +35,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Authority",
-      "caption_ar": "الجهة",
-      "caption_ru": "Госорган",
+      "caption": {
+        "en": "Authority",
+        "ar": "الجهة",
+        "ru": "Госорган"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,9 +57,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Connection",
-      "caption_ar": "الاتصال",
-      "caption_ru": "Подключение",
+      "caption": {
+        "en": "Connection",
+        "ar": "الاتصال",
+        "ru": "Подключение"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -73,9 +79,11 @@
       "displayOrder": 6,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Environment",
-      "caption_ar": "البيئة",
-      "caption_ru": "Среда",
+      "caption": {
+        "en": "Environment",
+        "ar": "البيئة",
+        "ru": "Среда"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -112,9 +120,11 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Kind",
-      "caption_ar": "النوع",
-      "caption_ru": "Вид",
+      "caption": {
+        "en": "Kind",
+        "ar": "النوع",
+        "ru": "Вид"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -131,9 +141,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Legal entity",
-      "caption_ar": "الكيان القانوني",
-      "caption_ru": "Юрлицо",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -151,9 +163,11 @@
       "displayOrder": 9,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Receipt",
-      "caption_ar": "الإيصال",
-      "caption_ru": "Квитанция",
+      "caption": {
+        "en": "Receipt",
+        "ar": "الإيصال",
+        "ru": "Квитанция"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -171,9 +185,11 @@
       "displayOrder": 10,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Response",
-      "caption_ar": "الرد",
-      "caption_ru": "Ответ",
+      "caption": {
+        "en": "Response",
+        "ar": "الرد",
+        "ru": "Ответ"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -190,9 +206,11 @@
       "displayOrder": 2,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Source",
-      "caption_ar": "المصدر",
-      "caption_ru": "Источник",
+      "caption": {
+        "en": "Source",
+        "ar": "المصدر",
+        "ru": "Источник"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -210,9 +228,11 @@
       "displayOrder": 8,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Status",
-      "caption_ar": "الحالة",
-      "caption_ru": "Статус",
+      "caption": {
+        "en": "Status",
+        "ar": "الحالة",
+        "ru": "Статус"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -229,9 +249,11 @@
       "displayOrder": 7,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Submitted at",
-      "caption_ar": "وقت الإرسال",
-      "caption_ru": "Отправлено",
+      "caption": {
+        "en": "Submitted at",
+        "ar": "وقت الإرسال",
+        "ru": "Отправлено"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

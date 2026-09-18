@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Post goods issue",
-    "caption_ar": "ترحيل الصرف",
-    "caption_ru": "Провести расход",
+    "caption": {
+      "en": "Post goods issue",
+      "ar": "ترحيل الصرف",
+      "ru": "Провести расход"
+    },
     "scriptMetaId": "b6cd6220-2127-43e8-b4e5-3fb3371e51e2",
     "parameterMode": "None",
     "displayOrder": 1,

@@ -18,9 +18,11 @@
       "displayOrder": 50,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Sales person",
-      "caption_ru": "Агент",
-      "caption_uk": "Агент / водій",
+      "caption": {
+        "en": "Sales person",
+        "ru": "Агент",
+        "uk": "Агент / водій"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

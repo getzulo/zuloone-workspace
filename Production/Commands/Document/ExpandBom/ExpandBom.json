@@ -1,8 +1,10 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Expand bill of materials",
-    "caption_ru": "Развернуть спецификацию",
+    "caption": {
+      "en": "Expand bill of materials",
+      "ru": "Развернуть спецификацию"
+    },
     "scriptMetaId": "6b7c8d9e-0f1a-4b2c-9d3e-4f5a6b7c8d9e",
     "parameterMode": "None",
     "displayOrder": 1,

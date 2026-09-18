@@ -2,8 +2,10 @@
   "kind": "TablePartType",
   "object": {
     "className": "VendorPaymentLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ru": "Строки",
+    "caption": {
+      "en": "Lines",
+      "ru": "Строки"
+    },
     "tableName": "TP_VendorPaymentLines",
     "softDeletion": false,
     "isLogged": false,
@@ -15,8 +17,10 @@
     {
       "tablePartTypeMetaId": "0c84bba6-3b2c-40b2-ad4b-7741de111447",
       "fieldName": "Amount",
-      "caption": "Amount",
-      "caption_ru": "Сумма",
+      "caption": {
+        "en": "Amount",
+        "ru": "Сумма"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,
@@ -31,8 +35,10 @@
     {
       "tablePartTypeMetaId": "0c84bba6-3b2c-40b2-ad4b-7741de111447",
       "fieldName": "Supplier",
-      "caption": "Supplier",
-      "caption_ru": "Поставщик",
+      "caption": {
+        "en": "Supplier",
+        "ru": "Поставщик"
+      },
       "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
       "isRequired": true,
       "isVisible": true,

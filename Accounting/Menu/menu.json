@@ -2,10 +2,12 @@
   "kind": "Menu",
   "items": [
     {
-      "caption": "Accounting",
-      "caption_ar": "المحاسبة",
-      "caption_ru": "Бухгалтерия",
-      "caption_uk": "Бухгалтерія",
+      "caption": {
+        "en": "Accounting",
+        "ar": "المحاسبة",
+        "ru": "Бухгалтерия",
+        "uk": "Бухгалтерія"
+      },
       "displayOrder": 2,
       "icon": "fluent-color:book-48",
       "targetType": "Group",
@@ -14,10 +16,12 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
-      "caption": "Dictionaries",
-      "caption_ar": "القوائم المرجعية",
-      "caption_ru": "Справочники",
-      "caption_uk": "Довідники",
+      "caption": {
+        "en": "Dictionaries",
+        "ar": "القوائم المرجعية",
+        "ru": "Справочники",
+        "uk": "Довідники"
+      },
       "parentMetaId": "d9db0c81-915d-4cc0-a153-5fbee50c78f0",
       "displayOrder": 0,
       "icon": "fluent-color:database-48",
@@ -27,10 +31,12 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
-      "caption": "Documents",
-      "caption_ar": "المستندات",
-      "caption_ru": "Документы",
-      "caption_uk": "Документи",
+      "caption": {
+        "en": "Documents",
+        "ar": "المستندات",
+        "ru": "Документы",
+        "uk": "Документи"
+      },
       "parentMetaId": "d9db0c81-915d-4cc0-a153-5fbee50c78f0",
       "displayOrder": 1,
       "icon": "fluent-color:document-48",
@@ -40,10 +46,12 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
-      "caption": "Registers",
-      "caption_ar": "السجلات",
-      "caption_ru": "Итоги",
-      "caption_uk": "Підсумки",
+      "caption": {
+        "en": "Registers",
+        "ar": "السجلات",
+        "ru": "Итоги",
+        "uk": "Підсумки"
+      },
       "parentMetaId": "d9db0c81-915d-4cc0-a153-5fbee50c78f0",
       "displayOrder": 2,
       "icon": "fluent-color:table-48",
@@ -53,10 +61,12 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
-      "caption": "Settings",
-      "caption_ar": "الإعدادات",
-      "caption_ru": "Настройки",
-      "caption_uk": "Налаштування",
+      "caption": {
+        "en": "Settings",
+        "ar": "الإعدادات",
+        "ru": "Настройки",
+        "uk": "Налаштування"
+      },
       "parentMetaId": "d9db0c81-915d-4cc0-a153-5fbee50c78f0",
       "displayOrder": 3,
       "icon": "fluent-color:settings-48",
@@ -66,10 +76,12 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
-      "caption": "Accounting settings",
-      "caption_ar": "إعدادات المحاسبة",
-      "caption_ru": "Настройки бухгалтерии",
-      "caption_uk": "Налаштування бухгалтерії",
+      "caption": {
+        "en": "Accounting settings",
+        "ar": "إعدادات المحاسبة",
+        "ru": "Настройки бухгалтерии",
+        "uk": "Налаштування бухгалтерії"
+      },
       "parentMetaId": "3f534cbd-4407-53b5-8d28-18e068fa6532",
       "displayOrder": 0,
       "icon": "fluent-color:book-database-32",
@@ -80,10 +92,12 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
-      "caption": "Chart of accounts",
-      "caption_ar": "دليل الحسابات",
-      "caption_ru": "План счетов",
-      "caption_uk": "План рахунків",
+      "caption": {
+        "en": "Chart of accounts",
+        "ar": "دليل الحسابات",
+        "ru": "План счетов",
+        "uk": "План рахунків"
+      },
       "parentMetaId": "3808c862-52e8-4e9a-b50c-a0583146b18b",
       "displayOrder": 0,
       "icon": "fluent-color:book-open-48",
@@ -94,10 +108,12 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
-      "caption": "General ledger",
-      "caption_ar": "دفتر الأستاذ العام",
-      "caption_ru": "Главная книга",
-      "caption_uk": "Головна книга",
+      "caption": {
+        "en": "General ledger",
+        "ar": "دفتر الأستاذ العام",
+        "ru": "Главная книга",
+        "uk": "Головна книга"
+      },
       "parentMetaId": "014427f4-cfbf-435e-a51f-b3e5d40c88cb",
       "displayOrder": 0,
       "icon": "fluent-color:chart-multiple-32",
@@ -108,10 +124,12 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
-      "caption": "Journal entries",
-      "caption_ar": "قيود اليومية",
-      "caption_ru": "Журнал проводок",
-      "caption_uk": "Журнал проведень",
+      "caption": {
+        "en": "Journal entries",
+        "ar": "قيود اليومية",
+        "ru": "Журнал проводок",
+        "uk": "Журнал проведень"
+      },
       "parentMetaId": "f72de6fe-167d-4cfa-9e54-577ca9b87c58",
       "displayOrder": 0,
       "icon": "fluent-color:document-text-48",
@@ -122,10 +140,12 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
-      "caption": "Fiscal years",
-      "caption_ar": "السنوات المالية",
-      "caption_ru": "Финансовые годы",
-      "caption_uk": "Фінансові роки",
+      "caption": {
+        "en": "Fiscal years",
+        "ar": "السنوات المالية",
+        "ru": "Финансовые годы",
+        "uk": "Фінансові роки"
+      },
       "parentMetaId": "3808c862-52e8-4e9a-b50c-a0583146b18b",
       "displayOrder": 1,
       "icon": "fluent-color:calendar-48",
@@ -136,10 +156,12 @@
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
-      "caption": "Fiscal periods",
-      "caption_ar": "الفترات المالية",
-      "caption_ru": "Финансовые периоды",
-      "caption_uk": "Фінансові періоди",
+      "caption": {
+        "en": "Fiscal periods",
+        "ar": "الفترات المالية",
+        "ru": "Финансовые периоды",
+        "uk": "Фінансові періоди"
+      },
       "parentMetaId": "3808c862-52e8-4e9a-b50c-a0583146b18b",
       "displayOrder": 2,
       "icon": "fluent-color:calendar-clock-24",

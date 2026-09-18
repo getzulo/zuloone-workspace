@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Finish production",
-    "caption_ar": "إنهاء الإنتاج",
-    "caption_ru": "Завершить выпуск",
+    "caption": {
+      "en": "Finish production",
+      "ar": "إنهاء الإنتاج",
+      "ru": "Завершить выпуск"
+    },
     "scriptMetaId": "972712f5-1efd-4c82-abaa-35db61dc8298",
     "parameterMode": "None",
     "displayOrder": 1,

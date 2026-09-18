@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Authority connections",
-    "caption_ru": "Подключения к госсистемам",
+    "caption": {
+      "en": "Authority connections",
+      "ru": "Подключения к госсистемам"
+    },
     "description": "Настройка подключения юрлица к госоргану: среда, адрес, таймауты и ССЫЛКА на учётные данные. Сам секрет здесь не хранится — он живёт в конфигурации сервера, потому что этот справочник выгружается в воркспейс, а воркспейс — git-репозиторий поставки.",
     "isLogged": true,
     "isHierarchical": false,
@@ -32,8 +34,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Authority",
-      "caption_ru": "Госорган",
+      "caption": {
+        "en": "Authority",
+        "ru": "Госорган"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -51,8 +55,10 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Base URL",
-      "caption_ru": "Адрес сервиса",
+      "caption": {
+        "en": "Base URL",
+        "ru": "Адрес сервиса"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -70,8 +76,10 @@
       "displayOrder": 0,
       "isIndexed": false,
       "isUnique": true,
-      "caption": "Code",
-      "caption_ru": "Код",
+      "caption": {
+        "en": "Code",
+        "ru": "Код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -89,8 +97,10 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Credential reference",
-      "caption_ru": "Ссылка на учётные данные",
+      "caption": {
+        "en": "Credential reference",
+        "ru": "Ссылка на учётные данные"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -107,8 +117,10 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Environment",
-      "caption_ru": "Среда",
+      "caption": {
+        "en": "Environment",
+        "ru": "Среда"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -144,9 +156,11 @@
       "displayOrder": 7,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Mock reject",
-      "caption_ar": "رفض تجريبي",
-      "caption_ru": "Мок: отклонять",
+      "caption": {
+        "en": "Mock reject",
+        "ar": "رفض تجريبي",
+        "ru": "Мок: отклонять"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -163,8 +177,10 @@
       "displayOrder": 7,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Legal entity",
-      "caption_ru": "Юрлицо",
+      "caption": {
+        "en": "Legal entity",
+        "ru": "Юрлицо"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -181,8 +197,10 @@
       "displayOrder": 8,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Max retries",
-      "caption_ru": "Попыток доставки",
+      "caption": {
+        "en": "Max retries",
+        "ru": "Попыток доставки"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -199,8 +217,10 @@
       "displayOrder": 9,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Status",
-      "caption_ru": "Состояние",
+      "caption": {
+        "en": "Status",
+        "ru": "Состояние"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -217,8 +237,10 @@
       "displayOrder": 10,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Timeout, s",
-      "caption_ru": "Таймаут, с",
+      "caption": {
+        "en": "Timeout, s",
+        "ru": "Таймаут, с"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

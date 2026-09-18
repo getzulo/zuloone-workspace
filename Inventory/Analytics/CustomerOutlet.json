@@ -1,9 +1,11 @@
 {
   "kind": "Analytic",
   "object": {
-    "caption": "Outlet",
-    "caption_ru": "Торговая точка",
-    "caption_uk": "Торгова точка",
+    "caption": {
+      "en": "Outlet",
+      "ru": "Торговая точка",
+      "uk": "Торгова точка"
+    },
     "edtMetaId": "91560c1f-7be1-40df-a1e4-e65eaa794958",
     "description": "Reusable analytic over CustomerOutlet. Contracts are signed with the outlet, not the customer card.",
     "metaId": "b7786ebf-8e36-4cb1-bcc3-fb493c5feb80",

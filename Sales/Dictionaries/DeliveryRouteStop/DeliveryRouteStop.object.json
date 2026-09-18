@@ -1,10 +1,12 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Route stops",
-    "caption_ar": "محطات المسار",
-    "caption_ru": "Остановки маршрута",
-    "caption_uk": "Зупинки маршруту",
+    "caption": {
+      "en": "Route stops",
+      "ar": "محطات المسار",
+      "ru": "Остановки маршрута",
+      "uk": "Зупинки маршруту"
+    },
     "description": "Ordered outlet on a delivery route.",
     "isLogged": true,
     "isHierarchical": false,
@@ -34,10 +36,12 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Dwell, min",
-      "caption_ar": "الدقائق",
-      "caption_ru": "Стоянка, мин",
-      "caption_uk": "Стоянка, хв",
+      "caption": {
+        "en": "Dwell, min",
+        "ar": "الدقائق",
+        "ru": "Стоянка, мин",
+        "uk": "Стоянка, хв"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -56,8 +60,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_uk": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -74,10 +80,12 @@
       "displayOrder": 7,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Disabled",
-      "caption_ar": "معطّل",
-      "caption_ru": "Отключена",
-      "caption_uk": "Вимкнено",
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключена",
+        "uk": "Вимкнено"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -94,10 +102,12 @@
       "displayOrder": 3,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Outlet",
-      "caption_ar": "نقطة البيع",
-      "caption_ru": "Точка",
-      "caption_uk": "Точка",
+      "caption": {
+        "en": "Outlet",
+        "ar": "نقطة البيع",
+        "ru": "Точка",
+        "uk": "Точка"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -114,10 +124,12 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Route",
-      "caption_ar": "المسار",
-      "caption_ru": "Маршрут",
-      "caption_uk": "Маршрут",
+      "caption": {
+        "en": "Route",
+        "ar": "المسار",
+        "ru": "Маршрут",
+        "uk": "Маршрут"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -134,10 +146,12 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Sequence",
-      "caption_ar": "الترتيب",
-      "caption_ru": "Порядок",
-      "caption_uk": "Порядок",
+      "caption": {
+        "en": "Sequence",
+        "ar": "الترتيب",
+        "ru": "Порядок",
+        "uk": "Порядок"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -154,10 +168,12 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Window from, min",
-      "caption_ar": "من دقيقة",
-      "caption_ru": "Окно с, мин",
-      "caption_uk": "Вікно з, хв",
+      "caption": {
+        "en": "Window from, min",
+        "ar": "من دقيقة",
+        "ru": "Окно с, мин",
+        "uk": "Вікно з, хв"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -174,10 +190,12 @@
       "displayOrder": 6,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Window to, min",
-      "caption_ar": "إلى دقيقة",
-      "caption_ru": "Окно по, мин",
-      "caption_uk": "Вікно по, хв",
+      "caption": {
+        "en": "Window to, min",
+        "ar": "إلى دقيقة",
+        "ru": "Окно по, мин",
+        "uk": "Вікно по, хв"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

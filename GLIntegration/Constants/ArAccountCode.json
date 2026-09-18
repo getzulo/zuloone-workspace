@@ -1,8 +1,10 @@
 {
   "kind": "GlobalConstant",
   "object": {
-    "caption": "AR account code",
-    "caption_ru": "Код счёта дебиторки",
+    "caption": {
+      "en": "AR account code",
+      "ru": "Код счёта дебиторки"
+    },
     "groupMetaId": "8c2e5f49-1b7a-4d3c-8f0e-6a9b2d5c7f30",
     "constantType": "String",
     "stringValue": "1200",

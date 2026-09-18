@@ -2,10 +2,12 @@
   "kind": "Menu",
   "items": [
     {
-      "caption": "Common",
-      "caption_ar": "عام",
-      "caption_ru": "Общие",
-      "caption_uk": "Загальні",
+      "caption": {
+        "en": "Common",
+        "ar": "عام",
+        "ru": "Общие",
+        "uk": "Загальні"
+      },
       "displayOrder": 0,
       "icon": "fluent-color:globe-24",
       "targetType": "Group",
@@ -14,10 +16,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Dictionaries",
-      "caption_ar": "القوائم المرجعية",
-      "caption_ru": "Справочники",
-      "caption_uk": "Довідники",
+      "caption": {
+        "en": "Dictionaries",
+        "ar": "القوائم المرجعية",
+        "ru": "Справочники",
+        "uk": "Довідники"
+      },
       "parentMetaId": "ee56f9bb-66b6-43fd-9378-6f9d453374c4",
       "displayOrder": 0,
       "icon": "fluent-color:database-48",
@@ -27,9 +31,11 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Settings",
-      "caption_ru": "Настройки",
-      "caption_uk": "Налаштування",
+      "caption": {
+        "en": "Settings",
+        "ru": "Настройки",
+        "uk": "Налаштування"
+      },
       "parentMetaId": "ee56f9bb-66b6-43fd-9378-6f9d453374c4",
       "displayOrder": 1,
       "icon": "fluent-color:settings-48",
@@ -39,10 +45,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Common settings",
-      "caption_ar": "الإعدادات العامة",
-      "caption_ru": "Общие настройки",
-      "caption_uk": "Загальні налаштування",
+      "caption": {
+        "en": "Common settings",
+        "ar": "الإعدادات العامة",
+        "ru": "Общие настройки",
+        "uk": "Загальні налаштування"
+      },
       "parentMetaId": "cf5e80d1-e7e5-508c-82bf-40e67a1c59c8",
       "displayOrder": 0,
       "icon": "fluent-color:settings-48",
@@ -53,10 +61,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Countries",
-      "caption_ar": "الدول",
-      "caption_ru": "Страны",
-      "caption_uk": "Країни",
+      "caption": {
+        "en": "Countries",
+        "ar": "الدول",
+        "ru": "Страны",
+        "uk": "Країни"
+      },
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 1,
       "icon": "fluent-color:globe-24",
@@ -67,10 +77,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Regions",
-      "caption_ar": "المناطق",
-      "caption_ru": "Регионы",
-      "caption_uk": "Регіони",
+      "caption": {
+        "en": "Regions",
+        "ar": "المناطق",
+        "ru": "Регионы",
+        "uk": "Регіони"
+      },
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 2,
       "icon": "fluent-color:planet-32",
@@ -81,10 +93,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Cities",
-      "caption_ar": "المدن",
-      "caption_ru": "Города",
-      "caption_uk": "Міста",
+      "caption": {
+        "en": "Cities",
+        "ar": "المدن",
+        "ru": "Города",
+        "uk": "Міста"
+      },
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 3,
       "icon": "fluent-color:building-home-32",
@@ -95,10 +109,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Addresses",
-      "caption_ar": "العناوين",
-      "caption_ru": "Адреса",
-      "caption_uk": "Адреси",
+      "caption": {
+        "en": "Addresses",
+        "ar": "العناوين",
+        "ru": "Адреса",
+        "uk": "Адреси"
+      },
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 4,
       "icon": "fluent-color:location-ripple-24",
@@ -109,10 +125,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Units of measure",
-      "caption_ar": "وحدات القياس",
-      "caption_ru": "Единицы измерения",
-      "caption_uk": "Одиниці виміру",
+      "caption": {
+        "en": "Units of measure",
+        "ar": "وحدات القياس",
+        "ru": "Единицы измерения",
+        "uk": "Одиниці виміру"
+      },
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 5,
       "icon": "fluent-color:gauge-32",
@@ -123,10 +141,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Currencies",
-      "caption_ar": "العملات",
-      "caption_ru": "Валюты",
-      "caption_uk": "Валюти",
+      "caption": {
+        "en": "Currencies",
+        "ar": "العملات",
+        "ru": "Валюты",
+        "uk": "Валюти"
+      },
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 6,
       "icon": "fluent-color:coin-multiple-48",
@@ -137,9 +157,11 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Unit classes",
-      "caption_ru": "Виды величин",
-      "caption_uk": "Види величин",
+      "caption": {
+        "en": "Unit classes",
+        "ru": "Виды величин",
+        "uk": "Види величин"
+      },
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 7,
       "icon": "fluent-color:apps-list-32",
@@ -150,10 +172,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Gender",
-      "caption_ar": "الجنس",
-      "caption_ru": "Пол",
-      "caption_uk": "Стать",
+      "caption": {
+        "en": "Gender",
+        "ar": "الجنس",
+        "ru": "Пол",
+        "uk": "Стать"
+      },
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 8,
       "icon": "fluent-color:diversity-48",
@@ -164,10 +188,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Payment terms",
-      "caption_ar": "شروط الدفع",
-      "caption_ru": "Условия оплаты",
-      "caption_uk": "Умови оплати",
+      "caption": {
+        "en": "Payment terms",
+        "ar": "شروط الدفع",
+        "ru": "Условия оплаты",
+        "uk": "Умови оплати"
+      },
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 9,
       "icon": "fluent-color:clock-48",
@@ -178,10 +204,12 @@
       "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
     },
     {
-      "caption": "Delivery terms",
-      "caption_ar": "شروط التسليم",
-      "caption_ru": "Условия поставки",
-      "caption_uk": "Умови постачання",
+      "caption": {
+        "en": "Delivery terms",
+        "ar": "شروط التسليم",
+        "ru": "Условия поставки",
+        "uk": "Умови постачання"
+      },
       "parentMetaId": "166b3f67-1af4-425f-95d1-8731c9b8fe79",
       "displayOrder": 10,
       "icon": "fluent-color:vehicle-truck-48",

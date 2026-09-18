@@ -1,9 +1,11 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Production order",
-    "caption_ar": "الإنتاج الأمر",
-    "caption_ru": "Производственный заказ",
+    "caption": {
+      "en": "Production order",
+      "ar": "الإنتاج الأمر",
+      "ru": "Производственный заказ"
+    },
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "5e2f4a9d-7c1b-4d3e-9f6a-4b8c9d5e0f30",
@@ -22,9 +24,11 @@
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "fieldName": "BaseQuantity",
-      "caption": "Qty in base unit",
-      "caption_ar": "الكمية بالوحدة الأساسية",
-      "caption_ru": "Количество в базовой единице",
+      "caption": {
+        "en": "Qty in base unit",
+        "ar": "الكمية بالوحدة الأساسية",
+        "ru": "Количество в базовой единице"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isSystem": false,
       "isRequired": false,
@@ -41,9 +45,11 @@
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -61,9 +67,11 @@
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "fieldName": "Location",
-      "caption": "Location",
-      "caption_ar": "الموقع",
-      "caption_ru": "Ячейка",
+      "caption": {
+        "en": "Location",
+        "ar": "الموقع",
+        "ru": "Ячейка"
+      },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
       "isRequired": true,
@@ -79,9 +87,11 @@
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "fieldName": "Product",
-      "caption": "Product",
-      "caption_ar": "المنتج",
-      "caption_ru": "Изделие",
+      "caption": {
+        "en": "Product",
+        "ar": "المنتج",
+        "ru": "Изделие"
+      },
       "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
       "isSystem": false,
       "isRequired": true,
@@ -97,9 +107,11 @@
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "fieldName": "Quantity",
-      "caption": "Quantity",
-      "caption_ar": "الكمية",
-      "caption_ru": "Количество",
+      "caption": {
+        "en": "Quantity",
+        "ar": "الكمية",
+        "ru": "Количество"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isSystem": false,
       "isRequired": true,
@@ -118,9 +130,11 @@
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "fieldName": "Unit",
-      "caption": "Unit",
-      "caption_ar": "الوحدة",
-      "caption_ru": "Единица",
+      "caption": {
+        "en": "Unit",
+        "ar": "الوحدة",
+        "ru": "Единица"
+      },
       "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
       "isSystem": false,
       "isRequired": false,
@@ -138,11 +152,15 @@
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "name": "Draft",
-      "caption": "Draft",
-      "caption_ar": "مسودة",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة"
+      },
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -154,8 +172,10 @@
       "name": "Finished",
       "caption": "Finished",
       "subtypeValue": "Finished",
-      "subtypeCaption": "Finished",
-      "subtypeCaption_ru": "Выпущено",
+      "subtypeCaption": {
+        "en": "Finished",
+        "ru": "Выпущено"
+      },
       "displayOrder": 3,
       "isInitial": false,
       "isReadOnly": true,
@@ -165,12 +185,16 @@
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "name": "Released",
-      "caption": "Released",
-      "caption_ar": "أُطلق",
+      "caption": {
+        "en": "Released",
+        "ar": "أُطلق"
+      },
       "subtypeValue": "Released",
-      "subtypeCaption": "Released",
-      "subtypeCaption_ar": "قيد التنفيذ",
-      "subtypeCaption_ru": "В работе",
+      "subtypeCaption": {
+        "en": "Released",
+        "ar": "قيد التنفيذ",
+        "ru": "В работе"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": false,

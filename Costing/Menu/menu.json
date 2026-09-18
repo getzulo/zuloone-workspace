@@ -2,10 +2,12 @@
   "kind": "Menu",
   "items": [
     {
-      "caption": "Costing",
-      "caption_ar": "التكلفة",
-      "caption_ru": "Себестоимость",
-      "caption_uk": "Собівартість",
+      "caption": {
+        "en": "Costing",
+        "ar": "التكلفة",
+        "ru": "Себестоимость",
+        "uk": "Собівартість"
+      },
       "displayOrder": 6,
       "icon": "fluent-color:gauge-32",
       "targetType": "Group",
@@ -14,9 +16,11 @@
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     },
     {
-      "caption": "Registers",
-      "caption_ru": "Итоги",
-      "caption_uk": "Підсумки",
+      "caption": {
+        "en": "Registers",
+        "ru": "Итоги",
+        "uk": "Підсумки"
+      },
       "parentMetaId": "2d5a9c30-6f1e-4b4c-9d0a-3e6f9b2c5d10",
       "displayOrder": 0,
       "icon": "fluent-color:table-48",
@@ -26,9 +30,11 @@
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     },
     {
-      "caption": "Settings",
-      "caption_ru": "Настройки",
-      "caption_uk": "Налаштування",
+      "caption": {
+        "en": "Settings",
+        "ru": "Настройки",
+        "uk": "Налаштування"
+      },
       "parentMetaId": "2d5a9c30-6f1e-4b4c-9d0a-3e6f9b2c5d10",
       "displayOrder": 1,
       "icon": "fluent-color:settings-48",
@@ -38,10 +44,12 @@
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     },
     {
-      "caption": "Costing settings",
-      "caption_ar": "إعدادات التكلفة",
-      "caption_ru": "Настройки себестоимости",
-      "caption_uk": "Налаштування собівартості",
+      "caption": {
+        "en": "Costing settings",
+        "ar": "إعدادات التكلفة",
+        "ru": "Настройки себестоимости",
+        "uk": "Налаштування собівартості"
+      },
       "parentMetaId": "5e6148f3-d77e-55c2-89a8-cd4e92a6f34e",
       "displayOrder": 0,
       "icon": "fluent-color:data-pie-32",
@@ -52,10 +60,12 @@
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     },
     {
-      "caption": "Inventory value",
-      "caption_ar": "قيمة المخزون",
-      "caption_ru": "Стоимость запасов",
-      "caption_uk": "Вартість запасів",
+      "caption": {
+        "en": "Inventory value",
+        "ar": "قيمة المخزون",
+        "ru": "Стоимость запасов",
+        "uk": "Вартість запасів"
+      },
       "parentMetaId": "3e6b0d41-7a2f-4c5d-8e1b-4f7a0c3d6e20",
       "displayOrder": 0,
       "icon": "fluent-color:vault-24",

@@ -2,10 +2,12 @@
   "kind": "TablePartType",
   "object": {
     "className": "SalesInvoiceLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ar": "السطر",
-    "caption_ru": "Строки",
-    "caption_uk": "Рядки",
+    "caption": {
+      "en": "Lines",
+      "ar": "السطر",
+      "ru": "Строки",
+      "uk": "Рядки"
+    },
     "tableName": "TP_SalesInvoiceLines",
     "softDeletion": false,
     "isLogged": false,
@@ -17,10 +19,12 @@
     {
       "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
       "fieldName": "BaseQuantity",
-      "caption": "Qty in base unit",
-      "caption_ar": "الكمية بالوحدة الأساسية",
-      "caption_ru": "Количество в базовой единице",
-      "caption_uk": "Кількість у базовій одиниці",
+      "caption": {
+        "en": "Qty in base unit",
+        "ar": "الكمية بالوحدة الأساسية",
+        "ru": "Количество в базовой единице",
+        "uk": "Кількість у базовій одиниці"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": false,
       "isVisible": false,
@@ -36,10 +40,12 @@
     {
       "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
       "fieldName": "Item",
-      "caption": "Item",
-      "caption_ar": "الصنف",
-      "caption_ru": "Товар",
-      "caption_uk": "Номенклатура",
+      "caption": {
+        "en": "Item",
+        "ar": "الصنف",
+        "ru": "Товар",
+        "uk": "Номенклатура"
+      },
       "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
       "isRequired": true,
       "isVisible": true,
@@ -57,10 +63,12 @@
     {
       "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
       "fieldName": "Quantity",
-      "caption": "Quantity",
-      "caption_ar": "الكمية",
-      "caption_ru": "Количество",
-      "caption_uk": "Кількість",
+      "caption": {
+        "en": "Quantity",
+        "ar": "الكمية",
+        "ru": "Количество",
+        "uk": "Кількість"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": true,
       "isVisible": true,
@@ -78,10 +86,12 @@
     {
       "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
       "fieldName": "Unit",
-      "caption": "Unit",
-      "caption_ar": "الوحدة",
-      "caption_ru": "Единица",
-      "caption_uk": "Одиниця",
+      "caption": {
+        "en": "Unit",
+        "ar": "الوحدة",
+        "ru": "Единица",
+        "uk": "Одиниця"
+      },
       "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
       "isRequired": false,
       "isVisible": true,
@@ -99,10 +109,12 @@
     {
       "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
       "fieldName": "UnitPrice",
-      "caption": "Unit price",
-      "caption_ar": "سعر الوحدة",
-      "caption_ru": "Цена",
-      "caption_uk": "Ціна",
+      "caption": {
+        "en": "Unit price",
+        "ar": "سعر الوحدة",
+        "ru": "Цена",
+        "uk": "Ціна"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,
@@ -117,10 +129,12 @@
     {
       "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
       "fieldName": "PriceExplanation",
-      "caption": "Price origin",
-      "caption_ar": "مصدر السعر",
-      "caption_ru": "Откуда цена",
-      "caption_uk": "Звідки ціна",
+      "caption": {
+        "en": "Price origin",
+        "ar": "مصدر السعر",
+        "ru": "Откуда цена",
+        "uk": "Звідки ціна"
+      },
       "baseType": "String",
       "length": 500,
       "isRequired": false,

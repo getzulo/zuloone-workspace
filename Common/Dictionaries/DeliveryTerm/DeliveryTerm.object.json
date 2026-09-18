@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Delivery terms",
-    "caption_ar": "شروط التسليم",
-    "caption_ru": "Условия поставки",
+    "caption": {
+      "en": "Delivery terms",
+      "ar": "شروط التسليم",
+      "ru": "Условия поставки"
+    },
     "description": "Incoterms of the deal (EXW, FOB, DAP…). Global Core, not a country pack.",
     "isLogged": false,
     "isHierarchical": false,
@@ -34,9 +36,11 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": true,
-      "caption": "Code",
-      "caption_ar": "الكود",
-      "caption_ru": "Код",
+      "caption": {
+        "en": "Code",
+        "ar": "الكود",
+        "ru": "Код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -73,9 +77,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,

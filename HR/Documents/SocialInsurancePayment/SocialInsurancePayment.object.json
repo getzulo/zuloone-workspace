@@ -1,8 +1,10 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Social insurance payment",
-    "caption_ru": "Платёж в фонд соцстраха",
+    "caption": {
+      "en": "Social insurance payment",
+      "ru": "Платёж в фонд соцстраха"
+    },
     "description": "Погашение обязательства перед фондом соцстраха: отдельный документ, а не подтип начисления — начисленные взносы и удержание у работника остаются на месте. Зеркало PayrollPayment по зарплате и VendorPayment по кредиторке.",
     "isLogged": false,
     "isCloneable": true,
@@ -22,8 +24,10 @@
     {
       "documentTypeMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
       "fieldName": "Division",
-      "caption": "Division",
-      "caption_ru": "Подразделение",
+      "caption": {
+        "en": "Division",
+        "ru": "Подразделение"
+      },
       "edtMetaId": "ff85f4a4-ab90-41f8-9bf9-32367aab94a1",
       "isSystem": false,
       "isRequired": true,
@@ -39,9 +43,11 @@
     {
       "documentTypeMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -63,8 +69,10 @@
       "name": "Draft",
       "caption": "Draft",
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -76,8 +84,10 @@
       "name": "Paid",
       "caption": "Paid",
       "subtypeValue": "Paid",
-      "subtypeCaption": "Paid",
-      "subtypeCaption_ru": "Оплачено",
+      "subtypeCaption": {
+        "en": "Paid",
+        "ru": "Оплачено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,

@@ -1,9 +1,11 @@
 {
   "kind": "Analytic",
   "object": {
-    "caption": "Gender",
-    "caption_ar": "الجنس",
-    "caption_ru": "Пол",
+    "caption": {
+      "en": "Gender",
+      "ar": "الجنس",
+      "ru": "Пол"
+    },
     "edtMetaId": "356aca90-6559-47b5-8941-302322871bbf",
     "description": "Reusable analytic over the Gender dictionary",
     "metaId": "582dbe62-8a22-4789-8e11-099f885dcdbe",

@@ -1,9 +1,11 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Payroll payment",
-    "caption_ar": "الرواتب الدفع",
-    "caption_ru": "Выплата ФОТ",
+    "caption": {
+      "en": "Payroll payment",
+      "ar": "الرواتب الدفع",
+      "ru": "Выплата ФОТ"
+    },
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "b4ab45db-58f1-4a2e-99c8-ea5756a57a67",
@@ -22,9 +24,11 @@
     {
       "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -46,8 +50,10 @@
       "name": "Paid",
       "caption": "Paid",
       "subtypeValue": "Paid",
-      "subtypeCaption": "Paid",
-      "subtypeCaption_ru": "Выплачено",
+      "subtypeCaption": {
+        "en": "Paid",
+        "ru": "Выплачено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,
@@ -57,11 +63,15 @@
     {
       "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
       "name": "Draft",
-      "caption": "Draft",
-      "caption_ar": "مسودة",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة"
+      },
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,

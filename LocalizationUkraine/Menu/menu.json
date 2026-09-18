@@ -2,9 +2,11 @@
   "kind": "Menu",
   "items": [
     {
-      "caption": "Ukraine",
-      "caption_ru": "Украина",
-      "caption_uk": "Україна",
+      "caption": {
+        "en": "Ukraine",
+        "ru": "Украина",
+        "uk": "Україна"
+      },
       "displayOrder": 12,
       "icon": "fluent-color:building-government-32",
       "targetType": "Group",
@@ -13,9 +15,11 @@
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     },
     {
-      "caption": "Registers",
-      "caption_ru": "Итоги",
-      "caption_uk": "Підсумки",
+      "caption": {
+        "en": "Registers",
+        "ru": "Итоги",
+        "uk": "Підсумки"
+      },
       "parentMetaId": "b9b14276-a8a9-400a-beb2-a01c58334a14",
       "displayOrder": 0,
       "icon": "fluent-color:table-48",
@@ -25,9 +29,11 @@
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     },
     {
-      "caption": "Settings",
-      "caption_ru": "Настройки",
-      "caption_uk": "Налаштування",
+      "caption": {
+        "en": "Settings",
+        "ru": "Настройки",
+        "uk": "Налаштування"
+      },
       "parentMetaId": "b9b14276-a8a9-400a-beb2-a01c58334a14",
       "displayOrder": 1,
       "icon": "fluent-color:settings-48",
@@ -37,9 +43,11 @@
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     },
     {
-      "caption": "Ukraine settings",
-      "caption_ru": "Настройки Украины",
-      "caption_uk": "Налаштування України",
+      "caption": {
+        "en": "Ukraine settings",
+        "ru": "Настройки Украины",
+        "uk": "Налаштування України"
+      },
       "parentMetaId": "d6c936fa-5987-4df4-8031-162b451b174f",
       "displayOrder": 0,
       "icon": "fluent-color:building-government-32",
@@ -50,9 +58,11 @@
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     },
     {
-      "caption": "Ukraine VAT payable",
-      "caption_ru": "ПДВ к уплате",
-      "caption_uk": "ПДВ до сплати",
+      "caption": {
+        "en": "Ukraine VAT payable",
+        "ru": "ПДВ к уплате",
+        "uk": "ПДВ до сплати"
+      },
       "parentMetaId": "cddd5022-8771-48f0-a706-6fc04e1ceded",
       "displayOrder": 0,
       "icon": "fluent-color:receipt-32",

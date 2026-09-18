@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Confirm pick",
-    "caption_ar": "تأكيد الانتقاء",
-    "caption_ru": "Подтвердить отбор",
+    "caption": {
+      "en": "Confirm pick",
+      "ar": "تأكيد الانتقاء",
+      "ru": "Подтвердить отбор"
+    },
     "scriptMetaId": "4fc30fae-894a-4a99-a70d-2d04057d9019",
     "parameterMode": "None",
     "displayOrder": 1,

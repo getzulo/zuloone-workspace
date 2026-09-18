@@ -1,8 +1,10 @@
 {
   "kind": "Analytic",
   "object": {
-    "caption": "Store",
-    "caption_ru": "Склад",
+    "caption": {
+      "en": "Store",
+      "ru": "Склад"
+    },
     "edtMetaId": "0ef2de9a-0838-4472-9570-c709881b2be1",
     "description": "Reusable analytic over the Store dictionary",
     "metaId": "e610aa2e-d744-438b-8829-7c08f06a69c0",

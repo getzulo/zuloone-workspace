@@ -1,10 +1,12 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Issue invoice",
-    "caption_ar": "إصدار الفاتورة",
-    "caption_ru": "Выставить счёт",
-    "caption_uk": "Виставити рахунок",
+    "caption": {
+      "en": "Issue invoice",
+      "ar": "إصدار الفاتورة",
+      "ru": "Выставить счёт",
+      "uk": "Виставити рахунок"
+    },
     "scriptMetaId": "1fbe2e3d-cdf9-4138-a85e-a30a5a243eb9",
     "parameterMode": "None",
     "displayOrder": 1,

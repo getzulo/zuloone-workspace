@@ -1,10 +1,12 @@
 {
   "kind": "Register",
   "object": {
-    "caption": "Agent GPS log",
-    "caption_ar": "سجل مواقع الوكيل",
-    "caption_ru": "GPS-трек агента",
-    "caption_uk": "GPS-трек агента",
+    "caption": {
+      "en": "Agent GPS log",
+      "ar": "سجل مواقع الوكيل",
+      "ru": "GPS-трек агента",
+      "uk": "GPS-трек агента"
+    },
     "description": "Регистр сведений: точка трека агента на момент recordedAt (Period). Пишется фоновой отправкой SubmitGpsTrack после StartShift.",
     "isObsolete": false,
     "iconName": "fluent-color:location-ripple-24",
@@ -22,10 +24,12 @@
     {
       "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
       "fieldName": "Agent",
-      "caption": "Agent",
-      "caption_ar": "الوكيل",
-      "caption_ru": "Агент",
-      "caption_uk": "Агент",
+      "caption": {
+        "en": "Agent",
+        "ar": "الوكيل",
+        "ru": "Агент",
+        "uk": "Агент"
+      },
       "edtMetaId": "735f03b4-f08e-4cf4-ac2c-52a065210a96",
       "isOperational": true,
       "isInformational": false,
@@ -41,10 +45,12 @@
     {
       "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
       "fieldName": "Accuracy",
-      "caption": "Accuracy, m",
-      "caption_ar": "الدقة",
-      "caption_ru": "Точность, м",
-      "caption_uk": "Точність, м",
+      "caption": {
+        "en": "Accuracy, m",
+        "ar": "الدقة",
+        "ru": "Точность, м",
+        "uk": "Точність, м"
+      },
       "isOperational": false,
       "edtMetaId": "c90ab8af-f4ee-474f-b4ef-00fbbf316a56",
       "displayOrder": 3,
@@ -55,10 +61,12 @@
     {
       "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
       "fieldName": "Battery",
-      "caption": "Battery, %",
-      "caption_ar": "البطارية",
-      "caption_ru": "Заряд, %",
-      "caption_uk": "Заряд, %",
+      "caption": {
+        "en": "Battery, %",
+        "ar": "البطارية",
+        "ru": "Заряд, %",
+        "uk": "Заряд, %"
+      },
       "isOperational": false,
       "edtMetaId": "c4ab1425-6244-456f-8458-61b2506a6ea8",
       "displayOrder": 5,
@@ -69,10 +77,12 @@
     {
       "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
       "fieldName": "Lat",
-      "caption": "Latitude",
-      "caption_ar": "خط العرض",
-      "caption_ru": "Широта",
-      "caption_uk": "Широта",
+      "caption": {
+        "en": "Latitude",
+        "ar": "خط العرض",
+        "ru": "Широта",
+        "uk": "Широта"
+      },
       "isOperational": true,
       "edtMetaId": "c90ab8af-f4ee-474f-b4ef-00fbbf316a56",
       "displayOrder": 1,
@@ -83,10 +93,12 @@
     {
       "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
       "fieldName": "Lng",
-      "caption": "Longitude",
-      "caption_ar": "خط الطول",
-      "caption_ru": "Долгота",
-      "caption_uk": "Довгота",
+      "caption": {
+        "en": "Longitude",
+        "ar": "خط الطول",
+        "ru": "Долгота",
+        "uk": "Довгота"
+      },
       "isOperational": true,
       "edtMetaId": "c90ab8af-f4ee-474f-b4ef-00fbbf316a56",
       "displayOrder": 2,
@@ -97,10 +109,12 @@
     {
       "registerMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
       "fieldName": "Speed",
-      "caption": "Speed",
-      "caption_ar": "السرعة",
-      "caption_ru": "Скорость",
-      "caption_uk": "Швидкість",
+      "caption": {
+        "en": "Speed",
+        "ar": "السرعة",
+        "ru": "Скорость",
+        "uk": "Швидкість"
+      },
       "isOperational": false,
       "edtMetaId": "c90ab8af-f4ee-474f-b4ef-00fbbf316a56",
       "displayOrder": 4,

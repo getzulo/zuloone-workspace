@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Costing settings",
-    "caption_ru": "Настройки модуля",
+    "caption": {
+      "en": "Costing settings",
+      "ru": "Настройки модуля"
+    },
     "description": "Одиночный настроечный справочник модуля Costing (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -31,8 +33,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Costing method (AVG/FIFO)",
-      "caption_ru": "Метод себестоимости (AVG/FIFO)",
+      "caption": {
+        "en": "Costing method (AVG/FIFO)",
+        "ru": "Метод себестоимости (AVG/FIFO)"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -68,8 +72,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Round costs",
-      "caption_ru": "Округлять себестоимость",
+      "caption": {
+        "en": "Round costs",
+        "ru": "Округлять себестоимость"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

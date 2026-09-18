@@ -1,9 +1,11 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Tax return",
-    "caption_ar": "الإقرار الضريبي",
-    "caption_ru": "Налоговая декларация",
+    "caption": {
+      "en": "Tax return",
+      "ar": "الإقرار الضريبي",
+      "ru": "Налоговая декларация"
+    },
     "isLogged": true,
     "isCloneable": false,
     "numberSequenceMetaId": "114b9d15-5fbb-4d32-bfb0-e4931ce10a2a",
@@ -22,9 +24,11 @@
     {
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -42,9 +46,11 @@
     {
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
       "fieldName": "InputTax",
-      "caption": "Input tax",
-      "caption_ar": "ضريبة المدخلات",
-      "caption_ru": "Налог с покупок (входной)",
+      "caption": {
+        "en": "Input tax",
+        "ar": "ضريبة المدخلات",
+        "ru": "Налог с покупок (входной)"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isSystem": false,
       "isRequired": false,
@@ -60,9 +66,11 @@
     {
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
       "fieldName": "LegalEntity",
-      "caption": "Legal entity",
-      "caption_ar": "الكيان القانوني",
-      "caption_ru": "Юридическое лицо",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юридическое лицо"
+      },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
       "isRequired": true,
@@ -78,9 +86,11 @@
     {
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
       "fieldName": "NetPayable",
-      "caption": "Net payable",
-      "caption_ar": "صافي المستحق",
-      "caption_ru": "К уплате",
+      "caption": {
+        "en": "Net payable",
+        "ar": "صافي المستحق",
+        "ru": "К уплате"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isSystem": false,
       "isRequired": false,
@@ -96,9 +106,11 @@
     {
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
       "fieldName": "OutputTax",
-      "caption": "Output tax",
-      "caption_ar": "ضريبة المخرجات",
-      "caption_ru": "Налог с продаж (выходной)",
+      "caption": {
+        "en": "Output tax",
+        "ar": "ضريبة المخرجات",
+        "ru": "Налог с продаж (выходной)"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isSystem": false,
       "isRequired": false,
@@ -114,9 +126,11 @@
     {
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
       "fieldName": "PeriodFrom",
-      "caption": "Period from",
-      "caption_ar": "الفترة من",
-      "caption_ru": "Период с",
+      "caption": {
+        "en": "Period from",
+        "ar": "الفترة من",
+        "ru": "Период с"
+      },
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": true,
@@ -132,9 +146,11 @@
     {
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
       "fieldName": "PeriodTo",
-      "caption": "Period to",
-      "caption_ar": "الفترة إلى",
-      "caption_ru": "Период по",
+      "caption": {
+        "en": "Period to",
+        "ar": "الفترة إلى",
+        "ru": "Период по"
+      },
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": true,
@@ -153,9 +169,11 @@
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
       "name": "Filed",
       "subtypeValue": "Filed",
-      "subtypeCaption": "Filed",
-      "subtypeCaption_ar": "مقدم",
-      "subtypeCaption_ru": "Сдана",
+      "subtypeCaption": {
+        "en": "Filed",
+        "ar": "مقدم",
+        "ru": "Сдана"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,
@@ -166,9 +184,11 @@
       "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
       "name": "Draft",
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ar": "مسودة",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": false,
       "isReadOnly": false,

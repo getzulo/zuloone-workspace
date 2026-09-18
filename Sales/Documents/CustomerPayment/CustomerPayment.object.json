@@ -1,9 +1,11 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Customer payment",
-    "caption_ru": "Оплата покупателя",
-    "caption_uk": "Оплата покупця",
+    "caption": {
+      "en": "Customer payment",
+      "ru": "Оплата покупателя",
+      "uk": "Оплата покупця"
+    },
     "description": "Погашение дебиторки: отдельный документ, а не подтип счёта — счёт остаётся выставленным, выручка и отгрузка не трогаются. Зеркало выплаты ФОТ в HR.",
     "isLogged": false,
     "isCloneable": true,
@@ -23,10 +25,12 @@
     {
       "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
-      "caption_uk": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер",
+        "uk": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -44,9 +48,11 @@
     {
       "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
       "fieldName": "LegalEntity",
-      "caption": "Legal entity",
-      "caption_ru": "Юрлицо",
-      "caption_uk": "Юрособа",
+      "caption": {
+        "en": "Legal entity",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
       "isRequired": false,
@@ -65,12 +71,16 @@
     {
       "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
       "name": "Draft",
-      "caption": "Draft",
-      "caption_uk": "Чернетка",
+      "caption": {
+        "en": "Draft",
+        "uk": "Чернетка"
+      },
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
-      "subtypeCaption_uk": "Чернетка",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик",
+        "uk": "Чернетка"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -80,12 +90,16 @@
     {
       "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
       "name": "Paid",
-      "caption": "Paid",
-      "caption_uk": "Оплачено",
+      "caption": {
+        "en": "Paid",
+        "uk": "Оплачено"
+      },
       "subtypeValue": "Paid",
-      "subtypeCaption": "Paid",
-      "subtypeCaption_ru": "Оплачено",
-      "subtypeCaption_uk": "Оплачено",
+      "subtypeCaption": {
+        "en": "Paid",
+        "ru": "Оплачено",
+        "uk": "Оплачено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,

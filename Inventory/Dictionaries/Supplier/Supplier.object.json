@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Suppliers",
-    "caption_ar": "الموردين",
-    "caption_ru": "Поставщики",
+    "caption": {
+      "en": "Suppliers",
+      "ar": "الموردين",
+      "ru": "Поставщики"
+    },
     "isLogged": true,
     "isHierarchical": false,
     "numberSequenceMetaId": "ecda9808-a17c-47a9-9109-65d00e8de26d",
@@ -33,9 +35,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Email",
-      "caption_ar": "البريد الإلكتروني",
-      "caption_ru": "Email",
+      "caption": {
+        "en": "Email",
+        "ar": "البريد الإلكتروني",
+        "ru": "Email"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,8 +58,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -73,9 +79,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -93,9 +101,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Phone",
-      "caption_ar": "الهاتف",
-      "caption_ru": "Телефон",
+      "caption": {
+        "en": "Phone",
+        "ar": "الهاتف",
+        "ru": "Телефон"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -113,9 +123,11 @@
       "description": "Тип цены закупки у этого поставщика (базовый или расчётный). Пусто — цена берётся из умолчания товара.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Price type",
-      "caption_ar": "نوع السعر",
-      "caption_ru": "Тип цен",
+      "caption": {
+        "en": "Price type",
+        "ar": "نوع السعر",
+        "ru": "Тип цен"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -133,9 +145,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Tax reg. number",
-      "caption_ar": "رقم التسجيل الضريبي",
-      "caption_ru": "Налоговый номер",
+      "caption": {
+        "en": "Tax reg. number",
+        "ar": "رقم التسجيل الضريبي",
+        "ru": "Налоговый номер"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

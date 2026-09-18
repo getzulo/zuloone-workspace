@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Positions",
-    "caption_ar": "الوظيفة",
-    "caption_ru": "Должности",
+    "caption": {
+      "en": "Positions",
+      "ar": "الوظيفة",
+      "ru": "Должности"
+    },
     "isLogged": false,
     "isHierarchical": false,
     "numberSequenceMetaId": "32f38bfa-eecb-4ed9-be85-08070381dc84",
@@ -32,9 +34,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Hourly rate",
-      "caption_ar": "معدل الأجر بالساعة",
-      "caption_ru": "Ставка в час",
+      "caption": {
+        "en": "Hourly rate",
+        "ar": "معدل الأجر بالساعة",
+        "ru": "Ставка в час"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,8 +57,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,9 +78,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

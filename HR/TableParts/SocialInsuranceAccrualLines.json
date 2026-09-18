@@ -2,8 +2,10 @@
   "kind": "TablePartType",
   "object": {
     "className": "SocialInsuranceAccrualLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ru": "Строки",
+    "caption": {
+      "en": "Lines",
+      "ru": "Строки"
+    },
     "tableName": "TP_SocialInsuranceAccrualLines",
     "softDeletion": false,
     "isLogged": false,
@@ -15,8 +17,10 @@
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
       "fieldName": "ContributoryBase",
-      "caption": "Contributory base",
-      "caption_ru": "База начисления",
+      "caption": {
+        "en": "Contributory base",
+        "ru": "База начисления"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,
@@ -31,8 +35,10 @@
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
       "fieldName": "Employee",
-      "caption": "Employee",
-      "caption_ru": "Сотрудник",
+      "caption": {
+        "en": "Employee",
+        "ru": "Сотрудник"
+      },
       "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
       "isRequired": true,
       "isVisible": true,
@@ -50,8 +56,10 @@
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
       "fieldName": "EmployeeContribution",
-      "caption": "Employee contribution",
-      "caption_ru": "Взнос работника",
+      "caption": {
+        "en": "Employee contribution",
+        "ru": "Взнос работника"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,
@@ -66,8 +74,10 @@
     {
       "tablePartTypeMetaId": "09189f98-6bc1-4235-bd87-f4a83f6ca051",
       "fieldName": "EmployerContribution",
-      "caption": "Employer contribution",
-      "caption_ru": "Взнос работодателя",
+      "caption": {
+        "en": "Employer contribution",
+        "ru": "Взнос работодателя"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,

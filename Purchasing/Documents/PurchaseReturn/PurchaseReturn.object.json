@@ -1,8 +1,10 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Purchase return",
-    "caption_ru": "Возврат поставщику",
+    "caption": {
+      "en": "Purchase return",
+      "ru": "Возврат поставщику"
+    },
     "description": "Товар уходит обратно поставщику: склад −, кредиторка − (нетто). Входной НДС не сторнируется — отдельная кредит-нота закупки, её здесь нет.",
     "isLogged": false,
     "isCloneable": true,
@@ -22,9 +24,11 @@
     {
       "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -42,8 +46,10 @@
     {
       "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
       "fieldName": "Location",
-      "caption": "Return from",
-      "caption_ru": "Ячейка возврата",
+      "caption": {
+        "en": "Return from",
+        "ru": "Ячейка возврата"
+      },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
       "isRequired": true,
@@ -59,8 +65,10 @@
     {
       "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
       "fieldName": "OriginalOrder",
-      "caption": "Original order",
-      "caption_ru": "Исходный заказ",
+      "caption": {
+        "en": "Original order",
+        "ru": "Исходный заказ"
+      },
       "baseType": "Guid",
       "isSystem": false,
       "isRequired": false,
@@ -76,8 +84,10 @@
     {
       "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
       "fieldName": "Supplier",
-      "caption": "Supplier",
-      "caption_ru": "Поставщик",
+      "caption": {
+        "en": "Supplier",
+        "ru": "Поставщик"
+      },
       "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
       "isSystem": false,
       "isRequired": true,
@@ -97,8 +107,10 @@
       "name": "Posted",
       "caption": "Posted",
       "subtypeValue": "Posted",
-      "subtypeCaption": "Posted",
-      "subtypeCaption_ru": "Проведён",
+      "subtypeCaption": {
+        "en": "Posted",
+        "ru": "Проведён"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,
@@ -110,8 +122,10 @@
       "name": "Draft",
       "caption": "Draft",
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,

@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Loyalty tier",
-    "caption_ru": "Уровень лояльности",
+    "caption": {
+      "en": "Loyalty tier",
+      "ru": "Уровень лояльности"
+    },
     "description": "Ladder of loyalty tiers: the accumulated balance decides the tier, the tier decides redemption limits and the standing discount",
     "isLogged": true,
     "isHierarchical": false,
@@ -35,8 +37,10 @@
       "description": "Постоянная скидка уровня (применяется прайсингом)",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Discount, %",
-      "caption_ru": "Скидка, %",
+      "caption": {
+        "en": "Discount, %",
+        "ru": "Скидка, %"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -55,8 +59,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ru": "ID",
+      "caption": {
+        "en": "ID",
+        "ru": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -74,8 +80,10 @@
       "description": "Сколько баллов уровень позволяет погасить одним документом",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Max redemption per document",
-      "caption_ru": "Лимит списания за раз",
+      "caption": {
+        "en": "Max redemption per document",
+        "ru": "Лимит списания за раз"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -93,8 +101,10 @@
       "description": "Накопленный баланс, начиная с которого клиент находится на этом уровне",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Minimum points",
-      "caption_ru": "Порог баллов",
+      "caption": {
+        "en": "Minimum points",
+        "ru": "Порог баллов"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -112,8 +122,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

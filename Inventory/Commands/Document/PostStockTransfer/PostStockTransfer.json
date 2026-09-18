@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Post transfer",
-    "caption_ar": "ترحيل التحويل",
-    "caption_ru": "Провести перемещение",
+    "caption": {
+      "en": "Post transfer",
+      "ar": "ترحيل التحويل",
+      "ru": "Провести перемещение"
+    },
     "scriptMetaId": "6426c979-9277-4617-b4b3-284b49fe455b",
     "parameterMode": "None",
     "displayOrder": 1,

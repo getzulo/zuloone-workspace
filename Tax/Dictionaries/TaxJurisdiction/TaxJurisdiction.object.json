@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Tax jurisdictions",
-    "caption_ar": "الضريبة الولاية القضائية",
-    "caption_ru": "Налоговые юрисдикции",
+    "caption": {
+      "en": "Tax jurisdictions",
+      "ar": "الضريبة الولاية القضائية",
+      "ru": "Налоговые юрисдикции"
+    },
     "description": "Hierarchical jurisdiction (country / region / …)",
     "isLogged": false,
     "isHierarchical": true,
@@ -34,9 +36,11 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": true,
-      "caption": "Code",
-      "caption_ar": "الكود",
-      "caption_ru": "Код",
+      "caption": {
+        "en": "Code",
+        "ar": "الكود",
+        "ru": "Код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,9 +58,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Country code",
-      "caption_ar": "الدولة رمز",
-      "caption_ru": "Код страны",
+      "caption": {
+        "en": "Country code",
+        "ar": "الدولة رمز",
+        "ru": "Код страны"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -75,8 +81,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -93,9 +101,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Level",
-      "caption_ar": "المستوى",
-      "caption_ru": "Уровень",
+      "caption": {
+        "en": "Level",
+        "ar": "المستوى",
+        "ru": "Уровень"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -113,9 +123,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,
@@ -133,8 +145,10 @@
       "description": "System parent reference of the hierarchical dictionary (tree form)",
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Parent",
-      "caption_ar": "الأب",
+      "caption": {
+        "en": "Parent",
+        "ar": "الأب"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

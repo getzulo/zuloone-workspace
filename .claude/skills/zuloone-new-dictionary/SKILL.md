@@ -28,9 +28,11 @@ description: Создать новый справочник ZuloOne в ворк�
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "<English caption>",
-    "caption_ru": "<Русская подпись>",
-    "caption_ar": "<الترجمة العربية>",
+    "caption": {
+      "en": "<English caption>",
+      "ru": "<Русская подпись>",
+      "ar": "<الترجمة العربية>"
+    },
     "description": "",
     "isHierarchical": false,
     "numberSequenceMetaId": "<GUID-серии>",
@@ -42,7 +44,8 @@ description: Создать новый справочник ZuloOne в ворк�
   "fields": [
     {
       "dictionaryMetaId": "<GUID-справочника>",
-      "fieldName": "Name", "name": "Name", "caption": "Name", "caption_ru": "Наименование",
+      "fieldName": "Name", "name": "Name",
+      "caption": { "en": "Name", "ru": "Наименование" },
       "baseType": "String", "length": 256,
       "isRequired": true, "displayOrder": 1, "isVisible": true,
       "metaId": "<GUID-поля>", "modelId": "<GUID модели>"    }
@@ -65,8 +68,9 @@ description: Создать новый справочник ZuloOne в ворк�
 - Ссылка на другой справочник: сначала EDT (шаг 3), затем в поле `edtMetaId`
   вместо `baseType`.
 - Один `fieldName` — один раз.
-- Подписи: `caption` — английский, `caption_ru`/`caption_ar` — переводы
-  (у любого узла с metaId: справочника, поля, пункта меню…).
+- Подписи: `caption` — языковой объект `{ "en": …, "ru": … }`, где `en` база,
+  остальные ключи переводы (у любого узла с metaId: справочника, поля, пункта
+  меню…). Переводов нет — просто строка: `"caption": "Name"`.
 
 ## 2а. Коэффициент, зависящий от другой сущности, — отдельный справочник
 
@@ -219,7 +223,7 @@ public partial class <Имя>EventHandler : TypedDictionaryEventHandler<<Имя>
 
 ```json
 { "kind": "Menu", "items": [
-  { "name": "<Имя>", "caption": "<English>", "caption_ru": "<Русская>", "targetType": "Dictionary",
+  { "name": "<Имя>", "caption": { "en": "<English>", "ru": "<Русская>" }, "targetType": "Dictionary",
     "targetMetaId": "<GUID-справочника>", "parentMetaId": "<GUID подгруппы Dictionaries>",
     "displayOrder": 1, "metaId": "<GUID-пункта>", "modelId": "<GUID модели>" }
 ] }

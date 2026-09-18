@@ -1,9 +1,11 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Stock adjustment",
-    "caption_ar": "المخزون التعديل",
-    "caption_ru": "Корректировка остатков",
+    "caption": {
+      "en": "Stock adjustment",
+      "ar": "المخزون التعديل",
+      "ru": "Корректировка остатков"
+    },
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "54ab1e3a-d460-492a-b2de-8c67dff56c29",
@@ -22,9 +24,11 @@
     {
       "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
       "fieldName": "Cell",
-      "caption": "Cell",
-      "caption_ar": "الموقع",
-      "caption_ru": "Ячейка",
+      "caption": {
+        "en": "Cell",
+        "ar": "الموقع",
+        "ru": "Ячейка"
+      },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
       "isRequired": true,
@@ -40,9 +44,11 @@
     {
       "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -60,9 +66,11 @@
     {
       "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
       "fieldName": "Reason",
-      "caption": "Reason",
-      "caption_ar": "السبب",
-      "caption_ru": "Причина",
+      "caption": {
+        "en": "Reason",
+        "ar": "السبب",
+        "ru": "Причина"
+      },
       "baseType": "String",
       "length": 128,
       "isSystem": false,
@@ -81,11 +89,15 @@
     {
       "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
       "name": "Posted",
-      "caption": "Posted",
-      "caption_ar": "مرسل",
+      "caption": {
+        "en": "Posted",
+        "ar": "مرسل"
+      },
       "subtypeValue": "Posted",
-      "subtypeCaption": "Posted",
-      "subtypeCaption_ru": "Проведено",
+      "subtypeCaption": {
+        "en": "Posted",
+        "ru": "Проведено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": false,
@@ -95,11 +107,15 @@
     {
       "documentTypeMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
       "name": "Draft",
-      "caption": "Draft",
-      "caption_ar": "مسودة",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة"
+      },
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,

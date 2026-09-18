@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Item units",
-    "caption_ru": "Упаковки товара",
+    "caption": {
+      "en": "Item units",
+      "ru": "Упаковки товара"
+    },
     "description": "Во сколько базовых единиц ТОВАРА укладывается одна упаковка: коробка одного товара — 12 штук, другого — 6. Именно поэтому «коробка» не имеет коэффициента как единица измерения: без товара она ничего не значит.",
     "isLogged": true,
     "isHierarchical": false,
@@ -51,8 +53,10 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Item",
-      "caption_ru": "Товар",
+      "caption": {
+        "en": "Item",
+        "ru": "Товар"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,8 +76,10 @@
       "description": "Сколько базовых единиц товара (Item.UnitOfMeasure) содержит одна такая упаковка. Коробка = 12 штук → 12.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Quantity in base unit",
-      "caption_ru": "Количество в базовой единице",
+      "caption": {
+        "en": "Quantity in base unit",
+        "ru": "Количество в базовой единице"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -90,8 +96,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Unit",
-      "caption_ru": "Единица",
+      "caption": {
+        "en": "Unit",
+        "ru": "Единица"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

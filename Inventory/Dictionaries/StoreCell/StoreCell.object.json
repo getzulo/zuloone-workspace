@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Store cells",
-    "caption_ar": "خلايا التخزين",
-    "caption_ru": "Ячейки склада",
+    "caption": {
+      "en": "Store cells",
+      "ar": "خلايا التخزين",
+      "ru": "Ячейки склада"
+    },
     "description": "Bin within a store zone (MIQS StoreCell); addressed by line/rack/shelf/cell. Stock is held per cell; store is derived via StoreZone.Store.",
     "isLogged": false,
     "isHierarchical": false,
@@ -33,9 +35,11 @@
       "displayOrder": 7,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Cell",
-      "caption_ar": "الخلية",
-      "caption_ru": "Ячейка",
+      "caption": {
+        "en": "Cell",
+        "ar": "الخلية",
+        "ru": "Ячейка"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,8 +58,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,9 +78,11 @@
       "displayOrder": 8,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Pickable",
-      "caption_ar": "قابل للانتقاء",
-      "caption_ru": "Отбираемая",
+      "caption": {
+        "en": "Pickable",
+        "ar": "قابل للانتقاء",
+        "ru": "Отбираемая"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -91,9 +99,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Line",
-      "caption_ar": "الصف",
-      "caption_ru": "Ряд",
+      "caption": {
+        "en": "Line",
+        "ar": "الصف",
+        "ru": "Ряд"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -110,9 +120,11 @@
       "displayOrder": 9,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Capacity (max qty)",
-      "caption_ar": "السعة",
-      "caption_ru": "Вместимость",
+      "caption": {
+        "en": "Capacity (max qty)",
+        "ar": "السعة",
+        "ru": "Вместимость"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -130,9 +142,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -149,9 +163,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Rack",
-      "caption_ar": "الرف",
-      "caption_ru": "Стеллаж",
+      "caption": {
+        "en": "Rack",
+        "ar": "الرف",
+        "ru": "Стеллаж"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -168,9 +184,11 @@
       "displayOrder": 6,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Shelf",
-      "caption_ar": "الرف",
-      "caption_ru": "Полка",
+      "caption": {
+        "en": "Shelf",
+        "ar": "الرف",
+        "ru": "Полка"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -187,9 +205,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Zone",
-      "caption_ar": "المنطقة",
-      "caption_ru": "Зона",
+      "caption": {
+        "en": "Zone",
+        "ar": "المنطقة",
+        "ru": "Зона"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -206,9 +226,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Cell type",
-      "caption_ar": "نوع الخلية",
-      "caption_ru": "Тип ячейки",
+      "caption": {
+        "en": "Cell type",
+        "ar": "نوع الخلية",
+        "ru": "Тип ячейки"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

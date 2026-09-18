@@ -1,8 +1,10 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Payroll accrual",
-    "caption_ru": "Начисление ФОТ",
+    "caption": {
+      "en": "Payroll accrual",
+      "ru": "Начисление ФОТ"
+    },
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "5766b3cf-668f-4085-a216-0559bf99e7a9",
@@ -21,9 +23,11 @@
     {
       "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
       "fieldName": "Division",
-      "caption": "Division",
-      "caption_ar": "الفرع",
-      "caption_ru": "Подразделение",
+      "caption": {
+        "en": "Division",
+        "ar": "الفرع",
+        "ru": "Подразделение"
+      },
       "edtMetaId": "ff85f4a4-ab90-41f8-9bf9-32367aab94a1",
       "isSystem": false,
       "isRequired": true,
@@ -39,9 +43,11 @@
     {
       "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -61,11 +67,15 @@
     {
       "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
       "name": "Posted",
-      "caption": "Posted",
-      "caption_ar": "مرسل",
+      "caption": {
+        "en": "Posted",
+        "ar": "مرسل"
+      },
       "subtypeValue": "Posted",
-      "subtypeCaption": "Posted",
-      "subtypeCaption_ru": "Проведено",
+      "subtypeCaption": {
+        "en": "Posted",
+        "ru": "Проведено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,
@@ -75,11 +85,15 @@
     {
       "documentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
       "name": "Draft",
-      "caption": "Draft",
-      "caption_ar": "مسودة",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة"
+      },
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,

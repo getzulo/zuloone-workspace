@@ -2,9 +2,11 @@
   "kind": "TablePartType",
   "object": {
     "className": "PayrollPaymentLinesTablePartRow",
-    "caption": "Payment lines",
-    "caption_ar": "الدفع السطر",
-    "caption_ru": "Строки выплаты",
+    "caption": {
+      "en": "Payment lines",
+      "ar": "الدفع السطر",
+      "ru": "Строки выплаты"
+    },
     "tableName": "TP_PayrollPaymentLines",
     "softDeletion": false,
     "isLogged": false,
@@ -16,9 +18,11 @@
     {
       "tablePartTypeMetaId": "92379308-4a1c-4e8d-9f2b-6c3a7e5d1b40",
       "fieldName": "Amount",
-      "caption": "Amount",
-      "caption_ar": "المبلغ",
-      "caption_ru": "Сумма",
+      "caption": {
+        "en": "Amount",
+        "ar": "المبلغ",
+        "ru": "Сумма"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,
@@ -33,9 +37,11 @@
     {
       "tablePartTypeMetaId": "92379308-4a1c-4e8d-9f2b-6c3a7e5d1b40",
       "fieldName": "Employee",
-      "caption": "Employee",
-      "caption_ar": "الموظف",
-      "caption_ru": "Сотрудник",
+      "caption": {
+        "en": "Employee",
+        "ar": "الموظف",
+        "ru": "Сотрудник"
+      },
       "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
       "isRequired": true,
       "isVisible": true,

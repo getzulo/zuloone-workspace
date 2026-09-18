@@ -1,10 +1,12 @@
 {
   "kind": "Register",
   "object": {
-    "caption": "Mobile command receipt",
-    "caption_ar": "إيصال أوامر الجوال",
-    "caption_ru": "Квитанции мобильных команд",
-    "caption_uk": "Квитанції мобільних команд",
+    "caption": {
+      "en": "Mobile command receipt",
+      "ar": "إيصال أوامر الجوال",
+      "ru": "Квитанции мобильных команд",
+      "uk": "Квитанції мобільних команд"
+    },
     "description": "Регистр сведений идемпотентности: по idempotencyKey хранит действие, статус, сериализованный ответ и созданный объект. Period — момент обработки (UTC). Повтор ключа отдаёт сохранённый ответ.",
     "isObsolete": false,
     "iconName": "fluent-color:phone-checkmark-20",
@@ -22,10 +24,12 @@
     {
       "registerMetaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
       "fieldName": "Key",
-      "caption": "Idempotency key",
-      "caption_ar": "مفتاح التكرار",
-      "caption_ru": "Ключ идемпотентности",
-      "caption_uk": "Ключ ідемпотентності",
+      "caption": {
+        "en": "Idempotency key",
+        "ar": "مفتاح التكرار",
+        "ru": "Ключ идемпотентности",
+        "uk": "Ключ ідемпотентності"
+      },
       "edtMetaId": "52f75637-ea7c-45d6-ae23-0b7a267acd99",
       "isOperational": true,
       "isInformational": false,
@@ -41,10 +45,12 @@
     {
       "registerMetaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
       "fieldName": "Action",
-      "caption": "Action",
-      "caption_ar": "الإجراء",
-      "caption_ru": "Действие",
-      "caption_uk": "Дія",
+      "caption": {
+        "en": "Action",
+        "ar": "الإجراء",
+        "ru": "Действие",
+        "uk": "Дія"
+      },
       "isOperational": true,
       "edtMetaId": "7c47dc3a-c980-4ba8-8933-ece055d30fff",
       "displayOrder": 1,
@@ -55,10 +61,12 @@
     {
       "registerMetaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
       "fieldName": "Entity",
-      "caption": "Entity",
-      "caption_ar": "الكائن",
-      "caption_ru": "Объект",
-      "caption_uk": "Об’єкт",
+      "caption": {
+        "en": "Entity",
+        "ar": "الكائن",
+        "ru": "Объект",
+        "uk": "Об’єкт"
+      },
       "isOperational": false,
       "edtMetaId": "bf220c2e-53d9-4d52-a2d8-10e17a506c33",
       "displayOrder": 4,
@@ -69,10 +77,12 @@
     {
       "registerMetaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
       "fieldName": "Response",
-      "caption": "Response",
-      "caption_ar": "الاستجابة",
-      "caption_ru": "Ответ",
-      "caption_uk": "Відповідь",
+      "caption": {
+        "en": "Response",
+        "ar": "الاستجابة",
+        "ru": "Ответ",
+        "uk": "Відповідь"
+      },
       "isOperational": false,
       "edtMetaId": "7e912476-df65-49bb-940b-d790308f8975",
       "displayOrder": 3,
@@ -83,10 +93,12 @@
     {
       "registerMetaId": "78290c31-5c3a-4d02-91b6-0aedfe6a4a42",
       "fieldName": "Status",
-      "caption": "Status",
-      "caption_ar": "الحالة",
-      "caption_ru": "Статус",
-      "caption_uk": "Статус",
+      "caption": {
+        "en": "Status",
+        "ar": "الحالة",
+        "ru": "Статус",
+        "uk": "Статус"
+      },
       "isOperational": true,
       "edtMetaId": "1a92e85e-a549-4d7e-b32a-8baa9448b6ed",
       "displayOrder": 2,

@@ -1,10 +1,12 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Mark packed",
-    "caption_ar": "تم التعبئة",
-    "caption_ru": "Упаковано",
-    "caption_uk": "Запаковано",
+    "caption": {
+      "en": "Mark packed",
+      "ar": "تم التعبئة",
+      "ru": "Упаковано",
+      "uk": "Запаковано"
+    },
     "scriptMetaId": "b2c3d4e5-f6a7-4b8c-8d9e-1f2a3b4c5d6e",
     "parameterMode": "None",
     "displayOrder": 2,

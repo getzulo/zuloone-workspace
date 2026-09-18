@@ -1,9 +1,11 @@
 {
   "kind": "LinkTable",
   "object": {
-    "caption": "Country currencies",
-    "caption_ar": "عملات الدول",
-    "caption_ru": "Валюты стран",
+    "caption": {
+      "en": "Country currencies",
+      "ar": "عملات الدول",
+      "ru": "Валюты стран"
+    },
     "tableName": "",
     "isKernel": false,
     "isLogged": false,
@@ -15,8 +17,10 @@
     {
       "linkTableMetaId": "cef0123c-0a60-4424-b043-ede12dc69c50",
       "fieldName": "Country",
-      "caption": "Country",
-      "caption_ru": "Страна",
+      "caption": {
+        "en": "Country",
+        "ru": "Страна"
+      },
       "isRequired": false,
       "isPrimaryKey": false,
       "isLogged": false,
@@ -30,8 +34,10 @@
     {
       "linkTableMetaId": "cef0123c-0a60-4424-b043-ede12dc69c50",
       "fieldName": "Currency",
-      "caption": "Currency",
-      "caption_ru": "Валюта",
+      "caption": {
+        "en": "Currency",
+        "ru": "Валюта"
+      },
       "isRequired": false,
       "isPrimaryKey": false,
       "isLogged": false,
@@ -45,8 +51,10 @@
     {
       "linkTableMetaId": "cef0123c-0a60-4424-b043-ede12dc69c50",
       "fieldName": "IsPrimary",
-      "caption": "Primary",
-      "caption_ru": "Основная",
+      "caption": {
+        "en": "Primary",
+        "ru": "Основная"
+      },
       "baseType": "Boolean",
       "isRequired": false,
       "isPrimaryKey": false,

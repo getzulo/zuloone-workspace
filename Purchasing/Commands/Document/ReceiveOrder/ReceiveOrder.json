@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Receive order",
-    "caption_ar": "استلام الطلب",
-    "caption_ru": "Принять товар",
+    "caption": {
+      "en": "Receive order",
+      "ar": "استلام الطلب",
+      "ru": "Принять товар"
+    },
     "scriptMetaId": "1b179511-6b00-431f-a228-30acc99aa0d3",
     "parameterMode": "None",
     "displayOrder": 1,

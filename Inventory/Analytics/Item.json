@@ -1,8 +1,10 @@
 {
   "kind": "Analytic",
   "object": {
-    "caption": "Item",
-    "caption_ru": "Товар",
+    "caption": {
+      "en": "Item",
+      "ru": "Товар"
+    },
     "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
     "description": "Reusable analytic over the Item dictionary (Stock / Cost / Revenue)",
     "metaId": "4384343f-aa55-4cc4-9e0d-9893bfc47fb3",

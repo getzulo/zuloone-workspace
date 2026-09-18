@@ -2,9 +2,11 @@
   "kind": "TablePartType",
   "object": {
     "className": "TaxCalculationLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ar": "السطر",
-    "caption_ru": "Строки",
+    "caption": {
+      "en": "Lines",
+      "ar": "السطر",
+      "ru": "Строки"
+    },
     "tableName": "TP_TaxCalculationLines",
     "softDeletion": false,
     "isLogged": false,
@@ -16,9 +18,11 @@
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
       "fieldName": "Direction",
-      "caption": "Direction",
-      "caption_ar": "الاتجاه",
-      "caption_ru": "Направление",
+      "caption": {
+        "en": "Direction",
+        "ar": "الاتجاه",
+        "ru": "Направление"
+      },
       "edtMetaId": "fa28b007-cf13-48c9-a238-d0117c902ead",
       "isRequired": true,
       "isVisible": true,
@@ -36,8 +40,10 @@
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
       "fieldName": "RateOverridden",
-      "caption": "Rate overridden",
-      "caption_ru": "Ставка вручную",
+      "caption": {
+        "en": "Rate overridden",
+        "ru": "Ставка вручную"
+      },
       "baseType": "Boolean",
       "isRequired": false,
       "isVisible": true,
@@ -52,9 +58,11 @@
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
       "fieldName": "RateValue",
-      "caption": "Rate",
-      "caption_ar": "معدل",
-      "caption_ru": "Ставка",
+      "caption": {
+        "en": "Rate",
+        "ar": "معدل",
+        "ru": "Ставка"
+      },
       "edtMetaId": "713835c7-1701-4c43-9cf7-c754519dc5d4",
       "isRequired": true,
       "isVisible": true,
@@ -69,8 +77,10 @@
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
       "fieldName": "RecoverableAmount",
-      "caption": "Recoverable amount",
-      "caption_ru": "К возмещению",
+      "caption": {
+        "en": "Recoverable amount",
+        "ru": "К возмещению"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": false,
       "isVisible": true,
@@ -85,9 +95,11 @@
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
       "fieldName": "TaxAmount",
-      "caption": "Tax amount",
-      "caption_ar": "الضريبة المبلغ",
-      "caption_ru": "Сумма налога",
+      "caption": {
+        "en": "Tax amount",
+        "ar": "الضريبة المبلغ",
+        "ru": "Сумма налога"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,
@@ -102,8 +114,10 @@
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
       "fieldName": "TaxBase",
-      "caption": "Tax base",
-      "caption_ru": "База",
+      "caption": {
+        "en": "Tax base",
+        "ru": "База"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,
@@ -118,9 +132,11 @@
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
       "fieldName": "TaxCategory",
-      "caption": "Category",
-      "caption_ar": "الفئة",
-      "caption_ru": "Категория",
+      "caption": {
+        "en": "Category",
+        "ar": "الفئة",
+        "ru": "Категория"
+      },
       "edtMetaId": "1c0aa7c2-fb21-42d4-9947-616fccf1cccf",
       "isRequired": false,
       "isVisible": true,
@@ -138,9 +154,11 @@
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
       "fieldName": "TaxCode",
-      "caption": "Tax code",
-      "caption_ar": "الضريبة رمز",
-      "caption_ru": "Налоговый код",
+      "caption": {
+        "en": "Tax code",
+        "ar": "الضريبة رمز",
+        "ru": "Налоговый код"
+      },
       "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
       "isRequired": true,
       "isVisible": true,
@@ -158,8 +176,10 @@
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
       "fieldName": "TaxRate",
-      "caption": "Rate ref",
-      "caption_ru": "Ставка (ссылка)",
+      "caption": {
+        "en": "Rate ref",
+        "ru": "Ставка (ссылка)"
+      },
       "edtMetaId": "43a28d72-d7cc-4042-9176-92690d7f00ed",
       "isRequired": false,
       "isVisible": true,

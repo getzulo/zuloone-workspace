@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "CRM settings",
-    "caption_ru": "Настройки модуля",
+    "caption": {
+      "en": "CRM settings",
+      "ru": "Настройки модуля"
+    },
     "description": "Одиночный настроечный справочник модуля CRM (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -49,8 +51,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Loyalty enabled",
-      "caption_ru": "Лояльность включена",
+      "caption": {
+        "en": "Loyalty enabled",
+        "ru": "Лояльность включена"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -69,8 +73,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Loyalty points per currency unit",
-      "caption_ru": "Баллов за единицу валюты",
+      "caption": {
+        "en": "Loyalty points per currency unit",
+        "ru": "Баллов за единицу валюты"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

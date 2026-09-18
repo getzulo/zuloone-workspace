@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Tax determination rules",
-    "caption_ar": "قواعد تحديد الضريبة",
-    "caption_ru": "Правила определения налога",
+    "caption": {
+      "en": "Tax determination rules",
+      "ar": "قواعد تحديد الضريبة",
+      "ru": "Правила определения налога"
+    },
     "description": "Правило определения налога по контексту сделки: условия — TaxRuleCondition, действия — TaxRuleAction (несколько кодов) либо поле TaxCode, если действий нет. Выбор по дате и приоритету. RateOverride на действии подменяет датированную ставку кода.",
     "isLogged": true,
     "isHierarchical": false,
@@ -34,9 +36,11 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": true,
-      "caption": "Code",
-      "caption_ar": "الكود",
-      "caption_ru": "Код",
+      "caption": {
+        "en": "Code",
+        "ar": "الكود",
+        "ru": "Код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,9 +57,11 @@
       "displayOrder": 7,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Effective from",
-      "caption_ar": "سارٍ من",
-      "caption_ru": "Действует с",
+      "caption": {
+        "en": "Effective from",
+        "ar": "سارٍ من",
+        "ru": "Действует с"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,9 +78,11 @@
       "displayOrder": 8,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Effective to",
-      "caption_ar": "سارٍ إلى",
-      "caption_ru": "Действует по",
+      "caption": {
+        "en": "Effective to",
+        "ar": "سارٍ إلى",
+        "ru": "Действует по"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -93,8 +101,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -112,9 +122,11 @@
       "description": "Выключенное правило движок не рассматривает — не удаляя историю. Поле названо ОТ ОБРАТНОГО (эталон называет его IsActive) нарочно: необязательный Boolean генерится не-nullable, незаполненный признак равен false, и правило с галкой «активно» по умолчанию молча не срабатывало бы. Умолчание обязано быть рабочим.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Disabled",
-      "caption_ar": "معطل",
-      "caption_ru": "Выключено",
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطل",
+        "ru": "Выключено"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -132,9 +144,11 @@
       "description": "Ограничить правило юрисдикцией. Пусто — правило применимо в любой.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Jurisdiction",
-      "caption_ar": "الاختصاص",
-      "caption_ru": "Юрисдикция",
+      "caption": {
+        "en": "Jurisdiction",
+        "ar": "الاختصاص",
+        "ru": "Юрисдикция"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -152,9 +166,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -172,9 +188,11 @@
       "description": "Меньше — раньше. При равном приоритете выигрывает правило с более поздним EffectiveFrom, затем более специфичное (больше условий).",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Priority",
-      "caption_ar": "الأولوية",
-      "caption_ru": "Приоритет",
+      "caption": {
+        "en": "Priority",
+        "ar": "الأولوية",
+        "ru": "Приоритет"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -192,9 +210,11 @@
       "description": "Ограничить правило одним налогом. Пусто — правило применимо к любому.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Tax",
-      "caption_ar": "الضريبة",
-      "caption_ru": "Налог",
+      "caption": {
+        "en": "Tax",
+        "ar": "الضريبة",
+        "ru": "Налог"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -212,9 +232,11 @@
       "description": "ДЕЙСТВИЕ правила: какой налоговый код применить, когда условия сошлись.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Tax code",
-      "caption_ar": "الضريبة رمز",
-      "caption_ru": "Налоговый код",
+      "caption": {
+        "en": "Tax code",
+        "ar": "الضريبة رمز",
+        "ru": "Налоговый код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

@@ -1,9 +1,11 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Purchase order",
-    "caption_ar": "الشراء الأمر",
-    "caption_ru": "Заказ поставщику",
+    "caption": {
+      "en": "Purchase order",
+      "ar": "الشراء الأمر",
+      "ru": "Заказ поставщику"
+    },
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "d32cc2dd-2d6f-4d83-9be9-a0bb6ce0cb0b",
@@ -22,9 +24,11 @@
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -42,9 +46,11 @@
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "fieldName": "Location",
-      "caption": "Receiving location",
-      "caption_ar": "الاستقبال الموقع",
-      "caption_ru": "Ячейка приёмки",
+      "caption": {
+        "en": "Receiving location",
+        "ar": "الاستقبال الموقع",
+        "ru": "Ячейка приёмки"
+      },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
       "isRequired": true,
@@ -60,9 +66,11 @@
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "fieldName": "Supplier",
-      "caption": "Supplier",
-      "caption_ar": "المورد",
-      "caption_ru": "Поставщик",
+      "caption": {
+        "en": "Supplier",
+        "ar": "المورد",
+        "ru": "Поставщик"
+      },
       "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
       "isSystem": false,
       "isRequired": true,
@@ -80,11 +88,15 @@
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "name": "Draft",
-      "caption": "Draft",
-      "caption_ar": "مسودة",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة"
+      },
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -96,8 +108,10 @@
       "name": "Received",
       "caption": "Received",
       "subtypeValue": "Received",
-      "subtypeCaption": "Received",
-      "subtypeCaption_ru": "Оприходовано",
+      "subtypeCaption": {
+        "en": "Received",
+        "ru": "Оприходовано"
+      },
       "displayOrder": 3,
       "isInitial": false,
       "isReadOnly": true,
@@ -109,8 +123,10 @@
       "name": "Ordered",
       "caption": "Ordered",
       "subtypeValue": "Ordered",
-      "subtypeCaption": "Ordered",
-      "subtypeCaption_ru": "Заказано",
+      "subtypeCaption": {
+        "en": "Ordered",
+        "ru": "Заказано"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": false,

@@ -82,7 +82,8 @@ public partial class <Документ>LinesEventHandler
 {
   "kind": "Document",
   "object": {
-    "caption": "<English caption>", "caption_ru": "<Русская подпись>", "requiresPosting": true, "postOnSave": true,
+    "caption": { "en": "<English caption>", "ru": "<Русская подпись>" },
+    "requiresPosting": true, "postOnSave": true,
     "isCloneable": true, "numberSequenceMetaId": "<GUID-серии>",
     "metaId": "<GUID-документа>", "name": "<Имя>",
     "modelId": "<GUID модели>" },

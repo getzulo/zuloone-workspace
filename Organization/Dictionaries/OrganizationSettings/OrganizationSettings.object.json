@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Organization settings",
-    "caption_ru": "Настройки модуля",
+    "caption": {
+      "en": "Organization settings",
+      "ru": "Настройки модуля"
+    },
     "description": "Одиночный настроечный справочник модуля Organization (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -31,8 +33,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Application name",
-      "caption_ru": "Название приложения",
+      "caption": {
+        "en": "Application name",
+        "ru": "Название приложения"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -50,8 +54,10 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default legal entity code",
-      "caption_ru": "Код юрлица по умолчанию",
+      "caption": {
+        "en": "Default legal entity code",
+        "ru": "Код юрлица по умолчанию"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -87,8 +93,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Application logo",
-      "caption_ru": "Логотип приложения",
+      "caption": {
+        "en": "Application logo",
+        "ru": "Логотип приложения"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

@@ -1,10 +1,12 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Drivers",
-    "caption_ar": "السائقون",
-    "caption_ru": "Водители",
-    "caption_uk": "Водії",
+    "caption": {
+      "en": "Drivers",
+      "ar": "السائقون",
+      "ru": "Водители",
+      "uk": "Водії"
+    },
     "description": "Delivery driver. Not a sales agent and not an HR employee.",
     "isLogged": true,
     "isHierarchical": false,
@@ -36,8 +38,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_uk": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,10 +58,12 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Disabled",
-      "caption_ar": "معطّل",
-      "caption_ru": "Отключён",
-      "caption_uk": "Вимкнено",
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключён",
+        "uk": "Вимкнено"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -75,10 +81,12 @@
       "displayOrder": 3,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "License",
-      "caption_ar": "الرخصة",
-      "caption_ru": "Права",
-      "caption_uk": "Права",
+      "caption": {
+        "en": "License",
+        "ar": "الرخصة",
+        "ru": "Права",
+        "uk": "Права"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -96,10 +104,12 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "ФИО",
-      "caption_uk": "Найменування",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "ФИО",
+        "uk": "Найменування"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -117,10 +127,12 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Phone",
-      "caption_ar": "الهاتف",
-      "caption_ru": "Телефон",
-      "caption_uk": "Телефон",
+      "caption": {
+        "en": "Phone",
+        "ar": "الهاتف",
+        "ru": "Телефон",
+        "uk": "Телефон"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

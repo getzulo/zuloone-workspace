@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Inventory settings",
-    "caption_ru": "Настройки склада",
+    "caption": {
+      "en": "Inventory settings",
+      "ru": "Настройки склада"
+    },
     "description": "Одиночный настроечный справочник модуля Склад (открывается сразу на редактирование, одна запись, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -30,8 +32,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default receiving location",
-      "caption_ru": "Ячейка приёмки по умолчанию",
+      "caption": {
+        "en": "Default receiving location",
+        "ru": "Ячейка приёмки по умолчанию"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -48,8 +52,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default unit of measure",
-      "caption_ru": "Единица измерения по умолчанию",
+      "caption": {
+        "en": "Default unit of measure",
+        "ru": "Единица измерения по умолчанию"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -66,8 +72,10 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Enforce unit conversion",
-      "caption_ru": "Требовать конвертацию единиц",
+      "caption": {
+        "en": "Enforce unit conversion",
+        "ru": "Требовать конвертацию единиц"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -85,9 +93,11 @@
       "description": "Требовать адресную дисциплину: приход только в ячейку приёмки, отгрузка только из ячейки отбора, а между ними — задания раскладки и отбора. Выключено (умолчание) — ячейки свободны, всё работает как раньше. Флаг назван так, что РАБОЧЕЕ значение — false: необязательный Boolean генерится не-nullable, и незаполненный признак равен false.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Enforce warehouse tasks",
-      "caption_ar": "إلزام مهام المستودع",
-      "caption_ru": "Требовать складские задания",
+      "caption": {
+        "en": "Enforce warehouse tasks",
+        "ar": "إلزام مهام المستودع",
+        "ru": "Требовать складские задания"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

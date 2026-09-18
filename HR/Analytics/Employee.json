@@ -1,8 +1,10 @@
 {
   "kind": "Analytic",
   "object": {
-    "caption": "Employee",
-    "caption_ru": "Сотрудник",
+    "caption": {
+      "en": "Employee",
+      "ru": "Сотрудник"
+    },
     "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
     "description": "Reusable analytic over the Employee dictionary (Payroll)",
     "metaId": "0f98913b-3880-4fc8-84f1-632d5cfe505e",

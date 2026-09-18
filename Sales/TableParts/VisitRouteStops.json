@@ -2,10 +2,12 @@
   "kind": "TablePartType",
   "object": {
     "className": "VisitRouteStopsTablePartRow",
-    "caption": "Stops",
-    "caption_ar": "المحطات",
-    "caption_ru": "Точки визитов",
-    "caption_uk": "Точки рейсу",
+    "caption": {
+      "en": "Stops",
+      "ar": "المحطات",
+      "ru": "Точки визитов",
+      "uk": "Точки рейсу"
+    },
     "tableName": "TP_VisitRouteStops",
     "softDeletion": false,
     "isLogged": false,
@@ -17,10 +19,12 @@
     {
       "tablePartTypeMetaId": "12c3a5b9-f6d4-478a-9b50-a48796e2d3ca",
       "fieldName": "Customer",
-      "caption": "Customer",
-      "caption_ar": "العميل",
-      "caption_ru": "Покупатель",
-      "caption_uk": "Клієнт",
+      "caption": {
+        "en": "Customer",
+        "ar": "العميل",
+        "ru": "Покупатель",
+        "uk": "Клієнт"
+      },
       "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
       "isRequired": true,
       "isVisible": true,
@@ -38,10 +42,12 @@
     {
       "tablePartTypeMetaId": "12c3a5b9-f6d4-478a-9b50-a48796e2d3ca",
       "fieldName": "Outlet",
-      "caption": "Outlet",
-      "caption_ar": "نقطة البيع",
-      "caption_ru": "Торговая точка",
-      "caption_uk": "Точка",
+      "caption": {
+        "en": "Outlet",
+        "ar": "نقطة البيع",
+        "ru": "Торговая точка",
+        "uk": "Точка"
+      },
       "edtMetaId": "91560c1f-7be1-40df-a1e4-e65eaa794958",
       "isRequired": false,
       "isVisible": true,
@@ -59,10 +65,12 @@
     {
       "tablePartTypeMetaId": "12c3a5b9-f6d4-478a-9b50-a48796e2d3ca",
       "fieldName": "Sequence",
-      "caption": "Order",
-      "caption_ar": "الترتيب",
-      "caption_ru": "Порядок объезда",
-      "caption_uk": "Порядок об’їзду",
+      "caption": {
+        "en": "Order",
+        "ar": "الترتيب",
+        "ru": "Порядок объезда",
+        "uk": "Порядок об’їзду"
+      },
       "baseType": "Integer",
       "isRequired": false,
       "isVisible": true,
@@ -77,10 +85,12 @@
     {
       "tablePartTypeMetaId": "12c3a5b9-f6d4-478a-9b50-a48796e2d3ca",
       "fieldName": "StopStatus",
-      "caption": "Stop status",
-      "caption_ar": "حالة المحطة",
-      "caption_ru": "Состояние точки",
-      "caption_uk": "Стан точки",
+      "caption": {
+        "en": "Stop status",
+        "ar": "حالة المحطة",
+        "ru": "Состояние точки",
+        "uk": "Стан точки"
+      },
       "baseType": "String",
       "length": 16,
       "isRequired": false,
@@ -96,10 +106,12 @@
     {
       "tablePartTypeMetaId": "12c3a5b9-f6d4-478a-9b50-a48796e2d3ca",
       "fieldName": "WindowFrom",
-      "caption": "Window from",
-      "caption_ar": "النافذة من",
-      "caption_ru": "Окно с",
-      "caption_uk": "Вікно з",
+      "caption": {
+        "en": "Window from",
+        "ar": "النافذة من",
+        "ru": "Окно с",
+        "uk": "Вікно з"
+      },
       "baseType": "DateTime",
       "isRequired": false,
       "isVisible": true,
@@ -114,10 +126,12 @@
     {
       "tablePartTypeMetaId": "12c3a5b9-f6d4-478a-9b50-a48796e2d3ca",
       "fieldName": "WindowTo",
-      "caption": "Window to",
-      "caption_ar": "النافذة إلى",
-      "caption_ru": "Окно по",
-      "caption_uk": "Вікно по",
+      "caption": {
+        "en": "Window to",
+        "ar": "النافذة إلى",
+        "ru": "Окно по",
+        "uk": "Вікно по"
+      },
       "baseType": "DateTime",
       "isRequired": false,
       "isVisible": true,

@@ -2,8 +2,10 @@
   "kind": "TablePartType",
   "object": {
     "className": "TimeSheetLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ru": "Строки",
+    "caption": {
+      "en": "Lines",
+      "ru": "Строки"
+    },
     "tableName": "TP_TimeSheetLines",
     "softDeletion": false,
     "isLogged": false,
@@ -15,8 +17,10 @@
     {
       "tablePartTypeMetaId": "7c8d9e0f-1a2b-4c3d-9e4f-6a7b8c9d0e1c",
       "fieldName": "Employee",
-      "caption": "Employee",
-      "caption_ru": "Сотрудник",
+      "caption": {
+        "en": "Employee",
+        "ru": "Сотрудник"
+      },
       "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
       "isRequired": true,
       "isVisible": true,
@@ -34,8 +38,10 @@
     {
       "tablePartTypeMetaId": "7c8d9e0f-1a2b-4c3d-9e4f-6a7b8c9d0e1c",
       "fieldName": "Hours",
-      "caption": "Hours",
-      "caption_ru": "Часы",
+      "caption": {
+        "en": "Hours",
+        "ru": "Часы"
+      },
       "baseType": "Decimal",
       "precision": 18,
       "scale": 2,

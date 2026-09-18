@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Post sales credit note",
-    "caption_ru": "Провести кредит-ноту",
-    "caption_uk": "Провести кредит-ноту",
+    "caption": {
+      "en": "Post sales credit note",
+      "ru": "Провести кредит-ноту",
+      "uk": "Провести кредит-ноту"
+    },
     "scriptMetaId": "ff0637aa-dc41-4bbe-bfc9-e56ef4b206a0",
     "parameterMode": "None",
     "displayOrder": 1,

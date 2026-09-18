@@ -1,8 +1,10 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Social insurance accrual",
-    "caption_ru": "Начисление соцстраха",
+    "caption": {
+      "en": "Social insurance accrual",
+      "ru": "Начисление соцстраха"
+    },
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "21862e36-63a6-4fd3-a459-fd40992cea2c",
@@ -21,8 +23,10 @@
     {
       "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
       "fieldName": "Division",
-      "caption": "Division",
-      "caption_ru": "Подразделение",
+      "caption": {
+        "en": "Division",
+        "ru": "Подразделение"
+      },
       "edtMetaId": "ff85f4a4-ab90-41f8-9bf9-32367aab94a1",
       "isSystem": false,
       "isRequired": true,
@@ -38,9 +42,11 @@
     {
       "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -62,8 +68,10 @@
       "name": "Draft",
       "caption": "Draft",
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -75,8 +83,10 @@
       "name": "Posted",
       "caption": "Posted",
       "subtypeValue": "Posted",
-      "subtypeCaption": "Posted",
-      "subtypeCaption_ru": "Проведено",
+      "subtypeCaption": {
+        "en": "Posted",
+        "ru": "Проведено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,

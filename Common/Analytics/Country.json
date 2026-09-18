@@ -1,9 +1,11 @@
 {
   "kind": "Analytic",
   "object": {
-    "caption": "Country",
-    "caption_ar": "الدولة",
-    "caption_ru": "Страна",
+    "caption": {
+      "en": "Country",
+      "ar": "الدولة",
+      "ru": "Страна"
+    },
     "edtMetaId": "c5b40cc4-d521-493a-a7ae-f1d9e2da23c8",
     "description": "Reusable analytic over the Country dictionary",
     "metaId": "c9887c9b-78ca-4255-a191-4ba0eca14e0c",

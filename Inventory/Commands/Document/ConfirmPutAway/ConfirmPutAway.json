@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Confirm put-away",
-    "caption_ar": "تأكيد الاستلام",
-    "caption_ru": "Подтвердить приёмку",
+    "caption": {
+      "en": "Confirm put-away",
+      "ar": "تأكيد الاستلام",
+      "ru": "Подтвердить приёмку"
+    },
     "scriptMetaId": "fd1a6d16-28f8-43af-b155-811ee74743fe",
     "parameterMode": "None",
     "displayOrder": 1,

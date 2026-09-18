@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Items",
-    "caption_ar": "الأصناف",
-    "caption_ru": "Номенклатура",
+    "caption": {
+      "en": "Items",
+      "ar": "الأصناف",
+      "ru": "Номенклатура"
+    },
     "description": "Any item: raw material, semi-finished, finished good, merchandise",
     "isLogged": true,
     "isHierarchical": false,
@@ -35,9 +37,11 @@
       "displayOrder": 6,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Barcode",
-      "caption_ar": "الباركود",
-      "caption_ru": "Штрихкод",
+      "caption": {
+        "en": "Barcode",
+        "ar": "الباركود",
+        "ru": "Штрихкод"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,9 +58,11 @@
       "displayOrder": 12,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Brand",
-      "caption_ar": "العلامة التجارية",
-      "caption_ru": "Бренд",
+      "caption": {
+        "en": "Brand",
+        "ar": "العلامة التجارية",
+        "ru": "Бренд"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -73,9 +79,11 @@
       "displayOrder": 7,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default purchase price",
-      "caption_ar": "سعر الشراء الافتراضي",
-      "caption_ru": "Цена закупки",
+      "caption": {
+        "en": "Default purchase price",
+        "ar": "سعر الشراء الافتراضي",
+        "ru": "Цена закупки"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -92,9 +100,11 @@
       "displayOrder": 8,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default sale price",
-      "caption_ar": "سعر البيع الافتراضي",
-      "caption_ru": "Цена продажи",
+      "caption": {
+        "en": "Default sale price",
+        "ar": "سعر البيع الافتراضي",
+        "ru": "Цена продажи"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -112,9 +122,11 @@
       "displayOrder": 11,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Description",
-      "caption_ar": "الوصف",
-      "caption_ru": "Описание",
+      "caption": {
+        "en": "Description",
+        "ar": "الوصف",
+        "ru": "Описание"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -133,8 +145,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -151,9 +165,11 @@
       "displayOrder": 10,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Image",
-      "caption_ar": "الصورة",
-      "caption_ru": "Фото",
+      "caption": {
+        "en": "Image",
+        "ar": "الصورة",
+        "ru": "Фото"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -170,9 +186,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Raw material",
-      "caption_ar": "مادة خام",
-      "caption_ru": "Сырьё",
+      "caption": {
+        "en": "Raw material",
+        "ar": "مادة خام",
+        "ru": "Сырьё"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -189,9 +207,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Sellable",
-      "caption_ar": "قابل للبيع",
-      "caption_ru": "Продаётся",
+      "caption": {
+        "en": "Sellable",
+        "ar": "قابل للبيع",
+        "ru": "Продаётся"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -208,9 +228,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Item group",
-      "caption_ar": "الصنف مجموعة",
-      "caption_ru": "Группа",
+      "caption": {
+        "en": "Item group",
+        "ar": "الصنف مجموعة",
+        "ru": "Группа"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -228,9 +250,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -248,9 +272,11 @@
       "displayOrder": 9,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Tax product category",
-      "caption_ar": "الضريبة المنتج الفئة",
-      "caption_ru": "Налоговая категория товара",
+      "caption": {
+        "en": "Tax product category",
+        "ar": "الضريبة المنتج الفئة",
+        "ru": "Налоговая категория товара"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -267,9 +293,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Unit",
-      "caption_ar": "الوحدة",
-      "caption_ru": "Единица",
+      "caption": {
+        "en": "Unit",
+        "ar": "الوحدة",
+        "ru": "Единица"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

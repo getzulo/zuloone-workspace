@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Bills of materials",
-    "caption_ar": "قوائم المواد",
-    "caption_ru": "Спецификации",
+    "caption": {
+      "en": "Bills of materials",
+      "ar": "قوائم المواد",
+      "ru": "Спецификации"
+    },
     "isLogged": false,
     "isHierarchical": false,
     "numberSequenceMetaId": "3c9d2e7b-5a8f-4b1c-9d4e-2f6a7b3c8d10",
@@ -34,8 +36,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,9 +57,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,9 +78,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Output qty",
-      "caption_ar": "الإنتاجية الكمية",
-      "caption_ru": "Кол-во выпуска",
+      "caption": {
+        "en": "Output qty",
+        "ar": "الإنتاجية الكمية",
+        "ru": "Кол-во выпуска"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -91,9 +99,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Product",
-      "caption_ar": "المنتج",
-      "caption_ru": "Изделие",
+      "caption": {
+        "en": "Product",
+        "ar": "المنتج",
+        "ru": "Изделие"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -106,9 +116,11 @@
     {
       "dictionaryMetaId": "1f4a8d2c-3e6b-4a9d-8c5f-7b2e1d4a6c90",
       "name": "Components",
-      "caption": "Components",
-      "caption_ar": "المكونات",
-      "caption_ru": "Компоненты",
+      "caption": {
+        "en": "Components",
+        "ar": "المكونات",
+        "ru": "Компоненты"
+      },
       "type": "BomComponent",
       "otherKey": "Bom",
       "autoLoad": true,

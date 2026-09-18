@@ -1,8 +1,10 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Time sheet",
-    "caption_ru": "Табель",
+    "caption": {
+      "en": "Time sheet",
+      "ru": "Табель"
+    },
     "description": "Сетка явок за период: автозаполнение 40-часовой недели, исключения из TimeOff, ручные галки. Итог часов в Lines — источник для «Начислить ФОТ».",
     "isLogged": false,
     "isCloneable": true,
@@ -22,8 +24,10 @@
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
       "fieldName": "Division",
-      "caption": "Division",
-      "caption_ru": "Подразделение",
+      "caption": {
+        "en": "Division",
+        "ru": "Подразделение"
+      },
       "edtMetaId": "ff85f4a4-ab90-41f8-9bf9-32367aab94a1",
       "isSystem": false,
       "isRequired": true,
@@ -39,9 +43,11 @@
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -59,8 +65,10 @@
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
       "fieldName": "PeriodFrom",
-      "caption": "Period from",
-      "caption_ru": "Период с",
+      "caption": {
+        "en": "Period from",
+        "ru": "Период с"
+      },
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": false,
@@ -76,8 +84,10 @@
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
       "fieldName": "PeriodTo",
-      "caption": "Period to",
-      "caption_ru": "Период по",
+      "caption": {
+        "en": "Period to",
+        "ru": "Период по"
+      },
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": false,
@@ -97,8 +107,10 @@
       "name": "Draft",
       "caption": "Draft",
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -110,8 +122,10 @@
       "name": "Approved",
       "caption": "Approved",
       "subtypeValue": "Approved",
-      "subtypeCaption": "Approved",
-      "subtypeCaption_ru": "Утверждён",
+      "subtypeCaption": {
+        "en": "Approved",
+        "ru": "Утверждён"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": false,

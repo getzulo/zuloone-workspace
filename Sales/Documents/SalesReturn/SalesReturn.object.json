@@ -1,9 +1,11 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Sales return",
-    "caption_ru": "Возврат от покупателя",
-    "caption_uk": "Повернення від покупця",
+    "caption": {
+      "en": "Sales return",
+      "ru": "Возврат от покупателя",
+      "uk": "Повернення від покупця"
+    },
     "description": "Товар вернулся с точки: склад +, долг −, выручка −. НДС сторнирует отдельная кредит-нота (SalesCreditNote).",
     "isLogged": false,
     "isCloneable": true,
@@ -23,9 +25,11 @@
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
       "fieldName": "Contract",
-      "caption": "Contract",
-      "caption_ru": "Договор",
-      "caption_uk": "Договір",
+      "caption": {
+        "en": "Contract",
+        "ru": "Договор",
+        "uk": "Договір"
+      },
       "edtMetaId": "83e80aa1-218b-4684-845d-272f72cc8bf3",
       "isSystem": false,
       "isRequired": true,
@@ -41,9 +45,11 @@
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
       "fieldName": "Customer",
-      "caption": "Customer",
-      "caption_ru": "Клиент",
-      "caption_uk": "Клієнт",
+      "caption": {
+        "en": "Customer",
+        "ru": "Клиент",
+        "uk": "Клієнт"
+      },
       "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
       "isSystem": false,
       "isRequired": true,
@@ -59,10 +65,12 @@
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
-      "caption_uk": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер",
+        "uk": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -80,9 +88,11 @@
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
       "fieldName": "Location",
-      "caption": "Return location",
-      "caption_ru": "Ячейка возврата",
-      "caption_uk": "Комірка повернення",
+      "caption": {
+        "en": "Return location",
+        "ru": "Ячейка возврата",
+        "uk": "Комірка повернення"
+      },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
       "isRequired": true,
@@ -98,9 +108,11 @@
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
       "fieldName": "OriginalInvoice",
-      "caption": "Original invoice",
-      "caption_ru": "Исходный счёт",
-      "caption_uk": "Початковий рахунок",
+      "caption": {
+        "en": "Original invoice",
+        "ru": "Исходный счёт",
+        "uk": "Початковий рахунок"
+      },
       "baseType": "Guid",
       "isSystem": false,
       "isRequired": false,
@@ -116,9 +128,11 @@
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
       "fieldName": "Outlet",
-      "caption": "Outlet",
-      "caption_ru": "Торговая точка",
-      "caption_uk": "Точка",
+      "caption": {
+        "en": "Outlet",
+        "ru": "Торговая точка",
+        "uk": "Точка"
+      },
       "edtMetaId": "91560c1f-7be1-40df-a1e4-e65eaa794958",
       "isSystem": false,
       "isRequired": false,
@@ -136,12 +150,16 @@
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
       "name": "Posted",
-      "caption": "Posted",
-      "caption_uk": "Проведено",
+      "caption": {
+        "en": "Posted",
+        "uk": "Проведено"
+      },
       "subtypeValue": "Posted",
-      "subtypeCaption": "Posted",
-      "subtypeCaption_ru": "Проведён",
-      "subtypeCaption_uk": "Проведено",
+      "subtypeCaption": {
+        "en": "Posted",
+        "ru": "Проведён",
+        "uk": "Проведено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,
@@ -151,12 +169,16 @@
     {
       "documentTypeMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
       "name": "Draft",
-      "caption": "Draft",
-      "caption_uk": "Чернетка",
+      "caption": {
+        "en": "Draft",
+        "uk": "Чернетка"
+      },
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
-      "subtypeCaption_uk": "Чернетка",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик",
+        "uk": "Чернетка"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,

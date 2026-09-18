@@ -2,10 +2,12 @@
   "kind": "Menu",
   "items": [
     {
-      "caption": "Sales",
-      "caption_ar": "المبيعات",
-      "caption_ru": "Продажи",
-      "caption_uk": "Продажі",
+      "caption": {
+        "en": "Sales",
+        "ar": "المبيعات",
+        "ru": "Продажи",
+        "uk": "Продажі"
+      },
       "displayOrder": 7,
       "icon": "fluent-color:building-store-24",
       "targetType": "Group",
@@ -14,10 +16,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Documents",
-      "caption_ar": "المستندات",
-      "caption_ru": "Документы",
-      "caption_uk": "Документи",
+      "caption": {
+        "en": "Documents",
+        "ar": "المستندات",
+        "ru": "Документы",
+        "uk": "Документи"
+      },
       "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
       "displayOrder": 0,
       "icon": "fluent-color:document-48",
@@ -27,10 +31,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Dictionaries",
-      "caption_ar": "القوائم المرجعية",
-      "caption_ru": "Справочники",
-      "caption_uk": "Довідники",
+      "caption": {
+        "en": "Dictionaries",
+        "ar": "القوائم المرجعية",
+        "ru": "Справочники",
+        "uk": "Довідники"
+      },
       "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
       "displayOrder": 1,
       "icon": "fluent-color:database-48",
@@ -40,10 +46,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Registers",
-      "caption_ar": "السجلات",
-      "caption_ru": "Итоги",
-      "caption_uk": "Підсумки",
+      "caption": {
+        "en": "Registers",
+        "ar": "السجلات",
+        "ru": "Итоги",
+        "uk": "Підсумки"
+      },
       "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
       "displayOrder": 2,
       "icon": "fluent-color:table-48",
@@ -53,10 +61,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Settings",
-      "caption_ar": "الإعدادات",
-      "caption_ru": "Настройки",
-      "caption_uk": "Налаштування",
+      "caption": {
+        "en": "Settings",
+        "ar": "الإعدادات",
+        "ru": "Настройки",
+        "uk": "Налаштування"
+      },
       "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
       "displayOrder": 3,
       "icon": "fluent-color:settings-48",
@@ -66,10 +76,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Customers",
-      "caption_ar": "العملاء",
-      "caption_ru": "Покупатели",
-      "caption_uk": "Покупці",
+      "caption": {
+        "en": "Customers",
+        "ar": "العملاء",
+        "ru": "Покупатели",
+        "uk": "Покупці"
+      },
       "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
       "displayOrder": 0,
       "icon": "fluent-color:people-48",
@@ -80,10 +92,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Reserved stock",
-      "caption_ar": "المخزون المحجوز",
-      "caption_ru": "Резерв товара",
-      "caption_uk": "Резерв товару",
+      "caption": {
+        "en": "Reserved stock",
+        "ar": "المخزون المحجوز",
+        "ru": "Резерв товара",
+        "uk": "Резерв товару"
+      },
       "parentMetaId": "cad86e08-d829-485c-b79b-984c300fa847",
       "displayOrder": 0,
       "icon": "fluent-color:lock-closed-48",
@@ -94,10 +108,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Sales orders",
-      "caption_ar": "أوامر المبيعات",
-      "caption_ru": "Заказы покупателей",
-      "caption_uk": "Замовлення покупців",
+      "caption": {
+        "en": "Sales orders",
+        "ar": "أوامر المبيعات",
+        "ru": "Заказы покупателей",
+        "uk": "Замовлення покупців"
+      },
       "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
       "displayOrder": 0,
       "icon": "fluent-color:clipboard-task-24",
@@ -108,10 +124,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Sales settings",
-      "caption_ar": "إعدادات المبيعات",
-      "caption_ru": "Настройки продаж",
-      "caption_uk": "Налаштування продажів",
+      "caption": {
+        "en": "Sales settings",
+        "ar": "إعدادات المبيعات",
+        "ru": "Настройки продаж",
+        "uk": "Налаштування продажів"
+      },
       "parentMetaId": "019d7614-3204-5496-90af-b58cacca2d58",
       "displayOrder": 0,
       "icon": "fluent-color:megaphone-loud-32",
@@ -122,10 +140,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Delivery trips",
-      "caption_ar": "رحلات التوصيل",
-      "caption_ru": "Рейсы доставки",
-      "caption_uk": "Рейси доставки",
+      "caption": {
+        "en": "Delivery trips",
+        "ar": "رحلات التوصيل",
+        "ru": "Рейсы доставки",
+        "uk": "Рейси доставки"
+      },
       "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
       "displayOrder": 1,
       "icon": "fluent-color:send-clock-32",
@@ -136,10 +156,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Accounts receivable",
-      "caption_ar": "الذمم المدينة",
-      "caption_ru": "Дебиторская задолженность",
-      "caption_uk": "Дебіторська заборгованість",
+      "caption": {
+        "en": "Accounts receivable",
+        "ar": "الذمم المدينة",
+        "ru": "Дебиторская задолженность",
+        "uk": "Дебіторська заборгованість"
+      },
       "parentMetaId": "cad86e08-d829-485c-b79b-984c300fa847",
       "displayOrder": 1,
       "icon": "fluent-color:data-trending-48",
@@ -150,10 +172,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Sales agents",
-      "caption_ar": "الوكلاء",
-      "caption_ru": "Агенты",
-      "caption_uk": "Агенти",
+      "caption": {
+        "en": "Sales agents",
+        "ar": "الوكلاء",
+        "ru": "Агенты",
+        "uk": "Агенти"
+      },
       "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
       "displayOrder": 1,
       "icon": "fluent-color:person-available-24",
@@ -164,10 +188,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Delivery routes",
-      "caption_ar": "مسارات التوصيل",
-      "caption_ru": "Маршруты доставки",
-      "caption_uk": "Маршрути доставки",
+      "caption": {
+        "en": "Delivery routes",
+        "ar": "مسارات التوصيل",
+        "ru": "Маршруты доставки",
+        "uk": "Маршрути доставки"
+      },
       "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
       "displayOrder": 2,
       "icon": "fluent-color:location-ripple-24",
@@ -178,10 +204,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Revenue",
-      "caption_ar": "الإيرادات",
-      "caption_ru": "Выручка",
-      "caption_uk": "Виручка",
+      "caption": {
+        "en": "Revenue",
+        "ar": "الإيرادات",
+        "ru": "Выручка",
+        "uk": "Виручка"
+      },
       "parentMetaId": "cad86e08-d829-485c-b79b-984c300fa847",
       "displayOrder": 2,
       "icon": "fluent-color:coin-multiple-48",
@@ -192,10 +220,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Sales invoices",
-      "caption_ar": "فواتير المبيعات",
-      "caption_ru": "Счета покупателям",
-      "caption_uk": "Рахунки покупцям",
+      "caption": {
+        "en": "Sales invoices",
+        "ar": "فواتير المبيعات",
+        "ru": "Счета покупателям",
+        "uk": "Рахунки покупцям"
+      },
       "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
       "displayOrder": 2,
       "icon": "fluent-color:receipt-32",
@@ -206,10 +236,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Customer payments",
-      "caption_ar": "مدفوعات العملاء",
-      "caption_ru": "Оплаты покупателей",
-      "caption_uk": "Оплати покупців",
+      "caption": {
+        "en": "Customer payments",
+        "ar": "مدفوعات العملاء",
+        "ru": "Оплаты покупателей",
+        "uk": "Оплати покупців"
+      },
       "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
       "displayOrder": 3,
       "icon": "fluent-color:savings-32",
@@ -220,10 +252,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Sales returns",
-      "caption_ar": "مرتجعات المبيعات",
-      "caption_ru": "Возвраты покупателей",
-      "caption_uk": "Повернення покупців",
+      "caption": {
+        "en": "Sales returns",
+        "ar": "مرتجعات المبيعات",
+        "ru": "Возвраты покупателей",
+        "uk": "Повернення покупців"
+      },
       "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
       "displayOrder": 4,
       "icon": "fluent-color:arrow-square-down-32",
@@ -234,10 +268,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Customer outlets",
-      "caption_ar": "نقاط بيع العملاء",
-      "caption_ru": "Торговые точки",
-      "caption_uk": "Торгові точки",
+      "caption": {
+        "en": "Customer outlets",
+        "ar": "نقاط بيع العملاء",
+        "ru": "Торговые точки",
+        "uk": "Торгові точки"
+      },
       "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
       "displayOrder": 5,
       "icon": "fluent-color:building-shop-20",
@@ -248,9 +284,11 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Sales credit notes",
-      "caption_ru": "Кредит-ноты",
-      "caption_uk": "Кредит-ноти",
+      "caption": {
+        "en": "Sales credit notes",
+        "ru": "Кредит-ноты",
+        "uk": "Кредит-ноти"
+      },
       "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
       "displayOrder": 5,
       "icon": "fluent-color:document-arrow-left-24",
@@ -261,10 +299,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Sales contracts",
-      "caption_ar": "عقود المبيعات",
-      "caption_ru": "Договоры продаж",
-      "caption_uk": "Договори продажу",
+      "caption": {
+        "en": "Sales contracts",
+        "ar": "عقود المبيعات",
+        "ru": "Договоры продаж",
+        "uk": "Договори продажу"
+      },
       "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
       "displayOrder": 6,
       "icon": "fluent-color:document-folder-48",
@@ -275,10 +315,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Vehicles",
-      "caption_ar": "المركبات",
-      "caption_ru": "Транспорт",
-      "caption_uk": "Транспорт",
+      "caption": {
+        "en": "Vehicles",
+        "ar": "المركبات",
+        "ru": "Транспорт",
+        "uk": "Транспорт"
+      },
       "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
       "displayOrder": 7,
       "icon": "fluent-color:vehicle-truck-profile-48",
@@ -289,10 +331,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Drivers",
-      "caption_ar": "السائقون",
-      "caption_ru": "Водители",
-      "caption_uk": "Водії",
+      "caption": {
+        "en": "Drivers",
+        "ar": "السائقون",
+        "ru": "Водители",
+        "uk": "Водії"
+      },
       "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
       "displayOrder": 8,
       "icon": "fluent-color:person-available-24",
@@ -303,10 +347,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Route stops",
-      "caption_ar": "محطات المسار",
-      "caption_ru": "Остановки маршрута",
-      "caption_uk": "Зупинки маршруту",
+      "caption": {
+        "en": "Route stops",
+        "ar": "محطات المسار",
+        "ru": "Остановки маршрута",
+        "uk": "Зупинки маршруту"
+      },
       "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
       "displayOrder": 9,
       "icon": "fluent-color:location-ripple-24",
@@ -317,10 +363,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Delivery schedules",
-      "caption_ar": "جداول التوصيل",
-      "caption_ru": "Расписания доставки",
-      "caption_uk": "Розклади доставки",
+      "caption": {
+        "en": "Delivery schedules",
+        "ar": "جداول التوصيل",
+        "ru": "Расписания доставки",
+        "uk": "Розклади доставки"
+      },
       "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
       "displayOrder": 10,
       "icon": "fluent-color:calendar-clock-24",
@@ -331,10 +379,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Visit routes",
-      "caption_ar": "مسارات الزيارات",
-      "caption_ru": "Маршруты визитов",
-      "caption_uk": "Маршрути візитів",
+      "caption": {
+        "en": "Visit routes",
+        "ar": "مسارات الزيارات",
+        "ru": "Маршруты визитов",
+        "uk": "Маршрути візитів"
+      },
       "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
       "displayOrder": 2,
       "icon": "fluent-color:map-24",
@@ -345,10 +395,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Agent visits",
-      "caption_ar": "زيارات الوكلاء",
-      "caption_ru": "Визиты агентов",
-      "caption_uk": "Візити агентів",
+      "caption": {
+        "en": "Agent visits",
+        "ar": "زيارات الوكلاء",
+        "ru": "Визиты агентов",
+        "uk": "Візити агентів"
+      },
       "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
       "displayOrder": 3,
       "icon": "fluent-color:location-ripple-24",
@@ -359,10 +411,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Field",
-      "caption_ar": "الميدان",
-      "caption_ru": "Поле",
-      "caption_uk": "Поле",
+      "caption": {
+        "en": "Field",
+        "ar": "الميدان",
+        "ru": "Поле",
+        "uk": "Поле"
+      },
       "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
       "displayOrder": 4,
       "icon": "fluent-color:location-ripple-24",
@@ -372,10 +426,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Dispatch",
-      "caption_ar": "غرفة العمليات",
-      "caption_ru": "Диспетчерская",
-      "caption_uk": "Диспетчерська",
+      "caption": {
+        "en": "Dispatch",
+        "ar": "غرفة العمليات",
+        "ru": "Диспетчерская",
+        "uk": "Диспетчерська"
+      },
       "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
       "displayOrder": 0,
       "icon": "fluent-color:map-24",
@@ -386,10 +442,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "ABC profiles",
-      "caption_ar": "ملفات ABC",
-      "caption_ru": "Профили ABC",
-      "caption_uk": "Профілі ABC",
+      "caption": {
+        "en": "ABC profiles",
+        "ar": "ملفات ABC",
+        "ru": "Профили ABC",
+        "uk": "Профілі ABC"
+      },
       "parentMetaId": "019d7614-3204-5496-90af-b58cacca2d58",
       "displayOrder": 10,
       "icon": "fluent-color:data-pie-24",
@@ -400,10 +458,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "ABC class bands",
-      "caption_ar": "حدود فئات ABC",
-      "caption_ru": "Полосы классов ABC",
-      "caption_uk": "Смуги класів ABC",
+      "caption": {
+        "en": "ABC class bands",
+        "ar": "حدود فئات ABC",
+        "ru": "Полосы классов ABC",
+        "uk": "Смуги класів ABC"
+      },
       "parentMetaId": "019d7614-3204-5496-90af-b58cacca2d58",
       "displayOrder": 11,
       "icon": "fluent-color:data-bar-vertical-24",
@@ -414,10 +474,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "ABC classification",
-      "caption_ar": "تصنيف ABC",
-      "caption_ru": "Классификация ABC",
-      "caption_uk": "Класифікація ABC",
+      "caption": {
+        "en": "ABC classification",
+        "ar": "تصنيف ABC",
+        "ru": "Классификация ABC",
+        "uk": "Класифікація ABC"
+      },
       "parentMetaId": "cad86e08-d829-485c-b79b-984c300fa847",
       "displayOrder": 20,
       "icon": "fluent-color:data-pie-24",
@@ -428,10 +490,12 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
-      "caption": "Agent GPS log",
-      "caption_ar": "سجل مواقع الوكيل",
-      "caption_ru": "GPS-трек агента",
-      "caption_uk": "GPS-трек агента",
+      "caption": {
+        "en": "Agent GPS log",
+        "ar": "سجل مواقع الوكيل",
+        "ru": "GPS-трек агента",
+        "uk": "GPS-трек агента"
+      },
       "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
       "displayOrder": 1,
       "icon": "fluent-color:location-ripple-24",

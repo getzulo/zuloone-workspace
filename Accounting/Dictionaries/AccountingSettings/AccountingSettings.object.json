@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Accounting settings",
-    "caption_ru": "Настройки модуля",
+    "caption": {
+      "en": "Accounting settings",
+      "ru": "Настройки модуля"
+    },
     "description": "Одиночный настроечный справочник модуля Accounting (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -32,8 +34,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Receivables account code",
-      "caption_ru": "Счёт дебиторки",
+      "caption": {
+        "en": "Receivables account code",
+        "ru": "Счёт дебиторки"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -50,8 +54,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Auto-post journal entries",
-      "caption_ru": "Автопроведение проводок",
+      "caption": {
+        "en": "Auto-post journal entries",
+        "ru": "Автопроведение проводок"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -70,8 +76,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Cash account code",
-      "caption_ru": "Счёт денежных средств",
+      "caption": {
+        "en": "Cash account code",
+        "ru": "Счёт денежных средств"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -90,8 +98,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Cost of goods sold account code",
-      "caption_ru": "Счёт себестоимости продаж",
+      "caption": {
+        "en": "Cost of goods sold account code",
+        "ru": "Счёт себестоимости продаж"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -109,8 +119,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default currency code",
-      "caption_ru": "Код валюты по умолчанию",
+      "caption": {
+        "en": "Default currency code",
+        "ru": "Код валюты по умолчанию"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -148,8 +160,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Inventory account code",
-      "caption_ru": "Счёт запасов",
+      "caption": {
+        "en": "Inventory account code",
+        "ru": "Счёт запасов"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -168,8 +182,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Inventory surplus account code",
-      "caption_ru": "Счёт оприходования излишка",
+      "caption": {
+        "en": "Inventory surplus account code",
+        "ru": "Счёт оприходования излишка"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -188,8 +204,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Inventory write-off account code",
-      "caption_ru": "Счёт списания запасов",
+      "caption": {
+        "en": "Inventory write-off account code",
+        "ru": "Счёт списания запасов"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -208,8 +226,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Payables account code",
-      "caption_ru": "Счёт кредиторки",
+      "caption": {
+        "en": "Payables account code",
+        "ru": "Счёт кредиторки"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -228,8 +248,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Payroll expense account code",
-      "caption_ru": "Счёт расходов на оплату труда",
+      "caption": {
+        "en": "Payroll expense account code",
+        "ru": "Счёт расходов на оплату труда"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -248,8 +270,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Payroll liability account code",
-      "caption_ru": "Счёт задолженности по оплате труда",
+      "caption": {
+        "en": "Payroll liability account code",
+        "ru": "Счёт задолженности по оплате труда"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -268,8 +292,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Revenue account code",
-      "caption_ru": "Счёт выручки",
+      "caption": {
+        "en": "Revenue account code",
+        "ru": "Счёт выручки"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -288,8 +314,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Social insurance expense account code",
-      "caption_ru": "Счёт расходов на соцстрах",
+      "caption": {
+        "en": "Social insurance expense account code",
+        "ru": "Счёт расходов на соцстрах"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -308,8 +336,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Social insurance payable account code",
-      "caption_ru": "Счёт задолженности перед фондом соцстраха",
+      "caption": {
+        "en": "Social insurance payable account code",
+        "ru": "Счёт задолженности перед фондом соцстраха"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -328,8 +358,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "VAT payable account code",
-      "caption_ru": "Счёт НДС к уплате",
+      "caption": {
+        "en": "VAT payable account code",
+        "ru": "Счёт НДС к уплате"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -348,8 +380,10 @@
       "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "VAT receivable account code",
-      "caption_ru": "Счёт НДС к возмещению",
+      "caption": {
+        "en": "VAT receivable account code",
+        "ru": "Счёт НДС к возмещению"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

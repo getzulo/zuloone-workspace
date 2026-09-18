@@ -75,7 +75,7 @@ def field(dict_id, fname, mid, caption, caption_ru, caption_ar, order, **kw):
     row = {
         "dictionaryMetaId": dict_id,
         "fieldName": fname, "name": fname,
-        "caption": caption, "caption_ru": caption_ru, "caption_ar": caption_ar,
+        "caption": {"en": caption, "ru": caption_ru, "ar": caption_ar},
         "isSystem": False, "isRequired": kw.get("req", False),
         "displayOrder": order, "isIndexed": kw.get("idx", False),
         "isUnique": kw.get("uniq", False),
@@ -180,7 +180,7 @@ dump("Sales/EDTs/RefDriver.json", edt_ref("RefDriver", "5714da5b-296e-4a05-ab8e-
 dump("Sales/Dictionaries/Vehicle/Vehicle.object.json", {
     "kind": "Dictionary",
     "object": {
-        "caption": "Vehicles", "caption_ru": "Транспорт", "caption_ar": "المركبات",
+        "caption": {"en": "Vehicles", "ru": "Транспорт", "ar": "المركبات"},
         "description": "Delivery vehicle: plate, kind, capacity.",
         "isLogged": True, "isHierarchical": False,
         "numberSequenceMetaId": "7307595c-3aa6-4b8f-b22c-12effa7a8bcd",
@@ -207,7 +207,7 @@ dump("Sales/Dictionaries/Vehicle/Vehicle.object.json", {
 dump("Sales/Dictionaries/Driver/Driver.object.json", {
     "kind": "Dictionary",
     "object": {
-        "caption": "Drivers", "caption_ru": "Водители", "caption_ar": "السائقون",
+        "caption": {"en": "Drivers", "ru": "Водители", "ar": "السائقون"},
         "description": "Delivery driver. Not a sales agent and not an HR employee.",
         "isLogged": True, "isHierarchical": False,
         "numberSequenceMetaId": "1edaffa1-044e-461e-a570-a4bcfbed46d4",
@@ -232,7 +232,7 @@ dump("Sales/Dictionaries/Driver/Driver.object.json", {
 dump("Sales/Dictionaries/DeliveryRouteStop/DeliveryRouteStop.object.json", {
     "kind": "Dictionary",
     "object": {
-        "caption": "Route stops", "caption_ru": "Остановки маршрута", "caption_ar": "محطات المسار",
+        "caption": {"en": "Route stops", "ru": "Остановки маршрута", "ar": "محطات المسار"},
         "description": "Ordered outlet on a delivery route.",
         "isLogged": True, "isHierarchical": False,
         "numberSequenceMetaId": "096ae551-74bf-4037-962a-51060a06cfad",
@@ -260,7 +260,7 @@ dump("Sales/Dictionaries/DeliveryRouteStop/DeliveryRouteStop.object.json", {
 dump("Sales/Dictionaries/DeliverySchedule/DeliverySchedule.object.json", {
     "kind": "Dictionary",
     "object": {
-        "caption": "Delivery schedules", "caption_ru": "Расписания доставки", "caption_ar": "جداول التوصيل",
+        "caption": {"en": "Delivery schedules", "ru": "Расписания доставки", "ar": "جداول التوصيل"},
         "description": "Recurring weekday wave: route, depart time, default crew.",
         "isLogged": True, "isHierarchical": False,
         "numberSequenceMetaId": "a0c35982-0a21-49bc-ada9-7f4cd031efa5",
@@ -320,7 +320,7 @@ dump("Sales/Services/DeliveryService/DeliveryService.script.json", {
 dump("Sales/Commands/Document/FillTripFromRoute/FillTripFromRoute.json", {
     "kind": "DocumentCommand",
     "object": {
-        "caption": "Fill from route", "caption_ru": "Набрать с маршрута", "caption_ar": "تعبئة من المسار",
+        "caption": {"en": "Fill from route", "ru": "Набрать с маршрута", "ar": "تعبئة من المسار"},
         "scriptMetaId": "3e5b1711-e68f-4dfa-b553-ff189640ff7d",
         "parameterMode": "None", "displayOrder": 0, "beginGroup": False,
         "isEnabled": True, "requiresConfirmation": False, "reloadAfterExecution": True,

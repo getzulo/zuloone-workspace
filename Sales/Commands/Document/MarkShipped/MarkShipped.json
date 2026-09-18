@@ -1,10 +1,12 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Mark shipped",
-    "caption_ar": "تم الشحن",
-    "caption_ru": "Отгружено",
-    "caption_uk": "Відвантажено",
+    "caption": {
+      "en": "Mark shipped",
+      "ar": "تم الشحن",
+      "ru": "Отгружено",
+      "uk": "Відвантажено"
+    },
     "scriptMetaId": "d4e5f6a7-b8c9-4d0e-8f1a-3b4c5d6e7f8a",
     "parameterMode": "None",
     "displayOrder": 3,

@@ -1,10 +1,12 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "ABC class bands",
-    "caption_ar": "حدود فئات ABC",
-    "caption_ru": "Полосы классов ABC",
-    "caption_uk": "Смуги класів ABC",
+    "caption": {
+      "en": "ABC class bands",
+      "ar": "حدود فئات ABC",
+      "ru": "Полосы классов ABC",
+      "uk": "Смуги класів ABC"
+    },
     "description": "One class interval of a profile on the ABC or XYZ axis. Unique Profile+Axis+ClassCode.",
     "isLogged": true,
     "isHierarchical": false,
@@ -36,10 +38,12 @@
       "description": "Abc or Xyz",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Axis",
-      "caption_ar": "المحور",
-      "caption_ru": "Ось",
-      "caption_uk": "Вісь",
+      "caption": {
+        "en": "Axis",
+        "ar": "المحور",
+        "ru": "Ось",
+        "uk": "Вісь"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -57,10 +61,12 @@
       "description": "Inclusive lower bound",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "From",
-      "caption_ar": "من",
-      "caption_ru": "От",
-      "caption_uk": "Від",
+      "caption": {
+        "en": "From",
+        "ar": "من",
+        "ru": "От",
+        "uk": "Від"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -78,10 +84,12 @@
       "description": "Exclusive upper bound; empty = +∞",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "To",
-      "caption_ar": "إلى",
-      "caption_ru": "До",
-      "caption_uk": "До",
+      "caption": {
+        "en": "To",
+        "ar": "إلى",
+        "ru": "До",
+        "uk": "До"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -98,10 +106,12 @@
       "displayOrder": 3,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Class",
-      "caption_ar": "الفئة",
-      "caption_ru": "Класс",
-      "caption_uk": "Клас",
+      "caption": {
+        "en": "Class",
+        "ar": "الفئة",
+        "ru": "Класс",
+        "uk": "Клас"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -120,8 +130,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_uk": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -138,10 +150,12 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Profile",
-      "caption_ar": "الملف",
-      "caption_ru": "Профиль",
-      "caption_uk": "Профіль",
+      "caption": {
+        "en": "Profile",
+        "ar": "الملف",
+        "ru": "Профиль",
+        "uk": "Профіль"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

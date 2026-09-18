@@ -1,8 +1,10 @@
 {
   "kind": "Analytic",
   "object": {
-    "caption": "Cell",
-    "caption_ru": "Ячейка",
+    "caption": {
+      "en": "Cell",
+      "ru": "Ячейка"
+    },
     "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
     "description": "Reusable analytic over the StoreCell dictionary (Stock)",
     "metaId": "976f4076-722f-4764-a543-68f35d1189e1",

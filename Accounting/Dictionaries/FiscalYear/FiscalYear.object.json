@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Fiscal years",
-    "caption_ar": "المالية السنة",
-    "caption_ru": "Фискальные годы",
+    "caption": {
+      "en": "Fiscal years",
+      "ar": "المالية السنة",
+      "ru": "Фискальные годы"
+    },
     "description": "Accounting years; closing rolls income/expense into retained earnings",
     "isLogged": true,
     "isHierarchical": false,
@@ -34,9 +36,11 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": true,
-      "caption": "Code",
-      "caption_ar": "الكود",
-      "caption_ru": "Код",
+      "caption": {
+        "en": "Code",
+        "ar": "الكود",
+        "ru": "Код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,9 +57,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "End date",
-      "caption_ar": "النهاية التاريخ",
-      "caption_ru": "Конец",
+      "caption": {
+        "en": "End date",
+        "ar": "النهاية التاريخ",
+        "ru": "Конец"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -74,8 +80,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -92,9 +100,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Closed",
-      "caption_ar": "مغلق",
-      "caption_ru": "Закрыт",
+      "caption": {
+        "en": "Closed",
+        "ar": "مغلق",
+        "ru": "Закрыт"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -111,9 +121,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Start date",
-      "caption_ar": "البداية التاريخ",
-      "caption_ru": "Начало",
+      "caption": {
+        "en": "Start date",
+        "ar": "البداية التاريخ",
+        "ru": "Начало"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

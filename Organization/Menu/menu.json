@@ -2,10 +2,12 @@
   "kind": "Menu",
   "items": [
     {
-      "caption": "Organization",
-      "caption_ar": "المؤسسة",
-      "caption_ru": "Организация",
-      "caption_uk": "Організація",
+      "caption": {
+        "en": "Organization",
+        "ar": "المؤسسة",
+        "ru": "Организация",
+        "uk": "Організація"
+      },
       "displayOrder": 1,
       "icon": "fluent-color:org-48",
       "targetType": "Group",
@@ -14,10 +16,12 @@
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
-      "caption": "Dictionaries",
-      "caption_ar": "القوائم المرجعية",
-      "caption_ru": "Справочники",
-      "caption_uk": "Довідники",
+      "caption": {
+        "en": "Dictionaries",
+        "ar": "القوائم المرجعية",
+        "ru": "Справочники",
+        "uk": "Довідники"
+      },
       "parentMetaId": "05fc20e3-4b78-40db-b781-6ce37e247c97",
       "displayOrder": 0,
       "icon": "fluent-color:database-48",
@@ -27,9 +31,11 @@
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
-      "caption": "Settings",
-      "caption_ru": "Настройки",
-      "caption_uk": "Налаштування",
+      "caption": {
+        "en": "Settings",
+        "ru": "Настройки",
+        "uk": "Налаштування"
+      },
       "parentMetaId": "05fc20e3-4b78-40db-b781-6ce37e247c97",
       "displayOrder": 1,
       "icon": "fluent-color:settings-48",
@@ -39,10 +45,12 @@
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
-      "caption": "Legal entities",
-      "caption_ar": "الكيانات القانونية",
-      "caption_ru": "Юридические лица",
-      "caption_uk": "Юридичні особи",
+      "caption": {
+        "en": "Legal entities",
+        "ar": "الكيانات القانونية",
+        "ru": "Юридические лица",
+        "uk": "Юридичні особи"
+      },
       "parentMetaId": "056ae83e-b101-485d-87d5-320de4d4e920",
       "displayOrder": 0,
       "icon": "fluent-color:building-48",
@@ -53,10 +61,12 @@
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
-      "caption": "Organization settings",
-      "caption_ar": "إعدادات المؤسسة",
-      "caption_ru": "Настройки организации",
-      "caption_uk": "Налаштування організації",
+      "caption": {
+        "en": "Organization settings",
+        "ar": "إعدادات المؤسسة",
+        "ru": "Настройки организации",
+        "uk": "Налаштування організації"
+      },
       "parentMetaId": "29720d2c-504a-5235-8035-caa33aeae64b",
       "displayOrder": 0,
       "icon": "fluent-color:building-48",
@@ -67,10 +77,12 @@
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
-      "caption": "Divisions",
-      "caption_ar": "الأقسام",
-      "caption_ru": "Подразделения",
-      "caption_uk": "Підрозділи",
+      "caption": {
+        "en": "Divisions",
+        "ar": "الأقسام",
+        "ru": "Подразделения",
+        "uk": "Підрозділи"
+      },
       "parentMetaId": "056ae83e-b101-485d-87d5-320de4d4e920",
       "displayOrder": 1,
       "icon": "fluent-color:building-people-24",
@@ -81,10 +93,12 @@
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {
-      "caption": "Division types",
-      "caption_ar": "أنواع الأقسام",
-      "caption_ru": "Типы подразделений",
-      "caption_uk": "Типи підрозділів",
+      "caption": {
+        "en": "Division types",
+        "ar": "أنواع الأقسام",
+        "ru": "Типы подразделений",
+        "uk": "Типи підрозділів"
+      },
       "parentMetaId": "056ae83e-b101-485d-87d5-320de4d4e920",
       "displayOrder": 2,
       "icon": "fluent-color:org-48",

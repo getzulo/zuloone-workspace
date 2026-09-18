@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Tax settings",
-    "caption_ru": "Настройки модуля",
+    "caption": {
+      "en": "Tax settings",
+      "ru": "Настройки модуля"
+    },
     "description": "Одиночный настроечный справочник модуля Tax (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -31,8 +33,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default tax code",
-      "caption_ru": "Налоговый код по умолчанию",
+      "caption": {
+        "en": "Default tax code",
+        "ru": "Налоговый код по умолчанию"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -68,8 +72,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Prices include tax",
-      "caption_ru": "Цены с учётом налога",
+      "caption": {
+        "en": "Prices include tax",
+        "ru": "Цены с учётом налога"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

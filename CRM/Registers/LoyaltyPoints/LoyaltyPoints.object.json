@@ -1,8 +1,10 @@
 {
   "kind": "Register",
   "object": {
-    "caption": "Loyalty points",
-    "caption_ru": "Баллы лояльности",
+    "caption": {
+      "en": "Loyalty points",
+      "ru": "Баллы лояльности"
+    },
     "isObsolete": false,
     "iconName": "fluent-color:star-48",
     "largeIconName": "fluent-color:star-48",

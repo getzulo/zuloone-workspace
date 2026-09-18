@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Tax rule actions",
-    "caption_ar": "إجراءات قاعدة الضريبة",
-    "caption_ru": "Действия правила налога",
+    "caption": {
+      "en": "Tax rule actions",
+      "ar": "إجراءات قاعدة الضريبة",
+      "ru": "Действия правила налога"
+    },
     "description": "Действие сработавшего правила: какой налоговый код поставить строкой расчёта. Несколько строк — несколько налогов на одну сделку. Пустой набор — код берётся с шапки TaxRule.",
     "isLogged": true,
     "isHierarchical": false,
@@ -34,8 +36,10 @@
       "description": "Порядок строк расчёта. Меньше — раньше.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Order",
-      "caption_ru": "Порядок",
+      "caption": {
+        "en": "Order",
+        "ru": "Порядок"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,8 +76,10 @@
       "description": "Переопределить датированную ставку кода. Ноль — взять ставку кода на дату события.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Rate override",
-      "caption_ru": "Ставка вручную",
+      "caption": {
+        "en": "Rate override",
+        "ru": "Ставка вручную"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -90,8 +96,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Tax code",
-      "caption_ru": "Налоговый код",
+      "caption": {
+        "en": "Tax code",
+        "ru": "Налоговый код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -108,8 +116,10 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Tax rule",
-      "caption_ru": "Правило",
+      "caption": {
+        "en": "Tax rule",
+        "ru": "Правило"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

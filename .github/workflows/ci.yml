@@ -101,6 +101,10 @@ jobs:
         shell: bash
         run: python3 .github/scripts/check_script_bindings.py
 
+      - name: Captions must be language-keyed
+        shell: bash
+        run: python3 .github/scripts/check_caption_format.py
+
       - name: A release must change something
         if: steps.ver.outputs.release == 'true'
         shell: bash

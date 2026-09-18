@@ -1,8 +1,10 @@
 {
   "kind": "GlobalConstant",
   "object": {
-    "caption": "Amount scale (decimal places)",
-    "caption_ru": "Знаков после запятой в суммах",
+    "caption": {
+      "en": "Amount scale (decimal places)",
+      "ru": "Знаков после запятой в суммах"
+    },
     "groupMetaId": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
     "constantType": "Integer",
     "numberValue": 2.00,

@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Addresses",
-    "caption_ar": "العناوين",
-    "caption_ru": "Адреса",
+    "caption": {
+      "en": "Addresses",
+      "ar": "العناوين",
+      "ru": "Адреса"
+    },
     "description": "",
     "isLogged": false,
     "isHierarchical": false,
@@ -34,9 +36,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Apartment / office",
-      "caption_ar": "الشقة/المكتب",
-      "caption_ru": "Квартира/офис",
+      "caption": {
+        "en": "Apartment / office",
+        "ar": "الشقة/المكتب",
+        "ru": "Квартира/офис"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,9 +58,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Building",
-      "caption_ar": "المبنى",
-      "caption_ru": "Дом",
+      "caption": {
+        "en": "Building",
+        "ar": "المبنى",
+        "ru": "Дом"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -73,9 +79,11 @@
       "displayOrder": 6,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "City",
-      "caption_ar": "المدينة",
-      "caption_ru": "Город",
+      "caption": {
+        "en": "City",
+        "ar": "المدينة",
+        "ru": "Город"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -94,8 +102,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -113,9 +123,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Address line",
-      "caption_ar": "العنوان في سطر واحد",
-      "caption_ru": "Адрес одной строкой",
+      "caption": {
+        "en": "Address line",
+        "ar": "العنوان في سطر واحد",
+        "ru": "Адрес одной строкой"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -133,9 +145,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Postal code",
-      "caption_ar": "الرمز البريدي",
-      "caption_ru": "Индекс",
+      "caption": {
+        "en": "Postal code",
+        "ar": "الرمز البريدي",
+        "ru": "Индекс"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -153,9 +167,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Street",
-      "caption_ar": "الشارع",
-      "caption_ru": "Улица",
+      "caption": {
+        "en": "Street",
+        "ar": "الشارع",
+        "ru": "Улица"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

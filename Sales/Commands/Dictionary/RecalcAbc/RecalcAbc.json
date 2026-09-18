@@ -2,10 +2,12 @@
   "kind": "DictionaryCommand",
   "object": {
     "dictionaryMetaId": "c5ba6cd4-9457-404a-ad26-4e193f90f750",
-    "caption": "Recalculate",
-    "caption_ar": "إعادة الحساب",
-    "caption_ru": "Пересчитать",
-    "caption_uk": "Перерахувати",
+    "caption": {
+      "en": "Recalculate",
+      "ar": "إعادة الحساب",
+      "ru": "Пересчитать",
+      "uk": "Перерахувати"
+    },
     "scriptMetaId": "dd57fe82-fc03-413f-8631-aaa8d7fe0449",
     "parameterMode": "None",
     "displayOrder": 0,

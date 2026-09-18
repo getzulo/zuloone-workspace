@@ -1,8 +1,10 @@
 {
   "kind": "GlobalConstant",
   "object": {
-    "caption": "Price type chain — max depth",
-    "caption_ru": "Цепочка типов цены — максимальная глубина",
+    "caption": {
+      "en": "Price type chain — max depth",
+      "ru": "Цепочка типов цены — максимальная глубина"
+    },
     "groupMetaId": "ab0d39e1-47ae-4aef-8bb2-8f3f7773672f",
     "constantType": "Integer",
     "numberValue": 20.00,

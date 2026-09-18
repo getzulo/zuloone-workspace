@@ -1,9 +1,11 @@
 {
   "kind": "Register",
   "object": {
-    "caption": "General ledger",
-    "caption_ar": "دفتر الأستاذ العام",
-    "caption_ru": "Главная книга",
+    "caption": {
+      "en": "General ledger",
+      "ar": "دفتر الأستاذ العام",
+      "ru": "Главная книга"
+    },
     "description": "Double-entry general ledger; every posted journal entry balances (ΣDebit = ΣCredit, enforced on the document)",
     "isObsolete": false,
     "iconName": "fluent-color:chart-multiple-32",
@@ -21,8 +23,10 @@
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
       "fieldName": "Credit",
-      "caption": "Credit",
-      "caption_ar": "دائن",
+      "caption": {
+        "en": "Credit",
+        "ar": "دائن"
+      },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 2,
@@ -33,8 +37,10 @@
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
       "fieldName": "Debit",
-      "caption": "Debit",
-      "caption_ar": "مدين",
+      "caption": {
+        "en": "Debit",
+        "ar": "مدين"
+      },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 1,
@@ -45,8 +51,10 @@
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
       "fieldName": "ManagementCredit",
-      "caption": "Management credit",
-      "caption_ru": "Упр. кредит",
+      "caption": {
+        "en": "Management credit",
+        "ru": "Упр. кредит"
+      },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 4,
@@ -57,8 +65,10 @@
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
       "fieldName": "ManagementDebit",
-      "caption": "Management debit",
-      "caption_ru": "Упр. дебет",
+      "caption": {
+        "en": "Management debit",
+        "ru": "Упр. дебет"
+      },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 3,
@@ -69,8 +79,10 @@
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
       "fieldName": "TaxCredit",
-      "caption": "Tax credit",
-      "caption_ru": "Нал. кредит",
+      "caption": {
+        "en": "Tax credit",
+        "ru": "Нал. кредит"
+      },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 6,
@@ -81,8 +93,10 @@
     {
       "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
       "fieldName": "TaxDebit",
-      "caption": "Tax debit",
-      "caption_ru": "Нал. дебет",
+      "caption": {
+        "en": "Tax debit",
+        "ru": "Нал. дебет"
+      },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 5,

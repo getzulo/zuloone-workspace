@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Brands",
-    "caption_ar": "العلامات التجارية",
-    "caption_ru": "Бренды",
+    "caption": {
+      "en": "Brands",
+      "ar": "العلامات التجارية",
+      "ru": "Бренды"
+    },
     "description": "",
     "isLogged": false,
     "isHierarchical": false,
@@ -53,9 +55,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

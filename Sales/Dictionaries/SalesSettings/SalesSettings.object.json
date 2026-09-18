@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Sales settings",
-    "caption_ru": "Настройки модуля",
-    "caption_uk": "Налаштування модуля",
+    "caption": {
+      "en": "Sales settings",
+      "ru": "Настройки модуля",
+      "uk": "Налаштування модуля"
+    },
     "description": "Одиночный настроечный справочник модуля Sales (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -31,9 +33,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Allow backorder",
-      "caption_ru": "Разрешить дозаказ",
-      "caption_uk": "Дозволити дозамовлення",
+      "caption": {
+        "en": "Allow backorder",
+        "ru": "Разрешить дозаказ",
+        "uk": "Дозволити дозамовлення"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -50,9 +54,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default payment term (days)",
-      "caption_ru": "Срок оплаты по умолчанию (дней)",
-      "caption_uk": "Строк оплати за замовчуванням (днів)",
+      "caption": {
+        "en": "Default payment term (days)",
+        "ru": "Срок оплаты по умолчанию (дней)",
+        "uk": "Строк оплати за замовчуванням (днів)"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -71,8 +77,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_uk": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -83,9 +91,11 @@
     {
       "dictionaryMetaId": "f330a37a-a4d4-5565-9969-3f689aae5730",
       "fieldName": "PriceMismatchPercent",
-      "caption": "Mobile price mismatch, %",
-      "caption_ru": "Расхождение цены с телефона, %",
-      "caption_uk": "Розбіжність ціни з телефона, %",
+      "caption": {
+        "en": "Mobile price mismatch, %",
+        "ru": "Расхождение цены с телефона, %",
+        "uk": "Розбіжність ціни з телефона, %"
+      },
       "baseType": "Decimal",
       "precision": 5,
       "scale": 2,

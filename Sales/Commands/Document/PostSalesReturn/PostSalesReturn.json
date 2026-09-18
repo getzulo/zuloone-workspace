@@ -1,10 +1,12 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Post sales return",
-    "caption_ar": "ترحيل المرتجع",
-    "caption_ru": "Провести возврат",
-    "caption_uk": "Провести повернення",
+    "caption": {
+      "en": "Post sales return",
+      "ar": "ترحيل المرتجع",
+      "ru": "Провести возврат",
+      "uk": "Провести повернення"
+    },
     "scriptMetaId": "731a2b22-dd46-4442-99b1-235fe4b5ba67",
     "parameterMode": "None",
     "displayOrder": 1,

@@ -1,8 +1,10 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Create sales order",
-    "caption_ru": "Создать заказ",
+    "caption": {
+      "en": "Create sales order",
+      "ru": "Создать заказ"
+    },
     "scriptMetaId": "22714f94-6aae-485e-8a4b-e23039802278",
     "parameterMode": "None",
     "displayOrder": 2,

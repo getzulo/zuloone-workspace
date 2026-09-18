@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Fill prices",
-    "caption_ar": "تعبئة الأسعار",
-    "caption_ru": "Заполнить цены",
+    "caption": {
+      "en": "Fill prices",
+      "ar": "تعبئة الأسعار",
+      "ru": "Заполнить цены"
+    },
     "scriptMetaId": "e8a0c2d4-6f7b-4e9a-8c1d-2b3e4f5a6c7d",
     "parameterMode": "None",
     "displayOrder": 2,

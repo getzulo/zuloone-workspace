@@ -1,8 +1,10 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Tax payment",
-    "caption_ru": "Оплата налога",
+    "caption": {
+      "en": "Tax payment",
+      "ru": "Оплата налога"
+    },
     "description": "Погашение налогового обязательства в книге: отдельный документ, а не подтип декларации — сданная декларация остаётся замороженной, начисление в TaxLedger не трогается. Зеркало VendorPayment в закупках.",
     "isLogged": false,
     "isCloneable": true,
@@ -22,9 +24,11 @@
     {
       "documentTypeMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -42,8 +46,10 @@
     {
       "documentTypeMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
       "fieldName": "LegalEntity",
-      "caption": "Legal entity",
-      "caption_ru": "Юрлицо",
+      "caption": {
+        "en": "Legal entity",
+        "ru": "Юрлицо"
+      },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
       "isRequired": false,
@@ -64,8 +70,10 @@
       "name": "Draft",
       "caption": "Draft",
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -77,8 +85,10 @@
       "name": "Paid",
       "caption": "Paid",
       "subtypeValue": "Paid",
-      "subtypeCaption": "Paid",
-      "subtypeCaption_ru": "Оплачено",
+      "subtypeCaption": {
+        "en": "Paid",
+        "ru": "Оплачено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,

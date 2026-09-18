@@ -1,10 +1,12 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Visit route",
-    "caption_ar": "مسار الزيارات",
-    "caption_ru": "Маршрут визитов",
-    "caption_uk": "Маршрут візитів",
+    "caption": {
+      "en": "Visit route",
+      "ar": "مسار الزيارات",
+      "ru": "Маршрут визитов",
+      "uk": "Маршрут візитів"
+    },
     "description": "Дневной план продаж агента: дата, агент, точки объезда. Template — маршрут доставки как шаблон. Проводок нет, подтип — состояние дня.",
     "isLogged": false,
     "isCloneable": true,
@@ -24,10 +26,12 @@
     {
       "documentTypeMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
       "fieldName": "Agent",
-      "caption": "Agent",
-      "caption_ar": "الوكيل",
-      "caption_ru": "Агент",
-      "caption_uk": "Агент",
+      "caption": {
+        "en": "Agent",
+        "ar": "الوكيل",
+        "ru": "Агент",
+        "uk": "Агент"
+      },
       "edtMetaId": "735f03b4-f08e-4cf4-ac2c-52a065210a96",
       "isSystem": false,
       "isRequired": true,
@@ -43,10 +47,12 @@
     {
       "documentTypeMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
-      "caption_uk": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер",
+        "uk": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -64,10 +70,12 @@
     {
       "documentTypeMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
       "fieldName": "RouteDate",
-      "caption": "Route date",
-      "caption_ar": "تاريخ المسار",
-      "caption_ru": "Дата маршрута",
-      "caption_uk": "Дата маршруту",
+      "caption": {
+        "en": "Route date",
+        "ar": "تاريخ المسار",
+        "ru": "Дата маршрута",
+        "uk": "Дата маршруту"
+      },
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": true,
@@ -83,10 +91,12 @@
     {
       "documentTypeMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
       "fieldName": "Template",
-      "caption": "Template route",
-      "caption_ar": "المسار النموذجي",
-      "caption_ru": "Маршрут-шаблон",
-      "caption_uk": "Маршрут-шаблон",
+      "caption": {
+        "en": "Template route",
+        "ar": "المسار النموذجي",
+        "ru": "Маршрут-шаблон",
+        "uk": "Маршрут-шаблон"
+      },
       "edtMetaId": "97f7506f-aec0-46cd-acc3-37e26da6f6cb",
       "isSystem": false,
       "isRequired": false,
@@ -105,13 +115,17 @@
     {
       "documentTypeMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
       "name": "Closed",
-      "caption": "Closed",
-      "caption_uk": "Закрито",
+      "caption": {
+        "en": "Closed",
+        "uk": "Закрито"
+      },
       "subtypeValue": "Closed",
-      "subtypeCaption": "Closed",
-      "subtypeCaption_ar": "مغلق",
-      "subtypeCaption_ru": "Закрыт",
-      "subtypeCaption_uk": "Закрито",
+      "subtypeCaption": {
+        "en": "Closed",
+        "ar": "مغلق",
+        "ru": "Закрыт",
+        "uk": "Закрито"
+      },
       "displayOrder": 3,
       "isInitial": false,
       "isReadOnly": false,
@@ -121,13 +135,17 @@
     {
       "documentTypeMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
       "name": "Draft",
-      "caption": "Draft",
-      "caption_uk": "Чернетка",
+      "caption": {
+        "en": "Draft",
+        "uk": "Чернетка"
+      },
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ar": "مسودة",
-      "subtypeCaption_ru": "Черновик",
-      "subtypeCaption_uk": "Чернетка",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "ru": "Черновик",
+        "uk": "Чернетка"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -137,13 +155,17 @@
     {
       "documentTypeMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
       "name": "Open",
-      "caption": "Open",
-      "caption_uk": "Відкрито",
+      "caption": {
+        "en": "Open",
+        "uk": "Відкрито"
+      },
       "subtypeValue": "Open",
-      "subtypeCaption": "Open",
-      "subtypeCaption_ar": "مفتوح",
-      "subtypeCaption_ru": "В работе",
-      "subtypeCaption_uk": "Відкрито",
+      "subtypeCaption": {
+        "en": "Open",
+        "ar": "مفتوح",
+        "ru": "В работе",
+        "uk": "Відкрито"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": false,

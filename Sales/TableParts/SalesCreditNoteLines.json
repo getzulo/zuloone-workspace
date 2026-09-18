@@ -2,9 +2,11 @@
   "kind": "TablePartType",
   "object": {
     "className": "SalesCreditNoteLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ru": "Строки",
-    "caption_uk": "Рядки",
+    "caption": {
+      "en": "Lines",
+      "ru": "Строки",
+      "uk": "Рядки"
+    },
     "tableName": "TP_SalesCreditNoteLines",
     "softDeletion": false,
     "isLogged": false,
@@ -16,9 +18,11 @@
     {
       "tablePartTypeMetaId": "b1168273-7520-41a3-903c-4085d45042de",
       "fieldName": "Item",
-      "caption": "Item",
-      "caption_ru": "Товар",
-      "caption_uk": "Номенклатура",
+      "caption": {
+        "en": "Item",
+        "ru": "Товар",
+        "uk": "Номенклатура"
+      },
       "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
       "isRequired": true,
       "isVisible": true,
@@ -36,9 +40,11 @@
     {
       "tablePartTypeMetaId": "b1168273-7520-41a3-903c-4085d45042de",
       "fieldName": "Quantity",
-      "caption": "Quantity",
-      "caption_ru": "Количество",
-      "caption_uk": "Кількість",
+      "caption": {
+        "en": "Quantity",
+        "ru": "Количество",
+        "uk": "Кількість"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": true,
       "isVisible": true,
@@ -53,9 +59,11 @@
     {
       "tablePartTypeMetaId": "b1168273-7520-41a3-903c-4085d45042de",
       "fieldName": "UnitPrice",
-      "caption": "Unit price",
-      "caption_ru": "Цена",
-      "caption_uk": "Ціна",
+      "caption": {
+        "en": "Unit price",
+        "ru": "Цена",
+        "uk": "Ціна"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,

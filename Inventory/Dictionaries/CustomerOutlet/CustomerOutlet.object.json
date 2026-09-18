@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Customer outlets",
-    "caption_ar": "نقاط بيع العملاء",
-    "caption_ru": "Торговые точки",
+    "caption": {
+      "en": "Customer outlets",
+      "ar": "نقاط بيع العملاء",
+      "ru": "Торговые точки"
+    },
     "description": "Ship-to of a customer: address and contact. Commercial terms live on SalesContract.",
     "isLogged": true,
     "isHierarchical": false,
@@ -33,9 +35,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Address",
-      "caption_ar": "العنوان",
-      "caption_ru": "Адрес",
+      "caption": {
+        "en": "Address",
+        "ar": "العنوان",
+        "ru": "Адрес"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -52,9 +56,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Contact",
-      "caption_ar": "جهة الاتصال",
-      "caption_ru": "Контакт",
+      "caption": {
+        "en": "Contact",
+        "ar": "جهة الاتصال",
+        "ru": "Контакт"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -71,9 +77,11 @@
       "displayOrder": 2,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Customer",
-      "caption_ar": "العميل",
-      "caption_ru": "Клиент",
+      "caption": {
+        "en": "Customer",
+        "ar": "العميل",
+        "ru": "Клиент"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -109,9 +117,11 @@
       "displayOrder": 6,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Disabled",
-      "caption_ar": "معطّل",
-      "caption_ru": "Отключена",
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключена"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -129,9 +139,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -149,9 +161,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Phone",
-      "caption_ar": "الهاتف",
-      "caption_ru": "Телефон",
+      "caption": {
+        "en": "Phone",
+        "ar": "الهاتف",
+        "ru": "Телефон"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Tax rates",
-    "caption_ar": "الضريبة معدل",
-    "caption_ru": "Налоговые ставки",
+    "caption": {
+      "en": "Tax rates",
+      "ar": "الضريبة معدل",
+      "ru": "Налоговые ставки"
+    },
     "description": "Effective-dated rate of a tax (historical rate is immutable)",
     "isLogged": true,
     "isHierarchical": false,
@@ -34,9 +36,11 @@
       "displayOrder": 2,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Code",
-      "caption_ar": "الكود",
-      "caption_ru": "Код",
+      "caption": {
+        "en": "Code",
+        "ar": "الكود",
+        "ru": "Код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,9 +57,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Effective from",
-      "caption_ar": "سارٍ من",
-      "caption_ru": "Действует с",
+      "caption": {
+        "en": "Effective from",
+        "ar": "سارٍ من",
+        "ru": "Действует с"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,9 +78,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Effective to",
-      "caption_ar": "سارٍ إلى",
-      "caption_ru": "Действует по",
+      "caption": {
+        "en": "Effective to",
+        "ar": "سارٍ إلى",
+        "ru": "Действует по"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -93,8 +101,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -111,9 +121,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Rate",
-      "caption_ar": "معدل",
-      "caption_ru": "Ставка",
+      "caption": {
+        "en": "Rate",
+        "ar": "معدل",
+        "ru": "Ставка"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -130,9 +142,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Tax",
-      "caption_ar": "الضريبة",
-      "caption_ru": "Налог",
+      "caption": {
+        "en": "Tax",
+        "ar": "الضريبة",
+        "ru": "Налог"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

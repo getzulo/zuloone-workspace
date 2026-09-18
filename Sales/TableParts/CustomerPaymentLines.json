@@ -2,9 +2,11 @@
   "kind": "TablePartType",
   "object": {
     "className": "CustomerPaymentLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ru": "Строки",
-    "caption_uk": "Рядки",
+    "caption": {
+      "en": "Lines",
+      "ru": "Строки",
+      "uk": "Рядки"
+    },
     "tableName": "TP_CustomerPaymentLines",
     "softDeletion": false,
     "isLogged": false,
@@ -16,9 +18,11 @@
     {
       "tablePartTypeMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
       "fieldName": "Amount",
-      "caption": "Amount",
-      "caption_ru": "Сумма",
-      "caption_uk": "Сума",
+      "caption": {
+        "en": "Amount",
+        "ru": "Сумма",
+        "uk": "Сума"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,
@@ -33,9 +37,11 @@
     {
       "tablePartTypeMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
       "fieldName": "Contract",
-      "caption": "Contract",
-      "caption_ru": "Договор",
-      "caption_uk": "Договір",
+      "caption": {
+        "en": "Contract",
+        "ru": "Договор",
+        "uk": "Договір"
+      },
       "edtMetaId": "83e80aa1-218b-4684-845d-272f72cc8bf3",
       "isRequired": true,
       "isVisible": true,
@@ -53,9 +59,11 @@
     {
       "tablePartTypeMetaId": "7e8f9a0b-1c2d-4e3f-9a4b-6c7d8e9f0a1b",
       "fieldName": "Customer",
-      "caption": "Customer",
-      "caption_ru": "Покупатель",
-      "caption_uk": "Клієнт",
+      "caption": {
+        "en": "Customer",
+        "ru": "Покупатель",
+        "uk": "Клієнт"
+      },
       "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
       "isRequired": true,
       "isVisible": true,

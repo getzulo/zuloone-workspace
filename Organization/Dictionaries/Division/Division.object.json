@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Divisions",
-    "caption_ar": "الأقسام",
-    "caption_ru": "Подразделения",
+    "caption": {
+      "en": "Divisions",
+      "ar": "الأقسام",
+      "ru": "Подразделения"
+    },
     "description": "Organizational units / sites hierarchy; each belongs to exactly one legal entity",
     "isLogged": false,
     "isHierarchical": true,
@@ -33,9 +35,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Division type",
-      "caption_ar": "الفرع النوع",
-      "caption_ru": "Тип подразделения",
+      "caption": {
+        "en": "Division type",
+        "ar": "الفرع النوع",
+        "ru": "Тип подразделения"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,8 +58,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,9 +78,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Legal entity",
-      "caption_ar": "قانوني كيان",
-      "caption_ru": "Юрлицо",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "قانوني كيان",
+        "ru": "Юрлицо"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -92,9 +100,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -112,8 +122,10 @@
       "description": "System parent reference of the hierarchical dictionary (tree form)",
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Parent",
-      "caption_ar": "الأب",
+      "caption": {
+        "en": "Parent",
+        "ar": "الأب"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

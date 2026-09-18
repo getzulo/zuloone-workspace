@@ -2,10 +2,12 @@
   "kind": "Menu",
   "items": [
     {
-      "caption": "Inventory",
-      "caption_ar": "المخزون",
-      "caption_ru": "Склад",
-      "caption_uk": "Склад",
+      "caption": {
+        "en": "Inventory",
+        "ar": "المخزون",
+        "ru": "Склад",
+        "uk": "Склад"
+      },
       "displayOrder": 4,
       "icon": "fluent-color:building-multiple-24",
       "targetType": "Group",
@@ -14,10 +16,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Dictionaries",
-      "caption_ar": "القوائم المرجعية",
-      "caption_ru": "Справочники",
-      "caption_uk": "Довідники",
+      "caption": {
+        "en": "Dictionaries",
+        "ar": "القوائم المرجعية",
+        "ru": "Справочники",
+        "uk": "Довідники"
+      },
       "parentMetaId": "2a1ff61c-5ef5-4c19-9921-2bab4ade40c0",
       "displayOrder": 0,
       "icon": "fluent-color:database-48",
@@ -27,10 +31,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Documents",
-      "caption_ar": "المستندات",
-      "caption_ru": "Документы",
-      "caption_uk": "Документи",
+      "caption": {
+        "en": "Documents",
+        "ar": "المستندات",
+        "ru": "Документы",
+        "uk": "Документи"
+      },
       "parentMetaId": "2a1ff61c-5ef5-4c19-9921-2bab4ade40c0",
       "displayOrder": 1,
       "icon": "fluent-color:document-48",
@@ -40,10 +46,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Registers",
-      "caption_ar": "السجلات",
-      "caption_ru": "Итоги",
-      "caption_uk": "Підсумки",
+      "caption": {
+        "en": "Registers",
+        "ar": "السجلات",
+        "ru": "Итоги",
+        "uk": "Підсумки"
+      },
       "parentMetaId": "2a1ff61c-5ef5-4c19-9921-2bab4ade40c0",
       "displayOrder": 2,
       "icon": "fluent-color:table-48",
@@ -53,10 +61,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Settings",
-      "caption_ar": "الإعدادات",
-      "caption_ru": "Настройки",
-      "caption_uk": "Налаштування",
+      "caption": {
+        "en": "Settings",
+        "ar": "الإعدادات",
+        "ru": "Настройки",
+        "uk": "Налаштування"
+      },
       "parentMetaId": "2a1ff61c-5ef5-4c19-9921-2bab4ade40c0",
       "displayOrder": 3,
       "icon": "fluent-color:settings-48",
@@ -66,10 +76,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Inventory settings",
-      "caption_ar": "إعدادات المخزون",
-      "caption_ru": "Настройки склада",
-      "caption_uk": "Налаштування складу",
+      "caption": {
+        "en": "Inventory settings",
+        "ar": "إعدادات المخزون",
+        "ru": "Настройки склада",
+        "uk": "Налаштування складу"
+      },
       "parentMetaId": "8c9d0e1f-2a3b-4c4d-9e5f-7a8b9c0d1e12",
       "displayOrder": 0,
       "icon": "fluent-color:toolbox-32",
@@ -80,10 +92,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Items",
-      "caption_ar": "الأصناف",
-      "caption_ru": "Номенклатура",
-      "caption_uk": "Номенклатура",
+      "caption": {
+        "en": "Items",
+        "ar": "الأصناف",
+        "ru": "Номенклатура",
+        "uk": "Номенклатура"
+      },
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 0,
       "icon": "fluent-color:apps-list-detail-32",
@@ -95,10 +109,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Put-away",
-      "caption_ar": "مهام التخزين",
-      "caption_ru": "Раскладка",
-      "caption_uk": "Розкладання",
+      "caption": {
+        "en": "Put-away",
+        "ar": "مهام التخزين",
+        "ru": "Раскладка",
+        "uk": "Розкладання"
+      },
       "parentMetaId": "2364c19b-2842-4f8d-b8b8-5272b64a0011",
       "displayOrder": 0,
       "icon": "fluent-color:document-add-48",
@@ -109,10 +125,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "On-hand stock",
-      "caption_ar": "رصيد المخزون",
-      "caption_ru": "Остатки",
-      "caption_uk": "Залишки",
+      "caption": {
+        "en": "On-hand stock",
+        "ar": "رصيد المخزون",
+        "ru": "Остатки",
+        "uk": "Залишки"
+      },
       "parentMetaId": "8e0f11ef-6c5a-4f52-a3e1-fb0f1ea53a6f",
       "displayOrder": 0,
       "icon": "fluent-color:building-multiple-24",
@@ -123,10 +141,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Item groups",
-      "caption_ar": "مجموعات الأصناف",
-      "caption_ru": "Группы номенклатуры",
-      "caption_uk": "Групи номенклатури",
+      "caption": {
+        "en": "Item groups",
+        "ar": "مجموعات الأصناف",
+        "ru": "Группы номенклатуры",
+        "uk": "Групи номенклатури"
+      },
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 1,
       "icon": "fluent-color:document-folder-24",
@@ -137,10 +157,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Picking",
-      "caption_ar": "مهام الانتقاء",
-      "caption_ru": "Отбор",
-      "caption_uk": "Відбір",
+      "caption": {
+        "en": "Picking",
+        "ar": "مهام الانتقاء",
+        "ru": "Отбор",
+        "uk": "Відбір"
+      },
       "parentMetaId": "2364c19b-2842-4f8d-b8b8-5272b64a0011",
       "displayOrder": 1,
       "icon": "fluent-color:clipboard-task-24",
@@ -151,10 +173,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Item units",
-      "caption_ar": "وحدات الصنف",
-      "caption_ru": "Упаковки товара",
-      "caption_uk": "Пакування товару",
+      "caption": {
+        "en": "Item units",
+        "ar": "وحدات الصنف",
+        "ru": "Упаковки товара",
+        "uk": "Пакування товару"
+      },
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 2,
       "icon": "fluent-color:number-symbol-square-32",
@@ -165,10 +189,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Stock transfers",
-      "caption_ar": "تحويلات المخزون",
-      "caption_ru": "Перемещения",
-      "caption_uk": "Переміщення",
+      "caption": {
+        "en": "Stock transfers",
+        "ar": "تحويلات المخزون",
+        "ru": "Перемещения",
+        "uk": "Переміщення"
+      },
       "parentMetaId": "2364c19b-2842-4f8d-b8b8-5272b64a0011",
       "displayOrder": 2,
       "icon": "fluent-color:arrow-sync-24",
@@ -179,10 +205,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Stock adjustments",
-      "caption_ar": "تسويات المخزون",
-      "caption_ru": "Корректировки запасов",
-      "caption_uk": "Коригування запасів",
+      "caption": {
+        "en": "Stock adjustments",
+        "ar": "تسويات المخزون",
+        "ru": "Корректировки запасов",
+        "uk": "Коригування запасів"
+      },
       "parentMetaId": "2364c19b-2842-4f8d-b8b8-5272b64a0011",
       "displayOrder": 3,
       "icon": "fluent-color:edit-32",
@@ -193,10 +221,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Warehouses",
-      "caption_ar": "المستودعات",
-      "caption_ru": "Склады",
-      "caption_uk": "Склади",
+      "caption": {
+        "en": "Warehouses",
+        "ar": "المستودعات",
+        "ru": "Склады",
+        "uk": "Склади"
+      },
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 3,
       "icon": "fluent-color:building-store-24",
@@ -207,10 +237,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Stock counts",
-      "caption_ar": "جرد المخزون",
-      "caption_ru": "Инвентаризация",
-      "caption_uk": "Інвентаризація",
+      "caption": {
+        "en": "Stock counts",
+        "ar": "جرد المخزون",
+        "ru": "Инвентаризация",
+        "uk": "Інвентаризація"
+      },
       "parentMetaId": "2364c19b-2842-4f8d-b8b8-5272b64a0011",
       "displayOrder": 4,
       "icon": "fluent-color:checkbox-24",
@@ -221,10 +253,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Warehouse zones",
-      "caption_ar": "مناطق المستودع",
-      "caption_ru": "Зоны склада",
-      "caption_uk": "Зони складу",
+      "caption": {
+        "en": "Warehouse zones",
+        "ar": "مناطق المستودع",
+        "ru": "Зоны склада",
+        "uk": "Зони складу"
+      },
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 4,
       "icon": "fluent-color:board-24",
@@ -235,10 +269,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Goods issues",
-      "caption_ar": "صرف بضاعة",
-      "caption_ru": "Списания",
-      "caption_uk": "Списання",
+      "caption": {
+        "en": "Goods issues",
+        "ar": "صرف بضاعة",
+        "ru": "Списания",
+        "uk": "Списання"
+      },
       "parentMetaId": "2364c19b-2842-4f8d-b8b8-5272b64a0011",
       "displayOrder": 5,
       "icon": "fluent-color:send-48",
@@ -249,10 +285,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Storage cells",
-      "caption_ar": "خلايا التخزين",
-      "caption_ru": "Ячейки",
-      "caption_uk": "Комірки",
+      "caption": {
+        "en": "Storage cells",
+        "ar": "خلايا التخزين",
+        "ru": "Ячейки",
+        "uk": "Комірки"
+      },
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 5,
       "icon": "fluent-color:apps-48",
@@ -263,10 +301,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Cell types",
-      "caption_ar": "أنواع الخلايا",
-      "caption_ru": "Типы ячеек",
-      "caption_uk": "Типи комірок",
+      "caption": {
+        "en": "Cell types",
+        "ar": "أنواع الخلايا",
+        "ru": "Типы ячеек",
+        "uk": "Типи комірок"
+      },
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 6,
       "icon": "fluent-color:options-48",
@@ -277,10 +317,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Price types",
-      "caption_ar": "أنواع الأسعار",
-      "caption_ru": "Типы цен",
-      "caption_uk": "Типи цін",
+      "caption": {
+        "en": "Price types",
+        "ar": "أنواع الأسعار",
+        "ru": "Типы цен",
+        "uk": "Типи цін"
+      },
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 7,
       "icon": "fluent-color:bookmark-32",
@@ -291,10 +333,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Brands",
-      "caption_ar": "العلامات التجارية",
-      "caption_ru": "Бренды",
-      "caption_uk": "Бренди",
+      "caption": {
+        "en": "Brands",
+        "ar": "العلامات التجارية",
+        "ru": "Бренды",
+        "uk": "Бренди"
+      },
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 8,
       "icon": "fluent-color:ribbon-star-32",
@@ -305,10 +349,12 @@
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     },
     {
-      "caption": "Customer contacts",
-      "caption_ar": "جهات اتصال العملاء",
-      "caption_ru": "Контактные лица",
-      "caption_uk": "Контактні особи",
+      "caption": {
+        "en": "Customer contacts",
+        "ar": "جهات اتصال العملاء",
+        "ru": "Контактные лица",
+        "uk": "Контактні особи"
+      },
       "parentMetaId": "b1e3136e-79fa-46c5-b467-962d397dafdc",
       "displayOrder": 9,
       "icon": "fluent-color:contact-card-48",

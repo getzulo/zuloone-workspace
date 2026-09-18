@@ -1,10 +1,12 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Submit order",
-    "caption_ar": "إرسال الطلب",
-    "caption_ru": "Отправить заказ",
-    "caption_uk": "Надіслати замовлення",
+    "caption": {
+      "en": "Submit order",
+      "ar": "إرسال الطلب",
+      "ru": "Отправить заказ",
+      "uk": "Надіслати замовлення"
+    },
     "scriptMetaId": "d7e8f0a1-b2c3-4d4e-8f5a-7b8c9d0e1f2a",
     "parameterMode": "None",
     "displayOrder": 0,

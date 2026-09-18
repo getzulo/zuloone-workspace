@@ -2,8 +2,10 @@
   "kind": "TablePartType",
   "object": {
     "className": "TaxPaymentLinesTablePartRow",
-    "caption": "Lines",
-    "caption_ru": "Строки",
+    "caption": {
+      "en": "Lines",
+      "ru": "Строки"
+    },
     "tableName": "TP_TaxPaymentLines",
     "softDeletion": false,
     "isLogged": false,
@@ -15,8 +17,10 @@
     {
       "tablePartTypeMetaId": "2b7e4c90-1a53-4d86-ae18-9f0c5b2d7e41",
       "fieldName": "Amount",
-      "caption": "Amount",
-      "caption_ru": "Сумма",
+      "caption": {
+        "en": "Amount",
+        "ru": "Сумма"
+      },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
       "isVisible": true,
@@ -31,8 +35,10 @@
     {
       "tablePartTypeMetaId": "2b7e4c90-1a53-4d86-ae18-9f0c5b2d7e41",
       "fieldName": "TaxCode",
-      "caption": "Tax code",
-      "caption_ru": "Налоговый код",
+      "caption": {
+        "en": "Tax code",
+        "ru": "Налоговый код"
+      },
       "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
       "isRequired": true,
       "isVisible": true,

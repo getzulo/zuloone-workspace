@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Chart of accounts",
-    "caption_ar": "دليل الحسابات",
-    "caption_ru": "План счетов",
+    "caption": {
+      "en": "Chart of accounts",
+      "ar": "دليل الحسابات",
+      "ru": "План счетов"
+    },
     "description": "Hierarchical chart of accounts; postings hit leaf postable accounts",
     "isLogged": true,
     "isHierarchical": true,
@@ -33,9 +35,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Account type",
-      "caption_ar": "الحساب النوع",
-      "caption_ru": "Тип счёта",
+      "caption": {
+        "en": "Account type",
+        "ar": "الحساب النوع",
+        "ru": "Тип счёта"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,9 +57,11 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": true,
-      "caption": "Code",
-      "caption_ar": "الكود",
-      "caption_ru": "Код",
+      "caption": {
+        "en": "Code",
+        "ar": "الكود",
+        "ru": "Код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,9 +78,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Currency",
-      "caption_ar": "العملة",
-      "caption_ru": "Валюта",
+      "caption": {
+        "en": "Currency",
+        "ar": "العملة",
+        "ru": "Валюта"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -93,8 +101,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -111,9 +121,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Postable",
-      "caption_ar": "قابل للترسيم",
-      "caption_ru": "Проводимый",
+      "caption": {
+        "en": "Postable",
+        "ar": "قابل للترسيم",
+        "ru": "Проводимый"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -131,9 +143,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -151,8 +165,10 @@
       "description": "System parent reference of the hierarchical dictionary (tree form)",
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Parent",
-      "caption_ar": "الأب",
+      "caption": {
+        "en": "Parent",
+        "ar": "الأب"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

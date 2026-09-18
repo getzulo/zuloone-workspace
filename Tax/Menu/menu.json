@@ -2,10 +2,12 @@
   "kind": "Menu",
   "items": [
     {
-      "caption": "Tax",
-      "caption_ar": "الضرائب",
-      "caption_ru": "Налоги",
-      "caption_uk": "Податки",
+      "caption": {
+        "en": "Tax",
+        "ar": "الضرائب",
+        "ru": "Налоги",
+        "uk": "Податки"
+      },
       "displayOrder": 3,
       "icon": "fluent-color:certificate-32",
       "targetType": "Group",
@@ -14,10 +16,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Dictionaries",
-      "caption_ar": "القوائم المرجعية",
-      "caption_ru": "Справочники",
-      "caption_uk": "Довідники",
+      "caption": {
+        "en": "Dictionaries",
+        "ar": "القوائم المرجعية",
+        "ru": "Справочники",
+        "uk": "Довідники"
+      },
       "parentMetaId": "a5a9924f-9bbc-4f70-a7a8-1268263bb060",
       "displayOrder": 0,
       "icon": "fluent-color:database-48",
@@ -27,10 +31,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Documents",
-      "caption_ar": "المستندات",
-      "caption_ru": "Документы",
-      "caption_uk": "Документи",
+      "caption": {
+        "en": "Documents",
+        "ar": "المستندات",
+        "ru": "Документы",
+        "uk": "Документи"
+      },
       "parentMetaId": "a5a9924f-9bbc-4f70-a7a8-1268263bb060",
       "displayOrder": 1,
       "icon": "fluent-color:document-48",
@@ -40,10 +46,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Registers",
-      "caption_ar": "السجلات",
-      "caption_ru": "Итоги",
-      "caption_uk": "Підсумки",
+      "caption": {
+        "en": "Registers",
+        "ar": "السجلات",
+        "ru": "Итоги",
+        "uk": "Підсумки"
+      },
       "parentMetaId": "a5a9924f-9bbc-4f70-a7a8-1268263bb060",
       "displayOrder": 2,
       "icon": "fluent-color:table-48",
@@ -53,10 +61,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Settings",
-      "caption_ar": "الإعدادات",
-      "caption_ru": "Настройки",
-      "caption_uk": "Налаштування",
+      "caption": {
+        "en": "Settings",
+        "ar": "الإعدادات",
+        "ru": "Настройки",
+        "uk": "Налаштування"
+      },
       "parentMetaId": "a5a9924f-9bbc-4f70-a7a8-1268263bb060",
       "displayOrder": 3,
       "icon": "fluent-color:settings-48",
@@ -66,10 +76,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax types",
-      "caption_ar": "أنواع الضرائب",
-      "caption_ru": "Виды налогов",
-      "caption_uk": "Види податків",
+      "caption": {
+        "en": "Tax types",
+        "ar": "أنواع الضرائب",
+        "ru": "Виды налогов",
+        "uk": "Види податків"
+      },
       "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
       "displayOrder": 0,
       "icon": "fluent-color:certificate-32",
@@ -80,10 +92,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax calculations",
-      "caption_ar": "حسابات الضريبة",
-      "caption_ru": "Налоговые расчёты",
-      "caption_uk": "Податкові розрахунки",
+      "caption": {
+        "en": "Tax calculations",
+        "ar": "حسابات الضريبة",
+        "ru": "Налоговые расчёты",
+        "uk": "Податкові розрахунки"
+      },
       "parentMetaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
       "displayOrder": 0,
       "icon": "fluent-color:gauge-32",
@@ -94,10 +108,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax ledger",
-      "caption_ar": "دفتر الضريبة",
-      "caption_ru": "Налоговый регистр",
-      "caption_uk": "Податковий регістр",
+      "caption": {
+        "en": "Tax ledger",
+        "ar": "دفتر الضريبة",
+        "ru": "Налоговый регистр",
+        "uk": "Податковий регістр"
+      },
       "parentMetaId": "c01c5d76-0073-47ef-91eb-eb6f61807188",
       "displayOrder": 0,
       "icon": "fluent-color:table-48",
@@ -108,10 +124,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax settings",
-      "caption_ar": "إعدادات الضرائب",
-      "caption_ru": "Настройки налогов",
-      "caption_uk": "Налаштування податків",
+      "caption": {
+        "en": "Tax settings",
+        "ar": "إعدادات الضرائب",
+        "ru": "Настройки налогов",
+        "uk": "Налаштування податків"
+      },
       "parentMetaId": "0dd22d55-1199-5094-aa04-dfe6d006374a",
       "displayOrder": 0,
       "icon": "fluent-color:building-government-search-32",
@@ -122,10 +140,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Authority connections",
-      "caption_ar": "اتصالات الجهات الحكومية",
-      "caption_ru": "Подключения к госсистемам",
-      "caption_uk": "Підключення до держсистем",
+      "caption": {
+        "en": "Authority connections",
+        "ar": "اتصالات الجهات الحكومية",
+        "ru": "Подключения к госсистемам",
+        "uk": "Підключення до держсистем"
+      },
       "parentMetaId": "0dd22d55-1199-5094-aa04-dfe6d006374a",
       "displayOrder": 1,
       "icon": "fluent-color:link-32",
@@ -136,10 +156,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax codes",
-      "caption_ar": "رموز الضريبة",
-      "caption_ru": "Налоговые коды",
-      "caption_uk": "Податкові коди",
+      "caption": {
+        "en": "Tax codes",
+        "ar": "رموز الضريبة",
+        "ru": "Налоговые коды",
+        "uk": "Податкові коди"
+      },
       "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
       "displayOrder": 1,
       "icon": "fluent-color:number-symbol-square-32",
@@ -150,10 +172,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax returns",
-      "caption_ar": "الإقرارات الضريبية",
-      "caption_ru": "Налоговые декларации",
-      "caption_uk": "Податкові декларації",
+      "caption": {
+        "en": "Tax returns",
+        "ar": "الإقرارات الضريبية",
+        "ru": "Налоговые декларации",
+        "uk": "Податкові декларації"
+      },
       "parentMetaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
       "displayOrder": 1,
       "icon": "fluent-color:form-48",
@@ -164,10 +188,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax payments",
-      "caption_ar": "مدفوعات الضرائب",
-      "caption_ru": "Оплаты налогов",
-      "caption_uk": "Оплати податків",
+      "caption": {
+        "en": "Tax payments",
+        "ar": "مدفوعات الضرائب",
+        "ru": "Оплаты налогов",
+        "uk": "Оплати податків"
+      },
       "parentMetaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
       "displayOrder": 2,
       "icon": "fluent-color:savings-32",
@@ -178,10 +204,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax documents",
-      "caption_ar": "المستندات الضريبية",
-      "caption_ru": "Налоговые документы",
-      "caption_uk": "Податкові документи",
+      "caption": {
+        "en": "Tax documents",
+        "ar": "المستندات الضريبية",
+        "ru": "Налоговые документы",
+        "uk": "Податкові документи"
+      },
       "parentMetaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
       "displayOrder": 3,
       "icon": "fluent-color:document-lock-32",
@@ -192,10 +220,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax rates",
-      "caption_ar": "معدلات الضريبة",
-      "caption_ru": "Налоговые ставки",
-      "caption_uk": "Податкові ставки",
+      "caption": {
+        "en": "Tax rates",
+        "ar": "معدلات الضريبة",
+        "ru": "Налоговые ставки",
+        "uk": "Податкові ставки"
+      },
       "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
       "displayOrder": 2,
       "icon": "fluent-color:data-pie-32",
@@ -206,10 +236,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax categories",
-      "caption_ar": "فئات الضريبة",
-      "caption_ru": "Налоговые категории",
-      "caption_uk": "Податкові категорії",
+      "caption": {
+        "en": "Tax categories",
+        "ar": "فئات الضريبة",
+        "ru": "Налоговые категории",
+        "uk": "Податкові категорії"
+      },
       "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
       "displayOrder": 3,
       "icon": "fluent-color:bookmark-32",
@@ -220,10 +252,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Authority submissions",
-      "caption_ar": "سجل التسليم للجهة",
-      "caption_ru": "Журнал сдачи",
-      "caption_uk": "Журнал подання",
+      "caption": {
+        "en": "Authority submissions",
+        "ar": "سجل التسليم للجهة",
+        "ru": "Журнал сдачи",
+        "uk": "Журнал подання"
+      },
       "parentMetaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
       "displayOrder": 3,
       "icon": "fluent-color:document-folder-32",
@@ -234,10 +268,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax authorities",
-      "caption_ar": "الهيئات الضريبية",
-      "caption_ru": "Налоговые органы",
-      "caption_uk": "Податкові органи",
+      "caption": {
+        "en": "Tax authorities",
+        "ar": "الهيئات الضريبية",
+        "ru": "Налоговые органы",
+        "uk": "Податкові органи"
+      },
       "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
       "displayOrder": 4,
       "icon": "fluent-color:building-government-32",
@@ -248,10 +284,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax jurisdictions",
-      "caption_ar": "الاختصاصات الضريبية",
-      "caption_ru": "Налоговые юрисдикции",
-      "caption_uk": "Податкові юрисдикції",
+      "caption": {
+        "en": "Tax jurisdictions",
+        "ar": "الاختصاصات الضريبية",
+        "ru": "Налоговые юрисдикции",
+        "uk": "Податкові юрисдикції"
+      },
       "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
       "displayOrder": 5,
       "icon": "fluent-color:globe-shield-48",
@@ -262,10 +300,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax directions",
-      "caption_ar": "اتجاهات الضريبة",
-      "caption_ru": "Направления налога",
-      "caption_uk": "Напрями податку",
+      "caption": {
+        "en": "Tax directions",
+        "ar": "اتجاهات الضريبة",
+        "ru": "Направления налога",
+        "uk": "Напрями податку"
+      },
       "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
       "displayOrder": 6,
       "icon": "fluent-color:arrow-trending-lines-24",
@@ -276,10 +316,12 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax determination rules",
-      "caption_ar": "قواعد تحديد الضريبة",
-      "caption_ru": "Правила определения налога",
-      "caption_uk": "Правила визначення податку",
+      "caption": {
+        "en": "Tax determination rules",
+        "ar": "قواعد تحديد الضريبة",
+        "ru": "Правила определения налога",
+        "uk": "Правила визначення податку"
+      },
       "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
       "displayOrder": 7,
       "icon": "fluent-color:checkbox-24",
@@ -290,9 +332,11 @@
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
-      "caption": "Tax rule actions",
-      "caption_ru": "Действия правил",
-      "caption_uk": "Дії правил",
+      "caption": {
+        "en": "Tax rule actions",
+        "ru": "Действия правил",
+        "uk": "Дії правил"
+      },
       "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
       "displayOrder": 8,
       "icon": "fluent-color:flash-24",

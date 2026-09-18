@@ -1,10 +1,12 @@
 {
   "kind": "LinkTable",
   "object": {
-    "caption": "Contract quantity breaks",
-    "caption_ar": "خصومات الكمية بالعقد",
-    "caption_ru": "Пороги количества договора",
-    "caption_uk": "Пороги кількості договору",
+    "caption": {
+      "en": "Contract quantity breaks",
+      "ar": "خصومات الكمية بالعقد",
+      "ru": "Пороги количества договора",
+      "uk": "Пороги кількості договору"
+    },
     "tableName": "LT_SalesContractQtyBreak",
     "isKernel": false,
     "isLogged": true,
@@ -17,9 +19,11 @@
     {
       "linkTableMetaId": "82edeac8-86b6-43a9-bfa8-b9c932ab91b0",
       "fieldName": "DiscountPercent",
-      "caption": "Discount, %",
-      "caption_ru": "Скидка, %",
-      "caption_uk": "Знижка, %",
+      "caption": {
+        "en": "Discount, %",
+        "ru": "Скидка, %",
+        "uk": "Знижка, %"
+      },
       "baseType": "Decimal",
       "precision": 9,
       "scale": 4,
@@ -36,9 +40,11 @@
     {
       "linkTableMetaId": "82edeac8-86b6-43a9-bfa8-b9c932ab91b0",
       "fieldName": "Item",
-      "caption": "Item",
-      "caption_ru": "Номенклатура",
-      "caption_uk": "Номенклатура",
+      "caption": {
+        "en": "Item",
+        "ru": "Номенклатура",
+        "uk": "Номенклатура"
+      },
       "isRequired": false,
       "isPrimaryKey": false,
       "isLogged": false,
@@ -55,9 +61,11 @@
     {
       "linkTableMetaId": "82edeac8-86b6-43a9-bfa8-b9c932ab91b0",
       "fieldName": "MinQty",
-      "caption": "Min quantity",
-      "caption_ru": "От количества",
-      "caption_uk": "Від кількості",
+      "caption": {
+        "en": "Min quantity",
+        "ru": "От количества",
+        "uk": "Від кількості"
+      },
       "baseType": "Decimal",
       "precision": 18,
       "scale": 4,
@@ -74,9 +82,11 @@
     {
       "linkTableMetaId": "82edeac8-86b6-43a9-bfa8-b9c932ab91b0",
       "fieldName": "SalesContract",
-      "caption": "Contract",
-      "caption_ru": "Договор",
-      "caption_uk": "Договір",
+      "caption": {
+        "en": "Contract",
+        "ru": "Договор",
+        "uk": "Договір"
+      },
       "isRequired": true,
       "isPrimaryKey": true,
       "isLogged": false,

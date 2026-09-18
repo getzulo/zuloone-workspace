@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Item prices",
-    "caption_ar": "أسعار الأصناف",
-    "caption_ru": "Цены номенклатуры",
+    "caption": {
+      "en": "Item prices",
+      "ar": "أسعار الأصناف",
+      "ru": "Цены номенклатуры"
+    },
     "description": "Устаревший справочник цен. Подбор и запись идут через LT_PriceTypeHistory на карточке номенклатуры. Не удалять каскадом, пока в таблице есть старые строки.",
     "isLogged": true,
     "isHierarchical": false,
@@ -34,9 +36,11 @@
       "description": "Цена действует с этой даты включительно. Пусто — действует с начала времён.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Effective from",
-      "caption_ar": "ساري من",
-      "caption_ru": "Действует с",
+      "caption": {
+        "en": "Effective from",
+        "ar": "ساري من",
+        "ru": "Действует с"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,9 +58,11 @@
       "description": "Цена действует по эту дату включительно. Пусто — бессрочно.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Effective to",
-      "caption_ar": "ساري حتى",
-      "caption_ru": "Действует по",
+      "caption": {
+        "en": "Effective to",
+        "ar": "ساري حتى",
+        "ru": "Действует по"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -92,9 +98,11 @@
       "displayOrder": 2,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Item",
-      "caption_ar": "الصنف",
-      "caption_ru": "Товар",
+      "caption": {
+        "en": "Item",
+        "ar": "الصنف",
+        "ru": "Товар"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -112,9 +120,11 @@
       "description": "Цена за одну единицу, указанную в поле Unit.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Price",
-      "caption_ar": "السعر",
-      "caption_ru": "Цена",
+      "caption": {
+        "en": "Price",
+        "ar": "السعر",
+        "ru": "Цена"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -132,9 +142,11 @@
       "description": "Тип цены, к которому относится строка. Должен быть Kind = Base — у расчётных типов цены строки не заводятся.",
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Price type",
-      "caption_ar": "نوع السعر",
-      "caption_ru": "Тип цен",
+      "caption": {
+        "en": "Price type",
+        "ar": "نوع السعر",
+        "ru": "Тип цен"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -152,9 +164,11 @@
       "description": "Единица, ЗА КОТОРУЮ задана цена. Обязательна: без неё «100» бессмысленно — за штуку это или за ящик.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Unit",
-      "caption_ar": "الوحدة",
-      "caption_ru": "Единица",
+      "caption": {
+        "en": "Unit",
+        "ar": "الوحدة",
+        "ru": "Единица"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Store zones",
-    "caption_ar": "مناطق المخزن",
-    "caption_ru": "Зоны склада",
+    "caption": {
+      "en": "Store zones",
+      "ar": "مناطق المخزن",
+      "ru": "Зоны склада"
+    },
     "description": "Zone within a store (MIQS StoreZone); groups cells. Store is the owner.",
     "isLogged": true,
     "isHierarchical": false,
@@ -35,8 +37,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,9 +57,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Barcode tracking",
-      "caption_ar": "تتبع الباركود",
-      "caption_ru": "Учёт по штрихкоду",
+      "caption": {
+        "en": "Barcode tracking",
+        "ar": "تتبع الباركود",
+        "ru": "Учёт по штрихкоду"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -73,9 +79,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -92,9 +100,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Store",
-      "caption_ar": "المتجر",
-      "caption_ru": "Склад",
+      "caption": {
+        "en": "Store",
+        "ar": "المتجر",
+        "ru": "Склад"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

@@ -1,9 +1,11 @@
 {
   "kind": "LinkTable",
   "object": {
-    "caption": "Price history",
-    "caption_ar": "سجل الأسعار",
-    "caption_ru": "История цен",
+    "caption": {
+      "en": "Price history",
+      "ar": "سجل الأسعار",
+      "ru": "История цен"
+    },
     "tableName": "LT_PriceTypeHistory",
     "isKernel": false,
     "isLogged": true,
@@ -16,9 +18,11 @@
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
       "fieldName": "EffectiveFrom",
-      "caption": "Effective from",
-      "caption_ar": "ساري من",
-      "caption_ru": "Действует с",
+      "caption": {
+        "en": "Effective from",
+        "ar": "ساري من",
+        "ru": "Действует с"
+      },
       "baseType": "DateTime",
       "isRequired": false,
       "isPrimaryKey": false,
@@ -33,9 +37,11 @@
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
       "fieldName": "EffectiveTo",
-      "caption": "Effective to",
-      "caption_ar": "ساري حتى",
-      "caption_ru": "Действует по",
+      "caption": {
+        "en": "Effective to",
+        "ar": "ساري حتى",
+        "ru": "Действует по"
+      },
       "baseType": "DateTime",
       "isRequired": false,
       "isPrimaryKey": false,
@@ -50,9 +56,11 @@
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
       "fieldName": "Item",
-      "caption": "Item",
-      "caption_ar": "الصنف",
-      "caption_ru": "Номенклатура",
+      "caption": {
+        "en": "Item",
+        "ar": "الصنف",
+        "ru": "Номенклатура"
+      },
       "isRequired": true,
       "isPrimaryKey": true,
       "isLogged": false,
@@ -69,9 +77,11 @@
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
       "fieldName": "Price",
-      "caption": "Price",
-      "caption_ar": "السعر",
-      "caption_ru": "Цена",
+      "caption": {
+        "en": "Price",
+        "ar": "السعر",
+        "ru": "Цена"
+      },
       "baseType": "Decimal",
       "precision": 18,
       "scale": 4,
@@ -88,9 +98,11 @@
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
       "fieldName": "PriceType",
-      "caption": "Price type",
-      "caption_ar": "نوع السعر",
-      "caption_ru": "Тип цен",
+      "caption": {
+        "en": "Price type",
+        "ar": "نوع السعر",
+        "ru": "Тип цен"
+      },
       "isRequired": true,
       "isPrimaryKey": false,
       "isLogged": false,
@@ -106,9 +118,11 @@
     {
       "linkTableMetaId": "9e4a1c7b-2d58-4f6a-8b3c-1a7e9d4f2c60",
       "fieldName": "Unit",
-      "caption": "Unit",
-      "caption_ar": "الوحدة",
-      "caption_ru": "Единица",
+      "caption": {
+        "en": "Unit",
+        "ar": "الوحدة",
+        "ru": "Единица"
+      },
       "isRequired": true,
       "isPrimaryKey": false,
       "isLogged": false,

@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Stores",
-    "caption_ar": "المتاجر",
-    "caption_ru": "Склады",
+    "caption": {
+      "en": "Stores",
+      "ar": "المتاجر",
+      "ru": "Склады"
+    },
     "description": "Store / warehouse (MIQS Store). Zones and cells hang off it.",
     "isLogged": true,
     "isHierarchical": false,
@@ -33,9 +35,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Division",
-      "caption_ar": "الفرع",
-      "caption_ru": "Подразделение",
+      "caption": {
+        "en": "Division",
+        "ar": "الفرع",
+        "ru": "Подразделение"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,8 +58,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,9 +78,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Inventory agent",
-      "caption_ar": "أمين المخزن",
-      "caption_ru": "МОЛ",
+      "caption": {
+        "en": "Inventory agent",
+        "ar": "أمين المخزن",
+        "ru": "МОЛ"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -91,9 +99,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Sales point",
-      "caption_ar": "نقطة البيع",
-      "caption_ru": "Точка продаж",
+      "caption": {
+        "en": "Sales point",
+        "ar": "نقطة البيع",
+        "ru": "Точка продаж"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -110,9 +120,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Simple store",
-      "caption_ar": "مخزن بسيط",
-      "caption_ru": "Простой склад",
+      "caption": {
+        "en": "Simple store",
+        "ar": "مخزن بسيط",
+        "ru": "Простой склад"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -130,9 +142,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

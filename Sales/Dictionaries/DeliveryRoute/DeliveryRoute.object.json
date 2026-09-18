@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Delivery route",
-    "caption_ru": "Маршрут доставки",
-    "caption_uk": "Маршрут доставки",
+    "caption": {
+      "en": "Delivery route",
+      "ru": "Маршрут доставки",
+      "uk": "Маршрут доставки"
+    },
     "description": "Маршрут утреннего развоза: заказы и рейс ссылаются на него, чтобы собрать волну «на завтра».",
     "isLogged": false,
     "isHierarchical": false,
@@ -33,10 +35,12 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default driver",
-      "caption_ar": "السائق الافتراضي",
-      "caption_ru": "Водитель по умолчанию",
-      "caption_uk": "Водій за замовчуванням",
+      "caption": {
+        "en": "Default driver",
+        "ar": "السائق الافتراضي",
+        "ru": "Водитель по умолчанию",
+        "uk": "Водій за замовчуванням"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,10 +57,12 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default vehicle",
-      "caption_ar": "المركبة الافتراضية",
-      "caption_ru": "Машина по умолчанию",
-      "caption_uk": "Машина за замовчуванням",
+      "caption": {
+        "en": "Default vehicle",
+        "ar": "المركبة الافتراضية",
+        "ru": "Машина по умолчанию",
+        "uk": "Машина за замовчуванням"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -73,10 +79,12 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Depot",
-      "caption_ar": "المستودع",
-      "caption_ru": "Склад выезда",
-      "caption_uk": "Склад виїзду",
+      "caption": {
+        "en": "Depot",
+        "ar": "المستودع",
+        "ru": "Склад выезда",
+        "uk": "Склад виїзду"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -95,8 +103,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_uk": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -113,10 +123,12 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Disabled",
-      "caption_ar": "معطّل",
-      "caption_ru": "Отключён",
-      "caption_uk": "Вимкнено",
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключён",
+        "uk": "Вимкнено"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -134,9 +146,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ru": "Наименование",
-      "caption_uk": "Найменування",
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование",
+        "uk": "Найменування"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

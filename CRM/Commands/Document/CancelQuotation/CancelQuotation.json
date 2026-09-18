@@ -1,8 +1,10 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Cancel quotation",
-    "caption_ru": "Отменить КП",
+    "caption": {
+      "en": "Cancel quotation",
+      "ru": "Отменить КП"
+    },
     "scriptMetaId": "9908d9b4-c0d8-478c-b74d-ca968b7784c9",
     "parameterMode": "None",
     "displayOrder": 3,

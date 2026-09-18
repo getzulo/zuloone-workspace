@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Employees",
-    "caption_ar": "الموظفون",
-    "caption_ru": "Сотрудники",
+    "caption": {
+      "en": "Employees",
+      "ar": "الموظفون",
+      "ru": "Сотрудники"
+    },
     "isLogged": true,
     "isHierarchical": false,
     "numberSequenceMetaId": "6baabe10-39e3-4f74-9c90-dc23aff9b396",
@@ -32,9 +34,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Division",
-      "caption_ar": "الفرع",
-      "caption_ru": "Подразделение",
+      "caption": {
+        "en": "Division",
+        "ar": "الفرع",
+        "ru": "Подразделение"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -51,9 +55,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Hire date",
-      "caption_ar": "التوظيف التاريخ",
-      "caption_ru": "Дата найма",
+      "caption": {
+        "en": "Hire date",
+        "ar": "التوظيف التاريخ",
+        "ru": "Дата найма"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,8 +78,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -90,9 +98,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Active",
-      "caption_ar": "نشط",
-      "caption_ru": "Активен",
+      "caption": {
+        "en": "Active",
+        "ar": "نشط",
+        "ru": "Активен"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -110,9 +120,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "ФИО",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "ФИО"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -129,8 +141,10 @@
       "displayOrder": 6,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Nationality",
-      "caption_ru": "Гражданство",
+      "caption": {
+        "en": "Nationality",
+        "ru": "Гражданство"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -147,9 +161,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Position",
-      "caption_ar": "الوظيفة",
-      "caption_ru": "Должность",
+      "caption": {
+        "en": "Position",
+        "ar": "الوظيفة",
+        "ru": "Должность"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

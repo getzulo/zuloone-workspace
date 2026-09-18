@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Tax codes",
-    "caption_ar": "الضريبة رمز",
-    "caption_ru": "Налоговые коды",
+    "caption": {
+      "en": "Tax codes",
+      "ar": "الضريبة رمز",
+      "ru": "Налоговые коды"
+    },
     "description": "User-facing classification: tax + category + rate, effective-dated",
     "isLogged": true,
     "isHierarchical": false,
@@ -34,9 +36,11 @@
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": true,
-      "caption": "Code",
-      "caption_ar": "الكود",
-      "caption_ru": "Код",
+      "caption": {
+        "en": "Code",
+        "ar": "الكود",
+        "ru": "Код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,9 +57,11 @@
       "displayOrder": 6,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Effective from",
-      "caption_ar": "سارٍ من",
-      "caption_ru": "Действует с",
+      "caption": {
+        "en": "Effective from",
+        "ar": "سارٍ من",
+        "ru": "Действует с"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -72,9 +78,11 @@
       "displayOrder": 7,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Effective to",
-      "caption_ar": "سارٍ إلى",
-      "caption_ru": "Действует по",
+      "caption": {
+        "en": "Effective to",
+        "ar": "سارٍ إلى",
+        "ru": "Действует по"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -93,8 +101,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -112,9 +122,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,
@@ -134,8 +146,10 @@
       "description": "Доля входного НДС, которую нельзя поставить в зачёт, 0–100. Ноль — весь налог возмещается, как раньше.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Non-recoverable %",
-      "caption_ru": "Невозместимо, %",
+      "caption": {
+        "en": "Non-recoverable %",
+        "ru": "Невозместимо, %"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -152,9 +166,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Tax",
-      "caption_ar": "الضريبة",
-      "caption_ru": "Налог",
+      "caption": {
+        "en": "Tax",
+        "ar": "الضريبة",
+        "ru": "Налог"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -171,9 +187,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Tax category",
-      "caption_ar": "الضريبة الفئة",
-      "caption_ru": "Налоговая категория",
+      "caption": {
+        "en": "Tax category",
+        "ar": "الضريبة الفئة",
+        "ru": "Налоговая категория"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -191,9 +209,11 @@
       "description": "ИСТОРИЧЕСКАЯ привязка кода к ставке. Расчёт её НЕ читает: действующая ставка подбирается по налогу и дате из истории TaxRate (см. TaxService.ResolveRateAsync), иначе смена ставки требовала бы заводить новый код налога. Поле оставлено необязательным для совместимости; если заполнено — обязано указывать на ставку ТОГО ЖЕ налога.",
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Tax rate",
-      "caption_ar": "الضريبة معدل",
-      "caption_ru": "Налоговая ставка",
+      "caption": {
+        "en": "Tax rate",
+        "ar": "الضريبة معدل",
+        "ru": "Налоговая ставка"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

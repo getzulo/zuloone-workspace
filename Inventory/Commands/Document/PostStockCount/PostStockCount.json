@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Post stock count",
-    "caption_ar": "ترحيل الجرد",
-    "caption_ru": "Провести инвентаризацию",
+    "caption": {
+      "en": "Post stock count",
+      "ar": "ترحيل الجرد",
+      "ru": "Провести инвентаризацию"
+    },
     "scriptMetaId": "307014f9-6f59-44a1-a95a-905e83e6ac4b",
     "parameterMode": "None",
     "displayOrder": 1,

@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Sales person",
-    "caption_ru": "Агент / водитель",
-    "caption_uk": "Агент / водій",
+    "caption": {
+      "en": "Sales person",
+      "ru": "Агент / водитель",
+      "uk": "Агент / водій"
+    },
     "description": "Кто собрал заказ вечером или кто везёт рейс утром. Не сотрудник HR: полевой агент не обязан быть в табеле.",
     "isLogged": false,
     "isHierarchical": false,
@@ -35,8 +37,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_uk": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,9 +58,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ru": "Наименование",
-      "caption_uk": "Найменування",
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование",
+        "uk": "Найменування"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -67,9 +73,11 @@
     {
       "dictionaryMetaId": "abb0b19e-9453-4d51-bd29-ebb07cc869b8",
       "fieldName": "UserId",
-      "caption": "Login user",
-      "caption_ru": "Пользователь входа",
-      "caption_uk": "Користувач входу",
+      "caption": {
+        "en": "Login user",
+        "ru": "Пользователь входа",
+        "uk": "Користувач входу"
+      },
       "baseType": "Guid",
       "isSystem": false,
       "isRequired": false,

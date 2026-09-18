@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Purchasing settings",
-    "caption_ru": "Настройки модуля",
+    "caption": {
+      "en": "Purchasing settings",
+      "ru": "Настройки модуля"
+    },
     "description": "Одиночный настроечный справочник модуля Purchasing (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -30,8 +32,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Auto-receive on order",
-      "caption_ru": "Авто-приход по заказу",
+      "caption": {
+        "en": "Auto-receive on order",
+        "ru": "Авто-приход по заказу"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -48,8 +52,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default payment term (days)",
-      "caption_ru": "Срок оплаты по умолчанию (дней)",
+      "caption": {
+        "en": "Default payment term (days)",
+        "ru": "Срок оплаты по умолчанию (дней)"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

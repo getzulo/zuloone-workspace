@@ -1,8 +1,10 @@
 {
   "kind": "Analytic",
   "object": {
-    "caption": "Tax code",
-    "caption_ru": "Налоговый код",
+    "caption": {
+      "en": "Tax code",
+      "ru": "Налоговый код"
+    },
     "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
     "description": "Reusable analytic over the TaxCode dictionary (TaxLedger)",
     "metaId": "8c95aae7-bbfe-4bc3-afca-79d069bfd3af",

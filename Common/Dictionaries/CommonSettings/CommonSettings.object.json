@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Common settings",
-    "caption_ru": "Настройки модуля",
+    "caption": {
+      "en": "Common settings",
+      "ru": "Настройки модуля"
+    },
     "description": "Одиночный настроечный справочник модуля Common (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -30,8 +32,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default country code",
-      "caption_ru": "Код страны по умолчанию",
+      "caption": {
+        "en": "Default country code",
+        "ru": "Код страны по умолчанию"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -49,8 +53,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default currency code",
-      "caption_ru": "Код валюты по умолчанию",
+      "caption": {
+        "en": "Default currency code",
+        "ru": "Код валюты по умолчанию"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -86,9 +92,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Trade profile",
-      "caption_ar": "ملف التجارة",
-      "caption_ru": "Профиль торговли",
+      "caption": {
+        "en": "Trade profile",
+        "ar": "ملف التجارة",
+        "ru": "Профиль торговли"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

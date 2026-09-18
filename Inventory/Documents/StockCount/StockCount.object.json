@@ -1,9 +1,11 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Stock count",
-    "caption_ar": "جرد المخزون",
-    "caption_ru": "Инвентаризация",
+    "caption": {
+      "en": "Stock count",
+      "ar": "جرد المخزون",
+      "ru": "Инвентаризация"
+    },
     "isLogged": false,
     "isCloneable": true,
     "numberSequenceMetaId": "57100204-0000-4000-8000-000000000000",
@@ -22,9 +24,11 @@
     {
       "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
       "fieldName": "Cell",
-      "caption": "Cell",
-      "caption_ar": "الخلية",
-      "caption_ru": "Ячейка",
+      "caption": {
+        "en": "Cell",
+        "ar": "الخلية",
+        "ru": "Ячейка"
+      },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
       "isRequired": true,
@@ -40,9 +44,11 @@
     {
       "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
       "fieldName": "CountDate",
-      "caption": "Count date",
-      "caption_ar": "تاريخ الجرد",
-      "caption_ru": "Дата пересчёта",
+      "caption": {
+        "en": "Count date",
+        "ar": "تاريخ الجرد",
+        "ru": "Дата пересчёта"
+      },
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": true,
@@ -58,9 +64,11 @@
     {
       "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -80,11 +88,15 @@
     {
       "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
       "name": "Draft",
-      "caption": "Draft",
-      "caption_ar": "مسودة",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة"
+      },
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -94,11 +106,15 @@
     {
       "documentTypeMetaId": "57100901-0000-4000-8000-000000000000",
       "name": "Posted",
-      "caption": "Posted",
-      "caption_ar": "مرسل",
+      "caption": {
+        "en": "Posted",
+        "ar": "مرسل"
+      },
       "subtypeValue": "Posted",
-      "subtypeCaption": "Posted",
-      "subtypeCaption_ru": "Проведено",
+      "subtypeCaption": {
+        "en": "Posted",
+        "ru": "Проведено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": false,

@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Countries",
-    "caption_ar": "الدول",
-    "caption_ru": "Страны",
+    "caption": {
+      "en": "Countries",
+      "ar": "الدول",
+      "ru": "Страны"
+    },
     "description": "",
     "isLogged": false,
     "isHierarchical": false,
@@ -34,9 +36,11 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "ISO2 code",
-      "caption_ar": "رمز ISO2",
-      "caption_ru": "Код ISO2",
+      "caption": {
+        "en": "ISO2 code",
+        "ar": "رمز ISO2",
+        "ru": "Код ISO2"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -54,9 +58,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "ISO3 code",
-      "caption_ar": "رمز ISO3",
-      "caption_ru": "Код ISO3",
+      "caption": {
+        "en": "ISO3 code",
+        "ar": "رمز ISO3",
+        "ru": "Код ISO3"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -73,9 +79,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Currency",
-      "caption_ar": "العملة",
-      "caption_ru": "Валюта",
+      "caption": {
+        "en": "Currency",
+        "ar": "العملة",
+        "ru": "Валюта"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -94,8 +102,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
-      "caption_ar": "معرف",
+      "caption": {
+        "en": "ID",
+        "ar": "معرف"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -113,9 +123,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование"
+      },
       "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,
@@ -133,9 +145,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Phone code",
-      "caption_ar": "رمز الهاتف",
-      "caption_ru": "Телефонный код",
+      "caption": {
+        "en": "Phone code",
+        "ar": "رمز الهاتف",
+        "ru": "Телефонный код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

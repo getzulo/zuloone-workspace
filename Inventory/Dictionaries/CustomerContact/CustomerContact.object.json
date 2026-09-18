@@ -1,9 +1,11 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Customer contacts",
-    "caption_ar": "جهات اتصال العملاء",
-    "caption_ru": "Контактные лица клиентов",
+    "caption": {
+      "en": "Customer contacts",
+      "ar": "جهات اتصال العملاء",
+      "ru": "Контактные лица клиентов"
+    },
     "description": "",
     "isLogged": false,
     "isHierarchical": false,
@@ -33,9 +35,11 @@
       "displayOrder": 2,
       "isIndexed": true,
       "isUnique": false,
-      "caption": "Customer",
-      "caption_ar": "العميل",
-      "caption_ru": "Клиент",
+      "caption": {
+        "en": "Customer",
+        "ar": "العميل",
+        "ru": "Клиент"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,9 +57,11 @@
       "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Email",
-      "caption_ar": "البريد الإلكتروني",
-      "caption_ru": "Email",
+      "caption": {
+        "en": "Email",
+        "ar": "البريد الإلكتروني",
+        "ru": "Email"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -91,9 +97,11 @@
       "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Primary contact",
-      "caption_ar": "جهة الاتصال الرئيسية",
-      "caption_ru": "Основной контакт",
+      "caption": {
+        "en": "Primary contact",
+        "ar": "جهة الاتصال الرئيسية",
+        "ru": "Основной контакт"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -111,9 +119,11 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ar": "الاسم",
-      "caption_ru": "Имя",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Имя"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -131,9 +141,11 @@
       "displayOrder": 3,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Phone",
-      "caption_ar": "الهاتف",
-      "caption_ru": "Телефон",
+      "caption": {
+        "en": "Phone",
+        "ar": "الهاتف",
+        "ru": "Телефон"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

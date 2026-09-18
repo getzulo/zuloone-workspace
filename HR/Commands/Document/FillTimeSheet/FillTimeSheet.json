@@ -1,9 +1,11 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Fill standard week",
-    "caption_ar": "تعبئة الأسبوع القياسي",
-    "caption_ru": "Заполнить неделю",
+    "caption": {
+      "en": "Fill standard week",
+      "ar": "تعبئة الأسبوع القياسي",
+      "ru": "Заполнить неделю"
+    },
     "scriptMetaId": "b0ef9fef-71e3-4cbf-9ae7-c9dd4dd7882d",
     "parameterMode": "None",
     "displayOrder": 0,

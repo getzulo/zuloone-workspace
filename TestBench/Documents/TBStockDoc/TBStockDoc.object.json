@@ -20,9 +20,11 @@
     {
       "documentTypeMetaId": "bb42274b-8296-4de4-ac74-81da5230e13a",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,

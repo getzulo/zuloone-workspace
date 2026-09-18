@@ -2,9 +2,11 @@
   "kind": "TablePartType",
   "object": {
     "className": "ProductionOrderComponentsTablePartRow",
-    "caption": "Components",
-    "caption_ar": "مكون",
-    "caption_ru": "Компоненты",
+    "caption": {
+      "en": "Components",
+      "ar": "مكون",
+      "ru": "Компоненты"
+    },
     "tableName": "TP_ProductionOrderComponents",
     "softDeletion": false,
     "isLogged": false,
@@ -16,9 +18,11 @@
     {
       "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
       "fieldName": "BaseQuantity",
-      "caption": "Qty in base unit",
-      "caption_ar": "الكمية بالوحدة الأساسية",
-      "caption_ru": "Количество в базовой единице",
+      "caption": {
+        "en": "Qty in base unit",
+        "ar": "الكمية بالوحدة الأساسية",
+        "ru": "Количество в базовой единице"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": false,
       "isVisible": false,
@@ -34,9 +38,11 @@
     {
       "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
       "fieldName": "Component",
-      "caption": "Component",
-      "caption_ar": "المكون",
-      "caption_ru": "Компонент",
+      "caption": {
+        "en": "Component",
+        "ar": "المكون",
+        "ru": "Компонент"
+      },
       "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
       "isRequired": true,
       "isVisible": true,
@@ -54,9 +60,11 @@
     {
       "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
       "fieldName": "QtyRequired",
-      "caption": "Qty required",
-      "caption_ar": "الكمية مطلوب",
-      "caption_ru": "Требуется",
+      "caption": {
+        "en": "Qty required",
+        "ar": "الكمية مطلوب",
+        "ru": "Требуется"
+      },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": true,
       "isVisible": true,
@@ -74,9 +82,11 @@
     {
       "tablePartTypeMetaId": "0b7c9d5a-2f6e-4a8b-9c9d-9e3f4a0b5c80",
       "fieldName": "Unit",
-      "caption": "Unit",
-      "caption_ar": "الوحدة",
-      "caption_ru": "Единица",
+      "caption": {
+        "en": "Unit",
+        "ar": "الوحدة",
+        "ru": "Единица"
+      },
       "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
       "isRequired": false,
       "isVisible": true,

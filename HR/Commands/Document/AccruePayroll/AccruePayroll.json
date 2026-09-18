@@ -1,8 +1,10 @@
 {
   "kind": "DocumentCommand",
   "object": {
-    "caption": "Accrue payroll",
-    "caption_ru": "Начислить ФОТ",
+    "caption": {
+      "en": "Accrue payroll",
+      "ru": "Начислить ФОТ"
+    },
     "scriptMetaId": "5e6f7a8b-9c0d-4e1f-9a2b-4c5d6e7f8a9e",
     "parameterMode": "None",
     "displayOrder": 1,

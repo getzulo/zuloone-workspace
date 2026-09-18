@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Production settings",
-    "caption_ru": "Настройки модуля",
+    "caption": {
+      "en": "Production settings",
+      "ru": "Настройки модуля"
+    },
     "description": "Одиночный настроечный справочник модуля Production (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
     "isHierarchical": false,
@@ -30,8 +32,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Auto-expand BOM",
-      "caption_ru": "Авторазворачивание спецификации",
+      "caption": {
+        "en": "Auto-expand BOM",
+        "ru": "Авторазворачивание спецификации"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -49,8 +53,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Default output location code",
-      "caption_ru": "Код ячейки выпуска по умолчанию",
+      "caption": {
+        "en": "Default output location code",
+        "ru": "Код ячейки выпуска по умолчанию"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

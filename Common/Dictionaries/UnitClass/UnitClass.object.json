@@ -1,8 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": "Unit classes",
-    "caption_ru": "Виды величин",
+    "caption": {
+      "en": "Unit classes",
+      "ru": "Виды величин"
+    },
     "description": "Физическая величина, которую измеряет единица: масса, длина, объём, количество. Перевод возможен ТОЛЬКО внутри одного класса — «килограмм в метр» становится невыразимым, а не «правило не найдено».",
     "isLogged": false,
     "isHierarchical": false,
@@ -33,8 +35,10 @@
       "displayOrder": 1,
       "isIndexed": false,
       "isUnique": true,
-      "caption": "Code",
-      "caption_ru": "Код",
+      "caption": {
+        "en": "Code",
+        "ru": "Код"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -71,8 +75,10 @@
       "displayOrder": 2,
       "isIndexed": false,
       "isUnique": false,
-      "caption": "Name",
-      "caption_ru": "Наименование",
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
       "isTranslatable": true,
       "isVisible": true,
       "isCalculated": false,

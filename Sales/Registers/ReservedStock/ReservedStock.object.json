@@ -1,9 +1,11 @@
 {
   "kind": "Register",
   "object": {
-    "caption": "Reserved stock",
-    "caption_ru": "Резерв",
-    "caption_uk": "Резерв",
+    "caption": {
+      "en": "Reserved stock",
+      "ru": "Резерв",
+      "uk": "Резерв"
+    },
     "description": "Количество, занятое подтверждёнными заказами покупателя. Свободно = Stock − Reserved. Снятие — откат подтипа Confirmed.",
     "isObsolete": false,
     "iconName": "fluent-color:lock-closed-48",
@@ -21,9 +23,11 @@
     {
       "registerMetaId": "fd09b86f-2940-4832-9b56-f8c04105c04d",
       "fieldName": "Qty",
-      "caption": "Qty",
-      "caption_ru": "Количество",
-      "caption_uk": "Кількість",
+      "caption": {
+        "en": "Qty",
+        "ru": "Количество",
+        "uk": "Кількість"
+      },
       "isOperational": true,
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "displayOrder": 1,

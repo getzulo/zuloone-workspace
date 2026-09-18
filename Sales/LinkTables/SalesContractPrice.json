@@ -1,10 +1,12 @@
 {
   "kind": "LinkTable",
   "object": {
-    "caption": "Contract item prices",
-    "caption_ar": "أسعار بنود العقد",
-    "caption_ru": "Цены товаров договора",
-    "caption_uk": "Ціни товарів договору",
+    "caption": {
+      "en": "Contract item prices",
+      "ar": "أسعار بنود العقد",
+      "ru": "Цены товаров договора",
+      "uk": "Ціни товарів договору"
+    },
     "tableName": "LT_SalesContractPrice",
     "isKernel": false,
     "isLogged": true,
@@ -17,9 +19,11 @@
     {
       "linkTableMetaId": "a2872425-6cb9-46cf-9766-efdac89cec77",
       "fieldName": "EffectiveFrom",
-      "caption": "Effective from",
-      "caption_ru": "Действует с",
-      "caption_uk": "Діє з",
+      "caption": {
+        "en": "Effective from",
+        "ru": "Действует с",
+        "uk": "Діє з"
+      },
       "baseType": "DateTime",
       "isRequired": false,
       "isPrimaryKey": false,
@@ -34,9 +38,11 @@
     {
       "linkTableMetaId": "a2872425-6cb9-46cf-9766-efdac89cec77",
       "fieldName": "EffectiveTo",
-      "caption": "Effective to",
-      "caption_ru": "Действует по",
-      "caption_uk": "Діє до",
+      "caption": {
+        "en": "Effective to",
+        "ru": "Действует по",
+        "uk": "Діє до"
+      },
       "baseType": "DateTime",
       "isRequired": false,
       "isPrimaryKey": false,
@@ -51,9 +57,11 @@
     {
       "linkTableMetaId": "a2872425-6cb9-46cf-9766-efdac89cec77",
       "fieldName": "Item",
-      "caption": "Item",
-      "caption_ru": "Номенклатура",
-      "caption_uk": "Номенклатура",
+      "caption": {
+        "en": "Item",
+        "ru": "Номенклатура",
+        "uk": "Номенклатура"
+      },
       "isRequired": true,
       "isPrimaryKey": false,
       "isLogged": false,
@@ -69,9 +77,11 @@
     {
       "linkTableMetaId": "a2872425-6cb9-46cf-9766-efdac89cec77",
       "fieldName": "Price",
-      "caption": "Price",
-      "caption_ru": "Цена",
-      "caption_uk": "Ціна",
+      "caption": {
+        "en": "Price",
+        "ru": "Цена",
+        "uk": "Ціна"
+      },
       "baseType": "Decimal",
       "precision": 18,
       "scale": 4,
@@ -88,9 +98,11 @@
     {
       "linkTableMetaId": "a2872425-6cb9-46cf-9766-efdac89cec77",
       "fieldName": "SalesContract",
-      "caption": "Contract",
-      "caption_ru": "Договор",
-      "caption_uk": "Договір",
+      "caption": {
+        "en": "Contract",
+        "ru": "Договор",
+        "uk": "Договір"
+      },
       "isRequired": true,
       "isPrimaryKey": true,
       "isLogged": false,
@@ -106,9 +118,11 @@
     {
       "linkTableMetaId": "a2872425-6cb9-46cf-9766-efdac89cec77",
       "fieldName": "Unit",
-      "caption": "Unit",
-      "caption_ru": "Единица",
-      "caption_uk": "Одиниця",
+      "caption": {
+        "en": "Unit",
+        "ru": "Единица",
+        "uk": "Одиниця"
+      },
       "isRequired": true,
       "isPrimaryKey": false,
       "isLogged": false,

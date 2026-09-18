@@ -1,8 +1,10 @@
 {
   "kind": "Widget",
   "object": {
-    "caption": "Timesheet grid",
-    "caption_ru": "Сетка табеля",
+    "caption": {
+      "en": "Timesheet grid",
+      "ru": "Сетка табеля"
+    },
     "widgetType": "timesheet-grid",
     "width": 12,
     "height": 8,
