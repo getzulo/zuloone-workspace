@@ -4,7 +4,8 @@
     "caption": {
       "en": "Post payroll accrual",
       "ar": "ترحيل الاستحقاق",
-      "ru": "Провести начисление"
+      "ru": "Провести начисление",
+      "uk": "Провести нарахування"
     },
     "scriptMetaId": "d50499d7-7fad-4aa0-bb74-279a7bf91172",
     "parameterMode": "None",

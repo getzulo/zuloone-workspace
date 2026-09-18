@@ -4,7 +4,8 @@
     "caption": {
       "en": "Payroll payment",
       "ar": "الرواتب الدفع",
-      "ru": "Выплата ФОТ"
+      "ru": "Выплата ФОТ",
+      "uk": "Виплата зарплати"
     },
     "isLogged": false,
     "isCloneable": true,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -48,11 +50,15 @@
     {
       "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
       "name": "Paid",
-      "caption": "Paid",
+      "caption": {
+        "en": "Paid",
+        "uk": "Оплачено"
+      },
       "subtypeValue": "Paid",
       "subtypeCaption": {
         "en": "Paid",
-        "ru": "Выплачено"
+        "ru": "Выплачено",
+        "uk": "Оплачено"
       },
       "displayOrder": 2,
       "isInitial": false,
@@ -65,12 +71,14 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,

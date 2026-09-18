@@ -1,7 +1,10 @@
 {
   "kind": "PrintForm",
   "object": {
-    "caption": "UiCheckForm",
+    "caption": {
+      "en": "UiCheckForm",
+      "uk": "UiCheckForm"
+    },
     "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
     "engine": "Xr",
     "scriptMetaId": "94042150-fb2c-44ed-b2fe-f9af1846f1c7",

@@ -4,7 +4,8 @@
     "caption": {
       "en": "Country",
       "ar": "الدولة",
-      "ru": "Страна"
+      "ru": "Страна",
+      "uk": "Країна"
     },
     "edtMetaId": "c5b40cc4-d521-493a-a7ae-f1d9e2da23c8",
     "description": "Reusable analytic over the Country dictionary",

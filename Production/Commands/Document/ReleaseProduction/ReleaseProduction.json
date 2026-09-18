@@ -4,7 +4,8 @@
     "caption": {
       "en": "Release to shop",
       "ar": "إطلاق للورشة",
-      "ru": "Запустить в работу"
+      "ru": "Запустить в работу",
+      "uk": "Запустити в роботу"
     },
     "scriptMetaId": "5c6d7e8f-9012-4234-bc5d-6e7f8a9b0c1d",
     "parameterMode": "None",

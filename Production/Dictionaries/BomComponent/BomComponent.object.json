@@ -4,7 +4,8 @@
     "caption": {
       "en": "BOM components",
       "ar": "قائمة المواد المكون",
-      "ru": "Компоненты спецификации"
+      "ru": "Компоненты спецификации",
+      "uk": "Компоненти специфікації"
     },
     "isLogged": false,
     "isHierarchical": false,
@@ -36,7 +37,8 @@
       "caption": {
         "en": "Bill of materials",
         "ar": "قائمة المواد",
-        "ru": "Спецификация"
+        "ru": "Спецификация",
+        "uk": "Специфікація"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -57,7 +59,8 @@
       "caption": {
         "en": "Component",
         "ar": "المكون",
-        "ru": "Компонент"
+        "ru": "Компонент",
+        "uk": "Компонент"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -79,7 +82,8 @@
       "caption": {
         "en": "Explode",
         "ar": "تفجير",
-        "ru": "Разворачивать"
+        "ru": "Разворачивать",
+        "uk": "Розгортати"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -101,7 +105,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -122,7 +127,8 @@
       "caption": {
         "en": "Qty per unit",
         "ar": "الكمية لكل الوحدة",
-        "ru": "Кол-во на единицу"
+        "ru": "Кол-во на единицу",
+        "uk": "К-сть на одиницю"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -143,7 +149,8 @@
       "isUnique": false,
       "caption": {
         "en": "Qty unit",
-        "ru": "Единица расхода"
+        "ru": "Единица расхода",
+        "uk": "Одиниця витрати"
       },
       "isTranslatable": false,
       "isVisible": true,

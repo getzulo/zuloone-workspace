@@ -4,7 +4,8 @@
     "caption": {
       "en": "Fiscal years",
       "ar": "المالية السنة",
-      "ru": "Фискальные годы"
+      "ru": "Фискальные годы",
+      "uk": "Фіскальні роки"
     },
     "description": "Accounting years; closing rolls income/expense into retained earnings",
     "isLogged": true,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "End date",
         "ar": "النهاية التاريخ",
-        "ru": "Конец"
+        "ru": "Конец",
+        "uk": "Кінець"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -82,7 +85,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -103,7 +107,8 @@
       "caption": {
         "en": "Closed",
         "ar": "مغلق",
-        "ru": "Закрыт"
+        "ru": "Закрыт",
+        "uk": "Закритий"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -124,7 +129,8 @@
       "caption": {
         "en": "Start date",
         "ar": "البداية التاريخ",
-        "ru": "Начало"
+        "ru": "Начало",
+        "uk": "Початок"
       },
       "isTranslatable": false,
       "isVisible": true,

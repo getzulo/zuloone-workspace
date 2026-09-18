@@ -4,7 +4,8 @@
     "caption": {
       "en": "Gender",
       "ar": "الجنس",
-      "ru": "Пол"
+      "ru": "Пол",
+      "uk": "Стать"
     },
     "edtMetaId": "356aca90-6559-47b5-8941-302322871bbf",
     "description": "Reusable analytic over the Gender dictionary",

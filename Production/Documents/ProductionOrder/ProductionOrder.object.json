@@ -4,7 +4,8 @@
     "caption": {
       "en": "Production order",
       "ar": "الإنتاج الأمر",
-      "ru": "Производственный заказ"
+      "ru": "Производственный заказ",
+      "uk": "Виробниче замовлення"
     },
     "isLogged": false,
     "isCloneable": true,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Qty in base unit",
         "ar": "الكمية بالوحدة الأساسية",
-        "ru": "Количество в базовой единице"
+        "ru": "Количество в базовой единице",
+        "uk": "Кількість у базовій одиниці"
       },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isSystem": false,
@@ -48,7 +50,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -70,7 +73,8 @@
       "caption": {
         "en": "Location",
         "ar": "الموقع",
-        "ru": "Ячейка"
+        "ru": "Ячейка",
+        "uk": "Комірка"
       },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
@@ -90,7 +94,8 @@
       "caption": {
         "en": "Product",
         "ar": "المنتج",
-        "ru": "Изделие"
+        "ru": "Изделие",
+        "uk": "Виріб"
       },
       "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
       "isSystem": false,
@@ -110,7 +115,8 @@
       "caption": {
         "en": "Quantity",
         "ar": "الكمية",
-        "ru": "Количество"
+        "ru": "Количество",
+        "uk": "Кількість"
       },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isSystem": false,
@@ -133,7 +139,8 @@
       "caption": {
         "en": "Unit",
         "ar": "الوحدة",
-        "ru": "Единица"
+        "ru": "Единица",
+        "uk": "Одиниця"
       },
       "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
       "isSystem": false,
@@ -154,12 +161,14 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,
@@ -170,11 +179,15 @@
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "name": "Finished",
-      "caption": "Finished",
+      "caption": {
+        "en": "Finished",
+        "uk": "Випущено"
+      },
       "subtypeValue": "Finished",
       "subtypeCaption": {
         "en": "Finished",
-        "ru": "Выпущено"
+        "ru": "Выпущено",
+        "uk": "Випущено"
       },
       "displayOrder": 3,
       "isInitial": false,
@@ -187,13 +200,15 @@
       "name": "Released",
       "caption": {
         "en": "Released",
-        "ar": "أُطلق"
+        "ar": "أُطلق",
+        "uk": "У роботі"
       },
       "subtypeValue": "Released",
       "subtypeCaption": {
         "en": "Released",
         "ar": "قيد التنفيذ",
-        "ru": "В работе"
+        "ru": "В работе",
+        "uk": "У роботі"
       },
       "displayOrder": 2,
       "isInitial": false,

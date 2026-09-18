@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Tax direction",
-      "ru": "Направление налога"
+      "ru": "Направление налога",
+      "uk": "Напрямок податку"
     },
     "edtMetaId": "fa28b007-cf13-48c9-a238-d0117c902ead",
     "description": "Reusable analytic over the TaxDirection dictionary (TaxLedger)",

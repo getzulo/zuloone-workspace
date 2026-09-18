@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Revenue account code",
-      "ru": "Код счёта выручки"
+      "ru": "Код счёта выручки",
+      "uk": "Код рахунку виручки"
     },
     "groupMetaId": "8c2e5f49-1b7a-4d3c-8f0e-6a9b2d5c7f30",
     "constantType": "String",

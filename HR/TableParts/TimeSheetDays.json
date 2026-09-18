@@ -4,7 +4,8 @@
     "className": "TimeSheetDaysTablePartRow",
     "caption": {
       "en": "Days",
-      "ru": "Дни"
+      "ru": "Дни",
+      "uk": "Дні"
     },
     "tableName": "TP_TimeSheetDays",
     "softDeletion": false,
@@ -19,7 +20,8 @@
       "fieldName": "DayKind",
       "caption": {
         "en": "Kind",
-        "ru": "Вид дня"
+        "ru": "Вид дня",
+        "uk": "Вид"
       },
       "edtMetaId": "5dda0dc4-8a55-437e-99c6-6b1fb5ed663d",
       "isRequired": false,
@@ -37,7 +39,8 @@
       "fieldName": "Employee",
       "caption": {
         "en": "Employee",
-        "ru": "Сотрудник"
+        "ru": "Сотрудник",
+        "uk": "Співробітник"
       },
       "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
       "isRequired": true,
@@ -58,7 +61,8 @@
       "fieldName": "Hours",
       "caption": {
         "en": "Hours",
-        "ru": "Часы"
+        "ru": "Часы",
+        "uk": "Години"
       },
       "baseType": "Decimal",
       "precision": 18,
@@ -78,7 +82,8 @@
       "fieldName": "IsAbsent",
       "caption": {
         "en": "Absent",
-        "ru": "Отсутствует"
+        "ru": "Отсутствует",
+        "uk": "Відсутній"
       },
       "baseType": "Boolean",
       "isRequired": false,
@@ -96,7 +101,8 @@
       "fieldName": "IsManual",
       "caption": {
         "en": "Manual",
-        "ru": "Вручную"
+        "ru": "Вручную",
+        "uk": "Вручну"
       },
       "baseType": "Boolean",
       "isRequired": false,
@@ -114,7 +120,8 @@
       "fieldName": "WorkDate",
       "caption": {
         "en": "Date",
-        "ru": "Дата"
+        "ru": "Дата",
+        "uk": "Дата"
       },
       "baseType": "DateTime",
       "isRequired": true,

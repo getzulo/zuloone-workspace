@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Tax code",
-      "ru": "Налоговый код"
+      "ru": "Налоговый код",
+      "uk": "Податковий код"
     },
     "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
     "description": "Reusable analytic over the TaxCode dictionary (TaxLedger)",

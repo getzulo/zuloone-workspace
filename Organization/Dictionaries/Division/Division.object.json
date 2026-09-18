@@ -4,7 +4,8 @@
     "caption": {
       "en": "Divisions",
       "ar": "الأقسام",
-      "ru": "Подразделения"
+      "ru": "Подразделения",
+      "uk": "Підрозділи"
     },
     "description": "Organizational units / sites hierarchy; each belongs to exactly one legal entity",
     "isLogged": false,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Division type",
         "ar": "الفرع النوع",
-        "ru": "Тип подразделения"
+        "ru": "Тип подразделения",
+        "uk": "Тип підрозділу"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "caption": {
         "en": "Legal entity",
         "ar": "قانوني كيان",
-        "ru": "Юрлицо"
+        "ru": "Юрлицо",
+        "uk": "Юридична особа"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -103,7 +107,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -124,7 +129,8 @@
       "isUnique": false,
       "caption": {
         "en": "Parent",
-        "ar": "الأب"
+        "ar": "الأب",
+        "uk": "Батьківський"
       },
       "isTranslatable": false,
       "isVisible": true,

@@ -4,7 +4,8 @@
     "caption": {
       "en": "Store zones",
       "ar": "مناطق المخزن",
-      "ru": "Зоны склада"
+      "ru": "Зоны склада",
+      "uk": "Зони складу"
     },
     "description": "Zone within a store (MIQS StoreZone); groups cells. Store is the owner.",
     "isLogged": true,
@@ -39,7 +40,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "Barcode tracking",
         "ar": "تتبع الباركود",
-        "ru": "Учёт по штрихкоду"
+        "ru": "Учёт по штрихкоду",
+        "uk": "Облік за штрихкодом"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -82,7 +85,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -103,7 +107,8 @@
       "caption": {
         "en": "Store",
         "ar": "المتجر",
-        "ru": "Склад"
+        "ru": "Склад",
+        "uk": "Склад"
       },
       "isTranslatable": false,
       "isVisible": true,

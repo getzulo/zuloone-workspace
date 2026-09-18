@@ -4,7 +4,8 @@
     "caption": {
       "en": "City",
       "ar": "المدينة",
-      "ru": "Город"
+      "ru": "Город",
+      "uk": "Місто"
     },
     "edtMetaId": "eaf4aaac-b2e5-4849-a63f-77fe9a44c13b",
     "description": "Reusable analytic over the City dictionary",

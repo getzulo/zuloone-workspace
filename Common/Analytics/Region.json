@@ -4,7 +4,8 @@
     "caption": {
       "en": "Region",
       "ar": "المنطقة",
-      "ru": "Регион"
+      "ru": "Регион",
+      "uk": "Регіон"
     },
     "edtMetaId": "94c8d7a9-5b24-410e-9f60-792d090bb8f5",
     "description": "Reusable analytic over the Region dictionary",

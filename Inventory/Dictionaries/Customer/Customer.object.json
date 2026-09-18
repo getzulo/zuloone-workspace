@@ -4,7 +4,8 @@
     "caption": {
       "en": "Customers",
       "ar": "العملاء",
-      "ru": "Клиенты"
+      "ru": "Клиенты",
+      "uk": "Клієнти"
     },
     "isLogged": true,
     "isHierarchical": false,
@@ -37,7 +38,8 @@
       "caption": {
         "en": "Address",
         "ar": "العنوان",
-        "ru": "Адрес"
+        "ru": "Адрес",
+        "uk": "Адреса"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -58,7 +60,8 @@
       "caption": {
         "en": "Credit limit",
         "ar": "حد الائتمان",
-        "ru": "Кредитный лимит"
+        "ru": "Кредитный лимит",
+        "uk": "Кредитний ліміт"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -80,7 +83,8 @@
       "caption": {
         "en": "Customer type",
         "ar": "العميل النوع",
-        "ru": "Тип клиента"
+        "ru": "Тип клиента",
+        "uk": "Тип клієнта"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -102,7 +106,8 @@
       "caption": {
         "en": "Email",
         "ar": "البريد الإلكتروني",
-        "ru": "Email"
+        "ru": "Email",
+        "uk": "Email"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -124,7 +129,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -146,7 +152,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -167,7 +174,8 @@
       "caption": {
         "en": "Payment term",
         "ar": "شروط الدفع",
-        "ru": "Условия оплаты"
+        "ru": "Условия оплаты",
+        "uk": "Умови оплати"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -189,7 +197,8 @@
       "caption": {
         "en": "Phone",
         "ar": "الهاتف",
-        "ru": "Телефон"
+        "ru": "Телефон",
+        "uk": "Телефон"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -211,7 +220,8 @@
       "caption": {
         "en": "Price type",
         "ar": "نوع السعر",
-        "ru": "Тип цен"
+        "ru": "Тип цен",
+        "uk": "Тип цін"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -233,7 +243,8 @@
       "caption": {
         "en": "Tax reg. number",
         "ar": "رقم التسجيل الضريبي",
-        "ru": "Налоговый номер"
+        "ru": "Налоговый номер",
+        "uk": "Податковий номер"
       },
       "isTranslatable": false,
       "isVisible": true,

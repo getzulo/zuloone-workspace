@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Account",
-      "ru": "Счёт"
+      "ru": "Счёт",
+      "uk": "Рахунок"
     },
     "edtMetaId": "e0f20335-243d-42b1-81ea-989f8a14b809",
     "description": "Reusable analytic over the ChartOfAccounts dictionary (GL)",

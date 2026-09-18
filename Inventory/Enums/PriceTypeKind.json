@@ -13,7 +13,8 @@
       "value": 0,
       "caption": {
         "en": "Base",
-        "ru": "Базовый"
+        "ru": "Базовый",
+        "uk": "Базовий"
       },
       "displayOrder": 0,
       "description": "Цена вводится вручную по строкам цен номенклатуры (PriceListItem)",
@@ -26,7 +27,8 @@
       "value": 1,
       "caption": {
         "en": "Calculated",
-        "ru": "Динамический"
+        "ru": "Динамический",
+        "uk": "Динамічний"
       },
       "displayOrder": 1,
       "description": "Цена вычисляется от BasePriceType с наценкой MarkupPercent",

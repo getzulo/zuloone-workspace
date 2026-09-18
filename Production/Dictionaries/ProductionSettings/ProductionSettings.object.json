@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Production settings",
-      "ru": "Настройки модуля"
+      "ru": "Настройки модуля",
+      "uk": "Налаштування модуля"
     },
     "description": "Одиночный настроечный справочник модуля Production (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
@@ -34,7 +35,8 @@
       "isUnique": false,
       "caption": {
         "en": "Auto-expand BOM",
-        "ru": "Авторазворачивание спецификации"
+        "ru": "Авторазворачивание спецификации",
+        "uk": "Авторозгортання специфікації"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -55,7 +57,8 @@
       "isUnique": false,
       "caption": {
         "en": "Default output location code",
-        "ru": "Код ячейки выпуска по умолчанию"
+        "ru": "Код ячейки выпуска по умолчанию",
+        "uk": "Код комірки випуску за замовчуванням"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -75,7 +78,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

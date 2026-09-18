@@ -4,7 +4,8 @@
     "caption": {
       "en": "Stores",
       "ar": "المتاجر",
-      "ru": "Склады"
+      "ru": "Склады",
+      "uk": "Склади"
     },
     "description": "Store / warehouse (MIQS Store). Zones and cells hang off it.",
     "isLogged": true,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Division",
         "ar": "الفرع",
-        "ru": "Подразделение"
+        "ru": "Подразделение",
+        "uk": "Підрозділ"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "caption": {
         "en": "Inventory agent",
         "ar": "أمين المخزن",
-        "ru": "МОЛ"
+        "ru": "МОЛ",
+        "uk": "МВО"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -102,7 +106,8 @@
       "caption": {
         "en": "Sales point",
         "ar": "نقطة البيع",
-        "ru": "Точка продаж"
+        "ru": "Точка продаж",
+        "uk": "Точка продажу"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -123,7 +128,8 @@
       "caption": {
         "en": "Simple store",
         "ar": "مخزن بسيط",
-        "ru": "Простой склад"
+        "ru": "Простой склад",
+        "uk": "Простий склад"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -145,7 +151,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,

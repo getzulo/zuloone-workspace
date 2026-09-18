@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax ledger",
       "ar": "الضريبة السجل",
-      "ru": "Налоговый леджер"
+      "ru": "Налоговый леджер",
+      "uk": "Податковий леджер"
     },
     "description": "Source of tax returns; input/output tax base and amount by code/direction/entity",
     "isObsolete": false,
@@ -25,7 +26,8 @@
       "fieldName": "RecoverableAmount",
       "caption": {
         "en": "RecoverableAmount",
-        "ru": "К возмещению"
+        "ru": "К возмещению",
+        "uk": "До відшкодування"
       },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
@@ -37,7 +39,10 @@
     {
       "registerMetaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
       "fieldName": "TaxAmount",
-      "caption": "TaxAmount",
+      "caption": {
+        "en": "TaxAmount",
+        "uk": "Сума податку"
+      },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 2,
@@ -48,7 +53,10 @@
     {
       "registerMetaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
       "fieldName": "TaxBase",
-      "caption": "TaxBase",
+      "caption": {
+        "en": "TaxBase",
+        "uk": "База оподаткування"
+      },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 1,

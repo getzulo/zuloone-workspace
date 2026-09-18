@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Tax payment",
-      "ru": "Оплата налога"
+      "ru": "Оплата налога",
+      "uk": "Сплата податку"
     },
     "description": "Погашение налогового обязательства в книге: отдельный документ, а не подтип декларации — сданная декларация остаётся замороженной, начисление в TaxLedger не трогается. Зеркало VendorPayment в закупках.",
     "isLogged": false,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -48,7 +50,8 @@
       "fieldName": "LegalEntity",
       "caption": {
         "en": "Legal entity",
-        "ru": "Юрлицо"
+        "ru": "Юрлицо",
+        "uk": "Юридична особа"
       },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
@@ -68,11 +71,15 @@
     {
       "documentTypeMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
       "name": "Draft",
-      "caption": "Draft",
+      "caption": {
+        "en": "Draft",
+        "uk": "Чернетка"
+      },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,
@@ -83,11 +90,15 @@
     {
       "documentTypeMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
       "name": "Paid",
-      "caption": "Paid",
+      "caption": {
+        "en": "Paid",
+        "uk": "Оплачено"
+      },
       "subtypeValue": "Paid",
       "subtypeCaption": {
         "en": "Paid",
-        "ru": "Оплачено"
+        "ru": "Оплачено",
+        "uk": "Оплачено"
       },
       "displayOrder": 2,
       "isInitial": false,

@@ -4,7 +4,8 @@
     "caption": {
       "en": "Unit of measure",
       "ar": "وحدة القياس",
-      "ru": "Единица измерения"
+      "ru": "Единица измерения",
+      "uk": "Одиниця виміру"
     },
     "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
     "description": "Reusable analytic over the UnitOfMeasure dictionary",

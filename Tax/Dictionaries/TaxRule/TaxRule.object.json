@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax determination rules",
       "ar": "قواعد تحديد الضريبة",
-      "ru": "Правила определения налога"
+      "ru": "Правила определения налога",
+      "uk": "Правила визначення податку"
     },
     "description": "Правило определения налога по контексту сделки: условия — TaxRuleCondition, действия — TaxRuleAction (несколько кодов) либо поле TaxCode, если действий нет. Выбор по дате и приоритету. RateOverride на действии подменяет датированную ставку кода.",
     "isLogged": true,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "Effective from",
         "ar": "سارٍ من",
-        "ru": "Действует с"
+        "ru": "Действует с",
+        "uk": "Діє з"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "caption": {
         "en": "Effective to",
         "ar": "سارٍ إلى",
-        "ru": "Действует по"
+        "ru": "Действует по",
+        "uk": "Діє по"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -103,7 +107,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -125,7 +130,8 @@
       "caption": {
         "en": "Disabled",
         "ar": "معطل",
-        "ru": "Выключено"
+        "ru": "Выключено",
+        "uk": "Вимкнено"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -147,7 +153,8 @@
       "caption": {
         "en": "Jurisdiction",
         "ar": "الاختصاص",
-        "ru": "Юрисдикция"
+        "ru": "Юрисдикция",
+        "uk": "Юрисдикція"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -169,7 +176,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -191,7 +199,8 @@
       "caption": {
         "en": "Priority",
         "ar": "الأولوية",
-        "ru": "Приоритет"
+        "ru": "Приоритет",
+        "uk": "Пріоритет"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -213,7 +222,8 @@
       "caption": {
         "en": "Tax",
         "ar": "الضريبة",
-        "ru": "Налог"
+        "ru": "Налог",
+        "uk": "Податок"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -235,7 +245,8 @@
       "caption": {
         "en": "Tax code",
         "ar": "الضريبة رمز",
-        "ru": "Налоговый код"
+        "ru": "Налоговый код",
+        "uk": "Податковий код"
       },
       "isTranslatable": false,
       "isVisible": true,

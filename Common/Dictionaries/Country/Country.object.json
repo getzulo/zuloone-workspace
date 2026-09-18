@@ -4,7 +4,8 @@
     "caption": {
       "en": "Countries",
       "ar": "الدول",
-      "ru": "Страны"
+      "ru": "Страны",
+      "uk": "Країни"
     },
     "description": "",
     "isLogged": false,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "ISO2 code",
         "ar": "رمز ISO2",
-        "ru": "Код ISO2"
+        "ru": "Код ISO2",
+        "uk": "Код ISO2"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -61,7 +63,8 @@
       "caption": {
         "en": "ISO3 code",
         "ar": "رمز ISO3",
-        "ru": "Код ISO3"
+        "ru": "Код ISO3",
+        "uk": "Код ISO3"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -82,7 +85,8 @@
       "caption": {
         "en": "Currency",
         "ar": "العملة",
-        "ru": "Валюта"
+        "ru": "Валюта",
+        "uk": "Валюта"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -104,7 +108,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -126,7 +131,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": true,
       "isVisible": true,
@@ -148,7 +154,8 @@
       "caption": {
         "en": "Phone code",
         "ar": "رمز الهاتف",
-        "ru": "Телефонный код"
+        "ru": "Телефонный код",
+        "uk": "Телефонний код"
       },
       "isTranslatable": false,
       "isVisible": true,

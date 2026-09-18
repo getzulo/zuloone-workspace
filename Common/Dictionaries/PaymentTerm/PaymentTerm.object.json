@@ -4,7 +4,8 @@
     "caption": {
       "en": "Payment terms",
       "ar": "شروط الدفع",
-      "ru": "Условия оплаты"
+      "ru": "Условия оплаты",
+      "uk": "Умови оплати"
     },
     "description": "",
     "isLogged": false,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Days",
         "ar": "الأيام",
-        "ru": "Дней"
+        "ru": "Дней",
+        "uk": "Дні"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -58,7 +60,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -79,7 +84,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": true,
       "isVisible": true,

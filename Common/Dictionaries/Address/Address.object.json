@@ -4,7 +4,8 @@
     "caption": {
       "en": "Addresses",
       "ar": "العناوين",
-      "ru": "Адреса"
+      "ru": "Адреса",
+      "uk": "Адреси"
     },
     "description": "",
     "isLogged": false,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Apartment / office",
         "ar": "الشقة/المكتب",
-        "ru": "Квартира/офис"
+        "ru": "Квартира/офис",
+        "uk": "Квартира/офіс"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -61,7 +63,8 @@
       "caption": {
         "en": "Building",
         "ar": "المبنى",
-        "ru": "Дом"
+        "ru": "Дом",
+        "uk": "Будинок"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -82,7 +85,8 @@
       "caption": {
         "en": "City",
         "ar": "المدينة",
-        "ru": "Город"
+        "ru": "Город",
+        "uk": "Місто"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -104,7 +108,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -126,7 +131,8 @@
       "caption": {
         "en": "Address line",
         "ar": "العنوان في سطر واحد",
-        "ru": "Адрес одной строкой"
+        "ru": "Адрес одной строкой",
+        "uk": "Адреса одним рядком"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -148,7 +154,8 @@
       "caption": {
         "en": "Postal code",
         "ar": "الرمز البريدي",
-        "ru": "Индекс"
+        "ru": "Индекс",
+        "uk": "Індекс"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -170,7 +177,8 @@
       "caption": {
         "en": "Street",
         "ar": "الشارع",
-        "ru": "Улица"
+        "ru": "Улица",
+        "uk": "Вулиця"
       },
       "isTranslatable": false,
       "isVisible": true,

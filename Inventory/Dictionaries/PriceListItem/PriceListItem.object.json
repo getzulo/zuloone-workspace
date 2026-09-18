@@ -4,7 +4,8 @@
     "caption": {
       "en": "Item prices",
       "ar": "أسعار الأصناف",
-      "ru": "Цены номенклатуры"
+      "ru": "Цены номенклатуры",
+      "uk": "Ціни номенклатури"
     },
     "description": "Устаревший справочник цен. Подбор и запись идут через LT_PriceTypeHistory на карточке номенклатуры. Не удалять каскадом, пока в таблице есть старые строки.",
     "isLogged": true,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Effective from",
         "ar": "ساري من",
-        "ru": "Действует с"
+        "ru": "Действует с",
+        "uk": "Діє з"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -61,7 +63,8 @@
       "caption": {
         "en": "Effective to",
         "ar": "ساري حتى",
-        "ru": "Действует по"
+        "ru": "Действует по",
+        "uk": "Діє по"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -101,7 +107,8 @@
       "caption": {
         "en": "Item",
         "ar": "الصنف",
-        "ru": "Товар"
+        "ru": "Товар",
+        "uk": "Товар"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -123,7 +130,8 @@
       "caption": {
         "en": "Price",
         "ar": "السعر",
-        "ru": "Цена"
+        "ru": "Цена",
+        "uk": "Ціна"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -145,7 +153,8 @@
       "caption": {
         "en": "Price type",
         "ar": "نوع السعر",
-        "ru": "Тип цен"
+        "ru": "Тип цен",
+        "uk": "Тип цін"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -167,7 +176,8 @@
       "caption": {
         "en": "Unit",
         "ar": "الوحدة",
-        "ru": "Единица"
+        "ru": "Единица",
+        "uk": "Одиниця"
       },
       "isTranslatable": false,
       "isVisible": true,

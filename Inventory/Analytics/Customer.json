@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Customer",
-      "ru": "Клиент"
+      "ru": "Клиент",
+      "uk": "Клієнт"
     },
     "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
     "description": "Reusable analytic over the Customer dictionary",

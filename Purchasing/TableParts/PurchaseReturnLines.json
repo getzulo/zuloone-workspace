@@ -4,7 +4,8 @@
     "className": "PurchaseReturnLinesTablePartRow",
     "caption": {
       "en": "Lines",
-      "ru": "Строки"
+      "ru": "Строки",
+      "uk": "Рядки"
     },
     "tableName": "TP_PurchaseReturnLines",
     "softDeletion": false,
@@ -19,7 +20,8 @@
       "fieldName": "Item",
       "caption": {
         "en": "Item",
-        "ru": "Товар"
+        "ru": "Товар",
+        "uk": "Товар"
       },
       "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
       "isRequired": true,
@@ -40,7 +42,8 @@
       "fieldName": "Quantity",
       "caption": {
         "en": "Quantity",
-        "ru": "Количество"
+        "ru": "Количество",
+        "uk": "Кількість"
       },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": true,
@@ -58,7 +61,8 @@
       "fieldName": "UnitPrice",
       "caption": {
         "en": "Unit price",
-        "ru": "Цена"
+        "ru": "Цена",
+        "uk": "Ціна"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,

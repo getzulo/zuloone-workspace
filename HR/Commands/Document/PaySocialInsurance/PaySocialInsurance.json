@@ -4,7 +4,8 @@
     "caption": {
       "en": "Pay social insurance",
       "ar": "سداد التأمينات",
-      "ru": "Оплатить взносы"
+      "ru": "Оплатить взносы",
+      "uk": "Сплатити внески"
     },
     "scriptMetaId": "edbe6272-112c-4218-b40b-2d52ad3da773",
     "parameterMode": "None",

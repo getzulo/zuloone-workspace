@@ -4,7 +4,8 @@
     "caption": {
       "en": "Pay payroll",
       "ar": "صرف الرواتب",
-      "ru": "Выплатить ФОТ"
+      "ru": "Выплатить ФОТ",
+      "uk": "Виплатити зарплату"
     },
     "scriptMetaId": "8090c4f8-4a4b-48c1-b80f-f0d9269f5671",
     "parameterMode": "None",

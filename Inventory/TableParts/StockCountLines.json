@@ -5,7 +5,8 @@
     "caption": {
       "en": "Lines",
       "ar": "السطور",
-      "ru": "Строки"
+      "ru": "Строки",
+      "uk": "Рядки"
     },
     "tableName": "TP_StockCountLines",
     "softDeletion": false,
@@ -21,7 +22,8 @@
       "caption": {
         "en": "Qty in base unit",
         "ar": "الكمية بالوحدة الأساسية",
-        "ru": "Количество в базовой единице"
+        "ru": "Количество в базовой единице",
+        "uk": "Кількість у базовій одиниці"
       },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": false,
@@ -41,7 +43,8 @@
       "caption": {
         "en": "Counted qty",
         "ar": "الكمية المجرودة",
-        "ru": "Факт (насчитано)"
+        "ru": "Факт (насчитано)",
+        "uk": "Факт (нараховано)"
       },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": true,
@@ -63,7 +66,8 @@
       "caption": {
         "en": "Item",
         "ar": "الصنف",
-        "ru": "Товар"
+        "ru": "Товар",
+        "uk": "Товар"
       },
       "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
       "isRequired": true,
@@ -84,7 +88,8 @@
       "fieldName": "QtyDelta",
       "caption": {
         "en": "Qty delta",
-        "ru": "Дельта"
+        "ru": "Дельта",
+        "uk": "Дельта"
       },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": false,
@@ -104,7 +109,8 @@
       "caption": {
         "en": "Unit",
         "ar": "الوحدة",
-        "ru": "Единица"
+        "ru": "Единица",
+        "uk": "Одиниця"
       },
       "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
       "isRequired": false,

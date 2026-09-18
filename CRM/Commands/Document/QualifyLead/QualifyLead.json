@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Qualify lead",
-      "ru": "Квалифицировать"
+      "ru": "Квалифицировать",
+      "uk": "Кваліфікувати"
     },
     "scriptMetaId": "5fffadb3-8c61-4698-9469-81a8f33fc858",
     "parameterMode": "None",

@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax codes",
       "ar": "الضريبة رمز",
-      "ru": "Налоговые коды"
+      "ru": "Налоговые коды",
+      "uk": "Податкові коди"
     },
     "description": "User-facing classification: tax + category + rate, effective-dated",
     "isLogged": true,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "Effective from",
         "ar": "سارٍ من",
-        "ru": "Действует с"
+        "ru": "Действует с",
+        "uk": "Діє з"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "caption": {
         "en": "Effective to",
         "ar": "سارٍ إلى",
-        "ru": "Действует по"
+        "ru": "Действует по",
+        "uk": "Діє по"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -103,7 +107,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -125,7 +130,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": true,
       "isVisible": true,
@@ -148,7 +154,8 @@
       "isUnique": false,
       "caption": {
         "en": "Non-recoverable %",
-        "ru": "Невозместимо, %"
+        "ru": "Невозместимо, %",
+        "uk": "Невідшкодовно, %"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -169,7 +176,8 @@
       "caption": {
         "en": "Tax",
         "ar": "الضريبة",
-        "ru": "Налог"
+        "ru": "Налог",
+        "uk": "Податок"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -190,7 +198,8 @@
       "caption": {
         "en": "Tax category",
         "ar": "الضريبة الفئة",
-        "ru": "Налоговая категория"
+        "ru": "Налоговая категория",
+        "uk": "Податкова категорія"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -212,7 +221,8 @@
       "caption": {
         "en": "Tax rate",
         "ar": "الضريبة معدل",
-        "ru": "Налоговая ставка"
+        "ru": "Налоговая ставка",
+        "uk": "Податкова ставка"
       },
       "isTranslatable": false,
       "isVisible": true,

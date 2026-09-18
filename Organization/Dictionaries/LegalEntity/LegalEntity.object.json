@@ -4,7 +4,8 @@
     "caption": {
       "en": "Legal entities",
       "ar": "الكيانات القانونية",
-      "ru": "Юрлица"
+      "ru": "Юрлица",
+      "uk": "Юрособи"
     },
     "description": "Taxable and reporting unit; owns operations, has country and functional currency",
     "isLogged": true,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Country",
         "ar": "الدولة",
-        "ru": "Страна"
+        "ru": "Страна",
+        "uk": "Країна"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -59,7 +61,8 @@
       "caption": {
         "en": "Currency",
         "ar": "العملة",
-        "ru": "Валюта"
+        "ru": "Валюта",
+        "uk": "Валюта"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -102,7 +106,8 @@
       "caption": {
         "en": "Legal address",
         "ar": "العنوان القانوني",
-        "ru": "Юр. адрес"
+        "ru": "Юр. адрес",
+        "uk": "Юр. адреса"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -124,7 +129,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -146,7 +152,8 @@
       "caption": {
         "en": "Reg. number",
         "ar": "رقم التسجيل",
-        "ru": "Рег. номер"
+        "ru": "Рег. номер",
+        "uk": "Реєстр. номер"
       },
       "isTranslatable": false,
       "isVisible": true,

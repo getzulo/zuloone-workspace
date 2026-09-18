@@ -4,7 +4,8 @@
     "caption": {
       "en": "Price history",
       "ar": "سجل الأسعار",
-      "ru": "История цен"
+      "ru": "История цен",
+      "uk": "Історія цін"
     },
     "tableName": "LT_PriceTypeHistory",
     "isKernel": false,
@@ -21,7 +22,8 @@
       "caption": {
         "en": "Effective from",
         "ar": "ساري من",
-        "ru": "Действует с"
+        "ru": "Действует с",
+        "uk": "Діє з"
       },
       "baseType": "DateTime",
       "isRequired": false,
@@ -40,7 +42,8 @@
       "caption": {
         "en": "Effective to",
         "ar": "ساري حتى",
-        "ru": "Действует по"
+        "ru": "Действует по",
+        "uk": "Діє по"
       },
       "baseType": "DateTime",
       "isRequired": false,
@@ -59,7 +62,8 @@
       "caption": {
         "en": "Item",
         "ar": "الصنف",
-        "ru": "Номенклатура"
+        "ru": "Номенклатура",
+        "uk": "Товар"
       },
       "isRequired": true,
       "isPrimaryKey": true,
@@ -80,7 +84,8 @@
       "caption": {
         "en": "Price",
         "ar": "السعر",
-        "ru": "Цена"
+        "ru": "Цена",
+        "uk": "Ціна"
       },
       "baseType": "Decimal",
       "precision": 18,
@@ -101,7 +106,8 @@
       "caption": {
         "en": "Price type",
         "ar": "نوع السعر",
-        "ru": "Тип цен"
+        "ru": "Тип цен",
+        "uk": "Тип цін"
       },
       "isRequired": true,
       "isPrimaryKey": false,
@@ -121,7 +127,8 @@
       "caption": {
         "en": "Unit",
         "ar": "الوحدة",
-        "ru": "Единица"
+        "ru": "Единица",
+        "uk": "Одиниця"
       },
       "isRequired": true,
       "isPrimaryKey": false,

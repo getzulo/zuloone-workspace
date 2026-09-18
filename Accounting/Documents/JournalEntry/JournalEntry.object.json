@@ -4,7 +4,8 @@
     "caption": {
       "en": "Journal entry",
       "ar": "قيد يومية",
-      "ru": "Проводка"
+      "ru": "Проводка",
+      "uk": "Проводка"
     },
     "isLogged": false,
     "isCloneable": true,
@@ -26,7 +27,8 @@
       "fieldName": "Circuits",
       "caption": {
         "en": "Circuits",
-        "ru": "Контуры"
+        "ru": "Контуры",
+        "uk": "Контури"
       },
       "baseType": "String",
       "length": 32,
@@ -48,7 +50,8 @@
       "caption": {
         "en": "Currency",
         "ar": "العملة",
-        "ru": "Валюта"
+        "ru": "Валюта",
+        "uk": "Валюта"
       },
       "edtMetaId": "8d2b209b-68a9-41ed-bf05-f069a12dbe2c",
       "isSystem": false,
@@ -68,7 +71,8 @@
       "caption": {
         "en": "Description",
         "ar": "الوصف",
-        "ru": "Описание"
+        "ru": "Описание",
+        "uk": "Опис"
       },
       "baseType": "String",
       "length": 256,
@@ -89,7 +93,8 @@
       "caption": {
         "en": "Fiscal period",
         "ar": "المالية الفترة",
-        "ru": "Фискальный период"
+        "ru": "Фискальный период",
+        "uk": "Фіскальний період"
       },
       "edtMetaId": "e5963100-d15f-4650-924b-0c35e26a233d",
       "isSystem": false,
@@ -109,7 +114,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -131,7 +137,8 @@
       "caption": {
         "en": "Legal entity",
         "ar": "قانوني كيان",
-        "ru": "Юрлицо"
+        "ru": "Юрлицо",
+        "uk": "Юридична особа"
       },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
@@ -152,13 +159,15 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
         "ar": "مسودة",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,
@@ -171,13 +180,15 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
-        "ar": "مرسل"
+        "ar": "مرسل",
+        "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
         "ar": "مرحّل",
-        "ru": "Проведено"
+        "ru": "Проведено",
+        "uk": "Проведено"
       },
       "displayOrder": 2,
       "isInitial": false,

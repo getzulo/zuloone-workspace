@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Organization settings",
-      "ru": "Настройки модуля"
+      "ru": "Настройки модуля",
+      "uk": "Налаштування модуля"
     },
     "description": "Одиночный настроечный справочник модуля Organization (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
@@ -35,7 +36,8 @@
       "isUnique": false,
       "caption": {
         "en": "Application name",
-        "ru": "Название приложения"
+        "ru": "Название приложения",
+        "uk": "Назва застосунку"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -56,7 +58,8 @@
       "isUnique": false,
       "caption": {
         "en": "Default legal entity code",
-        "ru": "Код юрлица по умолчанию"
+        "ru": "Код юрлица по умолчанию",
+        "uk": "Код юрособи за замовчуванням"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -76,7 +79,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -95,7 +101,8 @@
       "isUnique": false,
       "caption": {
         "en": "Application logo",
-        "ru": "Логотип приложения"
+        "ru": "Логотип приложения",
+        "uk": "Логотип застосунку"
       },
       "isTranslatable": false,
       "isVisible": true,

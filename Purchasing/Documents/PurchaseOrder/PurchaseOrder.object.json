@@ -4,7 +4,8 @@
     "caption": {
       "en": "Purchase order",
       "ar": "الشراء الأمر",
-      "ru": "Заказ поставщику"
+      "ru": "Заказ поставщику",
+      "uk": "Замовлення постачальнику"
     },
     "isLogged": false,
     "isCloneable": true,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -49,7 +51,8 @@
       "caption": {
         "en": "Receiving location",
         "ar": "الاستقبال الموقع",
-        "ru": "Ячейка приёмки"
+        "ru": "Ячейка приёмки",
+        "uk": "Комірка приймання"
       },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
@@ -69,7 +72,8 @@
       "caption": {
         "en": "Supplier",
         "ar": "المورد",
-        "ru": "Поставщик"
+        "ru": "Поставщик",
+        "uk": "Постачальник"
       },
       "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
       "isSystem": false,
@@ -90,12 +94,14 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,
@@ -106,11 +112,15 @@
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "name": "Received",
-      "caption": "Received",
+      "caption": {
+        "en": "Received",
+        "uk": "Оприбутковано"
+      },
       "subtypeValue": "Received",
       "subtypeCaption": {
         "en": "Received",
-        "ru": "Оприходовано"
+        "ru": "Оприходовано",
+        "uk": "Оприбутковано"
       },
       "displayOrder": 3,
       "isInitial": false,
@@ -121,11 +131,15 @@
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "name": "Ordered",
-      "caption": "Ordered",
+      "caption": {
+        "en": "Ordered",
+        "uk": "Замовлено"
+      },
       "subtypeValue": "Ordered",
       "subtypeCaption": {
         "en": "Ordered",
-        "ru": "Заказано"
+        "ru": "Заказано",
+        "uk": "Замовлено"
       },
       "displayOrder": 2,
       "isInitial": false,

@@ -4,7 +4,8 @@
     "caption": {
       "en": "Stock adjustment",
       "ar": "المخزون التعديل",
-      "ru": "Корректировка остатков"
+      "ru": "Корректировка остатков",
+      "uk": "Коригування залишків"
     },
     "isLogged": false,
     "isCloneable": true,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Cell",
         "ar": "الموقع",
-        "ru": "Ячейка"
+        "ru": "Ячейка",
+        "uk": "Комірка"
       },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
@@ -47,7 +49,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -69,7 +72,8 @@
       "caption": {
         "en": "Reason",
         "ar": "السبب",
-        "ru": "Причина"
+        "ru": "Причина",
+        "uk": "Причина"
       },
       "baseType": "String",
       "length": 128,
@@ -91,12 +95,14 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
-        "ar": "مرسل"
+        "ar": "مرسل",
+        "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
-        "ru": "Проведено"
+        "ru": "Проведено",
+        "uk": "Проведено"
       },
       "displayOrder": 2,
       "isInitial": false,
@@ -109,12 +115,14 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,

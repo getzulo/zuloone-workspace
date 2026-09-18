@@ -4,7 +4,8 @@
     "caption": {
       "en": "Delivery terms",
       "ar": "شروط التسليم",
-      "ru": "Условия поставки"
+      "ru": "Условия поставки",
+      "uk": "Умови постачання"
     },
     "description": "Incoterms of the deal (EXW, FOB, DAP…). Global Core, not a country pack.",
     "isLogged": false,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -59,7 +61,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -80,7 +85,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": true,
       "isVisible": true,

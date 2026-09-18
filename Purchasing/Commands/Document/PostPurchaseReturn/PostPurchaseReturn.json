@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Post purchase return",
-      "ru": "Провести возврат поставщику"
+      "ru": "Провести возврат поставщику",
+      "uk": "Провести повернення постачальнику"
     },
     "scriptMetaId": "c46c6d29-ccb1-44b2-90ae-98ebe62847ce",
     "parameterMode": "None",

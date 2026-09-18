@@ -1,7 +1,10 @@
 {
   "kind": "TotalDriver",
   "object": {
-    "caption": "Costing valuation",
+    "caption": {
+      "en": "Costing valuation",
+      "uk": "Оцінка собівартості"
+    },
     "baseClassName": "FifoTotalDriver",
     "baseEngine": "FIFO",
     "isKernel": false,

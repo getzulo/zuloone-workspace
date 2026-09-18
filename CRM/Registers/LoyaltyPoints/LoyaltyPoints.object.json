@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Loyalty points",
-      "ru": "Баллы лояльности"
+      "ru": "Баллы лояльности",
+      "uk": "Бали лояльності"
     },
     "isObsolete": false,
     "iconName": "fluent-color:star-48",
@@ -21,7 +22,10 @@
     {
       "registerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
       "fieldName": "Customer",
-      "caption": "Customer",
+      "caption": {
+        "en": "Customer",
+        "uk": "Клієнт"
+      },
       "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
       "isOperational": true,
       "isInformational": false,
@@ -37,7 +41,10 @@
     {
       "registerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
       "fieldName": "Points",
-      "caption": "Points",
+      "caption": {
+        "en": "Points",
+        "uk": "Бали"
+      },
       "isOperational": true,
       "edtMetaId": "8c1d6f54-0e9a-4b3c-9d4f-5a8b9c6d2e70",
       "displayOrder": 1,

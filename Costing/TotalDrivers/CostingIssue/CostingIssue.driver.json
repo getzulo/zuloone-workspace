@@ -1,7 +1,10 @@
 {
   "kind": "TotalDriver",
   "object": {
-    "caption": "Costing issue driver",
+    "caption": {
+      "en": "Costing issue driver",
+      "uk": "Драйвер списання собівартості"
+    },
     "baseClassName": "DefaultTotalDriver",
     "baseEngine": "Standard",
     "isKernel": false,

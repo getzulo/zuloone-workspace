@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Create quotation",
-      "ru": "Создать КП"
+      "ru": "Создать КП",
+      "uk": "Створити КП"
     },
     "scriptMetaId": "58a0cd69-2dba-4a31-b6be-1b45eeafd16a",
     "parameterMode": "None",

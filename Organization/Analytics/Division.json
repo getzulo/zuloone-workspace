@@ -4,7 +4,8 @@
     "caption": {
       "en": "Division",
       "ar": "القسم",
-      "ru": "Подразделение"
+      "ru": "Подразделение",
+      "uk": "Підрозділ"
     },
     "edtMetaId": "ff85f4a4-ab90-41f8-9bf9-32367aab94a1",
     "description": "Reusable analytic over the Division dictionary (Payroll and cost centers)",

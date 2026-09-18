@@ -4,7 +4,8 @@
     "caption": {
       "en": "Finish production",
       "ar": "إنهاء الإنتاج",
-      "ru": "Завершить выпуск"
+      "ru": "Завершить выпуск",
+      "uk": "Завершити випуск"
     },
     "scriptMetaId": "972712f5-1efd-4c82-abaa-35db61dc8298",
     "parameterMode": "None",

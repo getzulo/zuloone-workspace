@@ -4,7 +4,8 @@
     "caption": {
       "en": "Confirm pick",
       "ar": "تأكيد الانتقاء",
-      "ru": "Подтвердить отбор"
+      "ru": "Подтвердить отбор",
+      "uk": "Підтвердити відбір"
     },
     "scriptMetaId": "4fc30fae-894a-4a99-a70d-2d04057d9019",
     "parameterMode": "None",

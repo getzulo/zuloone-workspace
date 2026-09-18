@@ -4,7 +4,8 @@
     "caption": {
       "en": "Stock transfer",
       "ar": "المخزون التحويل",
-      "ru": "Перемещение остатков"
+      "ru": "Перемещение остатков",
+      "uk": "Переміщення залишків"
     },
     "isLogged": false,
     "isCloneable": true,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "From location",
         "ar": "من الموقع",
-        "ru": "Из ячейки"
+        "ru": "Из ячейки",
+        "uk": "З комірки"
       },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
@@ -47,7 +49,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -69,7 +72,8 @@
       "caption": {
         "en": "To location",
         "ar": "إلى الموقع",
-        "ru": "В ячейку"
+        "ru": "В ячейку",
+        "uk": "У комірку"
       },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
@@ -90,12 +94,14 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
-        "ar": "مرسل"
+        "ar": "مرسل",
+        "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
-        "ru": "Проведено"
+        "ru": "Проведено",
+        "uk": "Проведено"
       },
       "displayOrder": 2,
       "isInitial": false,
@@ -108,12 +114,14 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,

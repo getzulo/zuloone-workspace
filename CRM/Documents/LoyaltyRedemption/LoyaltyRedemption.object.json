@@ -4,7 +4,8 @@
     "caption": {
       "en": "Loyalty redemption",
       "ar": "استرجاع الولاء",
-      "ru": "Списание баллов"
+      "ru": "Списание баллов",
+      "uk": "Списання балів"
     },
     "isLogged": false,
     "isCloneable": true,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Customer",
         "ar": "العميل",
-        "ru": "Клиент"
+        "ru": "Клиент",
+        "uk": "Клієнт"
       },
       "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
       "isSystem": false,
@@ -47,7 +49,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -68,7 +71,8 @@
       "fieldName": "Points",
       "caption": {
         "en": "Points",
-        "ru": "Баллы"
+        "ru": "Баллы",
+        "uk": "Бали"
       },
       "edtMetaId": "8c1d6f54-0e9a-4b3c-9d4f-5a8b9c6d2e70",
       "isSystem": false,
@@ -89,12 +93,14 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,
@@ -105,11 +111,15 @@
     {
       "documentTypeMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
       "name": "Redeemed",
-      "caption": "Redeemed",
+      "caption": {
+        "en": "Redeemed",
+        "uk": "Списано"
+      },
       "subtypeValue": "Redeemed",
       "subtypeCaption": {
         "en": "Redeemed",
-        "ru": "Списано"
+        "ru": "Списано",
+        "uk": "Списано"
       },
       "displayOrder": 2,
       "isInitial": false,

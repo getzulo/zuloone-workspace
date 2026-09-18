@@ -4,7 +4,8 @@
     "caption": {
       "en": "Fill standard week",
       "ar": "تعبئة الأسبوع القياسي",
-      "ru": "Заполнить неделю"
+      "ru": "Заполнить неделю",
+      "uk": "Заповнити тиждень"
     },
     "scriptMetaId": "b0ef9fef-71e3-4cbf-9ae7-c9dd4dd7882d",
     "parameterMode": "None",

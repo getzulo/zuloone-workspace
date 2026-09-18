@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax rates",
       "ar": "الضريبة معدل",
-      "ru": "Налоговые ставки"
+      "ru": "Налоговые ставки",
+      "uk": "Податкові ставки"
     },
     "description": "Effective-dated rate of a tax (historical rate is immutable)",
     "isLogged": true,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "Effective from",
         "ar": "سارٍ من",
-        "ru": "Действует с"
+        "ru": "Действует с",
+        "uk": "Діє з"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "caption": {
         "en": "Effective to",
         "ar": "سارٍ إلى",
-        "ru": "Действует по"
+        "ru": "Действует по",
+        "uk": "Діє по"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -103,7 +107,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -124,7 +129,8 @@
       "caption": {
         "en": "Rate",
         "ar": "معدل",
-        "ru": "Ставка"
+        "ru": "Ставка",
+        "uk": "Ставка"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -145,7 +151,8 @@
       "caption": {
         "en": "Tax",
         "ar": "الضريبة",
-        "ru": "Налог"
+        "ru": "Налог",
+        "uk": "Податок"
       },
       "isTranslatable": false,
       "isVisible": true,

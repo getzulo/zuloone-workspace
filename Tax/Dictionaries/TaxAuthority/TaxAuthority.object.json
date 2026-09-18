@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax authorities",
       "ar": "سلطات الضريبة",
-      "ru": "Налоговые органы"
+      "ru": "Налоговые органы",
+      "uk": "Податкові органи"
     },
     "description": "Government tax authority (ZATCA/HMRC/FTA/…)",
     "isLogged": false,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -61,7 +63,8 @@
       "caption": {
         "en": "Country code",
         "ar": "الدولة رمز",
-        "ru": "Код страны"
+        "ru": "Код страны",
+        "uk": "Код країни"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -83,7 +86,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -104,7 +108,8 @@
       "caption": {
         "en": "Active",
         "ar": "نشط",
-        "ru": "Активен"
+        "ru": "Активен",
+        "uk": "Активний"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -126,7 +131,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": true,
       "isVisible": true,

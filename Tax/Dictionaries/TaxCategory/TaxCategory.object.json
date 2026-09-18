@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax categories",
       "ar": "فئات الضريبة",
-      "ru": "Налоговые категории"
+      "ru": "Налоговые категории",
+      "uk": "Податкові категорії"
     },
     "description": "Treatment: STANDARD/ZERO_RATED/EXEMPT/OUT_OF_SCOPE/REVERSE_CHARGE",
     "isLogged": false,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -61,7 +63,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -83,7 +86,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": true,
       "isVisible": true,
@@ -104,7 +108,8 @@
       "caption": {
         "en": "Tax",
         "ar": "الضريبة",
-        "ru": "Налог"
+        "ru": "Налог",
+        "uk": "Податок"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -126,7 +131,8 @@
       "caption": {
         "en": "Treatment",
         "ar": "المعاملة",
-        "ru": "Режим"
+        "ru": "Режим",
+        "uk": "Режим"
       },
       "isTranslatable": false,
       "isVisible": true,

@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "CRM settings",
-      "ru": "Настройки модуля"
+      "ru": "Настройки модуля",
+      "uk": "Налаштування модуля"
     },
     "description": "Одиночный настроечный справочник модуля CRM (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
@@ -34,7 +35,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -53,7 +57,8 @@
       "isUnique": false,
       "caption": {
         "en": "Loyalty enabled",
-        "ru": "Лояльность включена"
+        "ru": "Лояльность включена",
+        "uk": "Лояльність увімкнена"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -75,7 +80,8 @@
       "isUnique": false,
       "caption": {
         "en": "Loyalty points per currency unit",
-        "ru": "Баллов за единицу валюты"
+        "ru": "Баллов за единицу валюты",
+        "uk": "Балів за одиницю валюти"
       },
       "isTranslatable": false,
       "isVisible": true,

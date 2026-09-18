@@ -4,7 +4,8 @@
     "caption": {
       "en": "Receive order",
       "ar": "استلام الطلب",
-      "ru": "Принять товар"
+      "ru": "Принять товар",
+      "uk": "Прийняти товар"
     },
     "scriptMetaId": "1b179511-6b00-431f-a228-30acc99aa0d3",
     "parameterMode": "None",

@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Vendor payment",
-      "ru": "Оплата поставщику"
+      "ru": "Оплата поставщику",
+      "uk": "Оплата постачальнику"
     },
     "description": "Погашение кредиторки: отдельный документ, а не подтип заказа — заказ остаётся оприходованным, склад и кредиторка прошлого состояния не трогаются. Зеркало CustomerPayment в продажах и PayrollPayment в HR.",
     "isLogged": false,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -48,7 +50,8 @@
       "fieldName": "LegalEntity",
       "caption": {
         "en": "Legal entity",
-        "ru": "Юрлицо"
+        "ru": "Юрлицо",
+        "uk": "Юридична особа"
       },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
@@ -68,11 +71,15 @@
     {
       "documentTypeMetaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
       "name": "Draft",
-      "caption": "Draft",
+      "caption": {
+        "en": "Draft",
+        "uk": "Чернетка"
+      },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,
@@ -83,11 +90,15 @@
     {
       "documentTypeMetaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
       "name": "Paid",
-      "caption": "Paid",
+      "caption": {
+        "en": "Paid",
+        "uk": "Оплачено"
+      },
       "subtypeValue": "Paid",
       "subtypeCaption": {
         "en": "Paid",
-        "ru": "Оплачено"
+        "ru": "Оплачено",
+        "uk": "Оплачено"
       },
       "displayOrder": 2,
       "isInitial": false,

@@ -4,7 +4,8 @@
     "caption": {
       "en": "Confirm put-away",
       "ar": "تأكيد الاستلام",
-      "ru": "Подтвердить приёмку"
+      "ru": "Подтвердить приёмку",
+      "uk": "Підтвердити приймання"
     },
     "scriptMetaId": "fd1a6d16-28f8-43af-b155-811ee74743fe",
     "parameterMode": "None",

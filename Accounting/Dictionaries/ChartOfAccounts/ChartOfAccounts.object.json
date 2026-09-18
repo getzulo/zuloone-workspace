@@ -4,7 +4,8 @@
     "caption": {
       "en": "Chart of accounts",
       "ar": "دليل الحسابات",
-      "ru": "План счетов"
+      "ru": "План счетов",
+      "uk": "План рахунків"
     },
     "description": "Hierarchical chart of accounts; postings hit leaf postable accounts",
     "isLogged": true,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Account type",
         "ar": "الحساب النوع",
-        "ru": "Тип счёта"
+        "ru": "Тип счёта",
+        "uk": "Тип рахунку"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "caption": {
         "en": "Currency",
         "ar": "العملة",
-        "ru": "Валюта"
+        "ru": "Валюта",
+        "uk": "Валюта"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -103,7 +107,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -124,7 +129,8 @@
       "caption": {
         "en": "Postable",
         "ar": "قابل للترسيم",
-        "ru": "Проводимый"
+        "ru": "Проводимый",
+        "uk": "Проводимий"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -146,7 +152,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -167,7 +174,8 @@
       "isUnique": false,
       "caption": {
         "en": "Parent",
-        "ar": "الأب"
+        "ar": "الأب",
+        "uk": "Батьківський"
       },
       "isTranslatable": false,
       "isVisible": true,

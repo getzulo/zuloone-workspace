@@ -5,7 +5,8 @@
     "caption": {
       "en": "Lines",
       "ar": "السطور",
-      "ru": "Строки"
+      "ru": "Строки",
+      "uk": "Рядки"
     },
     "tableName": "TP_TaxReturnLines",
     "softDeletion": false,
@@ -21,7 +22,8 @@
       "caption": {
         "en": "Direction",
         "ar": "الاتجاه",
-        "ru": "Направление"
+        "ru": "Направление",
+        "uk": "Напрямок"
       },
       "edtMetaId": "fa28b007-cf13-48c9-a238-d0117c902ead",
       "isRequired": true,
@@ -43,7 +45,8 @@
       "caption": {
         "en": "Tax amount",
         "ar": "مبلغ الضريبة",
-        "ru": "Сумма налога"
+        "ru": "Сумма налога",
+        "uk": "Сума податку"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": false,
@@ -62,7 +65,8 @@
       "caption": {
         "en": "Tax base",
         "ar": "الوعاء الضريبي",
-        "ru": "Налоговая база"
+        "ru": "Налоговая база",
+        "uk": "База оподаткування"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": false,
@@ -81,7 +85,8 @@
       "caption": {
         "en": "Tax code",
         "ar": "الرمز الضريبي",
-        "ru": "Налоговый код"
+        "ru": "Налоговый код",
+        "uk": "Податковий код"
       },
       "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
       "isRequired": true,

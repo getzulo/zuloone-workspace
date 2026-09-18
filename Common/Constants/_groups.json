@@ -4,7 +4,8 @@
     {
       "caption": {
         "en": "Measurement precision",
-        "ru": "Точность измерений"
+        "ru": "Точность измерений",
+        "uk": "Точність вимірювань"
       },
       "metaId": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
       "name": "Measurement",

@@ -5,7 +5,8 @@
     "caption": {
       "en": "Lines",
       "ar": "السطر",
-      "ru": "Строки"
+      "ru": "Строки",
+      "uk": "Рядки"
     },
     "tableName": "TP_JournalEntryLines",
     "softDeletion": false,
@@ -21,7 +22,8 @@
       "caption": {
         "en": "Account",
         "ar": "الحساب",
-        "ru": "Счёт"
+        "ru": "Счёт",
+        "uk": "Рахунок"
       },
       "edtMetaId": "e0f20335-243d-42b1-81ea-989f8a14b809",
       "isRequired": true,
@@ -43,7 +45,8 @@
       "caption": {
         "en": "Credit",
         "ar": "دائن",
-        "ru": "Кредит"
+        "ru": "Кредит",
+        "uk": "Кредит"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": false,
@@ -62,7 +65,8 @@
       "caption": {
         "en": "Debit",
         "ar": "مدين",
-        "ru": "Дебет"
+        "ru": "Дебет",
+        "uk": "Дебет"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": false,
@@ -81,7 +85,8 @@
       "caption": {
         "en": "Description",
         "ar": "الوصف",
-        "ru": "Описание"
+        "ru": "Описание",
+        "uk": "Опис"
       },
       "baseType": "String",
       "length": 256,

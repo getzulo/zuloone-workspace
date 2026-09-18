@@ -4,7 +4,8 @@
     "className": "SocialInsuranceAccrualLinesTablePartRow",
     "caption": {
       "en": "Lines",
-      "ru": "Строки"
+      "ru": "Строки",
+      "uk": "Рядки"
     },
     "tableName": "TP_SocialInsuranceAccrualLines",
     "softDeletion": false,
@@ -19,7 +20,8 @@
       "fieldName": "ContributoryBase",
       "caption": {
         "en": "Contributory base",
-        "ru": "База начисления"
+        "ru": "База начисления",
+        "uk": "База нарахування"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
@@ -37,7 +39,8 @@
       "fieldName": "Employee",
       "caption": {
         "en": "Employee",
-        "ru": "Сотрудник"
+        "ru": "Сотрудник",
+        "uk": "Співробітник"
       },
       "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
       "isRequired": true,
@@ -58,7 +61,8 @@
       "fieldName": "EmployeeContribution",
       "caption": {
         "en": "Employee contribution",
-        "ru": "Взнос работника"
+        "ru": "Взнос работника",
+        "uk": "Частка працівника"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
@@ -76,7 +80,8 @@
       "fieldName": "EmployerContribution",
       "caption": {
         "en": "Employer contribution",
-        "ru": "Взнос работодателя"
+        "ru": "Взнос работодателя",
+        "uk": "Частка роботодавця"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,

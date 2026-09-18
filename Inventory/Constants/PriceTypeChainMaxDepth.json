@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Price type chain — max depth",
-      "ru": "Цепочка типов цены — максимальная глубина"
+      "ru": "Цепочка типов цены — максимальная глубина",
+      "uk": "Ланцюг типів ціни — максимальна глибина"
     },
     "groupMetaId": "ab0d39e1-47ae-4aef-8bb2-8f3f7773672f",
     "constantType": "Integer",

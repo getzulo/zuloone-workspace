@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Timesheet grid",
-      "ru": "Сетка табеля"
+      "ru": "Сетка табеля",
+      "uk": "Сітка табеля"
     },
     "widgetType": "timesheet-grid",
     "width": 12,

@@ -4,7 +4,8 @@
     {
       "caption": {
         "en": "GL posting setup",
-        "ru": "Настройка разноски GL"
+        "ru": "Настройка разноски GL",
+        "uk": "Налаштування рознесення GL"
       },
       "metaId": "8c2e5f49-1b7a-4d3c-8f0e-6a9b2d5c7f30",
       "name": "GLPosting",

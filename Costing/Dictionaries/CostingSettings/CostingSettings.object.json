@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Costing settings",
-      "ru": "Настройки модуля"
+      "ru": "Настройки модуля",
+      "uk": "Налаштування модуля"
     },
     "description": "Одиночный настроечный справочник модуля Costing (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
@@ -35,7 +36,8 @@
       "isUnique": false,
       "caption": {
         "en": "Costing method (AVG/FIFO)",
-        "ru": "Метод себестоимости (AVG/FIFO)"
+        "ru": "Метод себестоимости (AVG/FIFO)",
+        "uk": "Метод собівартості (AVG/FIFO)"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -55,7 +57,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -74,7 +79,8 @@
       "isUnique": false,
       "caption": {
         "en": "Round costs",
-        "ru": "Округлять себестоимость"
+        "ru": "Округлять себестоимость",
+        "uk": "Округлювати собівартість"
       },
       "isTranslatable": false,
       "isVisible": true,

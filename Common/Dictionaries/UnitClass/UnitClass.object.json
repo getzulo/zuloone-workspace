@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Unit classes",
-      "ru": "Виды величин"
+      "ru": "Виды величин",
+      "uk": "Види величин"
     },
     "description": "Физическая величина, которую измеряет единица: масса, длина, объём, количество. Перевод возможен ТОЛЬКО внутри одного класса — «килограмм в метр» становится невыразимым, а не «правило не найдено».",
     "isLogged": false,
@@ -37,7 +38,8 @@
       "isUnique": true,
       "caption": {
         "en": "Code",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -57,7 +59,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -77,7 +82,8 @@
       "isUnique": false,
       "caption": {
         "en": "Name",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": true,
       "isVisible": true,

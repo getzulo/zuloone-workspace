@@ -4,7 +4,8 @@
     "caption": {
       "en": "Customer contacts",
       "ar": "جهات اتصال العملاء",
-      "ru": "Контактные лица клиентов"
+      "ru": "Контактные лица клиентов",
+      "uk": "Контактні особи клієнтів"
     },
     "description": "",
     "isLogged": false,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Customer",
         "ar": "العميل",
-        "ru": "Клиент"
+        "ru": "Клиент",
+        "uk": "Клієнт"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "Email",
         "ar": "البريد الإلكتروني",
-        "ru": "Email"
+        "ru": "Email",
+        "uk": "Email"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -80,7 +83,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -100,7 +106,8 @@
       "caption": {
         "en": "Primary contact",
         "ar": "جهة الاتصال الرئيسية",
-        "ru": "Основной контакт"
+        "ru": "Основной контакт",
+        "uk": "Основний контакт"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -122,7 +129,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Имя"
+        "ru": "Имя",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -144,7 +152,8 @@
       "caption": {
         "en": "Phone",
         "ar": "الهاتف",
-        "ru": "Телефон"
+        "ru": "Телефон",
+        "uk": "Телефон"
       },
       "isTranslatable": false,
       "isVisible": true,

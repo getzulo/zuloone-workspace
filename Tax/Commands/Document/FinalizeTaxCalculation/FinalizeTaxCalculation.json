@@ -4,7 +4,8 @@
     "caption": {
       "en": "Finalize tax calculation",
       "ar": "اعتماد الحساب",
-      "ru": "Утвердить расчёт"
+      "ru": "Утвердить расчёт",
+      "uk": "Затвердити розрахунок"
     },
     "scriptMetaId": "2fb0da63-bdb9-4824-9d0e-f3809f316c52",
     "parameterMode": "None",

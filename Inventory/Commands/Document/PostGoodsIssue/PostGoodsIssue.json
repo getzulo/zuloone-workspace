@@ -4,7 +4,8 @@
     "caption": {
       "en": "Post goods issue",
       "ar": "ترحيل الصرف",
-      "ru": "Провести расход"
+      "ru": "Провести расход",
+      "uk": "Провести видаток"
     },
     "scriptMetaId": "b6cd6220-2127-43e8-b4e5-3fb3371e51e2",
     "parameterMode": "None",

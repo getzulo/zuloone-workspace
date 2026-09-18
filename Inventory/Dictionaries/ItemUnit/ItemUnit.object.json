@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Item units",
-      "ru": "Упаковки товара"
+      "ru": "Упаковки товара",
+      "uk": "Упаковки товару"
     },
     "description": "Во сколько базовых единиц ТОВАРА укладывается одна упаковка: коробка одного товара — 12 штук, другого — 6. Именно поэтому «коробка» не имеет коэффициента как единица измерения: без товара она ничего не значит.",
     "isLogged": true,
@@ -36,7 +37,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -55,7 +59,8 @@
       "isUnique": false,
       "caption": {
         "en": "Item",
-        "ru": "Товар"
+        "ru": "Товар",
+        "uk": "Товар"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -78,7 +83,8 @@
       "isUnique": false,
       "caption": {
         "en": "Quantity in base unit",
-        "ru": "Количество в базовой единице"
+        "ru": "Количество в базовой единице",
+        "uk": "Кількість у базовій одиниці"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -98,7 +104,8 @@
       "isUnique": false,
       "caption": {
         "en": "Unit",
-        "ru": "Единица"
+        "ru": "Единица",
+        "uk": "Одиниця"
       },
       "isTranslatable": false,
       "isVisible": true,

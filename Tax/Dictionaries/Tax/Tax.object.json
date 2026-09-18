@@ -4,7 +4,8 @@
     "caption": {
       "en": "Taxes",
       "ar": "الضرائب",
-      "ru": "Налоги"
+      "ru": "Налоги",
+      "uk": "Податки"
     },
     "description": "A tax = type + authority + jurisdiction, effective-dated",
     "isLogged": true,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Authority",
         "ar": "السلطة",
-        "ru": "Орган"
+        "ru": "Орган",
+        "uk": "Держорган"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "caption": {
         "en": "Effective from",
         "ar": "سارٍ من",
-        "ru": "Действует с"
+        "ru": "Действует с",
+        "uk": "Діє з"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -102,7 +106,8 @@
       "caption": {
         "en": "Effective to",
         "ar": "سارٍ إلى",
-        "ru": "Действует по"
+        "ru": "Действует по",
+        "uk": "Діє по"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -124,7 +129,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -145,7 +151,8 @@
       "caption": {
         "en": "Jurisdiction",
         "ar": "الولاية القضائية",
-        "ru": "Юрисдикция"
+        "ru": "Юрисдикция",
+        "uk": "Юрисдикція"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -167,7 +174,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": true,
       "isVisible": true,

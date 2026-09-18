@@ -4,7 +4,8 @@
     "caption": {
       "en": "Stock count",
       "ar": "جرد المخزون",
-      "ru": "Инвентаризация"
+      "ru": "Инвентаризация",
+      "uk": "Інвентаризація"
     },
     "isLogged": false,
     "isCloneable": true,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Cell",
         "ar": "الخلية",
-        "ru": "Ячейка"
+        "ru": "Ячейка",
+        "uk": "Комірка"
       },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
@@ -47,7 +49,8 @@
       "caption": {
         "en": "Count date",
         "ar": "تاريخ الجرد",
-        "ru": "Дата пересчёта"
+        "ru": "Дата пересчёта",
+        "uk": "Дата перерахунку"
       },
       "baseType": "DateTime",
       "isSystem": false,
@@ -67,7 +70,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -90,12 +94,14 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,
@@ -108,12 +114,14 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
-        "ar": "مرسل"
+        "ar": "مرسل",
+        "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
-        "ru": "Проведено"
+        "ru": "Проведено",
+        "uk": "Проведено"
       },
       "displayOrder": 2,
       "isInitial": false,

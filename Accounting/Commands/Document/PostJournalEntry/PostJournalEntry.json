@@ -4,7 +4,8 @@
     "caption": {
       "en": "Post journal entry",
       "ar": "ترحيل القيد",
-      "ru": "Провести проводку"
+      "ru": "Провести проводку",
+      "uk": "Провести проводку"
     },
     "scriptMetaId": "4d51151b-1de2-4295-84e4-69ecc243d77d",
     "parameterMode": "None",

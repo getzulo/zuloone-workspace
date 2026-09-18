@@ -4,7 +4,8 @@
     "caption": {
       "en": "Redeem points",
       "ar": "استرداد النقاط",
-      "ru": "Списать баллы"
+      "ru": "Списать баллы",
+      "uk": "Списати бали"
     },
     "scriptMetaId": "edc927a7-cde9-4f31-a8e2-d9d139fa31d9",
     "parameterMode": "None",

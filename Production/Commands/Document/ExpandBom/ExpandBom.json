@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Expand bill of materials",
-      "ru": "Развернуть спецификацию"
+      "ru": "Развернуть спецификацию",
+      "uk": "Розгорнути специфікацію"
     },
     "scriptMetaId": "6b7c8d9e-0f1a-4b2c-9d3e-4f5a6b7c8d9e",
     "parameterMode": "None",

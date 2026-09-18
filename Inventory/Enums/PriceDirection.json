@@ -13,7 +13,8 @@
       "value": 1,
       "caption": {
         "en": "Purchase",
-        "ru": "Закупка"
+        "ru": "Закупка",
+        "uk": "Закупівля"
       },
       "displayOrder": 1,
       "description": "Цена закупки у поставщика",
@@ -26,7 +27,8 @@
       "value": 0,
       "caption": {
         "en": "Sale",
-        "ru": "Продажа"
+        "ru": "Продажа",
+        "uk": "Продаж"
       },
       "displayOrder": 0,
       "description": "Цена продажи покупателю",

@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Purchase return",
-      "ru": "Возврат поставщику"
+      "ru": "Возврат поставщику",
+      "uk": "Повернення постачальнику"
     },
     "description": "Товар уходит обратно поставщику: склад −, кредиторка − (нетто). Входной НДС не сторнируется — отдельная кредит-нота закупки, её здесь нет.",
     "isLogged": false,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -48,7 +50,8 @@
       "fieldName": "Location",
       "caption": {
         "en": "Return from",
-        "ru": "Ячейка возврата"
+        "ru": "Ячейка возврата",
+        "uk": "Комірка повернення"
       },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
@@ -67,7 +70,8 @@
       "fieldName": "OriginalOrder",
       "caption": {
         "en": "Original order",
-        "ru": "Исходный заказ"
+        "ru": "Исходный заказ",
+        "uk": "Вихідне замовлення"
       },
       "baseType": "Guid",
       "isSystem": false,
@@ -86,7 +90,8 @@
       "fieldName": "Supplier",
       "caption": {
         "en": "Supplier",
-        "ru": "Поставщик"
+        "ru": "Поставщик",
+        "uk": "Постачальник"
       },
       "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
       "isSystem": false,
@@ -105,11 +110,15 @@
     {
       "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
       "name": "Posted",
-      "caption": "Posted",
+      "caption": {
+        "en": "Posted",
+        "uk": "Проведено"
+      },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
-        "ru": "Проведён"
+        "ru": "Проведён",
+        "uk": "Проведено"
       },
       "displayOrder": 2,
       "isInitial": false,
@@ -120,11 +129,15 @@
     {
       "documentTypeMetaId": "014d66aa-d70e-4895-817d-5d79047f77e4",
       "name": "Draft",
-      "caption": "Draft",
+      "caption": {
+        "en": "Draft",
+        "uk": "Чернетка"
+      },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,

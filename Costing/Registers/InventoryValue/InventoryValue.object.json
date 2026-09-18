@@ -4,7 +4,8 @@
     "caption": {
       "en": "Inventory value",
       "ar": "المخزون القيمة",
-      "ru": "Стоимость запасов"
+      "ru": "Стоимость запасов",
+      "uk": "Вартість запасів"
     },
     "isObsolete": false,
     "iconName": "fluent-color:vault-24",
@@ -24,7 +25,8 @@
       "fieldName": "Qty",
       "caption": {
         "en": "Qty",
-        "ar": "الكمية"
+        "ar": "الكمية",
+        "uk": "К-сть"
       },
       "isOperational": true,
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
@@ -38,7 +40,8 @@
       "fieldName": "Value",
       "caption": {
         "en": "Value",
-        "ar": "القيمة"
+        "ar": "القيمة",
+        "uk": "Значення"
       },
       "isOperational": true,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",

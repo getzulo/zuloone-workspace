@@ -5,7 +5,8 @@
     "caption": {
       "en": "Lines",
       "ar": "السطر",
-      "ru": "Строки"
+      "ru": "Строки",
+      "uk": "Рядки"
     },
     "tableName": "TP_TaxCalculationLines",
     "softDeletion": false,
@@ -21,7 +22,8 @@
       "caption": {
         "en": "Direction",
         "ar": "الاتجاه",
-        "ru": "Направление"
+        "ru": "Направление",
+        "uk": "Напрямок"
       },
       "edtMetaId": "fa28b007-cf13-48c9-a238-d0117c902ead",
       "isRequired": true,
@@ -42,7 +44,8 @@
       "fieldName": "RateOverridden",
       "caption": {
         "en": "Rate overridden",
-        "ru": "Ставка вручную"
+        "ru": "Ставка вручную",
+        "uk": "Ставка вручну"
       },
       "baseType": "Boolean",
       "isRequired": false,
@@ -61,7 +64,8 @@
       "caption": {
         "en": "Rate",
         "ar": "معدل",
-        "ru": "Ставка"
+        "ru": "Ставка",
+        "uk": "Ставка"
       },
       "edtMetaId": "713835c7-1701-4c43-9cf7-c754519dc5d4",
       "isRequired": true,
@@ -79,7 +83,8 @@
       "fieldName": "RecoverableAmount",
       "caption": {
         "en": "Recoverable amount",
-        "ru": "К возмещению"
+        "ru": "К возмещению",
+        "uk": "До відшкодування"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": false,
@@ -98,7 +103,8 @@
       "caption": {
         "en": "Tax amount",
         "ar": "الضريبة المبلغ",
-        "ru": "Сумма налога"
+        "ru": "Сумма налога",
+        "uk": "Сума податку"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
@@ -116,7 +122,8 @@
       "fieldName": "TaxBase",
       "caption": {
         "en": "Tax base",
-        "ru": "База"
+        "ru": "База",
+        "uk": "База оподаткування"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
@@ -135,7 +142,8 @@
       "caption": {
         "en": "Category",
         "ar": "الفئة",
-        "ru": "Категория"
+        "ru": "Категория",
+        "uk": "Категорія"
       },
       "edtMetaId": "1c0aa7c2-fb21-42d4-9947-616fccf1cccf",
       "isRequired": false,
@@ -157,7 +165,8 @@
       "caption": {
         "en": "Tax code",
         "ar": "الضريبة رمز",
-        "ru": "Налоговый код"
+        "ru": "Налоговый код",
+        "uk": "Податковий код"
       },
       "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
       "isRequired": true,
@@ -178,7 +187,8 @@
       "fieldName": "TaxRate",
       "caption": {
         "en": "Rate ref",
-        "ru": "Ставка (ссылка)"
+        "ru": "Ставка (ссылка)",
+        "uk": "Ставка (посилання)"
       },
       "edtMetaId": "43a28d72-d7cc-4042-9176-92690d7f00ed",
       "isRequired": false,

@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Fiscal period",
-      "ru": "Фискальный период"
+      "ru": "Фискальный период",
+      "uk": "Фіскальний період"
     },
     "edtMetaId": "e5963100-d15f-4650-924b-0c35e26a233d",
     "description": "Reusable analytic over the FiscalPeriod dictionary (GL)",

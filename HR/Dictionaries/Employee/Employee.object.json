@@ -4,7 +4,8 @@
     "caption": {
       "en": "Employees",
       "ar": "الموظفون",
-      "ru": "Сотрудники"
+      "ru": "Сотрудники",
+      "uk": "Співробітники"
     },
     "isLogged": true,
     "isHierarchical": false,
@@ -37,7 +38,8 @@
       "caption": {
         "en": "Division",
         "ar": "الفرع",
-        "ru": "Подразделение"
+        "ru": "Подразделение",
+        "uk": "Підрозділ"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -58,7 +60,8 @@
       "caption": {
         "en": "Hire date",
         "ar": "التوظيف التاريخ",
-        "ru": "Дата найма"
+        "ru": "Дата найма",
+        "uk": "Дата найму"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -80,7 +83,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -101,7 +105,8 @@
       "caption": {
         "en": "Active",
         "ar": "نشط",
-        "ru": "Активен"
+        "ru": "Активен",
+        "uk": "Активний"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -123,7 +128,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "ФИО"
+        "ru": "ФИО",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -143,7 +149,8 @@
       "isUnique": false,
       "caption": {
         "en": "Nationality",
-        "ru": "Гражданство"
+        "ru": "Гражданство",
+        "uk": "Громадянство"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -164,7 +171,8 @@
       "caption": {
         "en": "Position",
         "ar": "الوظيفة",
-        "ru": "Должность"
+        "ru": "Должность",
+        "uk": "Посада"
       },
       "isTranslatable": false,
       "isVisible": true,

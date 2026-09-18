@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Store",
-      "ru": "Склад"
+      "ru": "Склад",
+      "uk": "Склад"
     },
     "edtMetaId": "0ef2de9a-0838-4472-9570-c709881b2be1",
     "description": "Reusable analytic over the Store dictionary",

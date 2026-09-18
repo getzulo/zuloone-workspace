@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Mark lost",
-      "ru": "Потерян"
+      "ru": "Потерян",
+      "uk": "Втрачено"
     },
     "scriptMetaId": "f9cd27cc-225c-4dae-ba03-483545a1885f",
     "parameterMode": "None",

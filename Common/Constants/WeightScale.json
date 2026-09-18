@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Weight scale (decimal places)",
-      "ru": "Знаков после запятой в весе"
+      "ru": "Знаков после запятой в весе",
+      "uk": "Знаків після коми у вазі"
     },
     "groupMetaId": "2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
     "constantType": "Integer",

@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax rule conditions",
       "ar": "شروط قاعدة الضريبة",
-      "ru": "Условия правила налога"
+      "ru": "Условия правила налога",
+      "uk": "Умови правила податку"
     },
     "description": "Условие правила определения налога: путь в контексте сделки, оператор, значение. Условия ОДНОЙ группы соединяются И, разные группы — ИЛИ.",
     "isLogged": true,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Condition group",
         "ar": "مجموعة الشرط",
-        "ru": "Группа условий"
+        "ru": "Группа условий",
+        "uk": "Група умов"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -62,7 +64,8 @@
       "caption": {
         "en": "Context field",
         "ar": "حقل السياق",
-        "ru": "Поле контекста"
+        "ru": "Поле контекста",
+        "uk": "Поле контексту"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -84,7 +87,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -105,7 +109,8 @@
       "caption": {
         "en": "Operator",
         "ar": "المعامل",
-        "ru": "Оператор"
+        "ru": "Оператор",
+        "uk": "Оператор"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -127,7 +132,8 @@
       "caption": {
         "en": "Tax rule",
         "ar": "قاعدة الضريبة",
-        "ru": "Правило"
+        "ru": "Правило",
+        "uk": "Правило"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -150,7 +156,8 @@
       "caption": {
         "en": "Value",
         "ar": "القيمة",
-        "ru": "Значение"
+        "ru": "Значение",
+        "uk": "Значення"
       },
       "isTranslatable": false,
       "isVisible": true,

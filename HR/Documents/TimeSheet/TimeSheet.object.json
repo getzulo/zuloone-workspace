@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Time sheet",
-      "ru": "Табель"
+      "ru": "Табель",
+      "uk": "Табель"
     },
     "description": "Сетка явок за период: автозаполнение 40-часовой недели, исключения из TimeOff, ручные галки. Итог часов в Lines — источник для «Начислить ФОТ».",
     "isLogged": false,
@@ -26,7 +27,8 @@
       "fieldName": "Division",
       "caption": {
         "en": "Division",
-        "ru": "Подразделение"
+        "ru": "Подразделение",
+        "uk": "Підрозділ"
       },
       "edtMetaId": "ff85f4a4-ab90-41f8-9bf9-32367aab94a1",
       "isSystem": false,
@@ -46,7 +48,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -67,7 +70,8 @@
       "fieldName": "PeriodFrom",
       "caption": {
         "en": "Period from",
-        "ru": "Период с"
+        "ru": "Период с",
+        "uk": "Період з"
       },
       "baseType": "DateTime",
       "isSystem": false,
@@ -86,7 +90,8 @@
       "fieldName": "PeriodTo",
       "caption": {
         "en": "Period to",
-        "ru": "Период по"
+        "ru": "Период по",
+        "uk": "Період по"
       },
       "baseType": "DateTime",
       "isSystem": false,
@@ -105,11 +110,15 @@
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
       "name": "Draft",
-      "caption": "Draft",
+      "caption": {
+        "en": "Draft",
+        "uk": "Чернетка"
+      },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,
@@ -120,11 +129,15 @@
     {
       "documentTypeMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
       "name": "Approved",
-      "caption": "Approved",
+      "caption": {
+        "en": "Approved",
+        "uk": "Затверджено"
+      },
       "subtypeValue": "Approved",
       "subtypeCaption": {
         "en": "Approved",
-        "ru": "Утверждён"
+        "ru": "Утверждён",
+        "uk": "Затверджено"
       },
       "displayOrder": 2,
       "isInitial": false,

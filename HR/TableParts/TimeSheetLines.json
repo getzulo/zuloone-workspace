@@ -4,7 +4,8 @@
     "className": "TimeSheetLinesTablePartRow",
     "caption": {
       "en": "Lines",
-      "ru": "Строки"
+      "ru": "Строки",
+      "uk": "Рядки"
     },
     "tableName": "TP_TimeSheetLines",
     "softDeletion": false,
@@ -19,7 +20,8 @@
       "fieldName": "Employee",
       "caption": {
         "en": "Employee",
-        "ru": "Сотрудник"
+        "ru": "Сотрудник",
+        "uk": "Співробітник"
       },
       "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
       "isRequired": true,
@@ -40,7 +42,8 @@
       "fieldName": "Hours",
       "caption": {
         "en": "Hours",
-        "ru": "Часы"
+        "ru": "Часы",
+        "uk": "Години"
       },
       "baseType": "Decimal",
       "precision": 18,

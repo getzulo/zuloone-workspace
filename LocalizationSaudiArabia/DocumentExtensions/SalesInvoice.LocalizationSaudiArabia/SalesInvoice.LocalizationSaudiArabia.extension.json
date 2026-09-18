@@ -14,7 +14,8 @@
       "fieldName": "InvoiceUuid",
       "caption": {
         "en": "E-invoice UUID",
-        "ru": "UUID э-фактуры"
+        "ru": "UUID э-фактуры",
+        "uk": "UUID е-фактури"
       },
       "baseType": "Guid",
       "isSystem": false,
@@ -34,7 +35,8 @@
       "fieldName": "ZatcaInvoiceType",
       "caption": {
         "en": "ZATCA invoice type",
-        "ru": "Тип фактуры ZATCA"
+        "ru": "Тип фактуры ZATCA",
+        "uk": "Тип фактури ZATCA"
       },
       "baseType": "String",
       "length": 16,
@@ -55,7 +57,8 @@
       "fieldName": "PreviousInvoiceHash",
       "caption": {
         "en": "Previous invoice hash",
-        "ru": "Хеш предыдущей фактуры"
+        "ru": "Хеш предыдущей фактуры",
+        "uk": "Хеш попередньої фактури"
       },
       "baseType": "String",
       "length": 128,
@@ -74,7 +77,8 @@
       "fieldName": "InvoiceHash",
       "caption": {
         "en": "Invoice hash",
-        "ru": "Хеш фактуры"
+        "ru": "Хеш фактуры",
+        "uk": "Хеш фактури"
       },
       "baseType": "String",
       "length": 128,
@@ -93,7 +97,8 @@
       "fieldName": "QrCode",
       "caption": {
         "en": "QR",
-        "ru": "QR"
+        "ru": "QR",
+        "uk": "QR"
       },
       "baseType": "String",
       "length": 1024,

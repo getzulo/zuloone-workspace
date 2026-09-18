@@ -4,7 +4,8 @@
     "caption": {
       "en": "File tax return",
       "ar": "تقديم الإقرار",
-      "ru": "Сдать декларацию"
+      "ru": "Сдать декларацию",
+      "uk": "Подати декларацію"
     },
     "scriptMetaId": "0607dfa3-8494-421f-a4a1-405596e8fef2",
     "parameterMode": "None",

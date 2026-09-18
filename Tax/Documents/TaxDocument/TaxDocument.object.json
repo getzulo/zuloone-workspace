@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax document",
       "ar": "المستند الضريبي",
-      "ru": "Налоговый документ"
+      "ru": "Налоговый документ",
+      "uk": "Податковий документ"
     },
     "description": "Country-blind e-invoice envelope. The country pack fills it; the host connector later signs and posts. Immutable after Cleared/Reported.",
     "isLogged": true,
@@ -27,7 +28,8 @@
       "fieldName": "Authority",
       "caption": {
         "en": "Authority",
-        "ru": "Госорган"
+        "ru": "Госорган",
+        "uk": "Держорган"
       },
       "edtMetaId": "4b0f4735-e873-4345-8ba8-0fba5cbf4b77",
       "isSystem": false,
@@ -46,7 +48,8 @@
       "fieldName": "EInvoiceKind",
       "caption": {
         "en": "Kind",
-        "ru": "Вид"
+        "ru": "Вид",
+        "uk": "Вид"
       },
       "baseType": "String",
       "length": 16,
@@ -66,7 +69,8 @@
       "fieldName": "ExternalId",
       "caption": {
         "en": "External id",
-        "ru": "Внешний id"
+        "ru": "Внешний id",
+        "uk": "Зовнішній id"
       },
       "baseType": "String",
       "length": 128,
@@ -87,7 +91,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -108,7 +113,8 @@
       "fieldName": "InvoiceHash",
       "caption": {
         "en": "Invoice hash",
-        "ru": "Хеш фактуры"
+        "ru": "Хеш фактуры",
+        "uk": "Хеш фактури"
       },
       "baseType": "String",
       "length": 128,
@@ -128,7 +134,8 @@
       "fieldName": "InvoiceType",
       "caption": {
         "en": "Invoice type",
-        "ru": "Тип фактуры"
+        "ru": "Тип фактуры",
+        "uk": "Тип фактури"
       },
       "baseType": "String",
       "length": 16,
@@ -148,7 +155,8 @@
       "fieldName": "LegalEntity",
       "caption": {
         "en": "Legal entity",
-        "ru": "Юрлицо"
+        "ru": "Юрлицо",
+        "uk": "Юридична особа"
       },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
@@ -167,7 +175,8 @@
       "fieldName": "PreviousInvoiceHash",
       "caption": {
         "en": "Previous hash",
-        "ru": "Хеш предыдущей"
+        "ru": "Хеш предыдущей",
+        "uk": "Хеш попередньої"
       },
       "baseType": "String",
       "length": 128,
@@ -187,7 +196,8 @@
       "fieldName": "SourceDocumentId",
       "caption": {
         "en": "Source",
-        "ru": "Источник"
+        "ru": "Источник",
+        "uk": "Джерело"
       },
       "baseType": "Guid",
       "isSystem": false,
@@ -206,7 +216,8 @@
       "fieldName": "SourceDocumentType",
       "caption": {
         "en": "Source type",
-        "ru": "Тип источника"
+        "ru": "Тип источника",
+        "uk": "Тип джерела"
       },
       "baseType": "String",
       "length": 64,
@@ -226,7 +237,8 @@
       "fieldName": "Uuid",
       "caption": {
         "en": "UUID",
-        "ru": "UUID"
+        "ru": "UUID",
+        "uk": "UUID"
       },
       "baseType": "Guid",
       "isSystem": false,
@@ -245,11 +257,15 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "name": "Rejected",
-      "caption": "Rejected",
+      "caption": {
+        "en": "Rejected",
+        "uk": "Відхилено"
+      },
       "subtypeValue": "Rejected",
       "subtypeCaption": {
         "en": "Rejected",
-        "ru": "Отклонён"
+        "ru": "Отклонён",
+        "uk": "Відхилено"
       },
       "displayOrder": 5,
       "isInitial": false,
@@ -260,11 +276,15 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "name": "Cleared",
-      "caption": "Cleared",
+      "caption": {
+        "en": "Cleared",
+        "uk": "Кліринг"
+      },
       "subtypeValue": "Cleared",
       "subtypeCaption": {
         "en": "Cleared",
-        "ru": "Клиринг"
+        "ru": "Клиринг",
+        "uk": "Кліринг"
       },
       "displayOrder": 3,
       "isInitial": false,
@@ -275,11 +295,15 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "name": "Issued",
-      "caption": "Issued",
+      "caption": {
+        "en": "Issued",
+        "uk": "Виставлено"
+      },
       "subtypeValue": "Issued",
       "subtypeCaption": {
         "en": "Issued",
-        "ru": "Выставлен"
+        "ru": "Выставлен",
+        "uk": "Виставлено"
       },
       "displayOrder": 2,
       "isInitial": false,
@@ -290,11 +314,15 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "name": "Draft",
-      "caption": "Draft",
+      "caption": {
+        "en": "Draft",
+        "uk": "Чернетка"
+      },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,
@@ -305,11 +333,15 @@
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "name": "Reported",
-      "caption": "Reported",
+      "caption": {
+        "en": "Reported",
+        "uk": "Звіт"
+      },
       "subtypeValue": "Reported",
       "subtypeCaption": {
         "en": "Reported",
-        "ru": "Отчёт"
+        "ru": "Отчёт",
+        "uk": "Звіт"
       },
       "displayOrder": 4,
       "isInitial": false,

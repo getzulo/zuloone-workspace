@@ -4,7 +4,8 @@
     "caption": {
       "en": "Approve timesheet",
       "ar": "اعتماد الجدول",
-      "ru": "Утвердить табель"
+      "ru": "Утвердить табель",
+      "uk": "Затвердити табель"
     },
     "scriptMetaId": "09732368-679b-4a25-9ed3-1556d68f810c",
     "parameterMode": "None",

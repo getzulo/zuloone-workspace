@@ -4,7 +4,8 @@
     "caption": {
       "en": "Items",
       "ar": "الأصناف",
-      "ru": "Номенклатура"
+      "ru": "Номенклатура",
+      "uk": "Номенклатура"
     },
     "description": "Any item: raw material, semi-finished, finished good, merchandise",
     "isLogged": true,
@@ -40,7 +41,8 @@
       "caption": {
         "en": "Barcode",
         "ar": "الباركود",
-        "ru": "Штрихкод"
+        "ru": "Штрихкод",
+        "uk": "Штрихкод"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -61,7 +63,8 @@
       "caption": {
         "en": "Brand",
         "ar": "العلامة التجارية",
-        "ru": "Бренд"
+        "ru": "Бренд",
+        "uk": "Бренд"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -82,7 +85,8 @@
       "caption": {
         "en": "Default purchase price",
         "ar": "سعر الشراء الافتراضي",
-        "ru": "Цена закупки"
+        "ru": "Цена закупки",
+        "uk": "Ціна закупівлі"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -103,7 +107,8 @@
       "caption": {
         "en": "Default sale price",
         "ar": "سعر البيع الافتراضي",
-        "ru": "Цена продажи"
+        "ru": "Цена продажи",
+        "uk": "Ціна продажу"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -125,7 +130,8 @@
       "caption": {
         "en": "Description",
         "ar": "الوصف",
-        "ru": "Описание"
+        "ru": "Описание",
+        "uk": "Опис"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -147,7 +153,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -168,7 +175,8 @@
       "caption": {
         "en": "Image",
         "ar": "الصورة",
-        "ru": "Фото"
+        "ru": "Фото",
+        "uk": "Фото"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -189,7 +197,8 @@
       "caption": {
         "en": "Raw material",
         "ar": "مادة خام",
-        "ru": "Сырьё"
+        "ru": "Сырьё",
+        "uk": "Сировина"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -210,7 +219,8 @@
       "caption": {
         "en": "Sellable",
         "ar": "قابل للبيع",
-        "ru": "Продаётся"
+        "ru": "Продаётся",
+        "uk": "Продається"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -231,7 +241,8 @@
       "caption": {
         "en": "Item group",
         "ar": "الصنف مجموعة",
-        "ru": "Группа"
+        "ru": "Группа",
+        "uk": "Група"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -253,7 +264,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -275,7 +287,8 @@
       "caption": {
         "en": "Tax product category",
         "ar": "الضريبة المنتج الفئة",
-        "ru": "Налоговая категория товара"
+        "ru": "Налоговая категория товара",
+        "uk": "Податкова категорія товару"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -296,7 +309,8 @@
       "caption": {
         "en": "Unit",
         "ar": "الوحدة",
-        "ru": "Единица"
+        "ru": "Единица",
+        "uk": "Одиниця"
       },
       "isTranslatable": false,
       "isVisible": true,

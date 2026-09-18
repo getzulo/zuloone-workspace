@@ -4,7 +4,8 @@
     "caption": {
       "en": "Goods issue",
       "ar": "صرف بضاعة",
-      "ru": "Списание"
+      "ru": "Списание",
+      "uk": "Списання"
     },
     "isLogged": false,
     "isCloneable": true,
@@ -30,7 +31,8 @@
       "caption": {
         "en": "Customer",
         "ar": "العميل",
-        "ru": "Клиент"
+        "ru": "Клиент",
+        "uk": "Клієнт"
       },
       "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
       "isSystem": false,
@@ -50,7 +52,8 @@
       "caption": {
         "en": "From cell",
         "ar": "من الخلية",
-        "ru": "Ячейка отбора"
+        "ru": "Ячейка отбора",
+        "uk": "Комірка відбору"
       },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
@@ -70,7 +73,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -93,12 +97,14 @@
       "name": "Posted",
       "caption": {
         "en": "Posted",
-        "ar": "مرسل"
+        "ar": "مرسل",
+        "uk": "Проведено"
       },
       "subtypeValue": "Posted",
       "subtypeCaption": {
         "en": "Posted",
-        "ru": "Проведено"
+        "ru": "Проведено",
+        "uk": "Проведено"
       },
       "displayOrder": 2,
       "isInitial": false,
@@ -111,12 +117,14 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,

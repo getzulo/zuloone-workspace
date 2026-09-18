@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Authority connections",
-      "ru": "Подключения к госсистемам"
+      "ru": "Подключения к госсистемам",
+      "uk": "Підключення до держсистем"
     },
     "description": "Настройка подключения юрлица к госоргану: среда, адрес, таймауты и ССЫЛКА на учётные данные. Сам секрет здесь не хранится — он живёт в конфигурации сервера, потому что этот справочник выгружается в воркспейс, а воркспейс — git-репозиторий поставки.",
     "isLogged": true,
@@ -36,7 +37,8 @@
       "isUnique": false,
       "caption": {
         "en": "Authority",
-        "ru": "Госорган"
+        "ru": "Госорган",
+        "uk": "Держорган"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -57,7 +59,8 @@
       "isUnique": false,
       "caption": {
         "en": "Base URL",
-        "ru": "Адрес сервиса"
+        "ru": "Адрес сервиса",
+        "uk": "Адреса сервісу"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -78,7 +81,8 @@
       "isUnique": true,
       "caption": {
         "en": "Code",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -99,7 +103,8 @@
       "isUnique": false,
       "caption": {
         "en": "Credential reference",
-        "ru": "Ссылка на учётные данные"
+        "ru": "Ссылка на учётные данные",
+        "uk": "Посилання на облікові дані"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -119,7 +124,8 @@
       "isUnique": false,
       "caption": {
         "en": "Environment",
-        "ru": "Среда"
+        "ru": "Среда",
+        "uk": "Середовище"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -139,7 +145,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -159,7 +168,8 @@
       "caption": {
         "en": "Mock reject",
         "ar": "رفض تجريبي",
-        "ru": "Мок: отклонять"
+        "ru": "Мок: отклонять",
+        "uk": "Мок: відхиляти"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -179,7 +189,8 @@
       "isUnique": false,
       "caption": {
         "en": "Legal entity",
-        "ru": "Юрлицо"
+        "ru": "Юрлицо",
+        "uk": "Юридична особа"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -199,7 +210,8 @@
       "isUnique": false,
       "caption": {
         "en": "Max retries",
-        "ru": "Попыток доставки"
+        "ru": "Попыток доставки",
+        "uk": "Спроб доставки"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -219,7 +231,8 @@
       "isUnique": false,
       "caption": {
         "en": "Status",
-        "ru": "Состояние"
+        "ru": "Состояние",
+        "uk": "Статус"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -239,7 +252,8 @@
       "isUnique": false,
       "caption": {
         "en": "Timeout, s",
-        "ru": "Таймаут, с"
+        "ru": "Таймаут, с",
+        "uk": "Таймаут, с"
       },
       "isTranslatable": false,
       "isVisible": true,

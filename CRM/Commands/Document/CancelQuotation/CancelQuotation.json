@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Cancel quotation",
-      "ru": "Отменить КП"
+      "ru": "Отменить КП",
+      "uk": "Скасувати КП"
     },
     "scriptMetaId": "9908d9b4-c0d8-478c-b74d-ca968b7784c9",
     "parameterMode": "None",

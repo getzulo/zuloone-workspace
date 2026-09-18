@@ -316,7 +316,8 @@
       "fieldName": "SourceQuotation",
       "caption": {
         "en": "Source quotation",
-        "ru": "КП-источник"
+        "ru": "КП-источник",
+        "uk": "КП-джерело"
       },
       "baseType": "Guid",
       "isSystem": false,

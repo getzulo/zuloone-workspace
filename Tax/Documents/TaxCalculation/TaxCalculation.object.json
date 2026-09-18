@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax calculation",
       "ar": "حساب الضريبة",
-      "ru": "Налоговый расчёт"
+      "ru": "Налоговый расчёт",
+      "uk": "Податковий розрахунок"
     },
     "isLogged": false,
     "isCloneable": true,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Currency",
         "ar": "العملة",
-        "ru": "Валюта"
+        "ru": "Валюта",
+        "uk": "Валюта"
       },
       "edtMetaId": "8d2b209b-68a9-41ed-bf05-f069a12dbe2c",
       "isSystem": false,
@@ -46,7 +48,8 @@
       "fieldName": "DeterminationReason",
       "caption": {
         "en": "Determination reason",
-        "ru": "Обоснование выбора"
+        "ru": "Обоснование выбора",
+        "uk": "Обґрунтування вибору"
       },
       "baseType": "String",
       "length": 1024,
@@ -67,7 +70,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -89,7 +93,8 @@
       "caption": {
         "en": "Legal entity",
         "ar": "قانوني كيان",
-        "ru": "Юрлицо"
+        "ru": "Юрлицо",
+        "uk": "Юридична особа"
       },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
@@ -109,7 +114,8 @@
       "caption": {
         "en": "Matched rule",
         "ar": "القاعدة المطابقة",
-        "ru": "Сработавшее правило"
+        "ru": "Сработавшее правило",
+        "uk": "Спрацьоване правило"
       },
       "edtMetaId": "39b0d6f1-4082-4c73-8d51-7e920b3c8d16",
       "isSystem": false,
@@ -129,7 +135,8 @@
       "fieldName": "TaxPointDate",
       "caption": {
         "en": "Tax point date",
-        "ru": "Дата налогового события"
+        "ru": "Дата налогового события",
+        "uk": "Дата податкової події"
       },
       "baseType": "DateTime",
       "isSystem": false,
@@ -148,11 +155,15 @@
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
       "name": "Finalized",
-      "caption": "Finalized",
+      "caption": {
+        "en": "Finalized",
+        "uk": "Фіналізовано"
+      },
       "subtypeValue": "Finalized",
       "subtypeCaption": {
         "en": "Finalized",
-        "ru": "Финализировано"
+        "ru": "Финализировано",
+        "uk": "Фіналізовано"
       },
       "displayOrder": 2,
       "isInitial": false,
@@ -165,12 +176,14 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
         "en": "Draft",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": true,

@@ -4,7 +4,8 @@
     "caption": {
       "en": "Item groups",
       "ar": "الصنف مجموعة",
-      "ru": "Группы номенклатуры"
+      "ru": "Группы номенклатуры",
+      "uk": "Групи номенклатури"
     },
     "description": "RawMaterial / SemiFinished / FinishedGood / Merchandise",
     "isLogged": false,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -61,7 +63,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -83,7 +86,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,

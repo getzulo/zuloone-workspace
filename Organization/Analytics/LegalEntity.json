@@ -4,7 +4,8 @@
     "caption": {
       "en": "Legal entity",
       "ar": "الكيان القانوني",
-      "ru": "Юрлицо"
+      "ru": "Юрлицо",
+      "uk": "Юридична особа"
     },
     "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
     "description": "Reusable analytic over the LegalEntity dictionary (GL / TaxLedger / Payroll)",

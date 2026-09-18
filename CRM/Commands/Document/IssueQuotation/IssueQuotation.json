@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Issue quotation",
-      "ru": "Выставить КП"
+      "ru": "Выставить КП",
+      "uk": "Виставити КП"
     },
     "scriptMetaId": "1bb9790c-3186-4ee6-bf22-e6df2a56e010",
     "parameterMode": "None",

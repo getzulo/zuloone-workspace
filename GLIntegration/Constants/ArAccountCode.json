@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "AR account code",
-      "ru": "Код счёта дебиторки"
+      "ru": "Код счёта дебиторки",
+      "uk": "Код рахунку дебіторки"
     },
     "groupMetaId": "8c2e5f49-1b7a-4d3c-8f0e-6a9b2d5c7f30",
     "constantType": "String",

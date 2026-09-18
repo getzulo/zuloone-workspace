@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Inventory settings",
-      "ru": "Настройки склада"
+      "ru": "Настройки склада",
+      "uk": "Налаштування складу"
     },
     "description": "Одиночный настроечный справочник модуля Склад (открывается сразу на редактирование, одна запись, без удаления).",
     "isLogged": false,
@@ -34,7 +35,8 @@
       "isUnique": false,
       "caption": {
         "en": "Default receiving location",
-        "ru": "Ячейка приёмки по умолчанию"
+        "ru": "Ячейка приёмки по умолчанию",
+        "uk": "Комірка приймання за замовчуванням"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -54,7 +56,8 @@
       "isUnique": false,
       "caption": {
         "en": "Default unit of measure",
-        "ru": "Единица измерения по умолчанию"
+        "ru": "Единица измерения по умолчанию",
+        "uk": "Одиниця виміру за замовчуванням"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -74,7 +77,8 @@
       "isUnique": false,
       "caption": {
         "en": "Enforce unit conversion",
-        "ru": "Требовать конвертацию единиц"
+        "ru": "Требовать конвертацию единиц",
+        "uk": "Вимагати конвертацію одиниць"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -96,7 +100,8 @@
       "caption": {
         "en": "Enforce warehouse tasks",
         "ar": "إلزام مهام المستودع",
-        "ru": "Требовать складские задания"
+        "ru": "Требовать складские задания",
+        "uk": "Вимагати складські завдання"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -116,7 +121,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

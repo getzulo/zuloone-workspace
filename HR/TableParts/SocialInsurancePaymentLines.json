@@ -4,7 +4,8 @@
     "className": "SocialInsurancePaymentLinesTablePartRow",
     "caption": {
       "en": "Lines",
-      "ru": "Строки"
+      "ru": "Строки",
+      "uk": "Рядки"
     },
     "tableName": "TP_SocialInsurancePaymentLines",
     "softDeletion": false,
@@ -19,7 +20,8 @@
       "fieldName": "Employee",
       "caption": {
         "en": "Employee",
-        "ru": "Сотрудник"
+        "ru": "Сотрудник",
+        "uk": "Співробітник"
       },
       "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
       "isRequired": true,
@@ -40,7 +42,8 @@
       "fieldName": "EmployeeContribution",
       "caption": {
         "en": "Employee contribution",
-        "ru": "Доля работника"
+        "ru": "Доля работника",
+        "uk": "Частка працівника"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": false,
@@ -58,7 +61,8 @@
       "fieldName": "EmployerContribution",
       "caption": {
         "en": "Employer contribution",
-        "ru": "Доля работодателя"
+        "ru": "Доля работодателя",
+        "uk": "Частка роботодавця"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": false,

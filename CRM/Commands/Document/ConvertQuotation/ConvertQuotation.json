@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Create sales order",
-      "ru": "Создать заказ"
+      "ru": "Создать заказ",
+      "uk": "Створити замовлення"
     },
     "scriptMetaId": "22714f94-6aae-485e-8a4b-e23039802278",
     "parameterMode": "None",

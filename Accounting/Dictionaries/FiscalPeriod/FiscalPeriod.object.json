@@ -4,7 +4,8 @@
     "caption": {
       "en": "Fiscal periods",
       "ar": "المالية الفترة",
-      "ru": "Фискальные периоды"
+      "ru": "Фискальные периоды",
+      "uk": "Фіскальні періоди"
     },
     "description": "Posting periods within a fiscal year; Open/Closed/Locked control postings",
     "isLogged": true,
@@ -39,7 +40,8 @@
       "caption": {
         "en": "Code",
         "ar": "الكود",
-        "ru": "Код"
+        "ru": "Код",
+        "uk": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "Fiscal year",
         "ar": "المالية السنة",
-        "ru": "Фискальный год"
+        "ru": "Фискальный год",
+        "uk": "Фіскальний рік"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "caption": {
         "en": "From date",
         "ar": "من التاريخ",
-        "ru": "С даты"
+        "ru": "С даты",
+        "uk": "З дати"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -103,7 +107,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -125,7 +130,8 @@
       "caption": {
         "en": "Status",
         "ar": "الحالة",
-        "ru": "Статус"
+        "ru": "Статус",
+        "uk": "Статус"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -146,7 +152,8 @@
       "caption": {
         "en": "To date",
         "ar": "إلى التاريخ",
-        "ru": "По дату"
+        "ru": "По дату",
+        "uk": "По дату"
       },
       "isTranslatable": false,
       "isVisible": true,

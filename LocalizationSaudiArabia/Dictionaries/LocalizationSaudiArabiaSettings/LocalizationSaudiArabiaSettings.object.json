@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "LocalizationSaudiArabia settings",
-      "ru": "Настройки модуля"
+      "ru": "Настройки модуля",
+      "uk": "Налаштування модуля"
     },
     "description": "Одиночный настроечный справочник модуля LocalizationSaudiArabia (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
@@ -34,7 +35,8 @@
       "isUnique": false,
       "caption": {
         "en": "E-invoice (ZATCA) enabled",
-        "ru": "Э-фактура (ZATCA) включена"
+        "ru": "Э-фактура (ZATCA) включена",
+        "uk": "Е-фактура (ZATCA) увімкнена"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -54,7 +56,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -74,7 +79,8 @@
       "isUnique": false,
       "caption": {
         "en": "VAT registration number",
-        "ru": "Номер регистрации НДС"
+        "ru": "Номер регистрации НДС",
+        "uk": "Номер реєстрації ПДВ"
       },
       "isTranslatable": false,
       "isVisible": true,

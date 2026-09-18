@@ -4,7 +4,8 @@
     "caption": {
       "en": "Regions",
       "ar": "المناطق",
-      "ru": "Регионы"
+      "ru": "Регионы",
+      "uk": "Регіони"
     },
     "description": "",
     "isLogged": false,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Country",
         "ar": "الدولة",
-        "ru": "Страна"
+        "ru": "Страна",
+        "uk": "Країна"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -82,7 +85,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": true,
       "isVisible": true,

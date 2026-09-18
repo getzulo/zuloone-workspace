@@ -4,7 +4,8 @@
     "caption": {
       "en": "Bills of materials",
       "ar": "قوائم المواد",
-      "ru": "Спецификации"
+      "ru": "Спецификации",
+      "uk": "Специфікації"
     },
     "isLogged": false,
     "isHierarchical": false,
@@ -38,7 +39,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "caption": {
         "en": "Output qty",
         "ar": "الإنتاجية الكمية",
-        "ru": "Кол-во выпуска"
+        "ru": "Кол-во выпуска",
+        "uk": "К-сть випуску"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -102,7 +106,8 @@
       "caption": {
         "en": "Product",
         "ar": "المنتج",
-        "ru": "Изделие"
+        "ru": "Изделие",
+        "uk": "Виріб"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -119,7 +124,8 @@
       "caption": {
         "en": "Components",
         "ar": "المكونات",
-        "ru": "Компоненты"
+        "ru": "Компоненты",
+        "uk": "Компоненти"
       },
       "type": "BomComponent",
       "otherKey": "Bom",

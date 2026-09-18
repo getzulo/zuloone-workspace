@@ -4,7 +4,8 @@
     "caption": {
       "en": "Store cells",
       "ar": "خلايا التخزين",
-      "ru": "Ячейки склада"
+      "ru": "Ячейки склада",
+      "uk": "Комірки складу"
     },
     "description": "Bin within a store zone (MIQS StoreCell); addressed by line/rack/shelf/cell. Stock is held per cell; store is derived via StoreZone.Store.",
     "isLogged": false,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Cell",
         "ar": "الخلية",
-        "ru": "Ячейка"
+        "ru": "Ячейка",
+        "uk": "Комірка"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "isUnique": true,
       "caption": {
         "en": "ID",
-        "ar": "معرف"
+        "ar": "معرف",
+        "uk": "ID"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -81,7 +84,8 @@
       "caption": {
         "en": "Pickable",
         "ar": "قابل للانتقاء",
-        "ru": "Отбираемая"
+        "ru": "Отбираемая",
+        "uk": "Відбірна"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -102,7 +106,8 @@
       "caption": {
         "en": "Line",
         "ar": "الصف",
-        "ru": "Ряд"
+        "ru": "Ряд",
+        "uk": "Ряд"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -123,7 +128,8 @@
       "caption": {
         "en": "Capacity (max qty)",
         "ar": "السعة",
-        "ru": "Вместимость"
+        "ru": "Вместимость",
+        "uk": "Місткість"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -145,7 +151,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -166,7 +173,8 @@
       "caption": {
         "en": "Rack",
         "ar": "الرف",
-        "ru": "Стеллаж"
+        "ru": "Стеллаж",
+        "uk": "Стелаж"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -187,7 +195,8 @@
       "caption": {
         "en": "Shelf",
         "ar": "الرف",
-        "ru": "Полка"
+        "ru": "Полка",
+        "uk": "Полиця"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -208,7 +217,8 @@
       "caption": {
         "en": "Zone",
         "ar": "المنطقة",
-        "ru": "Зона"
+        "ru": "Зона",
+        "uk": "Зона"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -229,7 +239,8 @@
       "caption": {
         "en": "Cell type",
         "ar": "نوع الخلية",
-        "ru": "Тип ячейки"
+        "ru": "Тип ячейки",
+        "uk": "Тип комірки"
       },
       "isTranslatable": false,
       "isVisible": true,

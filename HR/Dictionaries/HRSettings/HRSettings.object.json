@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "HR settings",
-      "ru": "Настройки модуля"
+      "ru": "Настройки модуля",
+      "uk": "Налаштування модуля"
     },
     "description": "Одиночный настроечный справочник модуля HR (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
@@ -34,7 +35,8 @@
       "isUnique": false,
       "caption": {
         "en": "Home country",
-        "ru": "Страна регистрации"
+        "ru": "Страна регистрации",
+        "uk": "Країна реєстрації"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -54,7 +56,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -73,7 +78,8 @@
       "isUnique": false,
       "caption": {
         "en": "Payroll run day of month",
-        "ru": "День расчёта ФОТ"
+        "ru": "День расчёта ФОТ",
+        "uk": "День розрахунку зарплати"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -95,7 +101,8 @@
       "isUnique": false,
       "caption": {
         "en": "Social insurance rate, employee",
-        "ru": "Соцстрах: ставка работника"
+        "ru": "Соцстрах: ставка работника",
+        "uk": "Соцстрах: ставка працівника"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -117,7 +124,8 @@
       "isUnique": false,
       "caption": {
         "en": "Social insurance rate, employer",
-        "ru": "Соцстрах: ставка работодателя"
+        "ru": "Соцстрах: ставка работодателя",
+        "uk": "Соцстрах: ставка роботодавця"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -139,7 +147,8 @@
       "isUnique": false,
       "caption": {
         "en": "Social insurance rate, employer (foreign staff)",
-        "ru": "Соцстрах: ставка работодателя за иностранцев"
+        "ru": "Соцстрах: ставка работодателя за иностранцев",
+        "uk": "Соцстрах: ставка роботодавця за іноземців"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -159,7 +168,8 @@
       "isUnique": false,
       "caption": {
         "en": "Contributory wage ceiling",
-        "ru": "Соцстрах: потолок базы"
+        "ru": "Соцстрах: потолок базы",
+        "uk": "Соцстрах: стеля бази"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -181,7 +191,8 @@
       "isUnique": false,
       "caption": {
         "en": "Work hours per week",
-        "ru": "Рабочих часов в неделю"
+        "ru": "Рабочих часов в неделю",
+        "uk": "Робочих годин на тиждень"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -203,7 +214,8 @@
       "isUnique": false,
       "caption": {
         "en": "Work hours per day",
-        "ru": "Рабочих часов в день"
+        "ru": "Рабочих часов в день",
+        "uk": "Робочих годин на день"
       },
       "isTranslatable": false,
       "isVisible": true,

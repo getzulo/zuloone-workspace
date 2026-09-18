@@ -4,7 +4,8 @@
     "caption": {
       "en": "Address",
       "ar": "العنوان",
-      "ru": "Адрес"
+      "ru": "Адрес",
+      "uk": "Адреса"
     },
     "edtMetaId": "0c3b8ac7-65fc-4286-9a35-6fc98d350e8b",
     "description": "Reusable analytic over the Address dictionary",

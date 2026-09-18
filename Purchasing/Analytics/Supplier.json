@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Supplier",
-      "ru": "Поставщик"
+      "ru": "Поставщик",
+      "uk": "Постачальник"
     },
     "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
     "description": "Reusable analytic over the Supplier dictionary (Payable)",

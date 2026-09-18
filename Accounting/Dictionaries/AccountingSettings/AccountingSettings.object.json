@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Accounting settings",
-      "ru": "Настройки модуля"
+      "ru": "Настройки модуля",
+      "uk": "Налаштування модуля"
     },
     "description": "Одиночный настроечный справочник модуля Accounting (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
@@ -36,7 +37,8 @@
       "isUnique": false,
       "caption": {
         "en": "Receivables account code",
-        "ru": "Счёт дебиторки"
+        "ru": "Счёт дебиторки",
+        "uk": "Рахунок дебіторки"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -56,7 +58,8 @@
       "isUnique": false,
       "caption": {
         "en": "Auto-post journal entries",
-        "ru": "Автопроведение проводок"
+        "ru": "Автопроведение проводок",
+        "uk": "Автопроведення проводок"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -78,7 +81,8 @@
       "isUnique": false,
       "caption": {
         "en": "Cash account code",
-        "ru": "Счёт денежных средств"
+        "ru": "Счёт денежных средств",
+        "uk": "Рахунок грошових коштів"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -100,7 +104,8 @@
       "isUnique": false,
       "caption": {
         "en": "Cost of goods sold account code",
-        "ru": "Счёт себестоимости продаж"
+        "ru": "Счёт себестоимости продаж",
+        "uk": "Рахунок собівартості продажів"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -121,7 +126,8 @@
       "isUnique": false,
       "caption": {
         "en": "Default currency code",
-        "ru": "Код валюты по умолчанию"
+        "ru": "Код валюты по умолчанию",
+        "uk": "Код валюти за замовчуванням"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -141,7 +147,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -162,7 +171,8 @@
       "isUnique": false,
       "caption": {
         "en": "Inventory account code",
-        "ru": "Счёт запасов"
+        "ru": "Счёт запасов",
+        "uk": "Рахунок запасів"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -184,7 +194,8 @@
       "isUnique": false,
       "caption": {
         "en": "Inventory surplus account code",
-        "ru": "Счёт оприходования излишка"
+        "ru": "Счёт оприходования излишка",
+        "uk": "Рахунок оприбуткування надлишку"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -206,7 +217,8 @@
       "isUnique": false,
       "caption": {
         "en": "Inventory write-off account code",
-        "ru": "Счёт списания запасов"
+        "ru": "Счёт списания запасов",
+        "uk": "Рахунок списання запасів"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -228,7 +240,8 @@
       "isUnique": false,
       "caption": {
         "en": "Payables account code",
-        "ru": "Счёт кредиторки"
+        "ru": "Счёт кредиторки",
+        "uk": "Рахунок кредиторки"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -250,7 +263,8 @@
       "isUnique": false,
       "caption": {
         "en": "Payroll expense account code",
-        "ru": "Счёт расходов на оплату труда"
+        "ru": "Счёт расходов на оплату труда",
+        "uk": "Рахунок витрат на оплату праці"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -272,7 +286,8 @@
       "isUnique": false,
       "caption": {
         "en": "Payroll liability account code",
-        "ru": "Счёт задолженности по оплате труда"
+        "ru": "Счёт задолженности по оплате труда",
+        "uk": "Рахунок заборгованості з оплати праці"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -294,7 +309,8 @@
       "isUnique": false,
       "caption": {
         "en": "Revenue account code",
-        "ru": "Счёт выручки"
+        "ru": "Счёт выручки",
+        "uk": "Код рахунку виручки"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -316,7 +332,8 @@
       "isUnique": false,
       "caption": {
         "en": "Social insurance expense account code",
-        "ru": "Счёт расходов на соцстрах"
+        "ru": "Счёт расходов на соцстрах",
+        "uk": "Рахунок витрат на соцстрах"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -338,7 +355,8 @@
       "isUnique": false,
       "caption": {
         "en": "Social insurance payable account code",
-        "ru": "Счёт задолженности перед фондом соцстраха"
+        "ru": "Счёт задолженности перед фондом соцстраха",
+        "uk": "Рахунок заборгованості перед фондом соцстраху"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -360,7 +378,8 @@
       "isUnique": false,
       "caption": {
         "en": "VAT payable account code",
-        "ru": "Счёт НДС к уплате"
+        "ru": "Счёт НДС к уплате",
+        "uk": "Рахунок ПДВ до сплати"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -382,7 +401,8 @@
       "isUnique": false,
       "caption": {
         "en": "VAT receivable account code",
-        "ru": "Счёт НДС к возмещению"
+        "ru": "Счёт НДС к возмещению",
+        "uk": "Рахунок ПДВ до відшкодування"
       },
       "isTranslatable": false,
       "isVisible": true,

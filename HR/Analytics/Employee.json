@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Employee",
-      "ru": "Сотрудник"
+      "ru": "Сотрудник",
+      "uk": "Співробітник"
     },
     "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
     "description": "Reusable analytic over the Employee dictionary (Payroll)",

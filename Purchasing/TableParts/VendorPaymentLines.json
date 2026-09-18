@@ -4,7 +4,8 @@
     "className": "VendorPaymentLinesTablePartRow",
     "caption": {
       "en": "Lines",
-      "ru": "Строки"
+      "ru": "Строки",
+      "uk": "Рядки"
     },
     "tableName": "TP_VendorPaymentLines",
     "softDeletion": false,
@@ -19,7 +20,8 @@
       "fieldName": "Amount",
       "caption": {
         "en": "Amount",
-        "ru": "Сумма"
+        "ru": "Сумма",
+        "uk": "Сума"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isRequired": true,
@@ -37,7 +39,8 @@
       "fieldName": "Supplier",
       "caption": {
         "en": "Supplier",
-        "ru": "Поставщик"
+        "ru": "Поставщик",
+        "uk": "Постачальник"
       },
       "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
       "isRequired": true,

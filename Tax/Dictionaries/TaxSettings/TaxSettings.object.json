@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Tax settings",
-      "ru": "Настройки модуля"
+      "ru": "Настройки модуля",
+      "uk": "Налаштування модуля"
     },
     "description": "Одиночный настроечный справочник модуля Tax (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
@@ -35,7 +36,8 @@
       "isUnique": false,
       "caption": {
         "en": "Default tax code",
-        "ru": "Налоговый код по умолчанию"
+        "ru": "Налоговый код по умолчанию",
+        "uk": "Податковий код за замовчуванням"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -55,7 +57,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -74,7 +79,8 @@
       "isUnique": false,
       "caption": {
         "en": "Prices include tax",
-        "ru": "Цены с учётом налога"
+        "ru": "Цены с учётом налога",
+        "uk": "Ціни з урахуванням податку"
       },
       "isTranslatable": false,
       "isVisible": true,

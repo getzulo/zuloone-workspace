@@ -4,7 +4,8 @@
     "caption": {
       "en": "Authority submissions",
       "ar": "سجل التسليم للجهة",
-      "ru": "Журнал сдачи"
+      "ru": "Журнал сдачи",
+      "uk": "Журнал подання"
     },
     "description": "Append-only journal of filing attempts: one row per SubmitReturn/SubmitPayment. The mock writes Accepted or Rejected; a country package keeps writing here.",
     "isLogged": true,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Authority",
         "ar": "الجهة",
-        "ru": "Госорган"
+        "ru": "Госорган",
+        "uk": "Держорган"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -60,7 +62,8 @@
       "caption": {
         "en": "Connection",
         "ar": "الاتصال",
-        "ru": "Подключение"
+        "ru": "Подключение",
+        "uk": "Підключення"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -82,7 +85,8 @@
       "caption": {
         "en": "Environment",
         "ar": "البيئة",
-        "ru": "Среда"
+        "ru": "Среда",
+        "uk": "Середовище"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -102,7 +106,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -123,7 +130,8 @@
       "caption": {
         "en": "Kind",
         "ar": "النوع",
-        "ru": "Вид"
+        "ru": "Вид",
+        "uk": "Вид"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -144,7 +152,8 @@
       "caption": {
         "en": "Legal entity",
         "ar": "الكيان القانوني",
-        "ru": "Юрлицо"
+        "ru": "Юрлицо",
+        "uk": "Юридична особа"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -166,7 +175,8 @@
       "caption": {
         "en": "Receipt",
         "ar": "الإيصال",
-        "ru": "Квитанция"
+        "ru": "Квитанция",
+        "uk": "Квитанція"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -188,7 +198,8 @@
       "caption": {
         "en": "Response",
         "ar": "الرد",
-        "ru": "Ответ"
+        "ru": "Ответ",
+        "uk": "Відповідь"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -209,7 +220,8 @@
       "caption": {
         "en": "Source",
         "ar": "المصدر",
-        "ru": "Источник"
+        "ru": "Источник",
+        "uk": "Джерело"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -231,7 +243,8 @@
       "caption": {
         "en": "Status",
         "ar": "الحالة",
-        "ru": "Статус"
+        "ru": "Статус",
+        "uk": "Статус"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -252,7 +265,8 @@
       "caption": {
         "en": "Submitted at",
         "ar": "وقت الإرسال",
-        "ru": "Отправлено"
+        "ru": "Отправлено",
+        "uk": "Надіслано"
       },
       "isTranslatable": false,
       "isVisible": true,

@@ -4,7 +4,8 @@
     "caption": {
       "en": "Pay vendor",
       "ar": "سداد المورد",
-      "ru": "Оплатить поставщику"
+      "ru": "Оплатить поставщику",
+      "uk": "Оплатити постачальнику"
     },
     "scriptMetaId": "b4f0efe8-99ab-47fb-813c-8a6ab0484e8e",
     "parameterMode": "None",

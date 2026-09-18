@@ -4,7 +4,8 @@
     "caption": {
       "en": "Pay tax",
       "ar": "سداد الضريبة",
-      "ru": "Уплатить налог"
+      "ru": "Уплатить налог",
+      "uk": "Сплатити податок"
     },
     "scriptMetaId": "73cc912e-d23d-4c17-85c7-9990ce0acb3f",
     "parameterMode": "None",

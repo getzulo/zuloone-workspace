@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax rule actions",
       "ar": "إجراءات قاعدة الضريبة",
-      "ru": "Действия правила налога"
+      "ru": "Действия правила налога",
+      "uk": "Дії правила податку"
     },
     "description": "Действие сработавшего правила: какой налоговый код поставить строкой расчёта. Несколько строк — несколько налогов на одну сделку. Пустой набор — код берётся с шапки TaxRule.",
     "isLogged": true,
@@ -38,7 +39,8 @@
       "isUnique": false,
       "caption": {
         "en": "Order",
-        "ru": "Порядок"
+        "ru": "Порядок",
+        "uk": "Порядок"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -58,7 +60,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -78,7 +83,8 @@
       "isUnique": false,
       "caption": {
         "en": "Rate override",
-        "ru": "Ставка вручную"
+        "ru": "Ставка вручную",
+        "uk": "Ставка вручну"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -98,7 +104,8 @@
       "isUnique": false,
       "caption": {
         "en": "Tax code",
-        "ru": "Налоговый код"
+        "ru": "Налоговый код",
+        "uk": "Податковий код"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -118,7 +125,8 @@
       "isUnique": false,
       "caption": {
         "en": "Tax rule",
-        "ru": "Правило"
+        "ru": "Правило",
+        "uk": "Правило"
       },
       "isTranslatable": false,
       "isVisible": true,

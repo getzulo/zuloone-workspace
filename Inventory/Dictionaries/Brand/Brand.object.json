@@ -4,7 +4,8 @@
     "caption": {
       "en": "Brands",
       "ar": "العلامات التجارية",
-      "ru": "Бренды"
+      "ru": "Бренды",
+      "uk": "Бренди"
     },
     "description": "",
     "isLogged": false,
@@ -37,7 +38,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -58,7 +62,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,

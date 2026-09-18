@@ -4,7 +4,8 @@
     "caption": {
       "en": "Country currencies",
       "ar": "عملات الدول",
-      "ru": "Валюты стран"
+      "ru": "Валюты стран",
+      "uk": "Валюти країн"
     },
     "tableName": "",
     "isKernel": false,
@@ -19,7 +20,8 @@
       "fieldName": "Country",
       "caption": {
         "en": "Country",
-        "ru": "Страна"
+        "ru": "Страна",
+        "uk": "Країна"
       },
       "isRequired": false,
       "isPrimaryKey": false,
@@ -36,7 +38,8 @@
       "fieldName": "Currency",
       "caption": {
         "en": "Currency",
-        "ru": "Валюта"
+        "ru": "Валюта",
+        "uk": "Валюта"
       },
       "isRequired": false,
       "isPrimaryKey": false,
@@ -53,7 +56,8 @@
       "fieldName": "IsPrimary",
       "caption": {
         "en": "Primary",
-        "ru": "Основная"
+        "ru": "Основная",
+        "uk": "Основна"
       },
       "baseType": "Boolean",
       "isRequired": false,

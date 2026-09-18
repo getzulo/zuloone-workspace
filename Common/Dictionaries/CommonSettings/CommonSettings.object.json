@@ -3,7 +3,8 @@
   "object": {
     "caption": {
       "en": "Common settings",
-      "ru": "Настройки модуля"
+      "ru": "Настройки модуля",
+      "uk": "Налаштування модуля"
     },
     "description": "Одиночный настроечный справочник модуля Common (одна запись, открывается на редактирование, без удаления).",
     "isLogged": false,
@@ -34,7 +35,8 @@
       "isUnique": false,
       "caption": {
         "en": "Default country code",
-        "ru": "Код страны по умолчанию"
+        "ru": "Код страны по умолчанию",
+        "uk": "Код країни за замовчуванням"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -55,7 +57,8 @@
       "isUnique": false,
       "caption": {
         "en": "Default currency code",
-        "ru": "Код валюты по умолчанию"
+        "ru": "Код валюты по умолчанию",
+        "uk": "Код валюти за замовчуванням"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -75,7 +78,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -95,7 +101,8 @@
       "caption": {
         "en": "Trade profile",
         "ar": "ملف التجارة",
-        "ru": "Профиль торговли"
+        "ru": "Профиль торговли",
+        "uk": "Профіль торгівлі"
       },
       "isTranslatable": false,
       "isVisible": true,

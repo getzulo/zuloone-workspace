@@ -4,7 +4,8 @@
     "caption": {
       "en": "Tax return",
       "ar": "الإقرار الضريبي",
-      "ru": "Налоговая декларация"
+      "ru": "Налоговая декларация",
+      "uk": "Податкова декларація"
     },
     "isLogged": true,
     "isCloneable": false,
@@ -27,7 +28,8 @@
       "caption": {
         "en": "Number",
         "ar": "الرقم",
-        "ru": "Номер"
+        "ru": "Номер",
+        "uk": "Номер"
       },
       "baseType": "String",
       "length": 50,
@@ -49,7 +51,8 @@
       "caption": {
         "en": "Input tax",
         "ar": "ضريبة المدخلات",
-        "ru": "Налог с покупок (входной)"
+        "ru": "Налог с покупок (входной)",
+        "uk": "Податок з покупок (вхідний)"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isSystem": false,
@@ -69,7 +72,8 @@
       "caption": {
         "en": "Legal entity",
         "ar": "الكيان القانوني",
-        "ru": "Юридическое лицо"
+        "ru": "Юридическое лицо",
+        "uk": "Юридична особа"
       },
       "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
       "isSystem": false,
@@ -89,7 +93,8 @@
       "caption": {
         "en": "Net payable",
         "ar": "صافي المستحق",
-        "ru": "К уплате"
+        "ru": "К уплате",
+        "uk": "До сплати"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isSystem": false,
@@ -109,7 +114,8 @@
       "caption": {
         "en": "Output tax",
         "ar": "ضريبة المخرجات",
-        "ru": "Налог с продаж (выходной)"
+        "ru": "Налог с продаж (выходной)",
+        "uk": "Податок з продажів (вихідний)"
       },
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "isSystem": false,
@@ -129,7 +135,8 @@
       "caption": {
         "en": "Period from",
         "ar": "الفترة من",
-        "ru": "Период с"
+        "ru": "Период с",
+        "uk": "Період з"
       },
       "baseType": "DateTime",
       "isSystem": false,
@@ -149,7 +156,8 @@
       "caption": {
         "en": "Period to",
         "ar": "الفترة إلى",
-        "ru": "Период по"
+        "ru": "Период по",
+        "uk": "Період по"
       },
       "baseType": "DateTime",
       "isSystem": false,
@@ -172,7 +180,8 @@
       "subtypeCaption": {
         "en": "Filed",
         "ar": "مقدم",
-        "ru": "Сдана"
+        "ru": "Сдана",
+        "uk": "Подана"
       },
       "displayOrder": 2,
       "isInitial": false,
@@ -187,7 +196,8 @@
       "subtypeCaption": {
         "en": "Draft",
         "ar": "مسودة",
-        "ru": "Черновик"
+        "ru": "Черновик",
+        "uk": "Чернетка"
       },
       "displayOrder": 1,
       "isInitial": false,

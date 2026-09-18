@@ -5,7 +5,8 @@
     "caption": {
       "en": "Components",
       "ar": "مكون",
-      "ru": "Компоненты"
+      "ru": "Компоненты",
+      "uk": "Компоненти"
     },
     "tableName": "TP_ProductionOrderComponents",
     "softDeletion": false,
@@ -21,7 +22,8 @@
       "caption": {
         "en": "Qty in base unit",
         "ar": "الكمية بالوحدة الأساسية",
-        "ru": "Количество в базовой единице"
+        "ru": "Количество в базовой единице",
+        "uk": "Кількість у базовій одиниці"
       },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": false,
@@ -41,7 +43,8 @@
       "caption": {
         "en": "Component",
         "ar": "المكون",
-        "ru": "Компонент"
+        "ru": "Компонент",
+        "uk": "Компонент"
       },
       "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
       "isRequired": true,
@@ -63,7 +66,8 @@
       "caption": {
         "en": "Qty required",
         "ar": "الكمية مطلوب",
-        "ru": "Требуется"
+        "ru": "Требуется",
+        "uk": "Потрібно"
       },
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "isRequired": true,
@@ -85,7 +89,8 @@
       "caption": {
         "en": "Unit",
         "ar": "الوحدة",
-        "ru": "Единица"
+        "ru": "Единица",
+        "uk": "Одиниця"
       },
       "edtMetaId": "7833ab32-5996-4216-afef-c276a550346f",
       "isRequired": false,

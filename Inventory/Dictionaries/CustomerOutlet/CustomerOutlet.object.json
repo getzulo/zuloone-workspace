@@ -4,7 +4,8 @@
     "caption": {
       "en": "Customer outlets",
       "ar": "نقاط بيع العملاء",
-      "ru": "Торговые точки"
+      "ru": "Торговые точки",
+      "uk": "Торгові точки"
     },
     "description": "Ship-to of a customer: address and contact. Commercial terms live on SalesContract.",
     "isLogged": true,
@@ -38,7 +39,8 @@
       "caption": {
         "en": "Address",
         "ar": "العنوان",
-        "ru": "Адрес"
+        "ru": "Адрес",
+        "uk": "Адреса"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -59,7 +61,8 @@
       "caption": {
         "en": "Contact",
         "ar": "جهة الاتصال",
-        "ru": "Контакт"
+        "ru": "Контакт",
+        "uk": "Контакт"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -80,7 +83,8 @@
       "caption": {
         "en": "Customer",
         "ar": "العميل",
-        "ru": "Клиент"
+        "ru": "Клиент",
+        "uk": "Клієнт"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -100,7 +104,10 @@
       "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
       "isUnique": true,
-      "caption": "ID",
+      "caption": {
+        "en": "ID",
+        "uk": "ID"
+      },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
@@ -120,7 +127,8 @@
       "caption": {
         "en": "Disabled",
         "ar": "معطّل",
-        "ru": "Отключена"
+        "ru": "Отключена",
+        "uk": "Вимкнено"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -142,7 +150,8 @@
       "caption": {
         "en": "Name",
         "ar": "الاسم",
-        "ru": "Наименование"
+        "ru": "Наименование",
+        "uk": "Найменування"
       },
       "isTranslatable": false,
       "isVisible": true,
@@ -164,7 +173,8 @@
       "caption": {
         "en": "Phone",
         "ar": "الهاتف",
-        "ru": "Телефон"
+        "ru": "Телефон",
+        "uk": "Телефон"
       },
       "isTranslatable": false,
       "isVisible": true,
