@@ -64,9 +64,15 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         legalEntity.Country = country.MetaId;
         legalEntity.Currency = currency.MetaId;
         legalEntity.TaxRegistrationNumber = "310122393500003";
-        legalEntity.CommercialRegistration = "1010010000";
         legalEntity.LegalAddress = address.MetaId;
         legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
+        await Db.UpdateAsync("LegalEntity", legalEntity.MetaId,
+            new Dictionary<string, object?>
+            {
+                ["CommercialRegistration"] = "1010010000",
+                ["Country"] = country.MetaId,
+                ["Currency"] = currency.MetaId,
+            });
 
         var divisionType = DictionaryManager.NewRecord<DivisionType>();
         divisionType.Code = $"SP-{Db.NewId():N}"[..8];
@@ -283,8 +289,9 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var legal = await DictionaryManager.GetRecordAsync<LegalEntity>(s.LegalEntity);
         Assert.IsTrue(legal?.TaxRegistrationNumber == "310122393500003",
             "VAT продавца, факт {0}", legal?.TaxRegistrationNumber);
-        Assert.IsTrue(legal?.CommercialRegistration == "1010010000",
-            "CRN продавца, факт {0}", legal?.CommercialRegistration);
+        var crn = await Db.GetAsync("LegalEntity", s.LegalEntity);
+        Assert.IsTrue(Convert.ToString(crn?["CommercialRegistration"]) == "1010010000",
+            "CRN продавца, факт {0}", crn?["CommercialRegistration"]);
         Assert.IsTrue(legal?.LegalAddress != Guid.Empty, "юридический адрес задан");
 
         var addr = await DictionaryManager.GetRecordAsync<Address>(legal!.LegalAddress);
@@ -295,6 +302,35 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var envelopes = await EnvelopesAsync(invoice.MetaId);
         Assert.IsTrue(envelopes.Count == 1 && envelopes[0].InvoiceCounter == 1,
             "первый ICV=1, факт {0}/{1}", envelopes.Count, envelopes.FirstOrDefault()?.InvoiceCounter);
+        var xml = Convert.ToString(envelopes[0].Payload) ?? string.Empty;
+        Assert.IsTrue(xml.Contains("schemeID=\"VAT\"", StringComparison.Ordinal)
+            && xml.Contains("310122393500003", StringComparison.Ordinal),
+            "UBL продавца VAT, длина {0}", xml.Length);
+        Assert.IsTrue(xml.Contains("<cbc:UUID>1</cbc:UUID>", StringComparison.Ordinal)
+            && xml.Contains("name=\"0100000\"", StringComparison.Ordinal),
+            "ICV и тип Standard 0100000");
+        Assert.IsTrue(xml.Contains("Al Olaya", StringComparison.Ordinal) && xml.Contains("1234", StringComparison.Ordinal),
+            "район и дом в PostalAddress");
+        Assert.IsTrue(xml.Contains(envelopes[0].Uuid.ToString(), StringComparison.Ordinal), "UUID конверта в XML");
+        var hash = Convert.ToString(envelopes[0].InvoiceHash) ?? string.Empty;
+        Assert.IsTrue(hash.Length > 20 && hash != "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+            "InvoiceHash хоста, факт {0}", hash);
+        var invRow = await Db.GetAsync("SalesRealization", invoice.MetaId);
+        var qr = Convert.ToString(invRow?["QrCode"]) ?? string.Empty;
+        Assert.IsTrue(qr.Length > 20 && Convert.ToString(invRow?["InvoiceHash"]) == hash,
+            "QR и хеш на счёте, qr={0}", qr.Length);
+    }
+
+    [IntegrationTest("B2C UBL — тип 0200000 Simplified")]
+    public async Task SimplifiedUblTypeCode()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2C");
+        await StockAsync(s);
+        var invoice = await IssueAsync(s);
+        var xml = Convert.ToString((await EnvelopesAsync(invoice.MetaId))[0].Payload) ?? string.Empty;
+        Assert.IsTrue(xml.Contains("name=\"0200000\"", StringComparison.Ordinal) && xml.Contains(">388<", StringComparison.Ordinal),
+            "Simplified 0200000 / 388, длина {0}", xml.Length);
     }
 
     [IntegrationTest("Второй счёт того же юрлица получает ICV=2")]
@@ -312,5 +348,11 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         Assert.IsTrue(b.Count == 1 && b[0].InvoiceCounter == 2, "второй ICV=2, факт {0}", b.FirstOrDefault()?.InvoiceCounter);
         Assert.IsTrue(a[0].LegalEntity == s.LegalEntity && b[0].LegalEntity == s.LegalEntity,
             "оба конверта того же юрлица");
+        Assert.IsTrue((Convert.ToString(b[0].Payload) ?? string.Empty).Contains("<cbc:UUID>2</cbc:UUID>", StringComparison.Ordinal),
+            "второй UBL несёт ICV=2");
+        Assert.IsTrue(!string.IsNullOrWhiteSpace(Convert.ToString(a[0].InvoiceHash))
+            && Convert.ToString(b[0].PreviousInvoiceHash) == Convert.ToString(a[0].InvoiceHash),
+            "PIH второго = hash первого, факт {0} / {1}",
+            b[0].PreviousInvoiceHash, a[0].InvoiceHash);
     }
 }
