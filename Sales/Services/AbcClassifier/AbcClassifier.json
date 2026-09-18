@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "ABC/XYZ recalc: score from Revenue/Stock/InventoryValue, assign bands from AbcClassBand, write IR AbcClassification SliceLast.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "fbb83ba8-223a-4a93-bb11-9127d47c201b",
+    "metaId": "800c8318-b7cc-44bd-8771-dd63912eeb80",
+    "name": "AbcClassifier",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

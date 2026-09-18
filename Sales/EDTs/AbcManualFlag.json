@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Boolean",
+    "description": "Manual override flag on an ABC/XYZ class",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "47056cb5-b447-4678-b1ec-3ebda060c909",
+    "name": "AbcManualFlag",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

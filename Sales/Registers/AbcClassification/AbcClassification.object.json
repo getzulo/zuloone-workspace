@@ -1,0 +1,143 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": "ABC classification",
+    "caption_ar": "تصنيف ABC",
+    "caption_ru": "Классификация ABC",
+    "caption_uk": "Класифікація ABC",
+    "description": "SliceLast by Profile + Subject (Item or Customer Guid). Recalc writes Period=asOf; ManualAbc/ManualXyz keep a class across runs.",
+    "isObsolete": false,
+    "iconName": "fluent-color:data-pie-24",
+    "largeIconName": "fluent-color:data-pie-24",
+    "registerEngineType": "Information",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": false,
+    "isExtension": false,
+    "metaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+    "name": "AbcClassification",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+      "fieldName": "Profile",
+      "caption": "Profile",
+      "caption_ar": "الملف",
+      "caption_ru": "Профиль",
+      "edtMetaId": "5af84ef5-89c0-485e-a632-521c70da482e",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "240ccee1-12ef-414d-8222-ceea882c8d1b",
+      "name": "Profile",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+      "fieldName": "Subject",
+      "caption": "Subject",
+      "caption_ar": "الموضوع",
+      "caption_ru": "Объект",
+      "edtMetaId": "be233f32-8bc6-472d-806c-d89486f830ac",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 2,
+      "metaId": "52bcd968-d408-460e-b397-2ed36f927d7b",
+      "name": "Subject",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+      "fieldName": "AbcClass",
+      "caption": "ABC",
+      "caption_ru": "ABC",
+      "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
+      "isOperational": false,
+      "displayOrder": 1,
+      "metaId": "dad7cc6f-4cc2-4a6b-9e35-be9e823d3736",
+      "name": "AbcClass",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+      "fieldName": "XyzClass",
+      "caption": "XYZ",
+      "caption_ru": "XYZ",
+      "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
+      "isOperational": false,
+      "displayOrder": 2,
+      "metaId": "56a88c4e-c4a9-4866-b0d4-ae7d54dc822f",
+      "name": "XyzClass",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+      "fieldName": "Score",
+      "caption": "Score",
+      "caption_ar": "النتيجة",
+      "caption_ru": "Оценка",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isOperational": false,
+      "displayOrder": 3,
+      "metaId": "0a873897-db0f-4223-a1bd-83c5272ca77d",
+      "name": "Score",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+      "fieldName": "Share",
+      "caption": "Share, %",
+      "caption_ar": "الحصة",
+      "caption_ru": "Доля, %",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isOperational": false,
+      "displayOrder": 4,
+      "metaId": "c2890a32-3df2-4931-ac17-96a172ffb6e9",
+      "name": "Share",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+      "fieldName": "Cv",
+      "caption": "CV",
+      "caption_ru": "CV",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isOperational": false,
+      "displayOrder": 5,
+      "metaId": "48ca7b35-a069-4773-8cc1-5f0ae8363fcf",
+      "name": "Cv",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+      "fieldName": "ManualAbc",
+      "caption": "Manual ABC",
+      "caption_ru": "ABC вручную",
+      "edtMetaId": "47056cb5-b447-4678-b1ec-3ebda060c909",
+      "isOperational": false,
+      "displayOrder": 6,
+      "metaId": "b97466d3-e000-47a0-b395-4d80a43d72c8",
+      "name": "ManualAbc",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+      "fieldName": "ManualXyz",
+      "caption": "Manual XYZ",
+      "caption_ru": "XYZ вручную",
+      "edtMetaId": "47056cb5-b447-4678-b1ec-3ebda060c909",
+      "isOperational": false,
+      "displayOrder": 7,
+      "metaId": "20fe6d66-6c14-4c39-accb-661b519b0df0",
+      "name": "ManualXyz",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ]
+}

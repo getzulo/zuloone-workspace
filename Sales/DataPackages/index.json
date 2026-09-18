@@ -1,0 +1,13 @@
+[
+  {
+    "id": "abc-profiles",
+    "file": "abc-profiles.json",
+    "caption": "ABC/XYZ profiles",
+    "captionRu": "Профили ABC/XYZ",
+    "caption_ru": "Профили ABC/XYZ",
+    "captionAr": "ملفات ABC/XYZ",
+    "caption_ar": "ملفات ABC/XYZ",
+    "when": "once",
+    "sort": 40
+  }
+]

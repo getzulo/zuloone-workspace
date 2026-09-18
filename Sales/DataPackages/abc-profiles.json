@@ -1,0 +1,132 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "abc-profiles",
+    "entities": [
+      {
+        "entity": "AbcProfile",
+        "table": "AbcProfile",
+        "kind": "Dictionary",
+        "businessKey": ["Name"],
+        "mode": "insert",
+        "rowCount": 2
+      },
+      {
+        "entity": "AbcClassBand",
+        "table": "AbcClassBand",
+        "kind": "Dictionary",
+        "businessKey": ["Profile", "Axis", "ClassCode"],
+        "mode": "insert",
+        "rowCount": 12
+      }
+    ]
+  },
+  "data": {
+    "AbcProfile": [
+      {
+        "Name": "Items by revenue",
+        "Name_ru": "Номенклатура по выручке",
+        "Name_ar": "الأصناف حسب الإيراد",
+        "Subject": "Item",
+        "Measure": "Revenue",
+        "WindowMonths": 12,
+        "BucketCount": 12,
+        "AbcMethod": "CumulativeShare",
+        "XyzMethod": "Cv"
+      },
+      {
+        "Name": "Customers by revenue",
+        "Name_ru": "Покупатели по выручке",
+        "Name_ar": "العملاء حسب الإيراد",
+        "Subject": "Customer",
+        "Measure": "Revenue",
+        "WindowMonths": 12,
+        "BucketCount": 12,
+        "AbcMethod": "CumulativeShare",
+        "XyzMethod": "Cv"
+      }
+    ],
+    "AbcClassBand": [
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Items by revenue" } },
+        "Axis": "Abc",
+        "ClassCode": "A",
+        "BoundFrom": 0,
+        "BoundTo": 80
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Items by revenue" } },
+        "Axis": "Abc",
+        "ClassCode": "B",
+        "BoundFrom": 80,
+        "BoundTo": 95
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Items by revenue" } },
+        "Axis": "Abc",
+        "ClassCode": "C",
+        "BoundFrom": 95
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Items by revenue" } },
+        "Axis": "Xyz",
+        "ClassCode": "X",
+        "BoundFrom": 0,
+        "BoundTo": 0.5
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Items by revenue" } },
+        "Axis": "Xyz",
+        "ClassCode": "Y",
+        "BoundFrom": 0.5,
+        "BoundTo": 1
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Items by revenue" } },
+        "Axis": "Xyz",
+        "ClassCode": "Z",
+        "BoundFrom": 1
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Customers by revenue" } },
+        "Axis": "Abc",
+        "ClassCode": "A",
+        "BoundFrom": 0,
+        "BoundTo": 80
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Customers by revenue" } },
+        "Axis": "Abc",
+        "ClassCode": "B",
+        "BoundFrom": 80,
+        "BoundTo": 95
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Customers by revenue" } },
+        "Axis": "Abc",
+        "ClassCode": "C",
+        "BoundFrom": 95
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Customers by revenue" } },
+        "Axis": "Xyz",
+        "ClassCode": "X",
+        "BoundFrom": 0,
+        "BoundTo": 0.5
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Customers by revenue" } },
+        "Axis": "Xyz",
+        "ClassCode": "Y",
+        "BoundFrom": 0.5,
+        "BoundTo": 1
+      },
+      {
+        "Profile": { "$ref": "AbcProfile", "key": { "Name": "Customers by revenue" } },
+        "Axis": "Xyz",
+        "ClassCode": "Z",
+        "BoundFrom": 1
+      }
+    ]
+  }
+}

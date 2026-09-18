@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Guid",
+    "description": "Item or Customer MetaId classified by an ABC profile",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "be233f32-8bc6-472d-806c-d89486f830ac",
+    "name": "AbcSubjectKey",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

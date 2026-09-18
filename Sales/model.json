@@ -7,7 +7,7 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.19.0",
+    "modelVersion": "1.20.0",
     "metaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "name": "Sales",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -43,6 +43,12 @@
       "minVersion": "1.0.0",
       "metaId": "e898e296-0661-43cc-805d-2c13a8554763",
       "name": "Sales->Tax"
+    },
+    {
+      "dependsOnModelMetaId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30",
+      "minVersion": "1.2.0",
+      "metaId": "01c27f75-e499-4b50-8b78-c10d3a6f5018",
+      "name": "Sales->Costing"
     }
   ]
 }

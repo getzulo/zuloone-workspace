@@ -386,6 +386,48 @@
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
+      "caption": "ABC profiles",
+      "caption_ar": "ملفات ABC",
+      "caption_ru": "Профили ABC",
+      "caption_uk": "Профілі ABC",
+      "parentMetaId": "019d7614-3204-5496-90af-b58cacca2d58",
+      "displayOrder": 10,
+      "icon": "fluent-color:data-pie-24",
+      "targetType": "Dictionary",
+      "targetMetaId": "c5ba6cd4-9457-404a-ad26-4e193f90f750",
+      "metaId": "7687c63d-bfec-47ed-baf9-1be84621cef5",
+      "name": "AbcProfile",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": "ABC class bands",
+      "caption_ar": "حدود فئات ABC",
+      "caption_ru": "Полосы классов ABC",
+      "caption_uk": "Смуги класів ABC",
+      "parentMetaId": "019d7614-3204-5496-90af-b58cacca2d58",
+      "displayOrder": 11,
+      "icon": "fluent-color:data-bar-vertical-24",
+      "targetType": "Dictionary",
+      "targetMetaId": "d40be9f2-8354-4ec2-8b2a-4d4ac108a960",
+      "metaId": "2bf7c112-e149-49e6-8a78-3c32e11679c1",
+      "name": "AbcClassBand",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": "ABC classification",
+      "caption_ar": "تصنيف ABC",
+      "caption_ru": "Классификация ABC",
+      "caption_uk": "Класифікація ABC",
+      "parentMetaId": "cad86e08-d829-485c-b79b-984c300fa847",
+      "displayOrder": 20,
+      "icon": "fluent-color:data-pie-24",
+      "targetType": "Register",
+      "targetMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
+      "metaId": "291ea883-9d07-440c-b79c-f5a1f5899a6b",
+      "name": "AbcClassification",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
       "caption": "Agent GPS log",
       "caption_ar": "سجل مواقع الوكيل",
       "caption_ru": "GPS-трек агента",

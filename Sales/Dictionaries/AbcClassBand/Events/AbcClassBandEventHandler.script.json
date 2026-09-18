@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "AbcClassBand",
+    "objectMetaId": "d40be9f2-8354-4ec2-8b2a-4d4ac108a960",
+    "executionOrder": 0,
+    "metaId": "e19ac345-d286-4838-aac4-2e2e417a240e",
+    "name": "AbcClassBandEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}
