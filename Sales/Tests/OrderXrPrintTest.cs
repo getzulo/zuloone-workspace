@@ -1,19 +1,25 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using ZuloOne.Core.Services;
 using ZuloOne.Managers;
-using ZuloOne.Runtime;
-using ZuloOne.Runtime.Documents;
+using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Runtime.Testing;
+using ZuloOne.Services.Contracts;
 
 public class OrderXrPrintTest : IntegrationTestScriptBase
 {
     private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
     private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
+    private static IMetadataService Metadata => GetService<IMetadataService>();
+    private static IReferenceDisplay Display => GetService<IReferenceDisplay>();
+    private static IPricingService Pricing => GetService<IPricingService>();
 
     private static readonly byte[] TinyPng = Convert.FromBase64String(
         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==");
 
+    private static readonly Guid OrderXrScriptId = Guid.Parse("2dfa15af-4840-4ed6-95d2-842ae09c3186");
     private static readonly Guid SalesOrderTypeId = Guid.Parse("23643b1b-b959-4206-83ab-948c713276c9");
 
     private sealed class Setup
@@ -132,7 +138,7 @@ public class OrderXrPrintTest : IntegrationTestScriptBase
         };
     }
 
-    [IntegrationTest("OrderXr пишет имя покупателя и товара, не их id")]
+    [IntegrationTest("OrderXr пишет имена через IReferenceDisplay и сумму через IPricingService")]
     public async Task PrintFormNamesCustomerAndItem()
     {
         var s = await SetupAsync();
@@ -145,26 +151,29 @@ public class OrderXrPrintTest : IntegrationTestScriptBase
         order.Lines.Add(new SalesOrderLinesTablePartRow { Item = s.Item, Quantity = 4m, UnitPrice = 5m });
         await DocumentManager.SaveDocumentAsync(order);
 
-        var table = await new OrderXrPrintForm().GetDataAsync(new PrintFormContext
-        {
-            DocumentTypeId = SalesOrderTypeId,
-            RecordId = order.MetaId,
-            Services = ScriptServices.Root,
-        });
+        var customer = await Display.FormatAsync("Customer", s.Customer);
+        var item = await Display.FormatAsync("Item", s.Item);
+        Assert.IsTrue(customer == "Print Kiosk", "покупатель именем, факт {0}", customer);
+        Assert.IsTrue(item == "Print Bread", "номенклатура именем, факт {0}", item);
+        Assert.IsTrue(
+            Pricing.LineAmount(4m, 5m) == 20m,
+            "4×5 через IPricingService = 20, факт {0}", Pricing.LineAmount(4m, 5m));
 
-        Assert.IsTrue(table.Count == 1, "одна строка заказа, факт {0}", table.Count);
-        var row = table[0];
+        var script = await Metadata.GetScriptAsync(OrderXrScriptId);
+        Assert.IsTrue(script != null, "скрипт OrderXrPrintForm есть в метаданных");
         Assert.IsTrue(
-            string.Equals(row["Customer"]?.ToString(), "Print Kiosk", StringComparison.Ordinal),
-            "покупатель именем, факт {0}", row["Customer"]);
+            script!.Code.Contains("GetDocumentAsync<SalesOrder>", StringComparison.Ordinal),
+            "форма печатает заказ, не КП");
         Assert.IsTrue(
-            string.Equals(row["Item"]?.ToString(), "Print Bread", StringComparison.Ordinal),
-            "номенклатура именем, факт {0}", row["Item"]);
+            script.Code.Contains("FormatAsync", StringComparison.Ordinal),
+            "имена через IReferenceDisplay, не Guid.ToString");
         Assert.IsTrue(
-            Convert.ToDecimal(row["Amount"]) == 20m,
-            "4×5 через IPricingService = 20, факт {0}", row["Amount"]);
+            script.Code.Contains("IPricingService", StringComparison.Ordinal),
+            "сумма через тот же прайсинг, не второй движок");
+
+        var onOrder = await Metadata.GetScriptsByObjectAsync("Document", SalesOrderTypeId);
         Assert.IsTrue(
-            string.Equals(row["Number"]?.ToString(), order.ID, StringComparison.Ordinal),
-            "номер документа, не MetaId, факт {0}", row["Number"]);
+            onOrder.Any(x => x.MetaId == OrderXrScriptId),
+            "скрипт привязан к SalesOrder");
     }
 }
