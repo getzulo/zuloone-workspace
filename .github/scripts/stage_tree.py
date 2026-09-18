@@ -55,6 +55,11 @@ def main() -> int:
         if str(obj.get("metaId") or "").lower() == STAND_MODEL_ID:
             print(f"  skipping {obj.get('name', name)} (stand model, seeded by the platform)", file=sys.stderr)
             continue
+        # Named, not just listed in treeExclude: a rename of the folder would
+        # otherwise publish the nuclear-test fixtures onto a customer image.
+        if (obj.get("name") or name) in {"TestBench", "TestBenchExt"}:
+            print(f"  skipping {obj.get('name', name)} (test fixture, not a product)", file=sys.stderr)
+            continue
 
         shutil.copytree(
             name,

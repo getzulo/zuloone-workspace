@@ -9,16 +9,22 @@
   },
   "fields": [
     {
-      "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
       "extensionMetaId": "de8f6297-b290-4368-f71c-604464c0a0a8",
+      "dictionaryMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
       "fieldName": "SalesPerson",
-      "name": "SalesPerson",
+      "edtMetaId": "735f03b4-f08e-4cf4-ac2c-52a065210a96",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 50,
+      "isIndexed": false,
+      "isUnique": false,
       "caption": "Sales person",
       "caption_ru": "Агент",
-      "edtMetaId": "735f03b4-f08e-4cf4-ac2c-52a065210a96",
-      "displayOrder": 50,
+      "isTranslatable": false,
       "isVisible": true,
+      "isCalculated": false,
       "metaId": "ef9073a8-c3a1-4479-082d-715575d1b1b9",
+      "name": "SalesPerson",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
