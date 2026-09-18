@@ -1,0 +1,31 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Mark lost",
+      "ru": "Потерян"
+    },
+    "scriptMetaId": "f9cd27cc-225c-4dae-ba03-483545a1885f",
+    "parameterMode": "None",
+    "displayOrder": 3,
+    "beginGroup": true,
+    "isEnabled": true,
+    "requiresConfirmation": true,
+    "reloadAfterExecution": true,
+    "metaId": "66e66fe6-8ffc-4d94-8a82-4a1cd1b6b746",
+    "name": "LoseLead",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "717109d2-acbb-4e68-b2ba-0ec23c38a427",
+      "documentCommandMetaId": "66e66fe6-8ffc-4d94-8a82-4a1cd1b6b746",
+      "documentSubtypeMetaId": "26615aee-f683-4880-9753-c0bcf30724ef"
+    },
+    {
+      "metaId": "9766dc1f-4da3-4ce0-8a51-acdf70f53c98",
+      "documentCommandMetaId": "66e66fe6-8ffc-4d94-8a82-4a1cd1b6b746",
+      "documentSubtypeMetaId": "5e8d7a41-5765-47e1-98e4-9613d306983e"
+    }
+  ]
+}

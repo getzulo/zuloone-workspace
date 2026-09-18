@@ -1,10 +1,12 @@
 {
   "kind": "Document",
   "object": {
-    "caption": "Sales quotation",
-    "caption_ar": "عرض سعر",
-    "caption_ru": "Коммерческое предложение",
-    "caption_uk": "Комерційна пропозиція",
+    "caption": {
+      "en": "Sales quotation",
+      "ar": "عرض سعر",
+      "ru": "Коммерческое предложение",
+      "uk": "Комерційна пропозиція"
+    },
     "description": "КП над заказом: Draft → Issued → Converted. Склад, налог и долг не двигает. ConvertQuotation создаёт SalesOrder.",
     "isLogged": false,
     "isCloneable": true,
@@ -24,8 +26,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "Agent",
-      "caption": "Agent",
-      "caption_ru": "Агент",
+      "caption": {
+        "en": "Agent",
+        "ru": "Агент"
+      },
       "edtMetaId": "735f03b4-f08e-4cf4-ac2c-52a065210a96",
       "isSystem": false,
       "isRequired": false,
@@ -41,8 +45,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "Contact",
-      "caption": "Contact",
-      "caption_ru": "Контактное лицо",
+      "caption": {
+        "en": "Contact",
+        "ru": "Контактное лицо"
+      },
       "edtMetaId": "c680db08-5b83-445a-8705-64e85d962932",
       "isSystem": false,
       "isRequired": false,
@@ -58,8 +64,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "Contract",
-      "caption": "Contract",
-      "caption_ru": "Договор",
+      "caption": {
+        "en": "Contract",
+        "ru": "Договор"
+      },
       "edtMetaId": "83e80aa1-218b-4684-845d-272f72cc8bf3",
       "isSystem": false,
       "isRequired": true,
@@ -75,8 +83,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "Customer",
-      "caption": "Customer",
-      "caption_ru": "Клиент",
+      "caption": {
+        "en": "Customer",
+        "ru": "Клиент"
+      },
       "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
       "isSystem": false,
       "isRequired": true,
@@ -92,8 +102,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "DeliveryDate",
-      "caption": "Delivery date",
-      "caption_ru": "Дата доставки",
+      "caption": {
+        "en": "Delivery date",
+        "ru": "Дата доставки"
+      },
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": true,
@@ -109,8 +121,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "DeliveryTerm",
-      "caption": "Delivery term",
-      "caption_ru": "Условия поставки",
+      "caption": {
+        "en": "Delivery term",
+        "ru": "Условия поставки"
+      },
       "edtMetaId": "ac206667-d0cd-46da-9309-9087ea347126",
       "isSystem": false,
       "isRequired": false,
@@ -126,8 +140,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "DiscountPercent",
-      "caption": "Discount, %",
-      "caption_ru": "Скидка, %",
+      "caption": {
+        "en": "Discount, %",
+        "ru": "Скидка, %"
+      },
       "edtMetaId": "30bbd045-98c8-41ce-9421-2297d50170ce",
       "isSystem": false,
       "isRequired": false,
@@ -143,9 +159,11 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "ID",
-      "caption": "Number",
-      "caption_ar": "الرقم",
-      "caption_ru": "Номер",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
       "baseType": "String",
       "length": 50,
       "isSystem": true,
@@ -163,8 +181,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "Location",
-      "caption": "Ship-from location",
-      "caption_ru": "Ячейка отгрузки",
+      "caption": {
+        "en": "Ship-from location",
+        "ru": "Ячейка отгрузки"
+      },
       "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
       "isSystem": false,
       "isRequired": true,
@@ -180,8 +200,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "Notes",
-      "caption": "Notes",
-      "caption_ru": "Примечания",
+      "caption": {
+        "en": "Notes",
+        "ru": "Примечания"
+      },
       "baseType": "String",
       "length": 2000,
       "isSystem": false,
@@ -197,9 +219,31 @@
     },
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
+      "fieldName": "SourceLead",
+      "caption": {
+        "en": "Source lead",
+        "ru": "Лид-источник"
+      },
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 21,
+      "description": "Лид, из которого создано КП. Повтор ConvertLead не плодит второе КП.",
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "c58e3dbf-df91-444a-8793-8a2da6080e6c",
+      "name": "SourceLead",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "Outlet",
-      "caption": "Outlet",
-      "caption_ru": "Торговая точка",
+      "caption": {
+        "en": "Outlet",
+        "ru": "Торговая точка"
+      },
       "edtMetaId": "91560c1f-7be1-40df-a1e4-e65eaa794958",
       "isSystem": false,
       "isRequired": false,
@@ -215,8 +259,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "PaymentTerm",
-      "caption": "Payment term",
-      "caption_ru": "Условия оплаты",
+      "caption": {
+        "en": "Payment term",
+        "ru": "Условия оплаты"
+      },
       "edtMetaId": "3365e777-0ae8-421c-b36d-b8fe2dec5fbc",
       "isSystem": false,
       "isRequired": false,
@@ -232,8 +278,10 @@
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "ValidUntil",
-      "caption": "Valid until",
-      "caption_ru": "Действительно до",
+      "caption": {
+        "en": "Valid until",
+        "ru": "Действительно до"
+      },
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": false,
@@ -253,8 +301,10 @@
       "name": "Converted",
       "caption": "Converted",
       "subtypeValue": "Converted",
-      "subtypeCaption": "Converted",
-      "subtypeCaption_ru": "В заказе",
+      "subtypeCaption": {
+        "en": "Converted",
+        "ru": "В заказе"
+      },
       "displayOrder": 3,
       "isInitial": false,
       "isReadOnly": true,
@@ -266,8 +316,10 @@
       "name": "Issued",
       "caption": "Issued",
       "subtypeValue": "Issued",
-      "subtypeCaption": "Issued",
-      "subtypeCaption_ru": "Выставлено",
+      "subtypeCaption": {
+        "en": "Issued",
+        "ru": "Выставлено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,
@@ -279,8 +331,10 @@
       "name": "Draft",
       "caption": "Draft",
       "subtypeValue": "Draft",
-      "subtypeCaption": "Draft",
-      "subtypeCaption_ru": "Черновик",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ru": "Черновик"
+      },
       "displayOrder": 1,
       "isInitial": true,
       "isReadOnly": false,
@@ -292,8 +346,10 @@
       "name": "Cancelled",
       "caption": "Cancelled",
       "subtypeValue": "Cancelled",
-      "subtypeCaption": "Cancelled",
-      "subtypeCaption_ru": "Отменено",
+      "subtypeCaption": {
+        "en": "Cancelled",
+        "ru": "Отменено"
+      },
       "displayOrder": 4,
       "isInitial": false,
       "isReadOnly": true,

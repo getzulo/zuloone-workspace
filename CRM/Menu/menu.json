@@ -2,10 +2,12 @@
   "kind": "Menu",
   "items": [
     {
-      "caption": "CRM",
-      "caption_ar": "إدارة العملاء",
-      "caption_ru": "CRM",
-      "caption_uk": "CRM",
+      "caption": {
+        "en": "CRM",
+        "ar": "إدارة العملاء",
+        "ru": "CRM",
+        "uk": "CRM"
+      },
       "displayOrder": 10,
       "icon": "fluent-color:people-community-48",
       "targetType": "Group",
@@ -14,9 +16,11 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
-      "caption": "Dictionaries",
-      "caption_ru": "Справочники",
-      "caption_uk": "Довідники",
+      "caption": {
+        "en": "Dictionaries",
+        "ru": "Справочники",
+        "uk": "Довідники"
+      },
       "parentMetaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
       "displayOrder": 0,
       "icon": "fluent-color:database-48",
@@ -26,10 +30,12 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
-      "caption": "Documents",
-      "caption_ar": "المستندات",
-      "caption_ru": "Документы",
-      "caption_uk": "Документи",
+      "caption": {
+        "en": "Documents",
+        "ar": "المستندات",
+        "ru": "Документы",
+        "uk": "Документи"
+      },
       "parentMetaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
       "displayOrder": 1,
       "icon": "fluent-color:document-48",
@@ -39,9 +45,11 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
-      "caption": "Registers",
-      "caption_ru": "Итоги",
-      "caption_uk": "Підсумки",
+      "caption": {
+        "en": "Registers",
+        "ru": "Итоги",
+        "uk": "Підсумки"
+      },
       "parentMetaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
       "displayOrder": 2,
       "icon": "fluent-color:table-48",
@@ -51,9 +59,11 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
-      "caption": "Settings",
-      "caption_ru": "Настройки",
-      "caption_uk": "Налаштування",
+      "caption": {
+        "en": "Settings",
+        "ru": "Настройки",
+        "uk": "Налаштування"
+      },
       "parentMetaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
       "displayOrder": 3,
       "icon": "fluent-color:settings-48",
@@ -63,10 +73,12 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
-      "caption": "CRM settings",
-      "caption_ar": "إعدادات إدارة العملاء",
-      "caption_ru": "Настройки CRM",
-      "caption_uk": "Налаштування CRM",
+      "caption": {
+        "en": "CRM settings",
+        "ar": "إعدادات إدارة العملاء",
+        "ru": "Настройки CRM",
+        "uk": "Налаштування CRM"
+      },
       "parentMetaId": "337ec1e4-ee3c-5b75-b924-74d5eace80b5",
       "displayOrder": 0,
       "icon": "fluent-color:people-chat-48",
@@ -77,10 +89,12 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
-      "caption": "Loyalty points",
-      "caption_ar": "نقاط الولاء",
-      "caption_ru": "Баллы лояльности",
-      "caption_uk": "Бали лояльності",
+      "caption": {
+        "en": "Loyalty points",
+        "ar": "نقاط الولاء",
+        "ru": "Баллы лояльности",
+        "uk": "Бали лояльності"
+      },
       "parentMetaId": "3f6a1c09-5b4d-4e8f-8a9c-0d3e4f1b7c20",
       "displayOrder": 0,
       "icon": "fluent-color:star-48",
@@ -91,10 +105,28 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
-      "caption": "Sales quotations",
-      "caption_ar": "عروض الأسعار",
-      "caption_ru": "Коммерческие предложения",
-      "caption_uk": "Комерційні пропозиції",
+      "caption": {
+        "en": "Sales leads",
+        "ar": "العملاء المحتملون",
+        "ru": "Лиды",
+        "uk": "Ліди"
+      },
+      "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
+      "displayOrder": 0,
+      "icon": "fluent-color:person-available-24",
+      "targetType": "Document",
+      "targetMetaId": "64daae1f-09b3-47f7-b5b5-c5544a102d98",
+      "metaId": "6e79ac02-c4d1-4f8a-9b3e-1a2c5d8e7f90",
+      "name": "SalesLead",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "caption": {
+        "en": "Sales quotations",
+        "ar": "عروض الأسعار",
+        "ru": "Коммерческие предложения",
+        "uk": "Комерційні пропозиції"
+      },
       "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
       "displayOrder": 1,
       "icon": "fluent-color:document-bullet-list-24",
@@ -105,12 +137,14 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
-      "caption": "Loyalty redemptions",
-      "caption_ar": "استرداد نقاط الولاء",
-      "caption_ru": "Списания баллов",
-      "caption_uk": "Списання балів",
+      "caption": {
+        "en": "Loyalty redemptions",
+        "ar": "استرداد نقاط الولاء",
+        "ru": "Списания баллов",
+        "uk": "Списання балів"
+      },
       "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
-      "displayOrder": 0,
+      "displayOrder": 2,
       "icon": "fluent-color:gift-24",
       "targetType": "Document",
       "targetMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
@@ -119,10 +153,12 @@
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
-      "caption": "Loyalty tiers",
-      "caption_ar": "مستويات الولاء",
-      "caption_ru": "Уровни лояльности",
-      "caption_uk": "Рівні лояльності",
+      "caption": {
+        "en": "Loyalty tiers",
+        "ar": "مستويات الولاء",
+        "ru": "Уровни лояльности",
+        "uk": "Рівні лояльності"
+      },
       "parentMetaId": "7ad8347e-39c8-4bf0-93a9-ba497f0e3cd3",
       "displayOrder": 0,
       "icon": "fluent-color:trophy-48",

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "ConvertLead",
+    "objectMetaId": "9bfd39f5-49af-482c-94f2-75b95dfa1c76",
+    "executionOrder": 0,
+    "metaId": "58a0cd69-2dba-4a31-b6be-1b45eeafd16a",
+    "name": "ConvertLeadScript",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

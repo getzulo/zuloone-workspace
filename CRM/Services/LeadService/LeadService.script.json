@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "LeadService",
+    "executionOrder": 0,
+    "metaId": "95be7223-8e32-40d7-8e43-eb6d10289981",
+    "name": "LeadService",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

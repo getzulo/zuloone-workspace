@@ -1,0 +1,26 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Create quotation",
+      "ru": "Создать КП"
+    },
+    "scriptMetaId": "58a0cd69-2dba-4a31-b6be-1b45eeafd16a",
+    "parameterMode": "None",
+    "displayOrder": 2,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "9bfd39f5-49af-482c-94f2-75b95dfa1c76",
+    "name": "ConvertLead",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "0d99cff8-f7e4-414e-95fd-0fcc47331b91",
+      "documentCommandMetaId": "9bfd39f5-49af-482c-94f2-75b95dfa1c76",
+      "documentSubtypeMetaId": "5e8d7a41-5765-47e1-98e4-9613d306983e"
+    }
+  ]
+}

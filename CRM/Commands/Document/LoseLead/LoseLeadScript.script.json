@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "LoseLead",
+    "objectMetaId": "66e66fe6-8ffc-4d94-8a82-4a1cd1b6b746",
+    "executionOrder": 0,
+    "metaId": "f9cd27cc-225c-4dae-ba03-483545a1885f",
+    "name": "LoseLeadScript",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

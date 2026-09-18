@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "SalesLead",
+    "objectMetaId": "64daae1f-09b3-47f7-b5b5-c5544a102d98",
+    "executionOrder": 0,
+    "metaId": "bebd3809-9187-4257-8121-7b8caec51157",
+    "name": "SalesLeadTransactions",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

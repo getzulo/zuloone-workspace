@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Create a Draft SalesQuotation from a qualified lead. Idempotent by SourceLead.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "95be7223-8e32-40d7-8e43-eb6d10289981",
+    "metaId": "c10be2bf-4245-40fe-8fb9-a063fd847372",
+    "name": "LeadService",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Qualify lead",
+      "ru": "Квалифицировать"
+    },
+    "scriptMetaId": "5fffadb3-8c61-4698-9469-81a8f33fc858",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "7a387e37-cc98-4614-bf1a-35970a8e9a57",
+    "name": "QualifyLead",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "69511f4a-a2bd-4008-b4bd-4f05837e6410",
+      "documentCommandMetaId": "7a387e37-cc98-4614-bf1a-35970a8e9a57",
+      "documentSubtypeMetaId": "26615aee-f683-4880-9753-c0bcf30724ef"
+    }
+  ]
+}
