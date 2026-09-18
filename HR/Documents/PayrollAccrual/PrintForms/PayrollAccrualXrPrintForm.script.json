@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "PayrollAccrual",
+    "objectMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+    "executionOrder": 0,
+    "metaId": "a49a03ff-4658-48f7-8cb4-93a3212f9dc7",
+    "name": "PayrollAccrualXrPrintForm",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

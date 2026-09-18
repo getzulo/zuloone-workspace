@@ -1,0 +1,19 @@
+{
+  "kind": "PrintForm",
+  "object": {
+    "metaId": "95bf7014-bb6a-46aa-ac1f-13590383c2ef",
+    "engine": "Xr",
+    "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+    "name": "PayrollPaymentXr",
+    "caption": {
+      "en": "Payroll payment",
+      "ar": "دفع الرواتب",
+      "ru": "Выплата оплаты труда",
+      "uk": "Виплата оплати праці"
+    },
+    "displayOrder": 1,
+    "scriptMetaId": "e692bdbb-d877-4cc5-bb61-36076e689ad6",
+    "layoutJson": "{\"margins\":{\"left\":15,\"top\":10,\"right\":15,\"bottom\":10},\"guides\":{\"x\":[],\"y\":[]},\"bands\":[{\"id\":\"tm\",\"kind\":\"TopMargin\",\"heightMm\":10,\"controls\":[]},{\"id\":\"rh\",\"kind\":\"ReportHeader\",\"heightMm\":26,\"controls\":[{\"id\":\"title\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":1,\"wMm\":180,\"hMm\":9,\"fontSizePt\":16,\"visible\":true,\"text\":\"PAYROLL PAYMENT\",\"bold\":true},{\"id\":\"lbl0\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":12,\"wMm\":34,\"hMm\":5,\"fontSizePt\":9,\"visible\":true,\"text\":\"No.\",\"bold\":true},{\"id\":\"f0\",\"type\":\"XRLabel\",\"xMm\":34,\"yMm\":12,\"wMm\":146,\"hMm\":5,\"fontSizePt\":9,\"visible\":true,\"binding\":\"Number\",\"text\":\"[Number]\",\"wordWrap\":true},{\"id\":\"lbl1\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":18,\"wMm\":34,\"hMm\":5,\"fontSizePt\":9,\"visible\":true,\"text\":\"Date\",\"bold\":true},{\"id\":\"f1\",\"type\":\"XRLabel\",\"xMm\":34,\"yMm\":18,\"wMm\":146,\"hMm\":5,\"fontSizePt\":9,\"visible\":true,\"binding\":\"DocumentDate\",\"text\":\"[DocumentDate]\",\"wordWrap\":true}]},{\"id\":\"ph\",\"kind\":\"PageHeader\",\"heightMm\":8,\"controls\":[{\"id\":\"th-no\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":1,\"wMm\":12,\"hMm\":6,\"fontSizePt\":8,\"visible\":true,\"text\":\"#\",\"bold\":true,\"borders\":\"B\"},{\"id\":\"th-emp\",\"type\":\"XRLabel\",\"xMm\":12,\"yMm\":1,\"wMm\":140,\"hMm\":6,\"fontSizePt\":8,\"visible\":true,\"text\":\"Employee\",\"bold\":true,\"borders\":\"B\"},{\"id\":\"th-amt\",\"type\":\"XRLabel\",\"xMm\":152,\"yMm\":1,\"wMm\":28,\"hMm\":6,\"fontSizePt\":8,\"visible\":true,\"text\":\"Amount\",\"bold\":true,\"hAlign\":\"Right\",\"borders\":\"B\"}]},{\"id\":\"det\",\"kind\":\"Detail\",\"heightMm\":7,\"controls\":[{\"id\":\"c-no\",\"type\":\"XRLabel\",\"xMm\":0,\"yMm\":0.5,\"wMm\":12,\"hMm\":6,\"fontSizePt\":8,\"visible\":true,\"binding\":\"LineNo\",\"text\":\"[LineNo]\",\"wordWrap\":true,\"borders\":\"B\"},{\"id\":\"c-emp\",\"type\":\"XRLabel\",\"xMm\":12,\"yMm\":0.5,\"wMm\":140,\"hMm\":6,\"fontSizePt\":8,\"visible\":true,\"binding\":\"LineParty\",\"text\":\"[LineParty]\",\"wordWrap\":true,\"borders\":\"B\"},{\"id\":\"c-amt\",\"type\":\"XRLabel\",\"xMm\":152,\"yMm\":0.5,\"wMm\":28,\"hMm\":6,\"fontSizePt\":8,\"visible\":true,\"binding\":\"Amount\",\"text\":\"[Amount]\",\"hAlign\":\"Right\",\"format\":\"{0:n2}\",\"wordWrap\":true,\"borders\":\"B\"}]},{\"id\":\"rf\",\"kind\":\"ReportFooter\",\"heightMm\":12,\"controls\":[{\"id\":\"lbl-Total\",\"type\":\"XRLabel\",\"xMm\":110,\"yMm\":2,\"wMm\":40,\"hMm\":6,\"fontSizePt\":11,\"visible\":true,\"text\":\"Total\",\"bold\":true,\"hAlign\":\"Right\"},{\"id\":\"total\",\"type\":\"XRLabel\",\"xMm\":150,\"yMm\":2,\"wMm\":30,\"hMm\":6,\"fontSizePt\":11,\"visible\":true,\"binding\":\"Total\",\"text\":\"[Total]\",\"hAlign\":\"Right\",\"format\":\"{0:n2}\",\"bold\":true}]},{\"id\":\"pf\",\"kind\":\"PageFooter\",\"heightMm\":10,\"controls\":[{\"id\":\"pg\",\"type\":\"XRPageInfo\",\"xMm\":140,\"yMm\":2,\"wMm\":40,\"hMm\":5,\"pageInfo\":\"NumberOfTotal\",\"hAlign\":\"Right\",\"fontSizePt\":8,\"visible\":true,\"wordWrap\":true}]},{\"id\":\"bm\",\"kind\":\"BottomMargin\",\"heightMm\":10,\"controls\":[]}],\"paper\":{\"kind\":\"A4\",\"orientation\":\"Portrait\",\"widthMm\":210,\"heightMm\":297},\"schemaVersion\":1}"
+  }
+}

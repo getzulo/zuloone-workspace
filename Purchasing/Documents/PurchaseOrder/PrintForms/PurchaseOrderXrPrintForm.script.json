@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "PurchaseOrder",
+    "objectMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
+    "executionOrder": 0,
+    "metaId": "a2541996-5867-4af5-b025-f8f8d9fa472a",
+    "name": "PurchaseOrderXrPrintForm",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "CustomerPayment",
+    "objectMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+    "executionOrder": 0,
+    "metaId": "cd8c5764-b5a7-450b-90d5-b40d581e99b9",
+    "name": "CustomerPaymentXrPrintForm",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}
