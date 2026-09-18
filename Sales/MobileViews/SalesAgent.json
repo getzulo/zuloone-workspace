@@ -4,7 +4,8 @@
     { "id": "route", "caption": "Today", "entity": "VisitRoute" },
     { "id": "customers", "caption": "Customers", "entity": "Customer" },
     { "id": "catalog", "caption": "Catalog", "entity": "Item" },
-    { "id": "orders", "caption": "Orders", "entity": "SalesOrder" }
+    { "id": "orders", "caption": "Orders", "entity": "SalesOrder" },
+    { "id": "visits", "caption": "Visits", "entity": "AgentVisit" }
   ],
   "entities": [
     { "name": "Item", "mode": "Master", "fields": [] },
