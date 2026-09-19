@@ -9,6 +9,7 @@
     "contentType": "application/json",
     "metaId": "35f1e8c7-6b20-4a93-8d5f-c94a7e30b168",
     "name": "fatoora-compliance",
-    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
+    "devComments": "Onboarding: OTP + CSR exchanged for a Compliance CSID. Developer stands only — the reply carries a secret."
   }
 }
