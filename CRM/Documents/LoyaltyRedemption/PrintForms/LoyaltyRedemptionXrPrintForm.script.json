@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "LoyaltyRedemption",
+    "objectMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
+    "executionOrder": 0,
+    "metaId": "a7ac41eb-418a-45b5-90d9-bb1b8fb03ebf",
+    "name": "LoyaltyRedemptionXrPrintForm",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

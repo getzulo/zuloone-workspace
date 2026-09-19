@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "VisitRoute",
+    "objectMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
+    "executionOrder": 0,
+    "metaId": "c147e05d-1d2d-414e-8399-58aae465dc94",
+    "name": "VisitRouteXrPrintForm",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}
