@@ -69,6 +69,16 @@
       "fields": []
     },
     {
+      "name": "PaymentTerm",
+      "mode": "Master",
+      "fields": []
+    },
+    {
+      "name": "DeliveryTerm",
+      "mode": "Master",
+      "fields": []
+    },
+    {
       "name": "SalesContract",
       "mode": "Master",
       "fields": []

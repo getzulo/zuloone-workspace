@@ -6,6 +6,7 @@ using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Services.Contracts;
+using ZuloOne.Core.Services.Integration;
 
 // Slice 1 ZATCA: envelope + mock. No XML, QR, CSID, HTTPS.
 public class ZatcaEInvoiceTest : IntegrationTestScriptBase
@@ -319,6 +320,10 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var qr = Convert.ToString(invRow?["QrCode"]) ?? string.Empty;
         Assert.IsTrue(qr.Length > 20 && Convert.ToString(invRow?["InvoiceHash"]) == hash,
             "QR и хеш на счёте, qr={0}", qr.Length);
+        // The TLV format moved to this model's ZatcaQr service; the host now
+        // only hashes and signs.
+        var tagCount = GetService<IZatcaQr>().TagCount(qr);
+        Assert.IsTrue(tagCount == 6, "без PEM CSID — теги 1–6, факт {0}", tagCount);
     }
 
     [IntegrationTest("B2C UBL — тип 0200000 Simplified")]

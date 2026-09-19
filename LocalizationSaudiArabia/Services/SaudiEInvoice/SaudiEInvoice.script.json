@@ -4,7 +4,7 @@
     "scriptType": "Service",
     "objectType": "Service",
     "objectName": "SaudiEInvoice",
-    "description": "ZATCA UBL + host Sha256Base64 invoice hash and QR tags 1–6. No CSID/HTTPS.",
+    "description": "ZATCA UBL + host hash and QR. CSID tags 7–9 when PEM is configured. No HTTPS.",
     "executionOrder": 0,
     "metaId": "92d0cc88-27ca-4329-8c1a-97bef6d6abc7",
     "name": "SaudiEInvoice",

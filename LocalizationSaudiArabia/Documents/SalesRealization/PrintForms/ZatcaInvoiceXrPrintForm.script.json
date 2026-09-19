@@ -1,6 +1,7 @@
 {
   "kind": "Script",
   "object": {
+    "extensionMetaId": "5d0c8a37-2b91-4e46-8f73-1a6c4e9b0d52",
     "scriptType": "PrintForm",
     "objectType": "Document",
     "objectName": "SalesRealization",
