@@ -26,7 +26,9 @@ public partial class SaudiEInvoice
 {
     private static readonly Guid TaxDocumentType = Guid.Parse("cee833d7-fa4c-43fe-bef6-e95633ece906");
     private static readonly Guid SalesInvoiceType = Guid.Parse("34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3");
+    private static readonly Guid SalesCreditNoteType = Guid.Parse("f53f1b8a-8458-4f27-ab5e-b75f7228d263");
     private static readonly string FirstPih = Sha256Base64("");
+    private static readonly string[] FatooraChannels = { "fatoora-clearance", "fatoora-reporting" };
 
     /// <summary>
     /// Credential holding the CSID PEM when a legal entity names none of its
@@ -48,6 +50,13 @@ public partial class SaudiEInvoice
         var settingsRows = await dict.GetRecordsAsync<LocalizationSaudiArabiaSettings>(null, 1);
         if (settingsRows.Count == 0 || !settingsRows[0].EInvoiceEnabled)
             return null;
+
+        try { await ApplyChannelOutcomesAsync(); }
+        catch (Exception ex)
+        {
+            ScriptServices.Get<ZuloOne.Log.IZuloOneLogger<SaudiEInvoice>>()
+                .Warn(ex, "ApplyChannelOutcomes before envelope {0}", sourceId);
+        }
 
         var docs = ScriptServices.Get<IDocumentManager>();
         var existing = await docs.QueryDocumentsAsync<TaxDocument>($"SourceDocumentId = '{sourceId}'");
@@ -76,7 +85,7 @@ public partial class SaudiEInvoice
         var customer = customerId == Guid.Empty
             ? null
             : await ScriptServices.Get<IDictionaryManager<Customer>>().GetRecordAsync(customerId);
-        var invoiceType = string.Equals(customer?.CustomerType, "B2B", StringComparison.OrdinalIgnoreCase)
+        var invoiceType = !string.IsNullOrWhiteSpace(customer?.TaxRegistrationNumber)
             ? "Standard"
             : "Simplified";
 
@@ -100,29 +109,103 @@ public partial class SaudiEInvoice
         var posting = ScriptServices.Get<IDocumentPostingService>();
         await posting.SetSubtypeAsync(TaxDocumentType, envelope.MetaId, "Issued");
 
-        if (sourceType == "SalesRealization")
-        {
-            await docs.UpdateDocumentAsync(SalesInvoiceType, sourceId,
-                new Dictionary<string, object?>
-                {
-                    ["InvoiceUuid"] = envelope.Uuid,
-                    ["ZatcaInvoiceType"] = invoiceType,
-                    ["InvoiceHash"] = envelope.InvoiceHash,
-                    ["PreviousInvoiceHash"] = envelope.PreviousInvoiceHash,
-                    ["QrCode"] = await QrCodeAsync(draft, envelope, legalEntity),
-                });
-        }
-
+        await StampSourceAsync(docs, sourceType, sourceId, envelope, draft, invoiceType, legalEntity);
         await EnqueueAsync(envelope, invoiceType, legalEntity);
 
-        var receipt = await ScriptServices.Get<ITaxAuthoritySubmitService>()
-            .SubmitDocumentAsync(envelope.MetaId);
-        var accepted = receipt.StartsWith("MOCK-OK:", StringComparison.Ordinal);
-        var target = !accepted
-            ? "Rejected"
-            : invoiceType == "Standard" ? "Cleared" : "Reported";
-        await posting.SetSubtypeAsync(TaxDocumentType, envelope.MetaId, target);
+        // Cleared/Reported come from the outbound channel, not from the mock.
+        // IsMockReject stays a stand knob that rejects without waiting for Fatoora.
+        if (await IsMockRejectAsync(legalEntity))
+        {
+            await ScriptServices.Get<ITaxAuthoritySubmitService>()
+                .SubmitDocumentAsync(envelope.MetaId);
+            await posting.SetSubtypeAsync(TaxDocumentType, envelope.MetaId, "Rejected");
+        }
         return envelope.MetaId;
+    }
+
+    /// <summary>
+    /// Copies finished Fatoora outcomes onto TaxDocument. The job
+    /// ApplyFatooraOutcomes runs this every minute; Ensure also piggybacks it
+    /// at the start of the next posting. Enqueue only writes a row — the sender
+    /// runs outside this transaction.
+    /// </summary>
+    public async Task<int> ApplyChannelOutcomesAsync()
+    {
+        var gateway = ScriptServices.Get<IOutboundGateway>();
+        var posting = ScriptServices.Get<IDocumentPostingService>();
+        var docs = ScriptServices.Get<IDocumentManager>();
+        var applied = 0;
+        foreach (var channel in FatooraChannels)
+        {
+            var batch = await gateway.TakeCompletedAsync(channel, 100);
+            var ack = new List<Guid>();
+            foreach (var status in batch)
+            {
+                var target = TargetFromChannel(status);
+                if (target == null)
+                    continue;
+
+                if (status.SourceRecordId is Guid id && id != Guid.Empty)
+                {
+                    var envelope = await docs.GetDocumentAsync<TaxDocument>(id);
+                    if (envelope != null && envelope.Subtype == "Issued")
+                    {
+                        await posting.SetSubtypeAsync(TaxDocumentType, envelope.MetaId, target);
+                        await WriteChannelSubmissionAsync(envelope, status, target);
+                        applied++;
+                    }
+                }
+                ack.Add(status.MessageId);
+            }
+            if (ack.Count > 0)
+                await gateway.AcknowledgeAsync(ack);
+        }
+        return applied;
+    }
+
+    private static string? TargetFromChannel(OutboundStatus status)
+    {
+        if (string.Equals(status.Status, "Succeeded", StringComparison.Ordinal))
+            return string.Equals(status.Channel, "fatoora-clearance", StringComparison.Ordinal)
+                ? "Cleared"
+                : "Reported";
+        if (status.Status is "Failed" or "Abandoned" or "Cancelled")
+            return "Rejected";
+        return null;
+    }
+
+    private static async Task WriteChannelSubmissionAsync(
+        TaxDocument envelope, OutboundStatus status, string target)
+    {
+        var dict = ScriptServices.Get<IDictionaryManager>();
+        var row = dict.NewRecord<TaxSubmission>();
+        row.Kind = "EINVOICE";
+        row.SourceId = envelope.MetaId;
+        row.LegalEntity = envelope.LegalEntity;
+        row.SubmittedAt = DateTime.UtcNow;
+        row.Status = target == "Rejected" ? "Rejected" : "Accepted";
+        row.Receipt = status.ExternalReference ?? status.MessageId.ToString("N");
+        row.ResponseMessage = status.LastError ?? status.Status;
+        await dict.SaveRecordAsync(row);
+    }
+
+    private static async Task StampSourceAsync(
+        IDocumentManager docs, string sourceType, Guid sourceId,
+        TaxDocument envelope, UblDraft draft, string invoiceType, Guid legalEntity)
+    {
+        var typeId = sourceType == "SalesRealization" ? SalesInvoiceType
+            : sourceType == "SalesCreditNote" ? SalesCreditNoteType
+            : Guid.Empty;
+        if (typeId == Guid.Empty) return;
+        await docs.UpdateDocumentAsync(typeId, sourceId,
+            new Dictionary<string, object?>
+            {
+                ["InvoiceUuid"] = envelope.Uuid,
+                ["ZatcaInvoiceType"] = invoiceType,
+                ["InvoiceHash"] = envelope.InvoiceHash,
+                ["PreviousInvoiceHash"] = envelope.PreviousInvoiceHash,
+                ["QrCode"] = await QrCodeAsync(draft, envelope, legalEntity),
+            });
     }
 
     private static async Task EnqueueAsync(TaxDocument envelope, string invoiceType, Guid legalEntity)
@@ -153,15 +236,33 @@ public partial class SaudiEInvoice
                 TaxDocumentType, envelope.MetaId,
                 new Dictionary<string, object?> { ["ExternalId"] = id.ToString("N") });
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            // Channel missing, or a second connection inside the posting scope.
-            // XML stays on Payload; the host can enqueue later.
+            // Channel missing, or a second connection inside the posting scope
+            // (MSDTC). XML stays on Payload; ApplyChannelOutcomesAsync / a later
+            // enqueue can still send it.
+            ScriptServices.Get<ZuloOne.Log.IZuloOneLogger<SaudiEInvoice>>()
+                .Warn(ex, "ZATCA enqueue failed for TaxDocument {0}", envelope.MetaId);
         }
     }
 
     private static async Task<string?> CredentialRefAsync(Guid legalEntity)
         => (await FindConnectionAsync(legalEntity)).CredentialRef;
+
+    private static async Task<bool> IsMockRejectAsync(Guid legalEntity)
+    {
+        try
+        {
+            if (legalEntity == Guid.Empty) return false;
+            var rows = await ScriptServices.Get<IDictionaryManager>()
+                .GetRecordsAsync<TaxAuthorityConnection>($"LegalEntity = '{legalEntity}'", take: 1);
+            return rows.Count > 0 && rows[0].IsMockReject;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
     private static async Task<(string? ConnectionRef, string? CredentialRef)> FindConnectionAsync(Guid legalEntity)
     {
@@ -436,12 +537,19 @@ public partial class SaudiEInvoice
         sb.Append("<cbc:LineExtensionAmount currencyID=\"").Append(Esc(currencyCode)).Append("\">").Append(Money(amount)).Append("</cbc:LineExtensionAmount>");
         sb.Append("<cac:TaxTotal><cbc:TaxAmount currencyID=\"").Append(Esc(currencyCode)).Append("\">").Append(Money(tax)).Append("</cbc:TaxAmount></cac:TaxTotal>");
         sb.Append("<cac:Item><cbc:Name>").Append(Esc(itemName)).Append("</cbc:Name>");
-        sb.Append("<cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>").Append(Plain(percent)).Append("</cbc:Percent>");
+        sb.Append("<cac:ClassifiedTaxCategory><cbc:ID>").Append(VatCategory(rate)).Append("</cbc:ID><cbc:Percent>").Append(Plain(percent)).Append("</cbc:Percent>");
         sb.Append("<cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item>");
         sb.Append("<cac:Price><cbc:PriceAmount currencyID=\"").Append(Esc(currencyCode)).Append("\">").Append(Money(qty == 0m ? 0m : amount / qty)).Append("</cbc:PriceAmount></cac:Price>");
         sb.Append("</cac:").Append(tag).Append('>');
         return sb.ToString();
     }
+
+    /// <summary>
+    /// ZATCA tax category on the line. S while there is a rate; Z when the
+    /// rate is zero. E/O need an exemption reason we do not yet store.
+    /// </summary>
+    private static string VatCategory(decimal rate)
+        => rate > 0m ? "S" : "Z";
 
     /// <summary>
     /// ZATCA invoice hash: Base64(SHA-256(UTF-8)). Empty input yields the

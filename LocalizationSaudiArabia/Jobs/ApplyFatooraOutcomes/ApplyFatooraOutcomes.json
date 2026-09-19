@@ -1,0 +1,14 @@
+{
+  "kind": "Job",
+  "object": {
+    "description": "Pull finished Fatoora clearance/reporting outcomes onto TaxDocument (Issued → Cleared/Reported/Rejected).",
+    "scriptMetaId": "5873203a-40d2-492b-b22b-1301d35b7e45",
+    "cronExpression": "* * * * *",
+    "isActive": true,
+    "executeSingle": true,
+    "queueTtlMinutes": 15,
+    "metaId": "43715a0e-dbd0-4602-8c34-e03fe92e071b",
+    "name": "ApplyFatooraOutcomes",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

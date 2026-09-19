@@ -188,8 +188,8 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
     private Task<System.Collections.Generic.List<TaxDocument>> EnvelopesAsync(Guid sourceId)
         => DocumentManager.QueryDocumentsAsync<TaxDocument>($"SourceDocumentId = '{sourceId}'");
 
-    [IntegrationTest("B2B Issued при включённой э-фактуре даёт TaxDocument Cleared")]
-    public async Task B2bCleared()
+    [IntegrationTest("B2B Issued ставит TaxDocument Issued — Cleared только после ответа канала")]
+    public async Task B2bStaysIssuedUntilChannelAnswers()
     {
         await EnableEInvoiceAsync(true);
         var s = await SetupAsync("B2B");
@@ -198,18 +198,19 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
 
         var envelopes = await EnvelopesAsync(invoice.MetaId);
         Assert.IsTrue(envelopes.Count == 1, "один конверт, факт {0}", envelopes.Count);
-        Assert.IsTrue(envelopes[0].InvoiceType == "Standard" && envelopes[0].Subtype == "Cleared",
-            "Standard/Cleared, факт {0}/{1}", envelopes[0].InvoiceType, envelopes[0].Subtype);
+        Assert.IsTrue(envelopes[0].InvoiceType == "Standard" && envelopes[0].Subtype == "Issued",
+            "Standard/Issued до Fatoora, факт {0}/{1}", envelopes[0].InvoiceType, envelopes[0].Subtype);
         Assert.IsTrue(envelopes[0].EInvoiceKind == "INVOICE", "INVOICE, факт {0}", envelopes[0].EInvoiceKind);
         Assert.IsTrue(envelopes[0].Uuid != Guid.Empty, "UUID конверта выдан, факт {0}", envelopes[0].Uuid);
 
         var rows = await DictionaryManager.GetRecordsAsync<TaxSubmission>($"SourceId = '{envelopes[0].MetaId}'");
-        Assert.IsTrue(rows.Count == 1 && rows[0].Kind == "EINVOICE" && rows[0].Status == "Accepted",
-            "журнал EINVOICE/Accepted, факт {0}/{1}/{2}", rows.Count, rows.FirstOrDefault()?.Kind, rows.FirstOrDefault()?.Status);
+        Assert.IsTrue(rows.Count == 0,
+            "мок больше не пишет Accepted; журнал пуст, факт {0}/{1}",
+            rows.Count, rows.FirstOrDefault()?.Status);
     }
 
-    [IntegrationTest("B2C Issued даёт TaxDocument Reported (simplified)")]
-    public async Task B2cReported()
+    [IntegrationTest("B2C Issued ставит TaxDocument Issued — Reported только после ответа канала")]
+    public async Task B2cStaysIssuedUntilChannelAnswers()
     {
         await EnableEInvoiceAsync(true);
         var s = await SetupAsync("B2C");
@@ -218,8 +219,87 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
 
         var envelopes = await EnvelopesAsync(invoice.MetaId);
         Assert.IsTrue(envelopes.Count == 1, "один конверт, факт {0}", envelopes.Count);
-        Assert.IsTrue(envelopes[0].InvoiceType == "Simplified" && envelopes[0].Subtype == "Reported",
-            "Simplified/Reported, факт {0}/{1}", envelopes[0].InvoiceType, envelopes[0].Subtype);
+        Assert.IsTrue(envelopes[0].InvoiceType == "Simplified" && envelopes[0].Subtype == "Issued",
+            "Simplified/Issued до Fatoora, факт {0}/{1}", envelopes[0].InvoiceType, envelopes[0].Subtype);
+    }
+
+    [IntegrationTest("Проведённая кредит-нота несёт QR, UUID и хеш, как счёт")]
+    public async Task PostedCreditNoteCarriesQr()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        await VatCircuitAsync();
+        var invoice = await IssueAsync(s);
+
+        var note = await DocumentManager.NewDocumentAsync<SalesCreditNote>();
+        note.Customer = s.Customer;
+        note.Outlet = s.Outlet;
+        note.Contract = s.Contract;
+        note.OriginalInvoice = invoice.MetaId;
+        await DocumentManager.SaveDocumentAsync(note);
+
+        var commandId = await Db.FindCommandIdAsync("document", "PostSalesCreditNote");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, note.MetaId);
+        Assert.IsTrue(run.Success, "PostSalesCreditNote: {0}",
+            run.Message ?? string.Join("; ", run.ClientMessages));
+
+        var posted = await DocumentManager.GetDocumentAsync<SalesCreditNote>(note.MetaId);
+        Assert.IsTrue(posted!.Subtype == SalesCreditNote.Subtypes.Posted,
+            "нота Posted, факт {0}", posted.Subtype);
+
+        var envelopes = await EnvelopesAsync(note.MetaId);
+        Assert.IsTrue(envelopes.Count == 1, "один конверт на ноту, факт {0}", envelopes.Count);
+        Assert.IsTrue(envelopes[0].EInvoiceKind == "CREDIT_NOTE" && envelopes[0].Subtype == "Issued",
+            "CREDIT_NOTE/Issued, факт {0}/{1}", envelopes[0].EInvoiceKind, envelopes[0].Subtype);
+        var xml = Convert.ToString(envelopes[0].Payload) ?? string.Empty;
+        Assert.IsTrue(xml.Contains(">381<", StringComparison.Ordinal),
+            "UBL кредит-ноты 381, длина {0}", xml.Length);
+
+        var row = await Db.GetAsync("SalesCreditNote", note.MetaId);
+        var qr = Convert.ToString(row?["QrCode"]) ?? string.Empty;
+        var hash = Convert.ToString(row?["InvoiceHash"]) ?? string.Empty;
+        Assert.IsTrue(qr.Length > 20 && hash == Convert.ToString(envelopes[0].InvoiceHash),
+            "QR и хеш на ноте, qr={0} hash={1}", qr.Length, hash);
+        Assert.IsTrue(GetService<IZatcaQr>().TagCount(qr) == 6,
+            "без PEM — теги 1–6, факт {0}", GetService<IZatcaQr>().TagCount(qr));
+    }
+
+    [IntegrationTest("Черновик кредит-ноты не создаёт TaxDocument")]
+    public async Task DraftCreditNoteDoesNotCreateEnvelope()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        await VatCircuitAsync();
+        var invoice = await IssueAsync(s);
+
+        var note = await DocumentManager.NewDocumentAsync<SalesCreditNote>();
+        note.Customer = s.Customer;
+        note.Outlet = s.Outlet;
+        note.Contract = s.Contract;
+        note.OriginalInvoice = invoice.MetaId;
+        await DocumentManager.SaveDocumentAsync(note);
+
+        var envelopes = await EnvelopesAsync(note.MetaId);
+        Assert.IsTrue(envelopes.Count == 0,
+            "конверт только после проведения, факт {0}", envelopes.Count);
+    }
+
+    [IntegrationTest("ApplyChannelOutcomes не трогает Issued, пока очередь пуста")]
+    public async Task ApplyChannelOutcomesIsNoOpWhenQueueEmpty()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        var invoice = await IssueAsync(s);
+        var before = (await EnvelopesAsync(invoice.MetaId))[0].Subtype;
+
+        await GetService<ISaudiEInvoice>().ApplyChannelOutcomesAsync();
+
+        var after = (await EnvelopesAsync(invoice.MetaId))[0].Subtype;
+        Assert.IsTrue(before == "Issued" && after == "Issued",
+            "без ответа канала подтип не двигается, факт {0}→{1}", before, after);
     }
 
     [IntegrationTest("Выключенный флаг э-фактуры не создаёт TaxDocument")]
@@ -608,5 +688,47 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
             && Convert.ToString(b[0].PreviousInvoiceHash) == Convert.ToString(a[0].InvoiceHash),
             "PIH второго = hash первого, факт {0} / {1}",
             b[0].PreviousInvoiceHash, a[0].InvoiceHash);
+    }
+
+    [IntegrationTest("Standard/Simplified — по VAT покупателя, не по CustomerType")]
+    public async Task InvoiceTypeFollowsBuyerVatNotCustomerType()
+    {
+        await EnableEInvoiceAsync(true);
+
+        var withVat = await SetupAsync("B2C");
+        await StockAsync(withVat);
+        var buyer = await DictionaryManager.GetRecordAsync<Customer>(withVat.Customer);
+        buyer!.TaxRegistrationNumber = "300000000000003";
+        await DictionaryManager.SaveRecordAsync(buyer);
+        var standard = await IssueAsync(withVat);
+        var standardEnv = (await EnvelopesAsync(standard.MetaId))[0];
+        Assert.IsTrue(standardEnv.InvoiceType == "Standard"
+            && (Convert.ToString(standardEnv.Payload) ?? "").Contains("name=\"0100000\"", StringComparison.Ordinal),
+            "VAT есть — Standard, факт {0}", standardEnv.InvoiceType);
+
+        var noVat = await SetupAsync("B2B");
+        await StockAsync(noVat);
+        var unmarked = await DictionaryManager.GetRecordAsync<Customer>(noVat.Customer);
+        unmarked!.TaxRegistrationNumber = "";
+        await DictionaryManager.SaveRecordAsync(unmarked);
+        var simplified = await IssueAsync(noVat);
+        var simplifiedEnv = (await EnvelopesAsync(simplified.MetaId))[0];
+        Assert.IsTrue(simplifiedEnv.InvoiceType == "Simplified"
+            && (Convert.ToString(simplifiedEnv.Payload) ?? "").Contains("name=\"0200000\"", StringComparison.Ordinal),
+            "VAT нет — Simplified, даже если CustomerType=B2B; факт {0}", simplifiedEnv.InvoiceType);
+    }
+
+    [IntegrationTest("Нулевая ставка в UBL — категория Z, не S")]
+    public async Task ZeroRateUsesCategoryZ()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        var invoice = await IssueAsync(s);
+        var xml = Convert.ToString((await EnvelopesAsync(invoice.MetaId))[0].Payload) ?? string.Empty;
+        Assert.IsTrue(xml.Contains("<cbc:ID>Z</cbc:ID>", StringComparison.Ordinal),
+            "нулевая ставка — Z, не S");
+        Assert.IsTrue(!xml.Contains("<cbc:ID>S</cbc:ID>", StringComparison.Ordinal),
+            "S не должен стоять при ставке 0");
     }
 }

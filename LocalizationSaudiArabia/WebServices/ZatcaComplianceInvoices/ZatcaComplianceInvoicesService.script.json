@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "WebService",
+    "objectType": "WebService",
+    "objectName": "ZatcaComplianceInvoices",
+    "objectMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+    "executionOrder": 0,
+    "metaId": "5db2e637-6cd5-4aa7-b834-787bb82c4b47",
+    "name": "ZatcaComplianceInvoicesService",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

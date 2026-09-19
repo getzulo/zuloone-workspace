@@ -1,0 +1,106 @@
+{
+  "kind": "WebService",
+  "object": {
+    "scriptMetaId": "d751a266-b8b7-4b8e-9c25-3052b2cadb50",
+    "listResponse": false,
+    "isEnabled": true,
+    "isDevOnly": true,
+    "requireExplicitRoles": false,
+    "devComments": "Stand stub: Fatoora-shaped compliance sample invoices. Dev-only; never talks to gw-fatoora.",
+    "metaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+    "name": "FatooraStubComplianceInvoices",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "parameters": [
+    {
+      "webServiceMetaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 5,
+      "metaId": "f4efb08e-8b67-4894-a5cb-4a4ffa596b06",
+      "name": "ClearanceStatus",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 2,
+      "metaId": "637a2b29-c0e8-44f2-86c3-de4cbe7af842",
+      "name": "Error",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 2,
+      "metaId": "f51067b2-b91a-4e33-ac18-7abc89e99e22",
+      "name": "Invoice",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 1,
+      "metaId": "80e5ad90-1d09-47cd-aad7-1902312ffb0d",
+      "name": "InvoiceHash",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+      "paramType": "bool",
+      "isArray": false,
+      "isResponse": true,
+      "position": 0,
+      "metaId": "02efda6a-9dd6-494e-9aba-eb83d3602b9e",
+      "name": "Ok",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 4,
+      "metaId": "963670c1-35e5-4997-b2cb-bc750a421518",
+      "name": "ReportingStatus",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 3,
+      "metaId": "2ea1b2b3-c68b-40e3-b532-c936b5334fa5",
+      "name": "RequestID",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+      "paramType": "int",
+      "isArray": false,
+      "isResponse": true,
+      "position": 1,
+      "metaId": "67cf3569-49f5-461e-bd9e-5becedfb80b7",
+      "name": "StatusCode",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 0,
+      "metaId": "40835d44-546a-4f3a-bdc6-10e55fad9669",
+      "name": "Uuid",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}

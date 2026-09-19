@@ -33,11 +33,12 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
     private static readonly Guid CsrService = Guid.Parse("d747898f-fba4-4f51-a533-5716dc582b66");
     private static readonly Guid ComplianceService = Guid.Parse("385d939a-bc36-430a-a1af-b10fd6af7157");
     private static readonly Guid ProductionCsidService = Guid.Parse("5e327b4d-01d9-4dcf-848f-5ccd38b194e8");
+    private static readonly Guid ComplianceInvoicesService = Guid.Parse("1a40065f-4eb2-4451-bbcf-8c338474b18d");
 
     [IntegrationTest("Онбординг ZATCA живёт в модели, а не в ядре")]
     public async Task EndpointsAreOwnedByThisModel()
     {
-        foreach (var id in new[] { CsrService, ComplianceService, ProductionCsidService })
+        foreach (var id in new[] { CsrService, ComplianceService, ProductionCsidService, ComplianceInvoicesService })
         {
             var ws = await Metadata.GetWebServiceAsync(id);
             Assert.IsTrue(ws != null, "веб-сервис {0} существует", id);
@@ -58,14 +59,15 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
     [IntegrationTest("Эндпоинты с секретами закрыты: dev-стенд и явный грант")]
     public async Task SecretBearingEndpointsStayGated()
     {
-        foreach (var id in new[] { CsrService, ComplianceService, ProductionCsidService })
+        foreach (var id in new[] { CsrService, ComplianceService, ProductionCsidService, ComplianceInvoicesService })
         {
             var ws = await Metadata.GetWebServiceAsync(id);
             Assert.IsTrue(ws != null, "веб-сервис {0} существует", id);
 
-            // A CSR response carries a PKCS#8 private key; the other two carry a
-            // CSID secret. Neither may be reachable on a production stand.
-            Assert.IsTrue(ws!.IsDevOnly, "{0} обязан быть dev-only: он отдаёт ключ или секрет", ws.Name);
+            // CSR returns a PKCS#8 private key; compliance/production CSID
+            // return a secret; sample invoices are the remaining onboarding
+            // door onto Fatoora. None of these may be reachable in production.
+            Assert.IsTrue(ws!.IsDevOnly, "{0} обязан быть dev-only", ws.Name);
             Assert.IsTrue(ws.RequireExplicitRoles, "{0} обязан требовать явный грант Execute", ws.Name);
             Assert.IsTrue(ws.IsEnabled, "{0} включён", ws.Name);
         }
@@ -113,7 +115,7 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
         var rows = await Sql.SelectAsync(
             "SELECT Name, Path, Signer, ModelId FROM MetaOutboundChannels WHERE Name LIKE 'fatoora-%'");
 
-        Assert.IsTrue(rows.Count == 4, "четыре канала на месте; факт {0}", rows.Count);
+        Assert.IsTrue(rows.Count == 5, "пять каналов на месте; факт {0}", rows.Count);
         foreach (var r in rows)
         {
             Assert.IsTrue(Convert.ToString(r["ModelId"])!.ToLowerInvariant() == SaudiModel.ToString("D"),
@@ -123,6 +125,9 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
             Assert.IsTrue(!string.IsNullOrWhiteSpace(Convert.ToString(r["Path"])),
                 "{0} знает свой путь", r["Name"]);
         }
+        var invoices = rows.First(r => Convert.ToString(r["Name"]) == "fatoora-compliance-invoices");
+        Assert.IsTrue(Convert.ToString(invoices["Path"]) == "/compliance/invoices",
+            "sample invoices — путь portal-manual; факт '{0}'", invoices["Path"]);
     }
 
     [IntegrationTest("Онбординг действительно ходит по каналу и разбирает ответ")]
@@ -177,5 +182,62 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
                 Convert.ToBase64String(new byte[32]));
         Assert.IsTrue(stamp == null, "нет сертификата — нет штампа, а не исключение");
         return Task.CompletedTask;
+    }
+
+    [IntegrationTest("Задание ApplyFatooraOutcomes принадлежит модели и исполняется")]
+    public async Task FatooraOutcomesJobIsOwnedAndRuns()
+    {
+        var rows = await Sql.SelectAsync(
+            "SELECT MetaId, Name, ModelId, IsActive, CronExpression, ExecuteSingle FROM MetaJobs WHERE Name = 'ApplyFatooraOutcomes'");
+        Assert.IsTrue(rows.Count == 1, "задание на месте; факт {0}", rows.Count);
+        Assert.IsTrue(Convert.ToString(rows[0]["ModelId"])!.ToLowerInvariant() == SaudiModel.ToString("D"),
+            "владелец — LocalizationSaudiArabia; факт {0}", rows[0]["ModelId"]);
+        Assert.IsTrue(Convert.ToBoolean(rows[0]["IsActive"]), "задание активно");
+        Assert.IsTrue(Convert.ToBoolean(rows[0]["ExecuteSingle"]), "не два прогона сразу");
+        Assert.IsTrue(Convert.ToString(rows[0]["CronExpression"]) == "* * * * *",
+            "каждую минуту; факт '{0}'", rows[0]["CronExpression"]);
+
+        var jobId = Guid.Parse(Convert.ToString(rows[0]["MetaId"])!);
+        var run = await Db.RunJobAsync(jobId);
+        Assert.IsTrue(run.Success, "задание отработало; факт: {0}", run.Output);
+        Assert.IsTrue(run.Output.Contains("applied=", StringComparison.Ordinal),
+            "вывод несёт число применённых ответов; факт: {0}", run.Output);
+    }
+
+    [IntegrationTest("Пустой sample invoice отвергается до канала")]
+    public async Task SubmitComplianceInvoiceRejectsEmptyPayload()
+    {
+        var threw = false;
+        try
+        {
+            await ScriptServices.Get<IZatcaOnboarding>()
+                .SubmitComplianceInvoiceAsync("", "hash", "<Invoice/>");
+        }
+        catch (ArgumentException)
+        {
+            threw = true;
+        }
+        Assert.IsTrue(threw, "пустой uuid отвергается до выхода на канал");
+    }
+
+    [IntegrationTest("Sample invoice доходит до канала и разбирает ответ")]
+    public async Task SubmitComplianceInvoiceReachesTheChannel()
+    {
+        // Live Fatoora will not issue a Production CSID until this call has
+        // succeeded for the six document kinds. The stand stub accepts one
+        // well-formed payload; XAdES and the six kinds are a later slice.
+        var outcome = await ScriptServices.Get<IZatcaOnboarding>()
+            .SubmitComplianceInvoiceAsync(
+                Guid.NewGuid().ToString(),
+                "hash-for-stand",
+                "<Invoice>stand</Invoice>");
+
+        var error = outcome.TryGetValue("error", out var e) ? e : null;
+        Assert.IsTrue(string.IsNullOrEmpty(error), "обмен без ошибки; факт '{0}'", error ?? "");
+        Assert.IsTrue(outcome.TryGetValue("status", out var status) && status == "200",
+            "статус 200; факт '{0}'", outcome.TryGetValue("status", out var s2) ? s2 : "");
+        Assert.IsTrue(outcome.TryGetValue("reportingStatus", out var reported)
+                      && !string.IsNullOrWhiteSpace(reported),
+            "reportingStatus разобран");
     }
 }

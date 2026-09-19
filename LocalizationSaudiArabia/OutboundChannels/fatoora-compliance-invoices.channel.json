@@ -1,0 +1,17 @@
+{
+  "kind": "OutboundChannel",
+  "object": {
+    "path": "/compliance/invoices",
+    "method": "POST",
+    "signer": "fatoora",
+    "credentialRef": "fatoora-csid",
+    "authMode": "Signer",
+    "baseUrl": "https://gw-fatoora.zatca.gov.sa/e-invoicing/developer-portal",
+    "contentType": "application/json",
+    "externalReferenceField": "requestID",
+    "devComments": "Onboarding: compliance sample invoices. Live Fatoora requires these before a Production CSID. Developer stands overlay this onto the local stub.",
+    "metaId": "6e562568-11ac-4b72-9c72-0e47f5486d1e",
+    "name": "fatoora-compliance-invoices",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

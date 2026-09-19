@@ -28,6 +28,7 @@ public partial class ZatcaOnboarding
 {
     public const string ComplianceChannel = "fatoora-compliance";
     public const string ProductionCsidChannel = "fatoora-production-csid";
+    public const string ComplianceInvoicesChannel = "fatoora-compliance-invoices";
 
     // Result keys — a service contract may only name types every script can see.
     public const string KeyStatus = "status";
@@ -35,6 +36,8 @@ public partial class ZatcaOnboarding
     public const string KeyToken = "binarySecurityToken";
     public const string KeySecret = "secret";
     public const string KeyError = "error";
+    public const string KeyReportingStatus = "reportingStatus";
+    public const string KeyClearanceStatus = "clearanceStatus";
 
     /// <summary>
     /// Exchanges a one-shot OTP and a CSR for a Compliance CSID.
@@ -66,7 +69,8 @@ public partial class ZatcaOnboarding
 
     /// <summary>
     /// Exchanges a Compliance CSID for a Production CSID. Live Fatoora also
-    /// wants compliance sample invoices first; the stand stub does not.
+    /// wants compliance sample invoices first (<see cref="SubmitComplianceInvoiceAsync"/>);
+    /// the stand stub does not.
     /// </summary>
     public async Task<Dictionary<string, string>> RequestProductionCsidAsync(
         string? complianceRequestId = null, string? connectionRef = null)
@@ -87,6 +91,38 @@ public partial class ZatcaOnboarding
             cancellationToken: CancellationToken.None);
 
         return Parse(result);
+    }
+
+    /// <summary>
+    /// Posts one compliance sample invoice. Live Fatoora will not issue a
+    /// Production CSID until the six document kinds have been accepted here.
+    /// The stand stub accepts a well-formed payload; XAdES is a later slice.
+    /// </summary>
+    public async Task<Dictionary<string, string>> SubmitComplianceInvoiceAsync(
+        string uuid, string invoiceHash, string invoiceXml, string? connectionRef = null)
+    {
+        if (string.IsNullOrWhiteSpace(uuid))
+            throw new ArgumentException("UUID is required", nameof(uuid));
+        if (string.IsNullOrWhiteSpace(invoiceHash))
+            throw new ArgumentException("Invoice hash is required", nameof(invoiceHash));
+        if (string.IsNullOrWhiteSpace(invoiceXml))
+            throw new ArgumentException("Invoice XML is required", nameof(invoiceXml));
+
+        var invoiceB64 = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(invoiceXml));
+        var payload = "{\"uuid\":\"" + EscapeJson(uuid.Trim())
+            + "\",\"invoiceHash\":\"" + EscapeJson(invoiceHash.Trim())
+            + "\",\"invoice\":\"" + EscapeJson(invoiceB64) + "\"}";
+
+        var result = await ScriptServices.Get<IOutboundCall>().SendAsync(
+            ComplianceInvoicesChannel,
+            payload,
+            idempotencyKey: "zatca-compliance-invoice:" + uuid.Trim(),
+            connectionRef: connectionRef,
+            headers: null,
+            requireCredential: true,
+            cancellationToken: CancellationToken.None);
+
+        return ParseInvoice(result);
     }
 
     /// <summary>Field names Fatoora answers with. requestID / requestId both occur.</summary>
@@ -126,6 +162,48 @@ public partial class ZatcaOnboarding
         catch (JsonException)
         {
             parsed[KeyError] = "CSID response is not JSON: " + Trim(result.Body!);
+        }
+
+        return parsed;
+    }
+
+    /// <summary>Compliance-invoice reply: status + reporting/clearance, no CSID secret.</summary>
+    public Dictionary<string, string> ParseInvoice(OutboundCallResult result)
+    {
+        var parsed = new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            [KeyStatus] = result.StatusCode.ToString(),
+        };
+
+        if (!string.IsNullOrEmpty(result.Error))
+        {
+            parsed[KeyError] = result.Error!;
+            return parsed;
+        }
+        if (string.IsNullOrWhiteSpace(result.Body))
+        {
+            parsed[KeyError] = "empty compliance-invoice response";
+            return parsed;
+        }
+        if (!result.Ok)
+        {
+            parsed[KeyError] = Trim(result.Body!);
+            return parsed;
+        }
+
+        try
+        {
+            using var doc = JsonDocument.Parse(result.Body!);
+            var root = doc.RootElement;
+            Put(parsed, KeyRequestId, Text(root, "requestID") ?? Text(root, "requestId"));
+            Put(parsed, KeyReportingStatus, Text(root, "reportingStatus"));
+            Put(parsed, KeyClearanceStatus, Text(root, "clearanceStatus"));
+            if (!parsed.ContainsKey(KeyReportingStatus) && !parsed.ContainsKey(KeyClearanceStatus))
+                parsed[KeyError] = "compliance-invoice response carries no reportingStatus";
+        }
+        catch (JsonException)
+        {
+            parsed[KeyError] = "compliance-invoice response is not JSON: " + Trim(result.Body!);
         }
 
         return parsed;

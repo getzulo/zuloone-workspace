@@ -1,0 +1,126 @@
+{
+  "kind": "WebService",
+  "object": {
+    "scriptMetaId": "5db2e637-6cd5-4aa7-b834-787bb82c4b47",
+    "listResponse": false,
+    "isEnabled": true,
+    "isDevOnly": true,
+    "requireExplicitRoles": true,
+    "devComments": "Posts one compliance sample invoice. Developer stands only, explicit grant required.",
+    "metaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+    "name": "ZatcaComplianceInvoices",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "parameters": [
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 5,
+      "metaId": "4e6b189a-1923-4b27-936b-35eee061f820",
+      "name": "ClearanceStatus",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 3,
+      "metaId": "7a498a77-3183-40a0-bd0e-cd096a31f3bc",
+      "name": "ConnectionRef",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 2,
+      "metaId": "9e48b9b2-faac-4c66-b0ef-6accf9522e2d",
+      "name": "Error",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 6,
+      "metaId": "540239e4-1f30-47cc-8335-70340352adb8",
+      "name": "Hint",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 2,
+      "metaId": "f7a16de3-3e82-4409-851e-605b25fbb826",
+      "name": "Invoice",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 1,
+      "metaId": "67453957-c882-41b5-a47c-22b4ad3c572b",
+      "name": "InvoiceHash",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "bool",
+      "isArray": false,
+      "isResponse": true,
+      "position": 0,
+      "metaId": "91adddc5-e137-42ab-9f9a-509cf9a2b28d",
+      "name": "Ok",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 4,
+      "metaId": "7c36eb3d-70c9-4492-ac2f-0603599f9457",
+      "name": "ReportingStatus",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 3,
+      "metaId": "ad04eb63-26c1-4d44-956c-1e4c2be9fa5f",
+      "name": "RequestID",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "int",
+      "isArray": false,
+      "isResponse": true,
+      "position": 1,
+      "metaId": "5070799f-888c-4592-88a9-8393c31418e9",
+      "name": "StatusCode",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "1a40065f-4eb2-4451-bbcf-8c338474b18d",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 0,
+      "metaId": "71bf9079-e752-49c4-821f-a2793b712bab",
+      "name": "Uuid",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "WebService",
+    "objectType": "WebService",
+    "objectName": "FatooraStubComplianceInvoices",
+    "objectMetaId": "b1e2e8b0-5021-484c-addd-10ead35c3973",
+    "executionOrder": 0,
+    "metaId": "d751a266-b8b7-4b8e-9c25-3052b2cadb50",
+    "name": "FatooraStubComplianceInvoicesService",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}
