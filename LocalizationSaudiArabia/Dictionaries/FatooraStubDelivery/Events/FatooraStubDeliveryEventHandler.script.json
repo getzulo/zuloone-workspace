@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "FatooraStubDelivery",
+    "objectMetaId": "5d587d5c-926c-58f9-8834-2b5599bae5a2",
+    "executionOrder": 0,
+    "metaId": "633d3326-884c-44a2-a91b-e993261ff8b2",
+    "name": "FatooraStubDeliveryEventHandler",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "kind": "WebService",
+  "object": {
+    "scriptMetaId": "d42b4aa3-a252-5a82-b202-150b50c399e5",
+    "listResponse": false,
+    "isEnabled": true,
+    "isDevOnly": true,
+    "requireExplicitRoles": false,
+    "devComments": "Stand stub: Fatoora-shaped B2B clearance. Replays the first answer for a repeated idempotency key.",
+    "metaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+    "name": "FatooraStubClearance",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "parameters": [
+    {
+      "webServiceMetaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 4,
+      "metaId": "2f3e918d-ba70-59c0-a110-0d44d39871a1",
+      "name": "ClearanceStatus",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 2,
+      "metaId": "362e5ddc-746c-5c49-b979-9e0ced2fb91a",
+      "name": "Error",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 2,
+      "metaId": "d944dce6-8465-579c-b4e6-45d78aa5283b",
+      "name": "Invoice",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 1,
+      "metaId": "1ce5e77d-2344-56d9-96db-ff09ad602221",
+      "name": "InvoiceHash",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+      "paramType": "bool",
+      "isArray": false,
+      "isResponse": true,
+      "position": 0,
+      "metaId": "2cd86c4b-4127-50d4-a2bc-81163490599e",
+      "name": "Ok",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+      "paramType": "bool",
+      "isArray": false,
+      "isResponse": true,
+      "position": 6,
+      "metaId": "4c071c3d-d960-539d-a3e7-a7f9f3666efc",
+      "name": "Replay",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 5,
+      "metaId": "0f56b526-4703-50a2-a735-313d5850283a",
+      "name": "ReportingStatus",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 3,
+      "metaId": "3e5bdd59-4d1a-548a-86d3-5837fa5e73cd",
+      "name": "RequestID",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+      "paramType": "int",
+      "isArray": false,
+      "isResponse": true,
+      "position": 1,
+      "metaId": "25d0cfda-df95-581d-b69f-08459b8808bc",
+      "name": "StatusCode",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "9dcf0b9f-fb79-51ef-8ffb-6e33e030f492",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 0,
+      "metaId": "494e320a-abeb-5e78-8dfb-2b1e1b63cd1a",
+      "name": "Uuid",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}

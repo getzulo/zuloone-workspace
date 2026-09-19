@@ -1,0 +1,131 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Fatoora stub delivery",
+      "ar": "تسليم محاكي فاتورة",
+      "ru": "Доставка в заглушку Fatoora",
+      "uk": "Доставка в заглушку Fatoora"
+    },
+    "description": "Что стенд-заглушка Fatoora уже приняла, по ключу идемпотентности. Заменяет статический словарь в процессе, которым жил IntegrationStubController: состояние заглушки становится ДАННЫМИ — переживает перезапуск и видно в гриде.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "fa3705d5-1261-4e5a-945a-4a7991af6326",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "isKernel": false,
+    "iconName": "fluent-color:mail-inbox-32",
+    "largeIconName": "fluent-color:mail-inbox-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "5d587d5c-926c-58f9-8834-2b5599bae5a2",
+    "name": "FatooraStubDelivery",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "5d587d5c-926c-58f9-8834-2b5599bae5a2",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "fe196ed8-aa09-4910-a638-6a242f0aea78",
+      "name": "ID",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "dictionaryMetaId": "5d587d5c-926c-58f9-8834-2b5599bae5a2",
+      "fieldName": "IdempotencyKey",
+      "baseType": "String",
+      "length": 200,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": {
+        "en": "Idempotency key",
+        "ru": "Ключ идемпотентности"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "fb5d9ae6-95fd-5ddc-9643-7217d117c61b",
+      "name": "IdempotencyKey",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "dictionaryMetaId": "5d587d5c-926c-58f9-8834-2b5599bae5a2",
+      "fieldName": "RequestBody",
+      "baseType": "String",
+      "length": 4000,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Request body",
+        "ru": "Тело запроса"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "cb040ed1-baa5-5a55-ae8e-59edb85f1d0c",
+      "name": "RequestBody",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "dictionaryMetaId": "5d587d5c-926c-58f9-8834-2b5599bae5a2",
+      "fieldName": "ResponseBody",
+      "baseType": "String",
+      "length": 4000,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Response body",
+        "ru": "Тело ответа"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7fb5d9aa-2d29-5fda-bf8d-b391084ec57b",
+      "name": "ResponseBody",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "dictionaryMetaId": "5d587d5c-926c-58f9-8834-2b5599bae5a2",
+      "fieldName": "StatusCode",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Status code",
+        "ru": "Код ответа"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "4a303879-a4c6-517f-a12f-6bf01c4e43ef",
+      "name": "StatusCode",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "WebService",
+    "objectType": "WebService",
+    "objectName": "FatooraStubClearance",
+    "executionOrder": 0,
+    "metaId": "d42b4aa3-a252-5a82-b202-150b50c399e5",
+    "name": "FatooraStubClearanceService",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

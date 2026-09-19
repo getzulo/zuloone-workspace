@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "WebService",
+    "objectType": "WebService",
+    "objectName": "FatooraStubProductionCsid",
+    "executionOrder": 0,
+    "metaId": "cd8be44e-466e-5f3f-9fbf-d2306f4b5392",
+    "name": "FatooraStubProductionCsidService",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "kind": "WebService",
+  "object": {
+    "scriptMetaId": "9c0f02c5-1386-52e5-8ab9-cf6d2b402427",
+    "listResponse": false,
+    "isEnabled": true,
+    "isDevOnly": true,
+    "requireExplicitRoles": false,
+    "devComments": "Stand stub: Fatoora-shaped Compliance CSID. Dev-only; never talks to gw-fatoora.",
+    "metaId": "d29d16ea-700d-52f4-9005-9ded94d42f0f",
+    "name": "FatooraStubCompliance",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "parameters": [
+    {
+      "webServiceMetaId": "d29d16ea-700d-52f4-9005-9ded94d42f0f",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 4,
+      "metaId": "d33c5f44-f841-56e4-99fc-41fa3438f0ae",
+      "name": "BinarySecurityToken",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "d29d16ea-700d-52f4-9005-9ded94d42f0f",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 0,
+      "metaId": "10bc3eb6-9d4b-5ede-b757-a6817566d266",
+      "name": "Csr",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "d29d16ea-700d-52f4-9005-9ded94d42f0f",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 6,
+      "metaId": "ccf7e548-2d2f-5302-ba05-a3d75f097705",
+      "name": "DispositionMessage",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "d29d16ea-700d-52f4-9005-9ded94d42f0f",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 2,
+      "metaId": "1a09742d-5223-5203-8be2-1360a5b968dc",
+      "name": "Error",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "d29d16ea-700d-52f4-9005-9ded94d42f0f",
+      "paramType": "bool",
+      "isArray": false,
+      "isResponse": true,
+      "position": 0,
+      "metaId": "6fd9a0d0-8b75-5b17-b58a-9bb42342ac71",
+      "name": "Ok",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "d29d16ea-700d-52f4-9005-9ded94d42f0f",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 3,
+      "metaId": "901b5995-86c9-58ba-a785-ef4fee7ccea7",
+      "name": "RequestID",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "d29d16ea-700d-52f4-9005-9ded94d42f0f",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 5,
+      "metaId": "b83a9470-e980-59d4-8e34-4901ff0311cc",
+      "name": "Secret",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "d29d16ea-700d-52f4-9005-9ded94d42f0f",
+      "paramType": "int",
+      "isArray": false,
+      "isResponse": true,
+      "position": 1,
+      "metaId": "f337d6f6-bc9b-5584-8d0a-8016fa5d7270",
+      "name": "StatusCode",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "WebService",
+    "objectType": "WebService",
+    "objectName": "FatooraStubReporting",
+    "executionOrder": 0,
+    "metaId": "6cf47cad-264d-5387-9af0-235eb8ef35b2",
+    "name": "FatooraStubReportingService",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

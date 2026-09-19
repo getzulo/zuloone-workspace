@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "FatooraStubDelivery ID",
+    "description": "Auto-created for the FatooraStubDelivery system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "fa3705d5-1261-4e5a-945a-4a7991af6326",
+    "name": "FatooraStubDeliveryId",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "kind": "WebService",
+  "object": {
+    "scriptMetaId": "cd8be44e-466e-5f3f-9fbf-d2306f4b5392",
+    "listResponse": false,
+    "isEnabled": true,
+    "isDevOnly": true,
+    "requireExplicitRoles": false,
+    "devComments": "Stand stub: Fatoora-shaped Production CSID. Requires Basic auth from the Compliance CSID.",
+    "metaId": "4016d253-c1cc-580d-a3e9-9a2cd191a71a",
+    "name": "FatooraStubProductionCsid",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "parameters": [
+    {
+      "webServiceMetaId": "4016d253-c1cc-580d-a3e9-9a2cd191a71a",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 4,
+      "metaId": "579836d1-1d31-55d2-81d8-03b46b9a084f",
+      "name": "BinarySecurityToken",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "4016d253-c1cc-580d-a3e9-9a2cd191a71a",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 0,
+      "metaId": "c94f53bf-ace2-536f-bcf7-70123a7fff6e",
+      "name": "ComplianceRequestId",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "4016d253-c1cc-580d-a3e9-9a2cd191a71a",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 6,
+      "metaId": "958023a3-568c-5d1c-b760-461027885c63",
+      "name": "DispositionMessage",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "4016d253-c1cc-580d-a3e9-9a2cd191a71a",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 2,
+      "metaId": "93b909eb-fda3-57d7-95b0-6b40fc9574e9",
+      "name": "Error",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "4016d253-c1cc-580d-a3e9-9a2cd191a71a",
+      "paramType": "bool",
+      "isArray": false,
+      "isResponse": true,
+      "position": 0,
+      "metaId": "8056e8f7-0076-57c7-a3be-407b76cad904",
+      "name": "Ok",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "4016d253-c1cc-580d-a3e9-9a2cd191a71a",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 3,
+      "metaId": "f626b6a4-777d-5cd5-b64e-df1b74978352",
+      "name": "RequestID",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "4016d253-c1cc-580d-a3e9-9a2cd191a71a",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 5,
+      "metaId": "ce75af68-2657-5688-b473-cd1f4328ba56",
+      "name": "Secret",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "4016d253-c1cc-580d-a3e9-9a2cd191a71a",
+      "paramType": "int",
+      "isArray": false,
+      "isResponse": true,
+      "position": 1,
+      "metaId": "20556692-5a34-5c2f-b331-0116d2637182",
+      "name": "StatusCode",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}
