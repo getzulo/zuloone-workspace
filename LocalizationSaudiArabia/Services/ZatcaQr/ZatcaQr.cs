@@ -15,12 +15,13 @@ using System.Text;
 // also means a change to the format no longer needs a platform release and a
 // pin bump — exactly the cost paid when it lived in Core.
 //
-// What stays in the host is what genuinely cannot come here:
+// What stays in the host is now exactly one thing: ICredentialSigner, which
+// resolves the CSID credential and signs with it. The PEM never leaves the
+// host, because ICredentialResolver is on the script deny-list.
 //
-//   ZatcaTlvQr.Sha256Base64   System.Security.Cryptography is NOT in the script
-//                             reference set, so a script cannot hash at all.
-//   IZatcaCsid                resolves the credential and signs; the PEM never
-//                             leaves the host.
+// Hashing used to be on that list too — not by policy, but because
+// System.Security.Cryptography was missing from the script reference set. It is
+// there now, and SaudiEInvoice computes the invoice hash itself.
 //
 // A signature over the invoice hash is not a secret — it is printed on the
 // invoice — so assembling it into the payload belongs here.
@@ -43,16 +44,34 @@ public partial class ZatcaQr
     /// <summary>The resolution's cap on the Base64 payload.</summary>
     public const int MaxBase64Length = 500;
 
+    /// <summary>
+    /// Tags 1-5 only — no invoice hash. This is the shape of the worked example
+    /// published next to the spec in QRCodeCreation.pdf, and the only way to
+    /// verify this encoder against an official byte sequence: the sample
+    /// predates the hash tag, so Encode (1-6) cannot reproduce it.
+    /// </summary>
+    public string EncodePhase1(
+        string sellerName, string vatNumber, string timestamp,
+        string invoiceTotal, string vatTotal)
+        => EncodeWithinCap(new List<(byte Tag, byte[] Value)>
+        {
+            (SellerName, Utf8(sellerName)),
+            (VatNumber, Utf8(vatNumber)),
+            (Timestamp, Utf8(timestamp)),
+            (InvoiceTotal, Utf8(invoiceTotal)),
+            (VatTotal, Utf8(vatTotal)),
+        });
+
     /// <summary>Tags 1-6: seller, VAT number, timestamp, totals, invoice hash.</summary>
     public string Encode(
         string sellerName, string vatNumber, string timestamp,
         string invoiceTotal, string vatTotal, string invoiceHash)
-        => EncodeTags(TextTags(sellerName, vatNumber, timestamp, invoiceTotal, vatTotal, invoiceHash));
+        => EncodeWithinCap(TextTags(sellerName, vatNumber, timestamp, invoiceTotal, vatTotal, invoiceHash));
 
     /// <summary>
     /// Tags 1-6 plus the CSID stamp: 7 (ECDSA over the hash), 8 (SPKI),
     /// 9 (the signature inside the certificate). The three stamp values come
-    /// from IZatcaCsid — this service never sees a key.
+    /// from ICredentialSigner — this service never sees a key.
     /// </summary>
     public string EncodeStamped(
         string sellerName, string vatNumber, string timestamp,
@@ -63,7 +82,7 @@ public partial class ZatcaQr
         tags.Add((EcdsaSignature, Convert.FromBase64String(signatureBase64)));
         tags.Add((EcdsaPublicKey, publicKeyDer ?? Array.Empty<byte>()));
         tags.Add((CryptographicStamp, certificateSignature ?? Array.Empty<byte>()));
-        return EncodeTags(tags);
+        return EncodeWithinCap(tags);
     }
 
     /// <summary>One tag's text, or "" when the payload does not carry it.</summary>
@@ -93,11 +112,52 @@ public partial class ZatcaQr
             buffer.Write(bytes);
         }
 
-        var encoded = Convert.ToBase64String(buffer.ToArray());
-        if (encoded.Length > MaxBase64Length)
+        return Convert.ToBase64String(buffer.ToArray());
+    }
+
+    /// <summary>
+    /// Encodes within the 500-character cap, shrinking the SELLER NAME until it
+    /// fits.
+    ///
+    /// <para>The cap and the stamp collide in practice: tags 2-9 are all fixed
+    /// or near-fixed — 15-byte VAT number, 20-byte timestamp, 44-byte hash, a
+    /// ~72-byte signature, a 91-byte SPKI and a ~72-byte certificate signature —
+    /// which leaves roughly 30 bytes for tag 1. An Arabic seller name is two
+    /// bytes per character, so a perfectly ordinary name overflows.</para>
+    ///
+    /// <para>Tag 1 is the only free-form field, and it is the only one that can
+    /// be shortened without destroying meaning: tags 7-9 are cryptographic and
+    /// clipping them yields a stamp that fails verification, which is worse than
+    /// a shortened name. Throwing is worse still — the caller is mid-issuance
+    /// with the envelope already saved and the ICV already spent, so an
+    /// exception here leaves a hole in the counter chain.</para>
+    ///
+    /// <para>Whether ZATCA accepts a shortened seller name is not settled in our
+    /// sources; what IS settled is that an over-long payload and an aborted
+    /// issuance are both unacceptable. If the fixed tags alone exceed the cap,
+    /// that is a configuration problem (an unusual certificate) and it throws.</para>
+    /// </summary>
+    private static string EncodeWithinCap(List<(byte Tag, byte[] Value)> tags)
+    {
+        var encoded = EncodeTags(tags);
+        if (encoded.Length <= MaxBase64Length) return encoded;
+
+        var index = tags.FindIndex(x => x.Tag == SellerName);
+        if (index < 0)
             throw new InvalidOperationException(
-                $"ZATCA QR Base64 is {encoded.Length} characters; the resolution cap is {MaxBase64Length}");
-        return encoded;
+                $"ZATCA QR Base64 is {encoded.Length} characters, over the {MaxBase64Length} cap, and carries no seller name to shorten");
+
+        var name = Encoding.UTF8.GetString(tags[index].Value);
+        while (name.Length > 0)
+        {
+            name = name[..^1];
+            tags[index] = (SellerName, Encoding.UTF8.GetBytes(name));
+            encoded = EncodeTags(tags);
+            if (encoded.Length <= MaxBase64Length) return encoded;
+        }
+
+        throw new InvalidOperationException(
+            $"ZATCA QR Base64 is {encoded.Length} characters with an EMPTY seller name; the fixed tags alone exceed the {MaxBase64Length} cap");
     }
 
     private static List<(byte Tag, byte[] Value)> DecodeRaw(string base64)

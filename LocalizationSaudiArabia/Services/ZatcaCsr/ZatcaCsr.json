@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "PKCS#10 CSR for a Fatoora CSID: P-256 keypair, C=SA, the ZATCA template names and the 1-VAT|2-…|3-… common name. Saudi certificate profile, so it lives in the Saudi model — it mints a keypair and reads no host secret.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "6f1b0d94-5c3a-4e27-9a18-2b7e4c6d8f30",
+    "metaId": "b2c5e731-48a6-4f09-95d3-7a1e0c46b8d2",
+    "name": "ZatcaCsr",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

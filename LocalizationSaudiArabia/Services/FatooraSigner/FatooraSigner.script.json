@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "FatooraSigner",
+    "executionOrder": 0,
+    "metaId": "c0a4e8d2-7b19-4f36-a52c-8d3f1b0e97a4",
+    "name": "FatooraSigner",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

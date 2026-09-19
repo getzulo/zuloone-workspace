@@ -1,7 +1,7 @@
 {
   "kind": "Service",
   "object": {
-    "description": "ZATCA QR payload: TLV tags 1-9, Base64, 500-character cap, and the invoice hash. Saudi tax format, so it lives in the Saudi model — the private key stays in the host behind IZatcaCsid.",
+    "description": "ZATCA QR payload: TLV tags 1-9, Base64, 500-character cap. Saudi tax format, so it lives in the Saudi model — the private key stays in the host behind ICredentialSigner.",
     "namespace": "ZuloOne.Services",
     "scriptMetaId": "1cf78bb8-69dc-4e01-897c-e9db81b4fa9d",
     "metaId": "44e98f53-0ae5-4c2d-b50c-5dd9b6765ff3",

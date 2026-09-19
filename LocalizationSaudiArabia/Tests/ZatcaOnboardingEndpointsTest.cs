@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 // the wrong interface.
 using ZuloOne.Core.Services;
 using ZuloOne.Core.Services.Integration;
+using ZuloOne.Runtime;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Services.Contracts;
 
@@ -23,6 +24,10 @@ using ZuloOne.Services.Contracts;
 public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
 {
     private static IMetadataService Metadata => GetService<IMetadataService>();
+
+    // MetaOutboundChannels has no typed accessor; the row is what the claim is
+    // about, so it is read directly.
+    private static ISqlService Sql => GetService<ISqlService>();
 
     private static readonly Guid SaudiModel = Guid.Parse("8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50");
     private static readonly Guid CsrService = Guid.Parse("d747898f-fba4-4f51-a533-5716dc582b66");
@@ -66,42 +71,71 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
         }
     }
 
-    [IntegrationTest("CSR собирается хостом: формат ZATCA, настоящий PKCS#10")]
-    public Task CsrIsMintedByTheHost()
+    [IntegrationTest("CSR собирается в модели: формат ZATCA, настоящий PKCS#10")]
+    public Task CsrIsMintedByThisModel()
     {
-        // ZatcaCsr stays in the kernel because ECDsa and CertificateRequest come
-        // from System.Security.Cryptography, which is NOT in the script
-        // reference set. Its signature is crypto-free, which is exactly why the
-        // web service in this model can call it.
-        var result = ZatcaCsr.Create(new ZatcaCsrRequest
-        {
-            VatNumber = "310122393500003",
-            Organization = "ACME KSA",
-            Environment = "sandbox",
-        });
+        // ZatcaCsr USED to be a kernel type, for one reason only: ECDsa and
+        // CertificateRequest come from System.Security.Cryptography, which was
+        // absent from the script reference set. It is there now, so the
+        // certificate profile of one country — C=SA, the ZATCA template names,
+        // the "1-VAT|2-…|3-…" common name — lives with that country.
+        var result = ScriptServices.Get<IZatcaCsr>()
+            .Create("310122393500003", "ACME KSA", null, null, "sandbox");
 
-        Assert.IsTrue(result.CsrPem.Contains("BEGIN CERTIFICATE REQUEST", StringComparison.Ordinal),
+        Assert.IsTrue(result["csrPem"].Contains("BEGIN CERTIFICATE REQUEST", StringComparison.Ordinal),
             "настоящий PKCS#10, а не строка-заглушка");
-        Assert.IsTrue(result.PrivateKeyPem.Contains("PRIVATE KEY", StringComparison.Ordinal),
+        Assert.IsTrue(result["privateKeyPem"].Contains("PRIVATE KEY", StringComparison.Ordinal),
             "приватный ключ в PEM");
-        Assert.IsTrue(result.Template == "PREZATCA-Code-Signing",
-            "песочница использует PREZATCA-шаблон, факт '{0}'", result.Template);
-        Assert.IsTrue(result.CommonName.StartsWith("1-310122393500003|2-", StringComparison.Ordinal),
-            "CN по шаблону ZATCA, факт '{0}'", result.CommonName);
+        Assert.IsTrue(result["template"] == "PREZATCA-Code-Signing",
+            "песочница использует PREZATCA-шаблон, факт '{0}'", result["template"]);
+        Assert.IsTrue(result["commonName"].StartsWith("1-310122393500003|2-", StringComparison.Ordinal),
+            "CN по шаблону ZATCA, факт '{0}'", result["commonName"]);
         return Task.CompletedTask;
     }
 
     [IntegrationTest("Продакшен-шаблон отличается от песочницы")]
     public Task ProductionUsesItsOwnTemplate()
     {
-        var prod = ZatcaCsr.Create(new ZatcaCsrRequest
+        var prod = ScriptServices.Get<IZatcaCsr>()
+            .Create("310122393500003", "ACME KSA", null, null, "production");
+        Assert.IsTrue(prod["template"] == "ZATCA-Code-Signing",
+            "продакшен без префикса PRE, факт '{0}'", prod["template"]);
+        return Task.CompletedTask;
+    }
+
+    [IntegrationTest("Каналы Fatoora принадлежат модели, а не настройкам платформы")]
+    public async Task ChannelsAreOwnedByThisModel()
+    {
+        // Four channels naming gw-fatoora.zatca.gov.sa used to sit in the
+        // platform's own appsettings.json — one country's addresses compiled
+        // into a product that installs everywhere. They are MetaOutboundChannel
+        // rows of this model now.
+        var rows = await Sql.SelectAsync(
+            "SELECT Name, Path, Signer, ModelId FROM MetaOutboundChannels WHERE Name LIKE 'fatoora-%'");
+
+        Assert.IsTrue(rows.Count == 4, "четыре канала на месте; факт {0}", rows.Count);
+        foreach (var r in rows)
         {
-            VatNumber = "310122393500003",
-            Organization = "ACME KSA",
-            Environment = "production",
-        });
-        Assert.IsTrue(prod.Template == "ZATCA-Code-Signing",
-            "продакшен без префикса PRE, факт '{0}'", prod.Template);
+            Assert.IsTrue(Convert.ToString(r["ModelId"])!.ToLowerInvariant() == SaudiModel.ToString("D"),
+                "{0} принадлежит саудовской модели; факт {1}", r["Name"], r["ModelId"]);
+            Assert.IsTrue(Convert.ToString(r["Signer"]) == "fatoora",
+                "{0} подписывается профилем fatoora, который тоже в этой модели", r["Name"]);
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(Convert.ToString(r["Path"])),
+                "{0} знает свой путь", r["Name"]);
+        }
+    }
+
+    [IntegrationTest("Ключ не покидает хост: подписывает ICredentialSigner")]
+    public Task HostSignsWithoutHandingOverTheKey()
+    {
+        // The counterpart of the move. Hashing and signing are ordinary script
+        // work now; reading a CONFIGURED key is not, and never becomes so.
+        // Without a CSID credential on the stand the signer answers null, and
+        // the invoice still gets a valid QR with tags 1-6.
+        var stamp = ScriptServices.Get<ICredentialSigner>()
+            .SignHash("fatoora-csid-absent-on-this-stand",
+                Convert.ToBase64String(new byte[32]));
+        Assert.IsTrue(stamp == null, "нет сертификата — нет штампа, а не исключение");
         return Task.CompletedTask;
     }
 }

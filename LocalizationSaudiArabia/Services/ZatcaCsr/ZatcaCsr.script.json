@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "ZatcaCsr",
+    "executionOrder": 0,
+    "metaId": "6f1b0d94-5c3a-4e27-9a18-2b7e4c6d8f30",
+    "name": "ZatcaCsr",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

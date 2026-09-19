@@ -84,6 +84,35 @@ public class ZatcaQrPrintableTest : IntegrationTestScriptBase
         return Task.CompletedTask;
     }
 
+    [IntegrationTest("Штампованный QR с арабским продавцом влезает в 500 и не роняет проведение")]
+    public Task StampedPayloadFitsTheCap()
+    {
+        // The case the earlier tests missed: OversizePayloadIsRefused exercises
+        // the IMAGE encoder with a string of 'A', never ZatcaQr with a real
+        // stamp. Tags 2-9 are near-fixed — 15-byte VAT, 20-byte timestamp,
+        // 44-byte hash, ~72-byte signature, 91-byte SPKI, ~72-byte certificate
+        // signature — leaving about 30 bytes for the seller name, and Arabic is
+        // two bytes a character. So an ordinary Saudi seller overflows, and the
+        // overflow used to throw INSIDE issuance, after the envelope was saved
+        // and the ICV spent.
+        var signature = new byte[72];
+        var publicKey = new byte[91];
+        var certificateSignature = new byte[72];
+
+        var qr = Qr.EncodeStamped(
+            ArabicSeller, "310122393500003", "2026-09-18T15:30:00Z", "1150.00", "150.00", InvoiceHash,
+            Convert.ToBase64String(signature), publicKey, certificateSignature);
+
+        Assert.IsTrue(qr.Length <= 500, "потолок резолюции соблюдён; факт {0}", qr.Length);
+        Assert.IsTrue(Qr.TagCount(qr) == 9, "все девять тегов на месте; факт {0}", Qr.TagCount(qr));
+
+        // The crypto tags must survive untouched — shortening them would yield a
+        // stamp that fails verification, which is worse than a shortened name.
+        Assert.IsTrue(Qr.DecodeTag(qr, 2) == "310122393500003", "тег 2 не тронут; факт '{0}'", Qr.DecodeTag(qr, 2));
+        Assert.IsTrue(Qr.DecodeTag(qr, 6) == InvoiceHash, "тег 6 не тронут");
+        return Task.CompletedTask;
+    }
+
     [IntegrationTest("Официальный образец ZATCA из QRCodeCreation.pdf кодируется и читается")]
     public Task OfficialPhase1SampleRoundTrips()
     {

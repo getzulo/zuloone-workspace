@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Fatoora request headers (Accept-Version V2, Clearance-Status, Basic token:secret). Implements the platform seam IOutboundSigner under profile 'fatoora' — one authority's request format, so it belongs to the Saudi model, not the kernel.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "c0a4e8d2-7b19-4f36-a52c-8d3f1b0e97a4",
+    "metaId": "9d63f215-4e0a-4c87-b3d1-06f5a2c84e19",
+    "name": "FatooraSigner",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

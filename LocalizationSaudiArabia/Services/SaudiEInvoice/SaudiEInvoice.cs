@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
@@ -12,13 +13,28 @@ using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
 // UBL 2.1 XML on TaxDocument.Payload; queue via IOutboundGateway.
-// SHA-256 and CSID QR tags 7–9 stay in the host. No PEM in this script.
+//
+// The invoice hash is computed HERE: System.Security.Cryptography is in the
+// script reference set, so there is no longer a reason for a kernel helper to
+// own SHA-256 on behalf of one country. What the host still owns is the KEY —
+// ICredentialSigner resolves the CSID credential and answers with the signature
+// and the public half. No PEM in this script, and none possible: a script
+// cannot resolve ICredentialResolver.
+//
 // Channels Enabled=false: row is written, nothing is posted to Fatoora.
 public partial class SaudiEInvoice
 {
     private static readonly Guid TaxDocumentType = Guid.Parse("cee833d7-fa4c-43fe-bef6-e95633ece906");
     private static readonly Guid SalesInvoiceType = Guid.Parse("34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3");
-    private static readonly string FirstPih = ZatcaTlvQr.Sha256Base64("");
+    private static readonly string FirstPih = Sha256Base64("");
+
+    /// <summary>
+    /// Credential holding the CSID PEM when a legal entity names none of its
+    /// own. The DEFAULT moved here with the rest: ICredentialSigner is
+    /// country-neutral and must not know that "fatoora-csid" is the usual name
+    /// in Saudi Arabia.
+    /// </summary>
+    private const string DefaultCsidCredential = "fatoora-csid";
 
     public Task<Guid?> EnsureForInvoiceAsync(Guid invoiceId)
         => EnsureAsync(invoiceId, "SalesRealization", "INVOICE");
@@ -78,7 +94,7 @@ public partial class SaudiEInvoice
         envelope.PreviousInvoiceHash = pih;
         var draft = await BuildUblAsync(envelope, invoice, note, customer, documentType, invoiceType);
         envelope.Payload = draft.Xml;
-        envelope.InvoiceHash = ZatcaTlvQr.Sha256Base64(draft.Xml);
+        envelope.InvoiceHash = Sha256Base64(draft.Xml);
         await docs.SaveDocumentAsync(envelope);
 
         var posting = ScriptServices.Get<IDocumentPostingService>();
@@ -361,6 +377,14 @@ public partial class SaudiEInvoice
     }
 
     /// <summary>
+    /// ZATCA invoice hash: Base64(SHA-256(UTF-8)). Empty input yields the
+    /// published first PIH from the XML Implementation Standard, where the
+    /// chain starts.
+    /// </summary>
+    private static string Sha256Base64(string? value)
+        => Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(value ?? string.Empty)));
+
+    /// <summary>
     /// The QR the invoice carries. The host signs the hash — the PEM never
     /// comes here — and the payload is assembled by this model's own ZatcaQr,
     /// because TLV tags and the 500-character cap are Saudi tax format, not
@@ -373,14 +397,16 @@ public partial class SaudiEInvoice
     {
         var hash = Convert.ToString(envelope.InvoiceHash) ?? string.Empty;
         var qr = ScriptServices.Get<IZatcaQr>();
-        var stamp = ScriptServices.Get<IZatcaCsid>()
-            .Stamp(hash, await CredentialRefAsync(legalEntity));
+        var credential = await CredentialRefAsync(legalEntity);
+        var stamp = ScriptServices.Get<ICredentialSigner>()
+            .SignHash(string.IsNullOrWhiteSpace(credential) ? DefaultCsidCredential : credential, hash);
         return stamp == null
             ? qr.Encode(draft.SellerName, draft.VatNumber, draft.Timestamp,
                         draft.InvoiceTotal, draft.VatTotal, hash)
             : qr.EncodeStamped(draft.SellerName, draft.VatNumber, draft.Timestamp,
                                draft.InvoiceTotal, draft.VatTotal, hash,
-                               stamp.SignatureBase64, stamp.PublicKeyDer, stamp.CertificateSignature);
+                               Convert.ToBase64String(stamp.Signature),
+                               stamp.PublicKeyDer, stamp.CertificateSignature);
     }
 
     private static async Task<string> ItemNameAsync(IDictionaryManager dict, Guid itemId)
