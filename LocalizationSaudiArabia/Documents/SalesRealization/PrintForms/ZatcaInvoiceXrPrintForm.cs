@@ -79,21 +79,35 @@ public partial class ZatcaInvoiceXrPrintForm : PrintFormBase
         var buyerVat = Text(buyerRow, "TaxRegistrationNumber");
         var buyerAddress = await AddressAsync(data, display, Guid1(buyerRow, "Address"), ct);
 
+        // Totals ACCUMULATED FROM THE LINES, matching SaudiEInvoice. Rounding the
+        // sum and summing the rounded lines are not the same number — three
+        // lines of 0.10 at 15% give 0.06 by line and 0.05 by total — and the
+        // printed column then failed to add up to its own printed total, while
+        // QR tags 4 and 5 carried the third variant.
         decimal net = 0m;
+        decimal tax = 0m;
+        var lineNets = new List<decimal>();
+        var lineTaxes = new List<decimal>();
         foreach (var line in invoice.Lines)
-            net += pricing.LineAmount(line.Quantity, line.UnitPrice, invoice.DiscountPercent);
-        var tax = invoice.TaxRateApplied > 0m ? taxes.CalculateTax(net, invoice.TaxRateApplied) : 0m;
+        {
+            var lineNet = pricing.LineAmount(line.Quantity, line.UnitPrice, invoice.DiscountPercent);
+            var lineTax = invoice.TaxRateApplied > 0m
+                ? taxes.CalculateTax(lineNet, invoice.TaxRateApplied)
+                : 0m;
+            lineNets.Add(lineNet);
+            lineTaxes.Add(lineTax);
+            net += lineNet;
+            tax += lineTax;
+        }
         var gross = net + tax;
         var ratePercent = invoice.TaxRateApplied * 100m;
 
         var n = 0;
         foreach (var line in invoice.Lines)
         {
+            var lineNet = lineNets[n];
+            var lineTax = lineTaxes[n];
             n++;
-            var lineNet = pricing.LineAmount(line.Quantity, line.UnitPrice, invoice.DiscountPercent);
-            var lineTax = invoice.TaxRateApplied > 0m
-                ? taxes.CalculateTax(lineNet, invoice.TaxRateApplied)
-                : 0m;
             table.Add(Row(
                 title, invoice.ID ?? "", DateText(invoice.DocumentDate),
                 seller, sellerVat, sellerCrn, sellerAddress,

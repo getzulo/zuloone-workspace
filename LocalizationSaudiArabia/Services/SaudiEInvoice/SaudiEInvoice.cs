@@ -224,12 +224,12 @@ public partial class SaudiEInvoice
         if (customer != null && customer.Address != Guid.Empty)
             buyerAddr = await dict.GetRecordAsync<Address>(customer.Address);
 
-        var countryCode = "SA";
-        if (sellerAddr != null && sellerAddr.Country != Guid.Empty)
-        {
-            var c = await dict.GetRecordAsync<Country>(sellerAddr.Country);
-            if (!string.IsNullOrWhiteSpace(c?.CodeISO2)) countryCode = c!.CodeISO2;
-        }
+        // Resolved PER PARTY. The seller's country used to be handed to both
+        // parties, so an export invoice always claimed the buyer was in SA —
+        // and a wrong buyer country on an export invoice is grounds for an
+        // assessment.
+        var seller = await PlaceAsync(dict, sellerAddr);
+        var buyer = await PlaceAsync(dict, buyerAddr);
 
         var currencyCode = "SAR";
         if (legal != null && legal.Currency != Guid.Empty)
@@ -238,7 +238,21 @@ public partial class SaudiEInvoice
             if (!string.IsNullOrWhiteSpace(cur?.Code)) currencyCode = cur!.Code;
         }
 
-        var issue = DateTime.UtcNow;
+        // The issue date is the DOCUMENT's date, not the moment of posting. The
+        // printed form has always shown DocumentDate, so UtcNow here meant a
+        // backdated invoice carried one date on paper and another in the XML
+        // and in QR tag 3 — and the VAT period followed the document while the
+        // e-invoice followed the clock.
+        //
+        // The TIME has no equivalent on the document (DocumentDate is a day),
+        // and ZATCA wants IssueTime. Where the document carries no time of day,
+        // the posting moment fills it: the date — the part that is printed,
+        // reconciled and visible in the QR — matches, and the unprinted time
+        // stays truthful about when the envelope was produced.
+        var documentDate = invoice?.DocumentDate ?? note?.DocumentDate ?? DateTime.UtcNow;
+        var issue = documentDate.TimeOfDay == TimeSpan.Zero
+            ? documentDate.Date + DateTime.UtcNow.TimeOfDay
+            : documentDate;
         var idText = invoice?.ID ?? note?.ID ?? envelope.ID;
         var rate = invoice?.TaxRateApplied ?? note?.TaxRateApplied ?? 0m;
         var discount = invoice?.DiscountPercent ?? 0m;
@@ -248,6 +262,12 @@ public partial class SaudiEInvoice
         var lineTag = documentType == "CREDIT_NOTE" ? "CreditNoteLine" : "InvoiceLine";
 
         decimal exclusive = 0m;
+        // The header total is ACCUMULATED FROM THE LINES rather than computed
+        // from the sum. Rounding at two levels does not agree: three lines of
+        // 0.10 at 15% round to 0.02 each — 0.06 — while the header rounded
+        // 0.30 x 0.15 to 0.05. The XML then carried a TaxTotal that no sum of
+        // its own lines produces, and the printed form showed both numbers.
+        decimal tax = 0m;
         var lineXml = new StringBuilder();
         var n = 0;
         if (invoice != null)
@@ -257,7 +277,8 @@ public partial class SaudiEInvoice
                 n++;
                 var amount = pricing.LineAmount(line.Quantity, line.UnitPrice, discount);
                 exclusive += amount;
-                lineXml.Append(LineXml(lineTag, n, line.Quantity, amount, rate, await ItemNameAsync(dict, line.Item), invoiced: true));
+                tax += LineTax(amount, rate);
+                lineXml.Append(LineXml(lineTag, n, line.Quantity, amount, rate, await ItemNameAsync(dict, line.Item), currencyCode, invoiced: true));
             }
         }
         else if (note != null)
@@ -267,11 +288,11 @@ public partial class SaudiEInvoice
                 n++;
                 var amount = pricing.LineAmount(line.Quantity, line.UnitPrice);
                 exclusive += amount;
-                lineXml.Append(LineXml(lineTag, n, line.Quantity, amount, rate, await ItemNameAsync(dict, line.Item), invoiced: false));
+                tax += LineTax(amount, rate);
+                lineXml.Append(LineXml(lineTag, n, line.Quantity, amount, rate, await ItemNameAsync(dict, line.Item), currencyCode, invoiced: false));
             }
         }
 
-        var tax = Math.Round(exclusive * rate, 2, MidpointRounding.AwayFromZero);
         var inclusive = exclusive + tax;
         var sellerScheme = sellerVat.Length > 0 ? "VAT" : "CRN";
         var sellerId = sellerScheme == "VAT" ? sellerVat : sellerCrn;
@@ -297,8 +318,8 @@ public partial class SaudiEInvoice
         sb.Append("<cbc:EmbeddedDocumentBinaryObject mimeCode=\"text/plain\">");
         sb.Append(Esc(envelope.PreviousInvoiceHash));
         sb.Append("</cbc:EmbeddedDocumentBinaryObject></cac:Attachment></cac:AdditionalDocumentReference>");
-        sb.Append(PartyXml("AccountingSupplierParty", legal?.Name ?? string.Empty, sellerId, sellerScheme, sellerAddr, countryCode, sellerVat, sellerCrn));
-        sb.Append(PartyXml("AccountingCustomerParty", customer?.Name ?? string.Empty, buyerVat, "VAT", buyerAddr, countryCode, buyerVat, string.Empty));
+        sb.Append(PartyXml("AccountingSupplierParty", legal?.Name ?? string.Empty, sellerId, sellerScheme, sellerAddr, seller, sellerVat, sellerCrn));
+        sb.Append(PartyXml("AccountingCustomerParty", customer?.Name ?? string.Empty, buyerVat, "VAT", buyerAddr, buyer, buyerVat, string.Empty));
         sb.Append("<cac:TaxTotal><cbc:TaxAmount currencyID=\"").Append(Esc(currencyCode)).Append("\">");
         sb.Append(Money(tax)).Append("</cbc:TaxAmount></cac:TaxTotal>");
         sb.Append("<cac:LegalMonetaryTotal>");
@@ -320,9 +341,46 @@ public partial class SaudiEInvoice
         };
     }
 
+    /// <summary>Country code and city NAME of one address, resolved once.</summary>
+    private readonly struct Place
+    {
+        public Place(string countryCode, string city) { CountryCode = countryCode; City = city; }
+        public string CountryCode { get; }
+        public string City { get; }
+    }
+
+    /// <summary>
+    /// Resolves an address into the two values UBL needs by NAME.
+    ///
+    /// <para><c>cbc:CityName</c> used to receive <c>Address.Name</c> — the
+    /// address LINE, so "Olaya HQ" travelled where "Riyadh" belongs. The
+    /// address carries a City reference; it was simply never read. The printed
+    /// form already resolved it and said so in a comment, which is how a bug
+    /// gets documented in one file and left alone in another.</para>
+    /// </summary>
+    private static async Task<Place> PlaceAsync(IDictionaryManager dict, Address? addr)
+    {
+        if (addr == null) return new Place("SA", string.Empty);
+
+        var countryCode = "SA";
+        if (addr.Country != Guid.Empty)
+        {
+            var c = await dict.GetRecordAsync<Country>(addr.Country);
+            if (!string.IsNullOrWhiteSpace(c?.CodeISO2)) countryCode = c!.CodeISO2;
+        }
+
+        var city = string.Empty;
+        if (addr.City != Guid.Empty)
+        {
+            var c = await dict.GetRecordAsync<City>(addr.City);
+            city = c?.Name ?? string.Empty;
+        }
+        return new Place(countryCode, city);
+    }
+
     private static string PartyXml(
         string tag, string name, string partyId, string scheme,
-        Address? addr, string countryCode, string vat, string crn)
+        Address? addr, Place place, string vat, string crn)
     {
         var sb = new StringBuilder();
         sb.Append("<cac:").Append(tag).Append("><cac:Party>");
@@ -337,9 +395,9 @@ public partial class SaudiEInvoice
             sb.Append("<cbc:StreetName>").Append(Esc(addr.Street)).Append("</cbc:StreetName>");
             sb.Append("<cbc:BuildingNumber>").Append(Esc(addr.Building)).Append("</cbc:BuildingNumber>");
             sb.Append("<cbc:CitySubdivisionName>").Append(Esc(addr.District)).Append("</cbc:CitySubdivisionName>");
-            sb.Append("<cbc:CityName>").Append(Esc(addr.Name)).Append("</cbc:CityName>");
+            sb.Append("<cbc:CityName>").Append(Esc(place.City)).Append("</cbc:CityName>");
             sb.Append("<cbc:PostalZone>").Append(Esc(addr.PostalCode)).Append("</cbc:PostalZone>");
-            sb.Append("<cac:Country><cbc:IdentificationCode>").Append(Esc(countryCode)).Append("</cbc:IdentificationCode></cac:Country>");
+            sb.Append("<cac:Country><cbc:IdentificationCode>").Append(Esc(place.CountryCode)).Append("</cbc:IdentificationCode></cac:Country>");
             sb.Append("</cac:PostalAddress>");
         }
         if (vat.Length > 0)
@@ -357,21 +415,30 @@ public partial class SaudiEInvoice
         return sb.ToString();
     }
 
-    private static string LineXml(string tag, int n, decimal qty, decimal amount, decimal rate, string itemName, bool invoiced)
+    /// <summary>
+    /// Tax of ONE line. The single place it is computed, so the header total
+    /// and the line amounts cannot drift apart.
+    /// </summary>
+    private static decimal LineTax(decimal amount, decimal rate)
+        => Math.Round(amount * rate, Scale, MidpointRounding.AwayFromZero);
+
+    private static string LineXml(
+        string tag, int n, decimal qty, decimal amount, decimal rate,
+        string itemName, string currencyCode, bool invoiced)
     {
-        var tax = Math.Round(amount * rate, 2, MidpointRounding.AwayFromZero);
+        var tax = LineTax(amount, rate);
         var percent = Math.Round(rate * 100m, 2, MidpointRounding.AwayFromZero);
         var qtyTag = invoiced ? "InvoicedQuantity" : "CreditedQuantity";
         var sb = new StringBuilder();
         sb.Append("<cac:").Append(tag).Append('>');
         sb.Append("<cbc:ID>").Append(n.ToString(CultureInfo.InvariantCulture)).Append("</cbc:ID>");
-        sb.Append("<cbc:").Append(qtyTag).Append(" unitCode=\"PCE\">").Append(Money(qty)).Append("</cbc:").Append(qtyTag).Append('>');
-        sb.Append("<cbc:LineExtensionAmount currencyID=\"SAR\">").Append(Money(amount)).Append("</cbc:LineExtensionAmount>");
-        sb.Append("<cac:TaxTotal><cbc:TaxAmount currencyID=\"SAR\">").Append(Money(tax)).Append("</cbc:TaxAmount></cac:TaxTotal>");
+        sb.Append("<cbc:").Append(qtyTag).Append(" unitCode=\"PCE\">").Append(Plain(qty)).Append("</cbc:").Append(qtyTag).Append('>');
+        sb.Append("<cbc:LineExtensionAmount currencyID=\"").Append(Esc(currencyCode)).Append("\">").Append(Money(amount)).Append("</cbc:LineExtensionAmount>");
+        sb.Append("<cac:TaxTotal><cbc:TaxAmount currencyID=\"").Append(Esc(currencyCode)).Append("\">").Append(Money(tax)).Append("</cbc:TaxAmount></cac:TaxTotal>");
         sb.Append("<cac:Item><cbc:Name>").Append(Esc(itemName)).Append("</cbc:Name>");
-        sb.Append("<cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>").Append(Money(percent)).Append("</cbc:Percent>");
+        sb.Append("<cac:ClassifiedTaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>").Append(Plain(percent)).Append("</cbc:Percent>");
         sb.Append("<cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:ClassifiedTaxCategory></cac:Item>");
-        sb.Append("<cac:Price><cbc:PriceAmount currencyID=\"SAR\">").Append(Money(qty == 0m ? 0m : amount / qty)).Append("</cbc:PriceAmount></cac:Price>");
+        sb.Append("<cac:Price><cbc:PriceAmount currencyID=\"").Append(Esc(currencyCode)).Append("\">").Append(Money(qty == 0m ? 0m : amount / qty)).Append("</cbc:PriceAmount></cac:Price>");
         sb.Append("</cac:").Append(tag).Append('>');
         return sb.ToString();
     }
@@ -416,7 +483,21 @@ public partial class SaudiEInvoice
         return string.IsNullOrWhiteSpace(item?.Name) ? "Item" : item!.Name;
     }
 
+    /// <summary>
+    /// Money precision of the tenant. Everything else in the business layer
+    /// reads it — PricingService, TaxService and therefore the printed form —
+    /// so a hardcoded 2 here meant that at AmountScale = 3 the paper and the
+    /// XML disagreed while the default hid it on every stand.
+    /// </summary>
+    private static int Scale => GlobalConstants.Get<int?>("AmountScale") ?? 2;
+
     private static string Money(decimal value)
+        => Math.Round(value, Scale, MidpointRounding.AwayFromZero)
+            .ToString("F" + Scale.ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture);
+
+    /// <summary>Quantities and percentages are not money; they keep two places
+    /// whatever the tenant's money scale is.</summary>
+    private static string Plain(decimal value)
         => value.ToString("0.00", CultureInfo.InvariantCulture);
 
     private static string Esc(string? value)

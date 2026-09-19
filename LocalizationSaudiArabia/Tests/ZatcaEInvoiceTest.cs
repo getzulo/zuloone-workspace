@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Managers;
+using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Services.Contracts;
@@ -278,6 +279,254 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var rows = await DictionaryManager.GetRecordsAsync<TaxSubmission>($"SourceId = '{envelopes[0].MetaId}'");
         Assert.IsTrue(rows.Count == 1 && rows[0].Status == "Rejected" && rows[0].Kind == "EINVOICE",
             "журнал Rejected/EINVOICE, факт {0}/{1}", rows.FirstOrDefault()?.Status, rows.FirstOrDefault()?.Kind);
+    }
+
+    /// <summary>
+    /// A 15% output VAT circuit: authority → jurisdiction → tax → rate →
+    /// category → code, plus TaxSettings pointing at it.
+    ///
+    /// <para>Needed because SetupAsync builds no tax circuit, so every invoice
+    /// it issues carries TaxRateApplied = 0. A rounding test on a zero rate
+    /// compares 0 with 0 and proves nothing — which is exactly what the first
+    /// version of HeaderVatEqualsTheSumOfLines did until the guard caught
+    /// it.</para>
+    /// </summary>
+    private async Task<decimal> VatCircuitAsync()
+    {
+        var from = new DateTime(2020, 1, 1);
+
+        var authority = DictionaryManager.NewRecord<TaxAuthority>();
+        authority.Code = $"AU-{Db.NewId():N}"[..10];
+        authority.Name = "ZATCA";
+        authority.CountryCode = "SA";
+        authority.IsActive = true;
+        authority = await DictionaryManager.SaveRecordAsync(authority);
+
+        var jurisdiction = DictionaryManager.NewRecord<TaxJurisdiction>();
+        jurisdiction.Code = $"JU-{Db.NewId():N}"[..10];
+        jurisdiction.Name = "Saudi Arabia";
+        jurisdiction.CountryCode = "SA";
+        jurisdiction.Level = 0;
+        jurisdiction = await DictionaryManager.SaveRecordAsync(jurisdiction);
+
+        var tax = DictionaryManager.NewRecord<Tax>();
+        tax.Code = $"VT-{Db.NewId():N}"[..10];
+        tax.Name = "Saudi VAT";
+        tax.Authority = authority.MetaId;
+        tax.Jurisdiction = jurisdiction.MetaId;
+        tax.EffectiveFrom = from;
+        tax = await DictionaryManager.SaveRecordAsync(tax);
+
+        var rate = DictionaryManager.NewRecord<TaxRate>();
+        rate.Tax = tax.MetaId;
+        rate.Code = $"R-{Db.NewId():N}"[..10];
+        rate.Rate = 0.15m;
+        rate.EffectiveFrom = from;
+        rate = await DictionaryManager.SaveRecordAsync(rate);
+
+        var category = DictionaryManager.NewRecord<TaxCategory>();
+        category.Tax = tax.MetaId;
+        category.Code = $"STD-{Db.NewId():N}"[..10];
+        category.Treatment = "STANDARD";
+        category = await DictionaryManager.SaveRecordAsync(category);
+
+        var code = DictionaryManager.NewRecord<TaxCode>();
+        code.Code = $"OUT-{Db.NewId():N}"[..10];
+        code.Name = "Standard 15%";
+        code.Tax = tax.MetaId;
+        code.TaxCategory = category.MetaId;
+        code.TaxRate = rate.MetaId;
+        code.EffectiveFrom = from;
+        code = await DictionaryManager.SaveRecordAsync(code);
+
+        if ((await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'OUTPUT'", take: 1)).Count == 0)
+        {
+            var direction = DictionaryManager.NewRecord<TaxDirection>();
+            direction.Code = "OUTPUT";
+            direction.Name = "Output";
+            await DictionaryManager.SaveRecordAsync(direction);
+        }
+
+        // TaxSettings is a SINGLETON and cached; the cache outlives a case
+        // rollback, so the existing row is edited rather than a new one added.
+        var rows = await DictionaryManager.GetRecordsAsync<TaxSettings>(null, 1);
+        var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<TaxSettings>();
+        settings.DefaultTaxCode = code.Code;
+        settings.PricesIncludeTax = false;
+        await DictionaryManager.SaveRecordAsync(settings);
+        return 0.15m;
+    }
+
+    [IntegrationTest("Дата в XML и QR — дата документа, а не момент проведения")]
+    public async Task IssueDateIsTheDocumentDate()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+
+        // Backdated on purpose: this is the case that used to put one date on
+        // paper and another in the XML and QR tag 3.
+        var backdated = DateTime.UtcNow.Date.AddDays(-18);
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
+        invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
+        invoice.Location = s.Location;
+        invoice.DocumentDate = backdated;
+        invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 10m, UnitPrice = 10m });
+        await DocumentManager.SaveDocumentAsync(invoice);
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(invoice);
+
+        var envelopes = await EnvelopesAsync(invoice.MetaId);
+        Assert.IsTrue(envelopes.Count == 1, "конверт создан, факт {0}", envelopes.Count);
+        var xml = Convert.ToString(envelopes[0].Payload) ?? string.Empty;
+        var expected = backdated.ToString("yyyy-MM-dd");
+        Assert.IsTrue(xml.Contains("<cbc:IssueDate>" + expected + "</cbc:IssueDate>", StringComparison.Ordinal),
+            "IssueDate = дата документа {0}", expected);
+
+        var row = await Db.GetAsync("SalesRealization", invoice.MetaId);
+        var qr = Convert.ToString(row?["QrCode"]) ?? string.Empty;
+        var tag3 = ScriptServices.Get<IZatcaQr>().DecodeTag(qr, 3);
+        Assert.IsTrue(tag3.StartsWith(expected, StringComparison.Ordinal),
+            "тег 3 QR начинается с даты документа; факт '{0}'", tag3);
+    }
+
+    [IntegrationTest("cbc:CityName — город из справочника, а не адресная строка")]
+    public async Task CityNameComesFromTheCityDictionary()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+
+        var legal = await DictionaryManager.GetRecordAsync<LegalEntity>(s.LegalEntity);
+        var addr = await DictionaryManager.GetRecordAsync<Address>(legal!.LegalAddress);
+
+        var city = DictionaryManager.NewRecord<City>();
+        city.Name = "Riyadh";
+        city.Country = addr!.Country;
+        city = await DictionaryManager.SaveRecordAsync(city);
+        addr.City = city.MetaId;
+        await DictionaryManager.SaveRecordAsync(addr);
+
+        var invoice = await IssueAsync(s);
+        var xml = Convert.ToString((await EnvelopesAsync(invoice.MetaId))[0].Payload) ?? string.Empty;
+
+        Assert.IsTrue(xml.Contains("<cbc:CityName>Riyadh</cbc:CityName>", StringComparison.Ordinal),
+            "город из справочника City");
+        Assert.IsTrue(!xml.Contains("<cbc:CityName>Olaya HQ</cbc:CityName>", StringComparison.Ordinal),
+            "адресная строка больше не выдаётся за город");
+    }
+
+    [IntegrationTest("У покупателя свой код страны, а не код страны продавца")]
+    public async Task BuyerKeepsItsOwnCountry()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+
+        // Export: the buyer sits in another country. The seller's code used to
+        // be written into both parties, so this always read SA.
+        var foreign = DictionaryManager.NewRecord<Country>();
+        foreign.Name = "United Arab Emirates";
+        foreign.CodeISO2 = "AE";
+        foreign.CodeISO3 = "ARE";
+        foreign.PhoneCode = "971";
+        foreign = await DictionaryManager.SaveRecordAsync(foreign);
+
+        var buyerAddress = DictionaryManager.NewRecord<Address>();
+        buyerAddress.Name = "Dubai office";
+        buyerAddress.Street = "Sheikh Zayed Rd";
+        buyerAddress.Building = "9999";
+        buyerAddress.District = "Al Quoz";
+        buyerAddress.PostalCode = "00000";
+        buyerAddress.Country = foreign.MetaId;
+        buyerAddress = await DictionaryManager.SaveRecordAsync(buyerAddress);
+
+        var customer = await DictionaryManager.GetRecordAsync<Customer>(s.Customer);
+        customer!.Address = buyerAddress.MetaId;
+        await DictionaryManager.SaveRecordAsync(customer);
+
+        var invoice = await IssueAsync(s);
+        var xml = Convert.ToString((await EnvelopesAsync(invoice.MetaId))[0].Payload) ?? string.Empty;
+
+        var buyerBlock = Between(xml, "<cac:AccountingCustomerParty>", "</cac:AccountingCustomerParty>");
+        Assert.IsTrue(buyerBlock.Contains("<cbc:IdentificationCode>AE</cbc:IdentificationCode>", StringComparison.Ordinal),
+            "страна покупателя AE; блок покупателя: {0}", buyerBlock.Length);
+    }
+
+    [IntegrationTest("НДС шапки равен сумме НДС строк до копейки")]
+    public async Task HeaderVatEqualsTheSumOfLines()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        await VatCircuitAsync();
+
+        // Three tiny lines: the case where rounding the SUM and summing the
+        // ROUNDED lines disagree.
+        var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
+        invoice.Customer = s.Customer;
+        invoice.Outlet = s.Outlet;
+        invoice.Contract = s.Contract;
+        invoice.Location = s.Location;
+        for (var i = 0; i < 3; i++)
+            invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 1m, UnitPrice = 0.10m });
+        await DocumentManager.SaveDocumentAsync(invoice);
+        invoice.Subtype = SalesRealization.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(invoice);
+
+        var xml = Convert.ToString((await EnvelopesAsync(invoice.MetaId))[0].Payload) ?? string.Empty;
+        var amounts = TaxAmounts(xml);
+        Assert.IsTrue(amounts.Count >= 2, "шапка и строки присутствуют, факт {0}", amounts.Count);
+
+        var header = amounts[0];
+        decimal lines = 0m;
+        for (var i = 1; i < amounts.Count; i++) lines += amounts[i];
+
+        // Guard against a vacuous pass: with a zero rate both sides are 0 and
+        // the equality below would prove nothing.
+        var issued = await DocumentManager.GetDocumentAsync<SalesRealization>(invoice.MetaId);
+        Assert.IsTrue(issued!.TaxRateApplied > 0m,
+            "ставка ненулевая, иначе сверка бессмысленна; факт {0}", issued.TaxRateApplied);
+        Assert.IsTrue(header > 0m, "НДС шапки ненулевой; факт {0}", header);
+
+        Assert.IsTrue(header == lines,
+            "НДС шапки {0} равен сумме строк {1}", header, lines);
+
+        // And the arithmetic itself: 3 x 0.10 at 15% is 0.02 a line.
+        var expected = decimal.Round(0.10m * issued.TaxRateApplied, 2, MidpointRounding.AwayFromZero) * 3m;
+        Assert.IsTrue(header == expected,
+            "шапка равна построчному округлению {0}; факт {1}", expected, header);
+    }
+
+    /// <summary>Every cbc:TaxAmount in document order — header first, then lines.</summary>
+    private static System.Collections.Generic.List<decimal> TaxAmounts(string xml)
+    {
+        var found = new System.Collections.Generic.List<decimal>();
+        var at = 0;
+        while (true)
+        {
+            var open = xml.IndexOf("<cbc:TaxAmount", at, StringComparison.Ordinal);
+            if (open < 0) break;
+            var gt = xml.IndexOf('>', open);
+            var close = xml.IndexOf("</cbc:TaxAmount>", gt, StringComparison.Ordinal);
+            if (gt < 0 || close < 0) break;
+            var text = xml[(gt + 1)..close];
+            if (decimal.TryParse(text, System.Globalization.NumberStyles.Any,
+                    System.Globalization.CultureInfo.InvariantCulture, out var value))
+                found.Add(value);
+            at = close + 1;
+        }
+        return found;
+    }
+
+    private static string Between(string text, string open, string close)
+    {
+        var a = text.IndexOf(open, StringComparison.Ordinal);
+        if (a < 0) return string.Empty;
+        var b = text.IndexOf(close, a, StringComparison.Ordinal);
+        return b < 0 ? string.Empty : text[a..b];
     }
 
     [IntegrationTest("Продавец: НДС, CRN, Country+District на адресе; ICV конверта = 1")]
