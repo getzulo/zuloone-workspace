@@ -54,6 +54,16 @@
       "fields": []
     },
     {
+      "name": "ItemGroup",
+      "mode": "Master",
+      "fields": []
+    },
+    {
+      "name": "Brand",
+      "mode": "Master",
+      "fields": []
+    },
+    {
       "name": "Customer",
       "mode": "Master",
       "fields": []
@@ -117,6 +127,23 @@
         "Explanation",
         "ListPrice",
         "QtyDiscountPercent"
+      ]
+    },
+    {
+      "name": "CachedReceivable",
+      "mode": "Projection",
+      "fields": [
+        "CustomerId",
+        "ContractId",
+        "Amount"
+      ]
+    },
+    {
+      "name": "CachedStock",
+      "mode": "Projection",
+      "fields": [
+        "ItemId",
+        "Qty"
       ]
     }
   ],
