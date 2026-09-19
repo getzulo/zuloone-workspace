@@ -1,0 +1,16 @@
+{
+  "kind": "OutboundChannel",
+  "object": {
+    "path": "api/dev/integration-stub/submit",
+    "method": "POST",
+    "signer": "hmac-sha256",
+    "credentialRef": "stub",
+    "authMode": "Signer",
+    "baseUrl": "http://core:8080",
+    "contentType": "application/json",
+    "externalReferenceField": "clearanceId",
+    "metaId": "4bb621e1-0347-4820-a80d-4b922014d060",
+    "name": "stub-5d7591ce",
+    "modelId": "9a864658-bf79-4f0d-8bed-fa5e0313949b"
+  }
+}

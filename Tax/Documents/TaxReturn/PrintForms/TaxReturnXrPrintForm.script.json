@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "TaxReturn",
+    "objectMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
+    "executionOrder": 0,
+    "metaId": "c363b42c-5f2d-457f-9063-76e8e0f662bb",
+    "name": "TaxReturnXrPrintForm",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

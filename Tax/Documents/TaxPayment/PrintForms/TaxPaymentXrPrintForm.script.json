@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "TaxPayment",
+    "objectMetaId": "8f3c1a67-2d90-4e45-b8c1-5a7e9d0f2b34",
+    "executionOrder": 0,
+    "metaId": "a980787b-0cd3-4553-9a38-1c0556a365a3",
+    "name": "TaxPaymentXrPrintForm",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}
