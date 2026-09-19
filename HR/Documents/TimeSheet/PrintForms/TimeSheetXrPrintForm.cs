@@ -31,7 +31,7 @@ public partial class TimeSheetXrPrintForm : PrintFormBase
 
         decimal totalHours = 0m;
         foreach (var line in doc.Lines)
-            totalHours += line.Hours;
+            totalHours += line.Hours ?? 0m;
 
         var n = 0;
         foreach (var line in doc.Lines)
@@ -40,7 +40,7 @@ public partial class TimeSheetXrPrintForm : PrintFormBase
             var employee = await NameAsync(display, "Employee", line.Employee, ct);
             table.Add(Row(
                 doc.ID ?? "", DateText(doc.DocumentDate), "", "", division, "", "", "", period,
-                0m, 0m, totalHours, n, "", line.Hours, "", 0m, 0m, 0m, 0m, employee, ""));
+                0m, 0m, totalHours, n, "", line.Hours ?? 0m, "", 0m, 0m, 0m, 0m, employee, ""));
         }
 
         if (n == 0)
