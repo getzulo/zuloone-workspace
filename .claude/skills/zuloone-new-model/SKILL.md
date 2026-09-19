@@ -91,8 +91,21 @@ description: Создать новую модель ZuloOne (модуль/при
 
 Стандартные подпапки создаются по мере надобности (пустые не нужны):
 `Dictionaries/ Documents/ Registers/ TableParts/ EDTs/ Enums/
-NumberSequences/ Scripts/ Commands/ Services/ Jobs/ Tests/ Menu/ Forms/
-Translations/`.
+NumberSequences/ Scripts/ Commands/ Services/ WebServices/ OutboundChannels/
+Jobs/ Tests/ Menu/ Forms/ Translations/`.
+
+Две последние — для интеграций, и обе уводят страновую специфику из платформы:
+
+- `WebServices/<Имя>/` — собственный эндпоинт `/api/rest/<Имя>` вместо
+  контроллера в ядре (флаги `isEnabled` / `isDevOnly` / `requireExplicitRoles`);
+- `OutboundChannels/<имя>.channel.json` — адрес, к которому ходит модель.
+  Канал кодовой формы (путь, глагол, профиль подписи), поэтому едет с моделью;
+  тенантская половина — базовый адрес и credential — остаётся в бизнес-записи
+  подключения. Конфиг `Integration:Channels` перекрывает канал по имени: это
+  способ перенаправить стенд на заглушку, не правя чужую модель.
+
+Подробности: `wiki/developer/web-services.md`,
+`wiki/developer/outbound-integrations.md`.
 
 Сразу после model.json:
 1. **Меню модели** — `Menu/menu.json` с корневой группой модели (бесшаблонные
