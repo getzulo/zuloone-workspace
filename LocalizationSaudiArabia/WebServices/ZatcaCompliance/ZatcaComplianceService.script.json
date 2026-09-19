@@ -5,7 +5,6 @@
     "objectType": "WebService",
     "objectName": "ZatcaCompliance",
     "objectMetaId": "385d939a-bc36-430a-a1af-b10fd6af7157",
-    "description": "Exchanges an OTP and a CSR for a Compliance CSID. Returns a secret — developer stands only, explicit grant required.",
     "executionOrder": 0,
     "metaId": "e142a121-2e07-4326-ad9c-b73cccd3089f",
     "name": "ZatcaComplianceService",
