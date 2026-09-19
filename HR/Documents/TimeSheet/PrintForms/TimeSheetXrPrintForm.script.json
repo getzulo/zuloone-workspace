@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "TimeSheet",
+    "objectMetaId": "0f1a2b3c-4d5e-4f6a-8b7c-9d0e1f2a3b4f",
+    "executionOrder": 0,
+    "metaId": "8abbdac3-bcd4-4247-85c9-5dae96712e3a",
+    "name": "TimeSheetXrPrintForm",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

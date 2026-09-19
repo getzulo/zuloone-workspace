@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "SocialInsuranceAccrual",
+    "objectMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
+    "executionOrder": 0,
+    "metaId": "b7b04b57-e261-49d5-b4a7-91c52a4cb281",
+    "name": "SocialInsuranceAccrualXrPrintForm",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}
