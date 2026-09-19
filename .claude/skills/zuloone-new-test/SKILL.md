@@ -72,6 +72,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
+// Тесту глобальные usings НЕ подставляются — см. раздел про коллизии имён.
 
 public class GoodsFlowTest : IntegrationTestScriptBase
 {
@@ -122,16 +123,35 @@ public class GoodsFlowTest : IntegrationTestScriptBase
 | Регистр сведений | `SetInformationAsync / SliceLastAsync / SliceFirstAsync / QueryInformationAsync / GetInformationAsync / DeleteInformationAsync` (есть и типизированные `SetInformationAsync<T>` / `SliceLastAsync<T>`) |
 | Связи документов | `AddDocumentLinkAsync / GetDocumentFamilyEdgesAsync` |
 | Команды | `FindCommandIdAsync + Execute…CommandAsync` |
-| Сервисы | `GetService<T>()` — корневые менеджеры и контракты `I<Имя>`, как в любом скрипте; в самодостаточном тесте добавь `using ZuloOne.Core.Services;` |
+| Сервисы | `GetService<T>()` — корневые менеджеры и контракты `I<Имя>`, как в любом скрипте, но `using` пиши сам (см. ниже) |
 | Точки отката | `SavepointAsync / RollbackToSavepointAsync` |
 
-**`IDocumentManager` в тесте не объявлен** — заведи его сам и возьми ПРАВИЛЬНОЕ
-пространство имён: `using ZuloOne.Managers;` (не `ZuloOne.Core.Services` — там
-лежит одноимённый ЛЕГАСИ-интерфейс на `long`-идентификаторах, и с ним будет
-`CS0246`):
+**Тест НЕ получает глобальных usings.** `RuntimeCompiler` подставляет
+`GlobalUsings.cs` только партиальным скриптам (`IsPartialScript`), а тест —
+обычный класс `: IntegrationTestScriptBase`. Обработчик события видит
+`IDataService` без единого `using`; тест на том же имени получит `CS0246`, хотя
+`ZuloOne.Core` в ссылках есть. Каждое пространство имён — руками, в файле.
+
+Отсюда же коллизии имён, и они опаснее, чем кажется:
+
+| Имя | Брать отсюда | Что ещё лежит под тем же именем |
+|---|---|---|
+| `IDocumentManager` | `ZuloOne.Managers` | легаси на `long`-идентификаторах в `ZuloOne.Core.Services` |
+| `IMetadataService` | `ZuloOne.Core.Services` | легаси в `ZuloOne.Metadata` и ещё одно в `ZuloOne.Server.Metadata` |
+| контракты моделей `I<Имя>` | `ZuloOne.Services.Contracts` | — |
+
+`IDocumentManager` из чужого namespace даёт `CS0246` — заметно сразу. С
+`IMetadataService` хуже: `using ZuloOne.Metadata;` РАЗРЕШИТ имя, но в легаси-
+интерфейс без нужных `Get*Async`, и ошибка будет `CS1061: does not contain a
+definition for GetWebServiceAsync` — читается как «в платформе нет метода» и
+уводит чинить платформу. Прежде чем дописывать ядро по такому `CS1061` —
+проверь, к какому из трёх интерфейсов привязалось имя.
 
 ```csharp
-using ZuloOne.Managers;
+using ZuloOne.Core.Services;   // IDataService, ISqlService, IMetadataService
+using ZuloOne.Managers;        // IDocumentManager, IDictionaryManager
+using ZuloOne.Services.Contracts;
+
 private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
 ```
 
