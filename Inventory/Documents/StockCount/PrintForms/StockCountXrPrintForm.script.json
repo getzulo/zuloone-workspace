@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "StockCount",
+    "objectMetaId": "57100901-0000-4000-8000-000000000000",
+    "executionOrder": 0,
+    "metaId": "db645e16-a41b-4299-a7e2-23642cc365d9",
+    "name": "StockCountXrPrintForm",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+  }
+}

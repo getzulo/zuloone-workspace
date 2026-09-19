@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "StockAdjustment",
+    "objectMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+    "executionOrder": 0,
+    "metaId": "b69661ca-8a39-433d-8769-d06aa4ec44c2",
+    "name": "StockAdjustmentXrPrintForm",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+  }
+}
