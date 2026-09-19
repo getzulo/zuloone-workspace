@@ -301,6 +301,22 @@
     },
     {
       "caption": {
+        "en": "Sales debit notes",
+        "ar": "إشعارات إضافة المبيعات",
+        "ru": "Дебет-ноты",
+        "uk": "Дебет-ноти"
+      },
+      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
+      "displayOrder": 6,
+      "icon": "fluent-color:document-arrow-right-24",
+      "targetType": "Document",
+      "targetMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "metaId": "c8b0e738-7aa2-46bf-92ab-d0719ad2f05d",
+      "name": "SalesDebitNote",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": {
         "en": "Sales contracts",
         "ar": "عقود المبيعات",
         "ru": "Договоры продаж",

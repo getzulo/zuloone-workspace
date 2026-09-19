@@ -1,7 +1,7 @@
 {
   "kind": "Service",
   "object": {
-    "description": "UBL + QR on issued invoices and posted credit notes. Cleared/Reported only from the outbound channel.",
+    "description": "UBL + QR nested in Payload; XAdES when CSID DER. Standard blocked until Cleared. Cleared/Reported only from the outbound channel.",
     "namespace": "ZuloOne.Services",
     "scriptMetaId": "92d0cc88-27ca-4329-8c1a-97bef6d6abc7",
     "metaId": "6053dac7-2049-4dcd-a898-14afe6da5df0",

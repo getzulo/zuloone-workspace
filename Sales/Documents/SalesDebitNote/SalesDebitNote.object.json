@@ -1,0 +1,256 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": {
+      "en": "Sales debit note",
+      "ar": "إشعار إضافة المبيعات",
+      "ru": "Дебет-нота",
+      "uk": "Дебет-нота"
+    },
+    "description": "Дополнительный исходящий НДС и налоговая часть дебиторки к выставленному счёту. Счёт остаётся Issued. Склад не трогает.",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "0aab612b-20ee-48f0-be13-3cfa57a9cbf3",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:document-arrow-right-24",
+    "largeIconName": "fluent-color:document-arrow-right-24",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+    "name": "SalesDebitNote",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "Contract",
+      "caption": {
+        "en": "Contract",
+        "ar": "العقد",
+        "ru": "Договор",
+        "uk": "Договір"
+      },
+      "edtMetaId": "83e80aa1-218b-4684-845d-272f72cc8bf3",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "ab6ae393-7b9b-49e1-9403-8de8cc57ae3b",
+      "name": "Contract",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "Customer",
+      "caption": {
+        "en": "Customer",
+        "ar": "العميل",
+        "ru": "Клиент",
+        "uk": "Клієнт"
+      },
+      "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "e7340b97-8c88-442d-9117-75b4467ba1c2",
+      "name": "Customer",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "ID",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "b7d3f64d-2549-4279-a07a-398169e530f1",
+      "name": "ID",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Selling legal entity",
+        "ar": "الكيان القانوني البائع",
+        "ru": "Юрлицо продавца",
+        "uk": "Юрособа продавця"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "c5b1827c-afae-4264-b029-636ff9a2ec29",
+      "name": "LegalEntity",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "OriginalInvoice",
+      "caption": {
+        "en": "Original invoice",
+        "ar": "الفاتورة الأصلية",
+        "ru": "Исходный счёт",
+        "uk": "Початковий рахунок"
+      },
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "4e341921-9195-4e26-bdc2-d14f381880ae",
+      "name": "OriginalInvoice",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "Outlet",
+      "caption": {
+        "en": "Outlet",
+        "ar": "منفذ البيع",
+        "ru": "Торговая точка",
+        "uk": "Точка"
+      },
+      "edtMetaId": "91560c1f-7be1-40df-a1e4-e65eaa794958",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "7368be58-e0d7-4ff9-af55-916f7a10be43",
+      "name": "Outlet",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "TaxRateApplied",
+      "caption": {
+        "en": "Applied tax rate",
+        "ar": "معدل الضريبة المطبق",
+        "ru": "Применённая ставка налога",
+        "uk": "Застосована ставка податку"
+      },
+      "edtMetaId": "713835c7-1701-4c43-9cf7-c754519dc5d4",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "24b87a0e-bf12-4288-af95-752377bfa6f8",
+      "name": "TaxRateApplied",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "name": "Posted",
+      "caption": {
+        "en": "Posted",
+        "ar": "مُرحَّل",
+        "uk": "Проведено"
+      },
+      "subtypeValue": "Posted",
+      "subtypeCaption": {
+        "en": "Posted",
+        "ar": "مُرحَّل",
+        "ru": "Проведена",
+        "uk": "Проведено"
+      },
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "b82f0cf0-6b83-4a80-a31a-36d81d0ae057",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "name": "Draft",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "uk": "Чернетка"
+      },
+      "subtypeValue": "Draft",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "ru": "Черновик",
+        "uk": "Чернетка"
+      },
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "c1d6a686-82af-4adb-84a0-778671043eca",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "tablePartTypeMetaId": "af18e388-5f89-4832-86b6-86e1b9f36809",
+      "isCloneable": true,
+      "metaId": "d1986651-5481-4d27-8acf-140559055103",
+      "name": "Lines",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "b82f0cf0-6b83-4a80-a31a-36d81d0ae057",
+      "scriptMetaId": "221a390e-78d7-406d-8da7-e2906c5133ae",
+      "executionOrder": 1,
+      "metaId": "03acf689-0dc1-41c4-95bb-e2f13aa8e67b",
+      "name": "",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "subtypeMetaId": "b82f0cf0-6b83-4a80-a31a-36d81d0ae057",
+      "scriptMetaId": "fc6b2093-69fd-4ed6-85b4-699552f93044",
+      "executionOrder": 2,
+      "metaId": "84e41076-02fd-4473-8bbd-df41e646cecb",
+      "name": "",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "c1d6a686-82af-4adb-84a0-778671043eca",
+      "toSubtypeMetaId": "b82f0cf0-6b83-4a80-a31a-36d81d0ae057",
+      "metaId": "13964f52-427d-4932-85b8-378781402c65",
+      "name": "Draft->Posted",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ]
+}

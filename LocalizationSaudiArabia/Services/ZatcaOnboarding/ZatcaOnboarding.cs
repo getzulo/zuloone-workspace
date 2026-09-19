@@ -95,8 +95,9 @@ public partial class ZatcaOnboarding
 
     /// <summary>
     /// Posts one compliance sample invoice. Live Fatoora will not issue a
-    /// Production CSID until the six document kinds have been accepted here.
-    /// The stand stub accepts a well-formed payload; XAdES is a later slice.
+    /// Production CSID until the six document kinds have been accepted here
+    /// (see IZatcaComplianceSamples.SubmitAllAsync). The stand stub
+    /// accepts a well-formed payload.
     /// </summary>
     public async Task<Dictionary<string, string>> SubmitComplianceInvoiceAsync(
         string uuid, string invoiceHash, string invoiceXml, string? connectionRef = null)

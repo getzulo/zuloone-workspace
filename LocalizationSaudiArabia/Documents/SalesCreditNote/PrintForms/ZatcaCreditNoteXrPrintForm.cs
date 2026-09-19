@@ -8,26 +8,9 @@ using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// ZATCA printed tax invoice.
-//
-// The field list is not invented: it is the "Visibility on Invoice (such as
-// PDF, printout, any other human readable form)" column of the E-Invoicing
-// Implementation Resolution, Annex 2. Required there means it must appear on
-// paper — separately from the Obligation column, which governs the XML. Hence
-// the document title (1.1), IRN (2.1), QR (2.4), issue date (3.1), seller name
-// /address/VAT/CRN (4.1-4.4), buyer name/address/VAT (5.1-5.3), per-line
-// description/price/quantity/net/VAT rate/VAT/gross (7.1-7.11) and the totals
-// with the literal "Amount includes VAT" (8.3-8.5).
-//
-// UUID, previous hash, ICV and issue time are NOT required on the printout —
-// they are mandatory in the XML only, so they are deliberately absent here.
-//
-// Totals must equal what is sealed inside the QR. SaudiEInvoice computes
-//   net  = Σ LineAmount(qty, price, DiscountPercent)     -- per line
-//   tax  = Round(net * TaxRateApplied, 2, AwayFromZero)
-// and ITaxService.CalculateTax rounds the same way at the default AmountScale.
-// Any other rounding here would print totals that disagree with tags 4 and 5.
-public partial class ZatcaInvoiceXrPrintForm : PrintFormBase
+// Same Annex 2 printout as ZatcaInvoiceXr, for a posted credit note.
+// Standard stays gated by BuyerReleaseBlockAsync until TaxDocument is Cleared.
+public partial class ZatcaCreditNoteXrPrintForm : PrintFormBase
 {
     public override SlimTable GetDataTemplate()
         => new SlimTable(Row(
@@ -39,14 +22,14 @@ public partial class ZatcaInvoiceXrPrintForm : PrintFormBase
     {
         var table = new SlimTable("Report");
         var documents = context.GetService<IDocumentManager>();
-        var invoice = await documents.GetDocumentAsync<SalesRealization>(context.RecordId);
-        if (invoice == null)
+        var note = await documents.GetDocumentAsync<SalesCreditNote>(context.RecordId);
+        if (note == null)
         {
             table.Add(Empty());
             return table;
         }
 
-        var block = await context.GetService<ISaudiEInvoice>().BuyerReleaseBlockAsync(invoice.MetaId);
+        var block = await context.GetService<ISaudiEInvoice>().BuyerReleaseBlockAsync(note.MetaId);
         if (!string.IsNullOrEmpty(block))
             throw new InvalidOperationException(block);
 
@@ -56,47 +39,37 @@ public partial class ZatcaInvoiceXrPrintForm : PrintFormBase
         var data = context.GetService<IDataService>();
         var ct = context.CancellationToken;
 
-        // The ZATCA fields live on the Saudi document EXTENSION. The generated
-        // SalesRealization type does not carry them, so they are read off the
-        // physical row — the same way ZatcaEInvoiceTest reads QrCode back.
-        var row = await data.GetByIdAsync("SalesRealization", invoice.MetaId);
+        var row = await data.GetByIdAsync("SalesCreditNote", note.MetaId);
         var qr = Text(row, "QrCode");
         var zatcaType = Text(row, "ZatcaInvoiceType");
-
-        // Requirement 1.1: the title is part of the document, not decoration.
         var title = string.Equals(zatcaType, "Standard", StringComparison.OrdinalIgnoreCase)
-            ? "Tax Invoice / فاتورة ضريبية"
-            : "Simplified Tax Invoice / فاتورة ضريبية مبسطة";
+            ? "Tax Credit Note / إشعار دائن ضريبي"
+            : "Simplified Tax Credit Note / إشعار دائن ضريبي مبسط";
 
-        var seller = await NameAsync(display, "LegalEntity", invoice.LegalEntity, ct);
-        var sellerRow = invoice.LegalEntity == Guid.Empty
+        var seller = await NameAsync(display, "LegalEntity", note.LegalEntity, ct);
+        var sellerRow = note.LegalEntity == Guid.Empty
             ? null
-            : await data.GetByIdAsync("LegalEntity", invoice.LegalEntity);
+            : await data.GetByIdAsync("LegalEntity", note.LegalEntity);
         var sellerVat = Text(sellerRow, "TaxRegistrationNumber");
         var sellerCrn = Text(sellerRow, "CommercialRegistration");
         var sellerAddress = await AddressAsync(data, display, Guid1(sellerRow, "LegalAddress"), ct);
 
-        var customer = await NameAsync(display, "Customer", invoice.Customer, ct);
-        var buyerRow = invoice.Customer == Guid.Empty
+        var customer = await NameAsync(display, "Customer", note.Customer, ct);
+        var buyerRow = note.Customer == Guid.Empty
             ? null
-            : await data.GetByIdAsync("Customer", invoice.Customer);
+            : await data.GetByIdAsync("Customer", note.Customer);
         var buyerVat = Text(buyerRow, "TaxRegistrationNumber");
         var buyerAddress = await AddressAsync(data, display, Guid1(buyerRow, "Address"), ct);
 
-        // Totals ACCUMULATED FROM THE LINES, matching SaudiEInvoice. Rounding the
-        // sum and summing the rounded lines are not the same number — three
-        // lines of 0.10 at 15% give 0.06 by line and 0.05 by total — and the
-        // printed column then failed to add up to its own printed total, while
-        // QR tags 4 and 5 carried the third variant.
         decimal net = 0m;
         decimal tax = 0m;
         var lineNets = new List<decimal>();
         var lineTaxes = new List<decimal>();
-        foreach (var line in invoice.Lines)
+        foreach (var line in note.Lines)
         {
-            var lineNet = pricing.LineAmount(line.Quantity, line.UnitPrice, invoice.DiscountPercent);
-            var lineTax = invoice.TaxRateApplied > 0m
-                ? taxes.CalculateTax(lineNet, invoice.TaxRateApplied)
+            var lineNet = pricing.LineAmount(line.Quantity, line.UnitPrice);
+            var lineTax = note.TaxRateApplied > 0m
+                ? taxes.CalculateTax(lineNet, note.TaxRateApplied)
                 : 0m;
             lineNets.Add(lineNet);
             lineTaxes.Add(lineTax);
@@ -104,32 +77,32 @@ public partial class ZatcaInvoiceXrPrintForm : PrintFormBase
             tax += lineTax;
         }
         var gross = net + tax;
-        var ratePercent = invoice.TaxRateApplied * 100m;
+        var ratePercent = note.TaxRateApplied * 100m;
 
         var n = 0;
-        foreach (var line in invoice.Lines)
+        foreach (var line in note.Lines)
         {
             var lineNet = lineNets[n];
             var lineTax = lineTaxes[n];
             n++;
             table.Add(Row(
-                title, invoice.ID ?? "", DateText(invoice.DocumentDate),
+                title, note.ID ?? "", DateText(note.DocumentDate),
                 seller, sellerVat, sellerCrn, sellerAddress,
                 customer, buyerVat, buyerAddress,
-                qr, zatcaType, invoice.Notes ?? "",
+                qr, zatcaType, "",
                 ratePercent, net, tax, gross, "Amount includes VAT / المبلغ شامل الضريبة",
                 n, await NameAsync(display, "Item", line.Item, ct), line.Quantity,
-                await NameAsync(display, "UnitOfMeasure", line.Unit, ct),
+                "",
                 line.UnitPrice, lineNet, lineTax, lineNet + lineTax));
         }
 
         if (n == 0)
         {
             table.Add(Row(
-                title, invoice.ID ?? "", DateText(invoice.DocumentDate),
+                title, note.ID ?? "", DateText(note.DocumentDate),
                 seller, sellerVat, sellerCrn, sellerAddress,
                 customer, buyerVat, buyerAddress,
-                qr, zatcaType, invoice.Notes ?? "",
+                qr, zatcaType, "",
                 ratePercent, net, tax, gross, "Amount includes VAT / المبلغ شامل الضريبة",
                 0, "", 0m, "", 0m, 0m, 0m, 0m));
         }
@@ -137,12 +110,6 @@ public partial class ZatcaInvoiceXrPrintForm : PrintFormBase
         return table;
     }
 
-    /// <summary>
-    /// One address line. Resolves City through the City dictionary rather than
-    /// reusing Address.Name: the UBL builder emits addr.Name as cbc:CityName,
-    /// which is the address line, not the city — a bug not worth copying onto
-    /// paper.
-    /// </summary>
     private static async Task<string> AddressAsync(
         IDataService data, IReferenceDisplay display, Guid addressId, CancellationToken ct)
     {

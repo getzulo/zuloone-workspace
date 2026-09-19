@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "ZATCA invoice hash (C14N 1.0 minus UBLExtensions/Signature/QR) and embed of QR plus optional XAdES-BES. Saudi tax format; C14N itself is the host IXmlCanonicalizer.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "2ed55754-3250-43f7-aeb1-1b5b281ba4d9",
+    "metaId": "34184092-8329-4edf-a513-1cc9ec945801",
+    "name": "ZatcaXades",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

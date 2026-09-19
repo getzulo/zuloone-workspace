@@ -6,8 +6,8 @@ using ZuloOne.Runtime.WebServices;
 // Stand stub for Fatoora — compliance sample invoices.
 //
 // Live Fatoora will not issue a Production CSID until this path has accepted
-// the six document kinds. The stub accepts one well-formed payload so the
-// onboarding service can be tested without XAdES or gw-fatoora.
+// the six document kinds. The stub accepts each well-formed payload so the
+// onboarding service can be tested without gw-fatoora.
 //
 // isDevOnly, so the whole thing is 404 on a production stand. No explicit-role
 // gate: the outbound sender calls it unauthenticated, exactly as it would call

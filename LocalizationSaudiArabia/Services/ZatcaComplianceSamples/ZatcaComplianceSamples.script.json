@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "ZatcaComplianceSamples",
+    "executionOrder": 0,
+    "metaId": "dd91c67c-074b-4b4a-97c4-3dd4bdd5d045",
+    "name": "ZatcaComplianceSamples",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

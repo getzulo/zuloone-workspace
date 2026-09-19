@@ -1,0 +1,86 @@
+{
+  "kind": "WebService",
+  "object": {
+    "scriptMetaId": "dd09859b-0c4d-4b95-8904-8e7b61486082",
+    "listResponse": false,
+    "isEnabled": true,
+    "isDevOnly": true,
+    "requireExplicitRoles": true,
+    "devComments": "Builds and posts the six ZATCA compliance sample kinds. Developer stands only, explicit grant required. Does not persist CSID secrets.",
+    "metaId": "7d1570c5-92e1-4f0d-b178-feecb890460f",
+    "name": "ZatcaComplianceSamples",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "parameters": [
+    {
+      "webServiceMetaId": "7d1570c5-92e1-4f0d-b178-feecb890460f",
+      "paramType": "int",
+      "isArray": false,
+      "isResponse": true,
+      "position": 2,
+      "metaId": "bce99e59-68a7-4d30-b4cd-4d0bcfddb631",
+      "name": "Accepted",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "7d1570c5-92e1-4f0d-b178-feecb890460f",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 0,
+      "metaId": "fe47e595-d339-409d-ad1d-0746e3cf072d",
+      "name": "ConnectionRef",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "7d1570c5-92e1-4f0d-b178-feecb890460f",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 4,
+      "metaId": "8351ef25-5640-42b9-8bd4-8cef95e887f3",
+      "name": "Error",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "7d1570c5-92e1-4f0d-b178-feecb890460f",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 5,
+      "metaId": "828ab81d-0b87-49f7-bebf-6c8227f6578a",
+      "name": "Hint",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "7d1570c5-92e1-4f0d-b178-feecb890460f",
+      "paramType": "bool",
+      "isArray": false,
+      "isResponse": true,
+      "position": 0,
+      "metaId": "1d3c0c28-49e6-4a80-ad5e-696ceb2a50a0",
+      "name": "Ok",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "7d1570c5-92e1-4f0d-b178-feecb890460f",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 3,
+      "metaId": "fd193fe0-b7f8-4b09-aede-055897ed5774",
+      "name": "Results",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "webServiceMetaId": "7d1570c5-92e1-4f0d-b178-feecb890460f",
+      "paramType": "int",
+      "isArray": false,
+      "isResponse": true,
+      "position": 1,
+      "metaId": "d43697e3-304c-4578-81ee-e002b6a3599c",
+      "name": "StatusCode",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}

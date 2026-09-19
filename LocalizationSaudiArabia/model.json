@@ -7,7 +7,7 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.17.0",
+    "modelVersion": "1.24.0",
     "metaId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
     "name": "LocalizationSaudiArabia",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -22,7 +22,7 @@
     },
     {
       "dependsOnModelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
-      "minVersion": "1.0.0",
+      "minVersion": "1.30.0",
       "metaId": "9e3a6b52-0d7c-4f4a-9b8e-2c5d7f3a0b60",
       "name": "LocalizationSaudiArabia->Sales"
     },

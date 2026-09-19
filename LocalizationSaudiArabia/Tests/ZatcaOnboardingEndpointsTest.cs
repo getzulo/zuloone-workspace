@@ -34,11 +34,12 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
     private static readonly Guid ComplianceService = Guid.Parse("385d939a-bc36-430a-a1af-b10fd6af7157");
     private static readonly Guid ProductionCsidService = Guid.Parse("5e327b4d-01d9-4dcf-848f-5ccd38b194e8");
     private static readonly Guid ComplianceInvoicesService = Guid.Parse("1a40065f-4eb2-4451-bbcf-8c338474b18d");
+    private static readonly Guid ComplianceSamplesService = Guid.Parse("7d1570c5-92e1-4f0d-b178-feecb890460f");
 
     [IntegrationTest("Онбординг ZATCA живёт в модели, а не в ядре")]
     public async Task EndpointsAreOwnedByThisModel()
     {
-        foreach (var id in new[] { CsrService, ComplianceService, ProductionCsidService, ComplianceInvoicesService })
+        foreach (var id in new[] { CsrService, ComplianceService, ProductionCsidService, ComplianceInvoicesService, ComplianceSamplesService })
         {
             var ws = await Metadata.GetWebServiceAsync(id);
             Assert.IsTrue(ws != null, "веб-сервис {0} существует", id);
@@ -59,14 +60,15 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
     [IntegrationTest("Эндпоинты с секретами закрыты: dev-стенд и явный грант")]
     public async Task SecretBearingEndpointsStayGated()
     {
-        foreach (var id in new[] { CsrService, ComplianceService, ProductionCsidService, ComplianceInvoicesService })
+        foreach (var id in new[] { CsrService, ComplianceService, ProductionCsidService, ComplianceInvoicesService, ComplianceSamplesService })
         {
             var ws = await Metadata.GetWebServiceAsync(id);
             Assert.IsTrue(ws != null, "веб-сервис {0} существует", id);
 
             // CSR returns a PKCS#8 private key; compliance/production CSID
-            // return a secret; sample invoices are the remaining onboarding
-            // door onto Fatoora. None of these may be reachable in production.
+            // return a secret; sample invoices and the six-kind batch are the
+            // remaining onboarding door onto Fatoora. None of these may be
+            // reachable in production.
             Assert.IsTrue(ws!.IsDevOnly, "{0} обязан быть dev-only", ws.Name);
             Assert.IsTrue(ws.RequireExplicitRoles, "{0} обязан требовать явный грант Execute", ws.Name);
             Assert.IsTrue(ws.IsEnabled, "{0} включён", ws.Name);
@@ -225,7 +227,7 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
     {
         // Live Fatoora will not issue a Production CSID until this call has
         // succeeded for the six document kinds. The stand stub accepts one
-        // well-formed payload; XAdES and the six kinds are a later slice.
+        // well-formed payload; the six-kind builder is SubmitAllAsync.
         var outcome = await ScriptServices.Get<IZatcaOnboarding>()
             .SubmitComplianceInvoiceAsync(
                 Guid.NewGuid().ToString(),
@@ -239,5 +241,71 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
         Assert.IsTrue(outcome.TryGetValue("reportingStatus", out var reported)
                       && !string.IsNullOrWhiteSpace(reported),
             "reportingStatus разобран");
+    }
+
+    [IntegrationTest("Шесть compliance-видов: коды UBL и KSA")]
+    public Task SixKindsCarryUblAndKsaCodes()
+    {
+        var kinds = ScriptServices.Get<IZatcaComplianceSamples>().KindCodes();
+        Assert.IsTrue(kinds.Count == 6, "ровно шесть видов; факт {0}", kinds.Count);
+        Assert.IsTrue(kinds["standard-invoice"] == "388:0100000", "standard invoice");
+        Assert.IsTrue(kinds["standard-credit"] == "381:0100000", "standard credit");
+        Assert.IsTrue(kinds["standard-debit"] == "383:0100000", "standard debit");
+        Assert.IsTrue(kinds["simplified-invoice"] == "388:0200000", "simplified invoice");
+        Assert.IsTrue(kinds["simplified-credit"] == "381:0200000", "simplified credit");
+        Assert.IsTrue(kinds["simplified-debit"] == "383:0200000", "simplified debit");
+        return Task.CompletedTask;
+    }
+
+    [IntegrationTest("Debit sample — DebitNote / 383, QR вложен, хеш его не включает")]
+    public Task DebitSampleNestsQrAndHashIgnoresIt()
+    {
+        var samples = ScriptServices.Get<IZatcaComplianceSamples>();
+        var debit = samples.Build("standard-debit");
+        var xml = debit["xml"];
+        Assert.IsTrue(xml.Contains("<DebitNote ", StringComparison.Ordinal)
+            && xml.Contains(">383<", StringComparison.Ordinal)
+            && xml.Contains("name=\"0100000\"", StringComparison.Ordinal),
+            "standard debit 383 / 0100000");
+        Assert.IsTrue(xml.Contains("<cbc:ID>QR</cbc:ID>", StringComparison.Ordinal),
+            "QR вложен в sample");
+        Assert.IsTrue(GetService<IZatcaXades>().InvoiceHash(xml) == debit["invoiceHash"],
+            "хеш sample не включает QR/XAdES");
+        return Task.CompletedTask;
+    }
+
+    [IntegrationTest("SubmitAll шлёт шесть видов на канал и не трогает zatca-icv")]
+    public async Task SubmitAllSendsSixKindsWithoutBurningIcv()
+    {
+        var counters = GetService<IKeyedCounterService>();
+        var scope = Db.NewId();
+        var before = await counters.TakeAsync("zatca-icv", scope);
+
+        var outcomes = await ScriptServices.Get<IZatcaComplianceSamples>().SubmitAllAsync();
+        Assert.IsTrue(outcomes.Count == 6, "шесть ответов; факт {0}", outcomes.Count);
+        foreach (var kv in outcomes)
+        {
+            Assert.IsTrue(kv.Value == "200", "{0} принят stub; факт '{1}'", kv.Key, kv.Value);
+        }
+
+        var after = await counters.TakeAsync("zatca-icv", scope);
+        Assert.IsTrue(after.Value == before.Value + 1,
+            "samples не жгут живой ICV; до {0} после {1}", before.Value, after.Value);
+    }
+
+    [IntegrationTest("Неизвестный kind отвергается до канала")]
+    public Task UnknownKindIsRejected()
+    {
+        var threw = false;
+        try
+        {
+            ScriptServices.Get<IZatcaComplianceSamples>().Build("not-a-kind");
+        }
+        catch (ArgumentException)
+        {
+            threw = true;
+        }
+        Assert.IsTrue(threw, "мусорный kind не становится UBL");
+        return Task.CompletedTask;
     }
 }

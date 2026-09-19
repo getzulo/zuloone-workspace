@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "ae3290f1-aa67-4c61-928d-6157185f606c",
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "SalesDebitNote",
+    "objectMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+    "executionOrder": 2,
+    "metaId": "fc6b2093-69fd-4ed6-85b4-699552f93044",
+    "name": "SaudiDebitVatTx",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

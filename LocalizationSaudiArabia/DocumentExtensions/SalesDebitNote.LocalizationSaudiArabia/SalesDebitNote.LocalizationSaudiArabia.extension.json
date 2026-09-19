@@ -1,0 +1,126 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+    "description": "Исходящий НДС КСА в VatPayable и поля э-фактуры ZATCA на дебет-ноте",
+    "metaId": "ae3290f1-aa67-4c61-928d-6157185f606c",
+    "name": "SalesDebitNote.LocalizationSaudiArabia",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "fields": [
+    {
+      "extensionMetaId": "ae3290f1-aa67-4c61-928d-6157185f606c",
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "InvoiceHash",
+      "caption": {
+        "en": "Invoice hash",
+        "ar": "بصمة الفاتورة",
+        "ru": "Хеш фактуры",
+        "uk": "Хеш фактури"
+      },
+      "baseType": "String",
+      "length": 128,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 53,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "d55c7afe-4f38-43cc-9ed7-52bb7fdcaf79",
+      "name": "InvoiceHash",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "extensionMetaId": "ae3290f1-aa67-4c61-928d-6157185f606c",
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "InvoiceUuid",
+      "caption": {
+        "en": "E-invoice UUID",
+        "ar": "المعرف الفريد للفاتورة الإلكترونية",
+        "ru": "UUID э-фактуры",
+        "uk": "UUID е-фактури"
+      },
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 50,
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "f6201794-92a5-4793-8110-e7b8082e427d",
+      "name": "InvoiceUuid",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "extensionMetaId": "ae3290f1-aa67-4c61-928d-6157185f606c",
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "PreviousInvoiceHash",
+      "caption": {
+        "en": "Previous invoice hash",
+        "ar": "بصمة الفاتورة السابقة",
+        "ru": "Хеш предыдущей фактуры",
+        "uk": "Хеш попередньої фактури"
+      },
+      "baseType": "String",
+      "length": 128,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 52,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "49416e42-3bd8-445e-87b3-1a103bda6040",
+      "name": "PreviousInvoiceHash",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "extensionMetaId": "ae3290f1-aa67-4c61-928d-6157185f606c",
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "QrCode",
+      "caption": {
+        "en": "QR",
+        "ar": "رمز الاستجابة السريعة",
+        "ru": "QR",
+        "uk": "QR"
+      },
+      "baseType": "String",
+      "length": 1024,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 54,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "7a6f1a05-c0fd-4777-b22f-c2ee5b5eb3b2",
+      "name": "QrCode",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "extensionMetaId": "ae3290f1-aa67-4c61-928d-6157185f606c",
+      "documentTypeMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "fieldName": "ZatcaInvoiceType",
+      "caption": {
+        "en": "ZATCA invoice type",
+        "ar": "نوع الفاتورة لدى الهيئة",
+        "ru": "Тип фактуры ZATCA",
+        "uk": "Тип фактури ZATCA"
+      },
+      "baseType": "String",
+      "length": 16,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 51,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "cd63662e-f300-400e-85ed-f7867b738b77",
+      "name": "ZatcaInvoiceType",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}

@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using ZuloOne.Managers;
 using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Services.Contracts;
+using ZuloOne.Core.Services;
 using ZuloOne.Core.Services.Integration;
 
 // Slice 1 ZATCA: envelope + mock. No XML, QR, CSID, HTTPS.
@@ -255,6 +258,15 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var xml = Convert.ToString(envelopes[0].Payload) ?? string.Empty;
         Assert.IsTrue(xml.Contains(">381<", StringComparison.Ordinal),
             "UBL кредит-ноты 381, длина {0}", xml.Length);
+        Assert.IsTrue(!string.IsNullOrEmpty(invoice.ID)
+                && xml.Contains(">" + invoice.ID + "<", StringComparison.Ordinal),
+            "BillingReference на номер исходного счёта {0}", invoice.ID);
+        var invRow = await Db.GetAsync("SalesRealization", invoice.MetaId);
+        var origUuid = Convert.ToString(invRow?["InvoiceUuid"]) ?? string.Empty;
+        Assert.IsTrue(origUuid.Length > 0 && xml.Contains(origUuid, StringComparison.Ordinal),
+            "BillingReference несёт UUID исходного счёта");
+        Assert.IsTrue(xml.Contains("<cbc:InstructionNote>CANCELLATION</cbc:InstructionNote>", StringComparison.Ordinal),
+            "PaymentMeans/InstructionNote как в compliance sample");
 
         var row = await Db.GetAsync("SalesCreditNote", note.MetaId);
         var qr = Convert.ToString(row?["QrCode"]) ?? string.Empty;
@@ -279,6 +291,92 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         note.Outlet = s.Outlet;
         note.Contract = s.Contract;
         note.OriginalInvoice = invoice.MetaId;
+        await DocumentManager.SaveDocumentAsync(note);
+
+        var envelopes = await EnvelopesAsync(note.MetaId);
+        Assert.IsTrue(envelopes.Count == 0,
+            "конверт только после проведения, факт {0}", envelopes.Count);
+    }
+
+    [IntegrationTest("Проведённая дебет-нота несёт QR, UUID и хеш, UBL 383")]
+    public async Task PostedDebitNoteCarriesQr()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        await VatCircuitAsync();
+        var invoice = await IssueAsync(s);
+
+        var note = await DocumentManager.NewDocumentAsync<SalesDebitNote>();
+        note.Customer = s.Customer;
+        note.Outlet = s.Outlet;
+        note.Contract = s.Contract;
+        note.OriginalInvoice = invoice.MetaId;
+        note.Lines.Add(new SalesDebitNoteLinesTablePartRow
+        {
+            Item = s.Item,
+            Quantity = 1m,
+            UnitPrice = 10m,
+        });
+        await DocumentManager.SaveDocumentAsync(note);
+
+        var commandId = await Db.FindCommandIdAsync("document", "PostSalesDebitNote");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, note.MetaId);
+        Assert.IsTrue(run.Success, "PostSalesDebitNote: {0}",
+            run.Message ?? string.Join("; ", run.ClientMessages));
+
+        var posted = await DocumentManager.GetDocumentAsync<SalesDebitNote>(note.MetaId);
+        Assert.IsTrue(posted!.Subtype == SalesDebitNote.Subtypes.Posted,
+            "нота Posted, факт {0}", posted.Subtype);
+
+        var envelopes = await EnvelopesAsync(note.MetaId);
+        Assert.IsTrue(envelopes.Count == 1, "один конверт на ноту, факт {0}", envelopes.Count);
+        Assert.IsTrue(envelopes[0].EInvoiceKind == "DEBIT_NOTE" && envelopes[0].Subtype == "Issued",
+            "DEBIT_NOTE/Issued, факт {0}/{1}", envelopes[0].EInvoiceKind, envelopes[0].Subtype);
+        var xml = Convert.ToString(envelopes[0].Payload) ?? string.Empty;
+        Assert.IsTrue(xml.Contains(">383<", StringComparison.Ordinal),
+            "UBL дебет-ноты 383, длина {0}", xml.Length);
+        Assert.IsTrue(xml.Contains("DebitedQuantity", StringComparison.Ordinal),
+            "DebitedQuantity в XML, длина {0}", xml.Length);
+        Assert.IsTrue(!string.IsNullOrEmpty(invoice.ID)
+                && xml.Contains(">" + invoice.ID + "<", StringComparison.Ordinal),
+            "BillingReference на номер исходного счёта {0}", invoice.ID);
+        var invRow = await Db.GetAsync("SalesRealization", invoice.MetaId);
+        var origUuid = Convert.ToString(invRow?["InvoiceUuid"]) ?? string.Empty;
+        Assert.IsTrue(origUuid.Length > 0 && xml.Contains(origUuid, StringComparison.Ordinal),
+            "BillingReference несёт UUID исходного счёта");
+        Assert.IsTrue(xml.Contains("<cbc:InstructionNote>ADDITIONAL_CHARGES</cbc:InstructionNote>", StringComparison.Ordinal),
+            "дебет-нота: InstructionNote ADDITIONAL_CHARGES");
+
+        var row = await Db.GetAsync("SalesDebitNote", note.MetaId);
+        var qr = Convert.ToString(row?["QrCode"]) ?? string.Empty;
+        var hash = Convert.ToString(row?["InvoiceHash"]) ?? string.Empty;
+        Assert.IsTrue(qr.Length > 20 && hash == Convert.ToString(envelopes[0].InvoiceHash),
+            "QR и хеш на ноте, qr={0} hash={1}", qr.Length, hash);
+        Assert.IsTrue(GetService<IZatcaQr>().TagCount(qr) == 6,
+            "без PEM — теги 1–6, факт {0}", GetService<IZatcaQr>().TagCount(qr));
+    }
+
+    [IntegrationTest("Черновик дебет-ноты не создаёт TaxDocument")]
+    public async Task DraftDebitNoteDoesNotCreateEnvelope()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        await VatCircuitAsync();
+        var invoice = await IssueAsync(s);
+
+        var note = await DocumentManager.NewDocumentAsync<SalesDebitNote>();
+        note.Customer = s.Customer;
+        note.Outlet = s.Outlet;
+        note.Contract = s.Contract;
+        note.OriginalInvoice = invoice.MetaId;
+        note.Lines.Add(new SalesDebitNoteLinesTablePartRow
+        {
+            Item = s.Item,
+            Quantity = 1m,
+            UnitPrice = 10m,
+        });
         await DocumentManager.SaveDocumentAsync(note);
 
         var envelopes = await EnvelopesAsync(note.MetaId);
@@ -362,7 +460,7 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
     }
 
     /// <summary>
-    /// A 15% output VAT circuit: authority → jurisdiction → tax → rate →
+    /// An output VAT circuit: authority → jurisdiction → tax → rate →
     /// category → code, plus TaxSettings pointing at it.
     ///
     /// <para>Needed because SetupAsync builds no tax circuit, so every invoice
@@ -370,8 +468,16 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
     /// compares 0 with 0 and proves nothing — which is exactly what the first
     /// version of HeaderVatEqualsTheSumOfLines did until the guard caught
     /// it.</para>
+    ///
+    /// <para>Treatment and rate are parameters so E/O/Z cases can share the
+    /// same circuit without copying eight dictionaries. Exemption reason fields
+    /// live on the SA extension of TaxCategory, not in Tax core.</para>
     /// </summary>
-    private async Task<decimal> VatCircuitAsync()
+    private async Task<decimal> VatCircuitAsync(
+        string treatment = "STANDARD",
+        decimal rateValue = 0.15m,
+        string? exemptionCode = null,
+        string? exemptionText = null)
     {
         var from = new DateTime(2020, 1, 1);
 
@@ -400,15 +506,27 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var rate = DictionaryManager.NewRecord<TaxRate>();
         rate.Tax = tax.MetaId;
         rate.Code = $"R-{Db.NewId():N}"[..10];
-        rate.Rate = 0.15m;
+        rate.Rate = rateValue;
         rate.EffectiveFrom = from;
         rate = await DictionaryManager.SaveRecordAsync(rate);
 
         var category = DictionaryManager.NewRecord<TaxCategory>();
         category.Tax = tax.MetaId;
-        category.Code = $"STD-{Db.NewId():N}"[..10];
-        category.Treatment = "STANDARD";
+        category.Code = $"CAT-{Db.NewId():N}"[..10];
+        category.Treatment = treatment;
         category = await DictionaryManager.SaveRecordAsync(category);
+        if (!string.IsNullOrWhiteSpace(exemptionCode) || !string.IsNullOrWhiteSpace(exemptionText))
+        {
+            await Db.UpdateAsync("TaxCategory", category.MetaId,
+                new Dictionary<string, object?>
+                {
+                    ["Tax"] = tax.MetaId,
+                    ["Code"] = category.Code,
+                    ["Treatment"] = treatment,
+                    ["ExemptionReasonCode"] = exemptionCode,
+                    ["ExemptionReasonText"] = exemptionText,
+                });
+        }
 
         var code = DictionaryManager.NewRecord<TaxCode>();
         code.Code = $"OUT-{Db.NewId():N}"[..10];
@@ -434,7 +552,7 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         settings.DefaultTaxCode = code.Code;
         settings.PricesIncludeTax = false;
         await DictionaryManager.SaveRecordAsync(settings);
-        return 0.15m;
+        return rateValue;
     }
 
     [IntegrationTest("Дата в XML и QR — дата документа, а не момент проведения")]
@@ -690,6 +808,36 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
             b[0].PreviousInvoiceHash, a[0].InvoiceHash);
     }
 
+    [IntegrationTest("IKeyedCounter: Take выдаёт 1,2; SetToken становится PreviousToken")]
+    public async Task KeyedCounterIssuesDistinctValuesAndRoundTripsToken()
+    {
+        var counters = GetService<IKeyedCounterService>();
+        var scope = Db.NewId();
+        var first = await counters.TakeAsync("zatca-icv", scope);
+        var second = await counters.TakeAsync("zatca-icv", scope);
+        Assert.IsTrue(first.Value == 1 && second.Value == 2 && first.PreviousToken == null,
+            "1 затем 2, без токена; факт {0}/{1}/{2}", first.Value, second.Value, first.PreviousToken);
+        await counters.SetTokenAsync("zatca-icv", scope, "pih-one");
+        var third = await counters.TakeAsync("zatca-icv", scope);
+        Assert.IsTrue(third.Value == 3 && third.PreviousToken == "pih-one",
+            "токен доезжает до следующего Take; факт {0}/{1}", third.Value, third.PreviousToken);
+    }
+
+    [IntegrationTest("ICV счёта — атомарный счётчик юрлица, не max(TaxDocument)")]
+    public async Task IcvFollowsKeyedCounterNotDocumentMax()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        var counters = GetService<IKeyedCounterService>();
+        for (var i = 0; i < 5; i++)
+            await counters.TakeAsync("zatca-icv", s.LegalEntity);
+        var invoice = await IssueAsync(s);
+        var env = (await EnvelopesAsync(invoice.MetaId))[0];
+        Assert.IsTrue(env.InvoiceCounter == 6,
+            "пять Take сдвинули счётчик; ICV не max документов (1), факт {0}", env.InvoiceCounter);
+    }
+
     [IntegrationTest("Standard/Simplified — по VAT покупателя, не по CustomerType")]
     public async Task InvoiceTypeFollowsBuyerVatNotCustomerType()
     {
@@ -730,5 +878,225 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
             "нулевая ставка — Z, не S");
         Assert.IsTrue(!xml.Contains("<cbc:ID>S</cbc:ID>", StringComparison.Ordinal),
             "S не должен стоять при ставке 0");
+    }
+
+    [IntegrationTest("ZERO_RATED остаётся Z, без TaxExemptionReason")]
+    public async Task ZeroRatedTreatmentStaysZWithoutExemption()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        await VatCircuitAsync("ZERO_RATED", 0m);
+        var invoice = await IssueAsync(s);
+        var xml = Convert.ToString((await EnvelopesAsync(invoice.MetaId))[0].Payload) ?? string.Empty;
+        Assert.IsTrue(xml.Contains("<cbc:ID>Z</cbc:ID>", StringComparison.Ordinal),
+            "ZERO_RATED — Z");
+        Assert.IsTrue(!xml.Contains("TaxExemptionReason", StringComparison.Ordinal),
+            "у Z нет основания освобождения");
+    }
+
+    [IntegrationTest("EXEMPT в UBL — категория E и причина VATEX-SA-29")]
+    public async Task ExemptUsesCategoryEWithReason()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        await VatCircuitAsync("EXEMPT", 0m, "VATEX-SA-29", "Financial services");
+        var invoice = await IssueAsync(s);
+        var xml = Convert.ToString((await EnvelopesAsync(invoice.MetaId))[0].Payload) ?? string.Empty;
+        Assert.IsTrue(xml.Contains("<cbc:ID>E</cbc:ID>", StringComparison.Ordinal),
+            "EXEMPT — E, не Z");
+        Assert.IsTrue(!xml.Contains("<cbc:ID>Z</cbc:ID>", StringComparison.Ordinal),
+            "Z не должен стоять при EXEMPT");
+        Assert.IsTrue(xml.Contains("<cbc:TaxExemptionReasonCode>VATEX-SA-29</cbc:TaxExemptionReasonCode>", StringComparison.Ordinal),
+            "код причины освобождения");
+        Assert.IsTrue(xml.Contains("<cbc:TaxExemptionReason>Financial services</cbc:TaxExemptionReason>", StringComparison.Ordinal),
+            "текст причины");
+    }
+
+    [IntegrationTest("OUT_OF_SCOPE в UBL — категория O и причина VATEX-SA-OOS")]
+    public async Task OutOfScopeUsesCategoryOWithReason()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        await VatCircuitAsync("OUT_OF_SCOPE", 0m, "VATEX-SA-OOS", "Not subject to VAT");
+        var invoice = await IssueAsync(s);
+        var xml = Convert.ToString((await EnvelopesAsync(invoice.MetaId))[0].Payload) ?? string.Empty;
+        Assert.IsTrue(xml.Contains("<cbc:ID>O</cbc:ID>", StringComparison.Ordinal),
+            "OUT_OF_SCOPE — O, не Z");
+        Assert.IsTrue(!xml.Contains("<cbc:ID>Z</cbc:ID>", StringComparison.Ordinal),
+            "Z не должен стоять при OUT_OF_SCOPE");
+        Assert.IsTrue(xml.Contains("<cbc:TaxExemptionReasonCode>VATEX-SA-OOS</cbc:TaxExemptionReasonCode>", StringComparison.Ordinal),
+            "код причины вне периметра");
+        Assert.IsTrue(xml.Contains("<cbc:TaxExemptionReason>Not subject to VAT</cbc:TaxExemptionReason>", StringComparison.Ordinal),
+            "текст причины");
+    }
+
+    [IntegrationTest("Payload несёт QR AdditionalDocumentReference; хеш его не включает")]
+    public async Task PayloadNestsQrAndHashIgnoresIt()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        var invoice = await IssueAsync(s);
+        var env = (await EnvelopesAsync(invoice.MetaId))[0];
+        var xml = Convert.ToString(env.Payload) ?? string.Empty;
+        var qr = Convert.ToString((await Db.GetAsync("SalesRealization", invoice.MetaId))?["QrCode"]) ?? string.Empty;
+        Assert.IsTrue(xml.Contains("<cbc:ID>QR</cbc:ID>", StringComparison.Ordinal),
+            "QR вложен в UBL, длина {0}", xml.Length);
+        Assert.IsTrue(qr.Length > 20 && xml.Contains(qr, StringComparison.Ordinal),
+            "тот же QR, что на счёте, лежит в Attachment");
+        var xades = GetService<IZatcaXades>();
+        Assert.IsTrue(xades.InvoiceHash(xml) == Convert.ToString(env.InvoiceHash),
+            "хеш Payload после вложения QR совпадает с сохранённым");
+        Assert.IsTrue(!xml.Contains("ds:Signature", StringComparison.Ordinal),
+            "без PEM CSID XAdES нет — теги 1–6, не ds:Signature");
+    }
+
+    [IntegrationTest("XAdES: Seal кладёт ds:Signature; InvoiceHash не меняется")]
+    public Task XadesSealPreservesInvoiceHash()
+    {
+        var xades = GetService<IZatcaXades>();
+        const string unsigned =
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Invoice xmlns=\"urn:oasis:names:specification:ubl:schema:xsd:Invoice-2\"" +
+            " xmlns:cac=\"urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2\"" +
+            " xmlns:cbc=\"urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2\">" +
+            "<cbc:ID>1</cbc:ID>" +
+            "<cac:AdditionalDocumentReference><cbc:ID>PIH</cbc:ID></cac:AdditionalDocumentReference>" +
+            "<cac:AccountingSupplierParty><cac:Party/></cac:AccountingSupplierParty>" +
+            "</Invoice>";
+        var hash = xades.InvoiceHash(unsigned);
+
+        using var ecdsa = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+        var req = new CertificateRequest(
+            new X500DistinguishedName("CN=ZATCA-Test"), ecdsa, HashAlgorithmName.SHA256);
+        using var cert = req.CreateSelfSigned(
+            DateTimeOffset.UtcNow.AddDays(-1), DateTimeOffset.UtcNow.AddYears(1));
+        var pem = ecdsa.ExportPkcs8PrivateKeyPem() + "\n" + cert.ExportCertificatePem();
+        var certDer = Convert.ToBase64String(cert.RawData);
+        var signingTime = new DateTime(2026, 9, 19, 12, 0, 0, DateTimeKind.Utc);
+        var siDigest = xades.SignedInfoDigest(hash, certDer, signingTime);
+        var stamp = CredentialSigning.TrySign(siDigest, pem);
+        Assert.IsTrue(stamp != null && stamp.CertificateDer.Length > 0,
+            "minted CSID must sign SignedInfo");
+
+        const string qr = "dGVzdA==";
+        var sealedXml = xades.Seal(unsigned, qr, Convert.ToBase64String(stamp!.Signature), certDer, signingTime);
+        Assert.IsTrue(sealedXml.Contains("ds:Signature", StringComparison.Ordinal)
+            && sealedXml.Contains("ds:SignatureValue", StringComparison.Ordinal)
+            && sealedXml.Contains(certDer, StringComparison.Ordinal),
+            "XAdES KeyInfo несёт DER сертификата");
+        Assert.IsTrue(sealedXml.Contains("<cbc:ID>QR</cbc:ID>", StringComparison.Ordinal)
+            && sealedXml.Contains(qr, StringComparison.Ordinal),
+            "QR вложен рядом с подписью");
+        Assert.IsTrue(xades.InvoiceHash(sealedXml) == hash,
+            "хеш sealed XML = хеш unsigned — QR и XAdES в хеш не входят");
+        return Task.CompletedTask;
+    }
+
+    private static readonly Guid TaxDocumentTypeId = Guid.Parse("cee833d7-fa4c-43fe-bef6-e95633ece906");
+
+    [IntegrationTest("Standard: отдачу покупателю блокирует, пока конверт Issued")]
+    public async Task StandardReleaseBlockedUntilCleared()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        var invoice = await IssueAsync(s);
+        var env = (await EnvelopesAsync(invoice.MetaId))[0];
+        Assert.IsTrue(env.InvoiceType == "Standard" && env.Subtype == "Issued",
+            "Standard/Issued до клиринга, факт {0}/{1}", env.InvoiceType, env.Subtype);
+
+        var block = await GetService<ISaudiEInvoice>().BuyerReleaseBlockAsync(invoice.MetaId);
+        Assert.IsTrue(!string.IsNullOrEmpty(block) && block.Contains("Cleared", StringComparison.OrdinalIgnoreCase),
+            "Standard до Cleared закрыт, факт '{0}'", block);
+    }
+
+    [IntegrationTest("Simplified: отдачу покупателю не блокирует на Issued")]
+    public async Task SimplifiedReleaseAllowedWhenIssued()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2C");
+        await StockAsync(s);
+        var invoice = await IssueAsync(s);
+        var env = (await EnvelopesAsync(invoice.MetaId))[0];
+        Assert.IsTrue(env.InvoiceType == "Simplified" && env.Subtype == "Issued",
+            "Simplified/Issued, факт {0}/{1}", env.InvoiceType, env.Subtype);
+
+        var block = await GetService<ISaudiEInvoice>().BuyerReleaseBlockAsync(invoice.MetaId);
+        Assert.IsTrue(block == null, "Simplified сразу можно отдать, факт '{0}'", block);
+    }
+
+    [IntegrationTest("Standard: после Cleared отдачу покупателю открывает")]
+    public async Task StandardReleaseAllowedAfterCleared()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        var invoice = await IssueAsync(s);
+        var env = (await EnvelopesAsync(invoice.MetaId))[0];
+        await GetService<IDocumentPostingService>()
+            .SetSubtypeAsync(TaxDocumentTypeId, env.MetaId, "Cleared");
+
+        var block = await GetService<ISaudiEInvoice>().BuyerReleaseBlockAsync(invoice.MetaId);
+        Assert.IsTrue(block == null, "после Cleared Standard можно отдать, факт '{0}'", block);
+    }
+
+    private static readonly Guid ZatcaCreditNoteScriptId = Guid.Parse("8f2d5c61-4a93-4b7e-81c0-9d6e3f1a5b28");
+    private static readonly Guid ZatcaDebitNoteScriptId = Guid.Parse("c0e7a352-1d68-4f9b-8c24-3a7e6b1d5f80");
+    private static readonly Guid SalesCreditNoteTypeId = Guid.Parse("f53f1b8a-8458-4f27-ab5e-b75f7228d263");
+    private static readonly Guid SalesDebitNoteTypeId = Guid.Parse("465e8b08-5939-4c30-99ea-fef5a4fbc44a");
+
+    [IntegrationTest("Standard кредит-нота: отдачу блокирует, пока конверт Issued")]
+    public async Task StandardCreditNoteReleaseBlockedUntilCleared()
+    {
+        await EnableEInvoiceAsync(true);
+        var s = await SetupAsync("B2B");
+        await StockAsync(s);
+        await VatCircuitAsync();
+        var invoice = await IssueAsync(s);
+
+        var note = await DocumentManager.NewDocumentAsync<SalesCreditNote>();
+        note.Customer = s.Customer;
+        note.Outlet = s.Outlet;
+        note.Contract = s.Contract;
+        note.OriginalInvoice = invoice.MetaId;
+        await DocumentManager.SaveDocumentAsync(note);
+        var commandId = await Db.FindCommandIdAsync("document", "PostSalesCreditNote");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, note.MetaId);
+        Assert.IsTrue(run.Success, "PostSalesCreditNote: {0}",
+            run.Message ?? string.Join("; ", run.ClientMessages));
+
+        var env = (await EnvelopesAsync(note.MetaId))[0];
+        Assert.IsTrue(env.InvoiceType == "Standard" && env.Subtype == "Issued",
+            "Standard/Issued на ноте, факт {0}/{1}", env.InvoiceType, env.Subtype);
+        var block = await GetService<ISaudiEInvoice>().BuyerReleaseBlockAsync(note.MetaId);
+        Assert.IsTrue(!string.IsNullOrEmpty(block) && block.Contains("Cleared", StringComparison.OrdinalIgnoreCase),
+            "кредит-нота Standard до Cleared закрыта, факт '{0}'", block);
+    }
+
+    [IntegrationTest("Печатные формы ZATCA кредит- и дебет-ноты зовут BuyerReleaseBlockAsync")]
+    public async Task ZatcaNotePrintFormsGateBuyerRelease()
+    {
+        var metadata = GetService<IMetadataService>();
+        var credit = await metadata.GetScriptAsync(ZatcaCreditNoteScriptId);
+        Assert.IsTrue(credit != null, "скрипт ZatcaCreditNoteXrPrintForm есть");
+        Assert.IsTrue(credit!.Code.Contains("BuyerReleaseBlockAsync", StringComparison.Ordinal)
+                && credit.Code.Contains("GetDocumentAsync<SalesCreditNote>", StringComparison.Ordinal),
+            "кредит-нота: блок отдачи и тип SalesCreditNote");
+        var debit = await metadata.GetScriptAsync(ZatcaDebitNoteScriptId);
+        Assert.IsTrue(debit != null, "скрипт ZatcaDebitNoteXrPrintForm есть");
+        Assert.IsTrue(debit!.Code.Contains("BuyerReleaseBlockAsync", StringComparison.Ordinal)
+                && debit.Code.Contains("GetDocumentAsync<SalesDebitNote>", StringComparison.Ordinal),
+            "дебет-нота: блок отдачи и тип SalesDebitNote");
+
+        var onCredit = await metadata.GetScriptsByObjectAsync("Document", SalesCreditNoteTypeId);
+        Assert.IsTrue(onCredit.Any(x => x.MetaId == ZatcaCreditNoteScriptId),
+            "скрипт привязан к SalesCreditNote");
+        var onDebit = await metadata.GetScriptsByObjectAsync("Document", SalesDebitNoteTypeId);
+        Assert.IsTrue(onDebit.Any(x => x.MetaId == ZatcaDebitNoteScriptId),
+            "скрипт привязан к SalesDebitNote");
     }
 }

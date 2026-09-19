@@ -9,8 +9,8 @@ using ZuloOne.Services.Contracts;
 // Posts one compliance sample invoice. Developer stands only, explicit grant required.
 //
 // Live Fatoora will not issue a Production CSID until this path has accepted
-// the six document kinds. The stand stub accepts a well-formed payload; XAdES
-// and the six kinds are a later slice.
+// the six document kinds. The stand stub accepts a well-formed payload.
+// Building the six kinds is ZatcaComplianceSamples.
 public partial class ZatcaComplianceInvoicesService
 {
     public override async Task<object?> Any(ZatcaComplianceInvoicesRequest request)
@@ -42,7 +42,7 @@ public partial class ZatcaComplianceInvoicesService
                 RequestID = Value(outcome, "requestId"),
                 ReportingStatus = Value(outcome, "reportingStatus"),
                 ClearanceStatus = Value(outcome, "clearanceStatus"),
-                Hint = "Live Fatoora also needs the remaining document kinds, signed (XAdES). Do not commit CSID secrets.",
+                Hint = "Or POST /api/rest/ZatcaComplianceSamples to send all six kinds. Live Fatoora still needs a CSID PEM for XAdES. Do not commit secrets.",
             };
         }
         catch (ArgumentException ex)

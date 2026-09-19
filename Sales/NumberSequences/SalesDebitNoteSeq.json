@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "0aab612b-20ee-48f0-be13-3cfa57a9cbf3",
+    "name": "SalesDebitNoteSeq",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
+    "description": "ZATCA exemption reason on TaxCategory: E/O need VATEX-SA-* code and text in UBL",
+    "metaId": "21484ba3-a75a-482c-bed3-e08594475d09",
+    "name": "TaxCategory.LocalizationSaudiArabia",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  },
+  "fields": [
+    {
+      "extensionMetaId": "21484ba3-a75a-482c-bed3-e08594475d09",
+      "dictionaryMetaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
+      "fieldName": "ExemptionReasonCode",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 50,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "ZATCA exemption reason code",
+        "ar": "رمز سبب الإعفاء",
+        "ru": "Код причины освобождения ZATCA",
+        "uk": "Код причини звільнення ZATCA"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "ae736567-22cf-48fc-9ec3-5d63fe27a70a",
+      "name": "ExemptionReasonCode",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "extensionMetaId": "21484ba3-a75a-482c-bed3-e08594475d09",
+      "dictionaryMetaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
+      "fieldName": "ExemptionReasonText",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 51,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "ZATCA exemption reason",
+        "ar": "سبب الإعفاء",
+        "ru": "Причина освобождения ZATCA",
+        "uk": "Причина звільнення ZATCA"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c495dd78-22a4-47aa-b461-9775a7452152",
+      "name": "ExemptionReasonText",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    }
+  ]
+}
