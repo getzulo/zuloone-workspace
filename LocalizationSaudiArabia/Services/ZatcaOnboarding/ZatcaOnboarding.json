@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Онбординг ZATCA: OTP + CSR -> Compliance CSID, затем Compliance CSID -> Production CSID. Секреты не кладутся в очередь и не пишутся в воркспейс — оператор переносит token:secret в Integration:Credentials сам.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "4a7d2c85-9f31-4b60-8e2a-53c7d106f9b8",
+    "metaId": "1e8b6403-2d74-49af-b518-a90c3f75e264",
+    "name": "ZatcaOnboarding",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

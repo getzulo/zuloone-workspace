@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "ZatcaOnboarding",
+    "executionOrder": 0,
+    "metaId": "4a7d2c85-9f31-4b60-8e2a-53c7d106f9b8",
+    "name": "ZatcaOnboarding",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

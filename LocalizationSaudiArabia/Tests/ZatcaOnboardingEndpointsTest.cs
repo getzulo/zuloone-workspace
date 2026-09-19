@@ -125,6 +125,46 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
         }
     }
 
+    [IntegrationTest("Онбординг действительно ходит по каналу и разбирает ответ")]
+    public async Task OnboardingReachesTheChannelAndParsesTheReply()
+    {
+        // End-to-end over the moved path: this model's ZatcaOnboarding builds
+        // the JSON, IOutboundCall turns the CHANNEL NAME into a URL, a
+        // credential and a signature, and the reply is parsed here. The script
+        // names none of those three and could not — HttpClient is outside its
+        // reference set and ICredentialResolver is deny-listed.
+        var outcome = await ScriptServices.Get<IZatcaOnboarding>()
+            .RequestComplianceCsidAsync(
+                "123456",
+                "-----BEGIN CERTIFICATE REQUEST-----MIIBtest-----END CERTIFICATE REQUEST-----");
+
+        var error = outcome.TryGetValue("error", out var e) ? e : null;
+        Assert.IsTrue(string.IsNullOrEmpty(error), "обмен без ошибки; факт '{0}'", error ?? "");
+        Assert.IsTrue(outcome.TryGetValue("binarySecurityToken", out var token)
+                      && !string.IsNullOrWhiteSpace(token),
+            "CSID выдан и разобран");
+        Assert.IsTrue(outcome.TryGetValue("status", out var status) && status == "200",
+            "статус 200; факт '{0}'", outcome.TryGetValue("status", out var s2) ? s2 : "");
+    }
+
+    [IntegrationTest("OTP не попадает в подпись — он одноразовый")]
+    public async Task OtpIsRejectedWhenMissing()
+    {
+        // The stub demands the OTP header, which is exactly the point: it rides
+        // on THIS call only and is never handed to the signing profile, because
+        // a signed-and-journalled OTP would be replayed after it is spent.
+        var threw = false;
+        try
+        {
+            await ScriptServices.Get<IZatcaOnboarding>().RequestComplianceCsidAsync("", "csr");
+        }
+        catch (ArgumentException)
+        {
+            threw = true;
+        }
+        Assert.IsTrue(threw, "пустой OTP отвергается до выхода на канал");
+    }
+
     [IntegrationTest("Ключ не покидает хост: подписывает ICredentialSigner")]
     public Task HostSignsWithoutHandingOverTheKey()
     {
