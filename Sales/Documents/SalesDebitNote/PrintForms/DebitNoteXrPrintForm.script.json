@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "SalesDebitNote",
+    "objectMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+    "executionOrder": 0,
+    "metaId": "c66daecc-92ae-4042-bd44-e95362a0a593",
+    "name": "DebitNoteXrPrintForm",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

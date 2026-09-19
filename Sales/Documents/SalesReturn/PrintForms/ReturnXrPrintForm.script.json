@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "SalesReturn",
+    "objectMetaId": "fac9ef45-4371-41f5-a0a1-8d185a185714",
+    "executionOrder": 0,
+    "metaId": "2115ce67-abb9-466d-815a-4f55a23e0896",
+    "name": "ReturnXrPrintForm",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

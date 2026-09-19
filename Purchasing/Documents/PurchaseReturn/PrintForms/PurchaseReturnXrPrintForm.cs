@@ -7,10 +7,10 @@ using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// Generated from the print-form spec table, then owned by hand.
-// One uniform Row(...) feeds GetDataTemplate and GetDataAsync so the template
-// and the data can never disagree — the failure InvoiceXr shipped with.
-public partial class CreditNoteXrPrintForm : PrintFormBase
+// Goods return to the vendor — stock and net payable, not a tax invoice.
+// Input VAT reverse is a separate vendor credit note; this form does not wait
+// for clearance.
+public partial class PurchaseReturnXrPrintForm : PrintFormBase
 {
     public override SlimTable GetDataTemplate()
         => new SlimTable(Row("", "", "", "", "", "", "", "", "", 0m, 0m, 0m, 0, "", 0m, "", 0m, 0m, 0m, 0m, "", ""));
@@ -19,36 +19,23 @@ public partial class CreditNoteXrPrintForm : PrintFormBase
     {
         var table = new SlimTable("Report");
         var documents = context.GetService<IDocumentManager>();
-        var doc = await documents.GetDocumentAsync<SalesCreditNote>(context.RecordId);
+        var doc = await documents.GetDocumentAsync<PurchaseReturn>(context.RecordId);
         if (doc == null)
         {
             table.Add(Row("", "", "", "", "", "", "", "", "", 0m, 0m, 0m, 0, "", 0m, "", 0m, 0m, 0m, 0m, "", ""));
             return table;
         }
 
-        var block = await context.GetService<IEInvoiceRelease>()
-            .BuyerReleaseBlockAsync(doc.MetaId);
-        if (!string.IsNullOrEmpty(block))
-            throw new InvalidOperationException(block);
-
         var display = context.GetService<IReferenceDisplay>();
         var pricing = context.GetService<IPricingService>();
-        var taxes = context.GetService<ITaxService>();
         var ct = context.CancellationToken;
-        var sellerName = await NameAsync(display, "LegalEntity", doc.LegalEntity, ct);
-        var customerName = await NameAsync(display, "Customer", doc.Customer, ct);
-        var contractName = await NameAsync(display, "SalesContract", doc.Contract, ct);
-        var outletName = await NameAsync(display, "CustomerOutlet", doc.Outlet, ct);
-        var original = await NameAsync(display, "SalesRealization", doc.OriginalInvoice, ct);
+        var supplierName = await NameAsync(display, "Supplier", doc.Supplier, ct);
+        var locationName = await NameAsync(display, "StoreCell", doc.Location, ct);
+        var original = await NameAsync(display, "PurchaseOrder", doc.OriginalOrder, ct);
 
-        // Credit note: no header discount exists, so the net is a plain line sum,
-    // then VAT at the document rate — the same call the GL posting makes.
-        decimal net = 0m;
+        decimal subTotal = 0m;
         foreach (var line in doc.Lines)
-            net += pricing.LineAmount(line.Quantity, line.UnitPrice);
-        var taxTotal = doc.TaxRateApplied > 0m ? taxes.CalculateTax(net, doc.TaxRateApplied) : 0m;
-        var subTotal = net;
-        var total = net + taxTotal;
+            subTotal += pricing.LineAmount(line.Quantity, line.UnitPrice);
 
         var n = 0;
         foreach (var line in doc.Lines)
@@ -58,16 +45,16 @@ public partial class CreditNoteXrPrintForm : PrintFormBase
             table.Add(Row(
                 doc.ID ?? "",
                 DateText(doc.DocumentDate),
-                customerName,
                 "",
-                sellerName,
-                contractName,
-                outletName,
+                supplierName,
                 "",
+                "",
+                "",
+                locationName,
                 original,
                 subTotal,
-                taxTotal,
-                total,
+                0m,
+                subTotal,
                 n,
                 itemText,
                 line.Quantity,
@@ -80,23 +67,21 @@ public partial class CreditNoteXrPrintForm : PrintFormBase
                 ""));
         }
 
-        // Without this an empty document renders a blank page — no header, no
-        // totals — because the Detail band drives the whole report.
         if (n == 0)
         {
             table.Add(Row(
                 doc.ID ?? "",
                 DateText(doc.DocumentDate),
-                customerName,
                 "",
-                sellerName,
-                contractName,
-                outletName,
+                supplierName,
                 "",
+                "",
+                "",
+                locationName,
                 original,
                 subTotal,
-                taxTotal,
-                total,
+                0m,
+                subTotal,
                 0,
                 "",
                 0m,

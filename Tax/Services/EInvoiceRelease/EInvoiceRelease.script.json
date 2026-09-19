@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "EInvoiceRelease",
+    "executionOrder": 0,
+    "metaId": "d30e95d4-e42f-413e-a26b-f204c7b892a8",
+    "name": "EInvoiceRelease",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

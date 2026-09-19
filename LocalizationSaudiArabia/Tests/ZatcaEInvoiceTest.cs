@@ -1012,6 +1012,8 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var block = await GetService<ISaudiEInvoice>().BuyerReleaseBlockAsync(invoice.MetaId);
         Assert.IsTrue(!string.IsNullOrEmpty(block) && block.Contains("Cleared", StringComparison.OrdinalIgnoreCase),
             "Standard до Cleared закрыт, факт '{0}'", block);
+        var viaGate = await GetService<IEInvoiceRelease>().BuyerReleaseBlockAsync(invoice.MetaId);
+        Assert.IsTrue(viaGate == block, "CoC wrap IEInvoiceRelease, факт '{0}'", viaGate);
     }
 
     [IntegrationTest("Simplified: отдачу покупателю не блокирует на Issued")]
@@ -1027,6 +1029,8 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
 
         var block = await GetService<ISaudiEInvoice>().BuyerReleaseBlockAsync(invoice.MetaId);
         Assert.IsTrue(block == null, "Simplified сразу можно отдать, факт '{0}'", block);
+        var viaGate = await GetService<IEInvoiceRelease>().BuyerReleaseBlockAsync(invoice.MetaId);
+        Assert.IsTrue(viaGate == null, "CoC wrap IEInvoiceRelease Simplified, факт '{0}'", viaGate);
     }
 
     [IntegrationTest("Standard: после Cleared отдачу покупателю открывает")]
@@ -1042,6 +1046,8 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
 
         var block = await GetService<ISaudiEInvoice>().BuyerReleaseBlockAsync(invoice.MetaId);
         Assert.IsTrue(block == null, "после Cleared Standard можно отдать, факт '{0}'", block);
+        var viaGate = await GetService<IEInvoiceRelease>().BuyerReleaseBlockAsync(invoice.MetaId);
+        Assert.IsTrue(viaGate == null, "CoC wrap IEInvoiceRelease после Cleared, факт '{0}'", viaGate);
     }
 
     private static readonly Guid ZatcaCreditNoteScriptId = Guid.Parse("8f2d5c61-4a93-4b7e-81c0-9d6e3f1a5b28");
@@ -1075,6 +1081,46 @@ public class ZatcaEInvoiceTest : IntegrationTestScriptBase
         var block = await GetService<ISaudiEInvoice>().BuyerReleaseBlockAsync(note.MetaId);
         Assert.IsTrue(!string.IsNullOrEmpty(block) && block.Contains("Cleared", StringComparison.OrdinalIgnoreCase),
             "кредит-нота Standard до Cleared закрыта, факт '{0}'", block);
+    }
+
+    private static readonly Guid InvoiceXrScriptId = Guid.Parse("06efe5a7-11b3-4aba-ad6b-cf9dc147bce9");
+    private static readonly Guid CreditNoteXrScriptId = Guid.Parse("74805cfd-6dc3-493d-a37a-4420ee4df31d");
+    private static readonly Guid DebitNoteXrScriptId = Guid.Parse("c66daecc-92ae-4042-bd44-e95362a0a593");
+    private static readonly Guid SalesRealizationTypeId = Guid.Parse("34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3");
+
+    [IntegrationTest("InvoiceXr, CreditNoteXr и DebitNoteXr зовут IEInvoiceRelease, не ISaudiEInvoice")]
+    public async Task SalesPrintFormsGateViaEInvoiceRelease()
+    {
+        var metadata = GetService<IMetadataService>();
+        var invoice = await metadata.GetScriptAsync(InvoiceXrScriptId);
+        Assert.IsTrue(invoice != null, "скрипт InvoiceXrPrintForm есть");
+        Assert.IsTrue(invoice!.Code.Contains("IEInvoiceRelease", StringComparison.Ordinal)
+                && invoice.Code.Contains("BuyerReleaseBlockAsync", StringComparison.Ordinal)
+                && !invoice.Code.Contains("ISaudiEInvoice", StringComparison.Ordinal),
+            "InvoiceXr зовёт IEInvoiceRelease, без зависимости на SA");
+        var credit = await metadata.GetScriptAsync(CreditNoteXrScriptId);
+        Assert.IsTrue(credit != null, "скрипт CreditNoteXrPrintForm есть");
+        Assert.IsTrue(credit!.Code.Contains("IEInvoiceRelease", StringComparison.Ordinal)
+                && credit.Code.Contains("BuyerReleaseBlockAsync", StringComparison.Ordinal)
+                && !credit.Code.Contains("ISaudiEInvoice", StringComparison.Ordinal),
+            "CreditNoteXr зовёт IEInvoiceRelease, без зависимости на SA");
+        var debit = await metadata.GetScriptAsync(DebitNoteXrScriptId);
+        Assert.IsTrue(debit != null, "скрипт DebitNoteXrPrintForm есть");
+        Assert.IsTrue(debit!.Code.Contains("IEInvoiceRelease", StringComparison.Ordinal)
+                && debit.Code.Contains("BuyerReleaseBlockAsync", StringComparison.Ordinal)
+                && debit.Code.Contains("GetDocumentAsync<SalesDebitNote>", StringComparison.Ordinal)
+                && !debit.Code.Contains("ISaudiEInvoice", StringComparison.Ordinal),
+            "DebitNoteXr зовёт IEInvoiceRelease, без зависимости на SA");
+
+        var onInvoice = await metadata.GetScriptsByObjectAsync("Document", SalesRealizationTypeId);
+        Assert.IsTrue(onInvoice.Any(x => x.MetaId == InvoiceXrScriptId),
+            "скрипт привязан к SalesRealization");
+        var onCredit = await metadata.GetScriptsByObjectAsync("Document", SalesCreditNoteTypeId);
+        Assert.IsTrue(onCredit.Any(x => x.MetaId == CreditNoteXrScriptId),
+            "скрипт привязан к SalesCreditNote");
+        var onDebitXr = await metadata.GetScriptsByObjectAsync("Document", SalesDebitNoteTypeId);
+        Assert.IsTrue(onDebitXr.Any(x => x.MetaId == DebitNoteXrScriptId),
+            "скрипт DebitNoteXr привязан к SalesDebitNote");
     }
 
     [IntegrationTest("Печатные формы ZATCA кредит- и дебет-ноты зовут BuyerReleaseBlockAsync")]

@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Buyer-release gate for e-invoices. Core never blocks; a country pack wraps and decides (ZATCA Standard waits for Cleared). Sales print forms call this so they never depend on a localization model.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "d30e95d4-e42f-413e-a26b-f204c7b892a8",
+    "metaId": "66ec276f-0bf2-452b-b33f-e9aa30b8f7e0",
+    "name": "EInvoiceRelease",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

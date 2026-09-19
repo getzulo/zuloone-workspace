@@ -7,10 +7,9 @@ using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// Generated from the print-form spec table, then owned by hand.
-// One uniform Row(...) feeds GetDataTemplate and GetDataAsync so the template
-// and the data can never disagree — the failure InvoiceXr shipped with.
-public partial class CreditNoteXrPrintForm : PrintFormBase
+// Same paper as CreditNoteXr, for additional VAT. Buyer release is the
+// country-blind IEInvoiceRelease door — Sales does not name a localization.
+public partial class DebitNoteXrPrintForm : PrintFormBase
 {
     public override SlimTable GetDataTemplate()
         => new SlimTable(Row("", "", "", "", "", "", "", "", "", 0m, 0m, 0m, 0, "", 0m, "", 0m, 0m, 0m, 0m, "", ""));
@@ -19,7 +18,7 @@ public partial class CreditNoteXrPrintForm : PrintFormBase
     {
         var table = new SlimTable("Report");
         var documents = context.GetService<IDocumentManager>();
-        var doc = await documents.GetDocumentAsync<SalesCreditNote>(context.RecordId);
+        var doc = await documents.GetDocumentAsync<SalesDebitNote>(context.RecordId);
         if (doc == null)
         {
             table.Add(Row("", "", "", "", "", "", "", "", "", 0m, 0m, 0m, 0, "", 0m, "", 0m, 0m, 0m, 0m, "", ""));
@@ -41,8 +40,6 @@ public partial class CreditNoteXrPrintForm : PrintFormBase
         var outletName = await NameAsync(display, "CustomerOutlet", doc.Outlet, ct);
         var original = await NameAsync(display, "SalesRealization", doc.OriginalInvoice, ct);
 
-        // Credit note: no header discount exists, so the net is a plain line sum,
-    // then VAT at the document rate — the same call the GL posting makes.
         decimal net = 0m;
         foreach (var line in doc.Lines)
             net += pricing.LineAmount(line.Quantity, line.UnitPrice);
@@ -80,8 +77,6 @@ public partial class CreditNoteXrPrintForm : PrintFormBase
                 ""));
         }
 
-        // Without this an empty document renders a blank page — no header, no
-        // totals — because the Detail band drives the whole report.
         if (n == 0)
         {
             table.Add(Row(

@@ -38,6 +38,11 @@ public partial class InvoiceXrPrintForm : PrintFormBase
             return table;
         }
 
+        var block = await context.GetService<IEInvoiceRelease>()
+            .BuyerReleaseBlockAsync(invoice.MetaId);
+        if (!string.IsNullOrEmpty(block))
+            throw new InvalidOperationException(block);
+
         var display = context.GetService<IReferenceDisplay>();
         var pricing = context.GetService<IPricingService>();
         var taxes = context.GetService<ITaxService>();
