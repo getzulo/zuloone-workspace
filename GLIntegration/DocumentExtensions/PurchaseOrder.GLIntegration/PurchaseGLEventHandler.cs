@@ -8,8 +8,10 @@ using ZuloOne.Services.Contracts;
 namespace ZuloOne.Runtime.Generated;
 
 // Purchasing extension: receiving a purchase order is posted to the general ledger
-// (Dr inventory / Cr payables). Second consumer of GeneralLedgerService —
-// same posting mechanics, only the profile accounts and line captions differ.
+// (Dr inventory / Cr payables). The amount is line net plus NonRecoverableVat
+// stamped on the header — that portion of input tax is stock, not a VAT asset.
+// Second consumer of GeneralLedgerService — same posting mechanics, only the
+// profile accounts and line captions differ.
 // A CHAIN link of PurchaseOrder handlers from GLIntegration (see the note in
 // SalesGLEventHandler): the class keeps the base handler name, otherwise the
 // script competes with it and never runs at all.
@@ -38,7 +40,8 @@ public partial class PurchaseGLEventHandler : TypedDocumentEventHandler<Purchase
         var order = await context.GetService<IDocumentManager>().GetDocumentAsync<PurchaseOrder>(header.MetaId);
         if (order == null) return null;
         var pricing = context.GetService<IPricingService>();
-        var total = order.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
+        var total = order.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice))
+            + order.NonRecoverableVat;
 
         // Legal entity — along Cell → Zone → Store → Division → LegalEntity.
         var loc = await context.GetService<IDictionaryManager<StoreCell>>().GetRecordAsync(order.Location);

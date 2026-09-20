@@ -86,4 +86,44 @@ public class TenantSetupTest : IntegrationTestScriptBase
             stores2 += (await DictionaryManager.GetRecordsAsync<Store>($"Division = '{d.MetaId}'")).Count;
         Assert.AreEqual(1, stores2, "второй склад не появился");
     }
+
+    [IntegrationTest("ApplyOrg для SA ставит страновой налоговый пакет")]
+    public async Task ApplyOrg_installs_saudi_tax_pack()
+    {
+        var packs = GetService<IDataPackageService>();
+        var listed = await packs.ListAsync();
+        Assert.IsTrue(listed.Any(p => p.Id == "LocalizationSaudiArabia/vat-SA"),
+            "индекс должен видеть vat-SA, факт: {0}",
+            string.Join(", ", listed.Select(p => p.Id)));
+
+        var country = (await DictionaryManager.GetRecordsAsync<Country>("CodeISO2 = 'SA'", take: 1))
+            .FirstOrDefault();
+        if (country == null)
+        {
+            country = DictionaryManager.NewRecord<Country>();
+            country.Name = "Saudi Arabia";
+            country.CodeISO2 = "SA";
+            country.CodeISO3 = "SAU";
+            country.PhoneCode = "966";
+            country = await DictionaryManager.SaveRecordAsync(country);
+        }
+        var currency = (await DictionaryManager.GetRecordsAsync<Currency>("Code = 'SAR'", take: 1))
+            .FirstOrDefault();
+        if (currency == null)
+        {
+            currency = DictionaryManager.NewRecord<Currency>();
+            currency.Name = "Saudi Riyal";
+            currency.Code = "SAR";
+            currency.Symbol = "﷼";
+            currency = await DictionaryManager.SaveRecordAsync(currency);
+        }
+
+        var setup = GetService<ITenantSetup>();
+        var reg = $"REG-TX-{Db.NewId():N}"[..16];
+        var result = await setup.ApplyOrgAsync("SA tax LE", reg, "SA", currency.Code!);
+        Assert.IsTrue(Equals(result["ok"], true), "ApplyOrg SA должен пройти");
+
+        var taxes = await DictionaryManager.GetRecordsAsync<Tax>("Code = 'VAT-SA'", take: 1);
+        Assert.IsTrue(taxes.Count == 1, "ApplyOrg SA ставит налог VAT-SA");
+    }
 }

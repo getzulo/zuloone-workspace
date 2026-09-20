@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Установка страновых пакетов данных (when=country) по ISO2 юрлица — НДС и прочий сид локализации, без имён стран в ядре",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "7f5b2d93-0c4e-4081-b326-9d1e8f2a5c04",
+    "metaId": "6e4a1c82-9b3d-4f70-a215-8c0d7e1f4b93",
+    "name": "TaxPackInstaller",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

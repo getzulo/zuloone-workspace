@@ -8,14 +8,16 @@ using ZuloOne.Runtime.Generated;
 
 // ВХОДЯЩИЙ НДС ОБЯЗАН СТАТЬ АКТИВОМ В КНИГЕ.
 //
-// Заказ разносит Dr запасы / Cr кредиторка на сумму БЕЗ налога. Без этой
-// проводки книга не знает, что государству можно зачесть входной налог, а
-// поставщику должны больше, чем лежит в запасах. Декларация уже вычитает
-// входящий из исходящего — книга должна говорить то же.
+// Заказ разносит Dr запасы / Cr кредиторка на сумму БЕЗ налога плюс
+// NonRecoverableVat. Возместимая доля — Dr НДС к возмещению / Cr кредиторка.
+// Без этой проводки книга не знает, что государству можно зачесть входной
+// налог, а поставщику должны больше, чем лежит в запасах. Декларация вычитает
+// RecoverableAmount — книга должна говорить то же.
 public class InputVatGLTest : IntegrationTestScriptBase
 {
     private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
     private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
+    private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
 
     private sealed class Setup
     {
@@ -27,7 +29,7 @@ public class InputVatGLTest : IntegrationTestScriptBase
         public Guid InventoryAccount;
     }
 
-    private async Task<Setup> SetupAsync(bool configureVatAccount = true)
+    private async Task<Setup> SetupAsync(bool configureVatAccount = true, decimal nonRecoverablePct = 0m)
     {
         var today = DateTime.UtcNow.Date;
 
@@ -136,7 +138,7 @@ public class InputVatGLTest : IntegrationTestScriptBase
         fiscalPeriod.Status = "Open";
         await DictionaryManager.SaveRecordAsync(fiscalPeriod);
 
-        await ConfigureTaxAsync();
+        await ConfigureTaxAsync(nonRecoverablePct);
 
         return new Setup
         {
@@ -160,7 +162,7 @@ public class InputVatGLTest : IntegrationTestScriptBase
         return (await DictionaryManager.SaveRecordAsync(account)).MetaId;
     }
 
-    private async Task ConfigureTaxAsync()
+    private async Task ConfigureTaxAsync(decimal nonRecoverablePct = 0m)
     {
         var from = new DateTime(2020, 1, 1);
 
@@ -206,6 +208,7 @@ public class InputVatGLTest : IntegrationTestScriptBase
         code.TaxCategory = category.MetaId;
         code.TaxRate = rate.MetaId;
         code.EffectiveFrom = from;
+        code.NonRecoverablePct = nonRecoverablePct;
         code = await DictionaryManager.SaveRecordAsync(code);
 
         if ((await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'INPUT'", take: 1)).Count == 0)
@@ -311,6 +314,46 @@ public class InputVatGLTest : IntegrationTestScriptBase
         Assert.IsTrue(vat.Debit == 0m, "проводки по НДС нет, факт {0}", vat.Debit);
         Assert.IsTrue(calc.Lines[0].TaxAmount == 4.5m,
             "сам налог посчитан независимо от книги, факт {0}", calc.Lines[0].TaxAmount);
+    }
+
+    [IntegrationTest("Невозместимая доля капитализируется в запас, в книгу возмещения идёт только RecoverableAmount")]
+    public async Task NonRecoverableVatCapitalizesIntoStock()
+    {
+        var s = await SetupAsync(nonRecoverablePct: 40m);
+
+        // 10 × 3 = 30 базы, 15% → налог 4.5; 40% невозместимо → 1.8 в запас, 2.7 к возмещению.
+        var order = await ReceiveAsync(s, 10m, 3m);
+        order = (await DocumentManager.GetDocumentAsync<PurchaseOrder>(order.MetaId))!;
+        Assert.IsTrue(order.NonRecoverableVat == 1.8m,
+            "штамп шапки 1.8, факт {0}", order.NonRecoverableVat);
+
+        var fifo = await TotalsManager.GetBalanceAsync("ItemCostFifo", "Amount",
+            new Dictionary<string, object?> { ["Item"] = s.Item });
+        Assert.IsTrue(fifo == 31.8m, "лот FIFO 30 + 1.8, факт {0}", fifo);
+
+        var invValue = await TotalsManager.GetBalanceAsync("InventoryValue", "Value",
+            new Dictionary<string, object?> { ["Item"] = s.Item });
+        Assert.IsTrue(invValue == 31.8m, "стоимость запаса 31.8, факт {0}", invValue);
+
+        var invGl = await AccountAsync(order.MetaId, s.InventoryAccount);
+        Assert.IsTrue(invGl.Debit == 31.8m, "книга запасов 31.8, факт {0}", invGl.Debit);
+        var apPo = await AccountAsync(order.MetaId, s.PayableAccount);
+        Assert.IsTrue(apPo.Credit == 31.8m, "кредиторка заказа 31.8, факт {0}", apPo.Credit);
+
+        var calc = await TheCalculationAsync(order.MetaId);
+        Assert.IsTrue(calc.Lines[0].TaxAmount == 4.5m, "налог 4.5, факт {0}", calc.Lines[0].TaxAmount);
+        Assert.IsTrue(calc.Lines[0].RecoverableAmount == 2.7m,
+            "к возмещению 2.7, факт {0}", calc.Lines[0].RecoverableAmount);
+
+        var vat = await AccountAsync(calc.MetaId, s.VatAccount);
+        Assert.IsTrue(vat.Debit == 2.7m, "НДС к возмещению 2.7, факт {0}", vat.Debit);
+        var apTax = await AccountAsync(calc.MetaId, s.PayableAccount);
+        Assert.IsTrue(apTax.Credit == 2.7m, "налоговая кредиторка 2.7, факт {0}", apTax.Credit);
+
+        var payable = await TotalsManager.GetBalanceAsync("Payable", "Amount",
+            new Dictionary<string, object?> { ["Supplier"] = s.Supplier });
+        Assert.IsTrue(payable == 34.5m,
+            "долг поставщику 30 нетто + 4.5 налог = 34.5, факт {0}", payable);
     }
 
     [IntegrationTest("Сторно входного НДС кредит-нотой кредитует возмещение и дебетует кредиторку")]

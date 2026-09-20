@@ -7,7 +7,7 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.14.0",
+    "modelVersion": "1.15.0",
     "metaId": "91774783-bd29-42b4-88f8-21aad85a5850",
     "name": "Inventory",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -31,6 +31,12 @@
       "minVersion": "1.0.0",
       "metaId": "c82e1b83-9ed6-4c94-b832-39d8e49ae41f",
       "name": "Inventory->Organization"
+    },
+    {
+      "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "minVersion": "1.14.0",
+      "metaId": "b3f961d7-4082-44c5-f76a-315c2d6e9048",
+      "name": "Inventory->Tax"
     }
   ]
 }

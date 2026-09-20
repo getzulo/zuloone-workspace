@@ -138,6 +138,7 @@ public partial class TenantSetup
 
         await WriteDefaultsAsync(country, currency);
         await ScriptServices.Get<ITradeProfileService>().EnsureBuySellAsync();
+        await ScriptServices.Get<ITaxPackInstaller>().InstallForCountryAsync(country.CodeISO2!);
 
         return new Dictionary<string, object?>
         {

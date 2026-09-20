@@ -1,0 +1,10 @@
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+    "description": "CoC: saving a legal entity applies when=country data packs for its ISO2",
+    "metaId": "80c63ea4-1d5f-4192-c437-0e2f9a3b6d15",
+    "name": "LegalEntity.Inventory",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+  }
+}

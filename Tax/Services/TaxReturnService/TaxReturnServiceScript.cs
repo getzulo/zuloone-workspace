@@ -59,6 +59,7 @@ public partial class TaxReturnService
         public string DirectionCode = string.Empty;
         public decimal TaxBase;
         public decimal TaxAmount;
+        public decimal RecoverableAmount;
     }
 
     /// <summary>
@@ -75,7 +76,7 @@ public partial class TaxReturnService
         var lines = await CollectAsync(legalEntity, from, to);
 
         var outputTax = lines.Where(l => IsDirection(l, OutputDirection)).Sum(l => l.TaxAmount);
-        var inputTax = lines.Where(l => IsDirection(l, InputDirection)).Sum(l => l.TaxAmount);
+        var inputTax = lines.Where(l => IsDirection(l, InputDirection)).Sum(l => l.RecoverableAmount);
 
         var doc = await _documents.NewDocumentAsync<TaxReturn>("Draft", new Dictionary<string, object?>
         {
@@ -94,7 +95,7 @@ public partial class TaxReturnService
                 TaxCode = line.TaxCode,
                 Direction = line.Direction,
                 TaxBase = line.TaxBase,
-                TaxAmount = line.TaxAmount,
+                TaxAmount = IsDirection(line, InputDirection) ? line.RecoverableAmount : line.TaxAmount,
             });
         }
 
@@ -139,6 +140,7 @@ public partial class TaxReturnService
 
             line.TaxBase += Decimal(movement, "TaxBase");
             line.TaxAmount += Decimal(movement, "TaxAmount");
+            line.RecoverableAmount += Decimal(movement, "RecoverableAmount");
         }
 
         foreach (var line in grouped.Values)

@@ -66,7 +66,9 @@ public class TaxReturnTest : IntegrationTestScriptBase
         });
     }
 
-    private async Task PostAsync(Guid legalEntity, Guid code, Guid direction, DateTime on, decimal taxBase, decimal amount)
+    private async Task PostAsync(
+        Guid legalEntity, Guid code, Guid direction, DateTime on,
+        decimal taxBase, decimal amount, decimal? recoverable = null)
         => await Db.PostMovementAsync("TaxLedger", on,
             new Dictionary<string, object?>
             {
@@ -74,7 +76,12 @@ public class TaxReturnTest : IntegrationTestScriptBase
                 ["TaxDirection"] = direction,
                 ["LegalEntity"] = legalEntity,
             },
-            new Dictionary<string, decimal> { ["TaxBase"] = taxBase, ["TaxAmount"] = amount });
+            new Dictionary<string, decimal>
+            {
+                ["TaxBase"] = taxBase,
+                ["TaxAmount"] = amount,
+                ["RecoverableAmount"] = recoverable ?? amount,
+            });
 
     private async Task<TaxReturn> BuildAsync(Guid legalEntity, DateTime from, DateTime to)
     {
@@ -109,6 +116,28 @@ public class TaxReturnTest : IntegrationTestScriptBase
         var outLine = doc.Lines.First(l => l.Direction == output);
         Assert.IsTrue(outLine.TaxBase == 1200m, "база выходного 1000 + 200 = 1200, факт {0}", outLine.TaxBase);
         Assert.IsTrue(outLine.TaxCode == code, "строка ссылается на налоговый код");
+    }
+
+    [IntegrationTest("В декларацию входной налог идёт возмещаемой долей, а не всей суммой")]
+    public async Task InputTaxIsRecoverableAmount()
+    {
+        var le = Db.NewId();
+        var output = await NewDirectionAsync("OUTPUT");
+        var input = await NewDirectionAsync("INPUT");
+        var code = await NewCodeAsync(Uniq(), "Standard 15%");
+        var day = new DateTime(2026, 3, 15);
+
+        await PostAsync(le, code, output, day, 1000m, 150m);
+        await PostAsync(le, code, input, day, 400m, 60m, recoverable: 36m);
+
+        var doc = await BuildAsync(le, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+
+        Assert.IsTrue(doc.InputTax == 36m,
+            "входной в декларации — возмещаемые 36, не 60 налога, факт {0}", doc.InputTax);
+        Assert.IsTrue(doc.NetPayable == 114m, "к уплате 150 − 36 = 114, факт {0}", doc.NetPayable);
+        var inLine = doc.Lines.First(l => l.Direction == input);
+        Assert.IsTrue(inLine.TaxAmount == 36m,
+            "строка INPUT несёт возмещаемую долю, факт {0}", inLine.TaxAmount);
     }
 
     [IntegrationTest("Границы периода включительные, а соседние месяцы не попадают")]

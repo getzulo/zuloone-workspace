@@ -430,6 +430,9 @@ public class TaxRuleEngineTest : IntegrationTestScriptBase
         Assert.IsTrue(calc.Lines[0].RecoverableAmount == 90m,
             "60% от 150 = 90, факт {0}", calc.Lines[0].RecoverableAmount);
         Assert.IsTrue(Svc.RecoverableOf(150m, 40m) == 90m, "формула сервиса совпадает со штампом");
+        var le = await NewLegalEntityAsync();
+        var extra = await Svc.NonRecoverableOfAsync(le, "OUTPUT", 1000m, Today);
+        Assert.IsTrue(extra == 60m, "невозместимые 40% от 150 = 60, факт {0}", extra);
     }
 
     /// <summary>Юрлицо со страной и валютой — обязательные ссылки расчёта.</summary>

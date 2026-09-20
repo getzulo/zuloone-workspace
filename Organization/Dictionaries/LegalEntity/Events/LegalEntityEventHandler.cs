@@ -3,8 +3,9 @@ namespace ZuloOne.Runtime.Generated;
 
 // Lifecycle handler for LegalEntity. Country fixes the tax jurisdiction and functional
 // currency fixes the ledger currency — both are the tax/reporting basis, hence mandatory.
-// NOTE: auto-install of a country tax pack (ITaxPackInstaller) is added later as an
-// extension link once the Tax model exists — not referenced here to keep this compilable.
+// Country tax packs: ITaxPackInstaller lives in Tax. This model cannot
+// reference it (Tax → Organization). Inventory (layer 2) calls it from a
+// CoC link on this dictionary and from ApplyOrg.
 public partial class LegalEntityEventHandler : TypedDictionaryEventHandler<LegalEntity>
 {
     public override async Task<EventResult> OnBeforeSaveAsync(LegalEntity record, bool isNew, EventContext context){

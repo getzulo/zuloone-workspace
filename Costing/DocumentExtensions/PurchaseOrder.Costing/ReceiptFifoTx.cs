@@ -1,4 +1,6 @@
 #nullable enable
+using System;
+using System.Linq;
 using ZuloOne.Services.Contracts;
 
 // Себестоимость FIFO: оприходование заказа поставщику создаёт партию (лот) в
@@ -6,7 +8,9 @@ using ZuloOne.Services.Contracts;
 // движком FIFO хранит слои по товару; при расходе (−Quantity, Amount = 0) движок
 // сам считает себестоимость выбытия по старейшим лотам и отклоняет перерасход.
 // Движение типизированное: Item — физическое измерение регистра, не аналитика.
-// Сумма лота — общий PricingService.
+// Сумма лота — общий PricingService плюс невозместимый входной НДС с шапки
+// (NonRecoverableVat), разложенный по строкам. Иначе FIFO остался бы нетто, а
+// книга уже капитализировала налог в запасы.
 //
 // ═══ ЕДИНСТВЕННОЕ МЕСТО В ДЕРЕВЕ, ГДЕ ДВЕ КОНВЕНЦИИ ВСТРЕЧАЮТСЯ В ОДНОМ
 // ОПЕРАТОРЕ, И ДВА АРГУМЕНТА НАМЕРЕННО ЧИТАЮТ РАЗНЫЕ ПОЛЯ ОДНОЙ СТРОКИ:
@@ -35,13 +39,24 @@ public partial class ReceiptFifoTx
     protected override void GetTransactions(PurchaseOrder document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
     {
         var pricing = GetService<IPricingService>();
-        foreach (var line in document.Lines)
+        var extra = document.NonRecoverableVat;
+        var nets = document.Lines.Select(l => pricing.LineAmount(l.Quantity, l.UnitPrice)).ToList();
+        var total = nets.Sum();
+        var leftover = extra;
+        var scale = GlobalConstants.Get<int?>("AmountScale") ?? 2;
+        for (var i = 0; i < document.Lines.Count; i++)
         {
+            var line = document.Lines[i];
+            var share = extra == 0m || total == 0m ? 0m
+                : i == document.Lines.Count - 1
+                    ? leftover
+                    : Math.Round(extra * nets[i] / total, scale, MidpointRounding.AwayFromZero);
+            leftover -= share;
             transactions.Add(new ItemCostFifo
             {
                 Item = line.Item,
                 Quantity = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity,
-                Amount = pricing.LineAmount(line.Quantity, line.UnitPrice)
+                Amount = nets[i] + share
             });
         }
     }

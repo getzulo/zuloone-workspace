@@ -1,7 +1,9 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
@@ -11,6 +13,8 @@ namespace ZuloOne.Runtime.Generated;
 // carry table parts).
 public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<PurchaseOrder>
 {
+    private static readonly Guid PurchaseOrderType = Guid.Parse("6935af7d-5f73-45d5-ad4c-d4a21dbe0b67");
+
     public override async Task<EventResult> OnBeforePostAsync(PurchaseOrder document, EventContext context){
         var prior = await next(document, context);
         if (!prior.Success) return prior;
@@ -50,6 +54,24 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
             if (taxCode is not null && await tax.ResolveRateAsync(taxCode.Value, TaxPointOf(document)) is null)
                 return EventResult.Cancel(
                     $"Налоговый код настроен, но действующей ставки на {TaxPointOf(document):yyyy-MM-dd} нет — приход не проводится");
+
+            // Stamp before TX: FIFO and InventoryValue read the posting snapshot
+            // (Flush writes the field back). Purchase GL reloads from the
+            // database — the event instance never reaches it (same as
+            // TaxRateApplied on the invoice). Header-only update, not a full
+            // save: rewriting lines mid-post would recast the document.
+            document.NonRecoverableVat = 0m;
+            var legalEntity = await cells.GetLegalEntityAsync(document.Location);
+            if (legalEntity is Guid leId && leId != Guid.Empty)
+            {
+                var pricing = context.GetService<IPricingService>();
+                var taxBase = lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
+                document.NonRecoverableVat = await tax.NonRecoverableOfAsync(
+                    leId, "INPUT", taxBase, TaxPointOf(document));
+            }
+            await context.GetService<IDocumentManager>().UpdateDocumentAsync(
+                PurchaseOrderType, document.MetaId,
+                new Dictionary<string, object?> { ["NonRecoverableVat"] = document.NonRecoverableVat });
         }
 
         return EventResult.Ok();

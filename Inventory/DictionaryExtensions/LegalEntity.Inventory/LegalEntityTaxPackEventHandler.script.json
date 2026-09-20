@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "80c63ea4-1d5f-4192-c437-0e2f9a3b6d15",
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "LegalEntity",
+    "objectMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+    "executionOrder": 10,
+    "metaId": "91d74fb5-2e60-42a3-d548-1f3a0b4c7e26",
+    "name": "LegalEntityTaxPackEventHandler",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+  }
+}

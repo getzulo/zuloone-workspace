@@ -33,14 +33,14 @@ namespace ZuloOne.Runtime.Generated;
 // same as a three-leg posting, but the sales account did not have to be
 // touched.
 //
-// ═══ INPUT: THE MIRROR, WITHOUT RECOVERABILITY ══════════════════════════════
+// ═══ INPUT: RECOVERABLE TO THE ASSET, THE REST ALREADY IN STOCK ═════════════
 //
-// A purchase order posts Dr inventory / Cr payables on the amount WITHOUT tax.
-// Input tax is Dr VAT recoverable / Cr payables: an asset to offset against
-// output and a supplier debt up to the tax-inclusive amount. The non-recoverable
-// portion is not folded into inventory cost: there is no recoverability
-// dictionary, so all input tax is treated as recoverable. When recoverability
-// arrives, it belongs on TaxCode, not as a separate posting here.
+// A purchase order posts Dr inventory / Cr payables on the amount WITHOUT tax
+// PLUS NonRecoverableVat (capitalized into the same inventory credit). Input
+// tax that can be claimed is Dr VAT recoverable / Cr payables on RecoverableAmount.
+// The supplier is still owed the full tax: the Payable register seam uses
+// TaxAmount. Default NonRecoverablePct is 0, so RecoverableAmount = TaxAmount
+// and this posting matches the historic full-input-VAT asset.
 [ExtensionOf("TaxCalculation")]
 public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<TaxCalculation>
 {
@@ -73,13 +73,17 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
         var directions = context.GetService<IDictionaryManager<TaxDirection>>();
         var output = 0m;
         var input = 0m;
+        var inputRecoverable = 0m;
         foreach (var line in calc.Lines)
         {
             var code = (await directions.GetRecordAsync(line.Direction))?.Code;
             if (string.Equals(code, OutputDirection, StringComparison.OrdinalIgnoreCase))
                 output += line.TaxAmount;
             else if (string.Equals(code, InputDirection, StringComparison.OrdinalIgnoreCase))
+            {
                 input += line.TaxAmount;
+                inputRecoverable += line.RecoverableAmount;
+            }
         }
         if (output == 0m && input == 0m) return posted;
 
@@ -111,19 +115,19 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
             if (jeId.HasValue) posted.Add(jeId.Value);
         }
 
-        if (input != 0m
+        if (inputRecoverable != 0m
             && !string.IsNullOrWhiteSpace(settings.VatReceivableAccountCode)
             && !string.IsNullOrWhiteSpace(settings.PayableAccountCode))
         {
-            var amount = input > 0m ? input : -input;
-            var debit = input > 0m ? settings.VatReceivableAccountCode : settings.PayableAccountCode;
-            var credit = input > 0m ? settings.PayableAccountCode : settings.VatReceivableAccountCode;
+            var amount = inputRecoverable > 0m ? inputRecoverable : -inputRecoverable;
+            var debit = inputRecoverable > 0m ? settings.VatReceivableAccountCode : settings.PayableAccountCode;
+            var credit = inputRecoverable > 0m ? settings.PayableAccountCode : settings.VatReceivableAccountCode;
             var jeId = await gl.PostAsync(
                 calc.DocumentDate, le.MetaId, le.Currency, amount,
                 debit, credit,
-                (input > 0m ? "Input VAT " : "Input VAT reversal ") + header.MetaId,
-                input > 0m ? "НДС к возмещению" : "Кредиторка (сторно налога)",
-                input > 0m ? "Кредиторка (налог поставщику)" : "НДС к возмещению",
+                (inputRecoverable > 0m ? "Input VAT " : "Input VAT reversal ") + header.MetaId,
+                inputRecoverable > 0m ? "НДС к возмещению" : "Кредиторка (сторно налога)",
+                inputRecoverable > 0m ? "Кредиторка (налог поставщику)" : "НДС к возмещению",
                 TaxCircuits);
             if (jeId.HasValue) posted.Add(jeId.Value);
         }

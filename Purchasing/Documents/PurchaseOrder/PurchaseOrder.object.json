@@ -86,6 +86,30 @@
       "metaId": "a3c2ee0f-c9f9-41f1-b138-908c8794947b",
       "name": "Supplier",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
+      "fieldName": "NonRecoverableVat",
+      "caption": {
+        "en": "Non-recoverable VAT",
+        "ar": "ضريبة غير قابلة للاسترداد",
+        "ru": "Невозместимый НДС",
+        "uk": "Невідшкодовуваний ПДВ"
+      },
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 2,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 50,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": false,
+      "isTranslatable": false,
+      "isCalculated": false,
+      "metaId": "7c4e1a92-8b3d-4f6a-9c15-2e8d0f4b1a64",
+      "name": "NonRecoverableVat",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ],
   "subtypes": [
