@@ -39,6 +39,50 @@ public partial class SalesFulfillmentService
     // factory then fails to start ("service is not available"). Same as PricingService.
     private static IStoreCellService Cells => ScriptServices.Get<IStoreCellService>();
 
+    /// <summary>Submitted → Confirmed + invoice. Shared by Approve and by
+    /// Submit when <c>ConfirmOrderOnSubmit</c> is on. Null = success.</summary>
+    public async Task<string?> ConfirmOrderAsync(Guid orderId)
+    {
+        var full = await _documents.GetDocumentAsync<SalesOrder>(orderId);
+        if (full == null) return "Заказ не найден.";
+        if (full.Lines.Count == 0)
+            return "Нельзя согласовать пустой заказ: добавьте строки.";
+        if (full.Lines.Any(l => l.Quantity <= 0m))
+            return "В каждой строке количество должно быть больше нуля.";
+
+        var cells = Cells;
+        if (await cells.IsWarehouseDisciplineOnAsync() &&
+            !await cells.IsCellAllowedForAsync(full.Location, StoreCellPurpose.Picking))
+            return "Заказ при адресной дисциплине отгружается из ячейки ОТБОРА — у выбранной ячейки другое назначение";
+
+        var onDate = full.DeliveryDate != default ? full.DeliveryDate : DateTime.UtcNow;
+        var contracts = ScriptServices.Get<ISalesContractService>();
+        var pair = await contracts.ValidatePairAsync(full.Customer, full.Outlet, full.Contract, onDate);
+        if (pair != null) return pair;
+
+        var pricing = ScriptServices.Get<IPricingService>();
+        var amount = full.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice, full.DiscountPercent));
+        var settlement = await contracts.CheckSettlementAsync(full.Customer, full.Contract, amount);
+        if (settlement != null) return settlement;
+
+        var settings = (await ScriptServices.Get<IDictionaryManager<SalesSettings>>().GetRecordsAsync("1 = 1"))
+            .FirstOrDefault();
+        if (settings?.AllowBackorder != true)
+        {
+            foreach (var line in full.Lines)
+            {
+                var free = await AvailableQtyAsync(full.Location, line.Item);
+                if (free < line.Quantity)
+                    return $"Не хватает свободного остатка: нужно {line.Quantity}, свободно {free}";
+            }
+        }
+
+        full.Subtype = SalesOrder.Subtypes.Confirmed;
+        await _documents.SaveDocumentAsync(full);
+        await InvoiceOrderAsync(orderId);
+        return null;
+    }
+
     /// <summary>Available = Stock − ReservedStock. Without discipline — by the
     /// order cell. With discipline the goods are still in storage while the order
     /// points at picking: look at every cell of that cell's store, otherwise

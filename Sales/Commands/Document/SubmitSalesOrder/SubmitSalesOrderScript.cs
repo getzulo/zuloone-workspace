@@ -1,7 +1,9 @@
+using System.Linq;
 using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
 
-// Команда «Отправить заказ»: переход Draft → Submitted.
-// Лёгкая проверка наличия строк; всё остальное — на согласовании (ApproveSalesOrder).
+// «Отправить заказ»: Draft → Submitted, or ConfirmOrderAsync when
+// SalesSettings.ConfirmOrderOnSubmit is on (same path as Approve).
 public partial class SubmitSalesOrderCommand
 {
     public override async Task ExecuteAsync(SalesOrder document, CommandContext context)
@@ -13,6 +15,20 @@ public partial class SubmitSalesOrderCommand
         if (full.Lines.Count == 0)
         {
             context.AddClientAction(ClientAction.Message("Нельзя отправить пустой заказ: добавьте строки."));
+            return;
+        }
+
+        var settings = (await context.GetService<IDictionaryManager<SalesSettings>>().GetRecordsAsync("1 = 1"))
+            .FirstOrDefault();
+        if (settings?.ConfirmOrderOnSubmit == true)
+        {
+            var error = await context.GetService<ISalesFulfillmentService>().ConfirmOrderAsync(full.MetaId);
+            if (error != null)
+            {
+                context.AddClientAction(ClientAction.Message(error));
+                return;
+            }
+            context.AddClientAction(ClientAction.Message("Заказ согласован."));
             return;
         }
 
