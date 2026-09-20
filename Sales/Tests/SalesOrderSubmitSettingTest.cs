@@ -213,7 +213,7 @@ public class SalesOrderSubmitSettingTest : IntegrationTestScriptBase
         var order = await NewOrderAsync(s, 4m, 5m);
         var commandId = await Db.FindCommandIdAsync("document", "SubmitSalesOrder");
         var run = await Db.ExecuteDocumentCommandAsync(commandId, order.MetaId);
-        Assert.IsTrue(!run.Success || string.Join("; ", run.ClientMessages).Contains("остатка"),
+        Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("остатка"),
             "пользователь видит отказ: {0}", string.Join("; ", run.ClientMessages));
 
         var stored = await DocumentManager.GetDocumentAsync<SalesOrder>(order.MetaId);
