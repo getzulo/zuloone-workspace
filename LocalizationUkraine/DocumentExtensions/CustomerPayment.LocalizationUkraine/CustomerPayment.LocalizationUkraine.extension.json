@@ -1,16 +1,16 @@
 {
   "kind": "DocumentExtension",
   "object": {
-    "targetDocumentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
-    "description": "НДС Украины в регистр UaVatPayable при выставлении счёта",
-    "metaId": "63f686d8-1dd7-486e-ab46-5fabfd9a1c92",
-    "name": "SalesInvoice.LocalizationUkraine",
+    "targetDocumentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+    "description": "Перша подія: оплата рождает обязательство по ПДВ, если опередила отгрузку",
+    "metaId": "f2dc0b39-7c86-4153-857e-2a0ae25d6d18",
+    "name": "CustomerPayment.LocalizationUkraine",
     "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
   },
   "fields": [
     {
-      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
-      "extensionMetaId": "63f686d8-1dd7-486e-ab46-5fabfd9a1c92",
+      "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
+      "extensionMetaId": "f2dc0b39-7c86-4153-857e-2a0ae25d6d18",
       "fieldName": "UaTaxableBase",
       "caption": {
         "en": "Taxable base of the first event",
@@ -29,7 +29,7 @@
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
-      "metaId": "abfd5bca-cf74-4cbe-9cd4-6daf37103a69",
+      "metaId": "bf3e97e3-fd3d-4a0c-bad1-8bb69e87d0b4",
       "name": "UaTaxableBase",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }

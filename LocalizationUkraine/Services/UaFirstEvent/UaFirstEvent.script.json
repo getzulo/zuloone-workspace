@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "UaFirstEvent",
+    "executionOrder": 0,
+    "metaId": "e8928ac3-5378-405f-a000-8830fdf1d45e",
+    "name": "UaFirstEvent",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

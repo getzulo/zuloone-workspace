@@ -50,6 +50,16 @@ public partial class TaxCodeEventHandler : TypedDictionaryEventHandler<TaxCode>
         if (record.NonRecoverablePct < 0m || record.NonRecoverablePct > 100m)
             return EventResult.Cancel("Невозместимая доля должна быть от 0 до 100%");
 
+        if (record.ExemptionReason != Guid.Empty)
+        {
+            var reason = await context.GetService<IDictionaryManager<TaxExemptionReason>>()
+                .GetRecordAsync(record.ExemptionReason);
+            if (reason != null && reason.Tax != Guid.Empty && reason.Tax != record.Tax)
+                return EventResult.Cancel(
+                    $"Причина освобождения «{reason.Code}» принадлежит другому налогу: "
+                    + "код и его причина обязаны относиться к одному налогу");
+        }
+
         if (record.TaxCategory != Guid.Empty)
         {
             var category = await context.GetService<IDictionaryManager<TaxCategory>>()

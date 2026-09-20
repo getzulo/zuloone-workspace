@@ -1,0 +1,143 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Tax exemption reasons",
+      "ar": "أسباب الإعفاء الضريبي",
+      "ru": "Причины освобождения",
+      "uk": "Підстави звільнення"
+    },
+    "description": "Why a supply is exempt or out of scope. Country letters (VATEX-SA-*) stay on the localization category extension; this catalog is the core stamp on TaxCalculation.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "c7abf017-fdb5-424c-8107-1cdd31aef9ac",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Code",
+    "displayFormat": "{Code} - {Name}",
+    "isKernel": false,
+    "iconName": "fluent-color:bookmark-32",
+    "largeIconName": "fluent-color:bookmark-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+    "name": "TaxExemptionReason",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+      "fieldName": "Tax",
+      "edtMetaId": "721d3568-4674-4d69-8828-cb32f33f3df5",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax",
+        "ar": "الضريبة",
+        "ru": "Налог",
+        "uk": "Податок"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "565b1c7c-42c7-4c18-98e3-d45235d6f0a8",
+      "name": "Tax",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+      "fieldName": "Code",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Code",
+        "ar": "الكود",
+        "ru": "Код",
+        "uk": "Код"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "bd0ac977-c072-4977-ad8d-a55602648c28",
+      "name": "Code",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Найменування"
+      },
+      "isTranslatable": true,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "34f1969c-179c-4be1-ad2f-a5d99350a7fb",
+      "name": "Name",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+      "fieldName": "EffectiveFrom",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective from",
+        "ar": "سارٍ من",
+        "ru": "Действует с",
+        "uk": "Діє з"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "24396312-c755-4079-9ccc-8f3a03fe4f67",
+      "name": "EffectiveFrom",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+      "fieldName": "EffectiveTo",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective to",
+        "ar": "سارٍ إلى",
+        "ru": "Действует по",
+        "uk": "Діє по"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "94cf143f-8c90-40f0-87d9-248b20b309dd",
+      "name": "EffectiveTo",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    }
+  ]
+}

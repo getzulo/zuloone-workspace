@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+    "isRequired": false,
+    "metaId": "0ebe4817-956d-4cf4-b9ef-737bf382ea78",
+    "name": "RefTaxExemptionReason",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

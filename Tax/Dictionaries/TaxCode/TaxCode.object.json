@@ -96,6 +96,29 @@
     },
     {
       "dictionaryMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
+      "fieldName": "ExemptionReason",
+      "edtMetaId": "0ebe4817-956d-4cf4-b9ef-737bf382ea78",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 9,
+      "description": "Why this code is exempt or out of scope. Copied onto TaxCalculation when the category treatment is EXEMPT or OUT_OF_SCOPE. Empty is lawful: zero-rated has no reason, and Saudi VATEX still lives on the category extension.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Exemption reason",
+        "ar": "سبب الإعفاء",
+        "ru": "Причина освобождения",
+        "uk": "Підстава звільнення"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "56e950d3-a2f6-4189-8a22-02e1936223c0",
+      "name": "ExemptionReason",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "36e9886e-e0fe-4822-927d-eb2374d9aebe",
       "fieldName": "ID",
       "baseType": "String",
       "length": 50,

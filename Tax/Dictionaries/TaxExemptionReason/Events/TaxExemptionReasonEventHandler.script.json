@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TaxExemptionReason",
+    "objectMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+    "executionOrder": 0,
+    "metaId": "7014b08d-b89e-4f3a-a000-10704bae80b2",
+    "name": "TaxExemptionReasonEventHandler",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

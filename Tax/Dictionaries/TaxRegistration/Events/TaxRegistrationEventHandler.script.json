@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TaxRegistration",
+    "objectMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+    "executionOrder": 0,
+    "metaId": "76c05456-a8ae-4317-bff0-065f536cc996",
+    "name": "TaxRegistrationEventHandler",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

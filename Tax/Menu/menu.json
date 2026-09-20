@@ -346,6 +346,38 @@
       "metaId": "d158374b-92ea-4685-81c5-f4a38270b59e",
       "name": "TaxRuleAction",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "caption": {
+        "en": "Tax registrations",
+        "ar": "التسجيلات الضريبية",
+        "ru": "Налоговые регистрации",
+        "uk": "Податкові реєстрації"
+      },
+      "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
+      "displayOrder": 9,
+      "icon": "fluent-color:certificate-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "metaId": "81b6c802-ba43-49b5-b629-77d498ccd628",
+      "name": "TaxRegistration",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "caption": {
+        "en": "Exemption reasons",
+        "ar": "أسباب الإعفاء",
+        "ru": "Причины освобождения",
+        "uk": "Підстави звільнення"
+      },
+      "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
+      "displayOrder": 10,
+      "icon": "fluent-color:bookmark-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+      "metaId": "2596c0dd-a7a7-436b-8627-9e4ed4650771",
+      "name": "TaxExemptionReason",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

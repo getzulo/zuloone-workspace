@@ -41,6 +41,29 @@
     },
     {
       "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
+      "fieldName": "ExemptionReason",
+      "caption": {
+        "en": "Exemption reason",
+        "ar": "سبب الإعفاء",
+        "ru": "Причина освобождения",
+        "uk": "Підстава звільнення"
+      },
+      "edtMetaId": "0ebe4817-956d-4cf4-b9ef-737bf382ea78",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+      "referenceName": "TaxExemptionReason",
+      "displayOrder": 11,
+      "metaId": "29908f6a-04ae-41ff-af18-8db38002e856",
+      "name": "ExemptionReason",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "tablePartTypeMetaId": "76b9e347-1cb1-4c5e-9f15-19204a68a57a",
       "fieldName": "RateOverridden",
       "caption": {
         "en": "Rate overridden",

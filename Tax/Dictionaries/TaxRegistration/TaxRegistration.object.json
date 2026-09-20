@@ -1,0 +1,188 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Tax registrations",
+      "ar": "التسجيلات الضريبية",
+      "ru": "Налоговые регистрации",
+      "uk": "Податкові реєстрації"
+    },
+    "description": "Dated VAT (or other tax) number of a party. PartyType+PartyId because Tax cannot reference Customer/Supplier. The party-card TaxRegistrationNumber is the print fallback.",
+    "isLogged": true,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "fec2204e-91a4-4537-b38d-61f60413e3bd",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "RegistrationNumber",
+    "displayFormat": "{RegistrationNumber}",
+    "isKernel": false,
+    "iconName": "fluent-color:certificate-32",
+    "largeIconName": "fluent-color:certificate-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+    "name": "TaxRegistration",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "fieldName": "PartyType",
+      "baseType": "String",
+      "length": 16,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "description": "LegalEntity, Customer or Supplier. Not an FK: Tax is Base and cannot see Inventory parties.",
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Party type",
+        "ar": "نوع الطرف",
+        "ru": "Тип стороны",
+        "uk": "Тип сторони"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e81e6560-29ac-4803-b883-9066d917d1dc",
+      "name": "PartyType",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "fieldName": "PartyId",
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Party",
+        "ar": "الطرف",
+        "ru": "Сторона",
+        "uk": "Сторона"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c37a0abc-30dd-4995-b8d2-a4fa66c51089",
+      "name": "PartyId",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "fieldName": "Tax",
+      "edtMetaId": "721d3568-4674-4d69-8828-cb32f33f3df5",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax",
+        "ar": "الضريبة",
+        "ru": "Налог",
+        "uk": "Податок"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "04b956b6-7cce-426e-a2fc-7595b342c86e",
+      "name": "Tax",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "fieldName": "Jurisdiction",
+      "edtMetaId": "0821fb76-41d0-4d40-97f2-ef0e2763906e",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Jurisdiction",
+        "ar": "الولاية القضائية",
+        "ru": "Юрисдикция",
+        "uk": "Юрисдикція"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7286d0e5-da76-482b-a1e3-77866d8dc42c",
+      "name": "Jurisdiction",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "fieldName": "RegistrationNumber",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 5,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Registration number",
+        "ar": "رقم التسجيل",
+        "ru": "Регистрационный номер",
+        "uk": "Реєстраційний номер"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d5d7f819-8263-4f2d-a786-7604cf2f34dd",
+      "name": "RegistrationNumber",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "fieldName": "ValidFrom",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Valid from",
+        "ar": "سارٍ من",
+        "ru": "Действует с",
+        "uk": "Діє з"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c1da639f-25e2-4145-b3cf-ad227c53226b",
+      "name": "ValidFrom",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "fieldName": "ValidTo",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Valid to",
+        "ar": "سارٍ إلى",
+        "ru": "Действует по",
+        "uk": "Діє по"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "81d473fa-4f37-434a-a454-01dc8f875222",
+      "name": "ValidTo",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    }
+  ]
+}

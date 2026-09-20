@@ -51,6 +51,7 @@ public partial class TaxService
     private readonly IDictionaryManager<TaxRule> _rules;
     private readonly IDictionaryManager<TaxRuleCondition> _ruleConditions;
     private readonly IDictionaryManager<TaxRuleAction> _ruleActions;
+    private readonly IDictionaryManager<TaxRegistration> _registrations;
     private readonly IDocumentManager _documents;
     private readonly IDocumentPostingService _posting;
 
@@ -65,6 +66,7 @@ public partial class TaxService
         IDictionaryManager<TaxRule> rules,
         IDictionaryManager<TaxRuleCondition> ruleConditions,
         IDictionaryManager<TaxRuleAction> ruleActions,
+        IDictionaryManager<TaxRegistration> registrations,
         IDocumentManager documents,
         IDocumentPostingService posting)
     {
@@ -78,6 +80,7 @@ public partial class TaxService
         _rules = rules;
         _ruleConditions = ruleConditions;
         _ruleActions = ruleActions;
+        _registrations = registrations;
         _documents = documents;
         _posting = posting;
     }
@@ -323,6 +326,7 @@ public partial class TaxService
         var le = await _legalEntities.GetRecordAsync(legalEntity);
         if (le is null) return null;
 
+        var headerCode = await _codes.GetRecordAsync(taxCode.Value);
         var calc = await _documents.NewDocumentAsync<TaxCalculation>("Draft", new Dictionary<string, object?>
         {
             ["LegalEntity"] = le.MetaId,
@@ -333,6 +337,10 @@ public partial class TaxService
             // edited or disabled, and the calculation is immutable and must explain
             // its own rate.
             ["MatchedRule"] = matchedRule?.MetaId,
+            // Same for the VAT number: TaxRegistration will be edited; the
+            // calculation keeps the number that was in force on tax-point date.
+            ["RegistrationNumber"] = await ResolveRegistrationNumberAsync(
+                "LegalEntity", legalEntity, headerCode?.Tax ?? Guid.Empty, taxPoint),
         });
 
         foreach (var action in await ResolveActionsAsync(matchedRule, taxCode.Value))
@@ -350,12 +358,84 @@ public partial class TaxService
                 TaxAmount = amount,
                 RecoverableAmount = RecoverableOf(amount, codeRow?.NonRecoverablePct ?? 0m),
                 RateOverridden = action.Rate.HasValue,
+                ExemptionReason = await ExemptionStampAsync(codeRow),
             });
         }
 
         await _documents.SaveDocumentAsync(calc);
         await _posting.SetSubtypeAsync(TaxCalculationType, calc.MetaId, "Finalized");
         return calc.MetaId;
+    }
+
+    /// <summary>
+    /// VAT (or other tax) number of a party on a date. Tax cannot FK Customer
+    /// or Supplier, so the party is a type string plus a Guid. Empty tax id
+    /// skips the dictionary and, for a legal entity, still returns the card
+    /// number — that is the print fallback every existing stand already has.
+    /// Several overlapping rows are corruption, same as two rates in one
+    /// category: refuse rather than pick whichever row came first.
+    /// </summary>
+    public async Task<string?> ResolveRegistrationNumberAsync(
+        string partyType, Guid partyId, Guid taxId, DateTime? onDate = null)
+    {
+        if (partyId == Guid.Empty) return null;
+        var type = (partyType ?? "").Trim();
+        var date = (onDate ?? DateTime.UtcNow).Date;
+
+        if (!string.IsNullOrEmpty(type) && taxId != Guid.Empty)
+        {
+            var tax = await _taxes.GetRecordAsync(taxId);
+            var jurisdiction = tax?.Jurisdiction ?? Guid.Empty;
+            var matches = (await _registrations.GetRecordsAsync(
+                    $"PartyType = '{type.Replace("'", "''")}' AND PartyId = '{partyId}' AND Tax = '{taxId}'"))
+                .Where(r => (jurisdiction == Guid.Empty || r.Jurisdiction == jurisdiction)
+                    && IsEffectiveOn(r.ValidFrom, r.ValidTo, date))
+                .ToList();
+            if (matches.Count > 1)
+                throw new InvalidOperationException(
+                    $"На {date:yyyy-MM-dd} у стороны больше одной регистрации налога " +
+                    string.Join(", ", matches.Select(r => r.RegistrationNumber)) +
+                    ". Окна одной стороны, налога и юрисдикции не должны пересекаться.");
+            if (matches.Count == 1)
+                return matches[0].RegistrationNumber;
+        }
+
+        if (!type.Equals("LegalEntity", StringComparison.OrdinalIgnoreCase))
+            return null;
+        var le = partyId == Guid.Empty ? null : await _legalEntities.GetRecordAsync(partyId);
+        return string.IsNullOrWhiteSpace(le?.TaxRegistrationNumber)
+            ? null
+            : le!.TaxRegistrationNumber;
+    }
+
+    /// <summary>
+    /// A registration of THE SAME party, tax and jurisdiction whose window
+    /// overlaps — or null. The handler asks this so "cannot be created" and
+    /// "calculation refuses" stay one rule, like <see cref="FindOverlappingRateAsync"/>.
+    /// </summary>
+    public async Task<TaxRegistration?> FindOverlappingRegistrationAsync(
+        string partyType, Guid partyId, Guid tax, Guid jurisdiction,
+        Guid exclude, DateTime from, DateTime? to)
+    {
+        if (partyId == Guid.Empty || tax == Guid.Empty) return null;
+        var type = (partyType ?? "").Trim();
+        return (await _registrations.GetRecordsAsync(
+                $"PartyType = '{type.Replace("'", "''")}' AND PartyId = '{partyId}' AND Tax = '{tax}' AND Jurisdiction = '{jurisdiction}'"))
+            .FirstOrDefault(r => r.MetaId != exclude
+                && WindowsOverlap(from, to, r.ValidFrom, r.ValidTo));
+    }
+
+    /// <summary>Stamp the code's exemption reason only when the category is
+    /// exempt or out of scope. Zero-rated is 0% by law and has no reason
+    /// (ZATCA letter Z, no TaxExemptionReason in the XML).</summary>
+    private async Task<Guid> ExemptionStampAsync(TaxCode? code)
+    {
+        if (code is null || code.ExemptionReason == Guid.Empty) return Guid.Empty;
+        if (code.TaxCategory == Guid.Empty) return Guid.Empty;
+        var category = await _categories.GetRecordAsync(code.TaxCategory);
+        return category?.Treatment is "EXEMPT" or "OUT_OF_SCOPE"
+            ? code.ExemptionReason
+            : Guid.Empty;
     }
 
     /// <summary>Tax amount = base × rate (fraction), rounded to money precision.</summary>

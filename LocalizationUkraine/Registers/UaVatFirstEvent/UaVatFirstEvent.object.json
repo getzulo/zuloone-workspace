@@ -1,0 +1,102 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "Ukraine VAT first event",
+      "ar": "الحدث الأول لضريبة القيمة المضافة (أوكرانيا)",
+      "ru": "ПДВ: перша подія",
+      "uk": "ПДВ: перша подія"
+    },
+    "description": "Накопления по договору, из которых выводится первое событие (ПКУ 187.1): обязательство возникает на дату того, что случилось раньше — отгрузка или оплата. Цель начисления = max(Shipped, Paid); Accrued хранит уже начисленное, и налог берётся только с прироста. Так предоплата начисляет ПДВ сразу, а последующая отгрузка в её пределах не начисляет второй раз.",
+    "isObsolete": false,
+    "iconName": "fluent-color:clock-32",
+    "largeIconName": "fluent-color:clock-32",
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",
+    "name": "UaVatFirstEvent",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "resources": [
+    {
+      "registerMetaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",
+      "fieldName": "Accrued",
+      "caption": {
+        "en": "Base already taxed",
+        "ar": "الأساس الخاضع للضريبة بالفعل",
+        "ru": "База, уже обложенная",
+        "uk": "База, вже оподаткована"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 3,
+      "metaId": "c84d4abf-6126-4a75-bd94-74a3bf2b0304",
+      "name": "Accrued",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",
+      "fieldName": "Paid",
+      "caption": {
+        "en": "Paid base",
+        "ar": "أساس السداد",
+        "ru": "Оплачено (база)",
+        "uk": "Оплачено (база)"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 2,
+      "metaId": "f6ce1326-f8d3-4948-a113-5b3b08fb4cd4",
+      "name": "Paid",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",
+      "fieldName": "Shipped",
+      "caption": {
+        "en": "Shipped base",
+        "ar": "أساس الشحن",
+        "ru": "Отгружено (база)",
+        "uk": "Відвантажено (база)"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "metaId": "2f846f88-70cb-4d2d-8bc5-e2f8f06cf509",
+      "name": "Shipped",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "analytics": [
+    {
+      "registerMetaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",
+      "analyticMetaId": "37666495-de93-4eee-91b1-c72af788c054",
+      "displayOrder": 1,
+      "isRequired": true,
+      "metaId": "a7f13fc6-acec-4a81-8f1a-fea4cef98ebb",
+      "name": "UaVatFirstEvent-Customer",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",
+      "analyticMetaId": "b7786ebf-8e36-4cb1-bcc3-fb493c5feb80",
+      "displayOrder": 2,
+      "isRequired": true,
+      "metaId": "a0da9a38-788c-4a93-9fd6-f9ac649de0a9",
+      "name": "UaVatFirstEvent-CustomerOutlet",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",
+      "analyticMetaId": "992849cd-d7d0-4e7e-b399-b7460d296df7",
+      "displayOrder": 3,
+      "isRequired": true,
+      "metaId": "d801872a-3783-4b03-8e53-03775418709d",
+      "name": "UaVatFirstEvent-SalesContract",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

@@ -133,6 +133,29 @@
     },
     {
       "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
+      "fieldName": "RegistrationNumber",
+      "caption": {
+        "en": "Registration number",
+        "ar": "رقم التسجيل",
+        "ru": "Регистрационный номер",
+        "uk": "Реєстраційний номер"
+      },
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "description": "VAT (or other tax) number of the legal entity that was in force on TaxPointDate. Stamped from TaxRegistration, falling back to LegalEntity.TaxRegistrationNumber. The calculation keeps its own copy because the registration row will be edited later.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "f385dd81-22bd-4d43-954c-cde27679d27a",
+      "name": "RegistrationNumber",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "documentTypeMetaId": "1e07e7a9-d80f-4067-bc65-e40c96d4feee",
       "fieldName": "TaxPointDate",
       "caption": {
         "en": "Tax point date",
