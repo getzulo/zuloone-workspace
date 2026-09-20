@@ -1,0 +1,61 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "Work in progress",
+      "ar": "إنتاج قيد التنفيذ",
+      "ru": "Незавершённое производство",
+      "uk": "Незавершене виробництво"
+    },
+    "description": "Количество изделия в работе: пишет Released, Mix снимает при Finished. Не стоимость — FIFO уже ушёл со склада на consume.",
+    "isObsolete": false,
+    "iconName": "fluent-color:box-24",
+    "largeIconName": "fluent-color:box-24",
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "36549e8e-59a3-4a9e-af3d-86aaea866768",
+    "name": "WorkInProgress",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  },
+  "resources": [
+    {
+      "registerMetaId": "36549e8e-59a3-4a9e-af3d-86aaea866768",
+      "fieldName": "Qty",
+      "caption": {
+        "en": "Qty",
+        "ar": "الكمية",
+        "ru": "Количество",
+        "uk": "Кількість"
+      },
+      "isOperational": true,
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "displayOrder": 1,
+      "metaId": "38a52e22-7b99-4837-9bbf-c23ef82a52f7",
+      "name": "Qty",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    }
+  ],
+  "analytics": [
+    {
+      "registerMetaId": "36549e8e-59a3-4a9e-af3d-86aaea866768",
+      "analyticMetaId": "976f4076-722f-4764-a543-68f35d1189e1",
+      "displayOrder": 2,
+      "isRequired": true,
+      "metaId": "2310bf14-0f19-4e73-a157-8bb27b2a4914",
+      "name": "WorkInProgress-Cell",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "registerMetaId": "36549e8e-59a3-4a9e-af3d-86aaea866768",
+      "analyticMetaId": "4384343f-aa55-4cc4-9e0d-9893bfc47fb3",
+      "displayOrder": 1,
+      "isRequired": true,
+      "metaId": "7a63e94e-3982-4e5d-926e-9283c7cfa4d7",
+      "name": "WorkInProgress-Item",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    }
+  ]
+}
