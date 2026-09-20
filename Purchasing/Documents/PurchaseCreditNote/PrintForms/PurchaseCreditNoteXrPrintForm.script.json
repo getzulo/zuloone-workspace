@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "PurchaseCreditNote",
+    "objectMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+    "executionOrder": 0,
+    "metaId": "3f110aaf-c012-4087-a0d3-d18afd9029f7",
+    "name": "PurchaseCreditNoteXrPrintForm",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}

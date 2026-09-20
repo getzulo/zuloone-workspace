@@ -1,0 +1,83 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "PurchaseCreditNoteLinesTablePartRow",
+    "caption": {
+      "en": "Lines",
+      "ar": "السطور",
+      "ru": "Строки",
+      "uk": "Рядки"
+    },
+    "tableName": "TP_PurchaseCreditNoteLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "2c0f0264-285a-4b8c-8ad9-823812826b22",
+    "name": "PurchaseCreditNoteLines",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "2c0f0264-285a-4b8c-8ad9-823812826b22",
+      "fieldName": "Item",
+      "caption": {
+        "en": "Item",
+        "ar": "الصنف",
+        "ru": "Товар",
+        "uk": "Номенклатура"
+      },
+      "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "319da250-b783-4c33-aa69-1c6ced3be605",
+      "referenceName": "Item",
+      "displayOrder": 1,
+      "metaId": "b42ba570-d3e9-43ee-88f6-89fbcb38e334",
+      "name": "Item",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "tablePartTypeMetaId": "2c0f0264-285a-4b8c-8ad9-823812826b22",
+      "fieldName": "Quantity",
+      "caption": {
+        "en": "Quantity",
+        "ar": "الكمية",
+        "ru": "Количество",
+        "uk": "Кількість"
+      },
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "2ae7a8ab-eb69-4c6f-b6ad-18b85ec3365f",
+      "name": "Quantity",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "tablePartTypeMetaId": "2c0f0264-285a-4b8c-8ad9-823812826b22",
+      "fieldName": "UnitPrice",
+      "caption": {
+        "en": "Unit price",
+        "ar": "سعر الوحدة",
+        "ru": "Цена",
+        "uk": "Ціна"
+      },
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 3,
+      "metaId": "72122ba6-be7b-4ae4-a946-6dbc9f48e112",
+      "name": "UnitPrice",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ]
+}

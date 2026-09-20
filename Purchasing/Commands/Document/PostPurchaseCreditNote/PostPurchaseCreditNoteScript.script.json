@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "PostPurchaseCreditNote",
+    "objectMetaId": "5cf05ecb-fa45-4dde-8044-177542fb8c81",
+    "executionOrder": 0,
+    "metaId": "5389fce1-0a3f-478c-b240-60fad89e9865",
+    "name": "PostPurchaseCreditNoteScript",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}

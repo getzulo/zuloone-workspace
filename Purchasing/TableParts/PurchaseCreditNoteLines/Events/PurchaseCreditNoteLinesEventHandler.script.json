@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "PurchaseCreditNoteLines",
+    "objectMetaId": "2c0f0264-285a-4b8c-8ad9-823812826b22",
+    "executionOrder": 0,
+    "metaId": "d490239c-d0de-404a-baea-e2936cdeceb5",
+    "name": "PurchaseCreditNoteLinesEventHandler",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}

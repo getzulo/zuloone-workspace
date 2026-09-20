@@ -1,0 +1,207 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": {
+      "en": "Purchase credit note",
+      "ar": "إشعار خصم المشتريات",
+      "ru": "Кредит-нота закупки",
+      "uk": "Кредит-нота закупівлі"
+    },
+    "description": "Сторно входного НДС и налоговой части кредиторки по оприходованному заказу. Заказ не Voided. Склад и нетто — у возврата.",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "62d14954-2ad5-49dc-881d-406be34dd153",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:document-arrow-left-24",
+    "largeIconName": "fluent-color:document-arrow-left-24",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+    "name": "PurchaseCreditNote",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+      "fieldName": "ID",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер",
+        "uk": "Номер"
+      },
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "57b75d6c-70e1-44b4-ae40-8b9c8b3aa564",
+      "name": "ID",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Buying legal entity",
+        "ar": "الكيان القانوني المشتري",
+        "ru": "Юрлицо покупателя",
+        "uk": "Юрособа покупця"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "e900db07-20b0-4307-8d92-d83b68a3778b",
+      "name": "LegalEntity",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+      "fieldName": "OriginalOrder",
+      "caption": {
+        "en": "Original order",
+        "ar": "الطلب الأصلي",
+        "ru": "Исходный заказ",
+        "uk": "Вихідне замовлення"
+      },
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "269f2a3c-e91f-4b26-ac62-51bb41c48caf",
+      "name": "OriginalOrder",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+      "fieldName": "Supplier",
+      "caption": {
+        "en": "Supplier",
+        "ar": "المورد",
+        "ru": "Поставщик",
+        "uk": "Постачальник"
+      },
+      "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "16a0e8fb-c113-4a26-92ee-6cba34dd9094",
+      "name": "Supplier",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+      "fieldName": "TaxRateApplied",
+      "caption": {
+        "en": "Applied tax rate",
+        "ar": "معدل الضريبة المطبق",
+        "ru": "Применённая ставка налога",
+        "uk": "Застосована ставка податку"
+      },
+      "edtMetaId": "713835c7-1701-4c43-9cf7-c754519dc5d4",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "e67b7e05-e5b8-4479-9e31-bdfb2722b771",
+      "name": "TaxRateApplied",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+      "name": "Draft",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "uk": "Чернетка"
+      },
+      "subtypeValue": "Draft",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "ru": "Черновик",
+        "uk": "Чернетка"
+      },
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "3de064b4-3dd0-441b-87d2-18de29ee893b",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+      "name": "Posted",
+      "caption": {
+        "en": "Posted",
+        "ar": "مُرحَّل",
+        "uk": "Проведено"
+      },
+      "subtypeValue": "Posted",
+      "subtypeCaption": {
+        "en": "Posted",
+        "ar": "مُرحَّل",
+        "ru": "Проведена",
+        "uk": "Проведено"
+      },
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "c817dae1-d658-4f61-928e-d327bd3b8a08",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+      "tablePartTypeMetaId": "2c0f0264-285a-4b8c-8ad9-823812826b22",
+      "isCloneable": true,
+      "metaId": "df7af698-496b-4dc2-984c-959cebd5b3c3",
+      "name": "Lines",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "c817dae1-d658-4f61-928e-d327bd3b8a08",
+      "scriptMetaId": "0e69df19-07ad-4e5f-a085-b64a713de92f",
+      "executionOrder": 1,
+      "metaId": "ec9d4406-33a9-4d68-9cf5-7d01dad220ed",
+      "name": "",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "3de064b4-3dd0-441b-87d2-18de29ee893b",
+      "toSubtypeMetaId": "c817dae1-d658-4f61-928e-d327bd3b8a08",
+      "metaId": "c9102767-4dc3-42a0-ae22-14c0d0289edf",
+      "name": "Draft->Posted",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    }
+  ]
+}

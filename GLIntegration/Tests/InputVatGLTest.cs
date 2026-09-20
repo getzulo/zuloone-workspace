@@ -312,4 +312,27 @@ public class InputVatGLTest : IntegrationTestScriptBase
         Assert.IsTrue(calc.Lines[0].TaxAmount == 4.5m,
             "сам налог посчитан независимо от книги, факт {0}", calc.Lines[0].TaxAmount);
     }
+
+    [IntegrationTest("Сторно входного НДС кредит-нотой кредитует возмещение и дебетует кредиторку")]
+    public async Task InputVatReversalCreditsAsset()
+    {
+        var s = await SetupAsync();
+        var order = await ReceiveAsync(s, 10m, 3m);
+
+        var note = await DocumentManager.NewDocumentAsync<PurchaseCreditNote>();
+        note.OriginalOrder = order.MetaId;
+        await DocumentManager.SaveDocumentAsync(note);
+        var commandId = await Db.FindCommandIdAsync("document", "PostPurchaseCreditNote");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, note.MetaId);
+        Assert.IsTrue(run.Success, "PostPurchaseCreditNote: {0}",
+            run.Message ?? string.Join("; ", run.ClientMessages));
+
+        var calc = await TheCalculationAsync(note.MetaId);
+        var vat = await AccountAsync(calc.MetaId, s.VatAccount);
+        Assert.IsTrue(vat.Credit == 4.5m,
+            "сторно 4.5 кредитует возмещение, факт {0}", vat.Credit);
+        var ap = await AccountAsync(calc.MetaId, s.PayableAccount);
+        Assert.IsTrue(ap.Debit == 4.5m,
+            "сторно 4.5 дебетует кредиторку, факт {0}", ap.Debit);
+    }
 }

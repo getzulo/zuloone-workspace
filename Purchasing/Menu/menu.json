@@ -170,6 +170,22 @@
       "metaId": "4797d320-8723-4465-b581-b695347b9636",
       "name": "PurchaseReturn",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "caption": {
+        "en": "Purchase credit notes",
+        "ar": "إشعارات خصم المشتريات",
+        "ru": "Кредит-ноты закупки",
+        "uk": "Кредит-ноти закупівлі"
+      },
+      "parentMetaId": "c946d33a-7f47-4846-9563-d42b9a6ba275",
+      "displayOrder": 3,
+      "icon": "fluent-color:document-arrow-left-24",
+      "targetType": "Document",
+      "targetMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+      "metaId": "13a8bc2e-fdba-4d81-b94d-0bd2b5b65300",
+      "name": "PurchaseCreditNote",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ]
 }

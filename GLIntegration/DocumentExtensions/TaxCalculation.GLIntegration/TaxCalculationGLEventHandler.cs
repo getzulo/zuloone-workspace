@@ -65,10 +65,6 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
     {
         var posted = new List<Guid>();
 
-        var gl = context.GetService<IGeneralLedgerService>();
-        var settings = await gl.GetSettingsAsync();
-        if (settings == null) return posted;
-
         var calc = await context.GetService<IDocumentManager>().GetDocumentAsync<TaxCalculation>(header.MetaId);
         if (calc == null) return posted;
 
@@ -85,7 +81,16 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
             else if (string.Equals(code, InputDirection, StringComparison.OrdinalIgnoreCase))
                 input += line.TaxAmount;
         }
-        if (output <= 0m && input <= 0m) return posted;
+        if (output == 0m && input == 0m) return posted;
+
+        // Payable +VAT on receipt is a register seam, not a GL posting: it must
+        // run even when the chart of accounts is not configured, otherwise the
+        // supplier balance stays net and a gross payment never clears.
+        await CloseReceivablePayableSeamAsync(header, calc, output, input, context);
+
+        var gl = context.GetService<IGeneralLedgerService>();
+        var settings = await gl.GetSettingsAsync();
+        if (settings == null) return posted;
 
         // The calculation carries the legal entity on the header: the source document pinned it.
         var le = await context.GetService<IDictionaryManager<LegalEntity>>().GetRecordAsync(header.LegalEntity);
@@ -106,20 +111,23 @@ public partial class TaxCalculationGLEventHandler : TypedDocumentEventHandler<Ta
             if (jeId.HasValue) posted.Add(jeId.Value);
         }
 
-        if (input > 0m
+        if (input != 0m
             && !string.IsNullOrWhiteSpace(settings.VatReceivableAccountCode)
             && !string.IsNullOrWhiteSpace(settings.PayableAccountCode))
         {
+            var amount = input > 0m ? input : -input;
+            var debit = input > 0m ? settings.VatReceivableAccountCode : settings.PayableAccountCode;
+            var credit = input > 0m ? settings.PayableAccountCode : settings.VatReceivableAccountCode;
             var jeId = await gl.PostAsync(
-                calc.DocumentDate, le.MetaId, le.Currency, input,
-                settings.VatReceivableAccountCode, settings.PayableAccountCode,
-                "Input VAT " + header.MetaId,
-                "НДС к возмещению", "Кредиторка (налог поставщику)",
+                calc.DocumentDate, le.MetaId, le.Currency, amount,
+                debit, credit,
+                (input > 0m ? "Input VAT " : "Input VAT reversal ") + header.MetaId,
+                input > 0m ? "НДС к возмещению" : "Кредиторка (сторно налога)",
+                input > 0m ? "Кредиторка (налог поставщику)" : "НДС к возмещению",
                 TaxCircuits);
             if (jeId.HasValue) posted.Add(jeId.Value);
         }
 
-        await CloseReceivablePayableSeamAsync(header, calc, output, input, context);
         return posted;
     }
 
