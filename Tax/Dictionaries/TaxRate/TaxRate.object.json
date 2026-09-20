@@ -7,7 +7,7 @@
       "ru": "Налоговые ставки",
       "uk": "Податкові ставки"
     },
-    "description": "Effective-dated rate of a tax (historical rate is immutable)",
+    "description": "Effective-dated rate of a tax within a category (historical rate is immutable). A tax may carry several rates at once — standard, reduced, zero — told apart by TaxCategory; the date then picks the version of each.",
     "isLogged": true,
     "isHierarchical": false,
     "numberSequenceMetaId": "fdcc498a-b6e8-42f0-a43a-40ae1f4b3e70",
@@ -34,7 +34,7 @@
       "length": 32,
       "isSystem": false,
       "isRequired": true,
-      "displayOrder": 2,
+      "displayOrder": 3,
       "isIndexed": true,
       "isUnique": false,
       "caption": {
@@ -56,7 +56,7 @@
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": true,
-      "displayOrder": 4,
+      "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -78,7 +78,7 @@
       "baseType": "DateTime",
       "isSystem": false,
       "isRequired": false,
-      "displayOrder": 5,
+      "displayOrder": 6,
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -123,7 +123,7 @@
       "edtMetaId": "713835c7-1701-4c43-9cf7-c754519dc5d4",
       "isSystem": false,
       "isRequired": true,
-      "displayOrder": 3,
+      "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -159,6 +159,29 @@
       "isCalculated": false,
       "metaId": "c45d5c2c-1588-416b-ae05-13c466dac66f",
       "name": "Tax",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "eee8ebb7-d2fd-420f-93ed-7073cc870230",
+      "fieldName": "TaxCategory",
+      "edtMetaId": "1c0aa7c2-fb21-42d4-9947-616fccf1cccf",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "description": "Category this rate belongs to. A tax carries several rates at the same time — Ukraine runs 20% and 7% side by side, and zero-rated and exempt supplies are 0% — and the category is what tells them apart. Left empty the rate is the tax's DEFAULT: it answers for any category that has no rate of its own, which is how single-rate taxes stay as they were.",
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax category",
+        "ar": "فئة الضريبة",
+        "ru": "Налоговая категория",
+        "uk": "Податкова категорія"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "8f88949e-a85a-4d9e-b323-ec19c1938921",
+      "name": "TaxCategory",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]

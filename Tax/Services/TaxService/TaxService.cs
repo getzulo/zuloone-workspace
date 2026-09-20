@@ -7,9 +7,10 @@ using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 
 // Service "TaxService": ITaxService contract. Tax calculation in one place —
-// resolve the EFFECTIVE rate by tax code and date (TaxCode → Tax → TaxRate)
-// and the tax amount (base × rate, rounded to money precision). The rate is
-// stored as a fraction (0.15 = 15%); money precision is the global AmountScale.
+// resolve the EFFECTIVE rate by tax code and date
+// (TaxCode → Tax + TaxCategory → TaxRate) and the tax amount (base × rate,
+// rounded to money precision). The rate is stored as a fraction (0.15 = 15%);
+// money precision is the global AmountScale.
 //
 // DATING. The effective window is carried by ALL THREE contour dictionaries —
 // Tax, TaxCode and TaxRate: each has EffectiveFrom (required) and EffectiveTo
@@ -18,13 +19,21 @@ using ZuloOne.Runtime.Generated;
 // retired code yields no rate, and the rate itself is the one effective ON
 // THAT DATE — not the last one created.
 //
-// WHY the rate is looked up by tax, not read from TaxCode.TaxRate. A tax's
-// rate history is the TaxRate rows that share a Tax and have non-overlapping
-// windows ("historical rate is immutable" in the dictionary description).
-// TaxCode.TaxRate records the rate current at CODE CREATION and, by construction,
-// goes stale on the first change; picking by it would calculate last year's
-// invoice at today's rate. Splitting versions by the CODE itself is also
-// impossible: TaxCode.Code is unique, a second row with the same code for a
+// THE CATEGORY IS THE OTHER HALF OF THE KEY. A tax carries several rates at the
+// same instant — Ukraine runs 20% and 7% side by side — so "one tax, one rate
+// per date" is not a law, it was a modelling mistake that made the shipped
+// vat-UA seed unusable and, with two country packs on one stand, broke rate
+// resolution for BOTH. The code names a category, the category narrows the rate
+// set, and only THEN does the date pick the version. A rate with no category is
+// the tax's default band and answers for any category that has none of its own.
+//
+// WHY the rate is looked up by tax and category, not read from TaxCode.TaxRate.
+// That history is the TaxRate rows sharing a Tax AND a category, with
+// non-overlapping windows ("historical rate is immutable" in the dictionary
+// description). TaxCode.TaxRate records the rate current at CODE CREATION and,
+// by construction, goes stale on the first change; picking by it would calculate
+// last year's invoice at today's rate. Splitting versions by the CODE itself is
+// also impossible: TaxCode.Code is unique, a second row with the same code for a
 // new period cannot be created. So TaxCode.TaxRate is the original binding of
 // the code to the tax, not the answer to "how many percent on this date".
 //
@@ -35,6 +44,7 @@ public partial class TaxService
     private readonly IDictionaryManager<Tax> _taxes;
     private readonly IDictionaryManager<TaxCode> _codes;
     private readonly IDictionaryManager<TaxRate> _rates;
+    private readonly IDictionaryManager<TaxCategory> _categories;
     private readonly IDictionaryManager<TaxSettings> _settings;
     private readonly IDictionaryManager<TaxDirection> _directions;
     private readonly IDictionaryManager<LegalEntity> _legalEntities;
@@ -48,6 +58,7 @@ public partial class TaxService
         IDictionaryManager<Tax> taxes,
         IDictionaryManager<TaxCode> codes,
         IDictionaryManager<TaxRate> rates,
+        IDictionaryManager<TaxCategory> categories,
         IDictionaryManager<TaxSettings> settings,
         IDictionaryManager<TaxDirection> directions,
         IDictionaryManager<LegalEntity> legalEntities,
@@ -60,6 +71,7 @@ public partial class TaxService
         _taxes = taxes;
         _codes = codes;
         _rates = rates;
+        _categories = categories;
         _settings = settings;
         _directions = directions;
         _legalEntities = legalEntities;
@@ -360,6 +372,32 @@ public partial class TaxService
             GlobalConstants.Get<int?>("AmountScale") ?? 2, MidpointRounding.AwayFromZero);
     }
 
+    /// <summary>Tax minus recoverable, using the same code/rate path as
+    /// <see cref="CreateCalculationAsync"/>. Zero when the contour is off.</summary>
+    public async Task<decimal> NonRecoverableOfAsync(
+        Guid legalEntity, string directionCode, decimal taxBase, DateTime taxPoint,
+        Dictionary<string, object?>? context = null)
+    {
+        if (taxBase <= 0m || legalEntity == Guid.Empty) return 0m;
+        var matchedRule = context is null ? null : await ResolveRuleAsync(context, taxPoint.Date);
+        var taxCode = matchedRule?.TaxCode ?? await ResolveDefaultTaxCodeAsync();
+        if (taxCode is null || taxCode == Guid.Empty) return 0m;
+        var direction = (await _directions.GetRecordsAsync($"Code = '{directionCode}'")).FirstOrDefault();
+        if (direction is null) return 0m;
+
+        decimal tax = 0m, recoverable = 0m;
+        foreach (var action in await ResolveActionsAsync(matchedRule, taxCode.Value))
+        {
+            var lineRate = action.Rate ?? await ResolveRateAsync(action.Code, taxPoint.Date);
+            if (lineRate is null) continue;
+            var amount = CalculateTax(taxBase, lineRate.Value);
+            var codeRow = await _codes.GetRecordAsync(action.Code);
+            tax += amount;
+            recoverable += RecoverableOf(amount, codeRow?.NonRecoverablePct ?? 0m);
+        }
+        return tax - recoverable;
+    }
+
     /// <summary>Actions of the matched rule, or the single header/default code
     /// when the rule has none — so existing one-code rules stay unchanged.</summary>
     private async Task<List<(Guid Code, decimal? Rate)>> ResolveActionsAsync(TaxRule? rule, Guid fallbackCode)
@@ -379,7 +417,26 @@ public partial class TaxService
     }
 
     /// <summary>
-    /// Rate EFFECTIVE on the date (default — today): TaxCode → Tax → TaxRate.
+    /// Rate EFFECTIVE on the date (default — today): TaxCode → Tax + TaxCategory → TaxRate.
+    ///
+    /// THE CATEGORY IS PART OF THE KEY, NOT DECORATION. A tax carries several
+    /// rates at the same instant: Ukraine runs 20% and 7% side by side, and the
+    /// zero-rated and exempt supplies of any VAT are 0%. Resolving by (tax, date)
+    /// alone cannot express that — it either throws on the ambiguity or answers
+    /// with whichever row it met first. So the code's category narrows the set,
+    /// and the date then picks the version WITHIN that category, which keeps the
+    /// original intent: a rate change in law is a new dated row, not an edit to
+    /// every code.
+    ///
+    /// A rate with NO category is the tax's default and answers for any category
+    /// that has no rate of its own. That is what keeps a single-rate tax — the
+    /// Saudi 5%→15% history, every existing stand — working with nothing changed.
+    ///
+    /// A zero TREATMENT answers 0 without consulting rates at all: zero-rated,
+    /// exempt and out-of-scope supplies are 0% by law, not by configuration, and
+    /// the old code fell through to the standard rate and shipped exempt invoices
+    /// with VAT on them. REVERSE_CHARGE is deliberately NOT in that list — the
+    /// rate still matters for the buyer's self-assessment.
     ///
     /// null means "no rate on this date" and covers four cases: the code does not
     /// exist; the code is outside its window; the tax is outside its window; no
@@ -389,11 +446,11 @@ public partial class TaxService
     /// and a silently issued document without tax only surfaces at the tax
     /// authority.
     ///
-    /// SEVERAL matching rows — corrupted data: rate windows of one tax must not
-    /// overlap. This is NOT silently allowed as "take the last": some documents
-    /// would be calculated at one rate, some at another, and it would only
-    /// diverge on the return. The refusal names both rates so the setting can
-    /// be fixed.
+    /// SEVERAL matching rows WITHIN ONE CATEGORY — corrupted data: rate windows
+    /// of one tax and category must not overlap. This is NOT silently allowed as
+    /// "take the last": some documents would be calculated at one rate, some at
+    /// another, and it would only diverge on the return. The refusal names both
+    /// rates so the setting can be fixed.
     /// </summary>
     public async Task<decimal?> ResolveRateAsync(Guid taxCodeId, DateTime? onDate = null)
     {
@@ -406,29 +463,66 @@ public partial class TaxService
         var tax = await _taxes.GetRecordAsync(code.Tax);
         if (tax is null || !IsEffectiveOn(tax.EffectiveFrom, tax.EffectiveTo, date)) return null;
 
+        if (await IsZeroTreatmentAsync(code.TaxCategory)) return 0m;
+
         // Filter by tax goes to SQL; the window is checked in memory: a tax has
         // a handful of rate-history rows, and a date literal inside a filter
         // string would depend on the DB dialect (the stand runs on both SQL Server
         // and PostgreSQL) and on the server language settings.
-        var applicable = (await _rates.GetRecordsAsync($"Tax = '{code.Tax}'"))
+        var effective = (await _rates.GetRecordsAsync($"Tax = '{code.Tax}'"))
             .Where(r => IsEffectiveOn(r.EffectiveFrom, r.EffectiveTo, date))
             .ToList();
+
+        if (effective.Count == 0) return null;
+
+        var applicable = NarrowToCategory(effective, code.TaxCategory);
 
         if (applicable.Count == 0) return null;
         if (applicable.Count > 1)
             throw new InvalidOperationException(
                 $"Налог '{tax.Code}': на {date:yyyy-MM-dd} действует больше одной ставки (" +
                 string.Join(", ", applicable.Select(r => $"{r.Code} = {r.Rate}")) +
-                "). Окна действия ставок одного налога не должны пересекаться.");
+                ") в одной налоговой категории. Окна действия ставок одного налога " +
+                "и категории не должны пересекаться.");
 
         return applicable[0].Rate;
     }
 
     /// <summary>
-    /// A rate of THE SAME tax whose effective window overlaps the given one — or
-    /// null if there is no overlap. <paramref name="excludeRate"/> excludes the
-    /// record being checked, so editing an existing rate does not treat itself
-    /// as an overlap (when creating a new one — <c>Guid.Empty</c>).
+    /// Rates of the given category — or, when it has none of its own, the rates
+    /// left without a category, which are the tax's default band.
+    /// </summary>
+    private static List<TaxRate> NarrowToCategory(List<TaxRate> rates, Guid category)
+    {
+        var own = rates.Where(r => r.TaxCategory == category).ToList();
+        return own.Count > 0 || category == Guid.Empty
+            ? own
+            : rates.Where(r => r.TaxCategory == Guid.Empty).ToList();
+    }
+
+    /// <summary>
+    /// Whether the category's treatment makes the supply 0% by law. Unknown or
+    /// unset category — false: the rate table decides, as before.
+    /// </summary>
+    private async Task<bool> IsZeroTreatmentAsync(Guid category)
+    {
+        if (category == Guid.Empty) return false;
+        var record = await _categories.GetRecordAsync(category);
+        return record?.Treatment is "ZERO_RATED" or "EXEMPT" or "OUT_OF_SCOPE";
+    }
+
+    /// <summary>
+    /// A rate of THE SAME tax AND THE SAME category whose effective window
+    /// overlaps the given one — or null if there is no overlap.
+    /// <paramref name="excludeRate"/> excludes the record being checked, so
+    /// editing an existing rate does not treat itself as an overlap (when
+    /// creating a new one — <c>Guid.Empty</c>).
+    ///
+    /// The category belongs in the key for the same reason it does in
+    /// <see cref="ResolveRateAsync"/>: Ukraine's 20% and 7% are both open-ended
+    /// and both legal, so they are not a conflict — while two open-ended rates
+    /// in ONE category are. A rate with no category is the default band and only
+    /// clashes with other default-band rates.
     ///
     /// WHY THE RULE LIVES HERE, NOT IN THE DICTIONARY HANDLER. The condition on
     /// which <see cref="ResolveRateAsync"/> REFUSES to calculate ("more than one
@@ -443,7 +537,7 @@ public partial class TaxService
     /// defence for data loaded past events (import, migration, direct SQL).
     /// </summary>
     public async Task<TaxRate?> FindOverlappingRateAsync(
-        Guid tax, Guid excludeRate, DateTime from, DateTime? to)
+        Guid tax, Guid excludeRate, DateTime from, DateTime? to, Guid taxCategory = default)
     {
         if (tax == Guid.Empty) return null;
 
@@ -452,6 +546,7 @@ public partial class TaxService
         // would depend on the DB dialect and the server language settings.
         return (await _rates.GetRecordsAsync($"Tax = '{tax}'"))
             .FirstOrDefault(r => r.MetaId != excludeRate
+                && r.TaxCategory == taxCategory
                 && WindowsOverlap(from, to, r.EffectiveFrom, r.EffectiveTo));
     }
 

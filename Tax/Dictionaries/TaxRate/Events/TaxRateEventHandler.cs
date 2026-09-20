@@ -55,13 +55,16 @@ public partial class TaxRateEventHandler : TypedDictionaryEventHandler<TaxRate>
             return EventResult.Cancel("Окно действия задано наоборот: дата начала позже даты окончания");
 
         var clash = await context.GetService<ITaxService>()
-            .FindOverlappingRateAsync(record.Tax, record.MetaId, record.EffectiveFrom, record.EffectiveTo);
+            .FindOverlappingRateAsync(record.Tax, record.MetaId, record.EffectiveFrom,
+                record.EffectiveTo, record.TaxCategory);
         if (clash != null)
             return EventResult.Cancel(
                 $"Окно действия пересекается со ставкой «{clash.Code}» ({clash.Rate}): "
                 + $"{Window(clash.EffectiveFrom, clash.EffectiveTo)}. "
-                + "У налога на каждую дату должна действовать ровно одна ставка — "
-                + "закройте предыдущую ставку датой окончания.");
+                + "У налога на каждую дату должна действовать ровно одна ставка "
+                + "В КАЖДОЙ НАЛОГОВОЙ КАТЕГОРИИ — закройте предыдущую ставку датой "
+                + "окончания либо разведите ставки по категориям (в Украине 20% и 7% "
+                + "действуют одновременно и должны стоять в разных категориях).");
 
         return EventResult.Ok();
     }
