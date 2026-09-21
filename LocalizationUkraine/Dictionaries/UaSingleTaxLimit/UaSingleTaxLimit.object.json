@@ -29,25 +29,25 @@
   "fields": [
     {
       "dictionaryMetaId": "6840eb8f-e477-42b5-aebb-5f18ccf8105e",
-      "fieldName": "ID",
-      "baseType": "String",
-      "length": 50,
-      "isSystem": true,
+      "fieldName": "Amount",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isSystem": false,
       "isRequired": true,
-      "displayOrder": 0,
-      "description": "System identifier issued by the bound number sequence (read-only, unique)",
-      "isIndexed": true,
-      "isUnique": true,
+      "displayOrder": 2,
+      "description": "Предельный годовой доход. Ноль означает «предел не задан» — и тогда превышение не считается вовсе, весь доход идёт по обычной ставке.",
+      "isIndexed": false,
+      "isUnique": false,
       "caption": {
-        "en": "ID",
-        "ar": "معرف",
-        "uk": "ID"
+        "en": "Limit",
+        "ar": "الحد",
+        "ru": "Предел",
+        "uk": "Граничний дохід"
       },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "91023f02-afcf-4b5a-a67c-01e5500ff985",
-      "name": "ID",
+      "metaId": "d0e51088-018f-4b7b-856a-d4c02f338219",
+      "name": "Amount",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     },
     {
@@ -72,29 +72,6 @@
       "isCalculated": false,
       "metaId": "003bdc2b-4fcd-427e-a224-041ee9427041",
       "name": "Code",
-      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
-    },
-    {
-      "dictionaryMetaId": "6840eb8f-e477-42b5-aebb-5f18ccf8105e",
-      "fieldName": "Amount",
-      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 2,
-      "description": "Предельный годовой доход. Ноль означает «предел не задан» — и тогда превышение не считается вовсе, весь доход идёт по обычной ставке.",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Limit",
-        "ar": "الحد",
-        "ru": "Предел",
-        "uk": "Граничний дохід"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "d0e51088-018f-4b7b-856a-d4c02f338219",
-      "name": "Amount",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     },
     {
@@ -140,6 +117,29 @@
       "isCalculated": false,
       "metaId": "7860e6f7-c9a1-4bcc-b5b0-bfb5e3ee4192",
       "name": "EffectiveTo",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "6840eb8f-e477-42b5-aebb-5f18ccf8105e",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": {
+        "en": "ID",
+        "ar": "معرف",
+        "uk": "ID"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "91023f02-afcf-4b5a-a67c-01e5500ff985",
+      "name": "ID",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]

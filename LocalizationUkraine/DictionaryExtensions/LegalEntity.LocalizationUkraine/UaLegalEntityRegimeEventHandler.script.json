@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "6ed5fbfb-3280-4399-8465-9d888a2a4107",
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "LegalEntity",
+    "objectMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+    "baseClassName": "TypedDictionaryEventHandler",
+    "executionOrder": 10,
+    "metaId": "3d9a7e12-5c48-4f01-b267-8e4d0c1a6f33",
+    "name": "UaLegalEntityRegimeEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

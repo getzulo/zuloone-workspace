@@ -165,6 +165,54 @@
       "metaId": "ea726dcc-6c99-4977-a958-2a891e8b7e82",
       "name": "SingleTaxCodeExcess",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "ExemptVatCode",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "description": "Код налога (TaxCode.Code) для освобождения от ПДВ. Пакет ставит его сопоставлением на юрлицо, когда режим не платит ПДВ (спрощена 5% или загальна без ПДВ), и снимает, когда режим снова плательщик. Поставочное значение — UA-E. Пусто или кода нет — сопоставление не заводится, и общий путь Sales → Tax берёт DefaultTaxCode: в леджере у неплательщика оказался бы ПДВ.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Exempt VAT code (no-VAT regimes)",
+        "ar": "رمز ضريبة القيمة المضافة المعفاة (الأنظمة بدون ضريبة)",
+        "ru": "Код освобождения от НДС (режимы без НДС)",
+        "uk": "Код звільнення від ПДВ (режими без ПДВ)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7f4e2c91-b8a3-4d16-9e50-2c6f8a1b3d09",
+      "name": "ExemptVatCode",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "VatReturnType",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "description": "Тип декларации для выгрузки — тот же код, что в TaxReportMapping.ReturnType. Именно он решает, по какому набору ячеек собиралась декларация, поэтому кнопка выгрузки берёт его отсюда, а не из своих настроек: разъехаться эти два места не должны. Пусто — выгрузка откажется работать и скажет почему.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Return type for export",
+        "ar": "نوع الإقرار للتصدير",
+        "ru": "Тип декларации для выгрузки",
+        "uk": "Тип декларації для вивантаження"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a8587cfb-a9e0-41ce-8078-b10e8287154b",
+      "name": "VatReturnType",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

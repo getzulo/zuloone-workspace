@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "UaTaxFiling",
+    "executionOrder": 0,
+    "metaId": "0c5cd62c-e900-49b5-bf95-f3cd2c000707",
+    "name": "UaTaxFilingService",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

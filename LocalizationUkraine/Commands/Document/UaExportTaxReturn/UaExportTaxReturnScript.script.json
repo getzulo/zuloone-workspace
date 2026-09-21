@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "UaExportTaxReturn",
+    "objectMetaId": "4535321a-eb72-4bdf-b667-2138d752edd8",
+    "executionOrder": 0,
+    "metaId": "99e9c5b2-996a-480d-91d5-9ca7525bce0b",
+    "name": "UaExportTaxReturnScript",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

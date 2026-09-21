@@ -1,0 +1,33 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Export for filing",
+      "ar": "تصدير للتقديم",
+      "ru": "Выгрузить для подачи",
+      "uk": "Вивантажити для подання"
+    },
+    "scriptMetaId": "99e9c5b2-996a-480d-91d5-9ca7525bce0b",
+    "parameterMode": "None",
+    "displayOrder": 20,
+    "beginGroup": true,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "4535321a-eb72-4bdf-b667-2138d752edd8",
+    "name": "UaExportTaxReturn",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "b8fa0913-ecad-4ec6-8840-37f1c3183023",
+      "documentCommandMetaId": "4535321a-eb72-4bdf-b667-2138d752edd8",
+      "documentSubtypeMetaId": "23febbcf-3076-44f7-b43b-2208b7b3a528"
+    },
+    {
+      "metaId": "d357235a-c887-4147-9bc5-73c1cebde053",
+      "documentCommandMetaId": "4535321a-eb72-4bdf-b667-2138d752edd8",
+      "documentSubtypeMetaId": "9c882573-8eb8-4b1c-b3ab-ecebc640a4cc"
+    }
+  ]
+}

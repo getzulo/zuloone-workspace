@@ -241,6 +241,22 @@ public class UkrainePurchaseVatTest : IntegrationTestScriptBase
         await DocumentManager.SaveDocumentAsync(pay);
     }
 
+    private static async Task<PurchaseCreditNote> NewNoteAsync(Guid orderId, Guid supplier)
+    {
+        var note = await DocumentManager.NewDocumentAsync<PurchaseCreditNote>();
+        note.Supplier = supplier;
+        note.OriginalOrder = orderId;
+        return note;
+    }
+
+    private async Task PostNoteAsync(PurchaseCreditNote note)
+    {
+        var commandId = await Db.FindCommandIdAsync("document", "PostPurchaseCreditNote");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, note.MetaId);
+        Assert.IsTrue(run.Success, "команда PostPurchaseCreditNote: {0}",
+            run.Message ?? string.Join("; ", run.ClientMessages));
+    }
+
     // ── правило ──────────────────────────────────────────────────────────────
 
     [IntegrationTest("Приход без оплаты даёт налоговый кредит сразу")]
@@ -337,5 +353,66 @@ public class UkrainePurchaseVatTest : IntegrationTestScriptBase
 
         Assert.IsTrue(await CreditAsync(s) == 0m,
             "без контура кредита нет, факт {0}", await CreditAsync(s));
+    }
+
+    [IntegrationTest("Кредит-нота снимает налоговый кредит, двигая базу, а не налог")]
+    public async Task CreditNoteReversesInputCredit()
+    {
+        var s = await SetupAsync();
+        var order = await ReceiveAsync(s, 10m, 10m);
+        Assert.IsTrue(await CreditAsync(s) == 20m, "после прихода кредит 20, факт {0}", await CreditAsync(s));
+        Assert.IsTrue(await ReceivedBaseAsync(s) == 100m, "база Received 100, факт {0}", await ReceivedBaseAsync(s));
+
+        var note = await NewNoteAsync(order.MetaId, s.Supplier);
+        await DocumentManager.SaveDocumentAsync(note);
+        await PostNoteAsync(note);
+
+        Assert.IsTrue(await ReceivedBaseAsync(s) == 0m,
+            "нота обязана снизить Received, иначе max застрянет: факт {0}", await ReceivedBaseAsync(s));
+        Assert.IsTrue(await CreditAsync(s) == 0m,
+            "после ноты кредит 0, факт {0}", await CreditAsync(s));
+        Assert.IsTrue(await CreditedBaseAsync(s) == 0m,
+            "Credited тоже 0 — драйвер снял зачёт, факт {0}", await CreditedBaseAsync(s));
+    }
+
+    [IntegrationTest("Кредит-нота не снимает кредит, пока предоплата поставщику не возвращена")]
+    public async Task CreditNoteKeepsCreditWhilePrepaymentHeld()
+    {
+        var s = await SetupAsync();
+
+        // Первое событие — деньги: право на кредит возникло на авансе.
+        await PayAsync(s, 120m);
+        var order = await ReceiveAsync(s, 10m, 10m);
+        Assert.IsTrue(await CreditAsync(s) == 20m,
+            "после аванса и поставки кредит 20, факт {0}", await CreditAsync(s));
+
+        var note = await NewNoteAsync(order.MetaId, s.Supplier);
+        await DocumentManager.SaveDocumentAsync(note);
+        await PostNoteAsync(note);
+
+        // Товар вернулся, ДЕНЬГИ НЕТ. Перша подія была оплатой, и она не
+        // отменена: кредит остаётся, пока аванс у поставщика. Минус прямо в
+        // UaVatCredit обнулил бы его здесь — цифра сошлась бы с возвратом
+        // товара и разошлась бы с ПКУ 198.2.
+        Assert.IsTrue(await CreditAsync(s) == 20m,
+            "аванс не возвращён — кредит обязан остаться 20, факт {0}", await CreditAsync(s));
+    }
+
+    [IntegrationTest("После кредит-ноты следующий приход снова даёт кредит")]
+    public async Task NextReceiptAfterCreditCreditsAgain()
+    {
+        var s = await SetupAsync();
+        var first = await ReceiveAsync(s, 10m, 10m);
+        Assert.IsTrue(await CreditAsync(s) == 20m, "первый приход: 20, факт {0}", await CreditAsync(s));
+
+        var note = await NewNoteAsync(first.MetaId, s.Supplier);
+        await DocumentManager.SaveDocumentAsync(note);
+        await PostNoteAsync(note);
+        Assert.IsTrue(await CreditAsync(s) == 0m, "после ноты 0, факт {0}", await CreditAsync(s));
+
+        await ReceiveAsync(s, 10m, 10m);
+        Assert.IsTrue(await CreditAsync(s) == 20m,
+            "если нота не снизила Received, второй приход не даст кредит: факт {0}",
+            await CreditAsync(s));
     }
 }

@@ -1,0 +1,190 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Tax filing export",
+      "ar": "تصدير الإقرار الضريبي",
+      "ru": "Выгрузка декларации",
+      "uk": "Вивантаження декларації"
+    },
+    "description": "Готовая выгрузка декларации для подачи. Бухгалтеры подают ДВУМЯ способами — ТОВ через M.E.Doc, ФОПов через кабинет банка, — и часть данных вбивают руками. Поэтому рядом с экранной формой нужен ФАЙЛ, из которого можно перенести цифры без пересчётов. Формат НЕЙТРАЛЬНЫЙ и так и называется: это не схема ДПС, выдавать его за неё нельзя.",
+    "isLogged": true,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "f3fbdb66-e2e1-4753-a80f-cda415e12291",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "ID",
+    "displayFormat": "{ID}",
+    "isKernel": false,
+    "iconName": "fluent-color:document-table-32",
+    "largeIconName": "fluent-color:document-table-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+    "name": "UaTaxFilingExport",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+      "fieldName": "CreatedOn",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Created on",
+        "ar": "تاريخ الإنشاء",
+        "ru": "Сформировано",
+        "uk": "Сформовано"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "11050406-d759-44bb-849d-a0af64caae64",
+      "name": "CreatedOn",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": {
+        "en": "ID",
+        "ar": "معرف",
+        "ru": "ID",
+        "uk": "ID"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "1eea5c04-9904-494b-92e4-c9e5a458ba74",
+      "name": "ID",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+      "fieldName": "LegalEntity",
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "889ecbc4-d56d-41f7-8de9-7e1627955bba",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+      "fieldName": "Payload",
+      "baseType": "LargeText",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "description": "Сам файл, как текст. Тот же приём, что у TaxDocument.Payload: содержимое живёт полем, а не вложением — вложения скриптам недоступны.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Payload",
+        "ar": "المحتوى",
+        "ru": "Содержимое",
+        "uk": "Вміст"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "4167cbb8-f6ca-47fa-a9ce-59418014222b",
+      "name": "Payload",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+      "fieldName": "PeriodFrom",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Period from",
+        "ar": "الفترة من",
+        "ru": "Период с",
+        "uk": "Період з"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "57161feb-bef6-494c-93cf-fa8db908d804",
+      "name": "PeriodFrom",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+      "fieldName": "PeriodTo",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Period to",
+        "ar": "الفترة إلى",
+        "ru": "Период по",
+        "uk": "Період по"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "755f2acc-0fe0-4368-a908-c2fa22a1ed99",
+      "name": "PeriodTo",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+      "fieldName": "ReturnType",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "description": "Тот же код, что в TaxReportMapping.ReturnType: он решает, по какому набору ячеек собиралась декларация.",
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Return type",
+        "ar": "نوع الإقرار",
+        "ru": "Тип декларации",
+        "uk": "Тип декларації"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e61ebd75-c092-4e31-bad3-8e67e8297e67",
+      "name": "ReturnType",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

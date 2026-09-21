@@ -54,6 +54,7 @@ public partial class UaFirstEvent
     private readonly IDictionaryManager<LocalizationUkraineSettings> _settings;
     private readonly IDictionaryManager<UaSingleTaxLimit> _limits;
     private readonly IDictionaryManager<UaRegimeChange> _changes;
+    private readonly IDictionaryManager<TaxMapping> _mappings;
     // Создание записи живёт на НЕдженериковом менеджере (NewRecord<T>/
     // SaveRecordAsync<T>), у типизированного его нет вовсе.
     private readonly IDictionaryManager _dictionaries;
@@ -66,6 +67,7 @@ public partial class UaFirstEvent
         IDictionaryManager<LocalizationUkraineSettings> settings,
         IDictionaryManager<UaSingleTaxLimit> limits,
         IDictionaryManager<UaRegimeChange> changes,
+        IDictionaryManager<TaxMapping> mappings,
         IDictionaryManager dictionaries,
         IDataService data)
     {
@@ -75,6 +77,7 @@ public partial class UaFirstEvent
         _settings = settings;
         _limits = limits;
         _changes = changes;
+        _mappings = mappings;
         _dictionaries = dictionaries;
         _data = data;
     }
@@ -394,11 +397,90 @@ public partial class UaFirstEvent
                     ["Currency"] = entity["Currency"],
                 });
 
+            // UpdateAsync может не поднять OnAfterSave юрлица — сопоставление
+            // с кодом освобождения тогда осталось бы от прошлого режима.
+            await SyncExemptMappingAsync(row.LegalEntity);
+
             row.AppliedOn = day;
             await _dictionaries.SaveRecordAsync(row);
             applied++;
         }
         return applied;
+    }
+
+    /// <summary>
+    /// Код освобождения от ПДВ, уже разрешённый в запись справочника. null —
+    /// в настройках пусто или такого TaxCode нет; тогда сопоставление не
+    /// заводится, и общий путь Sales → Tax берёт DefaultTaxCode.
+    /// </summary>
+    public async Task<Guid?> ExemptVatCodeIdAsync()
+    {
+        var settings = (await _settings.GetRecordsAsync("1 = 1")).FirstOrDefault();
+        var code = settings?.ExemptVatCode;
+        if (string.IsNullOrWhiteSpace(code)) return null;
+        return (await _codes.GetRecordsAsync($"Code = '{code.Replace("'", "''")}'"))
+            .FirstOrDefault()?.MetaId;
+    }
+
+    /// <summary>
+    /// Штатное сопоставление «это юрлицо не платит ПДВ». Общий расчёт налога
+    /// (Sales → Tax) про украинский режим не знает и без этой строки берёт
+    /// DefaultTaxCode: в леджере у спрощенця 5% оказался бы ПДВ, которого нет
+    /// в UaVatPayable.
+    ///
+    /// НЕ ТРОГАЕТ чужие сопоставления на том же юрлице: пересечение окон
+    /// одного источника отклоняется, и затирать ручную строку нельзя. Нет кода
+    /// в настройках — ничего не делает, как и єдиний податок без своего кода.
+    /// </summary>
+    public async Task SyncExemptMappingAsync(Guid legalEntity)
+    {
+        if (legalEntity == Guid.Empty) return;
+
+        var exemptId = await ExemptVatCodeIdAsync();
+        if (exemptId is null) return;
+
+        var regime = await RegimeOfAsync(legalEntity);
+        var rows = (await _mappings.GetRecordsAsync(
+                $"SourceType = 'LegalEntity' AND SourceId = '{legalEntity}'"))
+            .ToList();
+        var live = rows.Where(m => !m.IsDisabled).ToList();
+        var ours = live.Where(m => m.TaxCode == exemptId.Value).ToList();
+
+        if (ChargesVat(regime))
+        {
+            foreach (var mapping in ours)
+            {
+                mapping.IsDisabled = true;
+                await _dictionaries.SaveRecordAsync(mapping);
+            }
+            return;
+        }
+
+        if (ours.Count > 0) return;
+
+        // Чужое живое сопоставление на этом юрлице — не заводим второе: окна
+        // одного источника пересекаться не могут, а затирать чужой код нельзя.
+        if (live.Count > 0) return;
+
+        var closed = rows
+            .Where(m => m.TaxCode == exemptId.Value)
+            .OrderByDescending(m => m.EffectiveFrom)
+            .FirstOrDefault();
+        if (closed is not null)
+        {
+            closed.IsDisabled = false;
+            closed.EffectiveTo = null;
+            await _dictionaries.SaveRecordAsync(closed);
+            return;
+        }
+
+        var created = _dictionaries.NewRecord<TaxMapping>();
+        created.SourceType = "LegalEntity";
+        created.SourceId = legalEntity;
+        created.TaxCode = exemptId.Value;
+        created.Priority = 0;
+        created.EffectiveFrom = DateTime.UtcNow.Date;
+        await _dictionaries.SaveRecordAsync(created);
     }
 
     /// <summary>

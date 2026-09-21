@@ -1,7 +1,7 @@
 {
   "kind": "Service",
   "object": {
-    "description": "Перша подія (ПКУ 187.1): по договору ведёт Shipped/Paid/Accrued и отвечает, какая часть базы облагается ПДВ прямо сейчас — прирост max(Shipped, Paid) над уже обложенным",
+    "description": "Перша подія (ПКУ 187.1): по договору ведёт Shipped/Paid/Accrued; со сменой режима юрлица ставит и снимает сопоставление освобождения от ПДВ, иначе общий Tax берёт DefaultTaxCode",
     "namespace": "ZuloOne.Services",
     "scriptMetaId": "e8928ac3-5378-405f-a000-8830fdf1d45e",
     "metaId": "70f648ac-4fa5-46ba-829a-c2108c5ef1fe",

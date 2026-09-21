@@ -38,7 +38,7 @@
         "uk": "Налаштування"
       },
       "parentMetaId": "b9b14276-a8a9-400a-beb2-a01c58334a14",
-      "displayOrder": 1,
+      "displayOrder": 2,
       "icon": "fluent-color:settings-48",
       "targetType": "Group",
       "metaId": "d6c936fa-5987-4df4-8031-162b451b174f",
@@ -75,6 +75,117 @@
       "targetMetaId": "653951ac-f10e-48fd-bf25-35b538352422",
       "metaId": "935e9b27-f079-4ed0-9bec-465fff3641ff",
       "name": "UaVatPayable",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "Ukraine VAT first event",
+        "ar": "الحدث الأول لضريبة القيمة المضافة (أوكرانيا)",
+        "ru": "ПДВ: перша подія",
+        "uk": "ПДВ: перша подія"
+      },
+      "parentMetaId": "cddd5022-8771-48f0-a706-6fc04e1ceded",
+      "displayOrder": 1,
+      "icon": "fluent-color:clock-32",
+      "targetType": "Register",
+      "targetMetaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",
+      "metaId": "4d7a0c58-2f91-4e6b-b3a8-0c5d9e1f2740",
+      "name": "UaVatFirstEvent",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "Ukraine input VAT credit",
+        "ar": "رصيد ضريبة المدخلات (أوكرانيا)",
+        "ru": "Податковий кредит з ПДВ",
+        "uk": "Податковий кредит з ПДВ"
+      },
+      "parentMetaId": "cddd5022-8771-48f0-a706-6fc04e1ceded",
+      "displayOrder": 2,
+      "icon": "fluent-color:receipt-32",
+      "targetType": "Register",
+      "targetMetaId": "43d58d23-0db9-43b9-8548-421cb88db32e",
+      "metaId": "6b2e9f14-8c37-4d50-a1e6-9f3b7c0d5842",
+      "name": "UaVatCredit",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "Ukraine input VAT first event",
+        "ar": "الحدث الأول لضريبة المدخلات (أوكرانيا)",
+        "ru": "Податковий кредит: перша подія",
+        "uk": "Податковий кредит: перша подія"
+      },
+      "parentMetaId": "cddd5022-8771-48f0-a706-6fc04e1ceded",
+      "displayOrder": 3,
+      "icon": "fluent-color:clock-32",
+      "targetType": "Register",
+      "targetMetaId": "a1d44a6a-f4f8-49f8-8cf5-b9179ea9e736",
+      "metaId": "1a8c5d73-6e04-4b29-8f15-2d7a9c4e6b80",
+      "name": "UaPurchaseFirstEvent",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "Dictionaries",
+        "ar": "القواميس",
+        "ru": "Справочники",
+        "uk": "Довідники"
+      },
+      "parentMetaId": "b9b14276-a8a9-400a-beb2-a01c58334a14",
+      "displayOrder": 1,
+      "icon": "fluent-color:book-32",
+      "targetType": "Group",
+      "metaId": "7a3c1e90-4b2d-4f81-9c6e-1d8a5b7f2e04",
+      "name": "Dictionaries",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "Single tax revenue limit",
+        "ar": "حد الإيرادات للضريبة الموحدة",
+        "ru": "Предельный доход единого налога",
+        "uk": "Граничний дохід єдиного податку"
+      },
+      "parentMetaId": "7a3c1e90-4b2d-4f81-9c6e-1d8a5b7f2e04",
+      "displayOrder": 0,
+      "icon": "fluent-color:gauge-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "6840eb8f-e477-42b5-aebb-5f18ccf8105e",
+      "metaId": "5c9d2a47-1e83-4b6f-a0d8-3c7e5f1b9046",
+      "name": "UaSingleTaxLimit",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "Forced regime change",
+        "ar": "تغيير إلزامي للنظام الضريبي",
+        "ru": "Принудительная смена режима",
+        "uk": "Примусова зміна режиму"
+      },
+      "parentMetaId": "7a3c1e90-4b2d-4f81-9c6e-1d8a5b7f2e04",
+      "displayOrder": 1,
+      "icon": "fluent-color:arrow-swap-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "9cc53112-5987-44a3-ab46-4f5adcab88e4",
+      "metaId": "8e1f6b29-3a54-4c90-9d12-7b4e0a6c8f31",
+      "name": "UaRegimeChange",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "Tax filing export",
+        "ar": "تصدير الإقرار الضريبي",
+        "ru": "Выгрузка декларации",
+        "uk": "Вивантаження декларації"
+      },
+      "parentMetaId": "7a3c1e90-4b2d-4f81-9c6e-1d8a5b7f2e04",
+      "displayOrder": 2,
+      "icon": "fluent-color:document-table-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+      "metaId": "2f8b4c16-9e70-4a3d-b5c1-6d0e8f9a1b22",
+      "name": "UaTaxFilingExport",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
