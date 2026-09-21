@@ -38,6 +38,11 @@ using TransactionPairCollection = ZuloOne.Totals.TransactionPairCollection;
 // предоплатой, не двигает max(Shipped, Paid) и даёт ровно ноль.
 public partial class UaVatFirstEventTotalDriver
 {
+    // КЛЮЧ РЕГИСТРА — ИЗМЕРЕНИЯ, И ЭТО НЕ ВКУСОВЩИНА. TransactionBase знает только
+    // coordinates; аналитик у него нет вовсе. Объяви клиента и договор аналитиками —
+    // и IsCoordinateNull отбросит КАЖДУЮ проводку, драйвер отработает вхолостую, а
+    // в логе не будет ни ошибки, ни подсказки: движения записаны, налог не начислен.
+    // Ровно на это ушёл отдельный круг отладки.
     private const string Shipped = "Shipped";
     private const string Paid = "Paid";
     private const string Customer = "Customer";
@@ -117,13 +122,12 @@ public partial class UaVatFirstEventTotalDriver
 
             await movements.PostMovementAsync(
                 firstEventId, docId, movementDate,
-                new Dictionary<string, object?>(),
-                new Dictionary<string, decimal> { ["Accrued"] = taxable },
-                analytics: new Dictionary<string, object?>
+                new Dictionary<string, object?>
                 {
                     [Customer] = key.Customer,
                     [Contract] = key.Contract,
-                });
+                },
+                new Dictionary<string, decimal> { ["Accrued"] = taxable });
 
             // Точка значима только на выходе — в UaVatPayable срез по торговым
             // точкам одного клиента обязан не смешиваться.

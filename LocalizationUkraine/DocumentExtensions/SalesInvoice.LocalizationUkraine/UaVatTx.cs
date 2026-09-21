@@ -14,6 +14,10 @@ using ZuloOne.Services.Contracts;
 // Ставка тут больше не нужна вовсе, поэтому проверка TaxRateApplied ушла: «нет
 // контура — нет проводки» решается тем же драйвером, на один уровень позже.
 //
+// КЛЮЧ — ИЗМЕРЕНИЯ, НЕ АНАЛИТИКИ. Драйвер итогов читает только координаты
+// проводки; аналитик TransactionBase не знает вовсе. Ключ, объявленный
+// аналитикой, драйверу невидим — движение прошло бы, а начисления не случилось.
+//
 // ТОЧКУ НЕ ПИШЕМ: договор принадлежит ровно одной торговой точке, в ключе она
 // избыточна. В UaVatPayable точка остаётся — её подставит драйвер.
 public partial class UaVatTx
@@ -29,8 +33,8 @@ public partial class UaVatTx
         if (baseAmount == 0m) return;
 
         transactions.Add(new RegisterMovementSpec("UaVatFirstEvent")
-            .An(Analytics.UaVatFirstEvent.Customer, document.Customer)
-            .An(Analytics.UaVatFirstEvent.SalesContract, document.Contract)
+            .Dim("Customer", document.Customer)
+            .Dim("SalesContract", document.Contract)
             .Res("Shipped", baseAmount));
     }
 }

@@ -25,8 +25,8 @@ public partial class UaPaymentFirstEventTx
             if (line.Amount == 0m || line.Contract == System.Guid.Empty) continue;
 
             transactions.Add(new RegisterMovementSpec("UaVatFirstEvent")
-                .An(Analytics.UaVatFirstEvent.Customer, line.Customer)
-                .An(Analytics.UaVatFirstEvent.SalesContract, line.Contract)
+                .Dim("Customer", line.Customer)
+                .Dim("SalesContract", line.Contract)
                 .Res("Paid", line.Amount));
         }
     }
