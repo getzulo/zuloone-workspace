@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "VoidPayrollAccrual",
+    "objectMetaId": "a584e934-9e61-4838-8e70-d769b7de2cd7",
+    "executionOrder": 0,
+    "metaId": "dc96719e-46bf-4466-b7bb-4b26fceb6520",
+    "name": "VoidPayrollAccrualScript",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

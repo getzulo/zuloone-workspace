@@ -22,9 +22,11 @@ public partial class PositionEventHandler : TypedDictionaryEventHandler<Position
         var prior = await next(record, isNew, context);
         if (!prior.Success) return prior;
 
-        // if (string.IsNullOrEmpty(record.Name))
-        //     return EventResult.Cancel("Name is required");
-        // context.AddClientAction(ClientAction.Message("Saved", "success"));
+        if (record.HourlyRate < 0m)
+            return EventResult.Cancel("Ставка в час не может быть отрицательной");
+        if (record.MonthlySalary < 0m)
+            return EventResult.Cancel("Оклад не может быть отрицательным");
+
         return EventResult.Ok();
     }
 

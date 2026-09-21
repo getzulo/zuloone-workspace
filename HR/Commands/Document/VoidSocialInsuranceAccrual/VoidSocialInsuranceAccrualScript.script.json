@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "VoidSocialInsuranceAccrual",
+    "objectMetaId": "e581ec35-27f1-4816-ab2a-d0b79af661ee",
+    "executionOrder": 0,
+    "metaId": "de22278e-03f3-44b9-a18f-837ee064b977",
+    "name": "VoidSocialInsuranceAccrualScript",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

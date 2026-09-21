@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Void social insurance accrual",
+      "ar": "إلغاء استحقاق التأمينات",
+      "ru": "Аннулировать взносы",
+      "uk": "Анулювати внески"
+    },
+    "scriptMetaId": "de22278e-03f3-44b9-a18f-837ee064b977",
+    "parameterMode": "None",
+    "displayOrder": 2,
+    "beginGroup": true,
+    "isEnabled": true,
+    "requiresConfirmation": true,
+    "reloadAfterExecution": true,
+    "metaId": "e581ec35-27f1-4816-ab2a-d0b79af661ee",
+    "name": "VoidSocialInsuranceAccrual",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "d1be0a30-362d-4adb-9fcb-7732f5213556",
+      "documentCommandMetaId": "e581ec35-27f1-4816-ab2a-d0b79af661ee",
+      "documentSubtypeMetaId": "e789d2a1-f54c-4ca0-a75d-eb9b96546e94"
+    }
+  ]
+}

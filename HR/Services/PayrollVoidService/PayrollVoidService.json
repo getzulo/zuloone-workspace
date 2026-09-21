@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Void posted payroll / payment / social-insurance accruals (Mix reverse)",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "795eddff-0622-4be8-80d0-7c5f5292a4b4",
+    "metaId": "e9324dd8-1538-4540-b571-bac4d3484d58",
+    "name": "PayrollVoidService",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

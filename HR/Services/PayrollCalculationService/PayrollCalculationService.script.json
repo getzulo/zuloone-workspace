@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "PayrollCalculationService",
+    "executionOrder": 0,
+    "metaId": "4477906a-4d76-4aef-bff3-5a815db0cc4c",
+    "name": "PayrollCalculationService",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

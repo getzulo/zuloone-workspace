@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
 
 // Команда «Начислить ФОТ» на утверждённом табеле: превращает отработанные часы в
-// документ начисления по ставке должности сотрудника (часы × HourlyRate).
+// документ начисления. Формула — IPayrollCalculationService: оклад пропорционально
+// часам периода или часы × HourlyRate.
 //
 // Почему расчёт здесь, а не в проводке табеля: ставка лежит в справочнике
 // Position, а её чтение асинхронно — транзакционный скрипт синхронный и таких
@@ -37,10 +39,14 @@ public partial class AccruePayrollCommand
         var family = await docs.GetDocumentFamilyAsync(sheet.MetaId);
         var accrualIds = new HashSet<Guid>(
             family.Nodes.Where(n => n.DocTypeMetaId == PayrollAccrualType).Select(n => n.DocId));
-        if (family.Edges.Any(e => e.ParentDocId == sheet.MetaId && accrualIds.Contains(e.ChildDocId)))
+        foreach (var edge in family.Edges.Where(e => e.ParentDocId == sheet.MetaId && accrualIds.Contains(e.ChildDocId)))
         {
-            context.AddClientAction(ClientAction.Message("По этому табелю уже начислено."));
-            return;
+            var existing = await docs.GetDocumentAsync<PayrollAccrual>(edge.ChildDocId);
+            if (existing != null && existing.Subtype != PayrollAccrual.Subtypes.Voided)
+            {
+                context.AddClientAction(ClientAction.Message("По этому табелю уже начислено."));
+                return;
+            }
         }
 
         if (sheet.Lines.Count == 0)
@@ -50,7 +56,9 @@ public partial class AccruePayrollCommand
         }
 
         var employees = context.GetService<IDictionaryManager<Employee>>();
-        var positions = context.GetService<IDictionaryManager<Position>>();
+        var calc = context.GetService<IPayrollCalculationService>();
+        var from = sheet.PeriodFrom == default ? DateTime.UtcNow.Date : sheet.PeriodFrom.Date;
+        var to = sheet.PeriodTo == default ? from : sheet.PeriodTo.Date;
 
         var accrual = await docs.NewDocumentAsync<PayrollAccrual>("Draft", new Dictionary<string, object?>
         {
@@ -62,12 +70,10 @@ public partial class AccruePayrollCommand
         foreach (var line in sheet.Lines)
         {
             var emp = await employees.GetRecordAsync(line.Employee);
-            var pos = emp == null ? null : await positions.GetRecordAsync(emp.Position);
-            if (pos == null) { skipped++; continue; }
+            if (emp == null || emp.Position == Guid.Empty) { skipped++; continue; }
 
-            // Часы в строке генерируются nullable-свойством, ставка должности — нет.
             var hours = line.Hours ?? 0m;
-            var amount = Math.Round(hours * pos.HourlyRate, 2, MidpointRounding.AwayFromZero);
+            var amount = await calc.AmountOfAsync(emp.Position, hours, from, to);
             if (amount <= 0m) { skipped++; continue; }
 
             accrual.Lines.Add(new PayrollAccrualLinesTablePartRow { Employee = line.Employee, Amount = amount });

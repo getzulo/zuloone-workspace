@@ -109,6 +109,27 @@
       "isReadOnly": true,
       "metaId": "e789d2a1-f54c-4ca0-a75d-eb9b96546e94",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+    },
+    {
+      "documentTypeMetaId": "a0d03063-af77-4fd0-886b-223a9731f105",
+      "name": "Voided",
+      "caption": {
+        "en": "Voided",
+        "ar": "ملغى",
+        "uk": "Анульовано"
+      },
+      "subtypeValue": "Voided",
+      "subtypeCaption": {
+        "en": "Voided",
+        "ar": "ملغى",
+        "ru": "Аннулировано",
+        "uk": "Анульовано"
+      },
+      "displayOrder": 3,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "6557caa6-4622-45ed-afe0-c5580e7016c3",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ],
   "tableParts": [

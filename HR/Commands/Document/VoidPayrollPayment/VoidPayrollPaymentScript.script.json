@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "VoidPayrollPayment",
+    "objectMetaId": "1a9c9c9f-d41d-4eeb-9e2d-0e1d119b8ec6",
+    "executionOrder": 0,
+    "metaId": "b98e4087-dfed-403b-bebf-ae7a88ace41f",
+    "name": "VoidPayrollPaymentScript",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}
