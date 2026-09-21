@@ -57,9 +57,23 @@ public partial class PayrollVoidService
 
         foreach (var line in accrual.Lines)
         {
-            var liab = await _totals.GetBalanceAsync("PayrollLiability", "Amount",
-                new Dictionary<string, object?> { ["Employee"] = line.Employee });
+            var slice = new Dictionary<string, object?> { ["Employee"] = line.Employee };
+            var liab = await _totals.GetBalanceAsync("PayrollLiability", "Amount", slice);
+
+            // ЧТО ИМЕННО МЫ ПРОВЕРЯЕМ. Остаток долга уменьшают ДВЕ разные вещи:
+            // выплата работнику (после неё аннулировать нельзя — деньги ушли) и
+            // удержание в пользу третьей стороны (после него аннулировать можно,
+            // сторно снимет и его). По одному Amount они неразличимы, поэтому
+            // удержанное считается отдельно и возвращается в ожидаемый остаток.
+            //
+            // Два слагаемых, потому что удерживают двое. Соцвзнос известен
+            // документом — его берём из строк связанного начисления. Все
+            // остальные удержания (например, ПДФО и военный сбор украинской
+            // локализации) HR по имени не знает и знать не должен: они
+            // объявляют себя ресурсом Withheld, и этого достаточно.
             var taken = withhold.TryGetValue(line.Employee, out var w) ? w : 0m;
+            taken += await _totals.GetBalanceAsync("PayrollLiability", "Withheld", slice);
+
             if (liab + 0.0001m < line.Amount - taken)
                 return "Нельзя аннулировать: задолженность уже погашена выплатой.";
         }

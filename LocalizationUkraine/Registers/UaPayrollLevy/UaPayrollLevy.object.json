@@ -1,0 +1,116 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "Ukraine payroll levies withheld",
+      "ar": "الاقتطاعات على الرواتب (أوكرانيا)",
+      "ru": "Удержания из зарплаты (Украина)",
+      "uk": "Утримання із зарплати"
+    },
+    "description": "ПДФО и военный сбор В РАЗРЕЗЕ СОТРУДНИКА. Почему не хватает TaxLedger: он разрезан направлением, юрлицом и кодом налога — этого достаточно, чтобы заплатить в бюджет, и недостаточно, чтобы подать 4ДФ, где каждая строка это конкретный человек. Поэтому леджер остаётся деньгами к уплате, а этот регистр — персонифицированной отчётностью. Код налога держим измерением, а не сворачиваем в одну сумму: ПДФО и ВЗ идут в разные бюджеты и в разные строки расчёта.",
+    "isObsolete": false,
+    "iconName": "fluent-color:person-tag-32",
+    "largeIconName": "fluent-color:person-tag-32",
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "48bb80db-b251-46cb-993b-7400398dee94",
+    "name": "UaPayrollLevy",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "a96f1d68-1f19-49b9-95fb-50b78b378c18",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+      "fieldName": "Employee",
+      "caption": {
+        "en": "Employee",
+        "ar": "الموظف",
+        "ru": "Сотрудник",
+        "uk": "Працівник"
+      },
+      "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 2,
+      "metaId": "3591f78c-49be-4413-9c90-a516e5f88ed2",
+      "name": "Employee",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+      "fieldName": "TaxCode",
+      "caption": {
+        "en": "Tax code",
+        "ar": "رمز الضريبة",
+        "ru": "Код налога",
+        "uk": "Код податку"
+      },
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 3,
+      "metaId": "706484ae-7086-4a8b-a143-02acf742b5b7",
+      "name": "TaxCode",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+      "fieldName": "Base",
+      "caption": {
+        "en": "Base",
+        "ar": "الوعاء",
+        "ru": "База",
+        "uk": "База"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "metaId": "01cd9d78-933d-4eb6-9a0a-f11ed635ef3f",
+      "name": "Base",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+      "fieldName": "Amount",
+      "caption": {
+        "en": "Amount",
+        "ar": "المبلغ",
+        "ru": "Сумма",
+        "uk": "Сума"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 2,
+      "metaId": "e099b6ea-64e3-4ba4-b3f3-21c1dffd76ee",
+      "name": "Amount",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

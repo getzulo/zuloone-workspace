@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Удержания из зарплаты по украинским правилам: ПДФО и военный сбор. Считает ставку на дату начисления и пишет персонифицированные суммы.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "e256b72c-922a-4403-9589-244e142867d4",
+    "metaId": "1488de01-7bdc-45f1-a35f-e399c3c027a6",
+    "name": "UaPayrollLevies",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

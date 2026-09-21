@@ -1,0 +1,10 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+    "description": "Удержания из зарплаты по украинским правилам: ПДФО и военный сбор",
+    "metaId": "cf643267-0de5-42d0-b00b-c0ce8459780b",
+    "name": "PayrollAccrual.LocalizationUkraine",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

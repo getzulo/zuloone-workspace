@@ -213,6 +213,54 @@
       "metaId": "a8587cfb-a9e0-41ce-8078-b10e8287154b",
       "name": "VatReturnType",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "IncomeTaxCode",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "description": "Код налога (TaxCode.Code) для ПДФО, удерживаемого из зарплаты. Ставка берётся из контура НА ДАТУ НАЧИСЛЕНИЯ. Пусто или код не найден — удержание не выполняется вовсе, и это единственный выключатель контура: модель не гадает по стране юрлица.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Personal income tax code (payroll)",
+        "ar": "رمز ضريبة الدخل الشخصي (الرواتب)",
+        "ru": "Код НДФЛ (зарплата)",
+        "uk": "Код ПДФО (зарплата)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d37c09fe-ac25-4282-964a-9b95d84d2f25",
+      "name": "IncomeTaxCode",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "MilitaryLevyCode",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "description": "Код налога (TaxCode.Code) для военного сбора. Отдельным кодом, а не общей суммой с ПДФО: сборы идут в разные бюджеты и в разные строки расчёта, а ставка ВЗ менялась (1,5% до 01.12.2024, далее 5%) независимо от ПДФО.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Military levy code (payroll)",
+        "ar": "رمز الرسم العسكري (الرواتب)",
+        "ru": "Код военного сбора (зарплата)",
+        "uk": "Код військового збору (зарплата)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "3421b5d1-121c-4c74-b0a9-343cc062a432",
+      "name": "MilitaryLevyCode",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

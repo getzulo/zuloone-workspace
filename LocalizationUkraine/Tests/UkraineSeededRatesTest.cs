@@ -144,16 +144,44 @@ public class UkraineSeededRatesTest : IntegrationTestScriptBase
         Assert.IsTrue(vat.Tax != ep.Tax,
             "ПДВ и ЄП — разные налоги, а оказались одним");
 
-        // Каждая ставка ЄП живёт в СВОЕЙ категории: без этого обе попадают в
-        // безкатегорийную полосу налога и спорят между собой.
+        // Каждая ставка ЄП живёт в СВОЕЙ категории: без этого все попадают в
+        // безкатегорийную полосу налога и спорят между собой. Ставок ТРИ:
+        // обычные 3% и 5% плюс 15% на превышение годового предела (ПКУ 293.4).
+        // Превышение — тот же налог по штрафной ставке, отдельного налога под
+        // него не заводится.
         var rates = await Rates.GetRecordsAsync($"Tax = '{tax.MetaId}'");
         var codes = rates.Select(r => r.Code).OrderBy(c => c).ToList();
-        Assert.IsTrue(codes.SequenceEqual(new[] { "EP3", "EP5" }),
-            "у EP-UA ровно ставки EP3 и EP5, факт [{0}]", string.Join(", ", codes));
+        Assert.IsTrue(codes.SequenceEqual(new[] { "EP15", "EP3", "EP5" }),
+            "у EP-UA ровно ставки EP3, EP5 и EP15, факт [{0}]", string.Join(", ", codes));
 
         var uncategorised = rates.Where(r => r.TaxCategory == Guid.Empty).Select(r => r.Code).ToList();
         Assert.IsTrue(uncategorised.Count == 0,
             "ставки ЄП обязаны иметь категорию, иначе они спорят друг с другом: без категории [{0}]",
             string.Join(", ", uncategorised));
+    }
+
+    [IntegrationTest("Сид Украины: зарплатные налоги отдельные, а ставка ВЗ сменилась 01.12.2024")]
+    public async Task PayrollTaxesAreSeparateAndDated()
+    {
+        var pdfo = await RateAsync("UA-PDFO");
+        Assert.IsTrue(pdfo == 0.18m, "ПДФО по сиду = 0.18, факт {0}", pdfo?.ToString() ?? "null");
+
+        // Военный сбор жил по 1,5% десять лет и с 01.12.2024 стал 5%. Окно
+        // первой ставки обязано быть ЗАКРЫТО: две открытые вправо ставки одной
+        // категории — ровно то, на чём ResolveRateAsync отказывается считать,
+        // и проявилось бы это не здесь, а при начислении зарплаты.
+        var before = await RateAsync("UA-VZ", new DateTime(2024, 11, 30));
+        Assert.IsTrue(before == 0.015m, "на 30.11.2024 ВЗ = 0.015, факт {0}", before?.ToString() ?? "null");
+
+        var after = await RateAsync("UA-VZ", new DateTime(2024, 12, 1));
+        Assert.IsTrue(after == 0.05m, "на 01.12.2024 ВЗ = 0.05, факт {0}", after?.ToString() ?? "null");
+
+        // ПДФО и ВЗ — РАЗНЫЕ налоги: они идут в разные бюджеты и в разные
+        // строки расчёта, и свернуть их в один налог с двумя категориями
+        // значило бы потерять это различие навсегда.
+        var pdfoCode = await CodeAsync("UA-PDFO");
+        var vzCode = await CodeAsync("UA-VZ");
+        Assert.IsTrue(pdfoCode.Tax != vzCode.Tax,
+            "ПДФО и військовий збір обязаны висеть на разных налогах");
     }
 }

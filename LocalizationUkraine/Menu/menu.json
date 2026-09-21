@@ -187,6 +187,22 @@
       "metaId": "2f8b4c16-9e70-4a3d-b5c1-6d0e8f9a1b22",
       "name": "UaTaxFilingExport",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "Payroll levies withheld",
+        "ar": "الاقتطاعات على الرواتب",
+        "ru": "Утримання із зарплати",
+        "uk": "Утримання із зарплати"
+      },
+      "parentMetaId": "cddd5022-8771-48f0-a706-6fc04e1ceded",
+      "displayOrder": 4,
+      "icon": "fluent-color:person-tag-32",
+      "targetType": "Register",
+      "targetMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+      "metaId": "14c0b9c2-1303-4077-ad82-96b281d1ae87",
+      "name": "UaPayrollLevy",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

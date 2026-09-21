@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "UaPayrollLevies",
+    "executionOrder": 0,
+    "metaId": "e256b72c-922a-4403-9589-244e142867d4",
+    "name": "UaPayrollLeviesService",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

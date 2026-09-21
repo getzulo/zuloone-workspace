@@ -31,7 +31,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 2
+        "rowCount": 4
       },
       {
         "entity": "TaxCategory",
@@ -42,7 +42,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 7
+        "rowCount": 9
       },
       {
         "entity": "TaxRate",
@@ -53,7 +53,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 5
+        "rowCount": 8
       },
       {
         "entity": "TaxCode",
@@ -63,7 +63,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 7
+        "rowCount": 9
       }
     ]
   },
@@ -126,6 +126,44 @@
         },
         "Name_ru": "Единый налог (Украина)",
         "Name_uk": "Єдиний податок (Україна)"
+      },
+      {
+        "Code": "PDFO-UA",
+        "Name": "Personal income tax (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Authority": {
+          "$ref": "TaxAuthority",
+          "key": {
+            "Code": "DPS"
+          }
+        },
+        "Jurisdiction": {
+          "$ref": "TaxJurisdiction",
+          "key": {
+            "Code": "UA"
+          }
+        },
+        "Name_ru": "Налог на доходы физических лиц (Украина)",
+        "Name_uk": "Податок на доходи фізичних осіб (Україна)"
+      },
+      {
+        "Code": "VZ-UA",
+        "Name": "Military levy (Ukraine)",
+        "EffectiveFrom": "2014-08-03T00:00:00Z",
+        "Authority": {
+          "$ref": "TaxAuthority",
+          "key": {
+            "Code": "DPS"
+          }
+        },
+        "Jurisdiction": {
+          "$ref": "TaxJurisdiction",
+          "key": {
+            "Code": "UA"
+          }
+        },
+        "Name_ru": "Военный сбор (Украина)",
+        "Name_uk": "Військовий збір (Україна)"
       }
     ],
     "TaxCategory": [
@@ -219,6 +257,32 @@
         },
         "Name_ru": "Единый налог 15% (превышение)",
         "Name_uk": "Єдиний податок 15% (перевищення)"
+      },
+      {
+        "Code": "PDFO",
+        "Name": "Salary income",
+        "Treatment": "STANDARD",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "PDFO-UA"
+          }
+        },
+        "Name_ru": "Доход в виде зарплаты",
+        "Name_uk": "Дохід у вигляді зарплати"
+      },
+      {
+        "Code": "VZ",
+        "Name": "Salary income",
+        "Treatment": "STANDARD",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "VZ-UA"
+          }
+        },
+        "Name_ru": "Доход в виде зарплаты",
+        "Name_uk": "Дохід у вигляді зарплати"
       }
     ],
     "TaxRate": [
@@ -332,6 +396,76 @@
               "$ref": "Tax",
               "key": {
                 "Code": "EP-UA"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Code": "PDFO18",
+        "Rate": 0.18,
+        "EffectiveFrom": "2016-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "PDFO-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "PDFO",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "PDFO-UA"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Code": "VZ1_5",
+        "Rate": 0.015,
+        "EffectiveFrom": "2014-08-03T00:00:00Z",
+        "EffectiveTo": "2024-11-30T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "VZ-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "VZ",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "VZ-UA"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Code": "VZ5",
+        "Rate": 0.05,
+        "EffectiveFrom": "2024-12-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "VZ-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "VZ",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "VZ-UA"
               }
             }
           }
@@ -513,6 +647,56 @@
         },
         "Name_ru": "Единый налог 15% с превышения (Украина)",
         "Name_uk": "Єдиний податок 15% з перевищення (Україна)"
+      },
+      {
+        "Code": "UA-PDFO",
+        "Name": "Personal income tax on salary (Ukraine)",
+        "EffectiveFrom": "2016-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "PDFO-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "PDFO",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "PDFO-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "НДФЛ с зарплаты (Украина)",
+        "Name_uk": "ПДФО із зарплати (Україна)"
+      },
+      {
+        "Code": "UA-VZ",
+        "Name": "Military levy on salary (Ukraine)",
+        "EffectiveFrom": "2014-08-03T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "VZ-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "VZ",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "VZ-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Военный сбор с зарплаты (Украина)",
+        "Name_uk": "Військовий збір із зарплати (Україна)"
       }
     ]
   }

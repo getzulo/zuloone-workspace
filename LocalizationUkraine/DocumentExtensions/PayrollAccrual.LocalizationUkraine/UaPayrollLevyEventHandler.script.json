@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "cf643267-0de5-42d0-b00b-c0ce8459780b",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "PayrollAccrual",
+    "objectMetaId": "832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 20,
+    "metaId": "98c7c8b4-c980-424f-8611-1f076620bd66",
+    "name": "UaPayrollLevyEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
