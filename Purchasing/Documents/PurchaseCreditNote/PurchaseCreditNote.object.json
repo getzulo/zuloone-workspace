@@ -193,6 +193,14 @@
       "metaId": "ec9d4406-33a9-4d68-9cf5-7d01dad220ed",
       "name": "",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "subtypeMetaId": "c817dae1-d658-4f61-928e-d327bd3b8a08",
+      "scriptMetaId": "6d726072-de99-4e24-bd78-2b5f12aebbd3",
+      "executionOrder": 7,
+      "metaId": "e5b3fed6-6052-456a-926e-9ac8f892f9f3",
+      "name": "",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ],
   "subtypeTransitions": [

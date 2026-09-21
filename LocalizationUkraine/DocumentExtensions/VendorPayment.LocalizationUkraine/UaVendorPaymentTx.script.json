@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "e0500b30-88db-4261-9e9f-b5ef6806f002",
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "VendorPayment",
+    "objectMetaId": "e1e26bfb-8bba-44cb-9428-3f40f8b4df26",
+    "executionOrder": 7,
+    "metaId": "7ece3e64-ea31-48e7-a2ba-c9c8be037b77",
+    "name": "UaVendorPaymentTx",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

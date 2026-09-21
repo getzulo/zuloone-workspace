@@ -29,6 +29,7 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
         // Optional document DateTime is non-nullable; MinValue overflows SQL Server.
         if (isNew && document.DueDate.Year < 1902)
             document.DueDate = new DateTime(1901, 1, 1);
+
         return EventResult.Ok();
     }
 
@@ -92,10 +93,33 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
                 var taxBase = lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
                 document.NonRecoverableVat = await tax.NonRecoverableOfAsync(
                     leId, "INPUT", taxBase, TaxPointOf(document));
+
+
+
+                // ПОКУПАТЕЛЬ ШТАМПУЕТСЯ ИМЕННО ЗДЕСЬ. Поле нужно на ДОКУМЕНТЕ:
+                // транзакционный скрипт синхронен и цепочку ячейка -> зона ->
+                // склад -> подразделение -> юрлицо не пройдёт, а поле расширения
+                // в генерируемый класс документа не попадает вовсе.
+                //
+                // В before-save это НЕ РАБОТАЕТ: там цепочка не резолвится ни на
+                // вставке, ни на переходе — свои же строки лежат в незакрытой
+                // транзакции, и GetLegalEntityAsync отдаёт пусто. Проверено
+                // зондом: движение прихода уходило под пустое юрлицо, и срез по
+                // реальному видел ноль. На пути проведения тот же вызов
+                // резолвится — им живёт NonRecoverableVat строкой выше.
+                //
+                // Значение доезжает до вызывающего: менеджер после проведения
+                // перечитывает строку и отдаёт проставленное обратно. Без этого
+                // адресная запись ниже запирала бы документ в Received.
+                if (document.LegalEntity == Guid.Empty) document.LegalEntity = leId;
             }
+            var stamp = new Dictionary<string, object?>
+            {
+                ["NonRecoverableVat"] = document.NonRecoverableVat,
+            };
+            if (document.LegalEntity != Guid.Empty) stamp["LegalEntity"] = document.LegalEntity;
             await context.GetService<IDocumentManager>().UpdateDocumentAsync(
-                PurchaseOrderType, document.MetaId,
-                new Dictionary<string, object?> { ["NonRecoverableVat"] = document.NonRecoverableVat });
+                PurchaseOrderType, document.MetaId, stamp);
         }
 
         return EventResult.Ok();

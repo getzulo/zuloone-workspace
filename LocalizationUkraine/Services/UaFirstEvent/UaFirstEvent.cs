@@ -241,6 +241,47 @@ public partial class UaFirstEvent
         return Math.Round(gross / (1m + rate), scale, MidpointRounding.AwayFromZero);
     }
 
+    // ═══ ВХОД: ПОДАТКОВИЙ КРЕДИТ (ПКУ 198.2) ═════════════════════════════════
+    //
+    // Зеркало продаж, и правило то же по форме: кредит возникает на дату того из
+    // событий, что случилось РАНЬШЕ — списание денег поставщику или получение
+    // товара. Поэтому и считается так же: копятся два итога, зачитывается max из
+    // них, Credited помнит зачтённое, каждое событие берёт только прирост.
+    //
+    // РАЗНИЦА ОДНА, И ОНА В КЛЮЧЕ: договоров поставки в Purchasing нет, поэтому
+    // ключ — юрлицо и поставщик, без третьего измерения. Следствие, которое надо
+    // знать: все закупки у одного поставщика одним юрлицом идут в ОДНУ корзину,
+    // и первое событие выводится по ней целиком, а не по сделке.
+
+    /// <summary>
+    /// Какая часть базы поставщика даёт налоговый кредит ПРЯМО СЕЙЧАС: прирост
+    /// max(Received, PaidOut) над уже зачтённым. Зовётся ПОСЛЕ записи движений.
+    ///
+    /// Асимметрия та же, что на продажах: Received — база БЕЗ налога, PaidOut —
+    /// деньги С налогом. Аванс 120 при ставке 20% закрывает базу 100, а не 120.
+    ///
+    /// Минус законен: возврат поставщику уменьшает Received, цель опускается ниже
+    /// зачтённого, и кредит обязан сняться.
+    /// </summary>
+    public async Task<decimal> CreditIncrementAsync(Guid legalEntity, Guid supplier, decimal rate)
+    {
+        if (supplier == Guid.Empty) return 0m;
+
+        var received = await PurchaseBalanceAsync(legalEntity, supplier, "Received");
+        var paidGross = await PurchaseBalanceAsync(legalEntity, supplier, "PaidOut");
+        var credited = await PurchaseBalanceAsync(legalEntity, supplier, "Credited");
+
+        return Math.Max(received, Net(paidGross, rate)) - credited;
+    }
+
+    private Task<decimal> PurchaseBalanceAsync(Guid legalEntity, Guid supplier, string resource)
+        => _totals.GetBalanceAsync("UaPurchaseFirstEvent", resource,
+            new Dictionary<string, object?>
+            {
+                ["LegalEntity"] = legalEntity,
+                ["Supplier"] = supplier,
+            });
+
     private Task<decimal> BalanceAsync(
         Guid legalEntity, Guid customer, Guid contract, string resource)
         => _totals.GetBalanceAsync("UaVatFirstEvent", resource,

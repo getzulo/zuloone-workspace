@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "092a6d75-f8c0-4961-8153-73f5b890aa90",
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "PurchaseCreditNote",
+    "objectMetaId": "c817dae1-d658-4f61-928e-d327bd3b8a08",
+    "executionOrder": 7,
+    "metaId": "6d726072-de99-4e24-bd78-2b5f12aebbd3",
+    "name": "UaPurchaseCreditTx",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

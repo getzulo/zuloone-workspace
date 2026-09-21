@@ -1,0 +1,18 @@
+{
+  "kind": "TotalDriver",
+  "object": {
+    "caption": {
+      "en": "Ukraine input-VAT first-event driver",
+      "ar": "محرك الحدث الأول لضريبة المدخلات (أوكرانيا)",
+      "ru": "Драйвер податкового кредиту першої події",
+      "uk": "Драйвер податкового кредиту першої події"
+    },
+    "baseClassName": "DefaultTotalDriver",
+    "baseEngine": "Standard",
+    "isKernel": false,
+    "description": "Драйвер регистра UaPurchaseFirstEvent: после записи движений берёт max(Received, PaidOut), сравнивает с уже зачтённой базой и даёт кредит только на прирост. Неплательщик ПДВ кредита не получает.",
+    "metaId": "eda44436-5b33-4353-beac-8ffb535aaeec",
+    "name": "UaPurchaseFirstEvent",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

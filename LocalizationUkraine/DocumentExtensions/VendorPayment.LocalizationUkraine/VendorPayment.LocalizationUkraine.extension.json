@@ -1,0 +1,10 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "6eb069ee-3312-4f26-8823-5fcfdadc0750",
+    "description": "Перша подія на входе: оплата поставщику двигает базу налогового кредита",
+    "metaId": "e0500b30-88db-4261-9e9f-b5ef6806f002",
+    "name": "VendorPayment.LocalizationUkraine",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

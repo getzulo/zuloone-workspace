@@ -1,0 +1,118 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "Ukraine input VAT first event",
+      "ar": "الحدث الأول لضريبة المدخلات (أوكرانيا)",
+      "ru": "Податковий кредит: перша подія",
+      "uk": "Податковий кредит: перша подія"
+    },
+    "description": "Накопления по поставщику, из которых выводится первое событие на ВХОДЕ (ПКУ 198.2): кредит возникает на дату того, что раньше — списание денег поставщику или получение товара. Зеркало UaVatFirstEvent, но ключ без договора: договоров поставки в Purchasing нет.",
+    "isObsolete": false,
+    "iconName": "fluent-color:clock-32",
+    "largeIconName": "fluent-color:clock-32",
+    "registerEngineType": "Standard",
+    "totalDriverMetaId": "eda44436-5b33-4353-beac-8ffb535aaeec",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "a1d44a6a-f4f8-49f8-8cf5-b9179ea9e736",
+    "name": "UaPurchaseFirstEvent",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "a1d44a6a-f4f8-49f8-8cf5-b9179ea9e736",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "description": "Покупатель, чьим налоговым кредитом станет движение. Режим налогообложения — свойство юрлица, а драйвер читает только координаты.",
+      "metaId": "70a76006-4287-415c-a122-19f9585e0c69",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "a1d44a6a-f4f8-49f8-8cf5-b9179ea9e736",
+      "fieldName": "Supplier",
+      "caption": {
+        "en": "Supplier",
+        "ar": "المورد",
+        "ru": "Поставщик",
+        "uk": "Постачальник"
+      },
+      "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 2,
+      "metaId": "b1e952a1-025f-40ec-bffe-1275cd212fbe",
+      "name": "Supplier",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "a1d44a6a-f4f8-49f8-8cf5-b9179ea9e736",
+      "fieldName": "Credited",
+      "caption": {
+        "en": "Base already credited",
+        "ar": "الأساس المخصوم بالفعل",
+        "ru": "База, уже зачтённая",
+        "uk": "База, вже зарахована"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 3,
+      "description": "Сколько базы уже дало налоговый кредит. Разница с max(Received, PaidOut) и есть то, что зачитывается сейчас.",
+      "metaId": "17dfde0e-56a7-4a09-8796-bbba42be59a1",
+      "name": "Credited",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "a1d44a6a-f4f8-49f8-8cf5-b9179ea9e736",
+      "fieldName": "PaidOut",
+      "caption": {
+        "en": "Paid out",
+        "ar": "المدفوع",
+        "ru": "Уплачено поставщику",
+        "uk": "Сплачено постачальнику"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 2,
+      "description": "Деньги С налогом. К базе их приводит драйвер: для этого нужна ставка, а она резолвится асинхронно.",
+      "metaId": "4d8f7696-e8dc-4996-812d-c98297f08d18",
+      "name": "PaidOut",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "a1d44a6a-f4f8-49f8-8cf5-b9179ea9e736",
+      "fieldName": "Received",
+      "caption": {
+        "en": "Received base",
+        "ar": "أساس الاستلام",
+        "ru": "Получено (база)",
+        "uk": "Отримано (база)"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "description": "База БЕЗ налога. Сравнивать напрямую с PaidOut нельзя: там деньги С налогом.",
+      "metaId": "d9a61550-030e-4bbe-acf7-d272b00fefa4",
+      "name": "Received",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

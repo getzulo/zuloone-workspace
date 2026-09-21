@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TotalDriver",
+    "objectType": "TotalDriver",
+    "objectName": "UaPurchaseFirstEvent",
+    "objectMetaId": "eda44436-5b33-4353-beac-8ffb535aaeec",
+    "executionOrder": 0,
+    "metaId": "d4f1a1e4-8cb4-4861-9f58-fd40f73ceaf7",
+    "name": "UaPurchaseFirstEventTotalDriver",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

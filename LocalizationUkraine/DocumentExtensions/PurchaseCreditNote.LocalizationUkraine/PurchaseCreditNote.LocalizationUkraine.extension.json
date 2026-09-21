@@ -1,0 +1,10 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "10f6b734-1288-40f2-aa0f-3717a4e3995f",
+    "description": "Возврат поставщику уменьшает базу налогового кредита",
+    "metaId": "092a6d75-f8c0-4961-8153-73f5b890aa90",
+    "name": "PurchaseCreditNote.LocalizationUkraine",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

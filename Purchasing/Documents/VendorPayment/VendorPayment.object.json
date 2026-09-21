@@ -131,6 +131,14 @@
       "metaId": "ce7be9a4-4d15-48aa-82a1-f75d72d0d308",
       "name": "",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "subtypeMetaId": "e1e26bfb-8bba-44cb-9428-3f40f8b4df26",
+      "scriptMetaId": "7ece3e64-ea31-48e7-a2ba-c9c8be037b77",
+      "executionOrder": 7,
+      "metaId": "f9780f5b-d72d-4d15-8699-c5a315d4eea6",
+      "name": "",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ],
   "subtypeTransitions": [

@@ -1,0 +1,81 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "Ukraine input VAT credit",
+      "ar": "رصيد ضريبة المدخلات (أوكرانيا)",
+      "ru": "Податковий кредит з ПДВ",
+      "uk": "Податковий кредит з ПДВ"
+    },
+    "description": "Сам налоговый кредит по первому событию на входе. Зеркало UaVatPayable: тот держит обязательство, этот — право на зачёт. Ключ измерениями, а не аналитиками: измерения драйвер пишет напрямую координатами.",
+    "isObsolete": false,
+    "iconName": "fluent-color:receipt-32",
+    "largeIconName": "fluent-color:receipt-32",
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "43d58d23-0db9-43b9-8548-421cb88db32e",
+    "name": "UaVatCredit",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "43d58d23-0db9-43b9-8548-421cb88db32e",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "bde57085-db8c-488b-86f1-04185e5b7011",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "43d58d23-0db9-43b9-8548-421cb88db32e",
+      "fieldName": "Supplier",
+      "caption": {
+        "en": "Supplier",
+        "ar": "المورد",
+        "ru": "Поставщик",
+        "uk": "Постачальник"
+      },
+      "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 2,
+      "metaId": "7b32ce3a-f97b-4a06-9cf7-34a990bea7e3",
+      "name": "Supplier",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "43d58d23-0db9-43b9-8548-421cb88db32e",
+      "fieldName": "Amount",
+      "caption": {
+        "en": "Amount",
+        "ar": "المبلغ",
+        "ru": "Сумма",
+        "uk": "Сума"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "metaId": "8215fd3e-c6d0-402c-ade6-6532db9f93a7",
+      "name": "Amount",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

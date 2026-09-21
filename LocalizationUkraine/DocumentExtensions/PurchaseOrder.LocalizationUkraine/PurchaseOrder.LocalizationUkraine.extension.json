@@ -1,0 +1,10 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
+    "description": "Перша подія на входе: получение товара двигает базу налогового кредита",
+    "metaId": "0e14dbd9-a864-4532-8c92-59f4c4492c3f",
+    "name": "PurchaseOrder.LocalizationUkraine",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

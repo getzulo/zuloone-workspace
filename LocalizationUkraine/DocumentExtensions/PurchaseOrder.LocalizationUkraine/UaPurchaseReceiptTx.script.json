@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "0e14dbd9-a864-4532-8c92-59f4c4492c3f",
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "PurchaseOrder",
+    "objectMetaId": "9bbf8cdb-8913-4286-8f9c-31809cca4231",
+    "executionOrder": 7,
+    "metaId": "cb0e1e4c-663e-4f62-992d-d6bf796093fc",
+    "name": "UaPurchaseReceiptTx",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
