@@ -26,6 +26,7 @@ public partial class PayrollVoidService
     private static readonly Guid PayrollAccrualType = Guid.Parse("832edeee-5c1a-4f9b-8d3e-2a7c6f1d4b90");
     private static readonly Guid PayrollPaymentType = Guid.Parse("50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85");
     private static readonly Guid SocialInsuranceAccrualType = Guid.Parse("a0d03063-af77-4fd0-886b-223a9731f105");
+    private static readonly Guid SocialInsurancePaymentType = Guid.Parse("aa4abe6c-0f27-42f0-9284-5f084e6b7274");
 
     public async Task<string?> VoidAccrualAsync(Guid accrualId)
     {
@@ -106,6 +107,17 @@ public partial class PayrollVoidService
         }
 
         await _posting.SetSubtypeAsync(SocialInsuranceAccrualType, siId, SocialInsuranceAccrual.Subtypes.Voided);
+        return null;
+    }
+
+    public async Task<string?> VoidSocialInsurancePaymentAsync(Guid paymentId)
+    {
+        var pay = await _docs.GetDocumentAsync<SocialInsurancePayment>(paymentId);
+        if (pay == null) return "Платёж в фонд не найден.";
+        if (pay.Subtype != SocialInsurancePayment.Subtypes.Paid)
+            return "Аннулировать можно только проведённый платёж в фонд.";
+
+        await _posting.SetSubtypeAsync(SocialInsurancePaymentType, paymentId, SocialInsurancePayment.Subtypes.Voided);
         return null;
     }
 }

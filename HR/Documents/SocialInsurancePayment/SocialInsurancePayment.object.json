@@ -110,6 +110,27 @@
       "isReadOnly": true,
       "metaId": "cbfe306f-9fe7-4288-a6e5-f291b793cc98",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+    },
+    {
+      "documentTypeMetaId": "aa4abe6c-0f27-42f0-9284-5f084e6b7274",
+      "name": "Voided",
+      "caption": {
+        "en": "Voided",
+        "ar": "ملغى",
+        "uk": "Анульовано"
+      },
+      "subtypeValue": "Voided",
+      "subtypeCaption": {
+        "en": "Voided",
+        "ar": "ملغى",
+        "ru": "Аннулировано",
+        "uk": "Анульовано"
+      },
+      "displayOrder": 3,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "eeefe291-42f3-496d-99a5-473f1d031db9",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ],
   "tableParts": [
@@ -138,6 +159,13 @@
       "toSubtypeMetaId": "cbfe306f-9fe7-4288-a6e5-f291b793cc98",
       "metaId": "5de00b2b-cf2e-4432-9bae-ba778395d1dd",
       "name": "Draft->Paid",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+    },
+    {
+      "fromSubtypeMetaId": "cbfe306f-9fe7-4288-a6e5-f291b793cc98",
+      "toSubtypeMetaId": "eeefe291-42f3-496d-99a5-473f1d031db9",
+      "metaId": "4888aa65-8158-40f8-90bc-988f712b95ed",
+      "name": "Paid->Voided",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ]

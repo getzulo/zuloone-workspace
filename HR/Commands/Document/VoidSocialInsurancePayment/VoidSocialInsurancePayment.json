@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Void social insurance payment",
+      "ar": "إلغاء سداد التأمينات",
+      "ru": "Аннулировать платёж в фонд",
+      "uk": "Анулювати платіж у фонд"
+    },
+    "scriptMetaId": "7d39a1cb-141b-469b-8c69-c83d6fd16513",
+    "parameterMode": "None",
+    "displayOrder": 2,
+    "beginGroup": true,
+    "isEnabled": true,
+    "requiresConfirmation": true,
+    "reloadAfterExecution": true,
+    "metaId": "4a9b03bc-2988-438b-9eb1-243a8c0788ec",
+    "name": "VoidSocialInsurancePayment",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "d995b88f-745c-43e2-ade4-bc69745ac5d8",
+      "documentCommandMetaId": "4a9b03bc-2988-438b-9eb1-243a8c0788ec",
+      "documentSubtypeMetaId": "cbfe306f-9fe7-4288-a6e5-f291b793cc98"
+    }
+  ]
+}

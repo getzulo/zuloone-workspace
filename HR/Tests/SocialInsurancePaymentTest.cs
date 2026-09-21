@@ -236,4 +236,43 @@ public class SocialInsurancePaymentTest : IntegrationTestScriptBase
 
         Assert.IsTrue(rejected, "нулевой платёж обязан быть отклонён с внятной причиной");
     }
+
+    [IntegrationTest("Аннулирование платежа возвращает обязательство перед фондом")]
+    public async Task VoidPaymentRestoresFundLiability()
+    {
+        var s = await SetupAsync();
+        var emp = await NewEmployeeAsync(s.Division, s.Home);
+        var si = await AccrueAsync(s.Division, emp, 10000m);
+
+        var payment = await DocumentManager.NewDocumentAsync<SocialInsurancePayment>();
+        payment.Division = s.Division;
+        payment.Lines.Add(new SocialInsurancePaymentLinesTablePartRow
+        {
+            Employee = emp,
+            EmployeeContribution = si.Lines[0].EmployeeContribution,
+            EmployerContribution = si.Lines[0].EmployerContribution,
+        });
+        await DocumentManager.SaveDocumentAsync(payment);
+        payment.Subtype = SocialInsurancePayment.Subtypes.Paid;
+        await DocumentManager.SaveDocumentAsync(payment);
+
+        var commandId = await Db.FindCommandIdAsync("document", "VoidSocialInsurancePayment");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, payment.MetaId);
+        Assert.IsTrue(run.Success, "аннулирование платежа: {0}", run.Message ?? string.Join("; ", run.ClientMessages));
+
+        var stored = await DocumentManager.GetDocumentAsync<SocialInsurancePayment>(payment.MetaId);
+        Assert.IsTrue(stored!.Subtype == SocialInsurancePayment.Subtypes.Voided,
+            "платёж Voided, факт {0}", stored.Subtype);
+        var restored = await FundAsync(emp);
+        Assert.IsTrue(restored.Employee == 975m && restored.Employer == 1175m,
+            "обязательство вернулось 975/1175, факт {0}/{1}", restored.Employee, restored.Employer);
+
+        var voidAccrual = await Db.FindCommandIdAsync("document", "VoidSocialInsuranceAccrual");
+        var accRun = await Db.ExecuteDocumentCommandAsync(voidAccrual, si.MetaId);
+        Assert.IsTrue(accRun.Success, "аннулирование взносов после сторно платежа: {0}",
+            accRun.Message ?? string.Join("; ", accRun.ClientMessages));
+        var cleared = await FundAsync(emp);
+        Assert.IsTrue(cleared.Employee == 0m && cleared.Employer == 0m,
+            "после аннулирования взносов фонд 0/0, факт {0}/{1}", cleared.Employee, cleared.Employer);
+    }
 }
