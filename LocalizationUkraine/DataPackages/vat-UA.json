@@ -42,7 +42,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 6
+        "rowCount": 7
       },
       {
         "entity": "TaxRate",
@@ -53,7 +53,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 4
+        "rowCount": 5
       },
       {
         "entity": "TaxCode",
@@ -63,7 +63,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 6
+        "rowCount": 7
       }
     ]
   },
@@ -206,6 +206,19 @@
         },
         "Name_ru": "Единый налог 5% (без НДС)",
         "Name_uk": "Єдиний податок 5% (без ПДВ)"
+      },
+      {
+        "Code": "EP15",
+        "Name": "Single tax 15% (over the limit)",
+        "Treatment": "STANDARD",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "Name_ru": "Единый налог 15% (превышение)",
+        "Name_uk": "Єдиний податок 15% (перевищення)"
       }
     ],
     "TaxRate": [
@@ -292,6 +305,29 @@
           "$ref": "TaxCategory",
           "key": {
             "Code": "EP5",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Code": "EP15",
+        "Rate": 0.15,
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP15",
             "Tax": {
               "$ref": "Tax",
               "key": {
@@ -452,6 +488,31 @@
         },
         "Name_ru": "Единый налог 5% без НДС (Украина)",
         "Name_uk": "Єдиний податок 5% без ПДВ (Україна)"
+      },
+      {
+        "Code": "UA-EP15",
+        "Name": "Single tax 15% over the annual limit (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP15",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Единый налог 15% с превышения (Украина)",
+        "Name_uk": "Єдиний податок 15% з перевищення (Україна)"
       }
     ]
   }

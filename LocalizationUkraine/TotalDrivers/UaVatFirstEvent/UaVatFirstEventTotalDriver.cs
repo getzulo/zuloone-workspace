@@ -237,28 +237,70 @@ public partial class UaVatFirstEventTotalDriver
             key.Entity, key.Customer, key.Contract, netOf);
         if (epBase <= 0m) return;
 
-        var epAmount = tax.CalculateTax(epBase, epRate);
-        if (epAmount == 0m) return;
+        // ГОДОВОЙ ПРЕДЕЛ (ПКУ 291.4). Доход сверх предела не запрещён — он
+        // облагается по 15% (ПКУ 293.4), поэтому прирост делится надвое и каждая
+        // часть уходит СВОИМ кодом: иначе в декларации обычная ставка и штрафная
+        // слиплись бы в одну строку и разложить их обратно было бы нечем.
+        //
+        // «Сколько уже набрано» считается ДО записи текущего прироста, по
+        // движениям EpAccrued этого года, — остаток регистра копится за всю
+        // историю, а предел годовой.
+        var limit = await firstEvent.SingleTaxLimitOnAsync(movementDate);
+        var used = limit > 0m
+            ? await firstEvent.SingleTaxBaseInYearAsync(key.Entity, movementDate)
+            : 0m;
+        var within = firstEvent.SingleTaxWithinLimit(epBase, used, limit);
+        var excess = epBase - within;
 
+        var direction = await DirectionAsync();
+
+        // EpAccrued двигается на ВЕСЬ прирост одним движением: это счётчик
+        // обложенного, и делить его по ставкам незачем — деление живёт в леджере.
         await movements.PostMovementAsync(
             firstEventId, docId, movementDate,
             Coordinates(key),
             new Dictionary<string, decimal> { ["EpAccrued"] = epBase });
 
-        await movements.PostMovementAsync(
-            ledgerId, docId, movementDate,
-            new Dictionary<string, object?>(),
-            new Dictionary<string, decimal>
+        if (within > 0m)
+        {
+            var amount = tax.CalculateTax(within, epRate);
+            if (amount != 0m)
+                await movements.PostMovementAsync(
+                    ledgerId, docId, movementDate,
+                    new Dictionary<string, object?>(),
+                    new Dictionary<string, decimal> { ["TaxBase"] = within, ["TaxAmount"] = amount },
+                    analytics: new Dictionary<string, object?>
+                    {
+                        ["TaxCode"] = single,
+                        ["TaxDirection"] = direction,
+                        ["LegalEntity"] = key.Entity,
+                    });
+        }
+
+        if (excess > 0m)
+        {
+            // Кода превышения нет в настройках — превышение НЕ теряется: оно
+            // остаётся в обычной части, потому что within тогда равен всему
+            // приросту. Сюда мы попадаем только когда предел задан, а значит
+            // администратор про этот механизм знает.
+            var excessCode = await firstEvent.SingleTaxExcessCodeIdAsync();
+            if (excessCode is Guid over)
             {
-                ["TaxBase"] = epBase,
-                ["TaxAmount"] = epAmount,
-            },
-            analytics: new Dictionary<string, object?>
-            {
-                ["TaxCode"] = single,
-                ["TaxDirection"] = await DirectionAsync(),
-                ["LegalEntity"] = key.Entity,
-            });
+                var overRate = await tax.ResolveRateAsync(over, movementDate) ?? 0m;
+                var amount = tax.CalculateTax(excess, overRate);
+                if (overRate > 0m && amount != 0m)
+                    await movements.PostMovementAsync(
+                        ledgerId, docId, movementDate,
+                        new Dictionary<string, object?>(),
+                        new Dictionary<string, decimal> { ["TaxBase"] = excess, ["TaxAmount"] = amount },
+                        analytics: new Dictionary<string, object?>
+                        {
+                            ["TaxCode"] = over,
+                            ["TaxDirection"] = direction,
+                            ["LegalEntity"] = key.Entity,
+                        });
+            }
+        }
     }
 
     private static Dictionary<string, object?> Coordinates(

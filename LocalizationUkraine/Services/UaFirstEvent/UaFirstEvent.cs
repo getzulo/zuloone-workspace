@@ -52,6 +52,7 @@ public partial class UaFirstEvent
     private readonly IDictionaryManager<SalesContract> _contracts;
     private readonly IDictionaryManager<TaxCode> _codes;
     private readonly IDictionaryManager<LocalizationUkraineSettings> _settings;
+    private readonly IDictionaryManager<UaSingleTaxLimit> _limits;
     private readonly IDataService _data;
 
     public UaFirstEvent(
@@ -59,12 +60,14 @@ public partial class UaFirstEvent
         IDictionaryManager<SalesContract> contracts,
         IDictionaryManager<TaxCode> codes,
         IDictionaryManager<LocalizationUkraineSettings> settings,
+        IDictionaryManager<UaSingleTaxLimit> limits,
         IDataService data)
     {
         _totals = totals;
         _contracts = contracts;
         _codes = codes;
         _settings = settings;
+        _limits = limits;
         _data = data;
     }
 
@@ -239,6 +242,86 @@ public partial class UaFirstEvent
         if (rate <= 0m) return gross;
         var scale = GlobalConstants.Get<int?>("AmountScale") ?? 2;
         return Math.Round(gross / (1m + rate), scale, MidpointRounding.AwayFromZero);
+    }
+
+    // ═══ ГОДОВОЙ ПРЕДЕЛ ДОХОДА (ПКУ 291.4 / 293.4) ═══════════════════════════
+    //
+    // Превышение предела НЕ ЗАПРЕЩЕНО, и документ из-за него не отклоняется:
+    // деньги пришли, отказывать в доходе не за что. Закон говорит другое — сумма
+    // сверх предела облагается по 15%, а с начала следующего квартала спрощенець
+    // переходит на общую систему. Здесь сделана первая половина, денежная;
+    // перевод режима — отдельная работа, он к ставке не сводится.
+
+    /// <summary>
+    /// Предел, действующий на дату. Ноль означает «не задан», и тогда превышение
+    /// не считается вовсе: весь доход идёт по обычной ставке, ровно как до
+    /// появления этого справочника.
+    ///
+    /// Окно выбирается В ПАМЯТИ, а не фильтром SQL: строк тут единицы, а датовый
+    /// литерал в строке фильтра зависел бы от диалекта (стенд живёт и на SQL
+    /// Server, и на Postgres) и от языковых настроек сервера. Той же
+    /// осторожностью живёт разрешение ставок в ITaxService.
+    /// </summary>
+    public async Task<decimal> SingleTaxLimitOnAsync(DateTime onDate)
+    {
+        var day = onDate.Date;
+        var live = (await _limits.GetRecordsAsync("1 = 1"))
+            .Where(r => r.EffectiveFrom.Date <= day && (r.EffectiveTo?.Date ?? DateTime.MaxValue) >= day)
+            .OrderByDescending(r => r.EffectiveFrom)
+            .ToList();
+        return live.Count > 0 ? live[0].Amount : 0m;
+    }
+
+    /// <summary>
+    /// Сколько базы единого налога юрлицо уже набрало В ЭТОМ КАЛЕНДАРНОМ ГОДУ.
+    ///
+    /// Считается по ДВИЖЕНИЯМ EpAccrued, а не по остатку: остаток копится за всю
+    /// историю, а предел — годовой. Зовётся ДО записи текущего прироста, поэтому
+    /// отвечает «сколько было до этого события».
+    ///
+    /// Юрлицо отбирается фильтром (это измерение, то есть обычная колонка), а год
+    /// — в памяти, по той же причине, что и окно предела выше.
+    /// </summary>
+    public async Task<decimal> SingleTaxBaseInYearAsync(Guid legalEntity, DateTime onDate)
+    {
+        var movements = await _totals.QueryMovementsAsync(
+            "UaVatFirstEvent", $"[LegalEntity] = '{legalEntity}'");
+
+        var used = 0m;
+        foreach (var m in movements)
+        {
+            if (!m.TryGetValue("MovementDate", out var raw) || raw is null) continue;
+            if (!DateTime.TryParse(Convert.ToString(raw), out var when) || when.Year != onDate.Year) continue;
+            if (!m.TryGetValue("EpAccrued", out var value) || value is null) continue;
+            used += Convert.ToDecimal(value);
+        }
+        return used;
+    }
+
+    /// <summary>
+    /// Код ставки 15% на превышение, уже разрешённый в запись справочника.
+    /// null — код в настройках не заполнен или такого TaxCode нет; тогда
+    /// превышение просто не выделяется отдельной строкой.
+    /// </summary>
+    public async Task<Guid?> SingleTaxExcessCodeIdAsync()
+    {
+        var settings = (await _settings.GetRecordsAsync("1 = 1")).FirstOrDefault();
+        var code = settings?.SingleTaxCodeExcess;
+        if (string.IsNullOrWhiteSpace(code)) return null;
+        return (await _codes.GetRecordsAsync($"Code = '{code}'")).FirstOrDefault()?.MetaId;
+    }
+
+    /// <summary>
+    /// Сколько из прироста укладывается в предел. Остаток прироста — превышение,
+    /// и его вызывающий облагает по своей ставке. Предел не задан (ноль) — всё
+    /// уходит в обычную часть, поведение не отличается от прежнего.
+    /// </summary>
+    public decimal SingleTaxWithinLimit(decimal increment, decimal used, decimal limit)
+    {
+        if (limit <= 0m) return increment;
+        var room = limit - used;
+        if (room <= 0m) return 0m;
+        return room >= increment ? increment : room;
     }
 
     // ═══ ВХОД: ПОДАТКОВИЙ КРЕДИТ (ПКУ 198.2) ═════════════════════════════════

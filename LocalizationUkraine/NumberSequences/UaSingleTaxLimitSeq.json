@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "67c1ccae-3b5b-47bb-9d1f-d924be5012c4",
+    "name": "UaSingleTaxLimitSeq",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
