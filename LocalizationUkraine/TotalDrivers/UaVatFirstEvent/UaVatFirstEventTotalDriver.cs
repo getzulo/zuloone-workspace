@@ -115,10 +115,13 @@ public partial class UaVatFirstEventTotalDriver
         foreach (var key in contracts)
         {
             var taxable = await firstEvent.TaxableIncrementAsync(key.Customer, key.Contract, rate);
-            if (taxable <= 0m) continue;
+            // Знак не трогаем: плюс — начисление, минус — освобождение по
+            // кредит-ноте. Ноль означает «событие не первое» и пишется не будет.
+            if (taxable == 0m) continue;
 
-            var vat = tax.CalculateTax(taxable, rate);
-            if (vat <= 0m) continue;
+            var vat = tax.CalculateTax(Math.Abs(taxable), rate);
+            if (vat == 0m) continue;
+            if (taxable < 0m) vat = -vat;
 
             await movements.PostMovementAsync(
                 firstEventId, docId, movementDate,

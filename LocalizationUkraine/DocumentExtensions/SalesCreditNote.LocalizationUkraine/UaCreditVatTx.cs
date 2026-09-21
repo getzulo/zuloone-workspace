@@ -1,27 +1,32 @@
 #nullable enable
 using ZuloOne.Services.Contracts;
 
+// Кредит-нота со стороны первого события: она уменьшает БАЗУ договора, а налог
+// освобождает драйвер — так же, как начисляет.
+//
+// ПОЧЕМУ НЕ МИНУС ПРЯМО В UaVatPayable, как было раньше. Тот вариант давал
+// верную цифру налога и при этом ломал модель: UaVatFirstEvent сохранял Shipped
+// и Accrued, которые кредит-нота уже сторнировала. Планка max(Shipped, Paid)
+// оставалась завышенной, и СЛЕДУЮЩАЯ отгрузка по тому же договору не начисляла
+// ничего, пока не перекрывала застрявший уровень. Ошибка проявлялась не сразу и
+// не на кредит-ноте, а на документе через один — худший вид расхождения.
+//
+// Пишем базу БЕЗ налога и без торговой точки — ровно как отгрузка.
 public partial class UaCreditVatTx
 {
     protected override void GetTransactions(SalesCreditNote document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
     {
         var pricing = GetService<IPricingService>();
-        var tax = GetService<ITaxService>();
-        var rate = document.TaxRateApplied;
-        if (rate <= 0m) return;
 
         decimal baseAmount = 0m;
         foreach (var line in document.Lines)
             baseAmount += pricing.LineAmount(line.Quantity, line.UnitPrice);
 
-        var vat = tax.CalculateTax(baseAmount, rate);
-        if (vat > 0m)
-        {
-            transactions.Add(new RegisterMovementSpec("UaVatPayable")
-                .An(Analytics.UaVatPayable.Customer, document.Customer)
-                .An(Analytics.UaVatPayable.CustomerOutlet, document.Outlet)
-                .An(Analytics.UaVatPayable.SalesContract, document.Contract)
-                .Res("Amount", -vat));
-        }
+        if (baseAmount == 0m) return;
+
+        transactions.Add(new RegisterMovementSpec("UaVatFirstEvent")
+            .Dim("Customer", document.Customer)
+            .Dim("SalesContract", document.Contract)
+            .Res("Shipped", -baseAmount));
     }
 }

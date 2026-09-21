@@ -71,9 +71,9 @@ public partial class UaFirstEvent
     /// ставка, а ставка резолвится асинхронно.
     ///
     /// Ноль — законный и частый ответ: отгрузка, целиком закрытая предоплатой,
-    /// не двигает max и не добавляет ничего. Отрицательного не возвращает:
-    /// сторнирование идёт кредит-нотой со своей проводкой, а не отрицательным
-    /// приростом здесь.
+    /// не двигает max и не добавляет ничего. МИНУС тоже законный: кредит-нота
+    /// уменьшает Shipped, цель опускается ниже обложенного, и налог должен
+    /// освободиться.
     /// </summary>
     public async Task<decimal> TaxableIncrementAsync(Guid customer, Guid contract, decimal rate)
     {
@@ -88,8 +88,12 @@ public partial class UaFirstEvent
             ? Math.Round(paidGross / (1m + rate), scale, MidpointRounding.AwayFromZero)
             : paidGross;
 
-        var increment = Math.Max(shipped, paidNet) - accrued;
-        return increment > 0m ? increment : 0m;
+        // ЗНАКОВАЯ величина, и это существенно. Вверх её двигают отгрузка и
+        // оплата, вниз — кредит-нота, уменьшающая Shipped. Зажми минус в ноль,
+        // как было сначала, и налог по кредит-ноте не освободится, а планка
+        // max(Shipped, Paid) останется завышенной: следующая отгрузка по
+        // договору не начислит ничего, пока её не перекроет.
+        return Math.Max(shipped, paidNet) - accrued;
     }
 
     private Task<decimal> BalanceAsync(Guid customer, Guid contract, string resource)

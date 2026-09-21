@@ -419,4 +419,35 @@ public class UkraineVatFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(after == 20m,
             "оплата после отгрузки — вторая подія, налог не повторяется: ждали 20, факт {0}", after);
     }
+
+    [IntegrationTest("Кредит-нота не освобождает ПДВ, пока предоплата не возвращена")]
+    public async Task CreditNoteKeepsTaxWhileMoneyIsHeld()
+    {
+        var s = await SetupAsync();
+        await StockAsync(s);
+
+        // Первое событие — деньги: обязательство возникло на предоплате.
+        await PayAsync(s, 120m);
+        var inv = await IssueAsync(s, 10m, 10m);
+        Assert.IsTrue(await VatAsync(s) == 20m,
+            "после предоплаты и отгрузки ПДВ 20, факт {0}", await VatAsync(s));
+
+        var note = await DocumentManager.NewDocumentAsync<SalesCreditNote>();
+        note.Customer = s.Customer;
+        note.Outlet = s.Outlet;
+        note.Contract = s.Contract;
+        note.OriginalInvoice = inv.MetaId;
+        await DocumentManager.SaveDocumentAsync(note);
+        var commandId = await Db.FindCommandIdAsync("document", "PostSalesCreditNote");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, note.MetaId);
+        Assert.IsTrue(run.Success, "PostSalesCreditNote: {0}", run.Message ?? "");
+
+        // Товар вернулся, ДЕНЬГИ НЕТ. Перша подія была оплатой, и она не
+        // отменена: налог остаётся начисленным, пока аванс у продавца.
+        // Прежняя кредит-нота била минусом прямо в UaVatPayable и обнуляла бы
+        // его здесь — цифра сошлась бы с возвратом товара и разошлась бы с ПКУ.
+        var after = await VatAsync(s);
+        Assert.IsTrue(after == 20m,
+            "аванс не возвращён — ПДВ обязан остаться 20, факт {0}", after);
+    }
 }
