@@ -16,13 +16,10 @@ public partial class LoyaltyCampaignService
     public LoyaltyCampaignService(IDictionaryManager<LoyaltyCampaign> rows)
         => _rows = rows;
 
-    /// <summary>Global campaign earn rate covering the date, or 0 when none.</summary>
-    public Task<decimal> EarnRateOfAsync(DateTime onDate)
-        => EarnRateOfAsync(onDate, Guid.Empty);
-
     /// <summary>
     /// Campaign earn rate for the item group: a matching specific window
     /// beats the global (empty ItemGroup) window. 0 when neither covers.
+    /// Pass Guid.Empty for the global path only.
     /// </summary>
     public async Task<decimal> EarnRateOfAsync(DateTime onDate, Guid itemGroup)
     {

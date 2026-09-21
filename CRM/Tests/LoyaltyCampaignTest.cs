@@ -7,7 +7,8 @@ using ZuloOne.Runtime.Testing;
 using ZuloOne.Services.Contracts;
 
 // A live campaign overlays tier and settings. Expired or disabled windows
-// do not. Two live windows of the same calendar may not overlap.
+// do not. Two live windows of the same ItemGroup may not overlap; different
+// groups may share dates. Earn is priced per invoice line.
 public class LoyaltyCampaignTest : IntegrationTestScriptBase
 {
     private static ILoyaltyCampaignService Svc => GetService<ILoyaltyCampaignService>();
@@ -45,13 +46,13 @@ public class LoyaltyCampaignTest : IntegrationTestScriptBase
     {
         await ConfigureLoyaltyAsync(true, 2m);
         await NewCampaignAsync(9m, Origin, new DateTime(2025, 12, 31));
-        Assert.IsTrue(await Svc.EarnRateOfAsync(DateTime.UtcNow.Date) == 0m, "окно закрыто");
+        Assert.IsTrue(await Svc.EarnRateOfAsync(DateTime.UtcNow.Date, Guid.Empty) == 0m, "окно закрыто");
         var s = await IssueInvoiceAsync();
         Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 30m,
             "без кампании курс настроек 2: 30, факт {0}", await PointsBalanceAsync(s.Customer));
     }
 
-    [IntegrationTest("Пересечение живых окон отклоняется при вводе")]
+    [IntegrationTest("Пересечение живых окон одной группы отклоняется при вводе")]
     public async Task OverlappingCampaignIsRejected()
     {
         await NewCampaignAsync(2m, Origin);
@@ -67,7 +68,60 @@ public class LoyaltyCampaignTest : IntegrationTestScriptBase
             "пересечение обязано быть отклонено, факт: {0}", reason);
     }
 
-    private async Task NewCampaignAsync(decimal rate, DateTime from, DateTime? to = null)
+    [IntegrationTest("Кампания группы начисляет только своим строкам")]
+    public async Task CampaignForMatchingGroupOverlays()
+    {
+        await ConfigureLoyaltyAsync(true, 2m);
+        var s = await SetupAsync();
+        await NewCampaignAsync(4m, Origin, itemGroup: s.ItemGroup);
+        await IssueInvoiceFromAsync(s);
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 60m,
+            "совпавшая группа: 3 × 5 × 4 = 60, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
+    [IntegrationTest("Кампания чужой группы не бьёт настройки")]
+    public async Task CampaignForOtherGroupFallsBack()
+    {
+        await ConfigureLoyaltyAsync(true, 2m);
+        var s = await SetupAsync();
+        var other = await ExtraItemAsync(s);
+        await NewCampaignAsync(9m, Origin, itemGroup: other.Group);
+        await IssueInvoiceFromAsync(s);
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 30m,
+            "чужая группа: курс настроек 2 → 30, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
+    [IntegrationTest("Смешанный счёт считает курс по строке")]
+    public async Task MixedInvoiceUsesPerLineRate()
+    {
+        await ConfigureLoyaltyAsync(true, 2m);
+        var s = await SetupAsync();
+        var other = await ExtraItemAsync(s);
+        await NewCampaignAsync(4m, Origin, itemGroup: s.ItemGroup);
+        await IssueInvoiceFromAsync(s, (other.Item, 1m, 5m));
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 70m,
+            "3 × 5 × 4 + 1 × 5 × 2 = 70, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
+    [IntegrationTest("Кампании разных групп могут пересекаться по датам")]
+    public async Task DifferentItemGroupsMayOverlap()
+    {
+        var a = await ExtraGroupAsync();
+        var b = await ExtraGroupAsync();
+        await NewCampaignAsync(2m, Origin, itemGroup: a);
+        var second = DictionaryManager.NewRecord<LoyaltyCampaign>();
+        second.Code = $"C-{Uniq()}";
+        second.Name = "Other group";
+        second.EarnRate = 3m;
+        second.EffectiveFrom = Origin;
+        second.ItemGroup = b;
+        await DictionaryManager.SaveRecordAsync(second);
+        Assert.IsTrue(await Svc.EarnRateOfAsync(Origin, a) == 2m, "группа A");
+        Assert.IsTrue(await Svc.EarnRateOfAsync(Origin, b) == 3m, "группа B");
+    }
+
+    private async Task NewCampaignAsync(
+        decimal rate, DateTime from, DateTime? to = null, Guid? itemGroup = null)
     {
         var row = DictionaryManager.NewRecord<LoyaltyCampaign>();
         row.Code = $"C-{Uniq()}";
@@ -75,6 +129,7 @@ public class LoyaltyCampaignTest : IntegrationTestScriptBase
         row.EarnRate = rate;
         row.EffectiveFrom = from;
         row.EffectiveTo = to;
+        if (itemGroup.HasValue) row.ItemGroup = itemGroup.Value;
         await DictionaryManager.SaveRecordAsync(row);
     }
 
@@ -106,6 +161,8 @@ public class LoyaltyCampaignTest : IntegrationTestScriptBase
     {
         public Guid Location;
         public Guid Item;
+        public Guid ItemGroup;
+        public Guid Unit;
         public Guid Customer;
         public Guid Outlet;
         public Guid Contract;
@@ -114,9 +171,16 @@ public class LoyaltyCampaignTest : IntegrationTestScriptBase
     private async Task<Setup> IssueInvoiceAsync()
     {
         var s = await SetupAsync();
-        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
-            new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = s.Item },
-            new Dictionary<string, decimal> { ["Qty"] = 10m });
+        await IssueInvoiceFromAsync(s);
+        return s;
+    }
+
+    private async Task IssueInvoiceFromAsync(
+        Setup s, params (Guid Item, decimal Qty, decimal Price)[] extra)
+    {
+        await StockAsync(s, s.Item);
+        foreach (var line in extra)
+            await StockAsync(s, line.Item);
 
         var invoice = await DocumentManager.NewDocumentAsync<SalesRealization>();
         invoice.Customer = s.Customer;
@@ -124,10 +188,44 @@ public class LoyaltyCampaignTest : IntegrationTestScriptBase
         invoice.Contract = s.Contract;
         invoice.Location = s.Location;
         invoice.Lines.Add(new SalesInvoiceLinesTablePartRow { Item = s.Item, Quantity = 3m, UnitPrice = 5m });
+        foreach (var line in extra)
+            invoice.Lines.Add(new SalesInvoiceLinesTablePartRow
+            {
+                Item = line.Item,
+                Quantity = line.Qty,
+                UnitPrice = line.Price
+            });
         await DocumentManager.SaveDocumentAsync(invoice);
         invoice.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(invoice);
-        return s;
+    }
+
+    private static Task StockAsync(Setup s, Guid item)
+        => TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Cell"] = s.Location, ["Item"] = item },
+            new Dictionary<string, decimal> { ["Qty"] = 10m });
+
+    private async Task<(Guid Item, Guid Group)> ExtraItemAsync(Setup s)
+    {
+        var groupId = await ExtraGroupAsync();
+        var item = DictionaryManager.NewRecord<Item>();
+        item.Name = "Other gadget";
+        item.ItemGroup = groupId;
+        item.UnitOfMeasure = s.Unit;
+        item.IsSellable = true;
+        item.Image = Convert.FromBase64String(
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==");
+        item = await DictionaryManager.SaveRecordAsync(item);
+        return (item.MetaId, groupId);
+    }
+
+    private async Task<Guid> ExtraGroupAsync()
+    {
+        var group = DictionaryManager.NewRecord<ItemGroup>();
+        group.Code = $"G-{Uniq()}";
+        group.Name = "Other goods";
+        group = await DictionaryManager.SaveRecordAsync(group);
+        return group.MetaId;
     }
 
     private async Task<Setup> SetupAsync()
@@ -232,6 +330,8 @@ public class LoyaltyCampaignTest : IntegrationTestScriptBase
         {
             Location = cell.MetaId,
             Item = item.MetaId,
+            ItemGroup = group.MetaId,
+            Unit = unit.MetaId,
             Customer = customer.MetaId,
             Outlet = outlet.MetaId,
             Contract = contract.MetaId,
