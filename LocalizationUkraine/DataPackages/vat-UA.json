@@ -31,7 +31,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 1
+        "rowCount": 2
       },
       {
         "entity": "TaxCategory",
@@ -42,7 +42,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 4
+        "rowCount": 6
       },
       {
         "entity": "TaxRate",
@@ -53,7 +53,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 2
+        "rowCount": 4
       },
       {
         "entity": "TaxCode",
@@ -63,7 +63,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 4
+        "rowCount": 6
       }
     ]
   },
@@ -107,6 +107,25 @@
         },
         "Name_ru": "Налог на добавленную стоимость (Украина)",
         "Name_uk": "Податок на додану вартість (Україна)"
+      },
+      {
+        "Code": "EP-UA",
+        "Name": "Single tax (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Authority": {
+          "$ref": "TaxAuthority",
+          "key": {
+            "Code": "DPS"
+          }
+        },
+        "Jurisdiction": {
+          "$ref": "TaxJurisdiction",
+          "key": {
+            "Code": "UA"
+          }
+        },
+        "Name_ru": "Единый налог (Украина)",
+        "Name_uk": "Єдиний податок (Україна)"
       }
     ],
     "TaxCategory": [
@@ -161,6 +180,32 @@
         },
         "Name_ru": "Освобождённая",
         "Name_uk": "Звільнена"
+      },
+      {
+        "Code": "EP3",
+        "Name": "Single tax 3% (with VAT)",
+        "Treatment": "STANDARD",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "Name_ru": "Единый налог 3% (с НДС)",
+        "Name_uk": "Єдиний податок 3% (з ПДВ)"
+      },
+      {
+        "Code": "EP5",
+        "Name": "Single tax 5% (without VAT)",
+        "Treatment": "STANDARD",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "Name_ru": "Единый налог 5% (без НДС)",
+        "Name_uk": "Єдиний податок 5% (без ПДВ)"
       }
     ],
     "TaxRate": [
@@ -205,6 +250,52 @@
               "$ref": "Tax",
               "key": {
                 "Code": "VAT-UA"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Code": "EP3",
+        "Rate": 0.03,
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP3",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Code": "EP5",
+        "Rate": 0.05,
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP5",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
               }
             }
           }
@@ -311,6 +402,56 @@
         },
         "Name_ru": "Освобождён (Украина)",
         "Name_uk": "Звільнено (Україна)"
+      },
+      {
+        "Code": "UA-EP3",
+        "Name": "Single tax 3% with VAT (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP3",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Единый налог 3% с НДС (Украина)",
+        "Name_uk": "Єдиний податок 3% з ПДВ (Україна)"
+      },
+      {
+        "Code": "UA-EP5",
+        "Name": "Single tax 5% without VAT (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP5",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Единый налог 5% без НДС (Украина)",
+        "Name_uk": "Єдиний податок 5% без ПДВ (Україна)"
       }
     ]
   }

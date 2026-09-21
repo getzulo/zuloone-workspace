@@ -16,6 +16,14 @@
 //
 // Точку не пишем, и не только потому, что строка оплаты её не несёт: договор
 // принадлежит ровно одной торговой точке, так что в ключе она избыточна.
+//
+// ЮРЛИЦО БЕРЁТСЯ С ШАПКИ, а строка несёт договор — и эти двое обязаны совпадать.
+// В отличие от счёта, продавца оплате никто не проставляет: в шапке стоит то, что
+// выбрал оператор, и ничто это не проверяло. Ошибись он юрлицом в системе с ТОВ и
+// двумя ФОП — Shipped легло бы в одну координату, Paid в другую, max(Shipped,
+// Paid) по каждой посчитался бы от нуля, и налог начислился бы ДВАЖДЫ. Поэтому
+// расхождение шапки с договором строки отклоняет UaPaymentEntityGuardEventHandler
+// ещё на сохранении: сюда неконсистентный документ не доходит.
 public partial class UaPaymentFirstEventTx
 {
     protected override void GetTransactions(CustomerPayment document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
@@ -25,6 +33,7 @@ public partial class UaPaymentFirstEventTx
             if (line.Amount == 0m || line.Contract == System.Guid.Empty) continue;
 
             transactions.Add(new RegisterMovementSpec("UaVatFirstEvent")
+                .Dim("LegalEntity", document.LegalEntity)
                 .Dim("Customer", line.Customer)
                 .Dim("SalesContract", line.Contract)
                 .Res("Paid", line.Amount));

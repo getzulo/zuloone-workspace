@@ -2,18 +2,24 @@
   "kind": "Model",
   "object": {
     "modelType": "Custom",
-    "description": "Локализация Украина: НДС (ПДВ) на продажах, регистр UaVatPayable",
+    "description": "Локализация Украина: ПДВ по первому событию (ПКУ 187.1) и режимы налогообложения юрлица — платник ПДВ, спрощенець 3% з ПДВ, спрощенець 5% без ПДВ, загальна без ПДВ. Регистры UaVatFirstEvent и UaVatPayable; єдиний податок уходит в Tax.TaxLedger",
     "isSystem": false,
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.4.0",
+    "modelVersion": "1.5.0",
     "metaId": "1d269769-c682-4655-be04-4e00fd39eb08",
     "name": "LocalizationUkraine",
     "modelId": "00000000-0000-0000-0000-000000000000",
     "layerId": 3
   },
   "dependencies": [
+    {
+      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "minVersion": "1.4.1",
+      "metaId": "72ecb9f8-6949-448d-800c-22e00c4801e5",
+      "name": "LocalizationUkraine->Organization"
+    },
     {
       "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "minVersion": "1.9.0",

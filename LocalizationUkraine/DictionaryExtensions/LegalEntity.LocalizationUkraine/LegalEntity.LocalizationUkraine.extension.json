@@ -1,0 +1,35 @@
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+    "description": "Режим налогообложения украинского юрлица. Поле живёт ЗДЕСЬ, а не в LocalizationUkraineSettings: настройки — одиночный справочник, а система держит одновременно ТОВ и несколько ФОП, и режим у каждого свой. По той же причине ІПН брать надо из LegalEntity.TaxRegistrationNumber, а не из одиночного LocalizationUkraineSettings.VatRegistrationNumber.",
+    "metaId": "6ed5fbfb-3280-4399-8465-9d888a2a4107",
+    "name": "LegalEntity.LocalizationUkraine",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "fields": [
+    {
+      "extensionMetaId": "6ed5fbfb-3280-4399-8465-9d888a2a4107",
+      "dictionaryMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+      "fieldName": "UaTaxRegime",
+      "edtMetaId": "2cf20c7a-9625-4af9-8020-fbae3a124cea",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 61,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax regime (Ukraine)",
+        "ar": "النظام الضريبي (أوكرانيا)",
+        "ru": "Режим налогообложения (Украина)",
+        "uk": "Режим оподаткування (Україна)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "baf7fe1f-e9e7-4416-9f13-a5ec08d1395a",
+      "name": "UaTaxRegime",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

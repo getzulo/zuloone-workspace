@@ -227,6 +227,25 @@ edit»). Дроби пакет и НЕ клади в список удалённ
 поведение, и ты идёшь искать несуществующую ошибку в логике. Признак ровно
 этот: правишь код, а падение не меняется ни на символ.
 
+**Пакеты данных `apply-file` НЕ ставит** — они не envelope, и ответ это честно
+говорит в `warnings`: `not a workspace envelope: …/DataPackages/vat-UA.json`
+(при `created=0 updated=0 errors=[]`, то есть по ответу «успех»). Ставятся своим
+маршрутом:
+
+```bash
+curl -s http://localhost:5257/api/data-packages          # id, и applied: true/false
+curl -s -X POST http://localhost:5257/api/data-packages/apply \
+  -H "Content-Type: application/json" -d '{"id":"LocalizationUkraine/vat-UA"}'
+# {"ok":true,"inserted":7,"updated":0,"skipped":13,"errors":0,"issues":[]}
+```
+
+`apply` — это upsert по бизнес-ключу: дописать строки в существующий пакет
+безопасно. **`recreate` УДАЛЯЕТ все строки таблиц пакета** и сеет заново — на
+общем стенде это сносит чужие данные в тех же таблицах (`TaxCode`, `Tax`…). Не
+путай их.
+
+Не забудь `rowCount` в манифесте: он обязан совпасть с длиной массива в `data`.
+
 Полный прогон платформенного бенча (если стенд разработческий):
 `POST /api/dev/totals-testbench` — не обязан быть зелёным из-за твоих правок
 бизнес-моделей, но не должен ЛОМАТЬСЯ ими.

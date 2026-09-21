@@ -11,7 +11,10 @@ using ZuloOne.Services.Contracts;
 // ничего, пока не перекрывала застрявший уровень. Ошибка проявлялась не сразу и
 // не на кредит-ноте, а на документе через один — худший вид расхождения.
 //
-// Пишем базу БЕЗ налога и без торговой точки — ровно как отгрузка.
+// Пишем базу БЕЗ налога и без торговой точки — ровно как отгрузка. Юрлицо, как и
+// у отгрузки, берётся с документа: обработчик кредит-ноты копирует его с
+// исходного счёта, так что сторно всегда попадает в координату того же продавца,
+// который начислял. Разъедься они — освобождение легло бы мимо начисления.
 public partial class UaCreditVatTx
 {
     protected override void GetTransactions(SalesCreditNote document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
@@ -25,6 +28,7 @@ public partial class UaCreditVatTx
         if (baseAmount == 0m) return;
 
         transactions.Add(new RegisterMovementSpec("UaVatFirstEvent")
+            .Dim("LegalEntity", document.LegalEntity)
             .Dim("Customer", document.Customer)
             .Dim("SalesContract", document.Contract)
             .Res("Shipped", -baseAmount));

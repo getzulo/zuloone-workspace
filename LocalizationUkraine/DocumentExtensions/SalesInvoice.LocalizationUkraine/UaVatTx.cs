@@ -20,6 +20,13 @@ using ZuloOne.Services.Contracts;
 //
 // ТОЧКУ НЕ ПИШЕМ: договор принадлежит ровно одной торговой точке, в ключе она
 // избыточна. В UaVatPayable точка остаётся — её подставит драйвер.
+//
+// А ВОТ ЮРЛИЦО ПИШЕМ, и по обратной причине: оно НЕ выводится из договора
+// однозначно. Продавца счёту проставляет обработчик — сперва из договора, а если
+// там пусто, то по ячейке отгрузки (Cell → Zone → Store → Division → LegalEntity);
+// вручную вбитое значение не переписывается, потому что ячейка отгрузки и
+// продавец совпадают не всегда. Режим налогообложения — свойство юрлица, так что
+// координата обязана приехать с документа, а не быть додумана.
 public partial class UaVatTx
 {
     protected override void GetTransactions(SalesRealization document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
@@ -33,6 +40,7 @@ public partial class UaVatTx
         if (baseAmount == 0m) return;
 
         transactions.Add(new RegisterMovementSpec("UaVatFirstEvent")
+            .Dim("LegalEntity", document.LegalEntity)
             .Dim("Customer", document.Customer)
             .Dim("SalesContract", document.Contract)
             .Res("Shipped", baseAmount));

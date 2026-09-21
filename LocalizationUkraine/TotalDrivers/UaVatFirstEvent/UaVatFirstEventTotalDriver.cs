@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
+using ZuloOne.Managers;
+using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 // ZuloOne.Managers и ZuloOne.Totals целиком не открываются: имена
 // TransactionCollection / TransactionPairCollection / ITotalsManager есть и в
@@ -36,6 +38,24 @@ using TransactionPairCollection = ZuloOne.Totals.TransactionPairCollection;
 // вручную не нужно. Accrued помнит обложенное ранее — разница и есть налоговая
 // база этого события. Отрицательной она не бывает: отгрузка, закрытая
 // предоплатой, не двигает max(Shipped, Paid) и даёт ровно ноль.
+//
+// ═══ РЕЖИМЫ ══════════════════════════════════════════════════════════════════
+//
+// В ОДНОЙ СИСТЕМЕ ЖИВУТ ТОВ И НЕСКОЛЬКО ФОП, и считаются они по-разному. Режим —
+// свойство ЮРЛИЦА, поэтому юрлицо стало измерением регистра: драйвер читает
+// только координаты, аналитик TransactionBase не знает вовсе.
+//
+//   Платник ПДВ (умолчание)   ПДВ с max(Shipped, Paid). ЄП нет.
+//   Спрощенець 3% з ПДВ       ОБА: ПДВ с max(...) и ЄП 3% с дохода без ПДВ.
+//   Спрощенець 5% без ПДВ     Только ЄП 5% со ВСЕЙ полученной суммы. ПДВ нет.
+//   Загальна без ПДВ          Ни того, ни другого: налог на доход считается
+//                             отдельными документами по итогам периода.
+//
+// НОВЫХ РЕГИСТРОВ ПОД ЄП НЕ ЗАВОДИЛОСЬ. Paid уже И ЕСТЬ кассовый оборот, с
+// которого платит спрощенець; не хватало только счётчика обложенного — EpAccrued.
+// Сам налог уходит в ЧУЖОЙ Tax.TaxLedger, а не в UaVatPayable: леджер уже разрезан
+// как надо (код налога × направление × юрлицо), а UaVatPayable разрезан по
+// клиентам и торговым точкам — для налога с оборота это бессмысленная нарезка.
 public partial class UaVatFirstEventTotalDriver
 {
     // КЛЮЧ РЕГИСТРА — ИЗМЕРЕНИЯ, И ЭТО НЕ ВКУСОВЩИНА. TransactionBase знает только
@@ -48,10 +68,11 @@ public partial class UaVatFirstEventTotalDriver
     private const string Customer = "Customer";
     private const string Outlet = "CustomerOutlet";
     private const string Contract = "SalesContract";
+    private const string Entity = "LegalEntity";
 
     // Договоры, которых коснулся документ. Значения не копим: остатки всё равно
     // читаются из регистра, здесь важен только САМ ФАКТ, что договор задет.
-    private readonly HashSet<(Guid Customer, Guid Contract)> _touched = new();
+    private readonly HashSet<(Guid Entity, Guid Customer, Guid Contract)> _touched = new();
 
     /// <summary>
     /// Платформа отдаёт сюда ВЕСЬ набор проводок документа — всех регистров
@@ -68,7 +89,13 @@ public partial class UaVatFirstEventTotalDriver
             if (tv.IsCoordinateNull(Contract) || tv.IsCoordinateNull(Customer)) continue;
             if (tv.IsValueNull(Shipped) && tv.IsValueNull(Paid)) continue;
 
-            _touched.Add((tv.GetCoordinate(Customer), tv.GetCoordinate(Contract)));
+            // Юрлицо НЕ проверяем на пустоту, в отличие от клиента и договора.
+            // Пустое — законная координата: документ без проставленного продавца
+            // должен вести себя ровно так, как вёл себя пакет до появления
+            // режимов, то есть начислять ПДВ. Отбрось мы такую проводку — старые
+            // документы молча перестали бы облагаться.
+            var entity = tv.IsCoordinateNull(Entity) ? Guid.Empty : tv.GetCoordinate(Entity);
+            _touched.Add((entity, tv.GetCoordinate(Customer), tv.GetCoordinate(Contract)));
         }
     }
 
@@ -93,11 +120,10 @@ public partial class UaVatFirstEventTotalDriver
     }
 
     private async Task AccrueAsync(
-        List<(Guid Customer, Guid Contract)> contracts, DateTime movementDate, Guid docId)
+        List<(Guid Entity, Guid Customer, Guid Contract)> contracts,
+        DateTime movementDate,
+        Guid docId)
     {
-        var rate = await RateOnAsync(movementDate);
-        if (rate <= 0m) return; // контур не настроен — молчим, как и прежде
-
         var firstEvent = GetService<IUaFirstEvent>();
         var tax = GetService<ITaxService>();
 
@@ -111,47 +137,156 @@ public partial class UaVatFirstEventTotalDriver
             string.Equals(r.Name, "UaVatFirstEvent", StringComparison.OrdinalIgnoreCase)).MetaId;
         var payableId = registers.First(r =>
             string.Equals(r.Name, "UaVatPayable", StringComparison.OrdinalIgnoreCase)).MetaId;
+        var ledgerId = registers.First(r =>
+            string.Equals(r.Name, "TaxLedger", StringComparison.OrdinalIgnoreCase)).MetaId;
+
+        var vatRate = await RateOnAsync(movementDate);
 
         foreach (var key in contracts)
         {
-            var taxable = await firstEvent.TaxableIncrementAsync(key.Customer, key.Contract, rate);
-            // Знак не трогаем: плюс — начисление, минус — освобождение по
-            // кредит-ноте. Ноль означает «событие не первое» и пишется не будет.
-            if (taxable == 0m) continue;
+            var regime = await firstEvent.RegimeOfAsync(key.Entity);
 
-            var vat = tax.CalculateTax(Math.Abs(taxable), rate);
-            if (vat == 0m) continue;
-            if (taxable < 0m) vat = -vat;
+            if (firstEvent.ChargesVat(regime))
+                await AccrueVatAsync(
+                    firstEvent, tax, movements, firstEventId, payableId,
+                    key, vatRate, movementDate, docId);
 
-            await movements.PostMovementAsync(
-                firstEventId, docId, movementDate,
-                new Dictionary<string, object?>
-                {
-                    [Customer] = key.Customer,
-                    [Contract] = key.Contract,
-                },
-                new Dictionary<string, decimal> { ["Accrued"] = taxable });
-
-            // Точка значима только на выходе — в UaVatPayable срез по торговым
-            // точкам одного клиента обязан не смешиваться.
-            await movements.PostMovementAsync(
-                payableId, docId, movementDate,
-                new Dictionary<string, object?>(),
-                new Dictionary<string, decimal> { ["Amount"] = vat },
-                analytics: new Dictionary<string, object?>
-                {
-                    [Customer] = key.Customer,
-                    [Outlet] = await firstEvent.OutletOfAsync(key.Contract),
-                    [Contract] = key.Contract,
-                });
+            await AccrueSingleTaxAsync(
+                firstEvent, tax, movements, firstEventId, ledgerId,
+                key, regime, vatRate, movementDate, docId);
         }
     }
 
     /// <summary>
-    /// Ставка на дату движения по НАСТРОЕННОМУ коду по умолчанию. Документа здесь
-    /// нет — у драйвера только координаты регистра, — поэтому ставка берётся из
-    /// контура, а не с документа. Даты совпадают: движение пишется датой
-    /// документа, а значит задним числом посчитается историческая ставка.
+    /// ПДВ по первому событию — то, ради чего регистр и заводился. Ставка 0
+    /// означает «контур не настроен»: молчим, как и прежде.
+    /// </summary>
+    private async Task AccrueVatAsync(
+        IUaFirstEvent firstEvent,
+        ITaxService tax,
+        IRegisterMovementService movements,
+        Guid firstEventId,
+        Guid payableId,
+        (Guid Entity, Guid Customer, Guid Contract) key,
+        decimal vatRate,
+        DateTime movementDate,
+        Guid docId)
+    {
+        if (vatRate <= 0m) return;
+
+        var taxable = await firstEvent.TaxableIncrementAsync(
+            key.Entity, key.Customer, key.Contract, vatRate);
+        // Знак не трогаем: плюс — начисление, минус — освобождение по
+        // кредит-ноте. Ноль означает «событие не первое» и пишется не будет.
+        if (taxable == 0m) return;
+
+        var vat = tax.CalculateTax(Math.Abs(taxable), vatRate);
+        if (vat == 0m) return;
+        if (taxable < 0m) vat = -vat;
+
+        await movements.PostMovementAsync(
+            firstEventId, docId, movementDate,
+            Coordinates(key),
+            new Dictionary<string, decimal> { ["Accrued"] = taxable });
+
+        // Точка значима только на выходе — в UaVatPayable срез по торговым
+        // точкам одного клиента обязан не смешиваться.
+        await movements.PostMovementAsync(
+            payableId, docId, movementDate,
+            new Dictionary<string, object?>(),
+            new Dictionary<string, decimal> { ["Amount"] = vat },
+            analytics: new Dictionary<string, object?>
+            {
+                [Customer] = key.Customer,
+                [Outlet] = await firstEvent.OutletOfAsync(key.Contract),
+                [Contract] = key.Contract,
+            });
+    }
+
+    /// <summary>
+    /// Єдиний податок — КАССОВЫЙ: его базу двигают только деньги, и никакого
+    /// max(Shipped, Paid) здесь нет. Отгрузка и кредит-нота проходят мимо, и это
+    /// не упущение: возврат товара без возврата денег дохода не отменяет.
+    ///
+    /// Уходит в Tax.TaxLedger, потому что леджер уже разрезан кодом налога,
+    /// направлением и юрлицом — ровно тем, чем декларируется ЄП. UaVatPayable
+    /// разрезан клиентами и точками и для налога с оборота не годится.
+    /// </summary>
+    private async Task AccrueSingleTaxAsync(
+        IUaFirstEvent firstEvent,
+        ITaxService tax,
+        IRegisterMovementService movements,
+        Guid firstEventId,
+        Guid ledgerId,
+        (Guid Entity, Guid Customer, Guid Contract) key,
+        UaTaxRegime regime,
+        decimal vatRate,
+        DateTime movementDate,
+        Guid docId)
+    {
+        var codeId = await firstEvent.SingleTaxCodeIdAsync(regime);
+        if (codeId is not Guid single) return; // режим не платит ЄП, либо код не заведён
+
+        var epRate = await tax.ResolveRateAsync(single, movementDate) ?? 0m;
+        if (epRate <= 0m) return;
+
+        // У спрощенця 3% деньги приходят С ПДВ, и налог берётся с дохода БЕЗ
+        // него; у пятипроцентника ПДВ в деньгах нет — база вся сумма целиком.
+        var netOf = firstEvent.ChargesVat(regime) ? vatRate : 0m;
+        var epBase = await firstEvent.SingleTaxIncrementAsync(
+            key.Entity, key.Customer, key.Contract, netOf);
+        if (epBase <= 0m) return;
+
+        var epAmount = tax.CalculateTax(epBase, epRate);
+        if (epAmount == 0m) return;
+
+        await movements.PostMovementAsync(
+            firstEventId, docId, movementDate,
+            Coordinates(key),
+            new Dictionary<string, decimal> { ["EpAccrued"] = epBase });
+
+        await movements.PostMovementAsync(
+            ledgerId, docId, movementDate,
+            new Dictionary<string, object?>(),
+            new Dictionary<string, decimal>
+            {
+                ["TaxBase"] = epBase,
+                ["TaxAmount"] = epAmount,
+            },
+            analytics: new Dictionary<string, object?>
+            {
+                ["TaxCode"] = single,
+                ["TaxDirection"] = await DirectionAsync(),
+                ["LegalEntity"] = key.Entity,
+            });
+    }
+
+    private static Dictionary<string, object?> Coordinates(
+        (Guid Entity, Guid Customer, Guid Contract) key)
+        => new()
+        {
+            [Entity] = key.Entity,
+            [Customer] = key.Customer,
+            [Contract] = key.Contract,
+        };
+
+    /// <summary>
+    /// Направление для леджера. OUTPUT: єдиний податок — обязательство перед
+    /// бюджетом по обороту, та же сторона, что и исходящий ПДВ, и отчёты,
+    /// фильтрующие леджер по OUTPUT, обязаны его видеть.
+    /// </summary>
+    private async Task<Guid> DirectionAsync()
+    {
+        var rows = await GetService<IDictionaryManager>()
+            .GetRecordsAsync<TaxDirection>("Code = 'OUTPUT'", take: 1);
+        return rows.Count > 0 ? rows[0].MetaId : Guid.Empty;
+    }
+
+    /// <summary>
+    /// Ставка ПДВ на дату движения по НАСТРОЕННОМУ коду по умолчанию. Документа
+    /// здесь нет — у драйвера только координаты регистра, — поэтому ставка
+    /// берётся из контура, а не с документа. Даты совпадают: движение пишется
+    /// датой документа, а значит задним числом посчитается историческая ставка.
     /// </summary>
     private async Task<decimal> RateOnAsync(DateTime date)
     {

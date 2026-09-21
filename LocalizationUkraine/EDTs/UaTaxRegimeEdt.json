@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "description": "Режим налогообложения юрлица (Украина). Поле не может ссылаться на перечисление напрямую — нужна пара Enum + EDT.",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "902629cd-845e-4665-be96-c4c1a461effa",
+    "isRequired": false,
+    "metaId": "2cf20c7a-9625-4af9-8020-fbae3a124cea",
+    "name": "UaTaxRegimeEdt",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

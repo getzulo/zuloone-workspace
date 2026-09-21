@@ -46,8 +46,45 @@ tx), прививка меню.
 
 Для документов — `DocumentExtensions/<Цель>.<Модель>/` тем же лекалом
 (`targetDocumentTypeMetaId`). Поле живёт в ТВОЕЙ модели (row-слоение): отключение
-твоей модели убирает поле из effective set. В сгенерированном классе сущности
-поле появляется как обычное свойство — доступно всем скриптам.
+твоей модели убирает поле из effective set.
+
+### В генерируемый класс ЦЕЛИ поле НЕ попадает
+
+Это первое, на чём спотыкаются. Поле уезжает в ОТДЕЛЬНЫЙ агрегат —
+`.generated/Entities/<Цель>_<Модель>.cs` (`LegalEntity_LocalizationSaudiArabia`), а
+в `LegalEntity.cs` его нет вовсе. Значит `record.CustomsCode` не скомпилируется, и
+типизированный `IDictionaryManager<LegalEntity>` его тоже не вернёт.
+
+**Читают — сырым мешком по имени:**
+```csharp
+object? raw = null;
+try
+{
+    var bag = await GetService<IDataService>().GetByIdAsync("LegalEntity", id);
+    raw = bag?["UaTaxRegime"];      // индексатор, не TryGetValue
+}
+catch { /* строки расширения у этой записи может не быть — это не ошибка */ }
+```
+
+**Пишут — адресным обновлением, ПОВТОРИВ обязательные поля** (обновление
+переписывает строку целиком):
+```csharp
+await Db.UpdateAsync("LegalEntity", id, new Dictionary<string, object?>
+{
+    ["UaTaxRegime"] = (int)UaTaxRegime.SimplifiedNoVat,   // ЧИСЛОМ, см. ниже
+    ["Country"] = countryId, ["Currency"] = currencyId,   // обязательные — заново
+});
+```
+
+**Перечисление в этот мешок кладут ЧИСЛОМ.** Через REST перечисление переезжает
+по ИМЕНИ, но `Db.UpdateAsync` / `IDataService` идут в базу напрямую, мимо разбора
+имён, а колонка целочисленная. Имя падает не понятным «unknown enum value», а
+`Conversion failed when converting the nvarchar value 'VatPayer' to data type int`.
+Обратно значение может прийти и числом, и именем — читающий код обязан принять оба.
+
+Отсюда же следствие для ДОКУМЕНТОВ: поле расширения недоступно транзакционному
+скрипту (он типизирован классом документа), так что «посчитать в событии и
+проштамповать полем расширения» — тупик. Штампуют СОБСТВЕННОЕ поле документа.
 
 ## 2. Звено Chain of Command на чужом объекте
 

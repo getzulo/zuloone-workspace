@@ -111,4 +111,49 @@ public class UkraineSeededRatesTest : IntegrationTestScriptBase
             }
         }
     }
+
+    // ═══ ЄДИНИЙ ПОДАТОК ══════════════════════════════════════════════════════
+    // Ровно те же грабли, что утопили ПДВ: две ставки одного налога БЕЗ
+    // категорий — и ResolveRateAsync падает на «действует больше одной ставки»
+    // вместо того, чтобы вернуть 3% или 5%. Драйвер такой отказ проглатывает
+    // молча (нет ставки — нет начисления), так что поймать это может только
+    // тест по ПОСТАВЛЯЕМЫМ данным.
+
+    [IntegrationTest("Сид Украины: ставки единого налога 3% и 5% разрешаются, а не спорят")]
+    public async Task SingleTaxRatesResolve()
+    {
+        var three = await RateAsync("UA-EP3");
+        Assert.IsTrue(three == 0.03m, "UA-EP3 по сиду = 0.03, факт {0}", three?.ToString() ?? "null");
+
+        var five = await RateAsync("UA-EP5");
+        Assert.IsTrue(five == 0.05m, "UA-EP5 по сиду = 0.05, факт {0}", five?.ToString() ?? "null");
+    }
+
+    [IntegrationTest("Сид Украины: единый налог — отдельный налог, не полоса внутри ПДВ")]
+    public async Task SingleTaxOwnsItsTax()
+    {
+        var ep = await CodeAsync("UA-EP3");
+        var tax = await Taxes.GetRecordAsync(ep.Tax);
+        Assert.IsNotNull(tax, "у UA-EP3 должен быть налог");
+        Assert.IsTrue(tax!.Code == "EP-UA",
+            "единый налог обязан висеть на собственном EP-UA, факт «{0}». Посади его на "
+            + "VAT-UA — и 3%, 5%, 20%, 7% окажутся ставками одного налога, а разрешение "
+            + "ставки начнёт падать на неоднозначности", tax.Code);
+
+        var vat = await CodeAsync("UA-S");
+        Assert.IsTrue(vat.Tax != ep.Tax,
+            "ПДВ и ЄП — разные налоги, а оказались одним");
+
+        // Каждая ставка ЄП живёт в СВОЕЙ категории: без этого обе попадают в
+        // безкатегорийную полосу налога и спорят между собой.
+        var rates = await Rates.GetRecordsAsync($"Tax = '{tax.MetaId}'");
+        var codes = rates.Select(r => r.Code).OrderBy(c => c).ToList();
+        Assert.IsTrue(codes.SequenceEqual(new[] { "EP3", "EP5" }),
+            "у EP-UA ровно ставки EP3 и EP5, факт [{0}]", string.Join(", ", codes));
+
+        var uncategorised = rates.Where(r => r.TaxCategory == Guid.Empty).Select(r => r.Code).ToList();
+        Assert.IsTrue(uncategorised.Count == 0,
+            "ставки ЄП обязаны иметь категорию, иначе они спорят друг с другом: без категории [{0}]",
+            string.Join(", ", uncategorised));
+    }
 }
