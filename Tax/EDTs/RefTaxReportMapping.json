@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "6a32a96e-0165-4336-afa8-967ba6b3451c",
+    "isRequired": false,
+    "metaId": "26cb177d-2673-4977-8305-4a605a58e647",
+    "name": "RefTaxReportMapping",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

@@ -170,6 +170,28 @@
       "metaId": "3f20b3e5-e4c6-41b0-adc5-99d1e95e046b",
       "name": "PeriodTo",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "documentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
+      "fieldName": "TaxPeriod",
+      "caption": {
+        "en": "Tax period",
+        "ar": "الفترة الضريبية",
+        "ru": "Налоговый период",
+        "uk": "Податковий період"
+      },
+      "edtMetaId": "48f825d8-5e6c-4a06-ab0a-7e33f35ac56e",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "description": "Named window this return was built from. Empty when BuildAsync was called with raw dates.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "40c1fe38-c3ed-42de-855d-7e58a74720a3",
+      "name": "TaxPeriod",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ],
   "subtypes": [

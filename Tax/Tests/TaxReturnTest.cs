@@ -208,4 +208,156 @@ public class TaxReturnTest : IntegrationTestScriptBase
             () => DocumentManager.SaveDocumentAsync(filed),
             "правка сданной декларации должна отклоняться");
     }
+
+    [IntegrationTest("Сопоставление штампует ячейку декларации на строке")]
+    public async Task MappingStampsReturnBox()
+    {
+        var le = Db.NewId();
+        var output = await NewDirectionAsync("OUTPUT");
+        var input = await NewDirectionAsync("INPUT");
+        var code = await NewCodeAsync(Uniq(), "Standard");
+        var tax = (await RecordAsync<TaxCode>(code))!.Tax;
+        var day = new DateTime(2026, 3, 15);
+
+        await NewRecordAsync<TaxReportMapping>(m =>
+        {
+            m.Tax = tax;
+            m.TaxCode = code;
+            m.Direction = output;
+            m.ReturnType = "VAT-SA";
+            m.ReturnBox = "1";
+            m.EffectiveFrom = new DateTime(2020, 1, 1);
+        });
+        await NewRecordAsync<TaxReportMapping>(m =>
+        {
+            m.Tax = tax;
+            m.TaxCode = code;
+            m.Direction = Guid.Empty;
+            m.ReturnType = "VAT-SA";
+            m.ReturnBox = "4";
+            m.EffectiveFrom = new DateTime(2020, 1, 1);
+        });
+
+        await PostAsync(le, code, output, day, 1000m, 150m);
+        await PostAsync(le, code, input, day, 400m, 60m);
+
+        var doc = await BuildAsync(le, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        var outLine = doc.Lines.First(l => l.Direction == output);
+        var inLine = doc.Lines.First(l => l.Direction == input);
+        Assert.IsTrue(outLine.ReturnBox == "1",
+            "направленное сопоставление бьёт общее, факт {0}", outLine.ReturnBox);
+        Assert.IsTrue(inLine.ReturnBox == "4",
+            "входной берёт сопоставление без направления, факт {0}", inLine.ReturnBox);
+    }
+
+    [IntegrationTest("Два типа декларации с разными ячейками не выбирают страну сами")]
+    public async Task ConflictingReturnTypesLeaveBoxEmpty()
+    {
+        var le = Db.NewId();
+        var output = await NewDirectionAsync("OUTPUT");
+        var code = await NewCodeAsync(Uniq(), "Standard");
+        var tax = (await RecordAsync<TaxCode>(code))!.Tax;
+
+        await NewRecordAsync<TaxReportMapping>(m =>
+        {
+            m.Tax = tax;
+            m.TaxCode = code;
+            m.Direction = output;
+            m.ReturnType = "VAT-SA";
+            m.ReturnBox = "1";
+            m.EffectiveFrom = new DateTime(2020, 1, 1);
+        });
+        await NewRecordAsync<TaxReportMapping>(m =>
+        {
+            m.Tax = tax;
+            m.TaxCode = code;
+            m.Direction = output;
+            m.ReturnType = "VAT-UA";
+            m.ReturnBox = "A";
+            m.EffectiveFrom = new DateTime(2020, 1, 1);
+        });
+
+        await PostAsync(le, code, output, new DateTime(2026, 3, 15), 100m, 15m);
+        var doc = await BuildAsync(le, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        Assert.IsTrue(string.IsNullOrEmpty(doc.Lines[0].ReturnBox),
+            "два пакета не должны подставить чужую ячейку, факт {0}", doc.Lines[0].ReturnBox);
+    }
+
+    [IntegrationTest("Именной период копирует даты на декларацию")]
+    public async Task BuildFromPeriodCopiesWindow()
+    {
+        var legal = await NewLegalEntityAsync();
+        var output = await NewDirectionAsync("OUTPUT");
+        var code = await NewCodeAsync(Uniq(), "Standard");
+        var tax = (await RecordAsync<TaxCode>(code))!.Tax;
+        var period = await NewRecordAsync<TaxPeriod>(p =>
+        {
+            p.LegalEntity = legal;
+            p.Tax = tax;
+            p.Code = $"Q1-{Uniq()}";
+            p.FromDate = new DateTime(2026, 1, 1);
+            p.ToDate = new DateTime(2026, 3, 31);
+        });
+
+        await PostAsync(legal, code, output, new DateTime(2026, 2, 10), 100m, 15m);
+        var id = await Svc.BuildFromPeriodAsync(period);
+        var doc = await DocumentManager.GetDocumentAsync<TaxReturn>(id);
+        Assert.IsTrue(doc!.TaxPeriod == period, "декларация помнит период");
+        Assert.IsTrue(doc.PeriodFrom.Date == new DateTime(2026, 1, 1), "дата с периода");
+        Assert.IsTrue(doc.PeriodTo.Date == new DateTime(2026, 3, 31), "дата по периода");
+        Assert.IsTrue(doc.OutputTax == 15m, "движение февраля вошло, факт {0}", doc.OutputTax);
+    }
+
+    [IntegrationTest("Закрытый период отказывается собирать декларацию")]
+    public async Task ClosedPeriodRefusesBuild()
+    {
+        var legal = await NewLegalEntityAsync();
+        var code = await NewCodeAsync(Uniq(), "Standard");
+        var tax = (await RecordAsync<TaxCode>(code))!.Tax;
+        var period = await NewRecordAsync<TaxPeriod>(p =>
+        {
+            p.LegalEntity = legal;
+            p.Tax = tax;
+            p.Code = $"Q1-{Uniq()}";
+            p.FromDate = new DateTime(2026, 1, 1);
+            p.ToDate = new DateTime(2026, 3, 31);
+            p.IsClosed = true;
+        });
+
+        var byId = string.Empty;
+        try { await Svc.BuildFromPeriodAsync(period); }
+        catch (Exception ex) { byId = ex.Message; }
+        Assert.IsTrue(byId.Contains("закрыт"),
+            "сборка по закрытому периоду отклоняется, факт: {0}", byId);
+
+        var byDates = string.Empty;
+        try { await Svc.BuildAsync(legal, new DateTime(2026, 1, 1), new DateTime(2026, 3, 31)); }
+        catch (Exception ex) { byDates = ex.Message; }
+        Assert.IsTrue(byDates.Contains("закрыт"),
+            "сборка датами по закрытому окну тоже отклоняется, факт: {0}", byDates);
+    }
+
+    private async Task<Guid> NewLegalEntityAsync()
+    {
+        var currency = await NewRecordAsync<Currency>(c =>
+        {
+            c.Name = "Euro";
+            c.Code = "EUR";
+            c.Symbol = "€";
+        });
+        var country = await NewRecordAsync<Country>(c =>
+        {
+            c.Name = "Germany";
+            c.CodeISO2 = "DE";
+            c.CodeISO3 = "DEU";
+            c.PhoneCode = "49";
+        });
+        return await NewRecordAsync<LegalEntity>(le =>
+        {
+            le.Name = "ACME GmbH";
+            le.RegistrationNumber = $"REG-{Uniq()}";
+            le.Country = country;
+            le.Currency = currency;
+        });
+    }
 }

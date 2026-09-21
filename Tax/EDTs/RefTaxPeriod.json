@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "c2561117-28e1-41aa-8d88-a20ad4983b68",
+    "isRequired": false,
+    "metaId": "48f825d8-5e6c-4a06-ab0a-7e33f35ac56e",
+    "name": "RefTaxPeriod",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

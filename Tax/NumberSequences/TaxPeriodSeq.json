@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "39ea906b-5908-46fd-8a35-eddc04e96720",
+    "name": "TaxPeriodSeq",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

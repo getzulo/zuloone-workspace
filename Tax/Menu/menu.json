@@ -378,6 +378,38 @@
       "metaId": "2596c0dd-a7a7-436b-8627-9e4ed4650771",
       "name": "TaxExemptionReason",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "caption": {
+        "en": "Tax periods",
+        "ar": "الفترات الضريبية",
+        "ru": "Налоговые периоды",
+        "uk": "Податкові періоди"
+      },
+      "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
+      "displayOrder": 11,
+      "icon": "fluent-color:calendar-clock-24",
+      "targetType": "Dictionary",
+      "targetMetaId": "c2561117-28e1-41aa-8d88-a20ad4983b68",
+      "metaId": "b3b1d6df-3396-4f18-a840-230156f8d36c",
+      "name": "TaxPeriod",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "caption": {
+        "en": "Return mappings",
+        "ar": "تعيينات الإقرار",
+        "ru": "Ячейки декларации",
+        "uk": "Комірки декларації"
+      },
+      "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
+      "displayOrder": 12,
+      "icon": "fluent-color:table-48",
+      "targetType": "Dictionary",
+      "targetMetaId": "6a32a96e-0165-4336-afa8-967ba6b3451c",
+      "metaId": "ffe0030a-949a-47bb-9c5e-a7d2e6cd0f35",
+      "name": "TaxReportMapping",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

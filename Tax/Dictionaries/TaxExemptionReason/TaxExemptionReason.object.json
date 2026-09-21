@@ -29,28 +29,6 @@
   "fields": [
     {
       "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
-      "fieldName": "Tax",
-      "edtMetaId": "721d3568-4674-4d69-8828-cb32f33f3df5",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 1,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Tax",
-        "ar": "الضريبة",
-        "ru": "Налог",
-        "uk": "Податок"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "565b1c7c-42c7-4c18-98e3-d45235d6f0a8",
-      "name": "Tax",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
-    },
-    {
-      "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
       "fieldName": "Code",
       "baseType": "String",
       "length": 32,
@@ -70,29 +48,6 @@
       "isCalculated": false,
       "metaId": "bd0ac977-c072-4977-ad8d-a55602648c28",
       "name": "Code",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
-    },
-    {
-      "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
-      "fieldName": "Name",
-      "baseType": "String",
-      "length": 256,
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 3,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Name",
-        "ar": "الاسم",
-        "ru": "Наименование",
-        "uk": "Найменування"
-      },
-      "isTranslatable": true,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "34f1969c-179c-4be1-ad2f-a5d99350a7fb",
-      "name": "Name",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
@@ -137,6 +92,70 @@
       "isCalculated": false,
       "metaId": "94cf143f-8c90-40f0-87d9-248b20b309dd",
       "name": "EffectiveTo",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "72979703-e08f-42e6-9298-da049c3932b3",
+      "name": "ID",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Найменування"
+      },
+      "isTranslatable": true,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "34f1969c-179c-4be1-ad2f-a5d99350a7fb",
+      "name": "Name",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "a41e1a09-2e0b-48dc-9f30-e0d623c9fc0c",
+      "fieldName": "Tax",
+      "edtMetaId": "721d3568-4674-4d69-8828-cb32f33f3df5",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax",
+        "ar": "الضريبة",
+        "ru": "Налог",
+        "uk": "Податок"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "565b1c7c-42c7-4c18-98e3-d45235d6f0a8",
+      "name": "Tax",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]

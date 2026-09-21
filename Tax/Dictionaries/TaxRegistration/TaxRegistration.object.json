@@ -29,70 +29,21 @@
   "fields": [
     {
       "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
-      "fieldName": "PartyType",
+      "fieldName": "ID",
       "baseType": "String",
-      "length": 16,
-      "isSystem": false,
+      "length": 50,
+      "isSystem": true,
       "isRequired": true,
-      "displayOrder": 1,
-      "description": "LegalEntity, Customer or Supplier. Not an FK: Tax is Base and cannot see Inventory parties.",
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
       "isIndexed": true,
-      "isUnique": false,
-      "caption": {
-        "en": "Party type",
-        "ar": "نوع الطرف",
-        "ru": "Тип стороны",
-        "uk": "Тип сторони"
-      },
+      "isUnique": true,
+      "caption": "ID",
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "e81e6560-29ac-4803-b883-9066d917d1dc",
-      "name": "PartyType",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
-    },
-    {
-      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
-      "fieldName": "PartyId",
-      "baseType": "Guid",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 2,
-      "isIndexed": true,
-      "isUnique": false,
-      "caption": {
-        "en": "Party",
-        "ar": "الطرف",
-        "ru": "Сторона",
-        "uk": "Сторона"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "c37a0abc-30dd-4995-b8d2-a4fa66c51089",
-      "name": "PartyId",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
-    },
-    {
-      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
-      "fieldName": "Tax",
-      "edtMetaId": "721d3568-4674-4d69-8828-cb32f33f3df5",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 3,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Tax",
-        "ar": "الضريبة",
-        "ru": "Налог",
-        "uk": "Податок"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "04b956b6-7cce-426e-a2fc-7595b342c86e",
-      "name": "Tax",
+      "metaId": "2dea66dd-cb35-40fa-8938-ce9be12c06f0",
+      "name": "ID",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
@@ -119,6 +70,52 @@
     },
     {
       "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "fieldName": "PartyId",
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Party",
+        "ar": "الطرف",
+        "ru": "Сторона",
+        "uk": "Сторона"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c37a0abc-30dd-4995-b8d2-a4fa66c51089",
+      "name": "PartyId",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "fieldName": "PartyType",
+      "baseType": "String",
+      "length": 16,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "description": "LegalEntity, Customer or Supplier. Not an FK: Tax is Base and cannot see Inventory parties.",
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Party type",
+        "ar": "نوع الطرف",
+        "ru": "Тип стороны",
+        "uk": "Тип сторони"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e81e6560-29ac-4803-b883-9066d917d1dc",
+      "name": "PartyType",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
       "fieldName": "RegistrationNumber",
       "baseType": "String",
       "length": 64,
@@ -138,6 +135,28 @@
       "isCalculated": false,
       "metaId": "d5d7f819-8263-4f2d-a786-7604cf2f34dd",
       "name": "RegistrationNumber",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "2b075a9a-f437-44aa-81e0-3fad4ab63565",
+      "fieldName": "Tax",
+      "edtMetaId": "721d3568-4674-4d69-8828-cb32f33f3df5",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax",
+        "ar": "الضريبة",
+        "ru": "Налог",
+        "uk": "Податок"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "04b956b6-7cce-426e-a2fc-7595b342c86e",
+      "name": "Tax",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {

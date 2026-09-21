@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "f2d04b3a-06bf-40fe-9df2-95076a620ac8",
+    "name": "TaxReportMappingSeq",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

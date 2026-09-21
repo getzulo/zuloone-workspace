@@ -37,17 +37,23 @@ public partial class TaxReturnService
     private readonly IRegisterMovementService _movements;
     private readonly AnalyticSetService _analytics;
     private readonly IDictionaryManager<TaxDirection> _directions;
+    private readonly IDictionaryManager<TaxPeriod> _periods;
+    private readonly IDictionaryManager<TaxReportMapping> _mappings;
     private readonly IDocumentManager _documents;
 
     public TaxReturnService(
         IRegisterMovementService movements,
         AnalyticSetService analytics,
         IDictionaryManager<TaxDirection> directions,
+        IDictionaryManager<TaxPeriod> periods,
+        IDictionaryManager<TaxReportMapping> mappings,
         IDocumentManager documents)
     {
         _movements = movements;
         _analytics = analytics;
         _directions = directions;
+        _periods = periods;
+        _mappings = mappings;
         _documents = documents;
     }
 
@@ -68,17 +74,36 @@ public partial class TaxReturnService
     /// налоговый период задают датами, а не полуинтервалом, и потерянный последний
     /// день — это потерянные документы.
     /// </summary>
-    public async Task<Guid> BuildAsync(Guid legalEntity, DateTime periodFrom, DateTime periodTo)
+    public Task<Guid> BuildAsync(Guid legalEntity, DateTime periodFrom, DateTime periodTo)
+        => BuildCoreAsync(legalEntity, periodFrom, periodTo, taxPeriod: Guid.Empty);
+
+    /// <summary>Same as <see cref="BuildAsync"/>, but dates and the period
+    /// reference come from a named <c>TaxPeriod</c>. A closed period refuses.</summary>
+    public async Task<Guid> BuildFromPeriodAsync(Guid taxPeriodId)
+    {
+        var period = await _periods.GetRecordAsync(taxPeriodId)
+            ?? throw new InvalidOperationException("Налоговый период не найден");
+        if (period.IsClosed)
+            throw new InvalidOperationException(
+                $"Налоговый период «{period.Code}» закрыт — новую декларацию по нему собрать нельзя");
+        return await BuildCoreAsync(
+            period.LegalEntity, period.FromDate, period.ToDate, period.MetaId);
+    }
+
+    private async Task<Guid> BuildCoreAsync(
+        Guid legalEntity, DateTime periodFrom, DateTime periodTo, Guid taxPeriod)
     {
         var from = periodFrom.Date;
         var to = periodTo.Date;
+        await RefuseIfClosedAsync(legalEntity, from, to, taxPeriod);
 
         var lines = await CollectAsync(legalEntity, from, to);
+        var boxes = await ResolveBoxesAsync(lines, to);
 
         var outputTax = lines.Where(l => IsDirection(l, OutputDirection)).Sum(l => l.TaxAmount);
         var inputTax = lines.Where(l => IsDirection(l, InputDirection)).Sum(l => l.RecoverableAmount);
 
-        var doc = await _documents.NewDocumentAsync<TaxReturn>("Draft", new Dictionary<string, object?>
+        var header = new Dictionary<string, object?>
         {
             ["LegalEntity"] = legalEntity,
             ["PeriodFrom"] = from,
@@ -86,22 +111,84 @@ public partial class TaxReturnService
             ["OutputTax"] = outputTax,
             ["InputTax"] = inputTax,
             ["NetPayable"] = outputTax - inputTax,
-        });
+        };
+        if (taxPeriod != Guid.Empty)
+            header["TaxPeriod"] = taxPeriod;
+
+        var doc = await _documents.NewDocumentAsync<TaxReturn>("Draft", header);
 
         foreach (var line in lines.OrderBy(l => l.DirectionCode).ThenBy(l => l.TaxCode))
         {
+            boxes.TryGetValue((line.TaxCode, line.Direction), out var box);
             doc.Lines.Add(new TaxReturnLinesTablePartRow
             {
                 TaxCode = line.TaxCode,
                 Direction = line.Direction,
                 TaxBase = line.TaxBase,
                 TaxAmount = IsDirection(line, InputDirection) ? line.RecoverableAmount : line.TaxAmount,
+                ReturnBox = box ?? string.Empty,
             });
         }
 
         await _documents.SaveDocumentAsync(doc);
         return doc.MetaId;
     }
+
+    /// <summary>A closed TaxPeriod covering these dates of this entity refuses
+    /// a new return — otherwise filing one window twice is silent.</summary>
+    private async Task RefuseIfClosedAsync(
+        Guid legalEntity, DateTime from, DateTime to, Guid exceptPeriod)
+    {
+        var closed = (await _periods.GetRecordsAsync($"LegalEntity = '{legalEntity}'"))
+            .FirstOrDefault(p => p.IsClosed
+                && p.MetaId != exceptPeriod
+                && from <= p.ToDate.Date
+                && p.FromDate.Date <= to);
+        if (closed is null) return;
+        throw new InvalidOperationException(
+            $"Налоговый период «{closed.Code}» закрыт " +
+            $"({closed.FromDate:yyyy-MM-dd} — {closed.ToDate:yyyy-MM-dd}). " +
+            "Новую декларацию за эти даты собрать нельзя.");
+    }
+
+    /// <summary>
+    /// Box letters for each (code, direction) on the period-to date. A directed
+    /// mapping beats an undirected one. Several ReturnTypes (SA and UA packs on
+    /// one stand) that disagree on the letter leave the box empty rather than
+    /// pick a country in Core.
+    /// </summary>
+    private async Task<Dictionary<(Guid Code, Guid Direction), string>> ResolveBoxesAsync(
+        List<Line> lines, DateTime on)
+    {
+        var result = new Dictionary<(Guid Code, Guid Direction), string>();
+        if (lines.Count == 0) return result;
+
+        var maps = (await _mappings.GetRecordsAsync("1 = 1"))
+            .Where(m => IsEffectiveOn(m.EffectiveFrom, m.EffectiveTo, on))
+            .ToList();
+        if (maps.Count == 0) return result;
+
+        foreach (var line in lines)
+        {
+            var own = maps.Where(m => m.TaxCode == line.TaxCode).ToList();
+            var directed = own.Where(m => m.Direction == line.Direction).ToList();
+            var chosen = directed.Count > 0
+                ? directed
+                : own.Where(m => m.Direction == Guid.Empty).ToList();
+            if (chosen.Count == 0) continue;
+            var boxes = chosen.Select(m => m.ReturnBox)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+            if (boxes.Count == 1)
+                result[(line.TaxCode, line.Direction)] = boxes[0];
+        }
+
+        return result;
+    }
+
+    private static bool IsEffectiveOn(DateTime? from, DateTime? to, DateTime date)
+        => (from is null || from.Value.Date <= date.Date)
+        && (to is null || date.Date <= to.Value.Date);
 
     /// <summary>Движения периода, свёрнутые в пары (код, направление).</summary>
     private async Task<List<Line>> CollectAsync(Guid legalEntity, DateTime from, DateTime to)
