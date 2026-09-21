@@ -115,7 +115,7 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
         // into a product that installs everywhere. They are MetaOutboundChannel
         // rows of this model now.
         var rows = await Sql.SelectAsync(
-            "SELECT Name, Path, Signer, ModelId FROM MetaOutboundChannels WHERE Name LIKE 'fatoora-%'");
+            "SELECT [Name], [Path], [Signer], [ModelId] FROM [MetaOutboundChannels] WHERE [Name] LIKE 'fatoora-%'");
 
         Assert.IsTrue(rows.Count == 5, "пять каналов на месте; факт {0}", rows.Count);
         foreach (var r in rows)
@@ -190,7 +190,7 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
     public async Task FatooraOutcomesJobIsOwnedAndRuns()
     {
         var rows = await Sql.SelectAsync(
-            "SELECT MetaId, Name, ModelId, IsActive, CronExpression, ExecuteSingle FROM MetaJobs WHERE Name = 'ApplyFatooraOutcomes'");
+            "SELECT [MetaId], [Name], [ModelId], [IsActive], [CronExpression], [ExecuteSingle] FROM [MetaJobs] WHERE [Name] = 'ApplyFatooraOutcomes'");
         Assert.IsTrue(rows.Count == 1, "задание на месте; факт {0}", rows.Count);
         Assert.IsTrue(Convert.ToString(rows[0]["ModelId"])!.ToLowerInvariant() == SaudiModel.ToString("D"),
             "владелец — LocalizationSaudiArabia; факт {0}", rows[0]["ModelId"]);

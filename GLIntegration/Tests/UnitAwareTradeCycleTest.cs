@@ -258,11 +258,19 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         code.EffectiveFrom = from;
         code = await DictionaryManager.SaveRecordAsync(code);
 
-        if ((await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'OUTPUT'", take: 1)).Count == 0)
+        // Направления заводим ОБА. Раньше здесь был только OUTPUT, и тест был
+        // зелёным ровно потому, что на голом стенде не оказывалось INPUT:
+        // PurchaseOrderEventHandler не мог разрешить входной налог, кредиторка
+        // выходила нетто, и это принималось за правильный ответ. Поставка
+        // Tax/tax-directions приносит INPUT — с ней тест падал. Контур обязан
+        // совпадать с тем, что реально стоит у клиента, а не с его отсутствием.
+        foreach (var (dirCode, dirName) in new[] { ("INPUT", "Input"), ("OUTPUT", "Output") })
         {
+            if ((await DictionaryManager.GetRecordsAsync<TaxDirection>($"Code = '{dirCode}'", take: 1)).Count > 0)
+                continue;
             var direction = DictionaryManager.NewRecord<TaxDirection>();
-            direction.Code = "OUTPUT";
-            direction.Name = "Output";
+            direction.Code = dirCode;
+            direction.Name = dirName;
             await DictionaryManager.SaveRecordAsync(direction);
         }
 
@@ -407,15 +415,22 @@ public class UnitAwareTradeCycleTest : IntegrationTestScriptBase
         Assert.IsTrue(await StockAsync(s.ShopCell, s.Item) == 0m, "SHOP приходом не затронут");
 
         // Деньги — по ВВЕДЁННОЙ единице: 5 ящиков × 120 = 600, а не 60 × 120.
+        // Кредиторка при этом ВАЛОВАЯ: поставщику должны 600 нетто плюс 90
+        // входного НДС. Так устроен налог: TaxCalculationGLEventHandler проводит
+        // возмещаемый входной как Dr «НДС к возмещению» / Cr кредиторка, то есть
+        // налог не уменьшает долг, а встаёт рядом с ним отдельным активом.
         var payable = await TotalAsync("Payable", "Amount") - payable0;
-        Assert.IsTrue(payable == 600m,
-            "кредиторка = 5 ящиков × 120 за ящик = 600, а не {0}", payable);
+        Assert.IsTrue(payable == 690m,
+            "кредиторка = 5 ящиков × 120 = 600 нетто + 90 НДС = 690, а не {0}", payable);
 
         // Себестоимость: Value по введённой единице, Qty — по базовой. Их частное
         // и есть цена за ШТУКУ (600 / 60 = 10), которой FIFO оценивает выбытие.
         var invValue = await TotalAsync("InventoryValue", "Value") - invValue0;
         var invQty = await TotalAsync("InventoryValue", "Qty") - invQty0;
-        Assert.IsTrue(invValue == 600m, "стоимость запаса +600, а не {0}", invValue);
+        Assert.IsTrue(invValue == 600m,
+            "стоимость запаса +600 НЕТТО: возмещаемый входной НДС в себестоимость "
+            + "не идёт (в запас капитализируется только невозмещаемая часть, "
+            + "NonRecoverablePct здесь 0). Факт {0}", invValue);
         Assert.IsTrue(invQty == 60m, "количество запаса +60 штук, а не {0}", invQty);
         Assert.IsTrue(invValue / invQty == 10m, "цена за штуку 600/60 = 10, а не {0}", invValue / invQty);
 
