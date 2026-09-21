@@ -52,29 +52,6 @@
     },
     {
       "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
-      "fieldName": "Name",
-      "baseType": "String",
-      "length": 256,
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 2,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Name",
-        "ar": "الاسم",
-        "ru": "Наименование",
-        "uk": "Найменування"
-      },
-      "isTranslatable": true,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "c7de6cf6-d077-4c82-a641-7ab9f0cdf8f8",
-      "name": "Name",
-      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
-    },
-    {
-      "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
       "fieldName": "EarnRate",
       "baseType": "Decimal",
       "precision": 18,
@@ -144,6 +121,25 @@
     },
     {
       "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "8b4e3021-7db1-4c58-8d84-4875e6b79ff9",
+      "name": "ID",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
       "fieldName": "IsDisabled",
       "baseType": "Boolean",
       "isSystem": false,
@@ -162,6 +158,29 @@
       "isCalculated": false,
       "metaId": "4f85c77d-4e74-4799-a4ca-bd47b6279883",
       "name": "IsDisabled",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Найменування"
+      },
+      "isTranslatable": true,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c7de6cf6-d077-4c82-a641-7ab9f0cdf8f8",
+      "name": "Name",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     }
   ]
