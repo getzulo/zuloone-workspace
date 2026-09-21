@@ -18,26 +18,6 @@
   "properties": [
     {
       "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
-      "fieldName": "Sequence",
-      "caption": {
-        "en": "Sequence",
-        "ar": "الترتيب",
-        "ru": "Порядок",
-        "uk": "Порядок"
-      },
-      "baseType": "Integer",
-      "isRequired": true,
-      "isVisible": true,
-      "isLogged": false,
-      "isSystem": false,
-      "isReference": false,
-      "displayOrder": 1,
-      "metaId": "e09bb88b-5b1c-4496-99f2-cbf4ec691c4d",
-      "name": "Sequence",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
-    },
-    {
-      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
       "fieldName": "Name",
       "caption": {
         "en": "Name",
@@ -59,25 +39,44 @@
     },
     {
       "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
-      "fieldName": "WorkCenter",
+      "fieldName": "RunMinutes",
       "caption": {
-        "en": "Work center",
-        "ar": "مركز العمل",
-        "ru": "Рабочий центр",
-        "uk": "Робочий центр"
+        "en": "Run minutes",
+        "ar": "دقائق التشغيل",
+        "ru": "Минуты работы",
+        "uk": "Хвилини роботи"
       },
-      "edtMetaId": "7969a41a-ab18-4bf6-b781-c124b44a9c14",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 4,
       "isRequired": false,
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": true,
-      "referenceKind": "Dictionary",
-      "referenceMetaId": "c747510e-3085-4992-a948-0645e821c83b",
-      "referenceName": "WorkCenter",
-      "displayOrder": 3,
-      "metaId": "ba91794b-cee0-4f48-8168-28f29058c210",
-      "name": "WorkCenter",
+      "isReference": false,
+      "displayOrder": 5,
+      "metaId": "291b39ad-2677-4295-889a-52ea501fc123",
+      "name": "RunMinutes",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "fieldName": "Sequence",
+      "caption": {
+        "en": "Sequence",
+        "ar": "الترتيب",
+        "ru": "Порядок",
+        "uk": "Порядок"
+      },
+      "baseType": "Integer",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "e09bb88b-5b1c-4496-99f2-cbf4ec691c4d",
+      "name": "Sequence",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
@@ -102,24 +101,25 @@
     },
     {
       "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
-      "fieldName": "RunMinutes",
+      "fieldName": "WorkCenter",
       "caption": {
-        "en": "Run minutes",
-        "ar": "دقائق التشغيل",
-        "ru": "Минуты работы",
-        "uk": "Хвилини роботи"
+        "en": "Work center",
+        "ar": "مركز العمل",
+        "ru": "Рабочий центр",
+        "uk": "Робочий центр"
       },
-      "baseType": "Decimal",
-      "precision": 18,
-      "scale": 4,
+      "edtMetaId": "7969a41a-ab18-4bf6-b781-c124b44a9c14",
       "isRequired": false,
       "isVisible": true,
       "isLogged": false,
       "isSystem": false,
-      "isReference": false,
-      "displayOrder": 5,
-      "metaId": "291b39ad-2677-4295-889a-52ea501fc123",
-      "name": "RunMinutes",
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "c747510e-3085-4992-a948-0645e821c83b",
+      "referenceName": "WorkCenter",
+      "displayOrder": 3,
+      "metaId": "ba91794b-cee0-4f48-8168-28f29058c210",
+      "name": "WorkCenter",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ]

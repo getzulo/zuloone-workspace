@@ -29,6 +29,47 @@
   "fields": [
     {
       "dictionaryMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "958f1210-463a-49a4-afb4-27988217104b",
+      "name": "ID",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
+      "fieldName": "IsDisabled",
+      "baseType": "Boolean",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключён",
+        "uk": "Вимкнено"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "ff06fef6-6bbc-44b7-964b-8664f0d354dd",
+      "name": "IsDisabled",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
       "fieldName": "Name",
       "baseType": "String",
       "length": 160,
@@ -70,28 +111,6 @@
       "isCalculated": false,
       "metaId": "0a18c990-4d37-4084-9ca8-8d1ce60ec206",
       "name": "Product",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
-    },
-    {
-      "dictionaryMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
-      "fieldName": "IsDisabled",
-      "baseType": "Boolean",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 3,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Disabled",
-        "ar": "معطّل",
-        "ru": "Отключён",
-        "uk": "Вимкнено"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "ff06fef6-6bbc-44b7-964b-8664f0d354dd",
-      "name": "IsDisabled",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ],

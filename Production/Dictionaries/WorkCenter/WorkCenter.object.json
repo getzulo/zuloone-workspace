@@ -29,25 +29,21 @@
   "fields": [
     {
       "dictionaryMetaId": "c747510e-3085-4992-a948-0645e821c83b",
-      "fieldName": "Name",
+      "fieldName": "ID",
       "baseType": "String",
-      "length": 160,
-      "isSystem": false,
+      "length": 50,
+      "isSystem": true,
       "isRequired": true,
-      "displayOrder": 1,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Name",
-        "ar": "الاسم",
-        "ru": "Наименование",
-        "uk": "Назва"
-      },
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "be2d9a61-2b3b-4246-af6e-9bef3bcf11b5",
-      "name": "Name",
+      "metaId": "ff581dd8-609c-47db-bd0d-2e32fb911908",
+      "name": "ID",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {
@@ -70,6 +66,29 @@
       "isCalculated": false,
       "metaId": "24ebdc60-f5b9-4c65-a9fd-5425524c0641",
       "name": "IsDisabled",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "c747510e-3085-4992-a948-0645e821c83b",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 160,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Назва"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "be2d9a61-2b3b-4246-af6e-9bef3bcf11b5",
+      "name": "Name",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ]

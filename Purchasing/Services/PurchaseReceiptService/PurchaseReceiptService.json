@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Приход заказа поставщику: проверки ячейки и ставки, переход в Received.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "8d2f5b93-1c6a-4e74-8f28-3a9b6d1e5c02",
+    "metaId": "7c1e4a82-0b59-4d63-9e17-2f8a5c0d4b91",
+    "name": "PurchaseReceiptService",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}

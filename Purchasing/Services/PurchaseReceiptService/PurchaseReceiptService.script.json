@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "PurchaseReceiptService",
+    "executionOrder": 0,
+    "metaId": "8d2f5b93-1c6a-4e74-8f28-3a9b6d1e5c02",
+    "name": "PurchaseReceiptService",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}
