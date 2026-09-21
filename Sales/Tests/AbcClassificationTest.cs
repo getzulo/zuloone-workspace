@@ -13,6 +13,9 @@ public class AbcClassificationTest : IntegrationTestScriptBase
     private static IDictionaryManager Dictionaries => GetService<IDictionaryManager>();
     private static IAbcClassifier Classifier => GetService<IAbcClassifier>();
     private static IInformationRegisterService Info => GetService<IInformationRegisterService>();
+    private static ISqlService Sql => GetService<ISqlService>();
+
+    private static readonly Guid SalesModel = Guid.Parse("47861dd2-1009-4926-9ea3-c506cae5118d");
 
     private static readonly DateTime AsOf = new DateTime(2026, 9, 1);
 
@@ -125,6 +128,42 @@ public class AbcClassificationTest : IntegrationTestScriptBase
 
         await Assert.ThrowsAsync<InvalidOperationException>(() =>
             Classifier.RecalcAsync(profile.MetaId, AsOf));
+    }
+
+    [IntegrationTest("Ночной пересчёт пропускает отключённый профиль")]
+    public async Task RecalcAllEnabledSkipsDisabled()
+    {
+        var live = await ProfileAsync("Item");
+        await ParetoBandsAsync(live.MetaId);
+        var dead = await ProfileAsync("Item");
+        dead.IsDisabled = true;
+        dead = await Dictionaries.SaveRecordAsync(dead);
+        await ParetoBandsAsync(dead.MetaId);
+
+        await Classifier.RecalcAllEnabledAsync(AsOf);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            Classifier.RecalcAsync(dead.MetaId, AsOf));
+    }
+
+    [IntegrationTest("Задание RecalcAbcClassifications принадлежит Sales и исполняется")]
+    public async Task RecalcJobIsOwnedAndRuns()
+    {
+        var rows = await Sql.SelectAsync(
+            "SELECT MetaId, Name, ModelId, IsActive, CronExpression, ExecuteSingle FROM MetaJobs WHERE Name = 'RecalcAbcClassifications'");
+        Assert.IsTrue(rows.Count == 1, "задание на месте; факт {0}", rows.Count);
+        Assert.IsTrue(Convert.ToString(rows[0]["ModelId"])!.ToLowerInvariant() == SalesModel.ToString("D"),
+            "владелец — Sales; факт {0}", rows[0]["ModelId"]);
+        Assert.IsTrue(Convert.ToBoolean(rows[0]["IsActive"]), "задание активно");
+        Assert.IsTrue(Convert.ToBoolean(rows[0]["ExecuteSingle"]), "не два прогона сразу");
+        Assert.IsTrue(Convert.ToString(rows[0]["CronExpression"]) == "0 2 * * *",
+            "в 02:00 UTC; факт '{0}'", rows[0]["CronExpression"]);
+
+        var jobId = Guid.Parse(Convert.ToString(rows[0]["MetaId"])!);
+        var run = await Db.RunJobAsync(jobId);
+        Assert.IsTrue(run.Success, "задание отработало; факт: {0}", run.Output);
+        Assert.IsTrue(run.Output.Contains("rows=", StringComparison.Ordinal),
+            "вывод несёт число строк; факт: {0}", run.Output);
     }
 
     private async Task<AbcProfile> ProfileAsync(string subject)

@@ -1,0 +1,14 @@
+{
+  "kind": "Job",
+  "object": {
+    "description": "Recalc every enabled AbcProfile into AbcClassification (same path as RecalcAbc).",
+    "scriptMetaId": "a38190f4-505a-4c67-a9cd-f1a060a277a7",
+    "cronExpression": "0 2 * * *",
+    "isActive": true,
+    "executeSingle": true,
+    "queueTtlMinutes": 60,
+    "metaId": "6f3feae9-27f8-4527-8d88-4ae74caae3ca",
+    "name": "RecalcAbcClassifications",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

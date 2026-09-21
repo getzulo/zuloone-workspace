@@ -88,7 +88,7 @@
         "uk": "Відбірна"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "2073f8fa-4594-40db-818a-023f2bdb4122",
       "name": "IsPickable",

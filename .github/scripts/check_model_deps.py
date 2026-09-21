@@ -26,13 +26,15 @@ to the model that owns the target, and one of these must hold:
 
 Anything else is a model reaching sideways into a stranger, and fails.
 
-WHAT IS NOT CHECKED — the hole this cannot close. Registers, global constants
-and services are addressed by STRING from .cs ("RegisterMovementSpec(\"Stock\")",
-GlobalConstants.Get("SaudiVatRate")). No type links the caller to the owner, so
-neither the compiler nor this script can see those edges. A name-based scan was
-tried and drowned in false positives — Inventory owns a Supplier dictionary,
-Purchasing owns a Supplier analytic, and three models each had a test class
-called PriceCaptureTest. Keep such writes out by review, not by this gate.
+STRING NAMES. Registers and global constants are also addressed from .cs by
+literal ("RegisterMovementSpec(\"Stock\")", GlobalConstants.Get("AmountScale")).
+Those edges have no MetaId, so the JSON walk cannot see them. After the object
+index is built, this script scans .cs outside Tests/ for a closed list of call
+shapes (the same list as platform ScriptNameReferences) and requires the named
+object's owner to be the calling model or in its dep closure. Tests/ may read
+a downstream register (Sales asserting VatPayable); that is not a shippable
+edge. Dictionary names, .Dim / .Res, and unknown strings are ignored — that is
+what drowned an earlier unscoped scan.
 
 Run from the workspace root:
 
@@ -42,6 +44,7 @@ Run from the workspace root:
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -52,6 +55,36 @@ SKIP_DIRS = {".generated", "bin", "obj", ".git", "host", ".github", ".claude", "
 IGNORED_KEYS = {"metaId", "modelId", "modelMetaId", "dependsOnModelMetaId"}
 
 PLACEHOLDER_MODEL = "00000000-0000-0000-0000-000000000000"
+
+# Closed list, same shapes as zulo.one ScriptNameReferences. .Dim / .Res stay out.
+ADDRESSING = re.compile(
+    r"(?:RegisterMovementSpec|PostMovementAsync|GetBalanceAsync|QueryBalancesAsync|"
+    r"QueryMovementsAsync|SetInformationAsync|SliceLastAsync|SliceFirstAsync|"
+    r"QueryInformationAsync|DeleteInformationAsync|GetInformationAsync|"
+    r"CompileVirtualTotalAsync|QueryVirtualTotalAsync)\s*\(\s*\"(?P<lit>[^\"]+)\""
+    r"|GlobalConstants\s*\.\s*(?:Get|GetAsync|SetAsync)\s*(?:<[^>]+>)?\s*\(\s*\"(?P<const>[^\"]+)\""
+    r"|(?:SetAsync|SliceLastAsync|SliceFirstAsync|SetInformationAsync|"
+    r"GetInformationAsync|QueryInformationAsync)\s*<\s*(?P<typed>[A-Za-z_]\w*)"
+    r"|SetAsync(?:<[^>]+>)?\s*\(\s*new\s+(?P<ctor>[A-Za-z_]\w*)"
+)
+
+NAMED_KINDS = {"Register", "GlobalConstant"}
+
+
+def names_in(code: str) -> set[str]:
+    found: set[str] = set()
+    for match in ADDRESSING.finditer(code):
+        for group in match.groupdict().values():
+            if group:
+                found.add(group)
+    return found
+
+
+def cs_files(folder: Path):
+    for path in sorted(folder.rglob("*.cs")):
+        if any(part in SKIP_DIRS or part == "Tests" for part in path.parts):
+            continue
+        yield path
 
 
 def load(path: Path) -> object | None:
@@ -207,6 +240,67 @@ def main() -> int:
         f"every cross-model reference declared "
         f"({extension_edges} extension-direction pointers accepted). "
         "Any model with no dependents can be left out of a tenant."
+    )
+
+    named_owner: dict[str, tuple[str, str]] = {}  # name -> (modelId, kind)
+    for folder_name, folder in folders.items():
+        home = folder_model[folder_name]
+        for path in json_files(folder):
+            doc = load(path)
+            if not isinstance(doc, dict):
+                continue
+            kind = doc.get("kind")
+            if kind not in NAMED_KINDS:
+                continue
+            obj = doc.get("object")
+            if not isinstance(obj, dict):
+                continue
+            name = obj.get("name")
+            if not isinstance(name, str) or not name:
+                continue
+            model_id = obj.get("modelId")
+            owner_id = home if (not model_id or model_id == PLACEHOLDER_MODEL) else model_id
+            named_owner[name] = (owner_id, kind)
+
+    named_owner_ci = {key.lower(): value for key, value in named_owner.items()}
+
+    string_hits = 0
+    string_violations: list[str] = []
+    for folder_name, folder in folders.items():
+        home = folder_model[folder_name]
+        for path in cs_files(folder):
+            try:
+                code = path.read_text(encoding="utf-8-sig")
+            except OSError as exc:
+                print(f"  ! unreadable {path}: {exc}", file=sys.stderr)
+                continue
+            rel = str(path.relative_to(root)).replace("\\", "/")
+            for name in names_in(code):
+                owned = named_owner.get(name) or named_owner_ci.get(name.lower())
+                if owned is None:
+                    continue
+                owner_id, kind = owned
+                string_hits += 1
+                if owner_id == home or owner_id in reach[home]:
+                    continue
+                string_violations.append(
+                    f"{models[home]} -> {models.get(owner_id, owner_id)}"
+                    f"  [{kind} {name}]  in {rel}"
+                )
+
+    if string_violations:
+        print()
+        print("A script names a register or constant of a model it does not depend on —")
+        print("the JSON gate cannot see these string edges:")
+        for line in sorted(set(string_violations)):
+            print(f"  {line}")
+        print()
+        print("Declare the dependency in model.json, or move the script to the model that owns the object.")
+        return 1
+
+    print(
+        f"String names: {string_hits} register/constant addresses, "
+        f"{len(named_owner)} named objects, all inside declared closures."
     )
     return 0
 

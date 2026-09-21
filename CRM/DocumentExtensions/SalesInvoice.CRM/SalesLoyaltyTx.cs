@@ -8,8 +8,9 @@ using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
 // Award loyalty points on issue. A live LoyaltyCampaign overlays the
-// course for its window. Otherwise a reached LoyaltyTier with a positive
-// EarnRate overlays CRMSettings. The Boolean trap on LoyaltyEnabled stays.
+// course for matching ItemGroup lines (empty group = global). Otherwise a
+// reached LoyaltyTier with a positive EarnRate overlays CRMSettings. The
+// Boolean trap on LoyaltyEnabled stays.
 //
 // Settings are read once in the field initializer: the script instance lives
 // one posting. Tier cannot live there — it depends on document.Customer.
@@ -35,12 +36,8 @@ public partial class SalesLoyaltyTx
         return (rows[0].LoyaltyEnabled, rate);
     }
 
-    private static decimal EffectiveRate(Guid customer, decimal fallback, DateTime onDate)
+    private static decimal CustomerFallback(Guid customer, decimal fallback)
     {
-        var campaign = GetService<ILoyaltyCampaignService>()
-            .EarnRateOfAsync(onDate).GetAwaiter().GetResult();
-        if (campaign > 0m) return campaign;
-
         if (customer == Guid.Empty) return fallback;
 
         var balance = GetService<ITotalsManager>()
@@ -69,19 +66,40 @@ public partial class SalesLoyaltyTx
         if (!_loyalty.Enabled) return;
 
         var pricing = GetService<IPricingService>();
-        decimal amount = 0m;
-        foreach (var line in document.Lines)
-            amount += pricing.LineAmount(line.Quantity, line.UnitPrice, document.DiscountPercent);
-
+        var campaigns = GetService<ILoyaltyCampaignService>();
+        var items = GetService<IDictionaryManager<Item>>();
+        var groups = new Dictionary<Guid, Guid>();
         var onDate = document.DocumentDate == default
             ? DateTime.UtcNow.Date
             : document.DocumentDate.Date;
-        var points = Math.Round(
-            amount * EffectiveRate(document.Customer, _loyalty.Rate, onDate),
-            2, MidpointRounding.AwayFromZero);
+        var fallback = CustomerFallback(document.Customer, _loyalty.Rate);
+
+        decimal points = 0m;
+        foreach (var line in document.Lines)
+        {
+            var amount = pricing.LineAmount(line.Quantity, line.UnitPrice, document.DiscountPercent);
+            var campaign = campaigns
+                .EarnRateOfAsync(onDate, GroupOf(items, groups, line.Item))
+                .GetAwaiter().GetResult();
+            var rate = campaign > 0m ? campaign : fallback;
+            points += amount * rate;
+        }
+
+        points = Math.Round(points, 2, MidpointRounding.AwayFromZero);
         if (points > 0m)
             transactions.Add(new RegisterMovementSpec("LoyaltyPoints")
                 .Dim("Customer", document.Customer)
                 .Res("Points", points));
+    }
+
+    private static Guid GroupOf(
+        IDictionaryManager<Item> items, Dictionary<Guid, Guid> cache, Guid itemId)
+    {
+        if (itemId == Guid.Empty) return Guid.Empty;
+        if (cache.TryGetValue(itemId, out var group)) return group;
+        var item = items.GetRecordAsync(itemId).GetAwaiter().GetResult();
+        group = item?.ItemGroup ?? Guid.Empty;
+        cache[itemId] = group;
+        return group;
     }
 }

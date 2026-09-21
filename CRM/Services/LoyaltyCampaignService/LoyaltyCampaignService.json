@@ -1,7 +1,7 @@
 {
   "kind": "Service",
   "object": {
-    "description": "Dated loyalty earn-rate overlay; one live campaign window at a time",
+    "description": "Dated loyalty earn-rate overlay; overlap is per ItemGroup (empty = global)",
     "namespace": "ZuloOne.Services",
     "scriptMetaId": "fd9971ee-feeb-4ebd-a7f4-a11c9fb41c82",
     "metaId": "03c8922b-2b55-4e21-97f8-a6a9a100be2d",

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Task",
+    "objectType": "Job",
+    "objectName": "RecalcAbcClassifications",
+    "objectMetaId": "6f3feae9-27f8-4527-8d88-4ae74caae3ca",
+    "executionOrder": 0,
+    "metaId": "a38190f4-505a-4c67-a9cd-f1a060a277a7",
+    "name": "RecalcAbcClassificationsTask",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

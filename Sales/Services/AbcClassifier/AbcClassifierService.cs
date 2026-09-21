@@ -45,6 +45,18 @@ public partial class AbcClassifier
         return await WriteAsync(profile, asOf, scores, series);
     }
 
+    /// <summary>Nightly path: every live profile, same RecalcAsync as the button.</summary>
+    public async Task<int> RecalcAllEnabledAsync(DateTime asOf)
+    {
+        var n = 0;
+        foreach (var profile in await _profiles.GetRecordsAsync("1 = 1"))
+        {
+            if (profile.IsDisabled) continue;
+            n += await RecalcAsync(profile.MetaId, asOf);
+        }
+        return n;
+    }
+
     /// <summary>Same write path with caller-supplied scores (Pareto tests, no HTTP).</summary>
     public async Task<int> RecalcWithScoresAsync(
         Guid profileId,

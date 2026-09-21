@@ -5,8 +5,10 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Promo earn-rate window. Two live campaigns may not overlap: the posting
-// script needs one number. Disabled rows do not occupy the calendar.
+// Promo earn-rate window. Two live campaigns of the same ItemGroup may not
+// overlap: the posting script needs one number per line. Empty ItemGroup is
+// global and may share dates with a specific group. Disabled rows do not
+// occupy the calendar.
 public partial class LoyaltyCampaignEventHandler : TypedDictionaryEventHandler<LoyaltyCampaign>
 {
     public override async Task<EventResult> OnBeforeSaveAsync(
@@ -29,10 +31,11 @@ public partial class LoyaltyCampaignEventHandler : TypedDictionaryEventHandler<L
                 .FindOverlappingAsync(
                     isNew ? Guid.Empty : record.MetaId,
                     record.EffectiveFrom,
-                    record.EffectiveTo);
+                    record.EffectiveTo,
+                    record.ItemGroup);
             if (overlap is not null)
                 return EventResult.Cancel(
-                    "На этот период уже есть другая кампания лояльности");
+                    "На этот период уже есть другая кампания лояльности для этой группы");
         }
 
         return EventResult.Ok();
