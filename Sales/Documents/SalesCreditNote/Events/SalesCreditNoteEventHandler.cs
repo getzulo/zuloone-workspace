@@ -99,15 +99,28 @@ public partial class SalesCreditNoteEventHandler : TypedDocumentEventHandler<Sal
         var pricing = context.GetService<IPricingService>();
         var taxBase = note.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
         var taxPoint = note.DocumentDate == default ? DateTime.UtcNow.Date : note.DocumentDate.Date;
-        var calc = await context.GetService<ITaxService>()
+
+        // СТОРОНЫ СДЕЛКИ ЗДЕСЬ ВАЖНЫ РОВНО КАК НА СЧЁТЕ, и их отсутствие было не
+        // косметическим пробелом, а денежной ошибкой. Определение идёт
+        // правило → сопоставление → умолчание, а по этим самым идентификаторам
+        // ключуются И правила по стороне, И ВСЕ сопоставления. Без них сторно
+        // молча сваливалось на DefaultTaxCode: счёт, у которого клиент или
+        // юрлицо сопоставлены с освобождённым кодом, проводился по нулю, а
+        // кредит-нота, сторнирующая ИМЕННО ЕГО, сторнировала по стандартной
+        // ставке. TaxLedger после обычного возврата уходил в минус на весь налог.
+        var tax = context.GetService<ITaxService>();
+        var lineItems = note.Lines.Select(l => l.Item).ToList();
+        var ctx = tax.DeterminationContext(
+            legalEntity, note.Customer, Guid.Empty,
+            lineItems.Distinct().Count() == 1 ? lineItems[0] : Guid.Empty,
+            await context.GetService<IItemClassification>().CommonGroupAsync(lineItems));
+        ctx["document.type"] = "SalesCreditNote";
+        ctx["direction"] = "OUTPUT";
+        ctx["amount"] = taxBase;
+
+        var calc = await tax
             .CreateReversalAsync(legalEntity, "OUTPUT", taxBase,
-                $"Sales credit note {header.MetaId:D}", taxPoint,
-                new Dictionary<string, object?>
-                {
-                    ["document.type"] = "SalesCreditNote",
-                    ["direction"] = "OUTPUT",
-                    ["amount"] = taxBase,
-                });
+                $"Sales credit note {header.MetaId:D}", taxPoint, ctx);
         if (calc.HasValue)
             await docs.AddLinkAsync(header.MetaId, calc.Value);
 

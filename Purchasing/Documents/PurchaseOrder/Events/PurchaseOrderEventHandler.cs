@@ -127,11 +127,26 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
         {
             var taxBase = order.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
 
+            // ВХОДЯЩИЙ НАЛОГ ОПРЕДЕЛЯЛСЯ БЕЗ КОНТЕКСТА ВООБЩЕ — самый глухой из
+            // пяти вызовов. При context == null ResolveDeterminationAsync
+            // пропускает правила и сопоставления ЦЕЛИКОМ и берёт DefaultTaxCode:
+            // поставщик, сопоставленный с пониженным или освобождённым кодом, на
+            // приход не влиял никак, и вся закупка стенда считалась одним кодом.
+            var tax = context.GetService<ITaxService>();
+            var lineItems = order.Lines.Select(l => l.Item).ToList();
+            var ctx = tax.DeterminationContext(
+                legalEntity.Value, Guid.Empty, order.Supplier,
+                lineItems.Distinct().Count() == 1 ? lineItems[0] : Guid.Empty,
+                await context.GetService<IItemClassification>().CommonGroupAsync(lineItems));
+            ctx["document.type"] = "PurchaseOrder";
+            ctx["direction"] = "INPUT";
+            ctx["amount"] = taxBase;
+
             // The rate is resolved on the RECEIPT DATE, not today: otherwise the
             // document and its tax would be dated differently, and a backdated
             // receipt would be calculated at today's rate.
-            var calc = await context.GetService<ITaxService>()
-                .CreateCalculationAsync(legalEntity.Value, "INPUT", taxBase, $"Purchase order {document.Number}", TaxPointOf(document));
+            var calc = await tax
+                .CreateCalculationAsync(legalEntity.Value, "INPUT", taxBase, $"Purchase order {document.Number}", TaxPointOf(document), ctx);
             if (calc.HasValue)
                 await docs.AddLinkAsync(document.MetaId, calc.Value);
 

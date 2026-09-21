@@ -86,15 +86,23 @@ public partial class SalesDebitNoteEventHandler : TypedDocumentEventHandler<Sale
         var pricing = context.GetService<IPricingService>();
         var taxBase = note.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
         var taxPoint = note.DocumentDate == default ? DateTime.UtcNow.Date : note.DocumentDate.Date;
-        var calc = await context.GetService<ITaxService>()
+
+        // Стороны сделки — как на счёте: по ним ключуются и правила, и ВСЕ
+        // сопоставления. Без них дебет-нота определялась по DefaultTaxCode и
+        // расходилась в ставке с тем счётом, который она же и дополняет.
+        var tax = context.GetService<ITaxService>();
+        var lineItems = note.Lines.Select(l => l.Item).ToList();
+        var ctx = tax.DeterminationContext(
+            legalEntity, note.Customer, Guid.Empty,
+            lineItems.Distinct().Count() == 1 ? lineItems[0] : Guid.Empty,
+            await context.GetService<IItemClassification>().CommonGroupAsync(lineItems));
+        ctx["document.type"] = "SalesDebitNote";
+        ctx["direction"] = "OUTPUT";
+        ctx["amount"] = taxBase;
+
+        var calc = await tax
             .CreateCalculationAsync(legalEntity, "OUTPUT", taxBase,
-                $"Sales debit note {header.MetaId:D}", taxPoint,
-                new Dictionary<string, object?>
-                {
-                    ["document.type"] = "SalesDebitNote",
-                    ["direction"] = "OUTPUT",
-                    ["amount"] = taxBase,
-                });
+                $"Sales debit note {header.MetaId:D}", taxPoint, ctx);
         if (calc.HasValue)
             await docs.AddLinkAsync(header.MetaId, calc.Value);
 

@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "ItemClassification",
+    "executionOrder": 0,
+    "metaId": "6a6810cc-03c0-48c6-b560-d2b1d1618a06",
+    "name": "ItemClassificationService",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+  }
+}

@@ -637,6 +637,39 @@ public partial class TaxService
                 && WindowsOverlap(from, to, r.EffectiveFrom, r.EffectiveTo));
     }
 
+    /// <summary>
+    /// Контекст определения налога для документа. КЛЮЧИ ПРИНАДЛЕЖАТ ЭТОМУ
+    /// СЕРВИСУ, поэтому и собираются здесь, а не у каждого вызывающего.
+    ///
+    /// ЦЕНА ОПЕЧАТКИ ОБЪЯСНЯЕТ, ЗАЧЕМ ЭТОТ МЕТОД НУЖЕН. Напиши вызывающий
+    /// "seller.Id" вместо "seller.id" — и не произойдёт НИЧЕГО заметного:
+    /// исключения нет, определение просто не сматчится и тихо уедет на
+    /// DefaultTaxCode. Ровно так вся эта машинерия (правила, профили,
+    /// сопоставления) и простояла недостижимой: ни один документ не передавал
+    /// контекст, сюда приходил null, и первая же строка
+    /// ResolveDeterminationAsync пропускала правила и сопоставления целиком.
+    /// Тесты этого поймать не могли — они подают контекст сами.
+    ///
+    /// ПУСТЫЕ GUID НЕ КЛАДУТСЯ: Pick ищет по совпадению Guid, и Guid.Empty
+    /// совпал бы с сопоставлением, у которого SourceId не заполнен.
+    ///
+    /// ТОВАР И ГРУППА — только когда они у документа ОДНИ на все строки. Расчёт
+    /// создаётся один на документ с общей базой, поэтому товар из случайной
+    /// строки обложил бы весь документ по ней, и результат зависел бы от порядка
+    /// строк. Вызывающий передаёт Guid.Empty, если строки разнородны.
+    /// </summary>
+    public Dictionary<string, object?> DeterminationContext(
+        Guid legalEntity, Guid customer, Guid supplier, Guid item, Guid itemGroup)
+    {
+        var ctx = new Dictionary<string, object?>();
+        if (legalEntity != Guid.Empty) ctx["seller.id"] = legalEntity;
+        if (customer != Guid.Empty) ctx["buyer.id"] = customer;
+        if (supplier != Guid.Empty) ctx["supplier.id"] = supplier;
+        if (item != Guid.Empty) ctx["item.id"] = item;
+        if (itemGroup != Guid.Empty) ctx["item.groupId"] = itemGroup;
+        return ctx;
+    }
+
     /// <summary>Rule, else mapping, else settings. Profile attributes are
     /// copied onto the context first so a rule may match buyer.profile.X.</summary>
     private async Task<(TaxRule? Rule, Guid? Code)> ResolveDeterminationAsync(

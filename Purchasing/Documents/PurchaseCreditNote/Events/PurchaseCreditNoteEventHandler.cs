@@ -120,15 +120,23 @@ public partial class PurchaseCreditNoteEventHandler : TypedDocumentEventHandler<
         var pricing = context.GetService<IPricingService>();
         var taxBase = note.Lines.Sum(l => pricing.LineAmount(l.Quantity, l.UnitPrice));
         var taxPoint = note.DocumentDate == default ? DateTime.UtcNow.Date : note.DocumentDate.Date;
-        var calc = await context.GetService<ITaxService>()
+
+        // Поставщик и юрлицо — по ним ключуются правила и ВСЕ сопоставления.
+        // Без них возврат поставщику сторнировал по DefaultTaxCode, то есть мог
+        // разойтись в ставке с приходом, который он же и возвращает.
+        var tax = context.GetService<ITaxService>();
+        var lineItems = note.Lines.Select(l => l.Item).ToList();
+        var ctx = tax.DeterminationContext(
+            legalEntity, Guid.Empty, note.Supplier,
+            lineItems.Distinct().Count() == 1 ? lineItems[0] : Guid.Empty,
+            await context.GetService<IItemClassification>().CommonGroupAsync(lineItems));
+        ctx["document.type"] = "PurchaseCreditNote";
+        ctx["direction"] = "INPUT";
+        ctx["amount"] = taxBase;
+
+        var calc = await tax
             .CreateReversalAsync(legalEntity, "INPUT", taxBase,
-                $"Purchase credit note {header.MetaId:D}", taxPoint,
-                new Dictionary<string, object?>
-                {
-                    ["document.type"] = "PurchaseCreditNote",
-                    ["direction"] = "INPUT",
-                    ["amount"] = taxBase,
-                });
+                $"Purchase credit note {header.MetaId:D}", taxPoint, ctx);
         if (calc.HasValue)
             await docs.AddLinkAsync(header.MetaId, calc.Value);
 
