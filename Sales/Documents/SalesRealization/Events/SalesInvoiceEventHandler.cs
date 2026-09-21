@@ -406,19 +406,28 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
         {
             ctx["buyer.type"] = customer.CustomerType;
             ctx["buyer.name"] = customer.Name;
+            ctx["buyer.id"] = customer.MetaId.ToString("D");
         }
+
+        if (invoice.LegalEntity != Guid.Empty)
+            ctx["seller.id"] = invoice.LegalEntity.ToString("D");
 
         var items = context.GetService<IDictionaryManager<Item>>();
         var groups = new HashSet<Guid>();
+        var lineItems = new HashSet<Guid>();
         foreach (var line in invoice.Lines)
         {
+            lineItems.Add(line.Item);
             var item = await items.GetRecordAsync(line.Item);
             if (item is not null) groups.Add(item.ItemGroup);
         }
+        if (lineItems.Count == 1)
+            ctx["item.id"] = lineItems.First().ToString("D");
         if (groups.Count == 1)
         {
             var group = await context.GetService<IDictionaryManager<ItemGroup>>().GetRecordAsync(groups.First());
             if (group is not null) ctx["item.group"] = group.Code;
+            ctx["item.groupId"] = groups.First().ToString("D");
         }
 
         return ctx;

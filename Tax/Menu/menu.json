@@ -410,6 +410,54 @@
       "metaId": "ffe0030a-949a-47bb-9c5e-a7d2e6cd0f35",
       "name": "TaxReportMapping",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "caption": {
+        "en": "Tax profiles",
+        "ar": "الملفات الضريبية",
+        "ru": "Налоговые профили",
+        "uk": "Податкові профілі"
+      },
+      "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
+      "displayOrder": 13,
+      "icon": "fluent-color:person-board-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "metaId": "0e6b7900-7acc-4b65-8249-d6851dff370b",
+      "name": "TaxProfile",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "caption": {
+        "en": "Profile attributes",
+        "ar": "سمات الملف",
+        "ru": "Атрибуты профиля",
+        "uk": "Атрибути профілю"
+      },
+      "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
+      "displayOrder": 14,
+      "icon": "fluent-color:tag-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "70a1c4e2-7577-4919-832c-e3890a933c27",
+      "metaId": "22349b6d-c75a-49d8-8406-3435437df335",
+      "name": "TaxProfileAttribute",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "caption": {
+        "en": "Tax mappings",
+        "ar": "تعيينات الضريبة",
+        "ru": "Сопоставления налога",
+        "uk": "Співставлення податку"
+      },
+      "parentMetaId": "3a2e8008-6a0b-4f7b-ac93-7d87162f1d2d",
+      "displayOrder": 15,
+      "icon": "fluent-color:flow-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "metaId": "15702cfd-52f1-45df-ace9-ca20ff61615e",
+      "name": "TaxMapping",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

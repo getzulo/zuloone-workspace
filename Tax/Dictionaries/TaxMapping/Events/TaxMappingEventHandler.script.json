@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TaxMapping",
+    "objectMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+    "executionOrder": 0,
+    "metaId": "d6e90bf7-4517-4a06-939c-7c6b039652bd",
+    "name": "TaxMappingEventHandler",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

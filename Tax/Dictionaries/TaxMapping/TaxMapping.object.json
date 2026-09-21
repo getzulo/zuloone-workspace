@@ -1,0 +1,188 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Tax mappings",
+      "ar": "تعيينات الضريبة",
+      "ru": "Сопоставления налога",
+      "uk": "Співставлення податку"
+    },
+    "description": "Pins a TaxCode to Item/ItemGroup/Customer/Supplier/LegalEntity when no TaxRule matched. SourceId is a Guid; Tax has no FK to Inventory.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "12e0cad9-80ee-4c9a-bbc7-0f25a017cebc",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "SourceType",
+    "displayFormat": "{SourceType}",
+    "isKernel": false,
+    "iconName": "fluent-color:flow-32",
+    "largeIconName": "fluent-color:flow-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+    "name": "TaxMapping",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "SourceType",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Source type",
+        "ar": "نوع المصدر",
+        "ru": "Тип источника",
+        "uk": "Тип джерела"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "82bca52f-c2e8-4540-b34b-3be30bc38985",
+      "name": "SourceType",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "String",
+      "length": 24,
+      "description": "Item, ItemGroup, Customer, Supplier or LegalEntity"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "SourceId",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Source",
+        "ar": "المصدر",
+        "ru": "Источник",
+        "uk": "Джерело"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "02019067-3a4f-43ba-a7ec-0e83d74c3dd0",
+      "name": "SourceId",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "Guid"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "TaxCode",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax code",
+        "ar": "رمز الضريبة",
+        "ru": "Налоговый код",
+        "uk": "Податковий код"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "ee827f88-b650-4063-b69b-36f8a866f81c",
+      "name": "TaxCode",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "Priority",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Priority",
+        "ar": "الأولوية",
+        "ru": "Приоритет",
+        "uk": "Пріоритет"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d42a3a8e-4496-4e7e-86c7-a075ccca699a",
+      "name": "Priority",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "Integer",
+      "description": "Smaller wins among equal SourceType"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "EffectiveFrom",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective from",
+        "ar": "سارٍ من",
+        "ru": "Действует с",
+        "uk": "Діє з"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "86b742e3-18fd-4f3e-802b-11ac4c01df3b",
+      "name": "EffectiveFrom",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "DateTime"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "EffectiveTo",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective to",
+        "ar": "سارٍ إلى",
+        "ru": "Действует по",
+        "uk": "Діє по"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "4509aa7c-14c5-46d1-868e-086955289841",
+      "name": "EffectiveTo",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "DateTime"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "IsDisabled",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключено",
+        "uk": "Вимкнено"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "bcebae87-b1fd-44e4-8f4d-2638185d7595",
+      "name": "IsDisabled",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "Boolean"
+    }
+  ]
+}

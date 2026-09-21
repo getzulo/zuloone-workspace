@@ -1,0 +1,99 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Tax profile attributes",
+      "ar": "سمات الملف الضريبي",
+      "ru": "Атрибуты налогового профиля",
+      "uk": "Атрибути податкового профілю"
+    },
+    "description": "AttributeCode+Value on a TaxProfile. Copied to buyer.profile.{code} (or seller/supplier) before rules run.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "a0d9efe3-d1d3-4683-8e11-b18b5d51ca61",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "AttributeCode",
+    "displayFormat": "{AttributeCode} = {Value}",
+    "isKernel": false,
+    "iconName": "fluent-color:tag-32",
+    "largeIconName": "fluent-color:tag-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "70a1c4e2-7577-4919-832c-e3890a933c27",
+    "name": "TaxProfileAttribute",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "70a1c4e2-7577-4919-832c-e3890a933c27",
+      "fieldName": "TaxProfile",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Profile",
+        "ar": "الملف",
+        "ru": "Профиль",
+        "uk": "Профіль"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f09f776c-6ea3-4bc1-92ad-3c4b8363ed11",
+      "name": "TaxProfile",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "edtMetaId": "ea35fe0a-bef2-4e1a-83ce-b6b08ba91247"
+    },
+    {
+      "dictionaryMetaId": "70a1c4e2-7577-4919-832c-e3890a933c27",
+      "fieldName": "AttributeCode",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Attribute",
+        "ar": "السمة",
+        "ru": "Атрибут",
+        "uk": "Атрибут"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "2b2cf2b6-1d3a-4086-a12e-030d661941bf",
+      "name": "AttributeCode",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "String",
+      "length": 32
+    },
+    {
+      "dictionaryMetaId": "70a1c4e2-7577-4919-832c-e3890a933c27",
+      "fieldName": "Value",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Value",
+        "ar": "القيمة",
+        "ru": "Значение",
+        "uk": "Значення"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "fafa8f87-30c0-4274-9fcb-769c5d10c54e",
+      "name": "Value",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "String",
+      "length": 64
+    }
+  ]
+}

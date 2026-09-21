@@ -52,6 +52,9 @@ public partial class TaxService
     private readonly IDictionaryManager<TaxRuleCondition> _ruleConditions;
     private readonly IDictionaryManager<TaxRuleAction> _ruleActions;
     private readonly IDictionaryManager<TaxRegistration> _registrations;
+    private readonly IDictionaryManager<TaxProfile> _profiles;
+    private readonly IDictionaryManager<TaxProfileAttribute> _profileAttributes;
+    private readonly IDictionaryManager<TaxMapping> _mappings;
     private readonly IDocumentManager _documents;
     private readonly IDocumentPostingService _posting;
 
@@ -67,6 +70,9 @@ public partial class TaxService
         IDictionaryManager<TaxRuleCondition> ruleConditions,
         IDictionaryManager<TaxRuleAction> ruleActions,
         IDictionaryManager<TaxRegistration> registrations,
+        IDictionaryManager<TaxProfile> profiles,
+        IDictionaryManager<TaxProfileAttribute> profileAttributes,
+        IDictionaryManager<TaxMapping> mappings,
         IDocumentManager documents,
         IDocumentPostingService posting)
     {
@@ -81,6 +87,9 @@ public partial class TaxService
         _ruleConditions = ruleConditions;
         _ruleActions = ruleActions;
         _registrations = registrations;
+        _profiles = profiles;
+        _profileAttributes = profileAttributes;
+        _mappings = mappings;
         _documents = documents;
         _posting = posting;
     }
@@ -316,8 +325,7 @@ public partial class TaxService
         // Backward compatibility is complete: no context (or no rules) — behaviour
         // is exactly as before, so turning the engine on does not touch stands
         // already running.
-        var matchedRule = context is null ? null : await ResolveRuleAsync(context, taxPoint);
-        var taxCode = matchedRule?.TaxCode ?? await ResolveDefaultTaxCodeAsync();
+        var (matchedRule, taxCode) = await ResolveDeterminationAsync(context, taxPoint);
         if (taxCode is null || taxCode == Guid.Empty) return null;
 
         var direction = (await _directions.GetRecordsAsync($"Code = '{directionCode}'")).FirstOrDefault();
@@ -459,8 +467,7 @@ public partial class TaxService
         Dictionary<string, object?>? context = null)
     {
         if (taxBase <= 0m || legalEntity == Guid.Empty) return 0m;
-        var matchedRule = context is null ? null : await ResolveRuleAsync(context, taxPoint.Date);
-        var taxCode = matchedRule?.TaxCode ?? await ResolveDefaultTaxCodeAsync();
+        var (matchedRule, taxCode) = await ResolveDeterminationAsync(context, taxPoint.Date);
         if (taxCode is null || taxCode == Guid.Empty) return 0m;
         var direction = (await _directions.GetRecordsAsync($"Code = '{directionCode}'")).FirstOrDefault();
         if (direction is null) return 0m;
@@ -628,6 +635,112 @@ public partial class TaxService
             .FirstOrDefault(r => r.MetaId != excludeRate
                 && r.TaxCategory == taxCategory
                 && WindowsOverlap(from, to, r.EffectiveFrom, r.EffectiveTo));
+    }
+
+    /// <summary>Rule, else mapping, else settings. Profile attributes are
+    /// copied onto the context first so a rule may match buyer.profile.X.</summary>
+    private async Task<(TaxRule? Rule, Guid? Code)> ResolveDeterminationAsync(
+        Dictionary<string, object?>? context, DateTime taxPoint)
+    {
+        var ctx = context is null ? null : new Dictionary<string, object?>(context);
+        if (ctx is not null)
+            await ApplyProfilesAsync(ctx, taxPoint);
+
+        var matchedRule = ctx is null ? null : await ResolveRuleAsync(ctx, taxPoint);
+        if (matchedRule is not null && matchedRule.TaxCode != Guid.Empty)
+            return (matchedRule, matchedRule.TaxCode);
+
+        var mapped = ctx is null ? null : await ResolveMappingAsync(ctx, taxPoint);
+        if (mapped is Guid mapCode && mapCode != Guid.Empty)
+            return (null, mapCode);
+
+        return (null, await ResolveDefaultTaxCodeAsync());
+    }
+
+    /// <summary>Live profile attributes for buyer / seller / supplier ids in context.</summary>
+    private async Task ApplyProfilesAsync(Dictionary<string, object?> context, DateTime taxPoint)
+    {
+        await ApplyPartyProfileAsync(context, "Customer", "buyer.id", "buyer.profile.", taxPoint);
+        await ApplyPartyProfileAsync(context, "LegalEntity", "seller.id", "seller.profile.", taxPoint);
+        await ApplyPartyProfileAsync(context, "Supplier", "supplier.id", "supplier.profile.", taxPoint);
+    }
+
+    private async Task ApplyPartyProfileAsync(
+        Dictionary<string, object?> context, string partyType, string idPath, string prefix, DateTime taxPoint)
+    {
+        var partyId = GuidOf(context, idPath);
+        if (partyId == Guid.Empty) return;
+        var profile = (await _profiles.GetRecordsAsync(
+                $"PartyType = '{partyType}' AND PartyId = '{partyId}'"))
+            .Where(p => !p.IsDisabled && IsEffectiveOn(p.EffectiveFrom, p.EffectiveTo, taxPoint))
+            .OrderByDescending(p => p.EffectiveFrom)
+            .FirstOrDefault();
+        if (profile is null) return;
+
+        var attrs = await _profileAttributes.GetRecordsAsync($"TaxProfile = '{profile.MetaId}'");
+        foreach (var attr in attrs)
+        {
+            if (string.IsNullOrWhiteSpace(attr.AttributeCode)) continue;
+            context[$"{prefix}{attr.AttributeCode.Trim()}"] = attr.Value;
+        }
+    }
+
+    /// <summary>Mapping for ids in context. Item beats group beats party.</summary>
+    private async Task<Guid?> ResolveMappingAsync(Dictionary<string, object?> context, DateTime taxPoint)
+    {
+        var live = (await _mappings.GetRecordsAsync("1 = 1"))
+            .Where(m => !m.IsDisabled
+                && m.TaxCode != Guid.Empty
+                && IsEffectiveOn(m.EffectiveFrom, m.EffectiveTo, taxPoint))
+            .ToList();
+        if (live.Count == 0) return null;
+
+        TaxMapping? Pick(string sourceType, string path)
+        {
+            var id = GuidOf(context, path);
+            if (id == Guid.Empty) return null;
+            return live
+                .Where(m => m.SourceType == sourceType && m.SourceId == id)
+                .OrderBy(m => m.Priority)
+                .ThenByDescending(m => m.EffectiveFrom)
+                .FirstOrDefault();
+        }
+
+        var hit = Pick("Item", "item.id")
+            ?? Pick("ItemGroup", "item.groupId")
+            ?? Pick("Customer", "buyer.id")
+            ?? Pick("Supplier", "supplier.id")
+            ?? Pick("LegalEntity", "seller.id");
+        return hit?.TaxCode;
+    }
+
+    public async Task<TaxProfile?> FindOverlappingProfileAsync(
+        string partyType, Guid partyId, Guid exclude, DateTime from, DateTime? to)
+    {
+        if (partyId == Guid.Empty) return null;
+        var type = (partyType ?? "").Trim();
+        return (await _profiles.GetRecordsAsync(
+                $"PartyType = '{type.Replace("'", "''")}' AND PartyId = '{partyId}'"))
+            .FirstOrDefault(r => !r.IsDisabled && r.MetaId != exclude
+                && WindowsOverlap(from, to, r.EffectiveFrom, r.EffectiveTo));
+    }
+
+    public async Task<TaxMapping?> FindOverlappingMappingAsync(
+        string sourceType, Guid sourceId, Guid exclude, DateTime from, DateTime? to)
+    {
+        if (sourceId == Guid.Empty) return null;
+        var type = (sourceType ?? "").Trim();
+        return (await _mappings.GetRecordsAsync(
+                $"SourceType = '{type.Replace("'", "''")}' AND SourceId = '{sourceId}'"))
+            .FirstOrDefault(r => !r.IsDisabled && r.MetaId != exclude
+                && WindowsOverlap(from, to, r.EffectiveFrom, r.EffectiveTo));
+    }
+
+    private static Guid GuidOf(Dictionary<string, object?> context, string path)
+    {
+        if (!context.TryGetValue(path, out var raw) || raw is null) return Guid.Empty;
+        if (raw is Guid g) return g;
+        return Guid.TryParse(raw.ToString(), out var parsed) ? parsed : Guid.Empty;
     }
 
     /// <summary>Whether two effective windows overlap. An empty end date means

@@ -1,0 +1,166 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Tax profiles",
+      "ar": "الملفات الضريبية",
+      "ru": "Налоговые профили",
+      "uk": "Податкові профілі"
+    },
+    "description": "Dated party attributes for tax rules. PartyType+PartyId because Tax cannot reference Customer. Empty IsDisabled is live.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "916c20c0-ca27-4ba8-b34d-de089520e559",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "iconName": "fluent-color:person-board-32",
+    "largeIconName": "fluent-color:person-board-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+    "name": "TaxProfile",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "fieldName": "Name",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Найменування"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "1139186c-bf1b-4a70-8be3-6daaff5f2f36",
+      "name": "Name",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "String",
+      "length": 128
+    },
+    {
+      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "fieldName": "PartyType",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Party type",
+        "ar": "نوع الطرف",
+        "ru": "Тип стороны",
+        "uk": "Тип сторони"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7ae06cd9-b7b0-447a-b127-168b57bff42d",
+      "name": "PartyType",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "String",
+      "length": 16,
+      "description": "LegalEntity, Customer or Supplier"
+    },
+    {
+      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "fieldName": "PartyId",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Party",
+        "ar": "الطرف",
+        "ru": "Сторона",
+        "uk": "Сторона"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a0393037-8c44-440a-85cd-60af45a0bf09",
+      "name": "PartyId",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "Guid"
+    },
+    {
+      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "fieldName": "EffectiveFrom",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective from",
+        "ar": "سارٍ من",
+        "ru": "Действует с",
+        "uk": "Діє з"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "8fc9b7b0-b492-4042-a0c4-ff48b56a50f8",
+      "name": "EffectiveFrom",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "DateTime"
+    },
+    {
+      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "fieldName": "EffectiveTo",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective to",
+        "ar": "سارٍ إلى",
+        "ru": "Действует по",
+        "uk": "Діє по"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e06e6066-d7c0-4c62-9d1e-c1f25d9a7593",
+      "name": "EffectiveTo",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "DateTime"
+    },
+    {
+      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "fieldName": "IsDisabled",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключён",
+        "uk": "Вимкнений"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d40de93d-d62d-4301-a32d-1f0c647e8ac9",
+      "name": "IsDisabled",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "baseType": "Boolean"
+    }
+  ]
+}

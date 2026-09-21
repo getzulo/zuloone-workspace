@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TaxProfile",
+    "objectMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+    "executionOrder": 0,
+    "metaId": "420f4df2-46e7-4d5b-a774-bb52703e67df",
+    "name": "TaxProfileEventHandler",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}
