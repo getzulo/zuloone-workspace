@@ -28,7 +28,7 @@ namespace ZuloOne.Runtime.Generated;
 // A NON-EXISTENT account code is NOT rejected here on purpose: that is "this
 // leg is not configured yet", as lawful as an empty field. The profile is
 // filled before the chart is finished, and requiring all twelve accounts just
-// to edit one field would lock the form.
+// to edit one field would lock the form. A filled WIP code is the same rule.
 public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandler<AccountingSettings>
 {
     // Building a new record server-side: seed default field values here.
@@ -68,6 +68,7 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
             ["НДС к возмещению"] = record.VatReceivableAccountCode,
             ["Расходы на соцстрах"] = record.SocialInsuranceExpenseAccountCode,
             ["Задолженность перед фондом"] = record.SocialInsurancePayableAccountCode,
+            ["Незавершёнка"] = record.WipAccountCode,
         };
 
         foreach (var kv in codes)
@@ -102,6 +103,7 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
         record.SocialInsurancePayableAccountCode = await CodeOfAsync(accounts, record.SocialInsurancePayableAccount, record.SocialInsurancePayableAccountCode);
         record.VatPayableAccountCode = await CodeOfAsync(accounts, record.VatPayableAccount, record.VatPayableAccountCode);
         record.VatReceivableAccountCode = await CodeOfAsync(accounts, record.VatReceivableAccount, record.VatReceivableAccountCode);
+        record.WipAccountCode = await CodeOfAsync(accounts, record.WipAccount, record.WipAccountCode);
     }
 
     private static async Task<string> CodeOfAsync(

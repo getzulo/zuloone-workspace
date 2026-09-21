@@ -119,6 +119,7 @@ public class PlaceOrderCommandTest : IntegrationTestScriptBase
     public async Task PlacesFilledOrder()
     {
         var s = await SetupAsync();
+        await SetAutoReceiveAsync(false);
 
         // Подтип не передаётся намеренно: документ обязан стартовать в НАЧАЛЬНОМ
         // подтипе своего типа (Draft), а не в переданном руками.
@@ -185,5 +186,39 @@ public class PlaceOrderCommandTest : IntegrationTestScriptBase
             "пустой заказ остаётся черновиком, факт {0}", after.Subtype ?? "<null>");
         Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("пуст"),
             "пользователь получил причину отказа: {0}", string.Join("; ", run.ClientMessages));
+    }
+
+    [IntegrationTest("AutoReceiveOnOrder: «Заказать» сразу Received и склад")]
+    public async Task AutoReceiveOnOrderReceives()
+    {
+        var s = await SetupAsync();
+        await SetAutoReceiveAsync(true);
+
+        var order = await DocumentManager.NewDocumentAsync<PurchaseOrder>();
+        order.Supplier = s.Supplier;
+        order.Location = s.Location;
+        order.Lines.Add(new PurchaseOrderLinesTablePartRow { Item = s.Item, Quantity = 4m, UnitPrice = 3m });
+        await DocumentManager.SaveDocumentAsync(order);
+
+        var commandId = await Db.FindCommandIdAsync("document", "PlaceOrder");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, order.MetaId);
+        Assert.IsTrue(run.Success, "команда должна выполниться: {0}", run.Message ?? "");
+
+        var placed = await DocumentManager.GetDocumentAsync<PurchaseOrder>(order.MetaId);
+        Assert.IsTrue(placed!.Subtype == PurchaseOrder.Subtypes.Received,
+            "подтип стал Received, факт {0}", placed.Subtype ?? "<null>");
+
+        var onHand = await CellStockAsync(s.Location);
+        Assert.IsTrue(onHand == 4m, "после авто-прихода на ячейке 4, факт {0}", onHand);
+        Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("принят"),
+            "пользователь видит приход: {0}", string.Join("; ", run.ClientMessages));
+    }
+
+    private static async Task SetAutoReceiveAsync(bool value)
+    {
+        var rows = await DictionaryManager.GetRecordsAsync<PurchasingSettings>(null, 1);
+        var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<PurchasingSettings>();
+        settings.AutoReceiveOnOrder = value;
+        await DictionaryManager.SaveRecordAsync(settings);
     }
 }

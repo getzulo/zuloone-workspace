@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "PaymentDueService",
+    "executionOrder": 0,
+    "metaId": "d0f5b7c4-1e68-4093-8b41-6c9d3f1a5e70",
+    "name": "PaymentDueService",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  }
+}

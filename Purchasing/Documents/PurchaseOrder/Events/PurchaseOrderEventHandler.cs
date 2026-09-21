@@ -15,6 +15,30 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
 {
     private static readonly Guid PurchaseOrderType = Guid.Parse("6935af7d-5f73-45d5-ad4c-d4a21dbe0b67");
 
+    public override async Task<EventResult> OnBeforeSaveAsync(PurchaseOrder document, bool isNew, EventContext context)
+    {
+        // Stamp DueDate on every save; clamp empty clock on INSERT only.
+        var prior = await next(document, isNew, context);
+        if (!prior.Success) return prior;
+
+        var due = context.GetService<IPaymentDueService>();
+        var days = document.PaymentTerm != Guid.Empty
+            ? await due.DaysOfAsync(document.PaymentTerm)
+            : await DefaultDaysAsync(context);
+        document.DueDate = due.DueOn(document.DocumentDate, days);
+        // Optional document DateTime is non-nullable; MinValue overflows SQL Server.
+        if (isNew && document.DueDate.Year < 1902)
+            document.DueDate = new DateTime(1901, 1, 1);
+        return EventResult.Ok();
+    }
+
+    private static async Task<int> DefaultDaysAsync(EventContext context)
+    {
+        var rows = await context.GetService<IDictionaryManager<PurchasingSettings>>()
+            .GetRecordsAsync("1 = 1");
+        return rows.Count > 0 ? rows[0].DefaultPaymentTermDays : 0;
+    }
+
     public override async Task<EventResult> OnBeforePostAsync(PurchaseOrder document, EventContext context){
         var prior = await next(document, context);
         if (!prior.Success) return prior;

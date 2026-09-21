@@ -191,6 +191,30 @@
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "WipAccountCode",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 17,
+      "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки. Hidden: pick the matching *Account reference; this code is stamped on save.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "WIP account code",
+        "ar": "رمز حساب الإنتاج قيد التنفيذ",
+        "ru": "Счёт незавершёнки",
+        "uk": "Рахунок незавершеного виробництва"
+      },
+      "isTranslatable": false,
+      "isVisible": false,
+      "isCalculated": false,
+      "metaId": "8a3c1e5f-2b47-4d90-9c16-7e4f0a2b8d51",
+      "name": "WipAccountCode",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "fieldName": "InventorySurplusAccountCode",
       "baseType": "String",
       "length": 32,
@@ -519,6 +543,29 @@
       "isCalculated": false,
       "metaId": "27a5401c-e1f1-4146-ac07-1f7d7c15eacf",
       "name": "InventoryAccount",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "WipAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 17,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "WIP account",
+        "ar": "حساب الإنتاج قيد التنفيذ",
+        "ru": "Счёт незавершёнки",
+        "uk": "Рахунок незавершеного виробництва"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c5d8e1a4-6f29-4b73-8e0c-1a9d4f7b2e60",
+      "name": "WipAccount",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {

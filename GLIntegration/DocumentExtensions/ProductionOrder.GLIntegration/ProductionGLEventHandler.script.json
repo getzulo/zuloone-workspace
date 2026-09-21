@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "a1f6d2c8-4e39-4b80-9d17-5c8e2a0f3b76",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "ProductionOrder",
+    "objectMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 20,
+    "metaId": "e4b7a9c2-1f58-4d06-8a3e-2c9f5d1b7e40",
+    "name": "ProductionGLEventHandler",
+    "modelId": "3d7f0a94-6c2b-4e8d-9a5f-1b4c7e0d2a80"
+  }
+}

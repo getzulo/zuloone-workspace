@@ -19,9 +19,11 @@ public class AccountingAccountProfileTest : IntegrationTestScriptBase
     {
         var ar = await LeafAsync($"AR-{Uniq()}", "Receivable");
         var rev = await LeafAsync($"RV-{Uniq()}", "Revenue");
+        var wip = await LeafAsync($"WIP-{Uniq()}", "WIP");
         var settings = await SettingsAsync();
         settings.ArAccount = ar.Id;
         settings.RevenueAccount = rev.Id;
+        settings.WipAccount = wip.Id;
         settings = await DictionaryManager.SaveRecordAsync(settings);
         var saved = await DictionaryManager.GetRecordAsync<AccountingSettings>(settings.MetaId);
         Assert.IsTrue(saved != null, "профиль должен сохраниться");
@@ -29,6 +31,8 @@ public class AccountingAccountProfileTest : IntegrationTestScriptBase
             "дебиторка штамп {0}, факт {1}", ar.Code, saved.ArAccountCode);
         Assert.IsTrue(saved.RevenueAccountCode == rev.Code,
             "выручка штамп {0}, факт {1}", rev.Code, saved.RevenueAccountCode);
+        Assert.IsTrue(saved.WipAccountCode == wip.Code,
+            "незавершёнка штамп {0}, факт {1}", wip.Code, saved.WipAccountCode);
     }
 
     [IntegrationTest("Строковый код без ссылки по-прежнему сохраняется")]

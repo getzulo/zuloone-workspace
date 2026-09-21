@@ -54,6 +54,9 @@ public partial class InvoiceXrPrintForm : PrintFormBase
         var outlet = await NameAsync(display, "CustomerOutlet", invoice.Outlet, ct);
         var location = await NameAsync(display, "StoreCell", invoice.Location, ct);
         var paymentTerm = await NameAsync(display, "PaymentTerm", invoice.PaymentTerm, ct);
+        var dueText = DateText(invoice.DueDate);
+        if (!string.IsNullOrEmpty(dueText))
+            paymentTerm = string.IsNullOrEmpty(paymentTerm) ? dueText : paymentTerm + " · " + dueText;
         var deliveryTerm = await NameAsync(display, "DeliveryTerm", invoice.DeliveryTerm, ct);
 
         decimal net = 0m;

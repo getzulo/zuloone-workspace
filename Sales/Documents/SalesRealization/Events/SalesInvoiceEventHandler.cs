@@ -82,7 +82,24 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
         }
 
         await PriceDraftLinesAsync(header, context);
+        await StampDueDateAsync(header, context);
         return EventResult.Ok();
+    }
+
+    private static async Task StampDueDateAsync(SalesRealization header, EventContext context)
+    {
+        var due = context.GetService<IPaymentDueService>();
+        var days = header.PaymentTerm != Guid.Empty
+            ? await due.DaysOfAsync(header.PaymentTerm)
+            : await DefaultDaysAsync(context);
+        header.DueDate = due.DueOn(header.DocumentDate, days);
+    }
+
+    private static async Task<int> DefaultDaysAsync(EventContext context)
+    {
+        var rows = await context.GetService<IDictionaryManager<SalesSettings>>()
+            .GetRecordsAsync("1 = 1");
+        return rows.Count > 0 ? rows[0].DefaultPaymentTermDays : 0;
     }
 
     private static bool IsDraft(string? subtype)
@@ -122,6 +139,7 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
         if (header.Location == Guid.Empty) header.Location = stored.Location;
         if (header.LegalEntity == Guid.Empty) header.LegalEntity = stored.LegalEntity;
         if (header.DocumentDate == default) header.DocumentDate = stored.DocumentDate;
+        if (header.PaymentTerm == Guid.Empty) header.PaymentTerm = stored.PaymentTerm;
     }
 
     // MIQS AfterSave: runs after ANY save (insert or update).

@@ -239,6 +239,27 @@
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "fieldName": "DueDate",
+      "caption": {
+        "en": "Due date",
+        "ar": "تاريخ الاستحقاق",
+        "ru": "Срок оплаты",
+        "uk": "Строк оплати"
+      },
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 12,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "a7c2e4f1-8b35-4d60-9e18-3f6a0c8d2b47",
+      "name": "DueDate",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
       "fieldName": "DeliveryTerm",
       "caption": {
         "en": "Delivery term",

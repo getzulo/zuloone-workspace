@@ -110,6 +110,48 @@
       "metaId": "7c4e1a92-8b3d-4f6a-9c15-2e8d0f4b1a64",
       "name": "NonRecoverableVat",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
+      "fieldName": "PaymentTerm",
+      "caption": {
+        "en": "Payment term",
+        "ar": "شروط الدفع",
+        "ru": "Условия оплаты",
+        "uk": "Умови оплати"
+      },
+      "edtMetaId": "3365e777-0ae8-421c-b36d-b8fe2dec5fbc",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "1a2b3c4d-5e6f-4780-9a1b-2c3d4e5f6071",
+      "name": "PaymentTerm",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
+      "fieldName": "DueDate",
+      "caption": {
+        "en": "Due date",
+        "ar": "تاريخ الاستحقاق",
+        "ru": "Срок оплаты",
+        "uk": "Строк оплати"
+      },
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "b8d3f5a2-9c46-4e71-8f29-4a7b1d9e3c58",
+      "name": "DueDate",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ],
   "subtypes": [
