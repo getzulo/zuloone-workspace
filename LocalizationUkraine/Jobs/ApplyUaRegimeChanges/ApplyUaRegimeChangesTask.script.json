@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Task",
+    "objectType": "Job",
+    "objectName": "ApplyUaRegimeChanges",
+    "objectMetaId": "4e846110-8d73-43e1-9f96-819d04810e6e",
+    "executionOrder": 0,
+    "metaId": "f54b101e-5124-47e6-9b4c-0e07b74ed65f",
+    "name": "ApplyUaRegimeChangesTask",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

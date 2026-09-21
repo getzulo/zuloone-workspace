@@ -53,6 +53,10 @@ public partial class UaFirstEvent
     private readonly IDictionaryManager<TaxCode> _codes;
     private readonly IDictionaryManager<LocalizationUkraineSettings> _settings;
     private readonly IDictionaryManager<UaSingleTaxLimit> _limits;
+    private readonly IDictionaryManager<UaRegimeChange> _changes;
+    // Создание записи живёт на НЕдженериковом менеджере (NewRecord<T>/
+    // SaveRecordAsync<T>), у типизированного его нет вовсе.
+    private readonly IDictionaryManager _dictionaries;
     private readonly IDataService _data;
 
     public UaFirstEvent(
@@ -61,6 +65,8 @@ public partial class UaFirstEvent
         IDictionaryManager<TaxCode> codes,
         IDictionaryManager<LocalizationUkraineSettings> settings,
         IDictionaryManager<UaSingleTaxLimit> limits,
+        IDictionaryManager<UaRegimeChange> changes,
+        IDictionaryManager dictionaries,
         IDataService data)
     {
         _totals = totals;
@@ -68,6 +74,8 @@ public partial class UaFirstEvent
         _codes = codes;
         _settings = settings;
         _limits = limits;
+        _changes = changes;
+        _dictionaries = dictionaries;
         _data = data;
     }
 
@@ -296,6 +304,101 @@ public partial class UaFirstEvent
             used += Convert.ToDecimal(value);
         }
         return used;
+    }
+
+    // ═══ ПРИНУДИТЕЛЬНЫЙ ПЕРЕХОД НА ОБЩУЮ СИСТЕМУ (ПКУ 293.8) ═════════════════
+    //
+    // Превысил предел — с первого числа месяца, СЛЕДУЮЩЕГО ЗА КВАРТАЛОМ
+    // превышения, спрощенець переходит на общую систему. Не с даты превышения и
+    // не со следующего месяца: именно с квартальной границы.
+    //
+    // ПОЧЕМУ ЖУРНАЛ, А НЕ ПРОСТО ПОЛЕ НА ЮРЛИЦЕ. Переход решается СЕГОДНЯ, а
+    // случается через недели. Между этими двумя моментами кто-то спросит, почему
+    // ФОП перестал быть спрощенцем — и ответ обязан быть в системе, с датой
+    // превышения и датой перехода, а не выводиться заново из движений.
+
+    /// <summary>
+    /// Первое число месяца, следующего за кварталом даты. Для 5 мая (II квартал,
+    /// апрель–июнь) это 1 июля; для 20 декабря — 1 января следующего года.
+    /// </summary>
+    public DateTime NextQuarterStart(DateTime after)
+    {
+        var quarter = (after.Month - 1) / 3;            // 0..3
+        var firstMonthOfNext = quarter * 3 + 4;         // 4, 7, 10, 13
+        return firstMonthOfNext > 12
+            ? new DateTime(after.Year + 1, 1, 1)
+            : new DateTime(after.Year, firstMonthOfNext, 1);
+    }
+
+    /// <summary>Куда переводит превышение. Плательщик ПДВ им и остаётся.</summary>
+    public UaTaxRegime ForcedTargetOf(UaTaxRegime regime)
+        => ChargesVat(regime) ? UaTaxRegime.VatPayer : UaTaxRegime.General;
+
+    /// <summary>
+    /// Записать, что юрлицу предстоит переход. ИДЕМПОТЕНТНО: драйвер итогов может
+    /// отработать по одному документу не один раз (перепроведение, повторный хук),
+    /// и три строки об одном и том же переходе — это не аудит, а мусор. Ключ
+    /// неприменённой строки — юрлицо плюс дата перехода.
+    /// </summary>
+    public async Task<bool> ScheduleForcedChangeAsync(
+        Guid legalEntity, UaTaxRegime regime, DateTime exceededOn)
+    {
+        if (legalEntity == Guid.Empty) return false;
+        var target = ForcedTargetOf(regime);
+        if (target == regime) return false;             // переводить некуда
+
+        var effective = NextQuarterStart(exceededOn);
+        var existing = await _changes.GetRecordsAsync($"LegalEntity = '{legalEntity}'");
+        if (existing.Any(r => r.EffectiveFrom.Date == effective.Date)) return false;
+
+        var row = _dictionaries.NewRecord<UaRegimeChange>();
+        row.LegalEntity = legalEntity;
+        row.FromRegime = regime;
+        row.ToRegime = target;
+        row.ExceededOn = exceededOn.Date;
+        row.EffectiveFrom = effective;
+        await _dictionaries.SaveRecordAsync(row);
+        return true;
+    }
+
+    /// <summary>
+    /// Применить все переходы, чья дата уже наступила. Возвращает, сколько юрлиц
+    /// переведено. Зовётся заданием: дата перехода лежит в будущем, и в момент
+    /// превышения сделать нечего.
+    ///
+    /// AppliedOn — и отметка в аудите, и предохранитель: повторный запуск задания
+    /// в тот же день ничего не переставит второй раз.
+    /// </summary>
+    public async Task<int> ApplyDueRegimeChangesAsync(DateTime onDate)
+    {
+        var day = onDate.Date;
+        var due = (await _changes.GetRecordsAsync("1 = 1"))
+            .Where(r => r.AppliedOn is null && r.EffectiveFrom.Date <= day)
+            .OrderBy(r => r.EffectiveFrom)
+            .ToList();
+
+        var applied = 0;
+        foreach (var row in due)
+        {
+            // Режим — поле РАСШИРЕНИЯ чужого справочника: в типизированный класс
+            // LegalEntity оно не попадает, пишется мешком и ЧИСЛОМ (через
+            // IDataService разбора имён перечисления нет).
+            var entity = await _data.GetByIdAsync("LegalEntity", row.LegalEntity);
+            if (entity is null) continue;
+
+            await _data.UpdateAsync("LegalEntity", row.LegalEntity,
+                new Dictionary<string, object?>
+                {
+                    ["UaTaxRegime"] = (int)row.ToRegime,
+                    ["Country"] = entity["Country"],
+                    ["Currency"] = entity["Currency"],
+                });
+
+            row.AppliedOn = day;
+            await _dictionaries.SaveRecordAsync(row);
+            applied++;
+        }
+        return applied;
     }
 
     /// <summary>

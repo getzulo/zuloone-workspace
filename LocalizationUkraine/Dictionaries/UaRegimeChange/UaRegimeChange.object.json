@@ -1,0 +1,191 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Forced regime change",
+      "ar": "تغيير إلزامي للنظام الضريبي",
+      "ru": "Принудительная смена режима",
+      "uk": "Примусова зміна режиму"
+    },
+    "description": "Журнал принудительных переходов на общую систему при превышении годового предела (ПКУ 293.8). Это АУДИТОРСКИЙ СЛЕД, а не служебная таблица: бухгалтер обязан увидеть, почему юрлицо перестало быть спрощенцем, когда это решилось и с какой даты применено. Строка живёт от обнаружения превышения до наступления даты перехода — и остаётся после.",
+    "isLogged": true,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "aa963c80-ce4f-49ec-9223-4ea1228032f0",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "ID",
+    "displayFormat": "{ID}",
+    "isKernel": false,
+    "iconName": "fluent-color:arrow-swap-32",
+    "largeIconName": "fluent-color:arrow-swap-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "9cc53112-5987-44a3-ab46-4f5adcab88e4",
+    "name": "UaRegimeChange",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "9cc53112-5987-44a3-ab46-4f5adcab88e4",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": {
+        "en": "ID",
+        "ar": "معرف",
+        "uk": "ID"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "28c0410e-b676-4767-a484-4ee7eedcac50",
+      "name": "ID",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "9cc53112-5987-44a3-ab46-4f5adcab88e4",
+      "fieldName": "LegalEntity",
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "9392ea2a-3eac-46a7-910d-9b82c65f4ee2",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "9cc53112-5987-44a3-ab46-4f5adcab88e4",
+      "fieldName": "FromRegime",
+      "edtMetaId": "2cf20c7a-9625-4af9-8020-fbae3a124cea",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "description": "Режим, который был на момент превышения.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "From regime",
+        "ar": "من النظام",
+        "ru": "Из режима",
+        "uk": "З режиму"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "cfb04241-c330-4bf2-bfa4-7b4611908807",
+      "name": "FromRegime",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "9cc53112-5987-44a3-ab46-4f5adcab88e4",
+      "fieldName": "ToRegime",
+      "edtMetaId": "2cf20c7a-9625-4af9-8020-fbae3a124cea",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "description": "Куда переводим. Спрощенець 3% был ПЛАТЕЛЬЩИКОМ ПДВ и остаётся им на общей системе; спрощенець 5% плательщиком не был и им не становится.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "To regime",
+        "ar": "إلى النظام",
+        "ru": "В режим",
+        "uk": "У режим"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f38a857d-8c36-4376-84e2-9ceaacaa0bda",
+      "name": "ToRegime",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "9cc53112-5987-44a3-ab46-4f5adcab88e4",
+      "fieldName": "ExceededOn",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 4,
+      "description": "Дата движения, на котором доход перешагнул предел.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Exceeded on",
+        "ar": "تاريخ التجاوز",
+        "ru": "Превышение наступило",
+        "uk": "Перевищення настало"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "97547f22-2f59-48be-b489-ebf0fa36685e",
+      "name": "ExceededOn",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "9cc53112-5987-44a3-ab46-4f5adcab88e4",
+      "fieldName": "EffectiveFrom",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 5,
+      "description": "Первое число месяца, следующего за КВАРТАЛОМ превышения (ПКУ 293.8). Именно с этой даты режим меняется, а не с даты превышения.",
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective from",
+        "ar": "ساري من",
+        "ru": "Переход с",
+        "uk": "Перехід з"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d232b3c6-be2e-4fde-9790-d3ab5a9ff3d3",
+      "name": "EffectiveFrom",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "9cc53112-5987-44a3-ab46-4f5adcab88e4",
+      "fieldName": "AppliedOn",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "description": "Когда задание фактически переставило режим. Пусто — переход ещё ждёт своей даты. Это же поле делает применение идемпотентным.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Applied on",
+        "ar": "تاريخ التطبيق",
+        "ru": "Применено",
+        "uk": "Застосовано"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a2a4a26d-3693-44c0-9839-25c6ac42d789",
+      "name": "AppliedOn",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

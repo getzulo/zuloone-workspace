@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "aa963c80-ce4f-49ec-9223-4ea1228032f0",
+    "name": "UaRegimeChangeSeq",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
