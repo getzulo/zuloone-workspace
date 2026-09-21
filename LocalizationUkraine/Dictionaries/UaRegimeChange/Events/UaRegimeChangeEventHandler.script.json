@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "UaRegimeChange",
+    "objectMetaId": "9cc53112-5987-44a3-ab46-4f5adcab88e4",
+    "executionOrder": 0,
+    "metaId": "25fba299-0f48-4b8f-bba9-7475bccb683c",
+    "name": "UaRegimeChangeEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

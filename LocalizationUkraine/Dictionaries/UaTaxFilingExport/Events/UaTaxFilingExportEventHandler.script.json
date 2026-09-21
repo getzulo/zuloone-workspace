@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "UaTaxFilingExport",
+    "objectMetaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+    "executionOrder": 0,
+    "metaId": "cb958396-b562-4956-bc75-157b7689c9b3",
+    "name": "UaTaxFilingExportEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

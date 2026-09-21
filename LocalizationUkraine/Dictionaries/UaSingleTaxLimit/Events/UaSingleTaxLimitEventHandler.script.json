@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "UaSingleTaxLimit",
+    "objectMetaId": "6840eb8f-e477-42b5-aebb-5f18ccf8105e",
+    "executionOrder": 0,
+    "metaId": "407cba60-cee0-45e1-95e4-6ad006fffc4c",
+    "name": "UaSingleTaxLimitEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
