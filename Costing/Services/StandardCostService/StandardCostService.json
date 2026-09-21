@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Dated standard unit cost of an item and plan-vs-actual variance",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "cef1c4bf-7835-4e3f-9156-b51eb4d45aee",
+    "metaId": "a392d6ec-08e1-4e06-8fe2-8267f2979ba3",
+    "name": "StandardCostService",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+  }
+}

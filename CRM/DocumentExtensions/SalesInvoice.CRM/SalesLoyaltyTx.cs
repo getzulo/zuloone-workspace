@@ -7,11 +7,9 @@ using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// Award loyalty points on issue. Course and switch come from CRMSettings
-// (see the Boolean trap below). When the customer has reached a LoyaltyTier
-// with a positive EarnRate, that rate overlays the settings course. Tier is
-// derived from the accumulated balance BEFORE this invoice posts — same
-// moment as the standing discount.
+// Award loyalty points on issue. A live LoyaltyCampaign overlays the
+// course for its window. Otherwise a reached LoyaltyTier with a positive
+// EarnRate overlays CRMSettings. The Boolean trap on LoyaltyEnabled stays.
 //
 // Settings are read once in the field initializer: the script instance lives
 // one posting. Tier cannot live there — it depends on document.Customer.
@@ -37,8 +35,12 @@ public partial class SalesLoyaltyTx
         return (rows[0].LoyaltyEnabled, rate);
     }
 
-    private static decimal EffectiveRate(Guid customer, decimal fallback)
+    private static decimal EffectiveRate(Guid customer, decimal fallback, DateTime onDate)
     {
+        var campaign = GetService<ILoyaltyCampaignService>()
+            .EarnRateOfAsync(onDate).GetAwaiter().GetResult();
+        if (campaign > 0m) return campaign;
+
         if (customer == Guid.Empty) return fallback;
 
         var balance = GetService<ITotalsManager>()
@@ -71,7 +73,12 @@ public partial class SalesLoyaltyTx
         foreach (var line in document.Lines)
             amount += pricing.LineAmount(line.Quantity, line.UnitPrice, document.DiscountPercent);
 
-        var points = Math.Round(amount * EffectiveRate(document.Customer, _loyalty.Rate), 2, MidpointRounding.AwayFromZero);
+        var onDate = document.DocumentDate == default
+            ? DateTime.UtcNow.Date
+            : document.DocumentDate.Date;
+        var points = Math.Round(
+            amount * EffectiveRate(document.Customer, _loyalty.Rate, onDate),
+            2, MidpointRounding.AwayFromZero);
         if (points > 0m)
             transactions.Add(new RegisterMovementSpec("LoyaltyPoints")
                 .Dim("Customer", document.Customer)

@@ -1,0 +1,138 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Standard cost",
+      "ar": "التكلفة المعيارية",
+      "ru": "Норматив себестоимости",
+      "uk": "Норматив собівартості"
+    },
+    "description": "Dated standard unit cost of an item. Gaps are allowed; overlapping windows of the same item are not.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "5b105c19-1239-4d2a-a92d-32c4426aed4a",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "ID",
+    "displayFormat": "{ID}",
+    "isKernel": false,
+    "iconName": "fluent-color:data-histogram-32",
+    "largeIconName": "fluent-color:data-histogram-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "e7549925-07c8-447a-b45b-c88e01ce8df9",
+    "name": "StandardCost",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "e7549925-07c8-447a-b45b-c88e01ce8df9",
+      "fieldName": "Amount",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Amount",
+        "ar": "المبلغ",
+        "ru": "Сумма",
+        "uk": "Сума"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "88012dcc-8862-49cb-88a4-2c634c62f333",
+      "name": "Amount",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    },
+    {
+      "dictionaryMetaId": "e7549925-07c8-447a-b45b-c88e01ce8df9",
+      "fieldName": "EffectiveFrom",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective from",
+        "ar": "سارٍ من",
+        "ru": "Действует с",
+        "uk": "Діє з"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "6fdf9af2-7a37-4e6e-aecf-10bd51920ac3",
+      "name": "EffectiveFrom",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    },
+    {
+      "dictionaryMetaId": "e7549925-07c8-447a-b45b-c88e01ce8df9",
+      "fieldName": "EffectiveTo",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective to",
+        "ar": "سارٍ إلى",
+        "ru": "Действует по",
+        "uk": "Діє по"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f3b11148-f157-49d7-b4cf-6c67fdfcca86",
+      "name": "EffectiveTo",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    },
+    {
+      "dictionaryMetaId": "e7549925-07c8-447a-b45b-c88e01ce8df9",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "0a6115e2-3969-4f6c-bc4f-680060ae3d9f",
+      "name": "ID",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    },
+    {
+      "dictionaryMetaId": "e7549925-07c8-447a-b45b-c88e01ce8df9",
+      "fieldName": "Item",
+      "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Item",
+        "ar": "الصنف",
+        "ru": "Номенклатура",
+        "uk": "Номенклатура"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "960d6c22-601e-4dad-995f-aef7e47f11c2",
+      "name": "Item",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    }
+  ]
+}

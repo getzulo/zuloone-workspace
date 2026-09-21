@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "LoyaltyCampaign",
+    "objectMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+    "executionOrder": 0,
+    "metaId": "c5871471-daf1-47a1-b4bd-4c6c3137e676",
+    "name": "LoyaltyCampaignEventHandler",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

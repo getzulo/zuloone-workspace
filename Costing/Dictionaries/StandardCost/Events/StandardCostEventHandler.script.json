@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "StandardCost",
+    "objectMetaId": "e7549925-07c8-447a-b45b-c88e01ce8df9",
+    "executionOrder": 0,
+    "metaId": "190a3c3f-dc9d-4bd9-b692-e0b5ee3ced46",
+    "name": "StandardCostEventHandler",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+  }
+}

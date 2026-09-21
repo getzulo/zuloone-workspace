@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "LoyaltyCampaignService",
+    "executionOrder": 0,
+    "metaId": "fd9971ee-feeb-4ebd-a7f4-a11c9fb41c82",
+    "name": "LoyaltyCampaignService",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

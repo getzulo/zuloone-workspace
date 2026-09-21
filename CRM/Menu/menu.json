@@ -141,6 +141,22 @@
     },
     {
       "caption": {
+        "en": "Loyalty campaigns",
+        "ar": "حملات الولاء",
+        "ru": "Кампании лояльности",
+        "uk": "Кампанії лояльності"
+      },
+      "parentMetaId": "7ad8347e-39c8-4bf0-93a9-ba497f0e3cd3",
+      "displayOrder": 1,
+      "icon": "fluent-color:megaphone-loud-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "metaId": "d91c09c1-381b-431a-9f8d-e264e716c253",
+      "name": "LoyaltyCampaign",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "caption": {
         "en": "Loyalty redemptions",
         "ar": "استرداد نقاط الولاء",
         "ru": "Списания баллов",

@@ -1,0 +1,168 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Loyalty campaigns",
+      "ar": "حملات الولاء",
+      "ru": "Кампании лояльности",
+      "uk": "Кампанії лояльності"
+    },
+    "description": "Dated earn-rate overlay. Beats LoyaltyTier and CRMSettings for the window. Segmentation is a later leftover.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "f1c78734-7f37-4b26-bfe4-c985528399f7",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Code",
+    "displayFormat": "{Code} - {Name}",
+    "isKernel": false,
+    "iconName": "fluent-color:megaphone-loud-32",
+    "largeIconName": "fluent-color:megaphone-loud-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+    "name": "LoyaltyCampaign",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "fieldName": "Code",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": {
+        "en": "Code",
+        "ar": "الكود",
+        "ru": "Код",
+        "uk": "Код"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "bdb6562c-410d-4804-995b-9304da0ac993",
+      "name": "Code",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Найменування"
+      },
+      "isTranslatable": true,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c7de6cf6-d077-4c82-a641-7ab9f0cdf8f8",
+      "name": "Name",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "fieldName": "EarnRate",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 4,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "description": "Points per currency unit while the campaign is on; overlays tier and settings",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Earn rate",
+        "ar": "معدل الاكتساب",
+        "ru": "Курс начисления",
+        "uk": "Курс нарахування"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f8341c36-752f-4a83-a845-3fdfd6d385c1",
+      "name": "EarnRate",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "fieldName": "EffectiveFrom",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective from",
+        "ar": "سارٍ من",
+        "ru": "Действует с",
+        "uk": "Діє з"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b432d449-3899-40b7-865f-f73cb88f4844",
+      "name": "EffectiveFrom",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "fieldName": "EffectiveTo",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective to",
+        "ar": "سارٍ إلى",
+        "ru": "Действует по",
+        "uk": "Діє по"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "de443992-5381-43ca-9865-e67f7c378821",
+      "name": "EffectiveTo",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "fieldName": "IsDisabled",
+      "baseType": "Boolean",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключена",
+        "uk": "Вимкнена"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "4f85c77d-4e74-4799-a4ca-bd47b6279883",
+      "name": "IsDisabled",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    }
+  ]
+}

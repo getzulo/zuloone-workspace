@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+    "isRequired": false,
+    "metaId": "e2438a92-5c5f-40da-ab31-9b2a8d0dac63",
+    "name": "RefLoyaltyCampaign",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

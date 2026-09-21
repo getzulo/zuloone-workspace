@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Dated loyalty earn-rate overlay; one live campaign window at a time",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "fd9971ee-feeb-4ebd-a7f4-a11c9fb41c82",
+    "metaId": "03c8922b-2b55-4e21-97f8-a6a9a100be2d",
+    "name": "LoyaltyCampaignService",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}
