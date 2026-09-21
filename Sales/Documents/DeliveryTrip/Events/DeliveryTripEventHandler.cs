@@ -20,6 +20,16 @@ public partial class DeliveryTripEventHandler : TypedDocumentEventHandler<Delive
             header.Driver = driver;
         if (header.Depot == Guid.Empty && stamp.TryGetValue("Depot", out var depot) && depot is Guid store)
             header.Depot = store;
+
+        // Optional document DateTime is non-nullable; MinValue overflows SQL Server.
+        // Only on INSERT: a later Update hydrates a partial bag, and clamping
+        // missing keys would WriteBack 1901 over ActualDepart the command just set.
+        if (isNew)
+        {
+            if (header.PlannedDepart.Year < 1902) header.PlannedDepart = new DateTime(1901, 1, 1);
+            if (header.ActualDepart.Year < 1902) header.ActualDepart = new DateTime(1901, 1, 1);
+            if (header.ActualComplete.Year < 1902) header.ActualComplete = new DateTime(1901, 1, 1);
+        }
         return EventResult.Ok();
     }
 

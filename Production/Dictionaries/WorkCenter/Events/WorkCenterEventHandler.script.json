@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "WorkCenter",
+    "objectMetaId": "c747510e-3085-4992-a948-0645e821c83b",
+    "executionOrder": 0,
+    "metaId": "47dae277-8576-418d-9015-1cfcbad94324",
+    "name": "WorkCenterEventHandler",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}

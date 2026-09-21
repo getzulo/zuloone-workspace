@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "RoutingOperation",
+    "objectMetaId": "ce19965c-81ab-4898-9fb2-32196cf00283",
+    "executionOrder": 0,
+    "metaId": "da45b85a-5b24-4289-8689-cc9a4c93303a",
+    "name": "RoutingOperationEventHandler",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}

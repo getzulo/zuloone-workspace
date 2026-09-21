@@ -1,0 +1,76 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Work centers",
+      "ar": "مراكز العمل",
+      "ru": "Рабочие центры",
+      "uk": "Робочі центри"
+    },
+    "description": "Where an operation runs. v1 is a name on the route; no capacity.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "b2475409-acba-4124-9329-13705ea1eb5d",
+    "isVersioned": false,
+    "isCached": true,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "iconName": "fluent-color:building-factory-32",
+    "largeIconName": "fluent-color:building-factory-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "c747510e-3085-4992-a948-0645e821c83b",
+    "name": "WorkCenter",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "c747510e-3085-4992-a948-0645e821c83b",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 160,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Назва"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "be2d9a61-2b3b-4246-af6e-9bef3bcf11b5",
+      "name": "Name",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "c747510e-3085-4992-a948-0645e821c83b",
+      "fieldName": "IsDisabled",
+      "baseType": "Boolean",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключён",
+        "uk": "Вимкнено"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "24ebdc60-f5b9-4c65-a9fd-5425524c0641",
+      "name": "IsDisabled",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    }
+  ]
+}

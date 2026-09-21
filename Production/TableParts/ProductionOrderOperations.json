@@ -1,0 +1,126 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "ProductionOrderOperationsTablePartRow",
+    "caption": {
+      "en": "Operations",
+      "ar": "العمليات",
+      "ru": "Операции",
+      "uk": "Операції"
+    },
+    "tableName": "TP_ProductionOrderOperations",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+    "name": "ProductionOrderOperations",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "fieldName": "Sequence",
+      "caption": {
+        "en": "Sequence",
+        "ar": "الترتيب",
+        "ru": "Порядок",
+        "uk": "Порядок"
+      },
+      "baseType": "Integer",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 1,
+      "metaId": "e09bb88b-5b1c-4496-99f2-cbf4ec691c4d",
+      "name": "Sequence",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "fieldName": "Name",
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Назва"
+      },
+      "baseType": "String",
+      "length": 160,
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "7fcf3bae-e9ba-4f8f-b514-4f0f089e5f04",
+      "name": "Name",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "fieldName": "WorkCenter",
+      "caption": {
+        "en": "Work center",
+        "ar": "مركز العمل",
+        "ru": "Рабочий центр",
+        "uk": "Робочий центр"
+      },
+      "edtMetaId": "7969a41a-ab18-4bf6-b781-c124b44a9c14",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "c747510e-3085-4992-a948-0645e821c83b",
+      "referenceName": "WorkCenter",
+      "displayOrder": 3,
+      "metaId": "ba91794b-cee0-4f48-8168-28f29058c210",
+      "name": "WorkCenter",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "fieldName": "SetupMinutes",
+      "caption": {
+        "en": "Setup minutes",
+        "ar": "دقائق التجهيز",
+        "ru": "Минуты наладки",
+        "uk": "Хвилини налагодження"
+      },
+      "baseType": "Integer",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 4,
+      "metaId": "b2008f48-b20e-416c-bbbc-8e6a88267b46",
+      "name": "SetupMinutes",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "fieldName": "RunMinutes",
+      "caption": {
+        "en": "Run minutes",
+        "ar": "دقائق التشغيل",
+        "ru": "Минуты работы",
+        "uk": "Хвилини роботи"
+      },
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 4,
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 5,
+      "metaId": "291b39ad-2677-4295-889a-52ea501fc123",
+      "name": "RunMinutes",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    }
+  ]
+}

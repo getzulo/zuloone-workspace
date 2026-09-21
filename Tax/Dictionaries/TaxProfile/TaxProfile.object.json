@@ -29,76 +29,8 @@
   "fields": [
     {
       "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
-      "fieldName": "Name",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 1,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Name",
-        "ar": "الاسم",
-        "ru": "Наименование",
-        "uk": "Найменування"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "1139186c-bf1b-4a70-8be3-6daaff5f2f36",
-      "name": "Name",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "String",
-      "length": 128
-    },
-    {
-      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
-      "fieldName": "PartyType",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 2,
-      "isIndexed": true,
-      "isUnique": false,
-      "caption": {
-        "en": "Party type",
-        "ar": "نوع الطرف",
-        "ru": "Тип стороны",
-        "uk": "Тип сторони"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "7ae06cd9-b7b0-447a-b127-168b57bff42d",
-      "name": "PartyType",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "String",
-      "length": 16,
-      "description": "LegalEntity, Customer or Supplier"
-    },
-    {
-      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
-      "fieldName": "PartyId",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 3,
-      "isIndexed": true,
-      "isUnique": false,
-      "caption": {
-        "en": "Party",
-        "ar": "الطرف",
-        "ru": "Сторона",
-        "uk": "Сторона"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "a0393037-8c44-440a-85cd-60af45a0bf09",
-      "name": "PartyId",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "Guid"
-    },
-    {
-      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
       "fieldName": "EffectiveFrom",
+      "baseType": "DateTime",
       "isSystem": false,
       "isRequired": true,
       "displayOrder": 4,
@@ -115,12 +47,12 @@
       "isCalculated": false,
       "metaId": "8fc9b7b0-b492-4042-a0c4-ff48b56a50f8",
       "name": "EffectiveFrom",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "DateTime"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
       "fieldName": "EffectiveTo",
+      "baseType": "DateTime",
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 5,
@@ -137,12 +69,31 @@
       "isCalculated": false,
       "metaId": "e06e6066-d7c0-4c62-9d1e-c1f25d9a7593",
       "name": "EffectiveTo",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "DateTime"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "9f25e04d-cde6-4c51-8ddf-f3c4d4ee19ca",
+      "name": "ID",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
       "fieldName": "IsDisabled",
+      "baseType": "Boolean",
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 6,
@@ -159,8 +110,76 @@
       "isCalculated": false,
       "metaId": "d40de93d-d62d-4301-a32d-1f0c647e8ac9",
       "name": "IsDisabled",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "Boolean"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 128,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Найменування"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "1139186c-bf1b-4a70-8be3-6daaff5f2f36",
+      "name": "Name",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "fieldName": "PartyId",
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Party",
+        "ar": "الطرف",
+        "ru": "Сторона",
+        "uk": "Сторона"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a0393037-8c44-440a-85cd-60af45a0bf09",
+      "name": "PartyId",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "122ec1c2-989b-4372-8e78-257f200d7a3b",
+      "fieldName": "PartyType",
+      "baseType": "String",
+      "length": 16,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "description": "LegalEntity, Customer or Supplier",
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Party type",
+        "ar": "نوع الطرف",
+        "ru": "Тип стороны",
+        "uk": "Тип сторони"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7ae06cd9-b7b0-447a-b127-168b57bff42d",
+      "name": "PartyType",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

@@ -1,0 +1,166 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Routing operations",
+      "ar": "عمليات المسار",
+      "ru": "Операции маршрута",
+      "uk": "Операції маршруту"
+    },
+    "description": "One step of a routing. Sequence is unique per routing.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "5956d76f-32ff-48f5-a6f9-aa384959508c",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Sequence} {Name}",
+    "isKernel": false,
+    "iconName": "fluent-color:clipboard-task-list-ltr-24",
+    "largeIconName": "fluent-color:clipboard-task-list-ltr-24",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "ce19965c-81ab-4898-9fb2-32196cf00283",
+    "name": "RoutingOperation",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "ce19965c-81ab-4898-9fb2-32196cf00283",
+      "fieldName": "Routing",
+      "edtMetaId": "9a4d132f-c053-48b8-81f2-b4bd7ad14730",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Routing",
+        "ar": "المسار",
+        "ru": "Маршрут",
+        "uk": "Маршрут"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f32c94bf-b82a-442e-8a77-c864e465c7b8",
+      "name": "Routing",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "ce19965c-81ab-4898-9fb2-32196cf00283",
+      "fieldName": "Sequence",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Sequence",
+        "ar": "الترتيب",
+        "ru": "Порядок",
+        "uk": "Порядок"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "98a656d4-3113-4cba-b5e3-b3ee32ea8440",
+      "name": "Sequence",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "ce19965c-81ab-4898-9fb2-32196cf00283",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 160,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Назва"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "72580950-1f8b-432f-9aed-f5c940cf7ff9",
+      "name": "Name",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "ce19965c-81ab-4898-9fb2-32196cf00283",
+      "fieldName": "WorkCenter",
+      "edtMetaId": "7969a41a-ab18-4bf6-b781-c124b44a9c14",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Work center",
+        "ar": "مركز العمل",
+        "ru": "Рабочий центр",
+        "uk": "Робочий центр"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "bcfe62ab-a1bb-42ac-b14c-b16caba4f665",
+      "name": "WorkCenter",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "ce19965c-81ab-4898-9fb2-32196cf00283",
+      "fieldName": "SetupMinutes",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Setup minutes",
+        "ar": "دقائق التجهيز",
+        "ru": "Минуты наладки",
+        "uk": "Хвилини налагодження"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d0fbcfdf-ec01-4e44-be5b-d925a31a2aab",
+      "name": "SetupMinutes",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "ce19965c-81ab-4898-9fb2-32196cf00283",
+      "fieldName": "RunMinutesPerUnit",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 4,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Run minutes / unit",
+        "ar": "دقائق التشغيل / وحدة",
+        "ru": "Минуты на единицу",
+        "uk": "Хвилини на одиницю"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f126737f-f4b7-4ae7-8e67-92f970c0860d",
+      "name": "RunMinutesPerUnit",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    }
+  ]
+}

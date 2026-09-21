@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Stamp routing operations onto a production order (snapshot; posting still ignores them).",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "d62b7998-3994-46cb-bf67-7bde16494921",
+    "metaId": "79e59291-4f36-4863-9440-ca823ca9cf33",
+    "name": "RoutingService",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}

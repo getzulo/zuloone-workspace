@@ -22,6 +22,8 @@ public class DeliveryTripXrPrintTest : IntegrationTestScriptBase
         Assert.IsTrue(script.Code.Contains("FormatAsync", StringComparison.Ordinal), "имена через IReferenceDisplay");
         Assert.IsTrue(script.Code.Contains("Driver", StringComparison.Ordinal), "водитель в шапке");
         Assert.IsTrue(script.Code.Contains("Outlet", StringComparison.Ordinal), "точка на остановке");
+        Assert.IsTrue(script.Code.Contains("PlannedDepart", StringComparison.Ordinal), "план выезда");
+        Assert.IsTrue(script.Code.Contains("WindowText", StringComparison.Ordinal), "окно остановки");
         Assert.IsTrue(
             !script.Code.Contains("IPricingService", StringComparison.Ordinal),
             "рейс без сумм продажи");

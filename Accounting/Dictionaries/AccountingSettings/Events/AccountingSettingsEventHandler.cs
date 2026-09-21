@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ZuloOne.Core.Services;
+using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
@@ -47,6 +47,8 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
         if (!prior.Success) return prior;
 
         var gl = context.GetService<IGeneralLedgerService>();
+        var accounts = context.GetService<IDictionaryManager<ChartOfAccounts>>();
+        await StampCodesFromRefsAsync(record, accounts);
 
         // Empty code = "this leg is not configured", and that is lawful: posting
         // will skip it quietly. Only a FILLED code is checked.
@@ -76,6 +78,38 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
         }
 
         return EventResult.Ok();
+    }
+
+    /// <summary>
+    /// A filled ChartOfAccounts ref is the profile the person sees. Posting still
+    /// resolves by CODE, so the matching *AccountCode is stamped here. Empty ref
+    /// leaves the string — tests and stands that typed codes keep working.
+    /// </summary>
+    private static async Task StampCodesFromRefsAsync(
+        AccountingSettings record, IDictionaryManager<ChartOfAccounts> accounts)
+    {
+        record.ArAccountCode = await CodeOfAsync(accounts, record.ArAccount, record.ArAccountCode);
+        record.CashAccountCode = await CodeOfAsync(accounts, record.CashAccount, record.CashAccountCode);
+        record.CogsAccountCode = await CodeOfAsync(accounts, record.CogsAccount, record.CogsAccountCode);
+        record.InventoryAccountCode = await CodeOfAsync(accounts, record.InventoryAccount, record.InventoryAccountCode);
+        record.InventorySurplusAccountCode = await CodeOfAsync(accounts, record.InventorySurplusAccount, record.InventorySurplusAccountCode);
+        record.InventoryWriteOffAccountCode = await CodeOfAsync(accounts, record.InventoryWriteOffAccount, record.InventoryWriteOffAccountCode);
+        record.PayableAccountCode = await CodeOfAsync(accounts, record.PayableAccount, record.PayableAccountCode);
+        record.PayrollExpenseAccountCode = await CodeOfAsync(accounts, record.PayrollExpenseAccount, record.PayrollExpenseAccountCode);
+        record.PayrollLiabilityAccountCode = await CodeOfAsync(accounts, record.PayrollLiabilityAccount, record.PayrollLiabilityAccountCode);
+        record.RevenueAccountCode = await CodeOfAsync(accounts, record.RevenueAccount, record.RevenueAccountCode);
+        record.SocialInsuranceExpenseAccountCode = await CodeOfAsync(accounts, record.SocialInsuranceExpenseAccount, record.SocialInsuranceExpenseAccountCode);
+        record.SocialInsurancePayableAccountCode = await CodeOfAsync(accounts, record.SocialInsurancePayableAccount, record.SocialInsurancePayableAccountCode);
+        record.VatPayableAccountCode = await CodeOfAsync(accounts, record.VatPayableAccount, record.VatPayableAccountCode);
+        record.VatReceivableAccountCode = await CodeOfAsync(accounts, record.VatReceivableAccount, record.VatReceivableAccountCode);
+    }
+
+    private static async Task<string> CodeOfAsync(
+        IDictionaryManager<ChartOfAccounts> accounts, Guid accountId, string? fallback)
+    {
+        if (accountId == Guid.Empty) return fallback ?? string.Empty;
+        var row = await accounts.GetRecordAsync(accountId);
+        return string.IsNullOrWhiteSpace(row?.Code) ? (fallback ?? string.Empty) : row!.Code;
     }
 
     // MIQS AfterSave: runs after ANY save (insert or update).

@@ -1,7 +1,9 @@
 #nullable enable
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
@@ -42,6 +44,35 @@ public partial class ProductionOrderXrPrintForm : PrintFormBase
             table.Add(Row(
                 doc.ID ?? "", DateText(doc.DocumentDate), cell, notes,
                 n, itemText, line.QtyRequired, unitText));
+        }
+
+        if (doc.Operations.Count == 0)
+        {
+            var bags = await context.GetService<IDataService>()
+                .QueryAsync("TP_ProductionOrderOperations", $"[OwnerMetaId] = '{doc.MetaId}'");
+            foreach (var bag in bags.OrderBy(b => Convert.ToInt32(b["Sequence"] ?? 0)))
+            {
+                doc.Operations.Add(new ProductionOrderOperationsTablePartRow
+                {
+                    Sequence = Convert.ToInt32(bag["Sequence"] ?? 0),
+                    Name = Convert.ToString(bag["Name"]),
+                    WorkCenter = bag["WorkCenter"] is Guid g ? g : Guid.TryParse(bag["WorkCenter"]?.ToString(), out var w) ? w : Guid.Empty,
+                    SetupMinutes = Convert.ToInt32(bag["SetupMinutes"] ?? 0),
+                    RunMinutes = Convert.ToDecimal(bag["RunMinutes"] ?? 0m),
+                });
+            }
+        }
+
+        foreach (var step in doc.Operations.OrderBy(s => s.Sequence))
+        {
+            n++;
+            var center = await NameAsync(display, "WorkCenter", step.WorkCenter, ct);
+            var opNotes = step.SetupMinutes > 0
+                ? $"{step.Name} (наладка {step.SetupMinutes} мин)"
+                : step.Name;
+            table.Add(Row(
+                doc.ID ?? "", DateText(doc.DocumentDate), cell, notes,
+                n, opNotes, step.RunMinutes ?? 0m, center));
         }
 
         if (n == 0)

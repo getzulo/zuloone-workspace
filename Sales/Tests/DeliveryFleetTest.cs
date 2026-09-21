@@ -188,6 +188,8 @@ public class DeliveryFleetTest : IntegrationTestScriptBase
         stop.Sequence = 1;
         stop.Outlet = outlet.MetaId;
         stop.DwellMinutes = 10;
+        stop.WindowFromMinutes = 480;
+        stop.WindowToMinutes = 540;
         await DictionaryManager.SaveRecordAsync(stop);
 
         return new Setup
@@ -324,6 +326,9 @@ public class DeliveryFleetTest : IntegrationTestScriptBase
         Assert.IsTrue(filled.Lines[0].SalesOrder == orderId, "заказ в строке");
         Assert.IsTrue(filled.Lines[0].Outlet == s.Outlet, "точка штампуется");
         Assert.IsTrue(filled.Lines[0].StopSequence == 1, "порядок с маршрута");
+        Assert.IsTrue(filled.Lines[0].DwellMinutes == 10, "стоянка 10, факт {0}", filled.Lines[0].DwellMinutes);
+        Assert.IsTrue(filled.Lines[0].PlannedFromMinutes == 480, "окно с 8:00, факт {0}", filled.Lines[0].PlannedFromMinutes);
+        Assert.IsTrue(filled.Lines[0].PlannedToMinutes == 540, "окно по 9:00, факт {0}", filled.Lines[0].PlannedToMinutes);
     }
 
     [IntegrationTest("Чужая точка на рейсе маршрута отклоняется при отправке")]
@@ -436,6 +441,35 @@ public class DeliveryFleetTest : IntegrationTestScriptBase
         var done = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
         Assert.IsTrue(done!.Subtype == DeliveryTrip.Subtypes.Completed,
             "рейс Completed, факт {0}", done.Subtype ?? "<null>");
+        Assert.IsTrue(done.ActualDepart.Year >= 2026, "факт выезда, {0}", done.ActualDepart);
+        Assert.IsTrue(done.ActualComplete.Year >= 2026, "факт завершения, {0}", done.ActualComplete);
+        Assert.IsTrue(done.ActualComplete >= done.ActualDepart, "завершение не раньше выезда");
+    }
+
+    [IntegrationTest("Отправка штампует план выезда из расписания")]
+    public async Task DispatchStampsPlanFromSchedule()
+    {
+        var s = await SetupAsync();
+        var schedule = DictionaryManager.NewRecord<DeliverySchedule>();
+        schedule.Name = "Wed 6:30";
+        schedule.Route = s.Route;
+        schedule.Weekday = Weekday.Wednesday;
+        schedule.DepartHour = 6;
+        schedule.DepartMinute = 30;
+        await DictionaryManager.SaveRecordAsync(schedule);
+
+        var orderId = await ConfirmOrderAsync(s, s.Outlet, WaveDay, 1m);
+        var trip = await NewTripAsync(s, s.Vehicle, s.Driver, orderId, s.Outlet, 1);
+        await RunCommandAsync("DispatchTrip", trip.MetaId);
+
+        var dispatched = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
+        Assert.IsTrue(dispatched!.PlannedDepart.Year == 2026
+            && dispatched.PlannedDepart.Month == 9
+            && dispatched.PlannedDepart.Day == 16
+            && dispatched.PlannedDepart.Hour == 6
+            && dispatched.PlannedDepart.Minute == 30,
+            "план 16.09.2026 06:30, факт {0}", dispatched.PlannedDepart);
+        Assert.IsTrue(dispatched.ActualDepart.Year >= 2026, "факт выезда, {0}", dispatched.ActualDepart);
     }
 
     private async Task<DeliveryTrip> NewTripAsync(Setup s, Guid vehicle, Guid driver, Guid orderId, Guid outlet, int seq)

@@ -46,6 +46,7 @@ public partial class ExpandBomCommand
         }
 
         await docs.SaveDocumentAsync(full);
+        await context.GetService<IRoutingService>().StampOperationsAsync(full.MetaId);
         context.AddClientAction(ClientAction.Message($"Спецификация развёрнута: строк — {need.Count}."));
     }
 }

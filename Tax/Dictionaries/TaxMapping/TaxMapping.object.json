@@ -29,98 +29,8 @@
   "fields": [
     {
       "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
-      "fieldName": "SourceType",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 1,
-      "isIndexed": true,
-      "isUnique": false,
-      "caption": {
-        "en": "Source type",
-        "ar": "نوع المصدر",
-        "ru": "Тип источника",
-        "uk": "Тип джерела"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "82bca52f-c2e8-4540-b34b-3be30bc38985",
-      "name": "SourceType",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "String",
-      "length": 24,
-      "description": "Item, ItemGroup, Customer, Supplier or LegalEntity"
-    },
-    {
-      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
-      "fieldName": "SourceId",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 2,
-      "isIndexed": true,
-      "isUnique": false,
-      "caption": {
-        "en": "Source",
-        "ar": "المصدر",
-        "ru": "Источник",
-        "uk": "Джерело"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "02019067-3a4f-43ba-a7ec-0e83d74c3dd0",
-      "name": "SourceId",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "Guid"
-    },
-    {
-      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
-      "fieldName": "TaxCode",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 3,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Tax code",
-        "ar": "رمز الضريبة",
-        "ru": "Налоговый код",
-        "uk": "Податковий код"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "ee827f88-b650-4063-b69b-36f8a866f81c",
-      "name": "TaxCode",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7"
-    },
-    {
-      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
-      "fieldName": "Priority",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 4,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Priority",
-        "ar": "الأولوية",
-        "ru": "Приоритет",
-        "uk": "Пріоритет"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "d42a3a8e-4496-4e7e-86c7-a075ccca699a",
-      "name": "Priority",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "Integer",
-      "description": "Smaller wins among equal SourceType"
-    },
-    {
-      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
       "fieldName": "EffectiveFrom",
+      "baseType": "DateTime",
       "isSystem": false,
       "isRequired": true,
       "displayOrder": 5,
@@ -137,12 +47,12 @@
       "isCalculated": false,
       "metaId": "86b742e3-18fd-4f3e-802b-11ac4c01df3b",
       "name": "EffectiveFrom",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "DateTime"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
       "fieldName": "EffectiveTo",
+      "baseType": "DateTime",
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 6,
@@ -159,12 +69,31 @@
       "isCalculated": false,
       "metaId": "4509aa7c-14c5-46d1-868e-086955289841",
       "name": "EffectiveTo",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "DateTime"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "72baf4ce-f1de-4ddb-bcc4-46fb5b99fdae",
+      "name": "ID",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
       "fieldName": "IsDisabled",
+      "baseType": "Boolean",
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 7,
@@ -181,8 +110,98 @@
       "isCalculated": false,
       "metaId": "bcebae87-b1fd-44e4-8f4d-2638185d7595",
       "name": "IsDisabled",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "Boolean"
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "Priority",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 4,
+      "description": "Smaller wins among equal SourceType",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Priority",
+        "ar": "الأولوية",
+        "ru": "Приоритет",
+        "uk": "Пріоритет"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d42a3a8e-4496-4e7e-86c7-a075ccca699a",
+      "name": "Priority",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "SourceId",
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Source",
+        "ar": "المصدر",
+        "ru": "Источник",
+        "uk": "Джерело"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "02019067-3a4f-43ba-a7ec-0e83d74c3dd0",
+      "name": "SourceId",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "SourceType",
+      "baseType": "String",
+      "length": 24,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "description": "Item, ItemGroup, Customer, Supplier or LegalEntity",
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Source type",
+        "ar": "نوع المصدر",
+        "ru": "Тип источника",
+        "uk": "Тип джерела"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "82bca52f-c2e8-4540-b34b-3be30bc38985",
+      "name": "SourceType",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "1a00e49e-1724-4fd5-bcbe-d16118743e5e",
+      "fieldName": "TaxCode",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax code",
+        "ar": "رمز الضريبة",
+        "ru": "Налоговый код",
+        "uk": "Податковий код"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "ee827f88-b650-4063-b69b-36f8a866f81c",
+      "name": "TaxCode",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

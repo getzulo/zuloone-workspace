@@ -228,6 +228,14 @@
       "metaId": "9a6b8c4f-1e5d-4f7a-8b8c-8d2e3f9a4b70",
       "name": "Components",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "isCloneable": true,
+      "metaId": "7c0b0d91-b466-4b62-8e1a-c06f85246822",
+      "name": "Operations",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ],
   "subtypeTransactionScripts": [

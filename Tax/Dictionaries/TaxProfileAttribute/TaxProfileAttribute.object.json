@@ -29,29 +29,9 @@
   "fields": [
     {
       "dictionaryMetaId": "70a1c4e2-7577-4919-832c-e3890a933c27",
-      "fieldName": "TaxProfile",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 1,
-      "isIndexed": true,
-      "isUnique": false,
-      "caption": {
-        "en": "Profile",
-        "ar": "الملف",
-        "ru": "Профиль",
-        "uk": "Профіль"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "f09f776c-6ea3-4bc1-92ad-3c4b8363ed11",
-      "name": "TaxProfile",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "edtMetaId": "ea35fe0a-bef2-4e1a-83ce-b6b08ba91247"
-    },
-    {
-      "dictionaryMetaId": "70a1c4e2-7577-4919-832c-e3890a933c27",
       "fieldName": "AttributeCode",
+      "baseType": "String",
+      "length": 32,
       "isSystem": false,
       "isRequired": true,
       "displayOrder": 2,
@@ -68,13 +48,54 @@
       "isCalculated": false,
       "metaId": "2b2cf2b6-1d3a-4086-a12e-030d661941bf",
       "name": "AttributeCode",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "70a1c4e2-7577-4919-832c-e3890a933c27",
+      "fieldName": "ID",
       "baseType": "String",
-      "length": 32
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a6cae78b-43b3-47a6-a344-8675f27c5917",
+      "name": "ID",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "70a1c4e2-7577-4919-832c-e3890a933c27",
+      "fieldName": "TaxProfile",
+      "edtMetaId": "ea35fe0a-bef2-4e1a-83ce-b6b08ba91247",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Profile",
+        "ar": "الملف",
+        "ru": "Профиль",
+        "uk": "Профіль"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f09f776c-6ea3-4bc1-92ad-3c4b8363ed11",
+      "name": "TaxProfile",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "dictionaryMetaId": "70a1c4e2-7577-4919-832c-e3890a933c27",
       "fieldName": "Value",
+      "baseType": "String",
+      "length": 64,
       "isSystem": false,
       "isRequired": true,
       "displayOrder": 3,
@@ -91,9 +112,7 @@
       "isCalculated": false,
       "metaId": "fafa8f87-30c0-4274-9fcb-769c5d10c54e",
       "name": "Value",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "baseType": "String",
-      "length": 64
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

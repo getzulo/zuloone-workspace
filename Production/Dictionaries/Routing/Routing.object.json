@@ -1,0 +1,118 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Routings",
+      "ar": "المسارات",
+      "ru": "Маршруты",
+      "uk": "Маршрути"
+    },
+    "description": "Operation recipe for a product. First live row wins, same as BOM. Operations are the detail list.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "87fd5c53-5791-432d-8cc2-f70478f8ac44",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "iconName": "fluent-color:arrow-routing-24",
+    "largeIconName": "fluent-color:arrow-routing-24",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
+    "name": "Routing",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 160,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Назва"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "5a0b560a-5227-4a82-b7f5-b6d968b04fb8",
+      "name": "Name",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
+      "fieldName": "Product",
+      "edtMetaId": "5cea90d4-69cc-4e90-8dd1-fc57eef4742a",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Product",
+        "ar": "المنتج",
+        "ru": "Изделие",
+        "uk": "Виріб"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "0a18c990-4d37-4084-9ca8-8d1ce60ec206",
+      "name": "Product",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
+      "fieldName": "IsDisabled",
+      "baseType": "Boolean",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Disabled",
+        "ar": "معطّل",
+        "ru": "Отключён",
+        "uk": "Вимкнено"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "ff06fef6-6bbc-44b7-964b-8664f0d354dd",
+      "name": "IsDisabled",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    }
+  ],
+  "lists": [
+    {
+      "dictionaryMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
+      "name": "Operations",
+      "caption": {
+        "en": "Operations",
+        "ar": "العمليات",
+        "ru": "Операции",
+        "uk": "Операції"
+      },
+      "type": "RoutingOperation",
+      "otherKey": "Routing",
+      "autoLoad": true,
+      "cascadeDelete": true,
+      "defaultOrderBy": "Sequence",
+      "description": "Steps of the route. Not in the menu — edited on the routing card.",
+      "metaId": "8f3ebb1c-0765-439f-8813-7ebd413f5023",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
+    "isRequired": false,
+    "metaId": "9a4d132f-c053-48b8-81f2-b4bd7ad14730",
+    "name": "RefRouting",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}

@@ -31,6 +31,9 @@ public partial class DeliveryTripXrPrintForm : PrintFormBase
         var vehicle = await NameAsync(display, "Vehicle", doc.Vehicle, ct);
         var depot = await NameAsync(display, "Store", doc.Depot, ct);
         var tripDate = DateText(doc.DeliveryDate);
+        var notes = Clock(doc.PlannedDepart);
+        if (Clock(doc.ActualDepart) is { Length: > 0 } actual)
+            notes = string.IsNullOrEmpty(notes) ? actual : $"{notes} → {actual}";
 
         var n = 0;
         foreach (var line in doc.Lines)
@@ -43,8 +46,8 @@ public partial class DeliveryTripXrPrintForm : PrintFormBase
             table.Add(Row(
                 doc.ID ?? "",
                 tripDate,
-                "",
-                "",
+                notes,
+                Clock(doc.ActualComplete),
                 driver,
                 route,
                 outlet,
@@ -61,7 +64,7 @@ public partial class DeliveryTripXrPrintForm : PrintFormBase
                 0m,
                 0m,
                 0m,
-                "",
+                WindowText(line.PlannedFromMinutes, line.PlannedToMinutes),
                 line.Outcome == StopOutcome.Unspecified ? "" : line.Outcome.ToString()));
         }
 
@@ -70,8 +73,8 @@ public partial class DeliveryTripXrPrintForm : PrintFormBase
             table.Add(Row(
                 doc.ID ?? "",
                 tripDate,
-                "",
-                "",
+                notes,
+                Clock(doc.ActualComplete),
                 driver,
                 route,
                 "",
@@ -153,4 +156,18 @@ public partial class DeliveryTripXrPrintForm : PrintFormBase
 
     private static string DateText(DateTime value)
         => value.Year >= 1902 ? value.ToString("yyyy-MM-dd") : "";
+
+    private static string Clock(DateTime? value)
+        => value is DateTime dt && dt.Year >= 1902 ? dt.ToString("HH:mm") : "";
+
+    private static string Clock(DateTime value)
+        => value.Year >= 1902 ? value.ToString("HH:mm") : "";
+
+    private static string WindowText(int? fromMinutes, int? toMinutes)
+    {
+        var from = fromMinutes ?? 0;
+        var to = toMinutes ?? 0;
+        if (from <= 0 && to <= 0) return "";
+        return $"{from / 60:00}:{from % 60:00}–{to / 60:00}:{to % 60:00}";
+    }
 }

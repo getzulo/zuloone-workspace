@@ -183,6 +183,9 @@ public partial class DeliveryService
                     SalesOrder = orderId,
                     Outlet = stop.Outlet,
                     StopSequence = stop.Sequence,
+                    PlannedFromMinutes = stop.WindowFromMinutes,
+                    PlannedToMinutes = stop.WindowToMinutes,
+                    DwellMinutes = stop.DwellMinutes,
                 });
                 taken.Add(orderId);
                 added++;

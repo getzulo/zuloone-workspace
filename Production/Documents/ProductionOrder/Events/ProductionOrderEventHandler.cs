@@ -62,6 +62,10 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
             full.Components.Add(new ProductionOrderComponentsTablePartRow { Component = kv.Key, QtyRequired = kv.Value });
 
         await docs.SaveDocumentAsync(full);
+        var stamped = await docs.GetDocumentAsync<ProductionOrder>(header.MetaId);
+        if (stamped != null && stamped.Operations.Count == 0)
+            await context.GetService<IRoutingService>().StampOperationsAsync(header.MetaId);
+
         return EventResult.Ok();
     }
 

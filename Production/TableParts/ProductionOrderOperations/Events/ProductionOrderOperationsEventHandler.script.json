@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "ProductionOrderOperations",
+    "objectMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+    "executionOrder": 0,
+    "metaId": "b199953b-3c0e-4668-afdd-44674bb09429",
+    "name": "ProductionOrderOperationsEventHandler",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}

@@ -1,4 +1,6 @@
+using System;
 using ZuloOne.Managers;
+using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
 public partial class CompleteTripCommand
@@ -16,6 +18,8 @@ public partial class CompleteTripCommand
             return;
         }
 
+        // Stamp before the read-only Completed subtype; a later header write is refused.
+        full.ActualComplete = DateTime.UtcNow;
         full.Subtype = DeliveryTrip.Subtypes.Completed;
         await docs.SaveDocumentAsync(full);
         context.AddClientAction(ClientAction.Message("Рейс завершён."));

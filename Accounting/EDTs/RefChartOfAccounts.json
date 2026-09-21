@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "b9309207-b153-4ec9-b072-4211947b7e16",
+    "isRequired": false,
+    "metaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+    "name": "RefChartOfAccounts",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+  }
+}
