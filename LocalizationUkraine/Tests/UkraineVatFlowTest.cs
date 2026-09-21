@@ -345,4 +345,78 @@ public class UkraineVatFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(await VatAsync(s, shopB.MetaId) == 10m,
             "срез точки B по guid: 10, факт {0}", await VatAsync(s, shopB.MetaId));
     }
+
+    private async Task<CustomerPayment> PayAsync(Setup s, decimal amount)
+    {
+        var pay = await DocumentManager.NewDocumentAsync<CustomerPayment>();
+        pay.LegalEntity = s.LegalEntity;
+        pay.Lines.Add(new CustomerPaymentLinesTablePartRow
+        {
+            Customer = s.Customer,
+            Contract = s.Contract,
+            Amount = amount,
+        });
+        await DocumentManager.SaveDocumentAsync(pay);
+        pay.Subtype = CustomerPayment.Subtypes.Paid;
+        await DocumentManager.SaveDocumentAsync(pay);
+        return pay;
+    }
+
+    // ═══ ПЕРША ПОДІЯ ═════════════════════════════════════════════════════════
+    // Ради этого и затевался регистр UaVatFirstEvent. Всё, что выше, проверяет
+    // лишь то, что старое поведение не сломалось; порядок событий — здесь.
+
+    [IntegrationTest("Предоплата начисляет ПДВ до отгрузки, отгрузка не начисляет второй раз")]
+    public async Task PrepaymentIsTheFirstEvent()
+    {
+        var s = await SetupAsync();
+        await StockAsync(s);
+
+        // Деньги приходят С налогом: 120 при ставке 20% закрывают базу 100.
+        await PayAsync(s, 120m);
+        var afterPayment = await VatAsync(s);
+        Assert.IsTrue(afterPayment == 20m,
+            "предоплата 120 обязана начислить ПДВ 20 сразу, факт {0}", afterPayment);
+
+        // Отгрузка в пределах предоплаты — НЕ первое событие, налог уже взят.
+        await IssueAsync(s, 10m, 10m);
+        var afterShipment = await VatAsync(s);
+        Assert.IsTrue(afterShipment == 20m,
+            "отгрузка, закрытая предоплатой, не начисляет повторно: ждали 20, факт {0}",
+            afterShipment);
+    }
+
+    [IntegrationTest("Частичная предоплата облагается дважды и в сумме даёт полный ПДВ")]
+    public async Task PartialPrepaymentAccruesInTwoSteps()
+    {
+        var s = await SetupAsync();
+        await StockAsync(s);
+
+        // 60 брутто = база 50 при 20%.
+        await PayAsync(s, 60m);
+        var afterPart = await VatAsync(s);
+        Assert.IsTrue(afterPart == 10m,
+            "частичная предоплата 60 даёт ПДВ 10, факт {0}", afterPart);
+
+        // Отгрузка на базу 100 поднимает max до 100: доначисляется только разница.
+        await IssueAsync(s, 10m, 10m);
+        var afterShipment = await VatAsync(s);
+        Assert.IsTrue(afterShipment == 20m,
+            "после отгрузки суммарный ПДВ 20, а не 30: факт {0}", afterShipment);
+    }
+
+    [IntegrationTest("Оплата после отгрузки не начисляет ПДВ повторно")]
+    public async Task PaymentAfterShipmentDoesNotAccrueAgain()
+    {
+        var s = await SetupAsync();
+        await StockAsync(s);
+
+        await IssueAsync(s, 10m, 10m);
+        Assert.IsTrue(await VatAsync(s) == 20m, "отгрузка начисляет 20, факт {0}", await VatAsync(s));
+
+        await PayAsync(s, 120m);
+        var after = await VatAsync(s);
+        Assert.IsTrue(after == 20m,
+            "оплата после отгрузки — вторая подія, налог не повторяется: ждали 20, факт {0}", after);
+    }
 }
