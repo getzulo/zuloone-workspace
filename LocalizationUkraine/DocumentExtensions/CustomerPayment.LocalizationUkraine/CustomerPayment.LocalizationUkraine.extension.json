@@ -9,8 +9,8 @@
   },
   "fields": [
     {
-      "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
       "extensionMetaId": "f2dc0b39-7c86-4153-857e-2a0ae25d6d18",
+      "documentTypeMetaId": "0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e",
       "fieldName": "UaTaxableBase",
       "caption": {
         "en": "Taxable base of the first event",

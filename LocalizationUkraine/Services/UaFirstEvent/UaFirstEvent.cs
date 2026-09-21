@@ -1,7 +1,6 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
@@ -21,19 +20,23 @@ using ZuloOne.Runtime.Generated;
 // бы на первой же частичной оплате.
 //
 // Вместо этого по договору копятся два итога — сколько отгружено и сколько
-// оплачено (обе базы БЕЗ налога), — и облагается max(Shipped, Paid): больший из
-// них и есть «события, которые уже произошли». Accrued помнит, какая часть базы
-// уже обложена, так что каждое событие берёт налог ТОЛЬКО с прироста. Отсюда
-// само собой выходит верное поведение во всех четырёх случаях: предоплата
-// облагается сразу; отгрузка после неё в её пределах не облагается второй раз;
-// отгрузка без оплаты облагается сразу; оплата после отгрузки не облагается
-// повторно.
+// оплачено, — и облагается max из них: больший и есть «события, которые уже
+// произошли». Accrued помнит, какая часть базы уже обложена, так что каждое
+// событие берёт налог ТОЛЬКО с прироста. Отсюда само собой выходит верное
+// поведение во всех четырёх случаях: предоплата облагается сразу; отгрузка после
+// неё в её пределах не облагается второй раз; отгрузка без оплаты облагается
+// сразу; оплата после отгрузки не облагается повторно.
 //
-// ГДЕ ЭТО ЗОВУТ. В событии ПЕРЕД сменой подтипа, а не в проводке: чтение
-// остатков асинхронно, а GetTransactions синхронна. Результат штампуется полем
-// на документе, и транзакционный скрипт уже просто раскладывает его по
-// регистрам — тот же приём, которым в ядро приходят TaxRateApplied и
-// NonRecoverableVat.
+// КЛЮЧ — КЛИЕНТ И ДОГОВОР, БЕЗ ТОЧКИ. Договор принадлежит ровно одной торговой
+// точке, поэтому точка в ключе избыточна. Практическая сторона той же медали:
+// строка оплаты точку не несёт, а транзакционный скрипт синхронен и достать её
+// из договора не может. В UaVatPayable точка остаётся — её подставляет драйвер,
+// который асинхронен.
+//
+// ГДЕ ЭТО ЗОВУТ. Из драйвера итогов UaVatFirstEvent, уже ПОСЛЕ записи движений:
+// прирост зависит от состояния, состояние читается асинхронно, а
+// GetTransactions синхронна. Путь «посчитать в событии и проштамповать полем»
+// закрыт — поля расширения не попадают в генерируемый класс документа.
 public partial class UaFirstEvent
 {
     private readonly ITotalsManager _totals;
@@ -46,8 +49,8 @@ public partial class UaFirstEvent
     }
 
     /// <summary>
-    /// Торговая точка договора. Строка оплаты её не несёт, а регистр требует —
-    /// берём с договора, который на точке и висит.
+    /// Торговая точка договора. Нужна не здесь, а на выходе — в UaVatPayable,
+    /// где срез по точкам одного клиента обязан не смешиваться.
     /// </summary>
     public async Task<Guid> OutletOfAsync(Guid contract)
     {
@@ -57,34 +60,43 @@ public partial class UaFirstEvent
     }
 
     /// <summary>
-    /// Какая часть базы облагается ПДВ ПРЯМО СЕЙЧАС, если к договору добавить
-    /// <paramref name="addShipped"/> отгрузки и <paramref name="addPaid"/> оплаты.
+    /// Какая часть базы договора облагается ПДВ ПРЯМО СЕЙЧАС: прирост
+    /// max(Shipped, Paid) над уже обложенным. Зовётся ПОСЛЕ записи движений, так
+    /// что остатки уже включают текущий документ.
+    ///
+    /// ВНИМАНИЕ НА АСИММЕТРИЮ. Shipped — база БЕЗ налога (столько стоит товар),
+    /// Paid — деньги С налогом (столько пришло на счёт). Сравнивать их напрямую
+    /// нельзя: предоплата 120 при ставке 20% закрывает базу 100, а не 120.
+    /// Приведение делается здесь, а не в проводке, потому что для него нужна
+    /// ставка, а ставка резолвится асинхронно.
     ///
     /// Ноль — законный и частый ответ: отгрузка, целиком закрытая предоплатой,
-    /// ничего не добавляет к max(Shipped, Paid), и налог по ней уже начислен.
-    /// Отрицательного не возвращает: сторнирование идёт кредит-нотой, у которой
-    /// своя проводка, а не отрицательным приростом здесь.
+    /// не двигает max и не добавляет ничего. Отрицательного не возвращает:
+    /// сторнирование идёт кредит-нотой со своей проводкой, а не отрицательным
+    /// приростом здесь.
     /// </summary>
-    public async Task<decimal> TaxableIncrementAsync(
-        Guid customer, Guid outlet, Guid contract, decimal addShipped, decimal addPaid)
+    public async Task<decimal> TaxableIncrementAsync(Guid customer, Guid contract, decimal rate)
     {
         if (contract == Guid.Empty) return 0m;
 
-        var shipped = await BalanceAsync(customer, outlet, contract, "Shipped");
-        var paid = await BalanceAsync(customer, outlet, contract, "Paid");
-        var accrued = await BalanceAsync(customer, outlet, contract, "Accrued");
+        var shipped = await BalanceAsync(customer, contract, "Shipped");
+        var paidGross = await BalanceAsync(customer, contract, "Paid");
+        var accrued = await BalanceAsync(customer, contract, "Accrued");
 
-        var target = Math.Max(shipped + addShipped, paid + addPaid);
-        var increment = target - accrued;
+        var scale = GlobalConstants.Get<int?>("AmountScale") ?? 2;
+        var paidNet = rate > 0m
+            ? Math.Round(paidGross / (1m + rate), scale, MidpointRounding.AwayFromZero)
+            : paidGross;
+
+        var increment = Math.Max(shipped, paidNet) - accrued;
         return increment > 0m ? increment : 0m;
     }
 
-    private Task<decimal> BalanceAsync(Guid customer, Guid outlet, Guid contract, string resource)
+    private Task<decimal> BalanceAsync(Guid customer, Guid contract, string resource)
         => _totals.GetBalanceAsync("UaVatFirstEvent", resource,
             new Dictionary<string, object?>
             {
                 ["Customer"] = customer,
-                ["CustomerOutlet"] = outlet,
                 ["SalesContract"] = contract,
             });
 }

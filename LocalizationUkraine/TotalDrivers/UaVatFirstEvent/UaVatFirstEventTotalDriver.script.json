@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TotalDriver",
+    "objectType": "TotalDriver",
+    "objectName": "UaVatFirstEvent",
+    "objectMetaId": "482d74e8-dfbf-4749-805a-74cb10b75fcb",
+    "executionOrder": 0,
+    "metaId": "eddb3b94-3b04-4791-a343-1fe2064a55d8",
+    "name": "UaVatFirstEventTotalDriver",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

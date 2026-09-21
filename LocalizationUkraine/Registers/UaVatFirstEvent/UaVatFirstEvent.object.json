@@ -18,7 +18,8 @@
     "isExtension": false,
     "metaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",
     "name": "UaVatFirstEvent",
-    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08",
+    "totalDriverMetaId": "482d74e8-dfbf-4749-805a-74cb10b75fcb"
   },
   "resources": [
     {
@@ -84,10 +85,11 @@
       "registerMetaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",
       "analyticMetaId": "b7786ebf-8e36-4cb1-bcc3-fb493c5feb80",
       "displayOrder": 2,
-      "isRequired": true,
+      "isRequired": false,
       "metaId": "a0da9a38-788c-4a93-9fd6-f9ac649de0a9",
       "name": "UaVatFirstEvent-CustomerOutlet",
-      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08",
+      "description": "Не ключ этого регистра и никогда не пишется: договор принадлежит ровно одной точке, так что точка избыточна. Оставлена необязательной, потому что строка оплаты её не несёт, а проводка синхронна и вывести её из договора не может. В UaVatPayable точку подставляет драйвер — он асинхронный."
     },
     {
       "registerMetaId": "4cce4a23-b92e-47a1-8426-6b688da93fca",

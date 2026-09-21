@@ -1,0 +1,18 @@
+{
+  "kind": "TotalDriver",
+  "object": {
+    "caption": {
+      "en": "Ukraine first-event VAT driver",
+      "ar": "محرك ضريبة الحدث الأول (أوكرانيا)",
+      "ru": "Драйвер ПДВ первого события",
+      "uk": "Драйвер ПДВ першої події"
+    },
+    "baseClassName": "DefaultTotalDriver",
+    "baseEngine": "Standard",
+    "isKernel": false,
+    "description": "Драйвер регистра UaVatFirstEvent: после записи движений берёт max(Shipped, Paid), сравнивает с уже обложенной базой и начисляет ПДВ только на прирост. Одно правило на все документы, рождающие первое событие.",
+    "metaId": "482d74e8-dfbf-4749-805a-74cb10b75fcb",
+    "name": "UaVatFirstEvent",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
