@@ -217,6 +217,28 @@
     },
     {
       "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
+      "fieldName": "RejectReason",
+      "caption": {
+        "en": "Reject reason",
+        "ar": "سبب الرفض",
+        "ru": "Причина отклонения",
+        "uk": "Причина відхилення"
+      },
+      "baseType": "String",
+      "length": 500,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 22,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "9684babd-aace-4b3a-821a-c02401a6b728",
+      "name": "RejectReason",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
@@ -511,6 +533,13 @@
       "toSubtypeMetaId": "bc8979b0-ddb0-499f-a960-41fb3cd0cbd5",
       "metaId": "33445566-7788-4990-8b1c-ccddeeff0011",
       "name": "Submitted->Cancelled",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "fromSubtypeMetaId": "a3b4c5d6-e7f8-4a9b-8c1d-2e3f40516273",
+      "toSubtypeMetaId": "51ac876f-0fc8-4df2-b33c-dc3ea088995f",
+      "metaId": "8aaf0a0f-65d9-49a9-8cc3-4271e9843961",
+      "name": "Submitted->Draft",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]

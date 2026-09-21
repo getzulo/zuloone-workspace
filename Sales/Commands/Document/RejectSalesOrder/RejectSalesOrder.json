@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Reject order",
+      "ar": "رفض الطلب",
+      "ru": "Отклонить заказ",
+      "uk": "Відхилити замовлення"
+    },
+    "scriptMetaId": "cebdb32a-94ae-45b9-85db-0816965f1f58",
+    "parameterMode": "None",
+    "displayOrder": 3,
+    "beginGroup": true,
+    "isEnabled": true,
+    "requiresConfirmation": true,
+    "reloadAfterExecution": true,
+    "metaId": "1b6504b3-96c7-4b77-a911-cb6bc175b9ac",
+    "name": "RejectSalesOrder",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "3ba3f66d-ddab-417f-a0d5-148f1c846427",
+      "documentCommandMetaId": "1b6504b3-96c7-4b77-a911-cb6bc175b9ac",
+      "documentSubtypeMetaId": "a3b4c5d6-e7f8-4a9b-8c1d-2e3f40516273"
+    }
+  ]
+}

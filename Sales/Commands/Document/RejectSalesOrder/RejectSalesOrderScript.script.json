@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "RejectSalesOrder",
+    "objectMetaId": "1b6504b3-96c7-4b77-a911-cb6bc175b9ac",
+    "executionOrder": 0,
+    "metaId": "cebdb32a-94ae-45b9-85db-0816965f1f58",
+    "name": "RejectSalesOrderScript",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

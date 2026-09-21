@@ -377,4 +377,52 @@ public class SalesOrderFlowTest : IntegrationTestScriptBase
         Assert.IsTrue(await ReceivableAsync(s) == 0m, "долг закрыт возвратом, факт {0}", await ReceivableAsync(s));
         Assert.IsTrue(await RevenueAsync(s) == 0m, "выручка сторнирована, факт {0}", await RevenueAsync(s));
     }
+
+    [IntegrationTest("Process B: отклонение Submitted возвращает Draft с причиной")]
+    public async Task RejectSubmittedReturnsDraft()
+    {
+        var s = await SetupAsync();
+        await StockInAsync(s, 10m);
+
+        var order = await NewOrderAsync(s, 4m, 5m);
+        await RunCommandAsync("SubmitSalesOrder", order.MetaId);
+
+        var held = await DocumentManager.GetDocumentAsync<SalesOrder>(order.MetaId);
+        held!.RejectReason = "Нет договора на точку";
+        await DocumentManager.SaveDocumentAsync(held);
+        await RunCommandAsync("RejectSalesOrder", order.MetaId);
+
+        var back = await DocumentManager.GetDocumentAsync<SalesOrder>(order.MetaId);
+        Assert.IsTrue(back!.Subtype == SalesOrder.Subtypes.Draft,
+            "заказ Draft, факт {0}", back.Subtype ?? "<null>");
+        Assert.IsTrue(back.RejectReason == "Нет договора на точку",
+            "причина сохранилась, факт {0}", back.RejectReason);
+        Assert.IsTrue(await ReservedAsync(s) == 0m, "резерв 0");
+        var invoices = await DocumentManager.QueryDocumentsAsync<SalesRealization>($"SourceOrder = '{order.MetaId}'");
+        Assert.IsTrue(invoices.Count == 0, "счёт не создан");
+
+        await RunCommandAsync("SubmitSalesOrder", order.MetaId);
+        var again = await DocumentManager.GetDocumentAsync<SalesOrder>(order.MetaId);
+        Assert.IsTrue(again!.Subtype == SalesOrder.Subtypes.Submitted,
+            "повторный Submit снова Submitted, факт {0}", again.Subtype);
+    }
+
+    [IntegrationTest("Process B: отклонение без причины оставляет Submitted")]
+    public async Task RejectWithoutReasonStaysSubmitted()
+    {
+        var s = await SetupAsync();
+        await StockInAsync(s, 10m);
+
+        var order = await NewOrderAsync(s, 2m, 5m);
+        await RunCommandAsync("SubmitSalesOrder", order.MetaId);
+
+        var commandId = await Db.FindCommandIdAsync("document", "RejectSalesOrder");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, order.MetaId);
+        var text = (run.Message ?? "") + " " + string.Join("; ", run.ClientMessages);
+        Assert.IsTrue(text.Contains("причин"), "отказ про причину, факт: {0}", text);
+
+        var stored = await DocumentManager.GetDocumentAsync<SalesOrder>(order.MetaId);
+        Assert.IsTrue(stored!.Subtype == SalesOrder.Subtypes.Submitted,
+            "остаётся Submitted, факт {0}", stored.Subtype ?? "<null>");
+    }
 }
