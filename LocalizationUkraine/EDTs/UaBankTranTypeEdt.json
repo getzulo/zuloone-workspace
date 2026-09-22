@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "String",
+    "description": "Тип проводки Autoclient TRANTYPE: C кредит, D дебет. Других букв в официальном API нет.",
+    "length": 1,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "33045079-a58f-4356-a955-2cb42fa4930c",
+    "name": "UaBankTranTypeEdt",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

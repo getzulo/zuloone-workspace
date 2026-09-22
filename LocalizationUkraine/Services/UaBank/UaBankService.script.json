@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "UaBank",
+    "executionOrder": 0,
+    "metaId": "c4b34729-60da-445c-9d7b-c32456caa8cd",
+    "name": "UaBankService",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

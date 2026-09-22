@@ -1,0 +1,14 @@
+{
+  "kind": "Job",
+  "object": {
+    "description": "Забирає виписку Autoclient за вчора. Окреме завдання, бо вхідного виклику з банку немає: проводки ніхто не принесе. Раз на ранок, не щохвилини: ліміт API 1 запит/с, підсумкова виписка — за минулий опердень.",
+    "scriptMetaId": "65b989e2-8ed4-4e48-a28d-59e55872d5c3",
+    "cronExpression": "20 6 * * *",
+    "isActive": true,
+    "executeSingle": true,
+    "queueTtlMinutes": 20,
+    "metaId": "2f661404-bc4f-4d7d-9bda-aed3a9b2042e",
+    "name": "PullUaBankStatements",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

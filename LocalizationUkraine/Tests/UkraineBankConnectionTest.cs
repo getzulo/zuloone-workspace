@@ -7,15 +7,15 @@ using ZuloOne.Runtime.Testing;
 
 // Банк и налоговый оператор — разные справочники подключений.
 //
-// Срез НЕ вызывает API ПриватБанка: договора и проводой спецификации нет.
-// Проверяется место, куда администратор кладёт адрес и имя credential,
-// и то, что каналы ЄРПН по-прежнему читают TaxAuthorityConnection.
+// Срез НЕ вызывает API ПриватБанка: живого ACP в CI нет.
+// Проверяется, что каналы ЄРПН читают TaxAuthorityConnection,
+// а токен банка лежит в UaBankConnection, не в налоговой карточке.
 public class UkraineBankConnectionTest : IntegrationTestScriptBase
 {
     private static IDictionaryManager Dict => GetService<IDictionaryManager>();
     private static ISqlService Sql => GetService<ISqlService>();
 
-    [IntegrationTest("Каналы ЄРПН читают TaxAuthorityConnection, не банковский справочник")]
+    [IntegrationTest("Канал pb-statements читает UaBankConnection, ЄРПН — TaxAuthorityConnection")]
     public async Task ErpnChannelsNameTheTaxConnectionTable()
     {
         var rows = await Sql.SelectAsync(

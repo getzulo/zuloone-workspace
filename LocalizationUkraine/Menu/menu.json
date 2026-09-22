@@ -219,6 +219,22 @@
       "metaId": "14c0b9c2-1303-4077-ad82-96b281d1ae87",
       "name": "UaPayrollLevy",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "PrivatBank statement lines",
+        "ar": "بنود كشف حساب PrivatBank",
+        "ru": "Строки выписки ПриватБанка",
+        "uk": "Рядки виписки ПриватБанку"
+      },
+      "parentMetaId": "cddd5022-8771-48f0-a706-6fc04e1ceded",
+      "displayOrder": 5,
+      "icon": "fluent-color:building-bank-32",
+      "targetType": "Register",
+      "targetMetaId": "7e47a197-63ce-4038-bbaf-2eeb5492e9db",
+      "metaId": "9f7d2b77-7c6d-4505-8d01-93c342778998",
+      "name": "UaBankStatement",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

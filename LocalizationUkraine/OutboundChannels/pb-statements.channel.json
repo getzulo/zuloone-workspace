@@ -1,0 +1,17 @@
+{
+  "kind": "OutboundChannel",
+  "object": {
+    "path": "/statements/transactions",
+    "method": "GET",
+    "authMode": "Header",
+    "authHeader": "token",
+    "baseUrl": "https://acp.privatbank.ua/api",
+    "contentType": "application/json;charset=utf8",
+    "externalReferenceField": "REF",
+    "connectionTable": "UaBankConnection",
+    "devComments": "PrivatBank Autoclient API v3.0.0. GET /statements/transactions и /statements/settings (RelativePath). Официальный заголовок token, не Bearer и не id. Тело на GET хост не ставит. Токен — Integration:Credentials[CredentialRef], не в карточке. Живого ACP в CI нет.",
+    "metaId": "fa78e9df-3300-4f78-8f79-3219b00d5bf5",
+    "name": "pb-statements",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

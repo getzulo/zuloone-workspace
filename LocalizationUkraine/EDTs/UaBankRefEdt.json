@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "String",
+    "description": "Уникальный ключ проводки Autoclient: конкатенация REF+REFN из официального API v3. Не выдуманный UUID.",
+    "length": 80,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "9cc4e0be-e92f-44b2-bc73-a89814e1f161",
+    "name": "UaBankRefEdt",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

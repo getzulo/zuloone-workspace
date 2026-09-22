@@ -1,0 +1,145 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "PrivatBank statement lines",
+      "ar": "بنود كشف حساب PrivatBank",
+      "ru": "Строки выписки ПриватБанка",
+      "uk": "Рядки виписки ПриватБанку"
+    },
+    "description": "Импортированные проводки Autoclient. Ключ — юрлицо × REF+REFN (официальная уникальность). Не документ оплаты: CustomerPayment/VendorPayment из выписки сами не создаются — без сверки ЄДРПОУ это чужие деньги на чужом договоре.",
+    "isObsolete": false,
+    "iconName": "fluent-color:building-bank-32",
+    "largeIconName": "fluent-color:building-bank-32",
+    "registerEngineType": "Information",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": false,
+    "isExtension": false,
+    "metaId": "7e47a197-63ce-4038-bbaf-2eeb5492e9db",
+    "name": "UaBankStatement",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "7e47a197-63ce-4038-bbaf-2eeb5492e9db",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юридична особа"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "e9cda9c0-a1b6-42d9-bfca-09d1b95adec9",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "7e47a197-63ce-4038-bbaf-2eeb5492e9db",
+      "fieldName": "BankRef",
+      "caption": {
+        "en": "Bank ref (REF+REFN)",
+        "ar": "مرجع البنك",
+        "ru": "Референс банка (REF+REFN)",
+        "uk": "Референс банку (REF+REFN)"
+      },
+      "edtMetaId": "9cc4e0be-e92f-44b2-bc73-a89814e1f161",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 2,
+      "metaId": "0bcfa976-945a-45f8-9bcf-8362d1c36057",
+      "name": "BankRef",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "7e47a197-63ce-4038-bbaf-2eeb5492e9db",
+      "fieldName": "Amount",
+      "caption": {
+        "en": "Amount",
+        "ar": "المبلغ",
+        "ru": "Сумма",
+        "uk": "Сума"
+      },
+      "isOperational": false,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "metaId": "cfe34f78-3c4c-46ad-a207-727ef3f3e0d7",
+      "name": "Amount",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "7e47a197-63ce-4038-bbaf-2eeb5492e9db",
+      "fieldName": "TranType",
+      "caption": {
+        "en": "C/D",
+        "ar": "C/D",
+        "ru": "C/D",
+        "uk": "C/D"
+      },
+      "isOperational": false,
+      "edtMetaId": "33045079-a58f-4356-a955-2cb42fa4930c",
+      "displayOrder": 2,
+      "metaId": "3649d13f-ed64-40a1-823a-91219de497dd",
+      "name": "TranType",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "7e47a197-63ce-4038-bbaf-2eeb5492e9db",
+      "fieldName": "Purpose",
+      "caption": {
+        "en": "Purpose",
+        "ar": "التعيين",
+        "ru": "Назначение",
+        "uk": "Призначення"
+      },
+      "isOperational": false,
+      "edtMetaId": "4ee61d2e-381c-485a-b5f7-35f096177d4b",
+      "displayOrder": 3,
+      "metaId": "0bce88c2-a906-427b-af39-0f3d29d82fd5",
+      "name": "Purpose",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "7e47a197-63ce-4038-bbaf-2eeb5492e9db",
+      "fieldName": "CounterpartyEdrpou",
+      "caption": {
+        "en": "Counterparty EDRPOU",
+        "ar": "ЄДРПОУ الطرف المقابل",
+        "ru": "ЄДРПОУ контрагента",
+        "uk": "ЄДРПОУ контрагента"
+      },
+      "isOperational": false,
+      "edtMetaId": "4ee61d2e-381c-485a-b5f7-35f096177d4b",
+      "displayOrder": 4,
+      "metaId": "8d27dfb1-689c-488b-af51-d3d99e602472",
+      "name": "CounterpartyEdrpou",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "7e47a197-63ce-4038-bbaf-2eeb5492e9db",
+      "fieldName": "CounterpartyName",
+      "caption": {
+        "en": "Counterparty name",
+        "ar": "اسم الطرف المقابل",
+        "ru": "Имя контрагента",
+        "uk": "Назва контрагента"
+      },
+      "isOperational": false,
+      "edtMetaId": "4ee61d2e-381c-485a-b5f7-35f096177d4b",
+      "displayOrder": 5,
+      "metaId": "1fcf029f-5b0e-48ef-885a-e1144abd3adb",
+      "name": "CounterpartyName",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

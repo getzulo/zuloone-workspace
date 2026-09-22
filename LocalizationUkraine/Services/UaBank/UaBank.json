@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Выписка ПриватБанка Autoclient v3: GET statements/transactions, разбор официального JSON, запись UaBankStatement. Оплаты не создаёт.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "c4b34729-60da-445c-9d7b-c32456caa8cd",
+    "metaId": "bc183e8f-3049-42da-a063-c5765ac9d680",
+    "name": "UaBank",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

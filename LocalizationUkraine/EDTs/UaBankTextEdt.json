@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "String",
+    "description": "Текст из выписки Autoclient: назначение OSND, имя контрагента AUT_CNTR_NAM, ЄДРПОУ.",
+    "length": 500,
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "4ee61d2e-381c-485a-b5f7-35f096177d4b",
+    "name": "UaBankTextEdt",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

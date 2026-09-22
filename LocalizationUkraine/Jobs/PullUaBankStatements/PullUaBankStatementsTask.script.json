@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Task",
+    "objectType": "Job",
+    "objectName": "PullUaBankStatements",
+    "objectMetaId": "2f661404-bc4f-4d7d-9bda-aed3a9b2042e",
+    "executionOrder": 0,
+    "metaId": "65b989e2-8ed4-4e48-a28d-59e55872d5c3",
+    "name": "PullUaBankStatementsTask",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
