@@ -146,13 +146,22 @@ jobs:
           # SELECT/INSERT text, and the two real errors were off the top of it.
           docker run -d --name "$CORE" --network "$NET" \
             -p "127.0.0.1:${port}:8080" \
+            --network-alias core \
             -e Database__Provider=PostgreSql \
             -e "ConnectionStrings__DefaultConnection=Host=${PG};Database=ws;Username=ws;Password=ws" \
             -e Jwt__SigningKey=workspace-ci-only-not-a-secret-0123456789abcdef0123456789abcdef \
             -e ZuloOne__CoreDevelopmentMode=true \
+            -e ASPNETCORE_ENVIRONMENT=Docker \
             -e Logging__LogLevel__Microsoft.EntityFrameworkCore=Warning \
             -v "$PWD:/workspace:ro" \
             "${{ steps.cfg.outputs.image }}" >/dev/null
+          # The last two lines are for the test step below, not for the build.
+          # ASPNETCORE_ENVIRONMENT=Docker loads appsettings.Docker.json, which is
+          # where the fatoora channels and the `fatoora-csid` credential live —
+          # .NET's environment-variable provider cannot express a hyphenated key.
+          # Those channels dial http://core:8080 by the compose container's name,
+          # hence the alias. Without either, three ZATCA tests fail for reasons
+          # that belong to the stand rather than to the code.
 
           if ! python3 .github/scripts/build_bundles.py \
                  --base "http://127.0.0.1:${port}" --root . --out bundles; then
@@ -167,6 +176,23 @@ jobs:
               | tail -80 || true
             exit 1
           fi
+
+      # Run the business suite on the stand that is already standing.
+      #
+      # This is the first thing in the pipeline that executes the tests against
+      # the engine production actually uses. Until 2026-09-22 nothing ever had:
+      # PostgreSQL answered 629/22 where SQL Server answered 649/0, and nine of
+      # those were real defects — the worst being a boolean predicate translated
+      # as `[Column] = 1`, which raises 42883 against a real boolean and made
+      # every script filtering on a flag silently match nothing in production.
+      # Both engines now answer 654/0.
+      #
+      # Placed after the bundles are built and before the manifest is stamped:
+      # an artifact that cannot pass its own tests on the production engine must
+      # not become something a tenant can be moved onto.
+      - name: Business suite must pass on PostgreSQL
+        shell: bash
+        run: python3 .github/scripts/run_suite.py --base "http://127.0.0.1:${WS_PORT}"
 
       - name: Stamp the manifest
         shell: bash
