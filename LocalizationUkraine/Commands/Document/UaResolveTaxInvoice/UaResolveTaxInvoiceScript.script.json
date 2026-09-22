@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "UaResolveTaxInvoice",
+    "objectMetaId": "179f87f6-97c0-4acf-b682-1f11607ed44d",
+    "executionOrder": 0,
+    "metaId": "e46c548e-f15a-48fa-af69-d55966c1e982",
+    "name": "UaResolveTaxInvoiceScript",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "OutboundChannel",
+  "object": {
+    "path": "/documents/receipt",
+    "method": "POST",
+    "authMode": "None",
+    "baseUrl": "https://operator.invalid/erpn",
+    "contentType": "application/json",
+    "metaId": "76335d42-b5a8-4341-aa32-9fe78fae547a",
+    "name": "erpn-receipt",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08",
+    "devComments": "Запит квитанції по конкретній накладній. Окремий канал від erpn-send, бо це СИНХРОННЕ питання, а не черга: відповідь потрібна тут і зараз, і вона не є подачею. Саме цим шляхом розв'язується стан InDoubt — спитати, а не подати вдруге."
+  }
+}

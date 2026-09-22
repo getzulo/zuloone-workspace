@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Task",
+    "objectType": "Job",
+    "objectName": "PullUaTaxInvoiceReceipts",
+    "objectMetaId": "37ae5252-4253-45d4-9a34-4b0b568d7ba9",
+    "executionOrder": 0,
+    "metaId": "c6c41454-e2b7-40bd-b529-64c26c0b7446",
+    "name": "PullUaTaxInvoiceReceiptsTask",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

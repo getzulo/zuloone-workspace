@@ -261,6 +261,30 @@
       "metaId": "8866959b-42ae-430d-a7be-cfd53d9ba37a",
       "name": "TaxInvoiceFormCode",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "TaxInvoiceAdjustmentFormCode",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 10,
+      "description": "Код електронної форми ДПС для розрахунку коригування (J12012010 для юрособи, F12012010 для ФОП). Окреме поле, бо це інша форма, не «накладна зі знаком мінус». Порожньо — розрахунки коригування не формуються: підставити код накладної було б помилкою в поданні.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax invoice adjustment form code",
+        "ar": "رمز نموذج تعديل الفاتورة الضريبية",
+        "ru": "Код формы расчёта корректировки",
+        "uk": "Код форми розрахунку коригування"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a1f8c3d2-6e4b-4a9c-8d71-2b5e9f0c4a18",
+      "name": "TaxInvoiceAdjustmentFormCode",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

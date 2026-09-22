@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Ask the operator about this invoice",
+      "ar": "استعلام عن حالة الفاتورة لدى المشغل",
+      "ru": "Спросить оператора о накладной",
+      "uk": "Запитати оператора про накладну"
+    },
+    "scriptMetaId": "e46c548e-f15a-48fa-af69-d55966c1e982",
+    "parameterMode": "None",
+    "displayOrder": 10,
+    "beginGroup": true,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "179f87f6-97c0-4acf-b682-1f11607ed44d",
+    "name": "UaResolveTaxInvoice",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "ba5d1c77-3c2e-4e4a-8f01-0f2a7c1d9e33",
+      "documentCommandMetaId": "179f87f6-97c0-4acf-b682-1f11607ed44d",
+      "documentSubtypeMetaId": "c0921712-721e-4f2e-91e1-323440069310"
+    }
+  ]
+}

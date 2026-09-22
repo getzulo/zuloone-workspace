@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "370f48e1-19ed-4bca-a463-0b7f1ed115c3",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SalesCreditNote",
+    "objectMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 30,
+    "metaId": "b4e7d1a9-3c5f-4b82-91e6-7f0a2d8c5b43",
+    "name": "UaEInvoiceCreditNoteEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
