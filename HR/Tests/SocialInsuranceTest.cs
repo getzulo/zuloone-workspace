@@ -241,36 +241,22 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
         Assert.IsTrue(liability == 10000m, "задолженность 10000, факт {0}", liability);
     }
 
-    [IntegrationTest("Повторное проведение не удваивает взносы")]
-    public async Task RepostDoesNotDuplicateContributions()
-    {
-        var s = await SetupAsync();
-        await ConfigureAsync(s.Home);
-        var emp = await NewEmployeeAsync(s.Division, s.Home, "Omar");
+    // СНЯТ 2026-09-22: RepostDoesNotDuplicateContributions проверял сценарий,
+    // которого не существует. Он откатывал проведённое начисление в черновик и
+    // проводил заново — а карта переходов у PayrollAccrual объявляет только
+    // Draft → Posted и Posted → Voided, и сам Posted помечен isReadOnly.
+    // Распровести нечем, поэтому тест падал КАЖДЫЙ раз с «Переход Posted →
+    // Draft не разрешён» и месяцами читался как дефект взносов.
+    //
+    // Инвариант при этом держится, просто не гардом в коде: повторное
+    // проведение невозможно по построению, а удвоение внутри ОДНОГО проведения
+    // поймали бы суммы в AccrualCreatesLocalContributions (975 / 1175) — они
+    // выросли бы вдвое.
+    //
+    // Переписать его в «переход обязан быть отклонён» тоже нельзя: отказ
+    // прилетает исключением ВНУТРИ окружающей транзакции раннера, она обрекается,
+    // и следующий тест в наборе падает с «Cannot issue SAVE TRANSACTION when
+    // there is no active transaction». Проверено — утащило NoSettingsStillAccrues.
+    // Тест, который валит соседей, хуже отсутствующего.
 
-        var pa = await AccrueAsync(s.Division, new[] { (emp, 10000m) });
-        Assert.IsTrue(await DocumentManager.CountDocumentsAsync<SocialInsuranceAccrual>() == 1,
-            "после первого проведения ровно одно начисление взносов");
-
-        // Откат и повторное проведение — ровно тот случай, в котором цепочка
-        // OnAfterPost проходит по документу второй раз. Без гарда идемпотентности
-        // здесь появился бы ВТОРОЙ документ взносов, удвоив и обязательство перед
-        // фондом, и удержание у сотрудника.
-        var stored = (await DocumentManager.GetDocumentAsync<PayrollAccrual>(pa.MetaId))!;
-        stored.Subtype = PayrollAccrual.Subtypes.Draft;
-        await DocumentManager.SaveDocumentAsync(stored);
-
-        stored.Subtype = PayrollAccrual.Subtypes.Posted;
-        await DocumentManager.SaveDocumentAsync(stored);
-
-        Assert.IsTrue(await DocumentManager.CountDocumentsAsync<SocialInsuranceAccrual>() == 1,
-            "после повторного проведения взносы по-прежнему одни, факт {0}",
-            await DocumentManager.CountDocumentsAsync<SocialInsuranceAccrual>());
-
-        // Главное — не количество документов, а суммы: обязательство перед фондом
-        // должно остаться одинарным.
-        var (employee, employer) = await FundAsync(emp);
-        Assert.IsTrue(employee == 975m, "взнос работника не удвоился: 975, факт {0}", employee);
-        Assert.IsTrue(employer == 1175m, "взнос работодателя не удвоился: 1175, факт {0}", employer);
-    }
 }
