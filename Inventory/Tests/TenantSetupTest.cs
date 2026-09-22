@@ -57,6 +57,17 @@ public class TenantSetupTest : IntegrationTestScriptBase
                 "индекс должен видеть Common/cities-SA, факт: {0}", ids);
         }
 
+        // Профиль торговли — настройка ТЕНАНТА, одна на базу, и ApplyOrg
+        // намеренно НЕ понижает тенанта, который уже на Full: перезапуск
+        // настройки организации не должен молча отключать производство.
+        //
+        // Поэтому «новый тенант» надо установить, а не предположить. Раньше
+        // тест этого не делал и падал на любом стенде, где производственные
+        // тесты уже поставили Full («факт Full») — утверждая при этом ровно то
+        // поведение, которое и есть правильное. Раннер откатит.
+        var trade = GetService<ITradeProfileService>();
+        await trade.SetAsync("Unspecified");
+
         var reg = $"REG-TS-{Db.NewId():N}"[..16];
         var first = await setup.ApplyOrgAsync("Seed LE", reg, country.CodeISO2!, currency.Code!);
         Assert.IsTrue(Equals(first["ok"], true), "первый ApplyOrg должен пройти");
