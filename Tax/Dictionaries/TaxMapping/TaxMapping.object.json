@@ -5,7 +5,7 @@
       "en": "Tax mappings",
       "ar": "تعيينات الضريبة",
       "ru": "Сопоставления налога",
-      "uk": "Співставлення податку"
+      "uk": "Зіставлення податку"
     },
     "description": "Pins a TaxCode to Item/ItemGroup/Customer/Supplier/LegalEntity when no TaxRule matched. SourceId is a Guid; Tax has no FK to Inventory.",
     "isLogged": false,
