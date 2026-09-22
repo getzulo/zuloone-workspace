@@ -237,6 +237,30 @@
       "metaId": "3421b5d1-121c-4c74-b0a9-343cc062a432",
       "name": "MilitaryLevyCode",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "TaxInvoiceFormCode",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 9,
+      "description": "Код електронної форми ДПС для податкової накладної (J1201010 для юрособи, F1201010 для ФОП — залежить від версії форми). Оператор складає XML сам, від нас потрібен КОД ФОРМИ і заповнені поля. Порожньо — накладні не формуються: вигадати номер форми не можна, помилка в ньому це помилка в поданні.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax invoice form code",
+        "ar": "رمز نموذج الفاتورة الضريبية",
+        "ru": "Код формы налоговой накладной",
+        "uk": "Код форми податкової накладної"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "8866959b-42ae-430d-a7be-cfd53d9ba37a",
+      "name": "TaxInvoiceFormCode",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

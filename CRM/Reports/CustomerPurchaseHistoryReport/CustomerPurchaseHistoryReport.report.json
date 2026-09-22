@@ -1,0 +1,14 @@
+{
+  "kind": "CustomReport",
+  "object": {
+    "caption": "Purchase history",
+    "iconName": "fluent-color:data-bar-vertical-ascending-24",
+    "largeIconName": "fluent-color:data-bar-vertical-ascending-24",
+    "userHelp": "CRM → Reports → Purchase history. Draft and cancelled realizations are excluded. Amount is quantity × unit price of the line. Loyalty points are the LoyaltyPoints register, not this report.",
+    "devComment": "Positions and amounts from issued sales realizations by customer, item and document. Points stay on LoyaltyPoints — a second grain would multiply them across items.",
+    "scriptMetaId": "4d9f02b5-7c30-4e2f-ab8d-6f5a9c3e2d71",
+    "metaId": "3c8e91a4-6b2f-4d1e-9a7c-5e4f8b2d1c60",
+    "name": "CustomerPurchaseHistoryReport",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

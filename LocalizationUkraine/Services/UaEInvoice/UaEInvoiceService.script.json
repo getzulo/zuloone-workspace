@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "UaEInvoice",
+    "executionOrder": 0,
+    "metaId": "398cd4b0-74c3-44e1-8c76-31236d481bd3",
+    "name": "UaEInvoiceService",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

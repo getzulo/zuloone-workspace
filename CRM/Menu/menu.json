@@ -173,6 +173,37 @@
     },
     {
       "caption": {
+        "en": "Reports",
+        "ar": "التقارير",
+        "ru": "Отчёты",
+        "uk": "Звіти"
+      },
+      "parentMetaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
+      "displayOrder": 4,
+      "icon": "fluent-color:data-bar-vertical-ascending-24",
+      "targetType": "Group",
+      "metaId": "5e0a13c6-8d41-4f30-bc9e-7a6b0d4f3e82",
+      "name": "Reports",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "caption": {
+        "en": "Purchase history",
+        "ar": "سجل المشتريات",
+        "ru": "История покупок",
+        "uk": "Історія покупок"
+      },
+      "parentMetaId": "5e0a13c6-8d41-4f30-bc9e-7a6b0d4f3e82",
+      "displayOrder": 0,
+      "icon": "fluent-color:data-bar-vertical-ascending-24",
+      "targetType": "CustomReport",
+      "targetMetaId": "3c8e91a4-6b2f-4d1e-9a7c-5e4f8b2d1c60",
+      "metaId": "6f1b24d7-9e52-4041-cd0f-8b7c1e504f93",
+      "name": "CustomerPurchaseHistoryReport",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "caption": {
         "en": "Loyalty tiers",
         "ar": "مستويات الولاء",
         "ru": "Уровни лояльности",

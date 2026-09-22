@@ -9,9 +9,9 @@ using ZuloOne.Services.Contracts;
 
 // ═══ СОПОСТАВЛЕНИЕ ОСВОБОЖДЕНИЯ СО СМЕНОЙ РЕЖИМА ═════════════════════════════
 //
-// Один кейс, не четыре: повторный Setup на отравленном стенде теряет ITaxService
-// после первого прогона (рассинхрон поколений контрактов). Документный путь
-// «счёт подхватил сопоставление» закрыт TaxDeterminationFromDocumentTest.
+// Коды берём из поставки vat-UA (UA-E / UA-S), а не собираем свой контур:
+// создание TaxRate на отравленном стенде падает в обработчике
+// («ITaxService is not available»), хотя чтение ставки из теста проходит.
 public class UkraineExemptMappingTest : IntegrationTestScriptBase
 {
     private static IDictionaryManager DictionaryManager => GetService<IDictionaryManager>();
@@ -29,6 +29,13 @@ public class UkraineExemptMappingTest : IntegrationTestScriptBase
     private async Task<Setup> SetupAsync()
     {
         await Db.SetAccountingPeriodsAsync(null, null);
+
+        var exempt = (await DictionaryManager.GetRecordsAsync<TaxCode>("Code = 'UA-E'", take: 1))
+            .FirstOrDefault();
+        var standard = (await DictionaryManager.GetRecordsAsync<TaxCode>("Code = 'UA-S'", take: 1))
+            .FirstOrDefault();
+        Assert.IsTrue(exempt is not null && standard is not null,
+            "поставка vat-UA обязана дать UA-E и UA-S");
 
         var currency = DictionaryManager.NewRecord<Currency>();
         currency.Name = "Hryvnia";
@@ -50,71 +57,19 @@ public class UkraineExemptMappingTest : IntegrationTestScriptBase
         legalEntity.Currency = currency.MetaId;
         legalEntity = await DictionaryManager.SaveRecordAsync(legalEntity);
 
-        var from = new DateTime(2020, 1, 1);
-        var authority = DictionaryManager.NewRecord<TaxAuthority>();
-        authority.Code = $"AU-{Db.NewId():N}"[..10];
-        authority.Name = "DPS";
-        authority.CountryCode = "UA";
-        authority.IsActive = true;
-        authority = await DictionaryManager.SaveRecordAsync(authority);
-
-        var jurisdiction = DictionaryManager.NewRecord<TaxJurisdiction>();
-        jurisdiction.Code = $"JU-{Db.NewId():N}"[..10];
-        jurisdiction.Name = "Ukraine";
-        jurisdiction.CountryCode = "UA";
-        jurisdiction.Level = 0;
-        jurisdiction = await DictionaryManager.SaveRecordAsync(jurisdiction);
-
-        var vat = DictionaryManager.NewRecord<Tax>();
-        vat.Code = $"VT-{Db.NewId():N}"[..10];
-        vat.Name = "Ukraine VAT";
-        vat.Authority = authority.MetaId;
-        vat.Jurisdiction = jurisdiction.MetaId;
-        vat.EffectiveFrom = from;
-        vat = await DictionaryManager.SaveRecordAsync(vat);
-
-        var defaultCode = await CodeAsync(vat, "STD", 0.20m, from);
-        var exemptCode = await CodeAsync(vat, "EX", 0m, from);
-
         var uaRows = await DictionaryManager.GetRecordsAsync<LocalizationUkraineSettings>(null, 1);
         var uaSettings = uaRows.Count > 0 ? uaRows[0] : DictionaryManager.NewRecord<LocalizationUkraineSettings>();
-        uaSettings.ExemptVatCode = exemptCode.Code;
+        uaSettings.ExemptVatCode = exempt!.Code;
         await DictionaryManager.SaveRecordAsync(uaSettings);
 
         return new Setup
         {
             LegalEntity = legalEntity.MetaId,
-            DefaultCode = defaultCode.MetaId,
-            ExemptCode = exemptCode.MetaId,
+            DefaultCode = standard!.MetaId,
+            ExemptCode = exempt.MetaId,
             Country = country.MetaId,
             Currency = currency.MetaId,
         };
-    }
-
-    private async Task<TaxCode> CodeAsync(Tax tax, string band, decimal rate, DateTime from)
-    {
-        var category = DictionaryManager.NewRecord<TaxCategory>();
-        category.Tax = tax.MetaId;
-        category.Code = $"{band}-{Db.NewId():N}"[..10];
-        category.Treatment = "STANDARD";
-        category = await DictionaryManager.SaveRecordAsync(category);
-
-        var taxRate = DictionaryManager.NewRecord<TaxRate>();
-        taxRate.Tax = tax.MetaId;
-        taxRate.TaxCategory = category.MetaId;
-        taxRate.Code = $"{band}R-{Db.NewId():N}"[..10];
-        taxRate.Rate = rate;
-        taxRate.EffectiveFrom = from;
-        taxRate = await DictionaryManager.SaveRecordAsync(taxRate);
-
-        var code = DictionaryManager.NewRecord<TaxCode>();
-        code.Code = $"{band}C-{Db.NewId():N}"[..10];
-        code.Name = $"Code {band}";
-        code.Tax = tax.MetaId;
-        code.TaxCategory = category.MetaId;
-        code.TaxRate = taxRate.MetaId;
-        code.EffectiveFrom = from;
-        return await DictionaryManager.SaveRecordAsync(code);
     }
 
     private async Task SetRegimeAsync(Setup s, UaTaxRegime regime)

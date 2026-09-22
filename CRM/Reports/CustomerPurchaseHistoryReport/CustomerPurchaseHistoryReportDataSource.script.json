@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "CustomReport",
+    "objectType": "CustomReport",
+    "objectName": "CustomerPurchaseHistoryReport",
+    "objectMetaId": "3c8e91a4-6b2f-4d1e-9a7c-5e4f8b2d1c60",
+    "executionOrder": 0,
+    "metaId": "4d9f02b5-7c30-4e2f-ab8d-6f5a9c3e2d71",
+    "name": "CustomerPurchaseHistoryReportDataSource",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

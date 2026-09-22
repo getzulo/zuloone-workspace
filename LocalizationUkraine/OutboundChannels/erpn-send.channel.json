@@ -1,0 +1,14 @@
+{
+  "kind": "OutboundChannel",
+  "object": {
+    "path": "/documents",
+    "method": "POST",
+    "authMode": "None",
+    "baseUrl": "https://operator.invalid/erpn",
+    "contentType": "application/json",
+    "metaId": "bd356396-42a3-468d-b10c-0fc009c001a6",
+    "name": "erpn-send",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08",
+    "devComments": "Подача податкової накладної на реєстрацію в ЄРПН ЧЕРЕЗ ОПЕРАТОРА (M.E.Doc / банківський кабінет). baseUrl тут — свідомо неробочий заповнювач: справжня адреса приходить з TaxAuthorityConnection.BaseUrl конкретного тенанта, бо у кожного оператора вона своя, а частина з них узагалі стоїть у локальній мережі клієнта. Ключ КЕП залишається в оператора: ZuloOne нічого не підписує."
+  }
+}

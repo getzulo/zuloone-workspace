@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Податкова накладна на реєстрацію в ЄРПН через оператора: формує конверт TaxDocument і ставить його в чергу відправлення.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "398cd4b0-74c3-44e1-8c76-31236d481bd3",
+    "metaId": "71f49522-2902-4c51-a8e0-531122eb9a69",
+    "name": "UaEInvoice",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "63f686d8-1dd7-486e-ab46-5fabfd9a1c92",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "SalesRealization",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 30,
+    "metaId": "163194cf-f29a-4aba-9331-23a308f3cb9b",
+    "name": "UaEInvoiceEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
