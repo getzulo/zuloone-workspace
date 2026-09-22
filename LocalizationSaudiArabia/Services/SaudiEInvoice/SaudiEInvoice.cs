@@ -188,12 +188,18 @@ public partial class SaudiEInvoice
     /// ApplyFatooraOutcomes runs this every minute; Ensure also piggybacks it
     /// at the start of the next posting. Enqueue only writes a row — the sender
     /// runs outside this transaction.
+    ///
+    /// What lands on the envelope is NOT decided here. Saudi knows which channel
+    /// means cleared and which means reported, and that is the whole of its
+    /// country knowledge; stamping the authority, the rejection reason, the
+    /// subtype and the journal row belongs to Tax, which owns TaxDocument.
+    /// While every pack did that itself, Authority and RejectionReason were
+    /// written by nobody at all.
     /// </summary>
     public async Task<int> ApplyChannelOutcomesAsync()
     {
         var gateway = ScriptServices.Get<IOutboundGateway>();
-        var posting = ScriptServices.Get<IDocumentPostingService>();
-        var docs = ScriptServices.Get<IDocumentManager>();
+        var outcome = ScriptServices.Get<ITaxDocumentOutcome>();
         var applied = 0;
         foreach (var channel in FatooraChannels)
         {
@@ -202,19 +208,19 @@ public partial class SaudiEInvoice
             foreach (var status in batch)
             {
                 var target = TargetFromChannel(status);
+                // InDoubt deliberately stays unacknowledged: the request reached
+                // the wire and no answer came back, so it is re-offered until a
+                // human resolves it. Acking it here would bury it.
                 if (target == null)
                     continue;
 
-                if (status.SourceRecordId is Guid id && id != Guid.Empty)
-                {
-                    var envelope = await docs.GetDocumentAsync<TaxDocument>(id);
-                    if (envelope != null && envelope.Subtype == "Issued")
-                    {
-                        await posting.SetSubtypeAsync(TaxDocumentType, envelope.MetaId, target);
-                        await WriteChannelSubmissionAsync(envelope, status, target);
-                        applied++;
-                    }
-                }
+                if (status.SourceRecordId is Guid id && id != Guid.Empty
+                    && await outcome.ApplyAsync(
+                        id, target,
+                        status.ExternalReference ?? status.MessageId.ToString("N"),
+                        status.LastError ?? status.Status))
+                    applied++;
+
                 ack.Add(status.MessageId);
             }
             if (ack.Count > 0)
@@ -232,21 +238,6 @@ public partial class SaudiEInvoice
         if (status.Status is "Failed" or "Abandoned" or "Cancelled")
             return "Rejected";
         return null;
-    }
-
-    private static async Task WriteChannelSubmissionAsync(
-        TaxDocument envelope, OutboundStatus status, string target)
-    {
-        var dict = ScriptServices.Get<IDictionaryManager>();
-        var row = dict.NewRecord<TaxSubmission>();
-        row.Kind = "EINVOICE";
-        row.SourceId = envelope.MetaId;
-        row.LegalEntity = envelope.LegalEntity;
-        row.SubmittedAt = DateTime.UtcNow;
-        row.Status = target == "Rejected" ? "Rejected" : "Accepted";
-        row.Receipt = status.ExternalReference ?? status.MessageId.ToString("N");
-        row.ResponseMessage = status.LastError ?? status.Status;
-        await dict.SaveRecordAsync(row);
     }
 
     private static async Task StampSourceAsync(

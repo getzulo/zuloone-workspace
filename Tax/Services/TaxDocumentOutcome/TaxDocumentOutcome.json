@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Единственное место, где исход подачи ложится на конверт TaxDocument: подтип, орган, причина отказа и строка журнала.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "63272ab4-4d84-4754-ae6e-afab60b9a79d",
+    "metaId": "e973f031-1c13-4813-a3a6-1d9ac6d98fd6",
+    "name": "TaxDocumentOutcome",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "TaxDocumentOutcome",
+    "executionOrder": 0,
+    "metaId": "63272ab4-4d84-4754-ae6e-afab60b9a79d",
+    "name": "TaxDocumentOutcomeService",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}
