@@ -23,25 +23,6 @@
   "dimensions": [
     {
       "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
-      "fieldName": "LegalEntity",
-      "caption": {
-        "en": "Legal entity",
-        "ar": "الكيان القانوني",
-        "ru": "Юрлицо",
-        "uk": "Юрособа"
-      },
-      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
-      "isOperational": true,
-      "isInformational": false,
-      "isPivotDimension": false,
-      "isTranslatable": false,
-      "displayOrder": 1,
-      "metaId": "a96f1d68-1f19-49b9-95fb-50b78b378c18",
-      "name": "LegalEntity",
-      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
-    },
-    {
-      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
       "fieldName": "Employee",
       "caption": {
         "en": "Employee",
@@ -57,6 +38,25 @@
       "displayOrder": 2,
       "metaId": "3591f78c-49be-4413-9c90-a516e5f88ed2",
       "name": "Employee",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "a96f1d68-1f19-49b9-95fb-50b78b378c18",
+      "name": "LegalEntity",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     },
     {
@@ -82,22 +82,6 @@
   "resources": [
     {
       "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
-      "fieldName": "Base",
-      "caption": {
-        "en": "Base",
-        "ar": "الوعاء",
-        "ru": "База",
-        "uk": "База"
-      },
-      "isOperational": true,
-      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
-      "displayOrder": 1,
-      "metaId": "01cd9d78-933d-4eb6-9a0a-f11ed635ef3f",
-      "name": "Base",
-      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
-    },
-    {
-      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
       "fieldName": "Amount",
       "caption": {
         "en": "Amount",
@@ -110,6 +94,22 @@
       "displayOrder": 2,
       "metaId": "e099b6ea-64e3-4ba4-b3f3-21c1dffd76ee",
       "name": "Amount",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+      "fieldName": "Base",
+      "caption": {
+        "en": "Base",
+        "ar": "الوعاء",
+        "ru": "База",
+        "uk": "База"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "metaId": "01cd9d78-933d-4eb6-9a0a-f11ed635ef3f",
+      "name": "Base",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]

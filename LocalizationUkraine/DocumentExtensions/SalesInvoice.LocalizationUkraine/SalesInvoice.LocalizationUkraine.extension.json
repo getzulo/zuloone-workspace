@@ -7,31 +7,5 @@
     "name": "SalesInvoice.LocalizationUkraine",
     "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
   },
-  "fields": [
-    {
-      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
-      "extensionMetaId": "63f686d8-1dd7-486e-ab46-5fabfd9a1c92",
-      "fieldName": "UaTaxableBase",
-      "caption": {
-        "en": "Taxable base of the first event",
-        "ar": "الأساس الخاضع للضريبة للحدث الأول",
-        "ru": "База першої події",
-        "uk": "База першої події"
-      },
-      "baseType": "Decimal",
-      "precision": 18,
-      "scale": 4,
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 60,
-      "description": "Part of the contract base that this document brings under VAT right now — the increment of max(shipped, paid) over what is already taxed. Stamped by the before-update event, because the register read is async while GetTransactions is not. Zero is normal: a shipment fully covered by an earlier prepayment adds nothing.",
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "abfd5bca-cf74-4cbe-9cd4-6daf37103a69",
-      "name": "UaTaxableBase",
-      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
-    }
-  ]
+  "fields": []
 }
