@@ -149,8 +149,13 @@ public class AbcClassificationTest : IntegrationTestScriptBase
     [IntegrationTest("Задание RecalcAbcClassifications принадлежит Sales и исполняется")]
     public async Task RecalcJobIsOwnedAndRuns()
     {
+        // Идентификаторы В СКОБКАХ: неэкранированные Postgres сворачивает в
+        // нижний регистр, а таблица создана как "MetaJobs" — тест падал
+        // `42P01: relation "metajobs" does not exist`. Скобки диалектный слой
+        // переписывает в родные кавычки, поэтому одна строка работает на обоих.
         var rows = await Sql.SelectAsync(
-            "SELECT MetaId, Name, ModelId, IsActive, CronExpression, ExecuteSingle FROM MetaJobs WHERE Name = 'RecalcAbcClassifications'");
+            "SELECT [MetaId], [Name], [ModelId], [IsActive], [CronExpression], [ExecuteSingle] " +
+            "FROM [MetaJobs] WHERE [Name] = 'RecalcAbcClassifications'");
         Assert.IsTrue(rows.Count == 1, "задание на месте; факт {0}", rows.Count);
         Assert.IsTrue(Convert.ToString(rows[0]["ModelId"])!.ToLowerInvariant() == SalesModel.ToString("D"),
             "владелец — Sales; факт {0}", rows[0]["ModelId"]);

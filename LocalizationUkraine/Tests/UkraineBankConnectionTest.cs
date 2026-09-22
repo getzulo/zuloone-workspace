@@ -39,10 +39,18 @@ public class UkraineBankConnectionTest : IntegrationTestScriptBase
     [IntegrationTest("Банковское подключение сохраняет адрес и имя credential, не сам токен")]
     public async Task BankConnectionStoresTheCredentialNameNotTheSecret()
     {
+        // INFORMATION_SCHEMA, а не COL_LENGTH(): вторая — функция только SQL
+        // Server, и на Postgres этот тест падал `42883: function col_length does
+        // not exist`, хотя проверяемая колонка была на месте. Имена схемы и вида
+        // намеренно БЕЗ скобок: Postgres сворачивает неэкранированное в нижний
+        // регистр, где каталог и живёт, а SQL Server регистра не различает —
+        // одна строка годится обоим движкам.
         var col = await Sql.SelectAsync(
-            "SELECT COL_LENGTH('UaBankConnection','AgentTag') AS [Len]");
-        Assert.IsTrue(col.Count == 1 && col[0]["Len"] is not null,
+            "SELECT COUNT(*) AS [Found] FROM INFORMATION_SCHEMA.COLUMNS " +
+            "WHERE TABLE_NAME = 'UaBankConnection' AND COLUMN_NAME = 'AgentTag'");
+        Assert.IsTrue(col.Count == 1 && Convert.ToInt32(col[0]["Found"]) == 1,
             "колонка AgentTag должна быть на UaBankConnection, не на канале ЄРПН");
+
 
         var entity = await LegalEntityAsync();
         var code = $"pb-{Db.NewId():N}"[..12];
@@ -76,7 +84,10 @@ public class UkraineBankConnectionTest : IntegrationTestScriptBase
     {
         // Уже закоммиченное юрлицо: четыре вставки в одном TransactionScope
         // на этом стенде иногда обрывают SQL-транзакцию до SAVE TRANSACTION.
-        var existing = await Sql.SelectAsync("SELECT TOP 1 [MetaId] FROM [LegalEntity]");
+        // Без TOP: это синтаксис SQL Server, Postgres хочет LIMIT. Ряд берётся
+        // первым в C# — строк тут единицы, а тест перестаёт зависеть от движка.
+        var existing = await Sql.SelectAsync("SELECT [MetaId] FROM [LegalEntity]");
+
         if (existing.Count > 0 && existing[0]["MetaId"] is Guid id)
             return id;
 
