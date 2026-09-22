@@ -1,0 +1,33 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Export DPS payroll forms (J0500111)",
+      "ar": "تصدير نماذج DPS للرواتب",
+      "ru": "Выгрузить бланки ДПС (J0500111)",
+      "uk": "Вивантажити бланки ДПС (J0500111)"
+    },
+    "scriptMetaId": "0befca7f-4777-4e1b-8fb8-10d51b1e93cb",
+    "parameterMode": "None",
+    "displayOrder": 23,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "e9e518d2-51ff-448a-a8ca-d6fb415ca610",
+    "name": "UaExportDpsPayroll",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "436454ea-31ee-4251-83a0-b894704eb0cf",
+      "documentCommandMetaId": "e9e518d2-51ff-448a-a8ca-d6fb415ca610",
+      "documentSubtypeMetaId": "23febbcf-3076-44f7-b43b-2208b7b3a528"
+    },
+    {
+      "metaId": "5d8b499c-a3db-4a4d-8d22-68b0e30d5543",
+      "documentCommandMetaId": "e9e518d2-51ff-448a-a8ca-d6fb415ca610",
+      "documentSubtypeMetaId": "9c882573-8eb8-4b1c-b3ab-ecebc640a4cc"
+    }
+  ]
+}

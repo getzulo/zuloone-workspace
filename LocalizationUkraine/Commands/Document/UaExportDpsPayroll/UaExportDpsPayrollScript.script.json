@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "UaExportDpsPayroll",
+    "objectMetaId": "e9e518d2-51ff-448a-a8ca-d6fb415ca610",
+    "executionOrder": 0,
+    "metaId": "0befca7f-4777-4e1b-8fb8-10d51b1e93cb",
+    "name": "UaExportDpsPayrollScript",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

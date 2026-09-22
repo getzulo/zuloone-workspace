@@ -285,6 +285,30 @@
       "metaId": "a8587cfb-a9e0-41ce-8078-b10e8287154b",
       "name": "VatReturnType",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "PayrollIncomeSign",
+      "baseType": "String",
+      "length": 8,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 12,
+      "description": "Ознака доходу додатка 4ДФ (J0510411 графа T1RXXXXG05). Для зарплати з PayrollAccrual — 101 за Довідником ознак доходів ДПС. Порожньо — у бланк підставляється 101, бо цей контур нараховує саме зарплату, не ЦПХ (102) і не інші ознаки.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "4ДФ income sign (payroll)",
+        "ar": "علامة الدخل 4ДФ (الرواتب)",
+        "ru": "Ознака доходу 4ДФ (зарплата)",
+        "uk": "Ознака доходу 4ДФ (зарплата)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f447b34f-6543-424c-a320-1f25f65f8937",
+      "name": "PayrollIncomeSign",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

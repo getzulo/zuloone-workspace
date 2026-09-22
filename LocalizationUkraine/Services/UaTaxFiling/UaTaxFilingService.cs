@@ -44,6 +44,19 @@ public partial class UaTaxFiling
     /// </summary>
     public const string QuarterlyReturnType = "UA-QPR";
 
+    /// <summary>
+    /// Ідентифікатор форми ДПС для юрособи з 01.08.2026: Податковий розрахунок
+    /// (наказ Мінфіну 13.01.2015 № 4 у редакції 07.05.2026 № 243). Не XML-конверт
+    /// кабінету: C_REG/C_STI у нас немає. Це рядки розділу I, які є в регістрах.
+    /// </summary>
+    public const string DpsCalculationType = "J0500111";
+
+    /// <summary>Додаток 4ДФ до J0500111. Графи виплачено/перераховано порожні.</summary>
+    public const string Dps4DfType = "J0510411";
+
+    /// <summary>Додаток Д1 (ЄСВ по застрахованих). Категорія ЗО 1, тип нарахувань 1.</summary>
+    public const string DpsD1Type = "J0510111";
+
     private readonly IDocumentManager _documents;
     private readonly IDictionaryManager _dictionaries;
     private readonly IDictionaryManager<LegalEntity> _entities;
@@ -51,8 +64,11 @@ public partial class UaTaxFiling
     private readonly IDictionaryManager<Employee> _employees;
     private readonly IDictionaryManager<Division> _divisions;
     private readonly IDictionaryManager<TaxCode> _taxCodes;
+    private readonly IDictionaryManager<LocalizationUkraineSettings> _uaSettings;
+    private readonly IDictionaryManager<HRSettings> _hrSettings;
     private readonly ITotalsManager _totals;
     private readonly AnalyticSetService _analytics;
+    private readonly IDataService _data;
 
     public UaTaxFiling(
         IDocumentManager documents,
@@ -62,8 +78,11 @@ public partial class UaTaxFiling
         IDictionaryManager<Employee> employees,
         IDictionaryManager<Division> divisions,
         IDictionaryManager<TaxCode> taxCodes,
+        IDictionaryManager<LocalizationUkraineSettings> uaSettings,
+        IDictionaryManager<HRSettings> hrSettings,
         ITotalsManager totals,
-        AnalyticSetService analytics)
+        AnalyticSetService analytics,
+        IDataService data)
     {
         _documents = documents;
         _dictionaries = dictionaries;
@@ -72,8 +91,11 @@ public partial class UaTaxFiling
         _employees = employees;
         _divisions = divisions;
         _taxCodes = taxCodes;
+        _uaSettings = uaSettings;
+        _hrSettings = hrSettings;
         _totals = totals;
         _analytics = analytics;
+        _data = data;
     }
 
     /// <summary>
@@ -181,6 +203,222 @@ public partial class UaTaxFiling
         row.CreatedOn = DateTime.UtcNow;
         var saved = await _dictionaries.SaveRecordAsync(row);
         return saved.MetaId;
+    }
+
+    /// <summary>
+    /// Три бланки ДПС за період декларації: J0500111, J0510411, J0510111.
+    /// Повертає id рядка J0500111. Повтор заміщує кожен тип окремо.
+    /// Виплачено/перераховано не копіюються з нарахованого.
+    /// </summary>
+    public async Task<Guid?> ExportDpsPayrollAsync(Guid taxReturnId)
+    {
+        var declaration = await _documents.GetDocumentAsync<TaxReturn>(taxReturnId);
+        if (declaration is null) return null;
+
+        var entity = declaration.LegalEntity != Guid.Empty
+            ? await _entities.GetRecordAsync(declaration.LegalEntity)
+            : null;
+
+        var four = await ListDps4DfAsync(
+            declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
+        var d1 = await ListDpsD1Async(
+            declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
+        var lines = await ListDpsCalculationAsync(
+            declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
+
+        await SaveExportAsync(declaration, Dps4DfType, BuildDps4DfPayload(declaration, entity, four));
+        await SaveExportAsync(declaration, DpsD1Type, BuildDpsD1Payload(declaration, entity, d1));
+        return await SaveExportAsync(
+            declaration, DpsCalculationType, BuildDpsCalculationPayload(declaration, entity, lines));
+    }
+
+    public async Task<List<(string TaxCard, string Name, decimal AccruedIncome, decimal PaidIncome, decimal AccruedPdfo, decimal TransferredPdfo, decimal AccruedVz, decimal TransferredVz, string IncomeSign, string HireDate)>>
+        ListDps4DfAsync(Guid legalEntity, DateTime from, DateTime to)
+    {
+        var result = new List<(string, string, decimal, decimal, decimal, decimal, decimal, decimal, string, string)>();
+        var levies = await LevyByEmployeeAsync(legalEntity, from, to);
+        if (levies.Count == 0) return result;
+
+        var sign = await IncomeSignAsync();
+        var pdfoCode = await SettingsCodeAsync(s => s.IncomeTaxCode);
+        var vzCode = await SettingsCodeAsync(s => s.MilitaryLevyCode);
+
+        foreach (var pair in levies.OrderBy(p => p.Key))
+        {
+            var employee = await _employees.GetRecordAsync(pair.Key);
+            decimal accruedIncome = 0m, pdfo = 0m, vz = 0m;
+            foreach (var line in pair.Value)
+            {
+                if (string.Equals(line.Code, pdfoCode, StringComparison.OrdinalIgnoreCase))
+                {
+                    accruedIncome = line.Base;
+                    pdfo = line.Amount;
+                }
+                else if (string.Equals(line.Code, vzCode, StringComparison.OrdinalIgnoreCase))
+                    vz = line.Amount;
+            }
+            if (accruedIncome == 0m)
+                accruedIncome = pair.Value.Select(l => l.Base).DefaultIfEmpty(0m).Max();
+
+            var hire = employee != null && employee.HireDate.Year >= 1902
+                && employee.HireDate.Date >= from.Date && employee.HireDate.Date < to.Date.AddDays(1)
+                ? employee.HireDate.ToString("dd.MM.yyyy")
+                : "";
+
+            result.Add((
+                await TaxCardOfAsync(pair.Key),
+                employee?.Name ?? "",
+                accruedIncome,
+                0m,
+                pdfo,
+                0m,
+                vz,
+                0m,
+                sign,
+                hire));
+        }
+
+        return result;
+    }
+
+    public async Task<List<(string TaxCard, string LastName, string Category, string AccrualType, int Month, int Year, int Days, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv)>>
+        ListDpsD1Async(Guid legalEntity, DateTime from, DateTime to)
+    {
+        var result = new List<(string, string, string, string, int, int, int, decimal, decimal, decimal, decimal)>();
+        var esv = await EsvByEmployeeAsync(legalEntity, from, to);
+        var levies = await LevyByEmployeeAsync(legalEntity, from, to);
+        var ids = esv.Keys.Union(levies.Keys).OrderBy(id => id);
+        var ceiling = await WageCeilingAsync();
+        var month = from.Month;
+        var year = from.Year;
+        var days = DateTime.DaysInMonth(year, month);
+
+        foreach (var id in ids)
+        {
+            var employee = await _employees.GetRecordAsync(id);
+            var pdfoBase = 0m;
+            if (levies.TryGetValue(id, out var lines))
+                pdfoBase = lines.Select(l => l.Base).DefaultIfEmpty(0m).Max();
+            var (empEsv, erEsv) = esv.TryGetValue(id, out var e) ? e : (0m, 0m);
+            var capped = ceiling > 0m && pdfoBase > ceiling ? ceiling : pdfoBase;
+            result.Add((
+                await TaxCardOfAsync(id),
+                employee?.Name ?? "",
+                "1",
+                "1",
+                month,
+                year,
+                days,
+                pdfoBase,
+                capped,
+                empEsv,
+                erEsv));
+        }
+
+        return result;
+    }
+
+    public async Task<List<(string Cell, string Caption, decimal Amount)>>
+        ListDpsCalculationAsync(Guid legalEntity, DateTime from, DateTime to)
+    {
+        var four = await ListDps4DfAsync(legalEntity, from, to);
+        var d1 = await ListDpsD1Async(legalEntity, from, to);
+        var gross = four.Sum(r => r.AccruedIncome);
+        var capped = d1.Sum(r => r.Capped);
+        var esv = d1.Sum(r => r.EmployerEsv);
+        return new List<(string, string, decimal)>
+        {
+            ("R092G3", "Працівників, яким нараховано зарплату", four.Count),
+            ("R0101G3", "Загальна сума нарахованого доходу", gross),
+            ("R01011G3", "Сума нарахованої заробітної плати", gross),
+            ("R0102G3", "Дохід у межах максимальної величини ЄСВ", capped),
+            ("R01021G3", "Дохід, на який нараховується 22 %", capped),
+            ("R0103G3", "Нараховано єдиного внеску", esv),
+            ("R01031G3", "Рядок 2.1 × 22 %", esv),
+            ("R0107G3", "Єдиний внесок до сплати", esv),
+        };
+    }
+
+    public string BuildDps4DfPayload(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        List<(string TaxCard, string Name, decimal AccruedIncome, decimal PaidIncome, decimal AccruedPdfo, decimal TransferredPdfo, decimal AccruedVz, decimal TransferredVz, string IncomeSign, string HireDate)> rows)
+    {
+        var text = new StringBuilder();
+        text.AppendLine("# J0510411 Додаток 4ДФ (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
+        text.AppendLine("# Графи виплачено/перераховано порожні: сплати до бюджету в регістрі немає.");
+        Header(text, entity, Dps4DfType, declaration);
+        text.AppendLine($"R00G01I;{rows.Count(r => r.IncomeSign == "101")}");
+        text.AppendLine();
+        text.AppendLine("T1RXXXXG02;T1RXXXXG03A;T1RXXXXG03;T1RXXXXG04A;T1RXXXXG04;T1RXXXXG5A;T1RXXXXG5;T1RXXXXG05;T1RXXXXG06D;Name");
+        foreach (var row in rows)
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture,
+                "{0};{1:0.00};{2:0.00};{3:0.00};{4:0.00};{5:0.00};{6:0.00};{7};{8};{9}",
+                row.TaxCard, row.AccruedIncome, row.PaidIncome, row.AccruedPdfo, row.TransferredPdfo,
+                row.AccruedVz, row.TransferredVz, row.IncomeSign, row.HireDate, row.Name));
+        }
+        text.AppendLine();
+        text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G03A;{0:0.00}", rows.Sum(r => r.AccruedIncome)));
+        text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G03;{0:0.00}", rows.Sum(r => r.PaidIncome)));
+        text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G04A;{0:0.00}", rows.Sum(r => r.AccruedPdfo)));
+        text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G04;{0:0.00}", rows.Sum(r => r.TransferredPdfo)));
+        text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G5A;{0:0.00}", rows.Sum(r => r.AccruedVz)));
+        text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G5;{0:0.00}", rows.Sum(r => r.TransferredVz)));
+        return text.ToString();
+    }
+
+    public string BuildDpsD1Payload(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        List<(string TaxCard, string LastName, string Category, string AccrualType, int Month, int Year, int Days, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv)> rows)
+    {
+        var text = new StringBuilder();
+        text.AppendLine("# J0510111 Додаток Д1 (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
+        text.AppendLine("# T1RXXXXG8=1 (наймані), T1RXXXXG9=1 (нарахування за звітний місяць).");
+        Header(text, entity, DpsD1Type, declaration);
+        text.AppendLine("T1RXXXXG7S;T1RXXXXG8;T1RXXXXG9;T1RXXXXG101;T1RXXXXG102;T1RXXXXG111S;T1RXXXXG14;T1RXXXXG16;T1RXXXXG17;T1RXXXXG19;T1RXXXXG20;T1RXXXXG21");
+        foreach (var row in rows)
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture,
+                "{0};{1};{2};{3};{4};{5};{6};{7:0.00};{8:0.00};{9:0.00};{10:0.00};1",
+                row.TaxCard, row.Category, row.AccrualType, row.Month, row.Year, row.LastName,
+                row.Days, row.Gross, row.Capped, row.EmployeeEsv, row.EmployerEsv));
+        }
+        text.AppendLine();
+        text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G16;{0:0.00}", rows.Sum(r => r.Gross)));
+        text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G17;{0:0.00}", rows.Sum(r => r.Capped)));
+        text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G19;{0:0.00}", rows.Sum(r => r.EmployeeEsv)));
+        text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G20;{0:0.00}", rows.Sum(r => r.EmployerEsv)));
+        return text.ToString();
+    }
+
+    public string BuildDpsCalculationPayload(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        List<(string Cell, string Caption, decimal Amount)> lines)
+    {
+        var text = new StringBuilder();
+        text.AppendLine("# J0500111 Податковий розрахунок ЮО (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
+        text.AppendLine("# Заповнено розділ I рядками, які є в SocialInsurance і UaPayrollLevy. Розділи II–III порожні.");
+        Header(text, entity, DpsCalculationType, declaration);
+        text.AppendLine($"HZ;1");
+        text.AppendLine($"HZY;{declaration.PeriodFrom:yyyy}");
+        text.AppendLine($"HZM;{declaration.PeriodFrom:MM}");
+        text.AppendLine($"HNAME;{entity?.Name ?? string.Empty}");
+        text.AppendLine($"HTIN;{entity?.TaxRegistrationNumber ?? string.Empty}");
+        text.AppendLine("R061G3;1");
+        text.AppendLine("R064G3;1");
+        text.AppendLine();
+        text.AppendLine("Комірка;Назва;Сума");
+        foreach (var line in lines)
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture, "{0};{1};{2:0.00}", line.Cell, line.Caption, line.Amount));
+        }
+        return text.ToString();
     }
 
     /// <summary>
@@ -380,6 +618,145 @@ public partial class UaTaxFiling
 
     private static Guid AnalyticGuid(IReadOnlyDictionary<string, string> values, string analytic)
         => values.TryGetValue(analytic, out var v) && Guid.TryParse(v, out var g) ? g : Guid.Empty;
+
+    private async Task<Guid?> SaveExportAsync(TaxReturn declaration, string returnType, string payload)
+    {
+        var existing = (await _exports.GetRecordsAsync(
+                $"LegalEntity = '{declaration.LegalEntity}'"))
+            .FirstOrDefault(r => r.PeriodFrom.Date == declaration.PeriodFrom.Date
+                              && r.PeriodTo.Date == declaration.PeriodTo.Date
+                              && string.Equals(r.ReturnType, returnType, StringComparison.OrdinalIgnoreCase));
+
+        var row = existing ?? _dictionaries.NewRecord<UaTaxFilingExport>();
+        row.LegalEntity = declaration.LegalEntity;
+        row.ReturnType = returnType;
+        row.PeriodFrom = declaration.PeriodFrom;
+        row.PeriodTo = declaration.PeriodTo;
+        row.Payload = payload;
+        row.CreatedOn = DateTime.UtcNow;
+        var saved = await _dictionaries.SaveRecordAsync(row);
+        return saved.MetaId;
+    }
+
+    private static void Header(StringBuilder text, LegalEntity? entity, string returnType, TaxReturn declaration)
+    {
+        text.AppendLine($"Юрособа;{entity?.Name ?? string.Empty}");
+        text.AppendLine($"Податковий номер;{entity?.TaxRegistrationNumber ?? string.Empty}");
+        text.AppendLine($"Тип;{returnType}");
+        text.AppendLine($"Період;{declaration.PeriodFrom:yyyy-MM-dd};{declaration.PeriodTo:yyyy-MM-dd}");
+        text.AppendLine();
+    }
+
+    private async Task<string> TaxCardOfAsync(Guid employeeId)
+    {
+        try
+        {
+            var bag = await _data.GetByIdAsync("Employee", employeeId);
+            var raw = bag?["TaxCardNumber"];
+            return Convert.ToString(raw) ?? "";
+        }
+        catch
+        {
+            return "";
+        }
+    }
+
+    private async Task<string> IncomeSignAsync()
+    {
+        var rows = await _uaSettings.GetRecordsAsync(take: 1);
+        var sign = rows.Count > 0 ? rows[0].PayrollIncomeSign : null;
+        return string.IsNullOrWhiteSpace(sign) ? "101" : sign.Trim();
+    }
+
+    private async Task<string> SettingsCodeAsync(Func<LocalizationUkraineSettings, string?> pick)
+    {
+        var rows = await _uaSettings.GetRecordsAsync(take: 1);
+        return rows.Count == 0 ? "" : pick(rows[0]) ?? "";
+    }
+
+    private async Task<decimal> WageCeilingAsync()
+    {
+        var rows = await _hrSettings.GetRecordsAsync(take: 1);
+        return rows.Count > 0 ? rows[0].SocialInsuranceWageCeiling : 0m;
+    }
+
+    private async Task<Dictionary<Guid, List<(string Code, decimal Base, decimal Amount)>>> LevyByEmployeeAsync(
+        Guid legalEntity, DateTime from, DateTime to)
+    {
+        var grouped = new Dictionary<Guid, List<(string, decimal, decimal)>>();
+        if (legalEntity == Guid.Empty) return grouped;
+
+        var start = from.Date;
+        var endExclusive = to.Date.AddDays(1);
+        var movements = await _totals.QueryMovementsAsync(
+            "UaPayrollLevy",
+            $"[LegalEntity] = '{legalEntity}' AND [MovementDate] >= '{start:yyyy-MM-dd HH:mm:ss}' AND [MovementDate] < '{endExclusive:yyyy-MM-dd HH:mm:ss}'");
+
+        var sums = new Dictionary<(Guid Employee, Guid TaxCode), (decimal Base, decimal Amount)>();
+        foreach (var movement in movements)
+        {
+            var employee = AsGuid(movement, "Employee");
+            var taxCode = AsGuid(movement, "TaxCode");
+            if (employee == Guid.Empty || taxCode == Guid.Empty) continue;
+            var key = (employee, taxCode);
+            var prev = sums.TryGetValue(key, out var v) ? v : (0m, 0m);
+            sums[key] = (prev.Item1 + AsDecimal(movement, "Base"), prev.Item2 + AsDecimal(movement, "Amount"));
+        }
+
+        foreach (var pair in sums)
+        {
+            var code = await _taxCodes.GetRecordAsync(pair.Key.TaxCode);
+            if (!grouped.TryGetValue(pair.Key.Employee, out var list))
+                grouped[pair.Key.Employee] = list = new List<(string, decimal, decimal)>();
+            list.Add((code?.Code ?? "", pair.Value.Item1, pair.Value.Item2));
+        }
+
+        return grouped;
+    }
+
+    private async Task<Dictionary<Guid, (decimal Employee, decimal Employer)>> EsvByEmployeeAsync(
+        Guid legalEntity, DateTime from, DateTime to)
+    {
+        var grouped = new Dictionary<Guid, (decimal, decimal)>();
+        if (legalEntity == Guid.Empty) return grouped;
+
+        var start = from.Date;
+        var endExclusive = to.Date.AddDays(1);
+        var movements = await _totals.QueryMovementsAsync(
+            "SocialInsurance",
+            $"[MovementDate] >= '{start:yyyy-MM-dd HH:mm:ss}' AND [MovementDate] < '{endExclusive:yyyy-MM-dd HH:mm:ss}'");
+        if (movements.Count == 0) return grouped;
+
+        var setIds = movements
+            .Select(m => AsGuid(m, "AnalyticSetMetaId"))
+            .Where(id => id != Guid.Empty)
+            .Distinct()
+            .ToList();
+        var sets = await _analytics.ExpandAsync(setIds);
+        var divisionEntity = new Dictionary<Guid, Guid>();
+        foreach (var movement in movements)
+        {
+            var setId = AsGuid(movement, "AnalyticSetMetaId");
+            if (setId == Guid.Empty || !sets.TryGetValue(setId, out var values)) continue;
+            var divisionId = AnalyticGuid(values, "Division");
+            if (divisionId == Guid.Empty) continue;
+            if (!divisionEntity.TryGetValue(divisionId, out var entityId))
+            {
+                var division = await _divisions.GetRecordAsync(divisionId);
+                entityId = division?.LegalEntity ?? Guid.Empty;
+                divisionEntity[divisionId] = entityId;
+            }
+            if (entityId != legalEntity) continue;
+            var employeeId = AnalyticGuid(values, "Employee");
+            if (employeeId == Guid.Empty) continue;
+            var prev = grouped.TryGetValue(employeeId, out var v) ? v : (0m, 0m);
+            grouped[employeeId] = (
+                prev.Item1 + AsDecimal(movement, "EmployeeContribution"),
+                prev.Item2 + AsDecimal(movement, "EmployerContribution"));
+        }
+
+        return grouped;
+    }
 
     private static Guid AsGuid(Dictionary<string, object?> row, string field)
     {

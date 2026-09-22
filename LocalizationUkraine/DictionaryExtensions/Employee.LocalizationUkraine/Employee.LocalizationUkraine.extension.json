@@ -1,0 +1,36 @@
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+    "description": "РНОКПП сотрудника для додатка 4ДФ (J0510411 графа T1RXXXXG02) и Д1 (J0510111 графа T1RXXXXG7S). Живёт в пакете Украины: кадровое ядро не знает про український податковий номер.",
+    "metaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+    "name": "Employee.LocalizationUkraine",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "fields": [
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "TaxCardNumber",
+      "baseType": "String",
+      "length": 10,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 62,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Tax card number (РНОКПП)",
+        "ar": "رقم البطاقة الضريبية",
+        "ru": "РНОКПП",
+        "uk": "РНОКПП"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "888d3bfc-2a12-4c94-bbff-162a1a4046eb",
+      "name": "TaxCardNumber",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}
