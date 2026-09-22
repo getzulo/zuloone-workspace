@@ -10,17 +10,21 @@ using ZuloOne.Runtime.Reports;
 // реализации — обычные поля, и это тот же факт продажи.
 //
 // Скобки [Имя] нормализует ISqlDialect: на SQL Server остаются скобки,
-// на Postgres становятся кавычками.
+// на Postgres становятся кавычками. ПСЕВДОНИМЫ ТОЖЕ: неэкранированный
+// `AS Amount` Postgres сворачивает в `amount`, а GetReportColumns ищет колонку
+// по `DatabaseName = "Amount"` — и не находит НИ ОДНОЙ. Запрос при этом
+// отрабатывает без ошибки, поэтому отчёт просто пуст. На SQL Server не
+// воспроизводится: там регистр не различается.
 public partial class CustomReportCustomerPurchaseHistoryReport
 {
     public override string GetTransactionsSql() => @"
 SELECT
-    h.[DocumentDate] AS MovementDate,
-    h.[MetaId] AS DocumentMetaId,
-    h.[Customer] AS Customer,
-    l.[Item] AS Item,
-    l.[Quantity] AS Quantity,
-    l.[Quantity] * l.[UnitPrice] AS Amount
+    h.[DocumentDate] AS [MovementDate],
+    h.[MetaId] AS [DocumentMetaId],
+    h.[Customer] AS [Customer],
+    l.[Item] AS [Item],
+    l.[Quantity] AS [Quantity],
+    l.[Quantity] * l.[UnitPrice] AS [Amount]
 FROM [SalesRealization] h
 INNER JOIN [TP_SalesInvoiceLines] l ON l.[OwnerMetaId] = h.[MetaId]
 WHERE h.[Subtype] NOT IN (N'Draft', N'Cancelled')";

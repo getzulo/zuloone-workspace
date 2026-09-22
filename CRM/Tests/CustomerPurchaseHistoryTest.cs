@@ -135,8 +135,12 @@ public class CustomerPurchaseHistoryTest : IntegrationTestScriptBase
 
     private async Task<decimal> HistoryAmountAsync(Guid customer)
     {
+        // Псевдоним В СКОБКАХ. Неэкранированный `AS Amount` Postgres сворачивает
+        // в `amount`, запрос при этом отрабатывает и возвращает строки — падает
+        // только чтение: `KeyNotFoundException: key 'Amount'`. Выглядит как
+        // сломанный тест, а на деле это регистр имени колонки в ответе.
         var rows = await Sql.SelectAsync(@"
-SELECT l.[Quantity] * l.[UnitPrice] AS Amount
+SELECT l.[Quantity] * l.[UnitPrice] AS [Amount]
 FROM [SalesRealization] h
 INNER JOIN [TP_SalesInvoiceLines] l ON l.[OwnerMetaId] = h.[MetaId]
 WHERE h.[Customer] = @customer AND h.[Subtype] NOT IN (N'Draft', N'Cancelled')",
