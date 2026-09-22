@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Managers;
@@ -109,17 +110,25 @@ public class InventoryValueFlowTest : IntegrationTestScriptBase
         return new Setup { Location = cell.MetaId, Item = item.MetaId, Supplier = supplier.MetaId };
     }
 
-    // InventoryValue несёт одну динамическую аналитику (Item) — баланс
-    // схлопывается в одну строку; суммируем оба ресурса.
-    private static async Task<(decimal Value, decimal Qty)> InventoryValueAsync()
+    /// <summary>
+    /// Остаток стоимости ПО СВОЕМУ ТОВАРУ.
+    ///
+    /// Раньше здесь суммировался весь регистр без среза, и тест сравнивал
+    /// ГЛОБАЛЬНЫЙ итог с нулём. Зелёным такое бывает ровно на одном стенде — с
+    /// пустым `InventoryValue`; на любом, где уже есть демо-данные или чужие
+    /// оприходования, он падал на первой же проверке («черновик не наполняет
+    /// стоимость, факт 0.00/14987»). Ни одна из этих 14987 штук к документу
+    /// теста отношения не имела.
+    ///
+    /// Аналитика у регистра одна (`Item`), и срез по ней читается балансом:
+    /// `GetBalanceAsync` переагрегирует аналитики из движений сам.
+    /// </summary>
+    private static async Task<(decimal Value, decimal Qty)> InventoryValueAsync(Guid item)
     {
-        decimal value = 0m, qty = 0m;
-        foreach (var r in await TotalsManager.QueryBalancesAsync("InventoryValue"))
-        {
-            value += Convert.ToDecimal(r["Value"]);
-            qty += Convert.ToDecimal(r["Qty"]);
-        }
-        return (value, qty);
+        var row = await TotalsManager.GetBalanceAsync(
+            "InventoryValue", new Dictionary<string, object?> { ["Item"] = item });
+        if (row == null) return (0m, 0m);
+        return (Convert.ToDecimal(row["Value"] ?? 0m), Convert.ToDecimal(row["Qty"] ?? 0m));
     }
 
     [IntegrationTest("Оприходование заказа наполняет стоимость запасов; средняя = Value/Qty")]
@@ -137,7 +146,7 @@ public class InventoryValueFlowTest : IntegrationTestScriptBase
         // Черновик стоимости не создаёт. Проверяем ДО перехода — тип помечен
         // postOnSave, и без этой проверки тест зеленел бы независимо от того,
         // сделал ли переход хоть что-нибудь.
-        var draft = await InventoryValueAsync();
+        var draft = await InventoryValueAsync(s.Item);
         Assert.IsTrue(draft.Value == 0m && draft.Qty == 0m,
             "черновик не наполняет InventoryValue, факт {0}/{1}", draft.Value, draft.Qty);
 
@@ -146,14 +155,14 @@ public class InventoryValueFlowTest : IntegrationTestScriptBase
         po.Subtype = PurchaseOrder.Subtypes.Ordered;
         await DocumentManager.SaveDocumentAsync(po);
 
-        var ordered = await InventoryValueAsync();
+        var ordered = await InventoryValueAsync(s.Item);
         Assert.IsTrue(ordered.Value == 0m && ordered.Qty == 0m,
             "заказ ещё не приход — стоимость не движется, факт {0}/{1}", ordered.Value, ordered.Qty);
 
         po.Subtype = PurchaseOrder.Subtypes.Received;
         await DocumentManager.SaveDocumentAsync(po);
 
-        var (value, qty) = await InventoryValueAsync();
+        var (value, qty) = await InventoryValueAsync(s.Item);
         Assert.IsTrue(value == 70m, "стоимость 10 × 7 = 70, факт {0}", value);
         Assert.IsTrue(qty == 10m, "количество 10, факт {0}", qty);
         Assert.IsTrue(qty > 0m && value / qty == 7m, "средняя себестоимость 7, факт {0}", qty > 0m ? value / qty : -1m);
