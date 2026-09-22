@@ -76,8 +76,19 @@ public partial class SocialInsuranceService
     /// Порождает ПРОВЕДЁННОЕ начисление взносов по парам «сотрудник → начислено».
     /// null, если контур не настроен или взносы вышли нулевыми: соцстрах —
     /// необязательный контур, без него начисление ФОТ проводится как раньше.
+    /// Дата документа — сегодня: вызывай перегрузку с датой ФОТ, иначе
+    /// квартальный отчёт за март не увидит мартовский взнос.
     /// </summary>
-    public async Task<Guid?> CreateAccrualAsync(Guid division, IEnumerable<KeyValuePair<Guid, decimal>> gross)
+    public Task<Guid?> CreateAccrualAsync(Guid division, IEnumerable<KeyValuePair<Guid, decimal>> gross)
+        => CreateAccrualAsync(division, gross, DateTime.UtcNow);
+
+    /// <summary>
+    /// То же, с датой документа. Движения SocialInsurance пишутся датой
+    /// начисления, не «сейчас»: отчёт за период декларации иначе пропускает
+    /// взносы, порождённые из прошлого месяца.
+    /// </summary>
+    public async Task<Guid?> CreateAccrualAsync(
+        Guid division, IEnumerable<KeyValuePair<Guid, decimal>> gross, DateTime documentDate)
     {
         var s = (await _settings.GetRecordsAsync("1 = 1")).FirstOrDefault();
         if (s is null) return null;
@@ -97,8 +108,10 @@ public partial class SocialInsuranceService
         }
         if (rows.Count == 0) return null;
 
+        var on = documentDate.Year >= 1902 ? documentDate.Date : DateTime.UtcNow.Date;
         var doc = await _documents.NewDocumentAsync<SocialInsuranceAccrual>("Draft",
-            new Dictionary<string, object?> { ["Division"] = division });
+            new Dictionary<string, object?> { ["Division"] = division, ["DocumentDate"] = on });
+        doc.DocumentDate = on;
         foreach (var r in rows) doc.Lines.Add(r);
 
         // Сохраняем ЧЕРНОВИКОМ и только потом переводим: подтип Posted заперт

@@ -98,7 +98,7 @@ public partial class PayrollAccrualEventHandler : TypedDocumentEventHandler<Payr
             gross[line.Employee] = (gross.TryGetValue(line.Employee, out var v) ? v : 0m) + line.Amount;
 
         var si = await context.GetService<ISocialInsuranceService>()
-            .CreateAccrualAsync(accrual.Division, gross);
+            .CreateAccrualAsync(accrual.Division, gross, accrual.DocumentDate);
         if (si.HasValue)
             await docs.AddLinkAsync(header.MetaId, si.Value);
 

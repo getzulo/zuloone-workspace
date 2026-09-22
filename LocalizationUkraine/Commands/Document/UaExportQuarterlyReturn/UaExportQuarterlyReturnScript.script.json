@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "UaExportQuarterlyReturn",
+    "objectMetaId": "41a54595-bc09-4413-95c4-7112350b0d6f",
+    "executionOrder": 0,
+    "metaId": "7e65508a-8081-4e66-abe5-5b923e071f39",
+    "name": "UaExportQuarterlyReturnScript",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

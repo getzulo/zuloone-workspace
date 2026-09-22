@@ -36,13 +36,23 @@ public partial class UaTaxFiling
     /// </summary>
     public const string LevyReturnType = "UA-LEVY";
 
+    /// <summary>
+    /// Тип выгрузки единого расчёта. Не название бланка ДПС J050010x:
+    /// офіційного розрахунок тут нет (немає додатків, ознак, XML ДПС).
+    /// Це робоча таблиця ЄСВ з SocialInsurance + ПДФО/ВЗ з UaPayrollLevy
+    /// за період декларації.
+    /// </summary>
+    public const string QuarterlyReturnType = "UA-QPR";
+
     private readonly IDocumentManager _documents;
     private readonly IDictionaryManager _dictionaries;
     private readonly IDictionaryManager<LegalEntity> _entities;
     private readonly IDictionaryManager<UaTaxFilingExport> _exports;
     private readonly IDictionaryManager<Employee> _employees;
+    private readonly IDictionaryManager<Division> _divisions;
     private readonly IDictionaryManager<TaxCode> _taxCodes;
     private readonly ITotalsManager _totals;
+    private readonly AnalyticSetService _analytics;
 
     public UaTaxFiling(
         IDocumentManager documents,
@@ -50,16 +60,20 @@ public partial class UaTaxFiling
         IDictionaryManager<LegalEntity> entities,
         IDictionaryManager<UaTaxFilingExport> exports,
         IDictionaryManager<Employee> employees,
+        IDictionaryManager<Division> divisions,
         IDictionaryManager<TaxCode> taxCodes,
-        ITotalsManager totals)
+        ITotalsManager totals,
+        AnalyticSetService analytics)
     {
         _documents = documents;
         _dictionaries = dictionaries;
         _entities = entities;
         _exports = exports;
         _employees = employees;
+        _divisions = divisions;
         _taxCodes = taxCodes;
         _totals = totals;
+        _analytics = analytics;
     }
 
     /// <summary>
@@ -125,6 +139,42 @@ public partial class UaTaxFiling
         var row = existing ?? _dictionaries.NewRecord<UaTaxFilingExport>();
         row.LegalEntity = declaration.LegalEntity;
         row.ReturnType = LevyReturnType;
+        row.PeriodFrom = declaration.PeriodFrom;
+        row.PeriodTo = declaration.PeriodTo;
+        row.Payload = payload;
+        row.CreatedOn = DateTime.UtcNow;
+        var saved = await _dictionaries.SaveRecordAsync(row);
+        return saved.MetaId;
+    }
+
+    /// <summary>
+    /// Робоча таблиця ЄСВ+ПДФО+ВЗ за період декларації. Повтор заміщує
+    /// рядок UA-QPR, не чіпає UA-LEVY і вивантаження ПДВ.
+    /// </summary>
+    public async Task<Guid?> ExportQuarterlyAsync(Guid taxReturnId)
+    {
+        var declaration = await _documents.GetDocumentAsync<TaxReturn>(taxReturnId);
+        if (declaration is null) return null;
+
+        var entity = declaration.LegalEntity != Guid.Empty
+            ? await _entities.GetRecordAsync(declaration.LegalEntity)
+            : null;
+
+        var esv = await ListEsvAsync(
+            declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
+        var levies = await ListLeviesAsync(
+            declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
+        var payload = BuildQuarterlyPayload(declaration, entity, esv, levies);
+
+        var existing = (await _exports.GetRecordsAsync(
+                $"LegalEntity = '{declaration.LegalEntity}'"))
+            .FirstOrDefault(r => r.PeriodFrom.Date == declaration.PeriodFrom.Date
+                              && r.PeriodTo.Date == declaration.PeriodTo.Date
+                              && string.Equals(r.ReturnType, QuarterlyReturnType, StringComparison.OrdinalIgnoreCase));
+
+        var row = existing ?? _dictionaries.NewRecord<UaTaxFilingExport>();
+        row.LegalEntity = declaration.LegalEntity;
+        row.ReturnType = QuarterlyReturnType;
         row.PeriodFrom = declaration.PeriodFrom;
         row.PeriodTo = declaration.PeriodTo;
         row.Payload = payload;
@@ -207,6 +257,129 @@ public partial class UaTaxFiling
             rows.Sum(r => r.Amount)));
         return text.ToString();
     }
+
+    /// <summary>
+    /// Рухи SocialInsurance за період. Юрлицо — не колонка: аналітики
+    /// Employee і Division, ExpandAsync, потім Division.LegalEntity.
+    /// </summary>
+    public async Task<List<(string EmployeeId, string EmployeeName, decimal EmployeeContribution, decimal EmployerContribution)>>
+        ListEsvAsync(Guid legalEntity, DateTime from, DateTime to)
+    {
+        var result = new List<(string, string, decimal, decimal)>();
+        if (legalEntity == Guid.Empty) return result;
+
+        var start = from.Date;
+        var endExclusive = to.Date.AddDays(1);
+        var movements = await _totals.QueryMovementsAsync(
+            "SocialInsurance",
+            $"[MovementDate] >= '{start:yyyy-MM-dd HH:mm:ss}' AND [MovementDate] < '{endExclusive:yyyy-MM-dd HH:mm:ss}'");
+        if (movements.Count == 0) return result;
+
+        var setIds = movements
+            .Select(m => AsGuid(m, "AnalyticSetMetaId"))
+            .Where(id => id != Guid.Empty)
+            .Distinct()
+            .ToList();
+        var sets = await _analytics.ExpandAsync(setIds);
+
+        var grouped = new Dictionary<Guid, (decimal Employee, decimal Employer)>();
+        var divisionEntity = new Dictionary<Guid, Guid>();
+        foreach (var movement in movements)
+        {
+            var setId = AsGuid(movement, "AnalyticSetMetaId");
+            if (setId == Guid.Empty || !sets.TryGetValue(setId, out var values)) continue;
+
+            var divisionId = AnalyticGuid(values, "Division");
+            if (divisionId == Guid.Empty) continue;
+            if (!divisionEntity.TryGetValue(divisionId, out var entityId))
+            {
+                var division = await _divisions.GetRecordAsync(divisionId);
+                entityId = division?.LegalEntity ?? Guid.Empty;
+                divisionEntity[divisionId] = entityId;
+            }
+            if (entityId != legalEntity) continue;
+
+            var employeeId = AnalyticGuid(values, "Employee");
+            if (employeeId == Guid.Empty) continue;
+
+            var prev = grouped.TryGetValue(employeeId, out var v) ? v : (0m, 0m);
+            grouped[employeeId] = (
+                prev.Item1 + AsDecimal(movement, "EmployeeContribution"),
+                prev.Item2 + AsDecimal(movement, "EmployerContribution"));
+        }
+
+        foreach (var pair in grouped.OrderBy(p => p.Key))
+        {
+            var employee = await _employees.GetRecordAsync(pair.Key);
+            result.Add((
+                employee?.ID ?? pair.Key.ToString("N")[..8],
+                employee?.Name ?? "",
+                pair.Value.Item1,
+                pair.Value.Item2));
+        }
+
+        return result;
+    }
+
+    public string BuildQuarterlyPayload(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        List<(string EmployeeId, string EmployeeName, decimal EmployeeContribution, decimal EmployerContribution)> esv,
+        List<(string EmployeeId, string EmployeeName, string TaxCode, decimal Base, decimal Amount)> levies)
+    {
+        var text = new StringBuilder();
+        text.AppendLine("# Робоча таблиця єдиного розрахунку (ЄСВ+ПДФО+ВЗ, не бланк ДПС)");
+        text.AppendLine($"Юрособа;{entity?.Name ?? string.Empty}");
+        text.AppendLine($"Податковий номер;{entity?.TaxRegistrationNumber ?? string.Empty}");
+        text.AppendLine($"Тип;{QuarterlyReturnType}");
+        text.AppendLine($"Період;{declaration.PeriodFrom:yyyy-MM-dd};{declaration.PeriodTo:yyyy-MM-dd}");
+        text.AppendLine();
+        text.AppendLine("## ЄСВ");
+        text.AppendLine("Працівник;Код;Частка працівника;Частка роботодавця");
+        foreach (var row in esv)
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture,
+                "{0};{1};{2:0.00};{3:0.00}",
+                row.EmployeeName, row.EmployeeId, row.EmployeeContribution, row.EmployerContribution));
+        }
+        text.AppendLine();
+        text.AppendLine(string.Format(
+            CultureInfo.InvariantCulture,
+            "Разом ЄСВ працівник;{0:0.00}",
+            esv.Sum(r => r.EmployeeContribution)));
+        text.AppendLine(string.Format(
+            CultureInfo.InvariantCulture,
+            "Разом ЄСВ роботодавець;{0:0.00}",
+            esv.Sum(r => r.EmployerContribution)));
+        text.AppendLine();
+        text.AppendLine("## ПДФО і ВЗ");
+        text.AppendLine("Працівник;Код;Код податку;База;Утримано");
+        foreach (var row in levies)
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture,
+                "{0};{1};{2};{3:0.00};{4:0.00}",
+                row.EmployeeName, row.EmployeeId, row.TaxCode, row.Base, row.Amount));
+        }
+        text.AppendLine();
+        text.AppendLine(string.Format(
+            CultureInfo.InvariantCulture,
+            "Разом утримано;{0:0.00}",
+            levies.Sum(r => r.Amount)));
+        text.AppendLine();
+        var together = esv.Sum(r => r.EmployeeContribution)
+            + esv.Sum(r => r.EmployerContribution)
+            + levies.Sum(r => r.Amount);
+        text.AppendLine(string.Format(
+            CultureInfo.InvariantCulture,
+            "Разом до перенесення;{0:0.00}",
+            together));
+        return text.ToString();
+    }
+
+    private static Guid AnalyticGuid(IReadOnlyDictionary<string, string> values, string analytic)
+        => values.TryGetValue(analytic, out var v) && Guid.TryParse(v, out var g) ? g : Guid.Empty;
 
     private static Guid AsGuid(Dictionary<string, object?> row, string field)
     {
