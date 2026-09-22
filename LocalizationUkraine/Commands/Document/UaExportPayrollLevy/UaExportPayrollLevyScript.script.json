@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "UaExportPayrollLevy",
+    "objectMetaId": "a83e6d0b-ae66-4975-b924-f0ab24fdc9de",
+    "executionOrder": 0,
+    "metaId": "88ad8927-cb39-4e9f-8f59-3bcd853aba47",
+    "name": "UaExportPayrollLevyScript",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
