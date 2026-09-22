@@ -5,6 +5,7 @@
     "method": "POST",
     "authMode": "None",
     "baseUrl": "https://operator.invalid/erpn",
+    "connectionTable": "TaxAuthorityConnection",
     "contentType": "application/json",
     "metaId": "bd356396-42a3-468d-b10c-0fc009c001a6",
     "name": "erpn-send",

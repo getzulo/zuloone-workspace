@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "UaBankConnection",
+    "objectMetaId": "affe1708-a1da-4c42-a21c-004249bef102",
+    "executionOrder": 0,
+    "metaId": "740598bc-d323-462d-b949-65c57c4857c1",
+    "name": "UaBankConnectionEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

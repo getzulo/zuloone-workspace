@@ -272,6 +272,30 @@
       "metaId": "05c088b5-e653-4523-b7fe-25650780394b",
       "name": "TimeoutSeconds",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "4f92fe56-cd0b-4688-b7f8-a726f2bbdfa0",
+      "fieldName": "AgentTag",
+      "baseType": "String",
+      "length": 100,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 11,
+      "description": "Ярлык или имя ZuloOne.Agent, который набирает этот адрес. Пусто — HTTPS с хоста. Локальный M.E.Doc на ПК бухгалтера: хост лупбэк отвергает, агент на той же машине — нет.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Agent tag",
+        "ar": "وسم الوكيل",
+        "ru": "Ярлык агента",
+        "uk": "Ярлик агента"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "0618dedd-676f-43d5-bafe-558863735526",
+      "name": "AgentTag",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]
 }

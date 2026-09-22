@@ -63,6 +63,22 @@
     },
     {
       "caption": {
+        "en": "Bank connections",
+        "ar": "اتصالات البنوك",
+        "ru": "Подключения к банку",
+        "uk": "Підключення до банку"
+      },
+      "parentMetaId": "d6c936fa-5987-4df4-8031-162b451b174f",
+      "displayOrder": 1,
+      "icon": "fluent-color:building-bank-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "affe1708-a1da-4c42-a21c-004249bef102",
+      "metaId": "559789a4-369b-4541-b4d2-86ed7934b219",
+      "name": "UaBankConnection",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
         "en": "Ukraine VAT payable",
         "ar": "ضريبة القيمة المضافة المستحقة (أوكرانيا)",
         "ru": "ПДВ к уплате",

@@ -115,7 +115,7 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
         // into a product that installs everywhere. They are MetaOutboundChannel
         // rows of this model now.
         var rows = await Sql.SelectAsync(
-            "SELECT [Name], [Path], [Signer], [ModelId] FROM [MetaOutboundChannels] WHERE [Name] LIKE 'fatoora-%'");
+            "SELECT [Name], [Path], [Signer], [ModelId], [ConnectionTable] FROM [MetaOutboundChannels] WHERE [Name] LIKE 'fatoora-%'");
 
         Assert.IsTrue(rows.Count == 5, "пять каналов на месте; факт {0}", rows.Count);
         foreach (var r in rows)
@@ -126,6 +126,9 @@ public class ZatcaOnboardingEndpointsTest : IntegrationTestScriptBase
                 "{0} подписывается профилем fatoora, который тоже в этой модели", r["Name"]);
             Assert.IsTrue(!string.IsNullOrWhiteSpace(Convert.ToString(r["Path"])),
                 "{0} знает свой путь", r["Name"]);
+            Assert.IsTrue(Convert.ToString(r["ConnectionTable"]) == "TaxAuthorityConnection",
+                "{0} читает налоговые подключения, не чужой справочник; факт '{1}'",
+                r["Name"], r["ConnectionTable"]);
         }
         var invoices = rows.First(r => Convert.ToString(r["Name"]) == "fatoora-compliance-invoices");
         Assert.IsTrue(Convert.ToString(invoices["Path"]) == "/compliance/invoices",

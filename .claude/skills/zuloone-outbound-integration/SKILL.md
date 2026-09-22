@@ -57,10 +57,16 @@ description: Отправить документ во внешнюю систе�
 адрес приходит из подключения тенанта, потому что у каждого оператора он свой,
 а часть из них вообще стоит в локальной сети клиента.
 
-**Адрес и доступ тенанта — `TaxAuthorityConnection`** (`Code`, `BaseUrl`,
-`CredentialRef`, `Environment`, `TimeoutSeconds`, `MaxRetries`). В запрос
-передаётся `ConnectionRef = connection.Code`; резолвер подставит остальное.
+**Адрес и доступ тенанта** — справочник, который канал назвал в
+`connectionTable` (`TaxAuthorityConnection` для налога, `UaBankConnection`
+для банка): `Code`, `BaseUrl`, `CredentialRef`, `Environment`,
+`TimeoutSeconds`, `MaxRetries`, `AgentTag`. В запрос передаётся
+`ConnectionRef = connection.Code`; резолвер подставит остальное.
 Секрет в модель не попадает НИКОГДА — назови имя credential, подставит хост.
+
+`AgentTag` на подключении — когда адрес живёт в LAN клиента (M.E.Doc на ПК).
+Хост лупбэк отвергает; агент с этим ярлыком набирает сам. Не зашивай ярлык
+в `.channel.json`: у соседнего тенанта оператор может быть облачным.
 
 ## 3. Успешная отправка — НЕ приём. Это главная ловушка
 

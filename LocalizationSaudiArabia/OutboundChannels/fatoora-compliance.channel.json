@@ -6,6 +6,7 @@
     "signer": "fatoora",
     "authMode": "Signer",
     "baseUrl": "https://gw-fatoora.zatca.gov.sa/e-invoicing/developer-portal",
+    "connectionTable": "TaxAuthorityConnection",
     "contentType": "application/json",
     "metaId": "35f1e8c7-6b20-4a93-8d5f-c94a7e30b168",
     "name": "fatoora-compliance",

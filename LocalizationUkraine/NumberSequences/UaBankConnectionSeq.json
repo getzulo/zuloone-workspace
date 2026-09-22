@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "726768d7-479b-412a-b1ce-f7ae0ed77317",
+    "name": "UaBankConnectionSeq",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

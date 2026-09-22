@@ -7,6 +7,7 @@
     "credentialRef": "fatoora-csid",
     "authMode": "Signer",
     "baseUrl": "https://gw-fatoora.zatca.gov.sa/e-invoicing/developer-portal",
+    "connectionTable": "TaxAuthorityConnection",
     "contentType": "application/json",
     "externalReferenceField": "requestID",
     "devComments": "Onboarding: compliance sample invoices. Live Fatoora requires these before a Production CSID. Developer stands overlay this onto the local stub.",
