@@ -6,11 +6,11 @@
     "signer": "fatoora",
     "authMode": "Signer",
     "baseUrl": "https://gw-fatoora.zatca.gov.sa/e-invoicing/developer-portal",
-    "connectionTable": "TaxAuthorityConnection",
     "contentType": "application/json",
+    "connectionTable": "TaxAuthorityConnection",
+    "devComments": "B2B: ZATCA clears the invoice BEFORE it reaches the buyer. Standard invoices only.",
     "metaId": "e4b7c0a3-91d5-4e62-8f47-2a5c9d14b307",
     "name": "fatoora-clearance",
-    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
-    "devComments": "B2B: ZATCA clears the invoice BEFORE it reaches the buyer. Standard invoices only."
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
   }
 }

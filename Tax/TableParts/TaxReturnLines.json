@@ -41,6 +41,27 @@
     },
     {
       "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
+      "fieldName": "ReturnBox",
+      "caption": {
+        "en": "Return box",
+        "ar": "خانة الإقرار",
+        "ru": "Ячейка декларации",
+        "uk": "Комірка декларації"
+      },
+      "baseType": "String",
+      "length": 32,
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 5,
+      "metaId": "9573a656-b25b-4f39-93d4-50bc28125b59",
+      "name": "ReturnBox",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
       "fieldName": "TaxAmount",
       "caption": {
         "en": "Tax amount",
@@ -100,27 +121,6 @@
       "displayOrder": 1,
       "metaId": "d5864011-f18f-466e-8c72-20363b61c5a3",
       "name": "TaxCode",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
-    },
-    {
-      "tablePartTypeMetaId": "1f24a567-1964-46a7-9d50-c6753833b009",
-      "fieldName": "ReturnBox",
-      "caption": {
-        "en": "Return box",
-        "ar": "خانة الإقرار",
-        "ru": "Ячейка декларации",
-        "uk": "Комірка декларації"
-      },
-      "baseType": "String",
-      "length": 32,
-      "isRequired": false,
-      "isVisible": true,
-      "isLogged": false,
-      "isSystem": false,
-      "isReference": false,
-      "displayOrder": 5,
-      "metaId": "9573a656-b25b-4f39-93d4-50bc28125b59",
-      "name": "ReturnBox",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ]

@@ -87,6 +87,27 @@
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "fieldName": "DeliveryTerm",
+      "caption": {
+        "en": "Delivery term",
+        "ar": "شروط التسليم",
+        "ru": "Условия поставки",
+        "uk": "Умови постачання"
+      },
+      "edtMetaId": "ac206667-d0cd-46da-9309-9087ea347126",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 11,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "8d557094-d4a0-475d-a960-f9968322440c",
+      "name": "DeliveryTerm",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
       "fieldName": "DiscountPercent",
       "caption": {
         "en": "Discount, %",
@@ -105,6 +126,27 @@
       "isTranslatable": false,
       "metaId": "9c4d1e73-5a86-4b29-8f0d-3e7a2c5b1d84",
       "name": "DiscountPercent",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+      "fieldName": "DueDate",
+      "caption": {
+        "en": "Due date",
+        "ar": "تاريخ الاستحقاق",
+        "ru": "Срок оплаты",
+        "uk": "Строк оплати"
+      },
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 12,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "a7c2e4f1-8b35-4d60-9e18-3f6a0c8d2b47",
+      "name": "DueDate",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
@@ -239,48 +281,6 @@
     },
     {
       "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
-      "fieldName": "DueDate",
-      "caption": {
-        "en": "Due date",
-        "ar": "تاريخ الاستحقاق",
-        "ru": "Срок оплаты",
-        "uk": "Строк оплати"
-      },
-      "baseType": "DateTime",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 12,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "a7c2e4f1-8b35-4d60-9e18-3f6a0c8d2b47",
-      "name": "DueDate",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
-      "fieldName": "DeliveryTerm",
-      "caption": {
-        "en": "Delivery term",
-        "ar": "شروط التسليم",
-        "ru": "Условия поставки",
-        "uk": "Умови постачання"
-      },
-      "edtMetaId": "ac206667-d0cd-46da-9309-9087ea347126",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 11,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "8d557094-d4a0-475d-a960-f9968322440c",
-      "name": "DeliveryTerm",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "documentTypeMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
       "fieldName": "SourceOrder",
       "caption": {
         "en": "Source order",
@@ -351,8 +351,8 @@
       "name": "Draft",
       "caption": {
         "en": "Draft",
-        "uk": "Чернетка",
-        "ar": "مسودة"
+        "ar": "مسودة",
+        "uk": "Чернетка"
       },
       "subtypeValue": "Draft",
       "subtypeCaption": {
@@ -589,7 +589,7 @@
       "executionOrder": 7,
       "metaId": "5b199159-698f-4647-991e-dd13724b3f35",
       "name": "IssuedTx",
-      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
   "subtypeTransitions": [

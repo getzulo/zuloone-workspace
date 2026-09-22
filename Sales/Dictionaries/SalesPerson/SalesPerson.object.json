@@ -76,20 +76,20 @@
     {
       "dictionaryMetaId": "abb0b19e-9453-4d51-bd29-ebb07cc869b8",
       "fieldName": "UserId",
-      "caption": {
-        "en": "Login user",
-        "ar": "مستخدم الدخول",
-        "ru": "Пользователь входа",
-        "uk": "Користувач входу"
-      },
       "baseType": "Guid",
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 10,
       "isIndexed": true,
       "isUnique": false,
-      "isVisible": true,
+      "caption": {
+        "en": "Login user",
+        "ar": "مستخدم الدخول",
+        "ru": "Пользователь входа",
+        "uk": "Користувач входу"
+      },
       "isTranslatable": false,
+      "isVisible": true,
       "isCalculated": false,
       "metaId": "f0a184b9-d4b2-458a-893e-826686e2c2ca",
       "name": "UserId",

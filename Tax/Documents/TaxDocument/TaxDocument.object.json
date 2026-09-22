@@ -113,6 +113,28 @@
     },
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
+      "fieldName": "InvoiceCounter",
+      "caption": {
+        "en": "Chain counter",
+        "ar": "عداد التسلسل",
+        "ru": "Счётчик цепочки",
+        "uk": "Лічильник ланцюга"
+      },
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 11,
+      "description": "Position of this envelope in the authority's per-issuer sequence, where the regime keeps one. ZATCA calls it ICV. Empty for a regime with no counted chain.",
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "d1a0c5a0-b441-4d62-b9ff-40a42ec9bb47",
+      "name": "InvoiceCounter",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "InvoiceHash",
       "caption": {
         "en": "Invoice hash",
@@ -125,56 +147,13 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 10,
+      "description": "Hash of this envelope, where the regime chains filings. Sized for base64 SHA-256 — NOT a place for a detached signature. Empty for a regime that does not chain.",
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
       "metaId": "7f39962b-c9e7-4c86-bac6-1c55a1090664",
       "name": "InvoiceHash",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "description": "Hash of this envelope, where the regime chains filings. Sized for base64 SHA-256 — NOT a place for a detached signature. Empty for a regime that does not chain."
-    },
-    {
-      "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
-      "fieldName": "InvoiceCounter",
-      "caption": {
-        "en": "Chain counter",
-        "ar": "عداد التسلسل",
-        "ru": "Счётчик цепочки",
-        "uk": "Лічильник ланцюга"
-      },
-      "baseType": "Integer",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 11,
-      "isIndexed": true,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "d1a0c5a0-b441-4d62-b9ff-40a42ec9bb47",
-      "name": "InvoiceCounter",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "description": "Position of this envelope in the authority's per-issuer sequence, where the regime keeps one. ZATCA calls it ICV. Empty for a regime with no counted chain."
-    },
-    {
-      "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
-      "fieldName": "Payload",
-      "caption": {
-        "en": "Payload",
-        "ar": "الحمولة",
-        "ru": "Полезная нагрузка",
-        "uk": "Корисне навантаження"
-      },
-      "baseType": "LargeText",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 12,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "29fd5626-7ca4-4777-90dd-c3b12cf37965",
-      "name": "Payload",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
@@ -191,14 +170,14 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 6,
+      "description": "Class of the document as the tax authority of THAT country defines it: ZATCA puts Standard/Simplified here, another regime its own taxonomy, a regime without the notion leaves it empty. Optional on purpose — it used to be REQUIRED with ZATCA's two words as the only legal values, so a non-Saudi pack could not save an envelope at all. What KIND of document this is (invoice / credit note / debit note) is EInvoiceKind and stays generic; this is the country refinement on top of it.",
       "isIndexed": true,
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
       "metaId": "e1d0147a-f36d-463a-b83b-db8993e1703d",
       "name": "InvoiceType",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "description": "Class of the document as the tax authority of THAT country defines it: ZATCA puts Standard/Simplified here, another regime its own taxonomy, a regime without the notion leaves it empty. Optional on purpose — it used to be REQUIRED with ZATCA's two words as the only legal values, so a non-Saudi pack could not save an envelope at all. What KIND of document this is (invoice / credit note / debit note) is EInvoiceKind and stays generic; this is the country refinement on top of it."
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
@@ -223,6 +202,27 @@
     },
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
+      "fieldName": "Payload",
+      "caption": {
+        "en": "Payload",
+        "ar": "الحمولة",
+        "ru": "Полезная нагрузка",
+        "uk": "Корисне навантаження"
+      },
+      "baseType": "LargeText",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 12,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "29fd5626-7ca4-4777-90dd-c3b12cf37965",
+      "name": "Payload",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
       "fieldName": "PreviousInvoiceHash",
       "caption": {
         "en": "Previous hash",
@@ -235,14 +235,37 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 9,
+      "description": "Hash of the PREVIOUS envelope of the same issuer, forming the chain. Empty for the first one and for regimes that do not chain.",
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
       "metaId": "f1a334e3-72ed-4f1a-862a-b29493ec32f6",
       "name": "PreviousInvoiceHash",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a",
-      "description": "Hash of the PREVIOUS envelope of the same issuer, forming the chain. Empty for the first one and for regimes that do not chain."
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
+      "fieldName": "RejectionReason",
+      "caption": {
+        "en": "Rejection reason",
+        "ar": "سبب الرفض",
+        "ru": "Причина отказа",
+        "uk": "Причина відмови"
+      },
+      "baseType": "String",
+      "length": 1024,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 13,
+      "description": "Why the authority refused or suspended this envelope, in its own words. It lived only in TaxSubmission.ResponseMessage before, which split one outcome across two objects; a regime that SUSPENDS rather than refuses needs the reason on the envelope itself.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "b7f10122-b6e7-4646-8756-0c40d4472940",
+      "name": "RejectionReason",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {
       "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
@@ -306,29 +329,6 @@
       "isTranslatable": false,
       "metaId": "a8f1e95d-3d43-4f01-8187-07ed974adebc",
       "name": "Uuid",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
-    },
-    {
-      "documentTypeMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
-      "fieldName": "RejectionReason",
-      "caption": {
-        "en": "Rejection reason",
-        "ar": "سبب الرفض",
-        "ru": "Причина отказа",
-        "uk": "Причина відмови"
-      },
-      "baseType": "String",
-      "length": 1024,
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 13,
-      "description": "Why the authority refused or suspended this envelope, in its own words. It lived only in TaxSubmission.ResponseMessage before, which split one outcome across two objects; a regime that SUSPENDS rather than refuses needs the reason on the envelope itself.",
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "b7f10122-b6e7-4646-8756-0c40d4472940",
-      "name": "RejectionReason",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     }
   ],

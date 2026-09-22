@@ -21,6 +21,12 @@
       "name": "LocalizationSaudiArabia->Inventory"
     },
     {
+      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "minVersion": "1.4.0",
+      "metaId": "9353d695-2335-4b13-b089-61fea2c92fe8",
+      "name": "LocalizationSaudiArabia->Organization"
+    },
+    {
       "dependsOnModelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
       "minVersion": "1.33.0",
       "metaId": "9e3a6b52-0d7c-4f4a-9b8e-2c5d7f3a0b60",
@@ -31,12 +37,6 @@
       "minVersion": "1.11.0",
       "metaId": "b4c5d6e7-f8a9-4b0c-8d1e-4f5a6b7c8d90",
       "name": "LocalizationSaudiArabia->Tax"
-    },
-    {
-      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "minVersion": "1.4.0",
-      "metaId": "9353d695-2335-4b13-b089-61fea2c92fe8",
-      "name": "LocalizationSaudiArabia->Organization"
     }
   ]
 }

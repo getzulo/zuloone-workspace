@@ -238,28 +238,6 @@
     },
     {
       "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
-      "fieldName": "SourceLead",
-      "caption": {
-        "en": "Source lead",
-        "ar": "العميل المحتمل المصدر",
-        "ru": "Лид-источник",
-        "uk": "Лід-джерело"
-      },
-      "baseType": "Guid",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 21,
-      "description": "Лид, из которого создано КП. Повтор ConvertLead не плодит второе КП.",
-      "isIndexed": true,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "c58e3dbf-df91-444a-8793-8a2da6080e6c",
-      "name": "SourceLead",
-      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
-    },
-    {
-      "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
@@ -298,6 +276,28 @@
       "isTranslatable": false,
       "metaId": "d5d509bf-fbce-4863-bd9d-71ac5e8f09c6",
       "name": "PaymentTerm",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "documentTypeMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
+      "fieldName": "SourceLead",
+      "caption": {
+        "en": "Source lead",
+        "ar": "العميل المحتمل المصدر",
+        "ru": "Лид-источник",
+        "uk": "Лід-джерело"
+      },
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 21,
+      "description": "Лид, из которого создано КП. Повтор ConvertLead не плодит второе КП.",
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "c58e3dbf-df91-444a-8793-8a2da6080e6c",
+      "name": "SourceLead",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {

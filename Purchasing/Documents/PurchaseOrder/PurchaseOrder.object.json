@@ -24,6 +24,27 @@
   "headerFields": [
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
+      "fieldName": "DueDate",
+      "caption": {
+        "en": "Due date",
+        "ar": "تاريخ الاستحقاق",
+        "ru": "Срок оплаты",
+        "uk": "Строк оплати"
+      },
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "b8d3f5a2-9c46-4e71-8f29-4a7b1d9e3c58",
+      "name": "DueDate",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "fieldName": "ID",
       "caption": {
         "en": "Number",
@@ -43,6 +64,28 @@
       "isTranslatable": false,
       "metaId": "0c9da404-191e-42ab-af28-7441f1695742",
       "name": "ID",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "description": "Покупатель. Штампуется на каждом сохранении из ячейки получения; введённое вручную не перезаписывается.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "0554f08a-943c-42a6-80ca-815c1943cb07",
+      "name": "LegalEntity",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     },
     {
@@ -68,27 +111,6 @@
     },
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
-      "fieldName": "Supplier",
-      "caption": {
-        "en": "Supplier",
-        "ar": "المورد",
-        "ru": "Поставщик",
-        "uk": "Постачальник"
-      },
-      "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 1,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "a3c2ee0f-c9f9-41f1-b138-908c8794947b",
-      "name": "Supplier",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
-    },
-    {
-      "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "fieldName": "NonRecoverableVat",
       "caption": {
         "en": "Non-recoverable VAT",
@@ -106,7 +128,6 @@
       "isUnique": false,
       "isVisible": false,
       "isTranslatable": false,
-      "isCalculated": false,
       "metaId": "7c4e1a92-8b3d-4f6a-9c15-2e8d0f4b1a64",
       "name": "NonRecoverableVat",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
@@ -134,45 +155,23 @@
     },
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
-      "fieldName": "DueDate",
+      "fieldName": "Supplier",
       "caption": {
-        "en": "Due date",
-        "ar": "تاريخ الاستحقاق",
-        "ru": "Срок оплаты",
-        "uk": "Строк оплати"
+        "en": "Supplier",
+        "ar": "المورد",
+        "ru": "Поставщик",
+        "uk": "Постачальник"
       },
-      "baseType": "DateTime",
+      "edtMetaId": "a0362f8d-88dc-4b26-bec9-cf9847d074bb",
       "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 5,
+      "isRequired": true,
+      "displayOrder": 1,
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
-      "metaId": "b8d3f5a2-9c46-4e71-8f29-4a7b1d9e3c58",
-      "name": "DueDate",
-      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
-    },
-    {
-      "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
-      "fieldName": "LegalEntity",
-      "caption": {
-        "en": "Legal entity",
-        "ar": "الكيان القانوني",
-        "ru": "Юрлицо",
-        "uk": "Юрособа"
-      },
-      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 3,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "description": "Покупатель. Штампуется на каждом сохранении из ячейки получения; введённое вручную не перезаписывается.",
-      "metaId": "0554f08a-943c-42a6-80ca-815c1943cb07",
-      "name": "LegalEntity",
+      "metaId": "a3c2ee0f-c9f9-41f1-b138-908c8794947b",
+      "name": "Supplier",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ],
@@ -290,7 +289,7 @@
       "executionOrder": 7,
       "metaId": "a4b60954-273d-40cd-9c6a-0729f9956711",
       "name": "",
-      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ],
   "subtypeTransitions": [

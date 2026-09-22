@@ -32,37 +32,6 @@
     },
     {
       "caption": {
-        "en": "Dictionaries",
-        "ar": "القوائم المرجعية",
-        "ru": "Справочники",
-        "uk": "Довідники"
-      },
-      "parentMetaId": "2d5a9c30-6f1e-4b4c-9d0a-3e6f9b2c5d10",
-      "displayOrder": 2,
-      "icon": "fluent-color:book-32",
-      "targetType": "Group",
-      "metaId": "4335b816-6eef-465f-8aaa-7723b572b221",
-      "name": "Dictionaries",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
-    },
-    {
-      "caption": {
-        "en": "Standard cost",
-        "ar": "التكلفة المعيارية",
-        "ru": "Норматив себестоимости",
-        "uk": "Норматив собівартості"
-      },
-      "parentMetaId": "4335b816-6eef-465f-8aaa-7723b572b221",
-      "displayOrder": 0,
-      "icon": "fluent-color:data-histogram-32",
-      "targetType": "Dictionary",
-      "targetMetaId": "e7549925-07c8-447a-b45b-c88e01ce8df9",
-      "metaId": "6c9e8fad-9173-4d0c-980a-aa847622c002",
-      "name": "StandardCost",
-      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
-    },
-    {
-      "caption": {
         "en": "Settings",
         "ar": "الإعدادات",
         "ru": "Настройки",
@@ -74,6 +43,21 @@
       "targetType": "Group",
       "metaId": "5e6148f3-d77e-55c2-89a8-cd4e92a6f34e",
       "name": "Settings",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    },
+    {
+      "caption": {
+        "en": "Dictionaries",
+        "ar": "القوائم المرجعية",
+        "ru": "Справочники",
+        "uk": "Довідники"
+      },
+      "parentMetaId": "2d5a9c30-6f1e-4b4c-9d0a-3e6f9b2c5d10",
+      "displayOrder": 2,
+      "icon": "fluent-color:book-32",
+      "targetType": "Group",
+      "metaId": "4335b816-6eef-465f-8aaa-7723b572b221",
+      "name": "Dictionaries",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     },
     {
@@ -106,6 +90,22 @@
       "targetMetaId": "7e0b4d85-1a6f-4c9d-8e5b-8f1a4c7d0e60",
       "metaId": "4f7c1e52-8b3a-4d6e-9f2c-5a8b1d4e7f30",
       "name": "InventoryValue",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    },
+    {
+      "caption": {
+        "en": "Standard cost",
+        "ar": "التكلفة المعيارية",
+        "ru": "Норматив себестоимости",
+        "uk": "Норматив собівартості"
+      },
+      "parentMetaId": "4335b816-6eef-465f-8aaa-7723b572b221",
+      "displayOrder": 0,
+      "icon": "fluent-color:data-histogram-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "e7549925-07c8-447a-b45b-c88e01ce8df9",
+      "metaId": "6c9e8fad-9173-4d0c-980a-aa847622c002",
+      "name": "StandardCost",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     }
   ]

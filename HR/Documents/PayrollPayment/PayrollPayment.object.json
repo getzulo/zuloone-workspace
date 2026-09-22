@@ -70,27 +70,6 @@
     },
     {
       "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
-      "name": "Draft",
-      "caption": {
-        "en": "Draft",
-        "ar": "مسودة",
-        "uk": "Чернетка"
-      },
-      "subtypeValue": "Draft",
-      "subtypeCaption": {
-        "en": "Draft",
-        "ar": "مسودة",
-        "ru": "Черновик",
-        "uk": "Чернетка"
-      },
-      "displayOrder": 1,
-      "isInitial": true,
-      "isReadOnly": false,
-      "metaId": "dbb3ce31-5c7e-4a2d-8b1f-6e3a4c7d2f90",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
-    },
-    {
-      "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
       "name": "Voided",
       "caption": {
         "en": "Voided",
@@ -108,6 +87,27 @@
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "d8c36396-4b9c-428a-9f81-86789c36020e",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+    },
+    {
+      "documentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+      "name": "Draft",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "uk": "Чернетка"
+      },
+      "subtypeValue": "Draft",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "ru": "Черновик",
+        "uk": "Чернетка"
+      },
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "dbb3ce31-5c7e-4a2d-8b1f-6e3a4c7d2f90",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     }
   ],

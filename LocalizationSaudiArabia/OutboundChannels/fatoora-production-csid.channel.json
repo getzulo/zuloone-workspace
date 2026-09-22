@@ -7,11 +7,11 @@
     "credentialRef": "fatoora-csid",
     "authMode": "Signer",
     "baseUrl": "https://gw-fatoora.zatca.gov.sa/e-invoicing/developer-portal",
-    "connectionTable": "TaxAuthorityConnection",
     "contentType": "application/json",
+    "connectionTable": "TaxAuthorityConnection",
+    "devComments": "Onboarding: a Compliance CSID exchanged for a Production CSID. Needs fatoora-csid stored first.",
     "metaId": "78c3a904-5e61-42df-b70a-1d8f3c65e29b",
     "name": "fatoora-production-csid",
-    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50",
-    "devComments": "Onboarding: a Compliance CSID exchanged for a Production CSID. Needs fatoora-csid stored first."
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
   }
 }

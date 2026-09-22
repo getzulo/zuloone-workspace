@@ -7,7 +7,7 @@ namespace ZuloOne.Runtime.Generated;
 // Work AFTER next() sees what they wrote. Forgetting next() is ZOCOC001.
 // [Replace] swallows the chain on purpose.
 [ExtensionOf("TBItem")]
-public partial class TBItemExtEventHandler : TypedDictionaryEventHandler<TBItem>
+public partial class TBItemEventHandler : TypedDictionaryEventHandler<TBItem>
 {
 
     public override async Task<EventResult> OnAfterSaveAsync(TBItem record, bool isNew, EventContext context)

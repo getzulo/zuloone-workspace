@@ -205,22 +205,6 @@
     },
     {
       "caption": {
-        "en": "Tax documents",
-        "ar": "المستندات الضريبية",
-        "ru": "Налоговые документы",
-        "uk": "Податкові документи"
-      },
-      "parentMetaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
-      "displayOrder": 3,
-      "icon": "fluent-color:document-lock-32",
-      "targetType": "Document",
-      "targetMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
-      "metaId": "18fec25d-1a89-4e62-81b0-42f68e1d72a4",
-      "name": "TaxDocument",
-      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
-    },
-    {
-      "caption": {
         "en": "Tax rates",
         "ar": "معدلات الضريبة",
         "ru": "Налоговые ставки",
@@ -249,6 +233,22 @@
       "targetMetaId": "30a07bc7-c028-4d2c-9529-2b42ffc63468",
       "metaId": "f3a37397-6def-4272-912a-e3db43f9942f",
       "name": "TaxCategory",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "caption": {
+        "en": "Tax documents",
+        "ar": "المستندات الضريبية",
+        "ru": "Налоговые документы",
+        "uk": "Податкові документи"
+      },
+      "parentMetaId": "afe294a6-3267-42b8-a0de-46e6790d0b8f",
+      "displayOrder": 3,
+      "icon": "fluent-color:document-lock-32",
+      "targetType": "Document",
+      "targetMetaId": "cee833d7-fa4c-43fe-bef6-e95633ece906",
+      "metaId": "18fec25d-1a89-4e62-81b0-42f68e1d72a4",
+      "name": "TaxDocument",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {

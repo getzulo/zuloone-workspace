@@ -95,6 +95,28 @@
     },
     {
       "dictionaryMetaId": "1bda6e1e-3ccc-4bf2-9996-59a0592466a3",
+      "fieldName": "DeliveryTerm",
+      "edtMetaId": "ac206667-d0cd-46da-9309-9087ea347126",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Delivery term",
+        "ar": "شروط التسليم",
+        "ru": "Условия поставки",
+        "uk": "Умови постачання"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "bf5185ac-ec41-4cd6-b9e6-3c3f5827e3a2",
+      "name": "DeliveryTerm",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "1bda6e1e-3ccc-4bf2-9996-59a0592466a3",
       "fieldName": "EffectiveFrom",
       "baseType": "DateTime",
       "isSystem": false,
@@ -269,28 +291,6 @@
       "isCalculated": false,
       "metaId": "734fd3a5-38d5-45ab-a62d-2c639bf00c07",
       "name": "PaymentTerm",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "dictionaryMetaId": "1bda6e1e-3ccc-4bf2-9996-59a0592466a3",
-      "fieldName": "DeliveryTerm",
-      "edtMetaId": "ac206667-d0cd-46da-9309-9087ea347126",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 8,
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Delivery term",
-        "ar": "شروط التسليم",
-        "ru": "Условия поставки",
-        "uk": "Умови постачання"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "bf5185ac-ec41-4cd6-b9e6-3c3f5827e3a2",
-      "name": "DeliveryTerm",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {

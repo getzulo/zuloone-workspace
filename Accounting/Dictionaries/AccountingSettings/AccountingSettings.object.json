@@ -27,6 +27,29 @@
   "fields": [
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "ArAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Receivables account",
+        "ar": "حساب الذمم المدينة",
+        "ru": "Счёт дебиторки",
+        "uk": "Рахунок дебіторки"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "277e3eda-0841-4597-9ba9-abdcd58e0793",
+      "name": "ArAccount",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "fieldName": "ArAccountCode",
       "baseType": "String",
       "length": 32,
@@ -73,6 +96,29 @@
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "CashAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 12,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Cash account",
+        "ar": "حساب النقدية",
+        "ru": "Счёт денежных средств",
+        "uk": "Рахунок грошових коштів"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "8e031370-da8a-42f4-85a1-da00e1488179",
+      "name": "CashAccount",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "fieldName": "CashAccountCode",
       "baseType": "String",
       "length": 32,
@@ -93,6 +139,29 @@
       "isCalculated": false,
       "metaId": "272907d6-4e07-44ef-b930-22efad84840e",
       "name": "CashAccountCode",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "CogsAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 9,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Cost of goods sold account",
+        "ar": "حساب تكلفة المبيعات",
+        "ru": "Счёт себестоимости продаж",
+        "uk": "Рахунок собівартості продажів"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "2b9cf533-3228-48fd-b8ab-272e02388a6b",
+      "name": "CogsAccount",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
@@ -167,6 +236,29 @@
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "InventoryAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Inventory account",
+        "ar": "حساب المخزون",
+        "ru": "Счёт запасов",
+        "uk": "Рахунок запасів"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "27a5401c-e1f1-4146-ac07-1f7d7c15eacf",
+      "name": "InventoryAccount",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "fieldName": "InventoryAccountCode",
       "baseType": "String",
       "length": 32,
@@ -191,26 +283,25 @@
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "WipAccountCode",
-      "baseType": "String",
-      "length": 32,
+      "fieldName": "InventorySurplusAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
       "isSystem": false,
       "isRequired": false,
-      "displayOrder": 17,
-      "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки. Hidden: pick the matching *Account reference; this code is stamped on save.",
+      "displayOrder": 16,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
       "isIndexed": false,
       "isUnique": false,
       "caption": {
-        "en": "WIP account code",
-        "ar": "رمز حساب الإنتاج قيد التنفيذ",
-        "ru": "Счёт незавершёнки",
-        "uk": "Рахунок незавершеного виробництва"
+        "en": "Inventory surplus account",
+        "ar": "حساب فائض المخزون",
+        "ru": "Счёт оприходования излишка",
+        "uk": "Рахунок оприбуткування надлишку"
       },
       "isTranslatable": false,
-      "isVisible": false,
+      "isVisible": true,
       "isCalculated": false,
-      "metaId": "8a3c1e5f-2b47-4d90-9c16-7e4f0a2b8d51",
-      "name": "WipAccountCode",
+      "metaId": "b12b3c8b-a644-46f2-b741-5ae6a75bace2",
+      "name": "InventorySurplusAccount",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
@@ -239,6 +330,29 @@
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "InventoryWriteOffAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 13,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Inventory write-off account",
+        "ar": "حساب إعدام المخزون",
+        "ru": "Счёт списания запасов",
+        "uk": "Рахунок списання запасів"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a5327e60-5731-495d-abb8-458825e2fded",
+      "name": "InventoryWriteOffAccount",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "fieldName": "InventoryWriteOffAccountCode",
       "baseType": "String",
       "length": 32,
@@ -259,6 +373,29 @@
       "isCalculated": false,
       "metaId": "57209bc3-9453-419f-a5a5-136941b25990",
       "name": "InventoryWriteOffAccountCode",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "PayableAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Payables account",
+        "ar": "حساب الذمم الدائنة",
+        "ru": "Счёт кредиторки",
+        "uk": "Рахунок кредиторки"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "69bad42a-c30d-43c7-a054-5e4f23268013",
+      "name": "PayableAccount",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
@@ -287,6 +424,29 @@
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "PayrollExpenseAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Payroll expense account",
+        "ar": "حساب مصروف الرواتب",
+        "ru": "Счёт расходов на оплату труда",
+        "uk": "Рахунок витрат на оплату праці"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "2e1daa37-ddbd-4984-81bd-d1147481d52e",
+      "name": "PayrollExpenseAccount",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "fieldName": "PayrollExpenseAccountCode",
       "baseType": "String",
       "length": 32,
@@ -307,6 +467,29 @@
       "isCalculated": false,
       "metaId": "97d1fc00-9c3b-5cf6-aaca-02a04bcf251d",
       "name": "PayrollExpenseAccountCode",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "PayrollLiabilityAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Payroll liability account",
+        "ar": "حساب التزام الرواتب",
+        "ru": "Счёт задолженности по оплате труда",
+        "uk": "Рахунок заборгованості з оплати праці"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "8d572d3d-db49-4972-adf9-3676a5575b50",
+      "name": "PayrollLiabilityAccount",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
@@ -335,6 +518,29 @@
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "RevenueAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Revenue account",
+        "ar": "حساب الإيرادات",
+        "ru": "Счёт выручки",
+        "uk": "Рахунок виручки"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "6ea511b4-fd28-4f55-8ea6-f22b89f7f137",
+      "name": "RevenueAccount",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "fieldName": "RevenueAccountCode",
       "baseType": "String",
       "length": 32,
@@ -355,6 +561,29 @@
       "isCalculated": false,
       "metaId": "a6df3f26-5102-561b-8a6d-e9ebd70a8c12",
       "name": "RevenueAccountCode",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "SocialInsuranceExpenseAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 11,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Social insurance expense account",
+        "ar": "حساب مصروف التأمينات",
+        "ru": "Счёт расходов на соцстрах",
+        "uk": "Рахунок витрат на соцстрах"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b0289ceb-f8b9-442d-93ba-78db1b2036ec",
+      "name": "SocialInsuranceExpenseAccount",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
@@ -383,6 +612,29 @@
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "SocialInsurancePayableAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 10,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Social insurance payable account",
+        "ar": "حساب التأمينات المستحقة",
+        "ru": "Счёт задолженности перед фондом",
+        "uk": "Рахунок заборгованості перед фондом"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "fad86dd6-00ed-46c8-b441-30dcfb431796",
+      "name": "SocialInsurancePayableAccount",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "fieldName": "SocialInsurancePayableAccountCode",
       "baseType": "String",
       "length": 32,
@@ -403,6 +655,29 @@
       "isCalculated": false,
       "metaId": "10a71156-d73e-4c91-816a-5d11d075664c",
       "name": "SocialInsurancePayableAccountCode",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "VatPayableAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 14,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "VAT payable account",
+        "ar": "حساب ضريبة مستحقة",
+        "ru": "Счёт НДС к уплате",
+        "uk": "Рахунок ПДВ до сплати"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "08230e56-de92-4e2d-bc1b-06a8dfc879ed",
+      "name": "VatPayableAccount",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
@@ -431,6 +706,29 @@
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "VatReceivableAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 15,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "VAT receivable account",
+        "ar": "حساب ضريبة قابلة للاسترداد",
+        "ru": "Счёт НДС к возмещению",
+        "uk": "Рахунок ПДВ до відшкодування"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a5ffeec8-4c07-4599-b893-b0618375e594",
+      "name": "VatReceivableAccount",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
       "fieldName": "VatReceivableAccountCode",
       "baseType": "String",
       "length": 32,
@@ -451,98 +749,6 @@
       "isCalculated": false,
       "metaId": "a7c3e91d-4b28-4f6a-9e15-8d2c0b7f3a61",
       "name": "VatReceivableAccountCode",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "ArAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 3,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Receivables account",
-        "ar": "حساب الذمم المدينة",
-        "ru": "Счёт дебиторки",
-        "uk": "Рахунок дебіторки"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "277e3eda-0841-4597-9ba9-abdcd58e0793",
-      "name": "ArAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "CashAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 12,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Cash account",
-        "ar": "حساب النقدية",
-        "ru": "Счёт денежных средств",
-        "uk": "Рахунок грошових коштів"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "8e031370-da8a-42f4-85a1-da00e1488179",
-      "name": "CashAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "CogsAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 9,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Cost of goods sold account",
-        "ar": "حساب تكلفة المبيعات",
-        "ru": "Счёт себестоимости продаж",
-        "uk": "Рахунок собівартості продажів"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "2b9cf533-3228-48fd-b8ab-272e02388a6b",
-      "name": "CogsAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "InventoryAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 5,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Inventory account",
-        "ar": "حساب المخزون",
-        "ru": "Счёт запасов",
-        "uk": "Рахунок запасів"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "27a5401c-e1f1-4146-ac07-1f7d7c15eacf",
-      "name": "InventoryAccount",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {
@@ -570,232 +776,26 @@
     },
     {
       "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "InventorySurplusAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "fieldName": "WipAccountCode",
+      "baseType": "String",
+      "length": 32,
       "isSystem": false,
       "isRequired": false,
-      "displayOrder": 16,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "displayOrder": 17,
+      "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки. Hidden: pick the matching *Account reference; this code is stamped on save.",
       "isIndexed": false,
       "isUnique": false,
       "caption": {
-        "en": "Inventory surplus account",
-        "ar": "حساب فائض المخزون",
-        "ru": "Счёт оприходования излишка",
-        "uk": "Рахунок оприбуткування надлишку"
+        "en": "WIP account code",
+        "ar": "رمز حساب الإنتاج قيد التنفيذ",
+        "ru": "Счёт незавершёнки",
+        "uk": "Рахунок незавершеного виробництва"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
-      "metaId": "b12b3c8b-a644-46f2-b741-5ae6a75bace2",
-      "name": "InventorySurplusAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "InventoryWriteOffAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 13,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Inventory write-off account",
-        "ar": "حساب إعدام المخزون",
-        "ru": "Счёт списания запасов",
-        "uk": "Рахунок списання запасів"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "a5327e60-5731-495d-abb8-458825e2fded",
-      "name": "InventoryWriteOffAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "PayableAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 6,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Payables account",
-        "ar": "حساب الذمم الدائنة",
-        "ru": "Счёт кредиторки",
-        "uk": "Рахунок кредиторки"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "69bad42a-c30d-43c7-a054-5e4f23268013",
-      "name": "PayableAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "PayrollExpenseAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 7,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Payroll expense account",
-        "ar": "حساب مصروف الرواتب",
-        "ru": "Счёт расходов на оплату труда",
-        "uk": "Рахунок витрат на оплату праці"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "2e1daa37-ddbd-4984-81bd-d1147481d52e",
-      "name": "PayrollExpenseAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "PayrollLiabilityAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 8,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Payroll liability account",
-        "ar": "حساب التزام الرواتب",
-        "ru": "Счёт задолженности по оплате труда",
-        "uk": "Рахунок заборгованості з оплати праці"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "8d572d3d-db49-4972-adf9-3676a5575b50",
-      "name": "PayrollLiabilityAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "RevenueAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 4,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Revenue account",
-        "ar": "حساب الإيرادات",
-        "ru": "Счёт выручки",
-        "uk": "Рахунок виручки"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "6ea511b4-fd28-4f55-8ea6-f22b89f7f137",
-      "name": "RevenueAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "SocialInsuranceExpenseAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 11,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Social insurance expense account",
-        "ar": "حساب مصروف التأمينات",
-        "ru": "Счёт расходов на соцстрах",
-        "uk": "Рахунок витрат на соцстрах"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "b0289ceb-f8b9-442d-93ba-78db1b2036ec",
-      "name": "SocialInsuranceExpenseAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "SocialInsurancePayableAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 10,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Social insurance payable account",
-        "ar": "حساب التأمينات المستحقة",
-        "ru": "Счёт задолженности перед фондом",
-        "uk": "Рахунок заборгованості перед фондом"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "fad86dd6-00ed-46c8-b441-30dcfb431796",
-      "name": "SocialInsurancePayableAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "VatPayableAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 14,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "VAT payable account",
-        "ar": "حساب ضريبة مستحقة",
-        "ru": "Счёт НДС к уплате",
-        "uk": "Рахунок ПДВ до сплати"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "08230e56-de92-4e2d-bc1b-06a8dfc879ed",
-      "name": "VatPayableAccount",
-      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
-    },
-    {
-      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
-      "fieldName": "VatReceivableAccount",
-      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 15,
-      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "VAT receivable account",
-        "ar": "حساب ضريبة قابلة للاسترداد",
-        "ru": "Счёт НДС к возмещению",
-        "uk": "Рахунок ПДВ до відшкодування"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "a5ffeec8-4c07-4599-b893-b0618375e594",
-      "name": "VatReceivableAccount",
+      "metaId": "8a3c1e5f-2b47-4d90-9c16-7e4f0a2b8d51",
+      "name": "WipAccountCode",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     }
   ]

@@ -5,7 +5,6 @@
     "objectType": "Service",
     "objectName": "SalesLinePricing",
     "executionOrder": 0,
-    "developerComments": "Wave 1: ResolveSaleAsync door; IPricingService via Get not ctor",
     "metaId": "b55e285a-c819-4e91-bab0-512df737e130",
     "name": "SalesLinePricing",
     "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"

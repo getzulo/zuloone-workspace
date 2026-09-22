@@ -77,6 +77,21 @@
     },
     {
       "caption": {
+        "en": "Field",
+        "ar": "الميدان",
+        "ru": "Поле",
+        "uk": "Поле"
+      },
+      "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
+      "displayOrder": 4,
+      "icon": "fluent-color:location-ripple-24",
+      "targetType": "Group",
+      "metaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
+      "name": "Field",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": {
         "en": "Customers",
         "ar": "العملاء",
         "ru": "Покупатели",
@@ -89,6 +104,22 @@
       "targetMetaId": "7a9245bf-58b6-4ea4-a9dd-60251103ab9a",
       "metaId": "389d8fd5-e8bb-4e5c-add2-96891fb712d2",
       "name": "Customer",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": {
+        "en": "Dispatch",
+        "ar": "غرفة العمليات",
+        "ru": "Диспетчерская",
+        "uk": "Диспетчерська"
+      },
+      "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
+      "displayOrder": 0,
+      "icon": "fluent-color:map-24",
+      "targetType": "Url",
+      "targetUrl": "/field-dispatch",
+      "metaId": "b4c7e2a1-6d8f-4a31-9b05-3e7c1f8a2d64",
+      "name": "FieldDispatch",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
@@ -137,6 +168,22 @@
       "targetMetaId": "f330a37a-a4d4-5565-9969-3f689aae5730",
       "metaId": "f9cf15b4-f135-5be9-82c2-c5c918cfa59d",
       "name": "SalesSettings",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": {
+        "en": "Agent GPS log",
+        "ar": "سجل مواقع الوكيل",
+        "ru": "GPS-трек агента",
+        "uk": "GPS-трек агента"
+      },
+      "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
+      "displayOrder": 1,
+      "icon": "fluent-color:location-ripple-24",
+      "targetType": "Register",
+      "targetMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
+      "metaId": "d9f2e5b1-8c30-4fa4-ab27-6e4d9a1c3f82",
+      "name": "AgentGpsLog",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
@@ -237,6 +284,38 @@
     },
     {
       "caption": {
+        "en": "Visit routes",
+        "ar": "مسارات الزيارات",
+        "ru": "Маршруты визитов",
+        "uk": "Маршрути візитів"
+      },
+      "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
+      "displayOrder": 2,
+      "icon": "fluent-color:map-24",
+      "targetType": "Document",
+      "targetMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
+      "metaId": "34e5c8fd-18f6-49ce-8d72-c6aa2a26060e",
+      "name": "VisitRoute",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": {
+        "en": "Agent visits",
+        "ar": "زيارات الوكلاء",
+        "ru": "Визиты агентов",
+        "uk": "Візити агентів"
+      },
+      "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
+      "displayOrder": 3,
+      "icon": "fluent-color:location-ripple-24",
+      "targetType": "Document",
+      "targetMetaId": "9a4b2d32-7e5c-4f13-b3d8-2c0f1e7b5b43",
+      "metaId": "45f6d90e-2907-4adf-8e83-d7bb3b37171f",
+      "name": "AgentVisit",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": {
         "en": "Customer payments",
         "ar": "مدفوعات العملاء",
         "ru": "Оплаты покупателей",
@@ -301,22 +380,6 @@
     },
     {
       "caption": {
-        "en": "Sales debit notes",
-        "ar": "إشعارات إضافة المبيعات",
-        "ru": "Дебет-ноты",
-        "uk": "Дебет-ноти"
-      },
-      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
-      "displayOrder": 6,
-      "icon": "fluent-color:document-arrow-right-24",
-      "targetType": "Document",
-      "targetMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
-      "metaId": "c8b0e738-7aa2-46bf-92ab-d0719ad2f05d",
-      "name": "SalesDebitNote",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "caption": {
         "en": "Sales contracts",
         "ar": "عقود المبيعات",
         "ru": "Договоры продаж",
@@ -329,6 +392,22 @@
       "targetMetaId": "1bda6e1e-3ccc-4bf2-9996-59a0592466a3",
       "metaId": "ae5b2d81-3c94-4e27-9a6b-7d8e9f0a1b23",
       "name": "SalesContract",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": {
+        "en": "Sales debit notes",
+        "ar": "إشعارات إضافة المبيعات",
+        "ru": "Дебет-ноты",
+        "uk": "Дебет-ноти"
+      },
+      "parentMetaId": "6c4ceb74-4cda-4f0a-ac96-aee0e9b043f3",
+      "displayOrder": 6,
+      "icon": "fluent-color:document-arrow-right-24",
+      "targetType": "Document",
+      "targetMetaId": "465e8b08-5939-4c30-99ea-fef5a4fbc44a",
+      "metaId": "c8b0e738-7aa2-46bf-92ab-d0719ad2f05d",
+      "name": "SalesDebitNote",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
@@ -381,85 +460,6 @@
     },
     {
       "caption": {
-        "en": "Delivery schedules",
-        "ar": "جداول التوصيل",
-        "ru": "Расписания доставки",
-        "uk": "Розклади доставки"
-      },
-      "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
-      "displayOrder": 10,
-      "icon": "fluent-color:calendar-clock-24",
-      "targetType": "Dictionary",
-      "targetMetaId": "ac756f10-5c6d-4432-84dc-c361c082aef3",
-      "metaId": "d371c682-ba72-4eea-97be-5ce9ee10da50",
-      "name": "DeliverySchedule",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "caption": {
-        "en": "Visit routes",
-        "ar": "مسارات الزيارات",
-        "ru": "Маршруты визитов",
-        "uk": "Маршрути візитів"
-      },
-      "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
-      "displayOrder": 2,
-      "icon": "fluent-color:map-24",
-      "targetType": "Document",
-      "targetMetaId": "8f3a1c20-6d4b-4e91-a2c7-1b9e0d5f4a31",
-      "metaId": "34e5c8fd-18f6-49ce-8d72-c6aa2a26060e",
-      "name": "VisitRoute",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "caption": {
-        "en": "Agent visits",
-        "ar": "زيارات الوكلاء",
-        "ru": "Визиты агентов",
-        "uk": "Візити агентів"
-      },
-      "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
-      "displayOrder": 3,
-      "icon": "fluent-color:location-ripple-24",
-      "targetType": "Document",
-      "targetMetaId": "9a4b2d32-7e5c-4f13-b3d8-2c0f1e7b5b43",
-      "metaId": "45f6d90e-2907-4adf-8e83-d7bb3b37171f",
-      "name": "AgentVisit",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "caption": {
-        "en": "Field",
-        "ar": "الميدان",
-        "ru": "Поле",
-        "uk": "Поле"
-      },
-      "parentMetaId": "09df96e4-aca6-4af0-9282-d93d93b0ba0e",
-      "displayOrder": 4,
-      "icon": "fluent-color:location-ripple-24",
-      "targetType": "Group",
-      "metaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
-      "name": "Field",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "caption": {
-        "en": "Dispatch",
-        "ar": "غرفة العمليات",
-        "ru": "Диспетчерская",
-        "uk": "Диспетчерська"
-      },
-      "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
-      "displayOrder": 0,
-      "icon": "fluent-color:map-24",
-      "targetType": "Url",
-      "targetUrl": "/field-dispatch",
-      "metaId": "b4c7e2a1-6d8f-4a31-9b05-3e7c1f8a2d64",
-      "name": "FieldDispatch",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "caption": {
         "en": "ABC profiles",
         "ar": "ملفات ABC",
         "ru": "Профили ABC",
@@ -472,6 +472,22 @@
       "targetMetaId": "c5ba6cd4-9457-404a-ad26-4e193f90f750",
       "metaId": "7687c63d-bfec-47ed-baf9-1be84621cef5",
       "name": "AbcProfile",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": {
+        "en": "Delivery schedules",
+        "ar": "جداول التوصيل",
+        "ru": "Расписания доставки",
+        "uk": "Розклади доставки"
+      },
+      "parentMetaId": "81a2b3c4-d5e6-4f70-8192-a3b4c5d6e7f8",
+      "displayOrder": 10,
+      "icon": "fluent-color:calendar-clock-24",
+      "targetType": "Dictionary",
+      "targetMetaId": "ac756f10-5c6d-4432-84dc-c361c082aef3",
+      "metaId": "d371c682-ba72-4eea-97be-5ce9ee10da50",
+      "name": "DeliverySchedule",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
@@ -504,22 +520,6 @@
       "targetMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "metaId": "291ea883-9d07-440c-b79c-f5a1f5899a6b",
       "name": "AbcClassification",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "caption": {
-        "en": "Agent GPS log",
-        "ar": "سجل مواقع الوكيل",
-        "ru": "GPS-трек агента",
-        "uk": "GPS-трек агента"
-      },
-      "parentMetaId": "c8e1d4a0-7b2f-4e93-9a16-5d3c8f0b2e71",
-      "displayOrder": 1,
-      "icon": "fluent-color:location-ripple-24",
-      "targetType": "Register",
-      "targetMetaId": "01b294ba-e5c3-469b-8a4f-937686f3d3cb",
-      "metaId": "d9f2e5b1-8c30-4fa4-ab27-6e4d9a1c3f82",
-      "name": "AgentGpsLog",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]

@@ -62,6 +62,27 @@
     },
     {
       "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
+      "fieldName": "PriceExplanation",
+      "caption": {
+        "en": "Price origin",
+        "ar": "مصدر السعر",
+        "ru": "Откуда цена",
+        "uk": "Звідки ціна"
+      },
+      "baseType": "String",
+      "length": 500,
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 6,
+      "metaId": "ff83481d-c837-437c-97b4-c26c628f8e5e",
+      "name": "PriceExplanation",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
       "fieldName": "Quantity",
       "caption": {
         "en": "Quantity",
@@ -124,27 +145,6 @@
       "displayOrder": 3,
       "metaId": "0ccf20bf-0577-42dd-96b3-45368140286e",
       "name": "UnitPrice",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "tablePartTypeMetaId": "d0cb5542-ab85-4199-a9ba-4bb896145835",
-      "fieldName": "PriceExplanation",
-      "caption": {
-        "en": "Price origin",
-        "ar": "مصدر السعر",
-        "ru": "Откуда цена",
-        "uk": "Звідки ціна"
-      },
-      "baseType": "String",
-      "length": 500,
-      "isRequired": false,
-      "isVisible": true,
-      "isLogged": false,
-      "isSystem": false,
-      "isReference": false,
-      "displayOrder": 6,
-      "metaId": "ff83481d-c837-437c-97b4-c26c628f8e5e",
-      "name": "PriceExplanation",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]

@@ -77,6 +77,21 @@
     },
     {
       "caption": {
+        "en": "Reports",
+        "ar": "التقارير",
+        "ru": "Отчёты",
+        "uk": "Звіти"
+      },
+      "parentMetaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
+      "displayOrder": 4,
+      "icon": "fluent-color:data-bar-vertical-ascending-24",
+      "targetType": "Group",
+      "metaId": "5e0a13c6-8d41-4f30-bc9e-7a6b0d4f3e82",
+      "name": "Reports",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "caption": {
         "en": "CRM settings",
         "ar": "إعدادات إدارة العملاء",
         "ru": "Настройки CRM",
@@ -89,101 +104,6 @@
       "targetMetaId": "4d8e6d80-cbf0-5dc2-b88b-00a1eae5cdf8",
       "metaId": "ffa2b73e-5731-56c8-908b-c81b77ecdf65",
       "name": "CRMSettings",
-      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
-    },
-    {
-      "caption": {
-        "en": "Loyalty points",
-        "ar": "نقاط الولاء",
-        "ru": "Баллы лояльности",
-        "uk": "Бали лояльності"
-      },
-      "parentMetaId": "3f6a1c09-5b4d-4e8f-8a9c-0d3e4f1b7c20",
-      "displayOrder": 0,
-      "icon": "fluent-color:star-48",
-      "targetType": "Register",
-      "targetMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
-      "metaId": "6c9d4f32-8e7a-4b0c-9d1e-2f5a6b3c9d40",
-      "name": "LoyaltyPoints",
-      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
-    },
-    {
-      "caption": {
-        "en": "Sales leads",
-        "ar": "العملاء المحتملون",
-        "ru": "Лиды",
-        "uk": "Ліди"
-      },
-      "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
-      "displayOrder": 0,
-      "icon": "fluent-color:person-available-24",
-      "targetType": "Document",
-      "targetMetaId": "64daae1f-09b3-47f7-b5b5-c5544a102d98",
-      "metaId": "6e79ac02-c4d1-4f8a-9b3e-1a2c5d8e7f90",
-      "name": "SalesLead",
-      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
-    },
-    {
-      "caption": {
-        "en": "Sales quotations",
-        "ar": "عروض الأسعار",
-        "ru": "Коммерческие предложения",
-        "uk": "Комерційні пропозиції"
-      },
-      "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
-      "displayOrder": 1,
-      "icon": "fluent-color:document-bullet-list-24",
-      "targetType": "Document",
-      "targetMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
-      "metaId": "aa017f7a-46d5-488a-a329-5462ece5e926",
-      "name": "SalesQuotation",
-      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
-    },
-    {
-      "caption": {
-        "en": "Loyalty campaigns",
-        "ar": "حملات الولاء",
-        "ru": "Кампании лояльности",
-        "uk": "Кампанії лояльності"
-      },
-      "parentMetaId": "7ad8347e-39c8-4bf0-93a9-ba497f0e3cd3",
-      "displayOrder": 1,
-      "icon": "fluent-color:megaphone-loud-32",
-      "targetType": "Dictionary",
-      "targetMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
-      "metaId": "d91c09c1-381b-431a-9f8d-e264e716c253",
-      "name": "LoyaltyCampaign",
-      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
-    },
-    {
-      "caption": {
-        "en": "Loyalty redemptions",
-        "ar": "استرداد نقاط الولاء",
-        "ru": "Списания баллов",
-        "uk": "Списання балів"
-      },
-      "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
-      "displayOrder": 2,
-      "icon": "fluent-color:gift-24",
-      "targetType": "Document",
-      "targetMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
-      "metaId": "5b8c3e21-7d6f-4a9b-8c0d-1e4f5a2b8c30",
-      "name": "LoyaltyRedemption",
-      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
-    },
-    {
-      "caption": {
-        "en": "Reports",
-        "ar": "التقارير",
-        "ru": "Отчёты",
-        "uk": "Звіти"
-      },
-      "parentMetaId": "1d4e9a87-3f2b-4c6d-8e7a-8b1c2d9f5a00",
-      "displayOrder": 4,
-      "icon": "fluent-color:data-bar-vertical-ascending-24",
-      "targetType": "Group",
-      "metaId": "5e0a13c6-8d41-4f30-bc9e-7a6b0d4f3e82",
-      "name": "Reports",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {
@@ -204,6 +124,22 @@
     },
     {
       "caption": {
+        "en": "Loyalty points",
+        "ar": "نقاط الولاء",
+        "ru": "Баллы лояльности",
+        "uk": "Бали лояльності"
+      },
+      "parentMetaId": "3f6a1c09-5b4d-4e8f-8a9c-0d3e4f1b7c20",
+      "displayOrder": 0,
+      "icon": "fluent-color:star-48",
+      "targetType": "Register",
+      "targetMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
+      "metaId": "6c9d4f32-8e7a-4b0c-9d1e-2f5a6b3c9d40",
+      "name": "LoyaltyPoints",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "caption": {
         "en": "Loyalty tiers",
         "ar": "مستويات الولاء",
         "ru": "Уровни лояльности",
@@ -216,6 +152,70 @@
       "targetMetaId": "86a86778-40a7-4921-8283-1b2cefb4c3f1",
       "metaId": "6dc37caf-ff86-486b-96a0-a7b6b1f2f8b3",
       "name": "LoyaltyTier",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "caption": {
+        "en": "Sales leads",
+        "ar": "العملاء المحتملون",
+        "ru": "Лиды",
+        "uk": "Ліди"
+      },
+      "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
+      "displayOrder": 0,
+      "icon": "fluent-color:person-available-24",
+      "targetType": "Document",
+      "targetMetaId": "64daae1f-09b3-47f7-b5b5-c5544a102d98",
+      "metaId": "6e79ac02-c4d1-4f8a-9b3e-1a2c5d8e7f90",
+      "name": "SalesLead",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "caption": {
+        "en": "Loyalty campaigns",
+        "ar": "حملات الولاء",
+        "ru": "Кампании лояльности",
+        "uk": "Кампанії лояльності"
+      },
+      "parentMetaId": "7ad8347e-39c8-4bf0-93a9-ba497f0e3cd3",
+      "displayOrder": 1,
+      "icon": "fluent-color:megaphone-loud-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "metaId": "d91c09c1-381b-431a-9f8d-e264e716c253",
+      "name": "LoyaltyCampaign",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "caption": {
+        "en": "Sales quotations",
+        "ar": "عروض الأسعار",
+        "ru": "Коммерческие предложения",
+        "uk": "Комерційні пропозиції"
+      },
+      "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
+      "displayOrder": 1,
+      "icon": "fluent-color:document-bullet-list-24",
+      "targetType": "Document",
+      "targetMetaId": "73677103-31cf-4ff2-8a7e-7f4fc0a5bf6e",
+      "metaId": "aa017f7a-46d5-488a-a329-5462ece5e926",
+      "name": "SalesQuotation",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "caption": {
+        "en": "Loyalty redemptions",
+        "ar": "استرداد نقاط الولاء",
+        "ru": "Списания баллов",
+        "uk": "Списання балів"
+      },
+      "parentMetaId": "2e5f0b98-4a3c-4d7e-9f8b-9c2d3e0a6b10",
+      "displayOrder": 2,
+      "icon": "fluent-color:gift-24",
+      "targetType": "Document",
+      "targetMetaId": "2a5b0d98-4c3e-4f7a-9b8d-9e2f3a0b6c10",
+      "metaId": "5b8c3e21-7d6f-4a9b-8c0d-1e4f5a2b8c30",
+      "name": "LoyaltyRedemption",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     }
   ]

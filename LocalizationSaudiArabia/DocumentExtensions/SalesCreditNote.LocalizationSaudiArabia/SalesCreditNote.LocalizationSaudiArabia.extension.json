@@ -9,8 +9,31 @@
   },
   "fields": [
     {
-      "documentTypeMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
       "extensionMetaId": "a66cbb43-3762-4d6d-a8eb-f0dc2c8ef086",
+      "documentTypeMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
+      "fieldName": "InvoiceHash",
+      "caption": {
+        "en": "Invoice hash",
+        "ar": "بصمة الفاتورة",
+        "ru": "Хеш фактуры",
+        "uk": "Хеш фактури"
+      },
+      "baseType": "String",
+      "length": 128,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 53,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "9cddf976-9c74-4580-b66c-8b5934265867",
+      "name": "InvoiceHash",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "extensionMetaId": "a66cbb43-3762-4d6d-a8eb-f0dc2c8ef086",
+      "documentTypeMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
       "fieldName": "InvoiceUuid",
       "caption": {
         "en": "E-invoice UUID",
@@ -31,8 +54,54 @@
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
     },
     {
-      "documentTypeMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
       "extensionMetaId": "a66cbb43-3762-4d6d-a8eb-f0dc2c8ef086",
+      "documentTypeMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
+      "fieldName": "PreviousInvoiceHash",
+      "caption": {
+        "en": "Previous invoice hash",
+        "ar": "بصمة الفاتورة السابقة",
+        "ru": "Хеш предыдущей фактуры",
+        "uk": "Хеш попередньої фактури"
+      },
+      "baseType": "String",
+      "length": 128,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 52,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "a3278204-621e-431c-90fa-a2ebf5094cad",
+      "name": "PreviousInvoiceHash",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "extensionMetaId": "a66cbb43-3762-4d6d-a8eb-f0dc2c8ef086",
+      "documentTypeMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
+      "fieldName": "QrCode",
+      "caption": {
+        "en": "QR",
+        "ar": "رمز الاستجابة السريعة",
+        "ru": "QR",
+        "uk": "QR"
+      },
+      "baseType": "String",
+      "length": 1024,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 54,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "a98308ec-ebcf-4ba4-9d33-611890feadbc",
+      "name": "QrCode",
+      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+    },
+    {
+      "extensionMetaId": "a66cbb43-3762-4d6d-a8eb-f0dc2c8ef086",
+      "documentTypeMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
       "fieldName": "ZatcaInvoiceType",
       "caption": {
         "en": "ZATCA invoice type",
@@ -51,69 +120,6 @@
       "isTranslatable": false,
       "metaId": "f3a8e473-9443-48e0-bc1c-d73ddef636d8",
       "name": "ZatcaInvoiceType",
-      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
-    },
-    {
-      "documentTypeMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
-      "extensionMetaId": "a66cbb43-3762-4d6d-a8eb-f0dc2c8ef086",
-      "fieldName": "PreviousInvoiceHash",
-      "caption": {
-        "en": "Previous invoice hash",
-        "ar": "بصمة الفاتورة السابقة",
-        "ru": "Хеш предыдущей фактуры",
-        "uk": "Хеш попередньої фактури"
-      },
-      "baseType": "String",
-      "length": 128,
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 52,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "a3278204-621e-431c-90fa-a2ebf5094cad",
-      "name": "PreviousInvoiceHash",
-      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
-    },
-    {
-      "documentTypeMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
-      "extensionMetaId": "a66cbb43-3762-4d6d-a8eb-f0dc2c8ef086",
-      "fieldName": "InvoiceHash",
-      "caption": {
-        "en": "Invoice hash",
-        "ar": "بصمة الفاتورة",
-        "ru": "Хеш фактуры",
-        "uk": "Хеш фактури"
-      },
-      "baseType": "String",
-      "length": 128,
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 53,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "9cddf976-9c74-4580-b66c-8b5934265867",
-      "name": "InvoiceHash",
-      "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
-    },
-    {
-      "documentTypeMetaId": "f53f1b8a-8458-4f27-ab5e-b75f7228d263",
-      "extensionMetaId": "a66cbb43-3762-4d6d-a8eb-f0dc2c8ef086",
-      "fieldName": "QrCode",
-      "caption": {
-        "en": "QR",
-        "ar": "رمز الاستجابة السريعة",
-        "ru": "QR",
-        "uk": "QR"
-      },
-      "baseType": "String",
-      "length": 1024,
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 54,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "a98308ec-ebcf-4ba4-9d33-611890feadbc",
-      "name": "QrCode",
       "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
     }
   ]

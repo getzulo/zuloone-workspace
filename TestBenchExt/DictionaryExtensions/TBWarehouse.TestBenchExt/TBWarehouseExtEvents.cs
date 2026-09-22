@@ -5,7 +5,7 @@ namespace ZuloOne.Runtime.Generated;
 // модели TestBenchExt (слой 2). Зовёт next() первым — база успевает
 // uppercase; суффикс в нижнем регистре доказывает порядок побочек.
 [ExtensionOf("TBWarehouse")]
-public partial class TBWarehouseExtEventHandler : TypedDictionaryEventHandler<TBWarehouse>
+public partial class TBWarehouseEventHandler : TypedDictionaryEventHandler<TBWarehouse>
 {
     public override async Task<EventResult> OnBeforeSaveAsync(TBWarehouse record, bool isNew, EventContext context){
         var prior = await next(record, isNew, context);

@@ -130,6 +130,27 @@
     },
     {
       "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
+      "fieldName": "DeliveryTerm",
+      "caption": {
+        "en": "Delivery term",
+        "ar": "شروط التسليم",
+        "ru": "Условия поставки",
+        "uk": "Умови постачання"
+      },
+      "edtMetaId": "ac206667-d0cd-46da-9309-9087ea347126",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "16e76e37-53dd-444c-958b-710a8da0084e",
+      "name": "DeliveryTerm",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
       "fieldName": "DiscountPercent",
       "caption": {
         "en": "Discount, %",
@@ -217,28 +238,6 @@
     },
     {
       "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
-      "fieldName": "RejectReason",
-      "caption": {
-        "en": "Reject reason",
-        "ar": "سبب الرفض",
-        "ru": "Причина отклонения",
-        "uk": "Причина відхилення"
-      },
-      "baseType": "String",
-      "length": 500,
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 22,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "9684babd-aace-4b3a-821a-c02401a6b728",
-      "name": "RejectReason",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
       "fieldName": "Outlet",
       "caption": {
         "en": "Outlet",
@@ -281,23 +280,24 @@
     },
     {
       "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
-      "fieldName": "DeliveryTerm",
+      "fieldName": "RejectReason",
       "caption": {
-        "en": "Delivery term",
-        "ar": "شروط التسليم",
-        "ru": "Условия поставки",
-        "uk": "Умови постачання"
+        "en": "Reject reason",
+        "ar": "سبب الرفض",
+        "ru": "Причина отклонения",
+        "uk": "Причина відхилення"
       },
-      "edtMetaId": "ac206667-d0cd-46da-9309-9087ea347126",
+      "baseType": "String",
+      "length": 500,
       "isSystem": false,
       "isRequired": false,
-      "displayOrder": 8,
+      "displayOrder": 22,
       "isIndexed": false,
       "isUnique": false,
       "isVisible": true,
       "isTranslatable": false,
-      "metaId": "16e76e37-53dd-444c-958b-710a8da0084e",
-      "name": "DeliveryTerm",
+      "metaId": "9684babd-aace-4b3a-821a-c02401a6b728",
+      "name": "RejectReason",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
@@ -323,27 +323,6 @@
     },
     {
       "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
-      "fieldName": "Visit",
-      "caption": {
-        "en": "Visit",
-        "ar": "الزيارة",
-        "ru": "Визит",
-        "uk": "Візит"
-      },
-      "baseType": "Guid",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 13,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "12c3a6db-f6d4-47ac-8b50-a4880804e4ec",
-      "name": "Visit",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
       "fieldName": "SourceQuotation",
       "caption": {
         "en": "Source quotation",
@@ -362,6 +341,27 @@
       "isTranslatable": false,
       "metaId": "bc268edc-d8c7-4dbc-941b-e1b3adfb0852",
       "name": "SourceQuotation",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "23643b1b-b959-4206-83ab-948c713276c9",
+      "fieldName": "Visit",
+      "caption": {
+        "en": "Visit",
+        "ar": "الزيارة",
+        "ru": "Визит",
+        "uk": "Візит"
+      },
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 13,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "12c3a6db-f6d4-47ac-8b50-a4880804e4ec",
+      "name": "Visit",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ],
@@ -523,6 +523,13 @@
     },
     {
       "fromSubtypeMetaId": "a3b4c5d6-e7f8-4a9b-8c1d-2e3f40516273",
+      "toSubtypeMetaId": "51ac876f-0fc8-4df2-b33c-dc3ea088995f",
+      "metaId": "8aaf0a0f-65d9-49a9-8cc3-4271e9843961",
+      "name": "Submitted->Draft",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "fromSubtypeMetaId": "a3b4c5d6-e7f8-4a9b-8c1d-2e3f40516273",
       "toSubtypeMetaId": "8ce0f14d-2ff9-48a1-886d-4e958618ad0e",
       "metaId": "22334455-6677-4889-8a0b-bbccddeeff00",
       "name": "Submitted->Confirmed",
@@ -533,13 +540,6 @@
       "toSubtypeMetaId": "bc8979b0-ddb0-499f-a960-41fb3cd0cbd5",
       "metaId": "33445566-7788-4990-8b1c-ccddeeff0011",
       "name": "Submitted->Cancelled",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "fromSubtypeMetaId": "a3b4c5d6-e7f8-4a9b-8c1d-2e3f40516273",
-      "toSubtypeMetaId": "51ac876f-0fc8-4df2-b33c-dc3ea088995f",
-      "metaId": "8aaf0a0f-65d9-49a9-8cc3-4271e9843961",
-      "name": "Submitted->Draft",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]

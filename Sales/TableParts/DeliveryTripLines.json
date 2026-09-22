@@ -18,6 +18,26 @@
   "properties": [
     {
       "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
+      "fieldName": "DwellMinutes",
+      "caption": {
+        "en": "Dwell, min",
+        "ar": "الدقائق",
+        "ru": "Стоянка, мин",
+        "uk": "Стоянка, хв"
+      },
+      "baseType": "Integer",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 8,
+      "metaId": "d8ff1f86-6992-4d49-8980-1483d2035fb7",
+      "name": "DwellMinutes",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
       "fieldName": "Outcome",
       "caption": {
         "en": "Outcome",
@@ -57,6 +77,46 @@
       "displayOrder": 5,
       "metaId": "39bad4dc-0f21-4199-9535-ecd21f684c14",
       "name": "Outlet",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
+      "fieldName": "PlannedFromMinutes",
+      "caption": {
+        "en": "Window from, min",
+        "ar": "من دقيقة",
+        "ru": "Окно с, мин",
+        "uk": "Вікно з, хв"
+      },
+      "baseType": "Integer",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 6,
+      "metaId": "db9c1894-8b8e-4eb2-a2c0-f83fb663a5f4",
+      "name": "PlannedFromMinutes",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
+      "fieldName": "PlannedToMinutes",
+      "caption": {
+        "en": "Window to, min",
+        "ar": "إلى دقيقة",
+        "ru": "Окно по, мин",
+        "uk": "Вікно по, хв"
+      },
+      "baseType": "Integer",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 7,
+      "metaId": "15c8b09b-a755-42cf-8b38-dca071cabcd8",
+      "name": "PlannedToMinutes",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
@@ -117,66 +177,6 @@
       "displayOrder": 2,
       "metaId": "23b85119-84e9-435c-a423-42098dc7db5a",
       "name": "StopSequence",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
-      "fieldName": "PlannedFromMinutes",
-      "caption": {
-        "en": "Window from, min",
-        "ar": "من دقيقة",
-        "ru": "Окно с, мин",
-        "uk": "Вікно з, хв"
-      },
-      "baseType": "Integer",
-      "isRequired": false,
-      "isVisible": true,
-      "isLogged": false,
-      "isSystem": false,
-      "isReference": false,
-      "displayOrder": 6,
-      "metaId": "db9c1894-8b8e-4eb2-a2c0-f83fb663a5f4",
-      "name": "PlannedFromMinutes",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
-      "fieldName": "PlannedToMinutes",
-      "caption": {
-        "en": "Window to, min",
-        "ar": "إلى دقيقة",
-        "ru": "Окно по, мин",
-        "uk": "Вікно по, хв"
-      },
-      "baseType": "Integer",
-      "isRequired": false,
-      "isVisible": true,
-      "isLogged": false,
-      "isSystem": false,
-      "isReference": false,
-      "displayOrder": 7,
-      "metaId": "15c8b09b-a755-42cf-8b38-dca071cabcd8",
-      "name": "PlannedToMinutes",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
-      "fieldName": "DwellMinutes",
-      "caption": {
-        "en": "Dwell, min",
-        "ar": "الدقائق",
-        "ru": "Стоянка, мин",
-        "uk": "Стоянка, хв"
-      },
-      "baseType": "Integer",
-      "isRequired": false,
-      "isVisible": true,
-      "isLogged": false,
-      "isSystem": false,
-      "isReference": false,
-      "displayOrder": 8,
-      "metaId": "d8ff1f86-6992-4d49-8980-1483d2035fb7",
-      "name": "DwellMinutes",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]

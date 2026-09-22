@@ -50,29 +50,6 @@
     },
     {
       "dictionaryMetaId": "3ffd2704-716e-40c3-9dc5-a585c96b4be7",
-      "fieldName": "MonthlySalary",
-      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 3,
-      "description": "Monthly salary for a full standard month; 0 keeps hourly pay. Prorated by hours / weekday hours of the timesheet period.",
-      "isIndexed": false,
-      "isUnique": false,
-      "caption": {
-        "en": "Monthly salary",
-        "ar": "الراتب الشهري",
-        "ru": "Оклад",
-        "uk": "Оклад"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "8e8347dc-924a-479d-97dc-37d8e3db6146",
-      "name": "MonthlySalary",
-      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
-    },
-    {
-      "dictionaryMetaId": "3ffd2704-716e-40c3-9dc5-a585c96b4be7",
       "fieldName": "ID",
       "baseType": "String",
       "length": 50,
@@ -92,6 +69,29 @@
       "isCalculated": false,
       "metaId": "f970c82e-513c-4dae-af14-b546da2bd506",
       "name": "ID",
+      "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+    },
+    {
+      "dictionaryMetaId": "3ffd2704-716e-40c3-9dc5-a585c96b4be7",
+      "fieldName": "MonthlySalary",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "description": "Monthly salary for a full standard month; 0 keeps hourly pay. Prorated by hours / weekday hours of the timesheet period.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Monthly salary",
+        "ar": "الراتب الشهري",
+        "ru": "Оклад",
+        "uk": "Оклад"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "8e8347dc-924a-479d-97dc-37d8e3db6146",
+      "name": "MonthlySalary",
       "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
     },
     {

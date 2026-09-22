@@ -25,6 +25,48 @@
   "headerFields": [
     {
       "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
+      "fieldName": "ActualComplete",
+      "caption": {
+        "en": "Actual complete",
+        "ar": "الإكمال الفعلي",
+        "ru": "Факт завершения",
+        "uk": "Факт завершення"
+      },
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "3a14f4d2-ce4b-476a-9cfe-91f5a2badbbc",
+      "name": "ActualComplete",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
+      "fieldName": "ActualDepart",
+      "caption": {
+        "en": "Actual depart",
+        "ar": "الانطلاق الفعلي",
+        "ru": "Факт выезда",
+        "uk": "Факт виїзду"
+      },
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "22fbc385-8e49-4d8b-806f-80542c3da670",
+      "name": "ActualDepart",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
       "fieldName": "DeliveryDate",
       "caption": {
         "en": "Delivery date",
@@ -63,69 +105,6 @@
       "isTranslatable": false,
       "metaId": "d25e18cf-c360-41ad-b55b-8bd5dabfeb51",
       "name": "Depot",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
-      "fieldName": "PlannedDepart",
-      "caption": {
-        "en": "Planned depart",
-        "ar": "الانطلاق المخطط",
-        "ru": "План выезда",
-        "uk": "План виїзду"
-      },
-      "baseType": "DateTime",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 6,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "db703969-06d9-486e-8ffb-0951239776c4",
-      "name": "PlannedDepart",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
-      "fieldName": "ActualDepart",
-      "caption": {
-        "en": "Actual depart",
-        "ar": "الانطلاق الفعلي",
-        "ru": "Факт выезда",
-        "uk": "Факт виїзду"
-      },
-      "baseType": "DateTime",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 7,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "22fbc385-8e49-4d8b-806f-80542c3da670",
-      "name": "ActualDepart",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
-      "fieldName": "ActualComplete",
-      "caption": {
-        "en": "Actual complete",
-        "ar": "الإكمال الفعلي",
-        "ru": "Факт завершения",
-        "uk": "Факт завершення"
-      },
-      "baseType": "DateTime",
-      "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 8,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "3a14f4d2-ce4b-476a-9cfe-91f5a2badbbc",
-      "name": "ActualComplete",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
@@ -170,6 +149,27 @@
       "isTranslatable": false,
       "metaId": "d7da0dd5-c187-4d3d-8c07-5f4e1638af14",
       "name": "ID",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "documentTypeMetaId": "4e480847-88a3-4af8-8604-6325d12fe7b9",
+      "fieldName": "PlannedDepart",
+      "caption": {
+        "en": "Planned depart",
+        "ar": "الانطلاق المخطط",
+        "ru": "План выезда",
+        "uk": "План виїзду"
+      },
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "db703969-06d9-486e-8ffb-0951239776c4",
+      "name": "PlannedDepart",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {

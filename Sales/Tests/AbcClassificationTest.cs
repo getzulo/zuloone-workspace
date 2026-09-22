@@ -150,7 +150,7 @@ public class AbcClassificationTest : IntegrationTestScriptBase
     public async Task RecalcJobIsOwnedAndRuns()
     {
         var rows = await Sql.SelectAsync(
-            "SELECT [MetaId], [Name], [ModelId], [IsActive], [CronExpression], [ExecuteSingle] FROM [MetaJobs] WHERE [Name] = 'RecalcAbcClassifications'");
+            "SELECT MetaId, Name, ModelId, IsActive, CronExpression, ExecuteSingle FROM MetaJobs WHERE Name = 'RecalcAbcClassifications'");
         Assert.IsTrue(rows.Count == 1, "задание на месте; факт {0}", rows.Count);
         Assert.IsTrue(Convert.ToString(rows[0]["ModelId"])!.ToLowerInvariant() == SalesModel.ToString("D"),
             "владелец — Sales; факт {0}", rows[0]["ModelId"]);

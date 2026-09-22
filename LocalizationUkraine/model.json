@@ -15,16 +15,28 @@
   },
   "dependencies": [
     {
-      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
-      "minVersion": "1.4.1",
-      "metaId": "72ecb9f8-6949-448d-800c-22e00c4801e5",
-      "name": "LocalizationUkraine->Organization"
+      "dependsOnModelMetaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "minVersion": "1.8.0",
+      "metaId": "340fd01e-f31c-4e9e-9c14-72de1b42bb71",
+      "name": "LocalizationUkraine->HR"
     },
     {
       "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
       "minVersion": "1.9.0",
       "metaId": "7461653f-3f84-41db-8af7-ef301b2b0e21",
       "name": "LocalizationUkraine->Inventory"
+    },
+    {
+      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "minVersion": "1.4.1",
+      "metaId": "72ecb9f8-6949-448d-800c-22e00c4801e5",
+      "name": "LocalizationUkraine->Organization"
+    },
+    {
+      "dependsOnModelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "minVersion": "1.12.0",
+      "metaId": "b3d31d64-f56e-4f46-9c02-aaa2f833de5b",
+      "name": "LocalizationUkraine->Purchasing"
     },
     {
       "dependsOnModelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
@@ -37,18 +49,6 @@
       "minVersion": "1.11.0",
       "metaId": "40747c2f-33aa-4064-9b48-1424c86704bd",
       "name": "LocalizationUkraine->Tax"
-    },
-    {
-      "dependsOnModelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
-      "minVersion": "1.12.0",
-      "metaId": "b3d31d64-f56e-4f46-9c02-aaa2f833de5b",
-      "name": "LocalizationUkraine->Purchasing"
-    },
-    {
-      "dependsOnModelMetaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
-      "minVersion": "1.8.0",
-      "metaId": "340fd01e-f31c-4e9e-9c14-72de1b42bb71",
-      "name": "LocalizationUkraine->HR"
     }
   ]
 }

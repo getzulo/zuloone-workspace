@@ -93,38 +93,6 @@
     },
     {
       "caption": {
-        "en": "Work centers",
-        "ar": "مراكز العمل",
-        "ru": "Рабочие центры",
-        "uk": "Робочі центри"
-      },
-      "parentMetaId": "9e6f8a4d-1c5b-4d7e-8f8a-8b2c3d9e4f70",
-      "displayOrder": 1,
-      "icon": "fluent-color:building-factory-32",
-      "targetType": "Dictionary",
-      "targetMetaId": "c747510e-3085-4992-a948-0645e821c83b",
-      "metaId": "c0660906-951d-4ccd-ae36-a9bfad2aa05f",
-      "name": "WorkCenter",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
-    },
-    {
-      "caption": {
-        "en": "Routings",
-        "ar": "المسارات",
-        "ru": "Маршруты",
-        "uk": "Маршрути"
-      },
-      "parentMetaId": "9e6f8a4d-1c5b-4d7e-8f8a-8b2c3d9e4f70",
-      "displayOrder": 2,
-      "icon": "fluent-color:arrow-routing-24",
-      "targetType": "Dictionary",
-      "targetMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
-      "metaId": "a59609b5-a543-4163-b68a-5dd2989cec32",
-      "name": "Routing",
-      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
-    },
-    {
-      "caption": {
         "en": "Production orders",
         "ar": "أوامر الإنتاج",
         "ru": "Производственные заказы",
@@ -169,6 +137,38 @@
       "targetMetaId": "36549e8e-59a3-4a9e-af3d-86aaea866768",
       "metaId": "57c212ac-b4f4-4e3e-97a9-197f02629edd",
       "name": "WorkInProgress",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "caption": {
+        "en": "Work centers",
+        "ar": "مراكز العمل",
+        "ru": "Рабочие центры",
+        "uk": "Робочі центри"
+      },
+      "parentMetaId": "9e6f8a4d-1c5b-4d7e-8f8a-8b2c3d9e4f70",
+      "displayOrder": 1,
+      "icon": "fluent-color:building-factory-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "c747510e-3085-4992-a948-0645e821c83b",
+      "metaId": "c0660906-951d-4ccd-ae36-a9bfad2aa05f",
+      "name": "WorkCenter",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "caption": {
+        "en": "Routings",
+        "ar": "المسارات",
+        "ru": "Маршруты",
+        "uk": "Маршрути"
+      },
+      "parentMetaId": "9e6f8a4d-1c5b-4d7e-8f8a-8b2c3d9e4f70",
+      "displayOrder": 2,
+      "icon": "fluent-color:arrow-routing-24",
+      "targetType": "Dictionary",
+      "targetMetaId": "a609d7d7-e5cb-49f2-882a-719264905a20",
+      "metaId": "a59609b5-a543-4163-b68a-5dd2989cec32",
+      "name": "Routing",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ]
