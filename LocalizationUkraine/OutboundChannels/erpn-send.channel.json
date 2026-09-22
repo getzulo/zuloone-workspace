@@ -1,15 +1,17 @@
 {
   "kind": "OutboundChannel",
   "object": {
-    "path": "/documents",
+    "path": "/api/Document/MakeDoc",
     "method": "POST",
-    "authMode": "None",
+    "authMode": "Login",
+    "authHeader": "X-API-Key",
     "baseUrl": "https://operator.invalid/erpn",
-    "connectionTable": "TaxAuthorityConnection",
     "contentType": "application/json",
+    "externalReferenceField": "Value",
+    "connectionTable": "TaxAuthorityConnection",
+    "devComments": "M.E.Doc MakeDoc. Query userLogin/edrpou/shablonType/charCode/exDocId підставляє сервіс заголовком X-ZuloOne-RelativePath. Тіло — масив TAB/LINE/NAME/VALUE з прикладу ПН. authMode Login: POST /api/System/v2/login {userLogin,password} → X-API-Key (оновлення 11.02.200). Пароль — Integration:Credentials[CredentialRef], не в картці. Без пароля логін пропускається.",
     "metaId": "bd356396-42a3-468d-b10c-0fc009c001a6",
     "name": "erpn-send",
-    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08",
-    "devComments": "Подача податкової накладної на реєстрацію в ЄРПН ЧЕРЕЗ ОПЕРАТОРА (M.E.Doc / банківський кабінет). baseUrl тут — свідомо неробочий заповнювач: справжня адреса приходить з TaxAuthorityConnection.BaseUrl конкретного тенанта, бо у кожного оператора вона своя, а частина з них узагалі стоїть у локальній мережі клієнта. Ключ КЕП залишається в оператора: ZuloOne нічого не підписує."
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
   }
 }

@@ -1,0 +1,16 @@
+{
+  "kind": "OutboundChannel",
+  "object": {
+    "path": "/api/SignSendReceive/ToGov",
+    "method": "POST",
+    "authMode": "Login",
+    "authHeader": "X-API-Key",
+    "baseUrl": "https://operator.invalid/erpn",
+    "contentType": "application/json",
+    "connectionTable": "TaxAuthorityConnection",
+    "devComments": "M.E.Doc ToGov після успішного MakeDoc. cardCode в query (як SetValues). Непідписаний документ M.E.Doc підпише наявними сертифікатами на ПК. Тіло ToGov у публічному FAQ немає — йде порожній масив, ідентифікатор у query. Успіх ToGov ще не Cleared: чекаємо GetDocInfo. authMode Login як у erpn-send.",
+    "metaId": "4ae92f6f-90ad-4574-afd2-a89ff9989c49",
+    "name": "erpn-gov",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

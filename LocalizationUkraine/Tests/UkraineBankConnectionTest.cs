@@ -19,14 +19,20 @@ public class UkraineBankConnectionTest : IntegrationTestScriptBase
     public async Task ErpnChannelsNameTheTaxConnectionTable()
     {
         var rows = await Sql.SelectAsync(
-            "SELECT [Name], [ConnectionTable] FROM [MetaOutboundChannels] WHERE [Name] IN ('erpn-send','erpn-receipt')");
+            "SELECT [Name], [ConnectionTable], [AuthMode], [AuthHeader] FROM [MetaOutboundChannels] WHERE [Name] IN ('erpn-send','erpn-receipt','erpn-gov')");
 
-        Assert.IsTrue(rows.Count == 2, "два канала ЄРПН, факт {0}", rows.Count);
+        Assert.IsTrue(rows.Count == 3, "три канали ЄРПН, факт {0}", rows.Count);
         foreach (var row in rows)
         {
             Assert.IsTrue(Convert.ToString(row["ConnectionTable"]) == "TaxAuthorityConnection",
                 "{0} должен читать TaxAuthorityConnection, факт '{1}'",
                 row["Name"], row["ConnectionTable"]);
+            Assert.IsTrue(Convert.ToString(row["AuthMode"]) == "Login",
+                "{0} authMode Login (POST /api/System/v2/login → X-API-Key), факт '{1}'",
+                row["Name"], row["AuthMode"]);
+            Assert.IsTrue(Convert.ToString(row["AuthHeader"]) == "X-API-Key",
+                "{0} authHeader X-API-Key, факт '{1}'",
+                row["Name"], row["AuthHeader"]);
         }
     }
 

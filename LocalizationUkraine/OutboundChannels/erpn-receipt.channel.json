@@ -1,15 +1,16 @@
 {
   "kind": "OutboundChannel",
   "object": {
-    "path": "/documents/receipt",
+    "path": "/api/Info/GetDocInfo",
     "method": "POST",
-    "authMode": "None",
+    "authMode": "Login",
+    "authHeader": "X-API-Key",
     "baseUrl": "https://operator.invalid/erpn",
-    "connectionTable": "TaxAuthorityConnection",
     "contentType": "application/json",
+    "connectionTable": "TaxAuthorityConnection",
+    "devComments": "Синхронні GetDocInfo (SENDSTT) і GetDocKVT (OPERTYPE/REGNUM з COM-таблиці квитанцій). Не подача. Перед ними — ReceiveCorrespondence. InDoubt розв'язується тут. authMode Login як у erpn-send.",
     "metaId": "76335d42-b5a8-4341-aa32-9fe78fae547a",
     "name": "erpn-receipt",
-    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08",
-    "devComments": "Запит квитанції по конкретній накладній. Окремий канал від erpn-send, бо це СИНХРОННЕ питання, а не черга: відповідь потрібна тут і зараз, і вона не є подачею. Саме цим шляхом розв'язується стан InDoubt — спитати, а не подати вдруге."
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
   }
 }

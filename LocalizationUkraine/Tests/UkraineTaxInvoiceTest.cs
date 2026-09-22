@@ -44,10 +44,11 @@ public class UkraineTaxInvoiceTest : IntegrationTestScriptBase
         Assert.IsTrue(envelope.Uuid != Guid.Empty, "UUID видано");
 
         var payload = Convert.ToString(envelope.Payload) ?? "";
-        Assert.IsTrue(payload.Contains(FormCode), "payload несе код форми");
-        Assert.IsTrue(payload.Contains("\"contour\":\"erpn\""), "payload мітить контур ЄРПН");
-        Assert.IsTrue(payload.Contains("sellerTaxNumber"), "payload несе податковий номер продавця");
-        Assert.IsTrue(!payload.Contains("<"), "payload — поля, а не XML: XML складає оператор");
+        Assert.IsTrue(payload.Contains("\"NAME\":\"FIRM_NAME\""), "payload — клітинка MakeDoc FIRM_NAME з прикладу M.E.Doc");
+        Assert.IsTrue(payload.Contains("\"NAME\":\"TAB1_A13\"") || payload.Contains("\"TAB\":0"),
+            "payload — масив TAB/LINE/NAME/VALUE, не вигадані імена бланка");
+        Assert.IsTrue(payload.StartsWith("["), "тіло MakeDoc — JSON-масив");
+        Assert.IsTrue(!payload.Contains("<"), "payload — поля M.E.Doc, не XML: XML складає оператор");
     }
 
     [IntegrationTest("Кредит-нота дає розрахунок коригування з посиланням на рахунок")]
@@ -67,8 +68,12 @@ public class UkraineTaxInvoiceTest : IntegrationTestScriptBase
         Assert.IsTrue(envelope.InvoiceType == "J12012010", "код форми коригування, факт {0}", envelope.InvoiceType);
 
         var payload = Convert.ToString(envelope.Payload) ?? "";
-        Assert.IsTrue(payload.Contains("\"kind\":\"ADJUSTMENT\""), "payload несе вид коригування");
-        Assert.IsTrue(payload.Contains("originalDocumentNumber"), "payload посилається на початковий рахунок");
+        Assert.IsTrue(payload.StartsWith("["), "тіло MakeDoc — JSON-масив");
+        Assert.IsTrue(payload.Contains("\"NAME\":\"FIRM_NAME\""), "спільні клітинки продавця");
+        Assert.IsTrue(payload.Contains("\"NAME\":\"CORRCMPL\""), "РК — CORRCMPL з прикладу MakeDoc: дата//номер початкової ПН");
+        Assert.IsTrue(payload.Contains("\"NAME\":\"N15\""), "дата РК — N15, не N11 накладної");
+        Assert.IsTrue(payload.Contains("\"NAME\":\"N1_13\""), "номер початкової ПН — N1_13");
+        Assert.IsTrue(!payload.Contains("\"NAME\":\"TAB1_A13\""), "рядки РК — TAB1_A3, не клітинки ПН");
         Assert.IsTrue(!payload.Contains("<"), "payload — поля, а не XML");
     }
 
