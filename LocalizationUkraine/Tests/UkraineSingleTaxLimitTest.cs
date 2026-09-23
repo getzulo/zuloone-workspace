@@ -27,10 +27,16 @@ public class UkraineSingleTaxLimitTest : IntegrationTestScriptBase
         public Guid Customer;
         public Guid Contract;
         public Guid NormalCode;   // 5%
-        public Guid ExcessCode;   // 15%
+        public Guid ExcessCode;   // 15%, ставка ФОП
+        public Guid DoubleCode;   // 10%, подвійна ставка юрособи
     }
 
-    private async Task<Setup> SetupAsync(decimal limit)
+    /// <param name="legalPerson">
+    /// Юрособа, а не ФОП. Ставится В ТОМ ЖЕ обновлении, что страна и валюта:
+    /// событие юрлица требует их обе, а частичный bag несёт только те колонки,
+    /// которые пишут, — отдельный апдейт флага падает «Страна и валюта обязательны».
+    /// </param>
+    private async Task<Setup> SetupAsync(decimal limit, bool legalPerson = false)
     {
         await Db.SetAccountingPeriodsAsync(null, null);
 
@@ -60,6 +66,7 @@ public class UkraineSingleTaxLimitTest : IntegrationTestScriptBase
             new Dictionary<string, object?>
             {
                 ["UaTaxRegime"] = (int)UaTaxRegime.SimplifiedNoVat,
+                ["IsLegalPerson"] = legalPerson,
                 ["Country"] = country.MetaId,
                 ["Currency"] = currency.MetaId,
             });
@@ -101,10 +108,11 @@ public class UkraineSingleTaxLimitTest : IntegrationTestScriptBase
             Contract = contract.MetaId,
             NormalCode = codes.Normal,
             ExcessCode = codes.Excess,
+            DoubleCode = codes.Double,
         };
     }
 
-    private async Task<(Guid Normal, Guid Excess)> TaxCircuitAsync()
+    private async Task<(Guid Normal, Guid Excess, Guid Double)> TaxCircuitAsync()
     {
         var from = new DateTime(2020, 1, 1);
 
@@ -163,6 +171,8 @@ public class UkraineSingleTaxLimitTest : IntegrationTestScriptBase
 
         var five = await EpCodeAsync(ep, "EP5", 0.05m, from);
         var over = await EpCodeAsync(ep, "E15", 0.15m, from);
+        // Подвійна до 5 % (ПКУ 293.5) — ставка превышения у ЮРОСОБИ.
+        var twice = await EpCodeAsync(ep, "E10", 0.10m, from);
 
         if ((await DictionaryManager.GetRecordsAsync<TaxDirection>("Code = 'OUTPUT'", take: 1)).Count == 0)
         {
@@ -182,9 +192,10 @@ public class UkraineSingleTaxLimitTest : IntegrationTestScriptBase
         var ua = uaRows.Count > 0 ? uaRows[0] : DictionaryManager.NewRecord<LocalizationUkraineSettings>();
         ua.SingleTaxCode5 = five.Code;
         ua.SingleTaxCodeExcess = over.Code;
+        ua.SingleTaxCodeDouble5 = twice.Code;
         await DictionaryManager.SaveRecordAsync(ua);
 
-        return (five.MetaId, over.MetaId);
+        return (five.MetaId, over.MetaId, twice.MetaId);
     }
 
     private async Task<TaxCode> EpCodeAsync(Tax ep, string band, decimal rate, DateTime from)
@@ -286,6 +297,49 @@ public class UkraineSingleTaxLimitTest : IntegrationTestScriptBase
             "обычная часть больше не растёт, факт {0}", await LedgerAsync(s, s.NormalCode, "TaxBase"));
         Assert.IsTrue(await LedgerAsync(s, s.ExcessCode, "TaxBase") == 200m,
             "вся вторая оплата — превышение, факт {0}", await LedgerAsync(s, s.ExcessCode, "TaxBase"));
+    }
+
+    [IntegrationTest("Юрособа платит превышение подвійною ставкою, а не 15% ФОП")]
+    public async Task LegalPersonPaysTheDoubledRate()
+    {
+        // ЧЕМ ЭТО БЫЛО. Начисление клало UA-EP15 всем подряд, а форма юрособи
+        // J0103509 кладёт превышение в рядок 2 подвійною ставкою и UA-EP15 туда
+        // не принимает вовсе — сумма падала в «не зіставлено», и декларация
+        // молча теряла её. Ставку решает ПРАВОВАЯ ФОРМА, а не режим: у ФОП
+        // рядок 07 форми F0103309 так и называется, «за ставкою 15 %».
+        var s = await SetupAsync(limit: 1000m, legalPerson: true);
+        await PayAsync(s, 1200m);
+
+        // Предел добирается обычной ставкой ровно как у ФОП — различие только в
+        // хвосте.
+        Assert.IsTrue(await LedgerAsync(s, s.NormalCode, "TaxBase") == 1000m,
+            "обычным кодом ровно предел 1000, факт {0}", await LedgerAsync(s, s.NormalCode, "TaxBase"));
+
+        // 200 сверх предела — по подвійній 10 %, то есть 20.
+        Assert.IsTrue(await LedgerAsync(s, s.DoubleCode, "TaxBase") == 200m,
+            "превышение 200 идёт кодом подвійної, факт {0}", await LedgerAsync(s, s.DoubleCode, "TaxBase"));
+        Assert.IsTrue(await LedgerAsync(s, s.DoubleCode, "TaxAmount") == 20m,
+            "10% с 200 = 20, факт {0}", await LedgerAsync(s, s.DoubleCode, "TaxAmount"));
+
+        // И главное: ставки ФОП на юрлице не появилось вовсе.
+        Assert.IsTrue(await LedgerAsync(s, s.ExcessCode, "TaxBase") == 0m,
+            "у юрособи 15% быть не должно, факт {0}", await LedgerAsync(s, s.ExcessCode, "TaxBase"));
+    }
+
+    [IntegrationTest("Незаполненный признак — это ФОП, и поведение прежнее")]
+    public async Task UnsetFlagKeepsTheSoleProprietorRate()
+    {
+        // Обратная половина: флаг необязательный и генерится non-nullable, то
+        // есть у всех существующих юрлиц он приедет пустым. Пустой ОБЯЗАН
+        // означать ровно то, что работало до правки, иначе обновление молча
+        // сменит ставку всем. Поэтому поле и названо IsLegalPerson.
+        var s = await SetupAsync(limit: 1000m);
+        await PayAsync(s, 1200m);
+
+        Assert.IsTrue(await LedgerAsync(s, s.ExcessCode, "TaxBase") == 200m,
+            "без признака превышение по-прежнему 15%, факт {0}", await LedgerAsync(s, s.ExcessCode, "TaxBase"));
+        Assert.IsTrue(await LedgerAsync(s, s.DoubleCode, "TaxBase") == 0m,
+            "подвійної у ФОП быть не должно, факт {0}", await LedgerAsync(s, s.DoubleCode, "TaxBase"));
     }
 
     [IntegrationTest("Без заданного предела поведение ровно прежнее")]

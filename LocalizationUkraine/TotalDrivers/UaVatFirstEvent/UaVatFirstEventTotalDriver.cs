@@ -291,7 +291,11 @@ public partial class UaVatFirstEventTotalDriver
             // остаётся в обычной части, потому что within тогда равен всему
             // приросту. Сюда мы попадаем только когда предел задан, а значит
             // администратор про этот механизм знает.
-            var excessCode = await firstEvent.SingleTaxExcessCodeIdAsync();
+            // Ставка превышения зависит от ПРАВОВОЙ ФОРМЫ, не от режима:
+            // ФОП — 15 % (рядок 07 форми F0103309), юрособа — подвійна 6/10 %
+            // (рядок 2 форми J0103509). Раньше клалось 15 % всем, и у ТОВ
+            // превышение падало в декларации в «не зіставлено».
+            var excessCode = await firstEvent.SingleTaxExcessCodeIdAsync(key.Entity, regime);
             if (excessCode is Guid over)
             {
                 var overRate = await tax.ResolveRateAsync(over, movementDate) ?? 0m;

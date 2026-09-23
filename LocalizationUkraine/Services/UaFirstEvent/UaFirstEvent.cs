@@ -487,11 +487,80 @@ public partial class UaFirstEvent
     /// Код ставки 15% на превышение, уже разрешённый в запись справочника.
     /// null — код в настройках не заполнен или такого TaxCode нет; тогда
     /// превышение просто не выделяется отдельной строкой.
+    ///
+    /// Это ставка ФОП. Для юрлица зови перегрузку с юрлицом и режимом.
     /// </summary>
     public async Task<Guid?> SingleTaxExcessCodeIdAsync()
     {
         var settings = (await _settings.GetRecordsAsync("1 = 1")).FirstOrDefault();
         var code = settings?.SingleTaxCodeExcess;
+        if (string.IsNullOrWhiteSpace(code)) return null;
+        return (await _codes.GetRecordsAsync($"Code = '{code}'")).FirstOrDefault()?.MetaId;
+    }
+
+    /// <summary>
+    /// Код ставки на превышение ДЛЯ КОНКРЕТНОГО юрлица.
+    ///
+    /// Ставка зависит не от режима, а от ПРАВОВОЙ ФОРМЫ, и это видно по самим
+    /// бланкам ДПС: у ФОП форма F0103309 несёт рядок 07 «Обсяг доходу за
+    /// ставкою 15 %», а у юрособи форма J0103509 рядок 2 — подвійна ставка,
+    /// 6 % або 10 %, и UA-EP15 туда не кладётся вовсе. До этой правки начисление
+    /// клало 15 % всем, и у ТОВ на спрощеній превышение падало в
+    /// «не зіставлено» — декларация теряла его молча.
+    ///
+    /// Подвійна — удвоение СВОЕЙ ставки: 3 % → 6 %, 5 % → 10 %. Режим уже лежит
+    /// на юрлице, выводить нечего.
+    ///
+    /// Признак пустой — считаем ФОП, поведение прежнее. Так и задумано:
+    /// необязательный Boolean генерится non-nullable, значит незаполненный флаг
+    /// ОБЯЗАН означать то, что уже работало. Поэтому поле называется
+    /// IsLegalPerson, а не IsSoleProprietor.
+    /// </summary>
+    /// <summary>
+    /// Юрлицо — юридическое лицо, а не ФОП?
+    ///
+    /// Читается СЫРЫМ МЕШКОМ по той же причине, что и режим строкой выше:
+    /// IsLegalPerson — поле РАСШИРЕНИЯ чужого справочника, оно живёт в агрегате
+    /// LegalEntity_LocalizationUkraine и в генерируемый класс LegalEntity не
+    /// попадает. Типизированное обращение тут просто не компилируется.
+    ///
+    /// Нет мешка, нет поля, не прочиталось — false, то есть ФОП. Незаполненный
+    /// флаг обязан означать поведение, которое уже работало.
+    /// </summary>
+    public async Task<bool> IsLegalPersonAsync(Guid legalEntity)
+    {
+        if (legalEntity == Guid.Empty) return false;
+        try
+        {
+            var bag = await _data.GetByIdAsync("LegalEntity", legalEntity);
+            var raw = bag?["IsLegalPerson"];
+            if (raw is null) return false;
+            if (raw is bool flag) return flag;
+            return Convert.ToBoolean(raw);
+        }
+        catch
+        {
+            // Строки расширения у этого юрлица может не быть вовсе — не ошибка.
+            return false;
+        }
+    }
+
+    public async Task<Guid?> SingleTaxExcessCodeIdAsync(Guid entity, UaTaxRegime regime)
+    {
+        if (!await IsLegalPersonAsync(entity)) return await SingleTaxExcessCodeIdAsync();
+
+        var settings = (await _settings.GetRecordsAsync("1 = 1")).FirstOrDefault();
+        var code = regime switch
+        {
+            UaTaxRegime.SimplifiedWithVat => settings?.SingleTaxCodeDouble3,
+            UaTaxRegime.SimplifiedNoVat => settings?.SingleTaxCodeDouble5,
+            _ => null,
+        };
+
+        // Код подвійної не заполнен — откатываться на 15 % НЕЛЬЗЯ: это чужая
+        // ставка, и в рядок 2 она не встанет. Лучше не выделить превышение
+        // вовсе (оно останется в обычной части), чем обложить юрлицо ставкой
+        // ФОП и отдать в декларацию строку, которой там не место.
         if (string.IsNullOrWhiteSpace(code)) return null;
         return (await _codes.GetRecordsAsync($"Code = '{code}'")).FirstOrDefault()?.MetaId;
     }

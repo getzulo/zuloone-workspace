@@ -334,6 +334,54 @@
       "metaId": "e46af436-867a-4054-b829-167fe3885313",
       "name": "MpzRate",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "SingleTaxCodeDouble3",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 30,
+      "description": "Excess over the single-tax limit for a LEGAL PERSON on 3%: the doubled rate 6% (row 2 of J0103509). A sole proprietor uses SingleTaxCodeExcess (15%) instead.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Double rate code 6% (legal person, 3%)",
+        "ar": "رمز الضعف 6٪",
+        "ru": "Код подвійної ставки 6% (ЮО на 3%)",
+        "uk": "Код подвійної ставки 6% (ЮО на 3%)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e3ff6abc-390f-4f5b-a7a8-46e82ec83c90",
+      "name": "SingleTaxCodeDouble3",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "SingleTaxCodeDouble5",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 31,
+      "description": "Excess over the single-tax limit for a LEGAL PERSON on 5%: the doubled rate 10% (row 2 of J0103509).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Double rate code 10% (legal person, 5%)",
+        "ar": "رمز الضعف 10٪",
+        "ru": "Код подвійної ставки 10% (ЮО на 5%)",
+        "uk": "Код подвійної ставки 10% (ЮО на 5%)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "8d114586-9bf4-42fb-b2d3-8e97cddf0516",
+      "name": "SingleTaxCodeDouble5",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

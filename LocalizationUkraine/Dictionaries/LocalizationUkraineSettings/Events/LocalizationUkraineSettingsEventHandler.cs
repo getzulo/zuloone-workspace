@@ -56,6 +56,12 @@ public partial class LocalizationUkraineSettingsEventHandler
         record.SingleTaxCode3 = await ExistingAsync(codes, "UA-EP3") ?? record.SingleTaxCode3;
         record.SingleTaxCode5 = await ExistingAsync(codes, "UA-EP5") ?? record.SingleTaxCode5;
         record.SingleTaxCodeExcess = await ExistingAsync(codes, "UA-EP15") ?? record.SingleTaxCodeExcess;
+
+        // Подвійна ставка (ПКУ 293.5) — превышение у ЮРЛИЦА. Ставка 15% строкой
+        // выше принадлежит ФОП (рядок 07 форми F0103309); у юрособи рядок 2
+        // форми J0103509 заполняется 6 % або 10 %, и UA-EP15 туда не кладётся.
+        record.SingleTaxCodeDouble3 = await ExistingAsync(codes, "UA-EP6") ?? record.SingleTaxCodeDouble3;
+        record.SingleTaxCodeDouble5 = await ExistingAsync(codes, "UA-EP10") ?? record.SingleTaxCodeDouble5;
     }
 
     private static async Task<string?> ExistingAsync(

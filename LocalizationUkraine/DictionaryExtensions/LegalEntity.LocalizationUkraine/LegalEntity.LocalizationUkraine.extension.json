@@ -78,6 +78,29 @@
       "metaId": "2c3d3e69-e196-477e-bbe8-0538df045f39",
       "name": "DpsOfficeCode",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+      "fieldName": "IsLegalPerson",
+      "baseType": "Boolean",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "description": "Ukraine: the payer is a legal person (TOV), not a sole proprietor. Drives the excess rate over the single-tax limit: FOP pays 15% (PKU 293.4, row 07 of F0103309), a legal person pays the doubled rate 6/10% (row 2 of J0103509). UNSET MEANS FOP on purpose — the optional Boolean is generated non-nullable, so an empty flag must mean the behaviour that already shipped.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Legal person",
+        "ar": "شخص اعتباري",
+        "ru": "Юридическое лицо",
+        "uk": "Юридична особа"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7efd11bb-d864-442c-a567-d6c6d97c3979",
+      "name": "IsLegalPerson",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }
