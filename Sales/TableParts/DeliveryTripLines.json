@@ -178,6 +178,48 @@
       "metaId": "23b85119-84e9-435c-a423-42098dc7db5a",
       "name": "StopSequence",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
+      "fieldName": "ArrivedAt",
+      "caption": {
+        "en": "Arrived at",
+        "ar": "وقت الوصول",
+        "ru": "Прибыл",
+        "uk": "Прибув"
+      },
+      "description": "Actual arrival at this stop. Empty = the stop was not served yet.",
+      "baseType": "DateTime",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 9,
+      "metaId": "02c1e79c-1aec-47f8-9f28-32c953bfe01c",
+      "name": "ArrivedAt",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
+      "fieldName": "DepartedAt",
+      "caption": {
+        "en": "Departed at",
+        "ar": "وقت المغادرة",
+        "ru": "Убыл",
+        "uk": "Вибув"
+      },
+      "description": "Actual departure from this stop. Together with ArrivedAt gives the real dwell.",
+      "baseType": "DateTime",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 10,
+      "metaId": "fbe5d61f-3c0e-434a-9575-caf9ba3299ed",
+      "name": "DepartedAt",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

@@ -472,6 +472,118 @@ public class DeliveryFleetTest : IntegrationTestScriptBase
         Assert.IsTrue(dispatched.ActualDepart.Year >= 2026, "факт выезда, {0}", dispatched.ActualDepart);
     }
 
+    // ── факт по каждой точке ────────────────────────────────────────────────
+    //
+    // Окно у точки было всегда (PlannedFromMinutes/ToMinutes), а факта не было:
+    // попали в него или нет — сказать было нечем. Трип-уровневые ActualDepart /
+    // ActualComplete отвечают только «когда выехали и когда всё закончилось».
+
+    [IntegrationTest("Прибытие позже окна: рейс завершается, но называет опоздание")]
+    public async Task LateArrivalIsNamedOnComplete()
+    {
+        var s = await SetupAsync();
+        var orderId = await ConfirmOrderAsync(s, s.Outlet, WaveDay, 1m);
+        var trip = await NewTripAsync(s, s.Vehicle, s.Driver, orderId, s.Outlet, 1);
+        await RunCommandAsync("DispatchTrip", trip.MetaId);
+
+        // Окно 09:00–10:00, приехали в 11:30 — опоздание на 90 минут.
+        await StampStopAsync(trip.MetaId, from: 540, to: 600, arriveAt: 11 * 60 + 30, departAfter: 15);
+
+        var messages = await RunCommandForMessagesAsync("CompleteTrip", trip.MetaId);
+        Assert.IsTrue(messages.Contains("опоздание 90 мин"),
+            "завершение обязано назвать опоздание в минутах. Факт: {0}", messages);
+        Assert.IsTrue(messages.Contains("точка 1"),
+            "и НОМЕР точки — иначе её не найти. Факт: {0}", messages);
+
+        // Опоздание — факт, а не ошибка ввода: рейс всё равно завершён.
+        var done = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
+        Assert.IsTrue(done!.Subtype == DeliveryTrip.Subtypes.Completed,
+            "рейс всё равно Completed, факт {0}", done.Subtype ?? "<null>");
+    }
+
+    [IntegrationTest("Прибытие внутри окна: завершение молчит про опоздания")]
+    public async Task OnTimeArrivalIsSilent()
+    {
+        var s = await SetupAsync();
+        var orderId = await ConfirmOrderAsync(s, s.Outlet, WaveDay, 1m);
+        var trip = await NewTripAsync(s, s.Vehicle, s.Driver, orderId, s.Outlet, 1);
+        await RunCommandAsync("DispatchTrip", trip.MetaId);
+
+        // То же окно 09:00–10:00, приехали в 09:30.
+        await StampStopAsync(trip.MetaId, from: 540, to: 600, arriveAt: 9 * 60 + 30, departAfter: 10);
+
+        var messages = await RunCommandForMessagesAsync("CompleteTrip", trip.MetaId);
+        Assert.IsTrue(!messages.Contains("Вне окна"),
+            "в окне — про окно ни слова. Факт: {0}", messages);
+        Assert.IsTrue(messages.Contains("завершён"),
+            "рейс завершён. Факт: {0}", messages);
+    }
+
+    [IntegrationTest("Убытие раньше прибытия отклоняет завершение с номером точки")]
+    public async Task DepartureBeforeArrivalIsRejected()
+    {
+        var s = await SetupAsync();
+        var orderId = await ConfirmOrderAsync(s, s.Outlet, WaveDay, 1m);
+        var trip = await NewTripAsync(s, s.Vehicle, s.Driver, orderId, s.Outlet, 4);
+        await RunCommandAsync("DispatchTrip", trip.MetaId);
+
+        // departAfter отрицательный: убыли за 20 минут ДО прибытия.
+        await StampStopAsync(trip.MetaId, from: null, to: null, arriveAt: 10 * 60, departAfter: -20);
+
+        var reason = await Delivery.ValidateTripAsync(trip.MetaId);
+        Assert.IsTrue(reason != null && reason.Contains("раньше прибытия"),
+            "отказ про порядок времени. Факт: {0}", reason ?? "<null>");
+        Assert.IsTrue(reason!.Contains("Точка 4"),
+            "и номер точки. Факт: {0}", reason);
+    }
+
+    [IntegrationTest("Точка с окном, но без отметки, вердикта не даёт (пустое ≠ полночь)")]
+    public async Task TripWithoutStopFactCompletesAsBefore()
+    {
+        var s = await SetupAsync();
+        var orderId = await ConfirmOrderAsync(s, s.Outlet, WaveDay, 1m);
+        var trip = await NewTripAsync(s, s.Vehicle, s.Driver, orderId, s.Outlet, 1);
+        await RunCommandAsync("DispatchTrip", trip.MetaId);
+
+        // Окно есть, факта нет — так ведут рейсы сегодня, и это обязано работать.
+        // Кейс ловит РОВНО ту ловушку, из-за которой пришлось смотреть на тип:
+        // будь ArrivedAt не-nullable, пустое значение было бы 0001-01-01, то есть
+        // «полночь», и точка отрапортовала бы «раньше окна на 540 мин».
+        var full = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
+        full!.Lines[0].PlannedFromMinutes = 540;
+        full.Lines[0].PlannedToMinutes = 600;
+        await DocumentManager.SaveDocumentAsync(full);
+
+        var messages = await RunCommandForMessagesAsync("CompleteTrip", trip.MetaId);
+        Assert.IsTrue(!messages.Contains("окн"),
+            "пустой факт не даёт вердикта ни в какую сторону. Факт: {0}", messages);
+
+        var done = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
+        Assert.IsTrue(done!.Subtype == DeliveryTrip.Subtypes.Completed,
+            "рейс Completed, факт {0}", done.Subtype ?? "<null>");
+    }
+
+    /// <summary>Окно и факт на единственной точке рейса. Минуты — от полуночи дня доставки.</summary>
+    private static async Task StampStopAsync(
+        Guid tripId, int? from, int? to, int arriveAt, int departAfter)
+    {
+        var trip = await DocumentManager.GetDocumentAsync<DeliveryTrip>(tripId);
+        var line = trip!.Lines[0];
+        line.PlannedFromMinutes = from;
+        line.PlannedToMinutes = to;
+        line.ArrivedAt = WaveDay.Date.AddMinutes(arriveAt);
+        line.DepartedAt = WaveDay.Date.AddMinutes(arriveAt + departAfter);
+        await DocumentManager.SaveDocumentAsync(trip);
+    }
+
+    /// <summary>Как RunCommandAsync, но отдаёт текст: вердикт по окну живёт именно в нём.</summary>
+    private async Task<string> RunCommandForMessagesAsync(string name, Guid documentId)
+    {
+        var commandId = await Db.FindCommandIdAsync("document", name);
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, documentId);
+        return (run.Message ?? "") + " " + string.Join("; ", run.ClientMessages);
+    }
+
     private async Task<DeliveryTrip> NewTripAsync(Setup s, Guid vehicle, Guid driver, Guid orderId, Guid outlet, int seq)
     {
         var trip = await DocumentManager.NewDocumentAsync<DeliveryTrip>();

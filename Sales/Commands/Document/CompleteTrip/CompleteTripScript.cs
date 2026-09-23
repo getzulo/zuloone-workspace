@@ -11,17 +11,29 @@ public partial class CompleteTripCommand
         var full = await docs.GetDocumentAsync<DeliveryTrip>(document.MetaId);
         if (full == null) return;
 
-        var reason = await context.GetService<IDeliveryService>().ValidateTripAsync(full.MetaId);
+        var delivery = context.GetService<IDeliveryService>();
+        var reason = await delivery.ValidateTripAsync(full.MetaId);
         if (reason != null)
         {
             context.AddClientAction(ClientAction.Message(reason));
             return;
         }
 
+        // Промахи по окнам считаются ДО перевода в Completed: подтип заперт, и
+        // после перехода строки уже не перечитать на правку.
+        var late = await delivery.LateStopsSummaryAsync(full.MetaId);
+
         // Stamp before the read-only Completed subtype; a later header write is refused.
         full.ActualComplete = DateTime.UtcNow;
         full.Subtype = DeliveryTrip.Subtypes.Completed;
         await docs.SaveDocumentAsync(full);
-        context.AddClientAction(ClientAction.Message("Рейс завершён."));
+
+        // Завершение не молчит про опоздания: диспетчеру они нужны сейчас, а не
+        // в отчёте через месяц. Рейс при этом завершается в любом случае —
+        // опоздание это ФАКТ, а не ошибка ввода.
+        context.AddClientAction(ClientAction.Message(
+            late.Length == 0
+                ? "Рейс завершён."
+                : $"Рейс завершён. Вне окна доставки: {late}."));
     }
 }

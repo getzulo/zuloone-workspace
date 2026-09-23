@@ -129,6 +129,9 @@ public partial class DeliveryService
         var busy = await CrewBusyAsync(trip.Vehicle, trip.Driver, trip.DeliveryDate, trip.MetaId);
         if (busy != null) return busy;
 
+        var stopFact = StopFactProblem(trip);
+        if (stopFact != null) return stopFact;
+
         if (vehicle.CapacityQty > 0m)
         {
             var demand = 0m;
@@ -144,6 +147,76 @@ public partial class DeliveryService
         }
 
         return null;
+    }
+
+    // ── факт по точке ───────────────────────────────────────────────────────
+    //
+    // У строки рейса было ПЛАНОВОЕ окно (PlannedFromMinutes / PlannedToMinutes,
+    // минуты от полуночи) и не было факта: приехали или нет, вовремя или нет —
+    // сказать было нечем, а трип-уровневые ActualDepart / ActualComplete
+    // отвечают только «когда выехали и когда всё закончилось».
+    //
+    // Теперь у точки ArrivedAt / DepartedAt. Оба необязательны: рейс, который
+    // ведут по-старому, завершается как раньше. Проверяется только то, что
+    // заполнено, — иначе включение фичи заблокировало бы все текущие рейсы.
+
+    /// <summary>
+    /// Что не так с фактом по точкам, или null. Только заполненное: пустой
+    /// факт — это «ещё не отмечали», а не ошибка.
+    /// </summary>
+    public string? StopFactProblem(DeliveryTrip trip)
+    {
+        foreach (var line in trip.Lines.OrderBy(l => l.StopSequence ?? 0))
+        {
+            var name = $"Точка {line.StopSequence?.ToString() ?? "?"}";
+            if (line.DepartedAt is DateTime departed)
+            {
+                if (line.ArrivedAt is not DateTime arrived)
+                    return $"{name}: проставлено убытие без прибытия.";
+                if (departed < arrived)
+                    return $"{name}: убытие ({departed:HH:mm}) раньше прибытия ({arrived:HH:mm}).";
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Вердикт по окну для одной точки: «в окне» / «раньше окна» / опоздание в
+    /// минутах. null — сравнивать не с чем (нет окна или нет прибытия).
+    /// Окно задано минутами от полуночи ДНЯ ДОСТАВКИ, поэтому сравнивается
+    /// время суток прибытия, а не полная дата.
+    /// </summary>
+    public string? WindowVerdict(DeliveryTripLinesTablePartRow line)
+    {
+        if (line.ArrivedAt is not DateTime arrived) return null;
+        var from = line.PlannedFromMinutes;
+        var to = line.PlannedToMinutes;
+        if (from is null && to is null) return null;
+
+        var minute = arrived.Hour * 60 + arrived.Minute;
+        if (from is int f && minute < f) return $"раньше окна на {f - minute} мин";
+        if (to is int t && minute > t) return $"опоздание {minute - t} мин";
+        return "в окне";
+    }
+
+    /// <summary>
+    /// Точки, приехавшие ПОЗЖЕ своего окна, — строкой для диспетчера. Пусто,
+    /// если опозданий нет или окна не заданы. Это и есть потребитель факта:
+    /// завершение рейса называет промахи, а не просто закрывает документ.
+    /// </summary>
+    public async Task<string> LateStopsSummaryAsync(Guid tripId)
+    {
+        var trip = await _documents.GetDocumentAsync<DeliveryTrip>(tripId);
+        if (trip is null) return "";
+
+        var late = new List<string>();
+        foreach (var line in trip.Lines.OrderBy(l => l.StopSequence ?? 0))
+        {
+            var verdict = WindowVerdict(line);
+            if (verdict != null && verdict.StartsWith("опоздание", StringComparison.Ordinal))
+                late.Add($"точка {line.StopSequence?.ToString() ?? "?"} — {verdict}");
+        }
+        return late.Count == 0 ? "" : string.Join(", ", late);
     }
 
     /// <summary>Add confirmed orders of the route outlets on the trip date.
