@@ -40,6 +40,7 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 21,
+      "description": "Календарні дні в T1RXXXXG13. Kind=Absence сам по собі — неявка, не відпустка без збереження.",
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -48,7 +49,6 @@
         "ru": "Отпуск без сохранения (Д1)",
         "uk": "Відпустка без збереження (Д1 G13)"
       },
-      "description": "Календарні дні в T1RXXXXG13. Kind=Absence сам по собі — неявка, не відпустка без збереження.",
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

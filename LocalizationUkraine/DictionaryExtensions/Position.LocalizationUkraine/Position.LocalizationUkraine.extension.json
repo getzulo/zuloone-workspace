@@ -17,6 +17,7 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 20,
+      "description": "Код з класифікатора професій ДК 003, графа T1RXXXXG13S. Порожньо — графа порожня, назва посади лишається в G15S.",
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -25,7 +26,6 @@
         "ru": "Код КП (Д5)",
         "uk": "Код КП (Д5)"
       },
-      "description": "Код з класифікатора професій ДК 003, графа T1RXXXXG13S. Порожньо — графа порожня, назва посади лишається в G15S.",
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,

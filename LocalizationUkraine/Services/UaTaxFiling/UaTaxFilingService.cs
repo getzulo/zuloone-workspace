@@ -365,10 +365,10 @@ public partial class UaTaxFiling
         return result;
     }
 
-    public async Task<List<(string Citizen, string TaxCard, string LastName, string FirstName, string Patronymic, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, int UnpaidDays, int MaternityDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string MainJob, string PartTimeHours, string SpecialTenure)>>
+    public async Task<List<(string Citizen, string Sex, string TaxCard, string LastName, string FirstName, string Patronymic, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, int UnpaidDays, int MaternityDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string MainJob, string PartTimeHours, string SpecialTenure, string NewWorkplace)>>
         ListDpsD1Async(Guid legalEntity, DateTime from, DateTime to)
     {
-        var result = new List<(string, string, string, string, string, string, string, int, int, int, int, int, int, decimal, decimal, decimal, decimal, string, string, string)>();
+        var result = new List<(string, string, string, string, string, string, string, string, int, int, int, int, int, int, decimal, decimal, decimal, decimal, string, string, string, string)>();
         var esv = await EsvByEmployeeAsync(legalEntity, from, to);
         var levies = await LevyByEmployeeAsync(legalEntity, from, to);
         var ids = esv.Keys.Union(levies.Keys).OrderBy(id => id);
@@ -397,10 +397,12 @@ public partial class UaTaxFiling
             var (sickDays, unpaidDays, maternityDays) = await LeaveDaysAsync(id, from, to, hireDate, fire);
             var mainJob = await EmployeeFlagAsync(id, "DpsInternalPartTime") ? "0" : "1";
             var partTimeHours = await EmployeeFlagAsync(id, "DpsPartTimeHours") ? "1" : "0";
+            var newWorkplace = await EmployeeFlagAsync(id, "DpsNewWorkplace") ? "1" : "0";
             var last = await EmployeeStringAsync(id, "DpsLastName");
             if (string.IsNullOrWhiteSpace(last)) last = employee?.Name ?? "";
             result.Add((
                 await CitizenFlagAsync(employee),
+                await D1SexAsync(id),
                 await TaxCardOfAsync(id),
                 last,
                 await EmployeeStringAsync(id, "DpsFirstName"),
@@ -419,7 +421,8 @@ public partial class UaTaxFiling
                 erEsv,
                 mainJob,
                 partTimeHours,
-                tenure));
+                tenure,
+                newWorkplace));
         }
 
         return result;
@@ -587,27 +590,28 @@ public partial class UaTaxFiling
     public string BuildDpsD1Payload(
         TaxReturn declaration,
         LegalEntity? entity,
-        List<(string Citizen, string TaxCard, string LastName, string FirstName, string Patronymic, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, int UnpaidDays, int MaternityDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string MainJob, string PartTimeHours, string SpecialTenure)> rows,
+        List<(string Citizen, string Sex, string TaxCard, string LastName, string FirstName, string Patronymic, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, int UnpaidDays, int MaternityDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string MainJob, string PartTimeHours, string SpecialTenure, string NewWorkplace)> rows,
         string cReg = "",
         string cSti = "")
     {
         var text = new StringBuilder();
         text.AppendLine("# J0510111 Додаток Д1 (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
-        text.AppendLine("# G5 громадянство з Nationality. G8=1 наймані, 26 ЦПХ (ознака 102). G6 стать і G8 з каталогу Д5 не мапляться.");
+        text.AppendLine("# G5 громадянство з Nationality. G6S стать Ч/Ж з DpsSex; порожньо не вигадуємо. G8=1 наймані, 26 ЦПХ (ознака 102). Каталог Д5 у G8 не мапиться.");
         text.AppendLine("# T1RXXXXG9=1 (зарплата). Тип 2/3 лікарняних немає: окремої суми в PayrollAccrual немає.");
         text.AppendLine("# G111S/G112S/G113S — прізвище/ім'я/по батькові; порожнє прізвище → Name, ім'я не розбираємо з рядка.");
         text.AppendLine("# G12 лікарняний (Kind=Sick), G13 без збереження (DpsUnpaidLeave), G14 дні відносин, G15 декрет (категорія 5), G21 основне місце, G22 неповний час (не сумісництво).");
+        text.AppendLine("# G24 нове робоче місце з DpsNewWorkplace; HireDate у місяці не ставить 1. G18 мінзарплата не пишемо: окремого рядка типу 13 немає.");
         Header(text, entity, DpsD1Type, declaration, cReg, cSti);
-        text.AppendLine("T1RXXXXG5;T1RXXXXG7S;T1RXXXXG8;T1RXXXXG9;T1RXXXXG101;T1RXXXXG102;T1RXXXXG111S;T1RXXXXG112S;T1RXXXXG113S;T1RXXXXG12;T1RXXXXG13;T1RXXXXG14;T1RXXXXG15;T1RXXXXG16;T1RXXXXG17;T1RXXXXG19;T1RXXXXG20;T1RXXXXG21;T1RXXXXG22;T1RXXXXG23");
+        text.AppendLine("T1RXXXXG5;T1RXXXXG6S;T1RXXXXG7S;T1RXXXXG8;T1RXXXXG9;T1RXXXXG101;T1RXXXXG102;T1RXXXXG111S;T1RXXXXG112S;T1RXXXXG113S;T1RXXXXG12;T1RXXXXG13;T1RXXXXG14;T1RXXXXG15;T1RXXXXG16;T1RXXXXG17;T1RXXXXG19;T1RXXXXG20;T1RXXXXG21;T1RXXXXG22;T1RXXXXG23;T1RXXXXG24");
         foreach (var row in rows)
         {
             text.AppendLine(string.Format(
                 CultureInfo.InvariantCulture,
-                "{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13:0.00};{14:0.00};{15:0.00};{16:0.00};{17};{18};{19}",
-                row.Citizen, row.TaxCard, row.Category, row.AccrualType, row.Month, row.Year,
+                "{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10};{11};{12};{13};{14:0.00};{15:0.00};{16:0.00};{17:0.00};{18};{19};{20};{21}",
+                row.Citizen, row.Sex, row.TaxCard, row.Category, row.AccrualType, row.Month, row.Year,
                 row.LastName, row.FirstName, row.Patronymic,
                 row.SickDays, row.UnpaidDays, row.Days, row.MaternityDays, row.Gross, row.Capped, row.EmployeeEsv, row.EmployerEsv,
-                row.MainJob, row.PartTimeHours, row.SpecialTenure));
+                row.MainJob, row.PartTimeHours, row.SpecialTenure, row.NewWorkplace));
         }
         text.AppendLine();
         text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G16;{0:0.00}", rows.Sum(r => r.Gross)));
@@ -974,6 +978,14 @@ public partial class UaTaxFiling
     {
         // Додаток 1 до Порядку № 4: 1 наймані, 26 ЦПХ. Не код Д5 (1/2/3) і не 29/42 без окремого рядка сум.
         return await IncomeSignOfAsync(employeeId) == "102" ? "26" : "1";
+    }
+
+    private async Task<string> D1SexAsync(Guid employeeId)
+    {
+        var raw = await EmployeeStringAsync(employeeId, "DpsSex");
+        if (raw is "Ч" or "ч") return "Ч";
+        if (raw is "Ж" or "ж") return "Ж";
+        return "";
     }
 
     private async Task<string> CitizenFlagAsync(Employee? employee)

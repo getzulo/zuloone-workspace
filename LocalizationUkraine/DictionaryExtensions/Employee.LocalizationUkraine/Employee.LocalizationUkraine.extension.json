@@ -2,7 +2,7 @@
   "kind": "DictionaryExtension",
   "object": {
     "targetDictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
-    "description": "РНОКПП, ПІБ Д1, звільнення, спецстаж Д6, сумісництво/переведення/категорія Д5, неповний час Д1 G22. Кадрове ядро не знає про бланки ДПС; ознака 4ДФ (DpsIncomeSign) живе окремим полем того ж пакету.",
+    "description": "РНОКПП, стать і ПІБ Д1, звільнення, спецстаж Д6, сумісництво/переведення/категорія Д5, неповний час Д1 G22. Кадрове ядро не знає про бланки ДПС; ознака 4ДФ (DpsIncomeSign) живе окремим полем того ж пакету.",
     "metaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
     "name": "Employee.LocalizationUkraine",
     "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
@@ -273,6 +273,55 @@
       "isCalculated": false,
       "metaId": "2b6a5adb-7025-4320-8164-46dbb366cb68",
       "name": "DpsPatronymic",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "DpsSex",
+      "baseType": "String",
+      "length": 1,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 73,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Sex (D1 G6 Ч/Ж)",
+        "ar": "الجنس",
+        "ru": "Пол (Д1 Ч/Ж)",
+        "uk": "Стать (Д1 G6 Ч/Ж)"
+      },
+      "description": "Графа T1RXXXXG6S: Ч або Ж. Порожньо — порожня комірка, не вигадувати Ч з по батькові.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "959e40a2-9682-4b72-af72-6f4bf9b9352b",
+      "name": "DpsSex",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "DpsNewWorkplace",
+      "baseType": "Boolean",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 74,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "New workplace (D1 G24)",
+        "ar": "مكان عمل جديد",
+        "ru": "Новое рабочее место (Д1 G24)",
+        "uk": "Нове робоче місце (Д1 G24)"
+      },
+      "description": "Графа T1RXXXXG24. Порожньо — 0. Не ставити 1 з HireDate: прийом у місяці ≠ нове робоче місце.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "6330bbd9-4fae-4d17-a7ea-a161ea29dfb4",
+      "name": "DpsNewWorkplace",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]

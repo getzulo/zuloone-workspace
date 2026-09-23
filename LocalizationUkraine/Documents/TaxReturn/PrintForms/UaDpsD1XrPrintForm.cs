@@ -6,7 +6,7 @@ using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// Бланк J0510111 (додаток Д1). G5 громадянство, G8=26 ЦПХ, G111–G113 ПІБ, G12–G15 дні, G21/G22.
+// Бланк J0510111 (додаток Д1). G5 громадянство, G6S стать, G8=26 ЦПХ, G111–G113 ПІБ, G12–G15 дні, G21/G22, G24 нове місце.
 public partial class UaDpsD1XrPrintForm : PrintFormBase
 {
     public override SlimTable GetDataTemplate()
