@@ -75,7 +75,7 @@
           "Direction"
         ],
         "mode": "upsert",
-        "rowCount": 7
+        "rowCount": 10
       }
     ]
   },
@@ -766,6 +766,30 @@
         "EffectiveFrom": "2025-01-01T00:00:00Z",
         "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
         "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EP5" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "F0103309",
+        "ReturnBox": "05",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EP3" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "F0103309",
+        "ReturnBox": "06",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EP5" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "F0103309",
+        "ReturnBox": "07",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EP15" } },
         "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
       }
     ]

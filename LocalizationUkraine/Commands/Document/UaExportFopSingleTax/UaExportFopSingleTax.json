@@ -1,0 +1,33 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Export FOP single tax (F0103309)",
+      "ar": "تصدير الضريبة الموحدة للفرد F0103309",
+      "ru": "Выгрузить единый налог ФОП (F0103309)",
+      "uk": "Вивантажити єдиний податок ФОП (F0103309)"
+    },
+    "scriptMetaId": "8f02d4b5-6c37-4e19-a042-3d5b7f9c1e26",
+    "parameterMode": "None",
+    "displayOrder": 25,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "7e91c3a4-5b26-4d08-9f31-2c4a6e8b0d15",
+    "name": "UaExportFopSingleTax",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "9013e5c6-7d48-4f2a-b153-4e6c80ad2f37",
+      "documentCommandMetaId": "7e91c3a4-5b26-4d08-9f31-2c4a6e8b0d15",
+      "documentSubtypeMetaId": "23febbcf-3076-44f7-b43b-2208b7b3a528"
+    },
+    {
+      "metaId": "a124f6d7-8e59-403b-c264-5f7d91be3048",
+      "documentCommandMetaId": "7e91c3a4-5b26-4d08-9f31-2c4a6e8b0d15",
+      "documentSubtypeMetaId": "9c882573-8eb8-4b1c-b3ab-ecebc640a4cc"
+    }
+  ]
+}

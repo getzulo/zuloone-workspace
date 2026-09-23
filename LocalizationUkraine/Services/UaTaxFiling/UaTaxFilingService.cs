@@ -22,9 +22,10 @@ using ZuloOne.Runtime.Generated;
 // выгрузкой, а не «форматом ДПС», и рассчитана на перенос руками.
 //
 // НОМЕРА ЯЧЕЕК ЗДЕСЬ НЕ ЗАШИТЫ. Какой код в какую строку декларации попадает —
-// это TaxReportMapping, датированные ДАННЫЕ: ошибка в номере рядка есть ошибка
-// в отчётности, и выдумывать их нельзя. Сервис только агрегирует то, что уже
-// проставлено на строках декларации.
+// это TaxReportMapping, датированные ДАННЫЕ, и читаются ПО ReturnType выгрузки.
+// Один код (UA-EP5) на форме ЮО — графа 4 рядка 1, на форме ФОП — рядок 06;
+// ядро при конфликте оставляет ReturnBox пустым, поэтому штамп со сборки
+// декларации для этих форм не годится.
 public partial class UaTaxFiling
 {
     private const string NotMapped = "(не зіставлено)";
@@ -67,9 +68,18 @@ public partial class UaTaxFiling
     /// Ідентифікатор форми ДПС для юрособи 3 групи: декларація єдиного податку
     /// (наказ Мінфіну 19.06.2015 № 578 у редакції 31.01.2025 № 57). Графа 3 = 3 %,
     /// графа 4 = 5 %. Рядок 2 (подвійна ставка 6/10 %) і додаток МПЗ не заповнюються:
-    /// перевищення в леджере йде кодом UA-EP15 (15 %, це форма ФОП), землі немає.
+    /// перевищення в леджере йде кодом UA-EP15 (15 %, форма ФОП F0103309 рядок 07).
     /// </summary>
     public const string DpsSingleTaxType = "J0103509";
+
+    /// <summary>
+    /// Ідентифікатор форми ДПС для ФОП 3 групи: квартальна декларація єдиного
+    /// податку (наказ Мінфіну 19.06.2015 № 578 у редакції 31.01.2025 № 57).
+    /// Рядок 05 = 3 %, 06 = 5 %, 07 = 15 % (ПКУ 293.4). Розділ VIII рядок 23 =
+    /// 1 % з (05+06+07); окремого коду в леджері немає. Додатки F0133109 / F0133209
+    /// порожні.
+    /// </summary>
+    public const string DpsFopSingleTaxType = "F0103309";
 
     private static readonly HashSet<string> VatRow9Boxes = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -142,11 +152,14 @@ public partial class UaTaxFiling
             ? await _entities.GetRecordAsync(declaration.LegalEntity)
             : null;
 
+        var boxes = await BoxesForAsync(returnType, declaration.PeriodTo);
         var payload = string.Equals(returnType, DpsVatType, StringComparison.OrdinalIgnoreCase)
-            ? BuildVatDeclarationPayload(declaration, entity)
+            ? BuildVatDeclarationPayload(declaration, entity, boxes)
             : string.Equals(returnType, DpsSingleTaxType, StringComparison.OrdinalIgnoreCase)
-                ? BuildSingleTaxDeclarationPayload(declaration, entity)
-                : BuildPayload(declaration, entity, returnType);
+                ? BuildSingleTaxDeclarationPayload(declaration, entity, boxes)
+                : string.Equals(returnType, DpsFopSingleTaxType, StringComparison.OrdinalIgnoreCase)
+                    ? BuildFopSingleTaxDeclarationPayload(declaration, entity, boxes)
+                    : BuildPayload(declaration, entity, returnType);
 
         var existing = (await _exports.GetRecordsAsync(
                 $"LegalEntity = '{declaration.LegalEntity}'"))
@@ -806,30 +819,31 @@ public partial class UaTaxFiling
     /// не сума всього підряд. 18 і 19 — різниця; рядок 20.2 (відшкодування) не
     /// заповнюється: рахунку СЕА ПДВ у нас немає.
     /// </summary>
+    public async Task<List<(string Row, string Caption, decimal ColA, decimal ColB)>>
+        ListVatDeclarationAsync(TaxReturn declaration)
+        => ListVatDeclaration(declaration, await BoxesForAsync(DpsVatType, declaration.PeriodTo));
+
     public List<(string Row, string Caption, decimal ColA, decimal ColB)>
-        ListVatDeclaration(TaxReturn declaration)
+        ListVatDeclaration(
+            TaxReturn declaration,
+            IReadOnlyDictionary<(Guid Code, Guid Direction), string>? boxes = null)
     {
-        var grouped = declaration.Lines
-            .GroupBy(l => string.IsNullOrWhiteSpace(l.ReturnBox) ? NotMapped : l.ReturnBox!.Trim())
-            .ToDictionary(
-                g => g.Key,
-                g => (ColA: g.Sum(l => l.TaxBase), ColB: g.Sum(l => l.TaxAmount)),
-                StringComparer.OrdinalIgnoreCase);
+        var grouped = GroupByBox(declaration, boxes);
 
         var rows = new List<(string, string, decimal, decimal)>();
         foreach (var key in grouped.Keys.OrderBy(k => k, StringComparer.OrdinalIgnoreCase))
         {
             var pair = grouped[key];
-            rows.Add((key, VatRowCaption(key), pair.ColA, pair.ColB));
+            rows.Add((key, VatRowCaption(key), pair.Base, pair.Tax));
         }
 
-        decimal SumBoxes(HashSet<string> boxes)
+        decimal SumBoxes(HashSet<string> keys)
         {
             decimal sum = 0m;
-            foreach (var box in boxes)
+            foreach (var key in keys)
             {
-                if (grouped.TryGetValue(box, out var pair))
-                    sum += pair.ColB;
+                if (grouped.TryGetValue(key, out var pair))
+                    sum += pair.Tax;
             }
             return sum;
         }
@@ -845,14 +859,17 @@ public partial class UaTaxFiling
         return rows;
     }
 
-    public string BuildVatDeclarationPayload(TaxReturn declaration, LegalEntity? entity)
+    public string BuildVatDeclarationPayload(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        IReadOnlyDictionary<(Guid Code, Guid Direction), string>? boxes = null)
     {
         var text = new StringBuilder();
         text.AppendLine("# J0200126 Податкова декларація з ПДВ (наказ Мінфіну 09.08.2024 № 400). Не XML кабінету ДПС.");
         text.AppendLine("# Рядки — з форми. Колонка А = база, колонка Б = ПДВ. Рядок 20.2 (відшкодування) порожній.");
         Header(text, entity, DpsVatType, declaration);
         text.AppendLine("Рядок;Назва;Колонка А;Колонка Б");
-        foreach (var row in ListVatDeclaration(declaration))
+        foreach (var row in ListVatDeclaration(declaration, boxes))
         {
             text.AppendLine(string.Format(
                 CultureInfo.InvariantCulture,
@@ -877,17 +894,18 @@ public partial class UaTaxFiling
     /// <summary>
     /// Рядки J0103509. Графа 3 — ставка 3 %, графа 4 — 5 %. Рядок 9 (попередній
     /// період) нуль: декларацію збирають наростаючим підсумком з 1 січня.
-    /// Рядок 2 і додаток J0135709 порожні.
+    /// Рядок 2 і додаток J0135709 порожні. UA-EP15 на цій формі не зіставлено.
     /// </summary>
+    public async Task<List<(string Row, string Caption, decimal Col3, decimal Col4)>>
+        ListSingleTaxDeclarationAsync(TaxReturn declaration)
+        => ListSingleTaxDeclaration(declaration, await BoxesForAsync(DpsSingleTaxType, declaration.PeriodTo));
+
     public List<(string Row, string Caption, decimal Col3, decimal Col4)>
-        ListSingleTaxDeclaration(TaxReturn declaration)
+        ListSingleTaxDeclaration(
+            TaxReturn declaration,
+            IReadOnlyDictionary<(Guid Code, Guid Direction), string>? boxes = null)
     {
-        var grouped = declaration.Lines
-            .GroupBy(l => string.IsNullOrWhiteSpace(l.ReturnBox) ? NotMapped : l.ReturnBox!.Trim())
-            .ToDictionary(
-                g => g.Key,
-                g => (Base: g.Sum(l => l.TaxBase), Tax: g.Sum(l => l.TaxAmount)),
-                StringComparer.OrdinalIgnoreCase);
+        var grouped = GroupByBox(declaration, boxes);
 
         (decimal Base, decimal Tax) Box(string key)
             => grouped.TryGetValue(key, out var pair) ? pair : (0m, 0m);
@@ -928,14 +946,17 @@ public partial class UaTaxFiling
         return rows;
     }
 
-    public string BuildSingleTaxDeclarationPayload(TaxReturn declaration, LegalEntity? entity)
+    public string BuildSingleTaxDeclarationPayload(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        IReadOnlyDictionary<(Guid Code, Guid Direction), string>? boxes = null)
     {
         var text = new StringBuilder();
         text.AppendLine("# J0103509 Декларація платника єдиного податку 3 групи ЮО (наказ Мінфіну 31.01.2025 № 57). Не XML кабінету ДПС.");
         text.AppendLine("# Графа 3 = 3 %, графа 4 = 5 %. Рядок 2 і додаток МПЗ порожні. Період — наростаючим підсумком з 1 січня.");
         Header(text, entity, DpsSingleTaxType, declaration);
         text.AppendLine("Рядок;Назва;Графа 3 (3%);Графа 4 (5%)");
-        foreach (var row in ListSingleTaxDeclaration(declaration))
+        foreach (var row in ListSingleTaxDeclaration(declaration, boxes))
         {
             text.AppendLine(string.Format(
                 CultureInfo.InvariantCulture,
@@ -943,6 +964,124 @@ public partial class UaTaxFiling
                 row.Row, row.Caption, row.Col3, row.Col4));
         }
         return text.ToString();
+    }
+
+    /// <summary>
+    /// Рядки F0103309. 05/06/07 — дохід за ставками 3/5/15 %. 09/10/11 — податок
+    /// з леджера. 23 — 1 % з (05+06+07), не код UA-VZ (той — зарплата). Додатки
+    /// ЄСВ за себе і МПЗ порожні.
+    /// </summary>
+    public async Task<List<(string Row, string Caption, decimal Amount)>>
+        ListFopSingleTaxDeclarationAsync(TaxReturn declaration)
+        => ListFopSingleTaxDeclaration(declaration, await BoxesForAsync(DpsFopSingleTaxType, declaration.PeriodTo));
+
+    public List<(string Row, string Caption, decimal Amount)>
+        ListFopSingleTaxDeclaration(
+            TaxReturn declaration,
+            IReadOnlyDictionary<(Guid Code, Guid Direction), string>? boxes = null)
+    {
+        var grouped = GroupByBox(declaration, boxes);
+        (decimal Base, decimal Tax) Box(string key)
+            => grouped.TryGetValue(key, out var pair) ? pair : (0m, 0m);
+
+        var r05 = Box("05");
+        var r06 = Box("06");
+        var r07 = Box("07");
+        var row08 = r05.Base + r06.Base + r07.Base;
+        var row09 = r07.Tax;
+        var row10 = r05.Tax;
+        var row11 = r06.Tax;
+        var row12 = row09 + row10 + row11;
+        var row23 = Math.Round(row08 * 0.01m, 2, MidpointRounding.AwayFromZero);
+
+        var rows = new List<(string, string, decimal)>
+        {
+            ("05", "Обсяг доходу за ставкою 3%", r05.Base),
+            ("06", "Обсяг доходу за ставкою 5%", r06.Base),
+            ("07", "Обсяг доходу за ставкою 15%", r07.Base),
+            ("08", "Усього доходу (р.05+р.06+р.07)", row08),
+            ("09", "Сума єдиного податку 15%", row09),
+            ("10", "Сума єдиного податку 3%", row10),
+            ("11", "Сума єдиного податку 5%", row11),
+            ("12", "Усього нараховано (р.09+р.10+р.11)", row12),
+            ("13", "Нараховано за попередній період (з 1 січня — нуль)", 0m),
+            ("14.1", "До сплати за період (рядок 12 − рядок 13)", row12),
+            ("14.2", "Додаток 2 МПЗ. Порожній — землі немає", 0m),
+            ("14", "Усього до сплати (р.14.1+р.14.2)", row12),
+            ("23", "Військовий збір 1% з (р.05+р.06+р.07)", row23),
+            ("24", "ВЗ за попередній період (з 1 січня — нуль)", 0m),
+            ("25", "ВЗ до сплати (рядок 23 − рядок 24)", row23),
+        };
+        return rows;
+    }
+
+    public string BuildFopSingleTaxDeclarationPayload(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        IReadOnlyDictionary<(Guid Code, Guid Direction), string>? boxes = null)
+    {
+        var text = new StringBuilder();
+        text.AppendLine("# F0103309 Декларація платника єдиного податку 3 групи ФОП (наказ Мінфіну 31.01.2025 № 57). Не XML кабінету ДПС.");
+        text.AppendLine("# Рядок 07 = 15 % (ПКУ 293.4). Рядок 23 = 1 % з доходу. Додатки F0133109 і F0133209 порожні. Період — з 1 січня.");
+        Header(text, entity, DpsFopSingleTaxType, declaration);
+        text.AppendLine("Рядок;Назва;Сума");
+        foreach (var row in ListFopSingleTaxDeclaration(declaration, boxes))
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture,
+                "{0};{1};{2:0.00}",
+                row.Row, row.Caption, row.Amount));
+        }
+        return text.ToString();
+    }
+
+    private async Task<Dictionary<(Guid Code, Guid Direction), string>> BoxesForAsync(string returnType, DateTime on)
+    {
+        var result = new Dictionary<(Guid Code, Guid Direction), string>();
+        var maps = await _dictionaries.GetRecordsAsync<TaxReportMapping>("1 = 1");
+        foreach (var group in maps
+            .Where(m => string.Equals(m.ReturnType, returnType, StringComparison.OrdinalIgnoreCase)
+                     && IsEffectiveOn(m.EffectiveFrom, m.EffectiveTo, on))
+            .GroupBy(m => (m.TaxCode, m.Direction)))
+        {
+            var letters = group.Select(m => m.ReturnBox)
+                .Where(b => !string.IsNullOrWhiteSpace(b))
+                .Select(b => b!.Trim())
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+            if (letters.Count == 1)
+                result[group.Key] = letters[0];
+        }
+        return result;
+    }
+
+    private static bool IsEffectiveOn(DateTime? from, DateTime? to, DateTime date)
+        => (from is null || from.Value.Date <= date.Date)
+        && (to is null || date.Date <= to.Value.Date);
+
+    private Dictionary<string, (decimal Base, decimal Tax)> GroupByBox(
+        TaxReturn declaration,
+        IReadOnlyDictionary<(Guid Code, Guid Direction), string>? boxes)
+    {
+        string BoxOf(TaxReturnLinesTablePartRow line)
+        {
+            if (boxes is not null)
+            {
+                if (boxes.TryGetValue((line.TaxCode, line.Direction), out var mapped)
+                    && !string.IsNullOrWhiteSpace(mapped))
+                    return mapped.Trim();
+                return NotMapped;
+            }
+
+            return string.IsNullOrWhiteSpace(line.ReturnBox) ? NotMapped : line.ReturnBox!.Trim();
+        }
+
+        return declaration.Lines
+            .GroupBy(BoxOf)
+            .ToDictionary(
+                g => g.Key,
+                g => (Base: g.Sum(l => l.TaxBase), Tax: g.Sum(l => l.TaxAmount)),
+                StringComparer.OrdinalIgnoreCase);
     }
 
     /// <summary>

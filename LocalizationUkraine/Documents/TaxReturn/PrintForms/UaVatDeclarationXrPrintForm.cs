@@ -28,7 +28,7 @@ public partial class UaVatDeclarationXrPrintForm : PrintFormBase
             ? ""
             : await display.FormatAsync("LegalEntity", doc.LegalEntity, context.CancellationToken) ?? "";
         var period = $"{DateText(doc.PeriodFrom)} — {DateText(doc.PeriodTo)}";
-        var rows = context.GetService<IUaTaxFiling>().ListVatDeclaration(doc);
+        var rows = await context.GetService<IUaTaxFiling>().ListVatDeclarationAsync(doc);
         var n = 0;
         var total = 0m;
         foreach (var row in rows)

@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "7496a70a-30ee-4aa5-9c86-1aa76b4b4a4a",
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "TaxReturn",
+    "objectMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
+    "executionOrder": 0,
+    "metaId": "c34618f9-a07b-425d-e486-719fb3d0526a",
+    "name": "UaFopSingleTaxDeclarationXrPrintForm",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

@@ -6,9 +6,9 @@ using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// Бланк J0103509 — декларація єдиного податку 3 групи ЮО. Не XML кабінету.
-// Графа 3 = 3 %, графа 4 = 5 %. Рядок 2 і додаток МПЗ порожні.
-public partial class UaSingleTaxDeclarationXrPrintForm : PrintFormBase
+// Бланк F0103309 — декларація єдиного податку 3 групи ФОП. Не XML кабінету.
+// Рядок 07 = 15 %. Рядок 23 = 1 % з доходу. Додатки порожні.
+public partial class UaFopSingleTaxDeclarationXrPrintForm : PrintFormBase
 {
     public override SlimTable GetDataTemplate()
         => new SlimTable(Row("", "", "", "", "", 0, "", "", "", 0m, 0m, 0m));
@@ -29,29 +29,29 @@ public partial class UaSingleTaxDeclarationXrPrintForm : PrintFormBase
             ? ""
             : await display.FormatAsync("LegalEntity", doc.LegalEntity, context.CancellationToken) ?? "";
         var period = $"{DateText(doc.PeriodFrom)} — {DateText(doc.PeriodTo)}";
-        var rows = await context.GetService<IUaTaxFiling>().ListSingleTaxDeclarationAsync(doc);
+        var rows = await context.GetService<IUaTaxFiling>().ListFopSingleTaxDeclarationAsync(doc);
         var n = 0;
         var total = 0m;
         foreach (var row in rows)
         {
             n++;
-            if (row.Row == "10") total = row.Col3 + row.Col4;
+            if (row.Row == "14") total = row.Amount;
             table.Add(Row(
                 doc.ID ?? "",
                 DateText(doc.DocumentDate),
                 seller,
                 period,
-                "J0103509; рядок 2 і додаток МПЗ порожні; не UA-EP15",
+                "F0103309; додатки F0133109 і F0133209 порожні",
                 n,
                 row.Caption,
                 "",
                 row.Row,
-                row.Col3,
-                row.Col4,
+                0m,
+                row.Amount,
                 total));
         }
         if (n == 0)
-            table.Add(Row(doc.ID ?? "", DateText(doc.DocumentDate), seller, period, "J0103509", 0, "", "", "", 0m, 0m, 0m));
+            table.Add(Row(doc.ID ?? "", DateText(doc.DocumentDate), seller, period, "F0103309", 0, "", "", "", 0m, 0m, 0m));
         return table;
     }
 
