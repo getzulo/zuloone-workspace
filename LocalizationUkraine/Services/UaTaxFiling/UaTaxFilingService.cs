@@ -1225,11 +1225,23 @@ public partial class UaTaxFiling
 
         var movements = await _totals.QueryMovementsAsync(
             "TaxLedger",
-            $"[LegalEntity] = '{legalEntity}' AND [MovementDate] >= '{from.Date:yyyy-MM-dd HH:mm:ss}' AND [MovementDate] < '{to.Date.AddDays(1):yyyy-MM-dd HH:mm:ss}'");
+            $"[MovementDate] >= '{from.Date:yyyy-MM-dd HH:mm:ss}' AND [MovementDate] < '{to.Date.AddDays(1):yyyy-MM-dd HH:mm:ss}'");
+        if (movements.Count == 0) return grouped;
+
+        var setIds = movements
+            .Select(m => AsGuid(m, "AnalyticSetMetaId"))
+            .Where(id => id != Guid.Empty)
+            .Distinct()
+            .ToList();
+        var sets = await _analytics.ExpandAsync(setIds);
+
         foreach (var movement in movements)
         {
-            var code = AsGuid(movement, "TaxCode");
-            var direction = AsGuid(movement, "TaxDirection");
+            var setId = AsGuid(movement, "AnalyticSetMetaId");
+            if (setId == Guid.Empty || !sets.TryGetValue(setId, out var values)) continue;
+            if (AnalyticGuid(values, "LegalEntity") != legalEntity) continue;
+            var code = AnalyticGuid(values, "TaxCode");
+            var direction = AnalyticGuid(values, "TaxDirection");
             if (!boxes.TryGetValue((code, direction), out var box) || string.IsNullOrWhiteSpace(box))
                 continue;
             var prev = grouped.TryGetValue(box, out var v) ? v : (0m, 0m);

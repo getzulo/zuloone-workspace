@@ -25,27 +25,6 @@
   "headerFields": [
     {
       "documentTypeMetaId": "933938ad-c125-4d87-851e-2e52f6550e22",
-      "fieldName": "LegalEntity",
-      "caption": {
-        "en": "Legal entity",
-        "ar": "الكيان القانوني",
-        "ru": "Юрлицо",
-        "uk": "Юрособа"
-      },
-      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 1,
-      "isIndexed": false,
-      "isUnique": false,
-      "isVisible": true,
-      "isTranslatable": false,
-      "metaId": "b55be290-945f-4c08-be82-a0effcbf77e1",
-      "name": "LegalEntity",
-      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
-    },
-    {
-      "documentTypeMetaId": "933938ad-c125-4d87-851e-2e52f6550e22",
       "fieldName": "Amount",
       "caption": {
         "en": "Amount",
@@ -64,27 +43,67 @@
       "metaId": "919ff46a-d929-4f4f-84e5-70a981243dfa",
       "name": "Amount",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "documentTypeMetaId": "933938ad-c125-4d87-851e-2e52f6550e22",
+      "fieldName": "ID",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "ee1ad993-56ed-49fc-bc83-1a6feb727e26",
+      "name": "ID",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "documentTypeMetaId": "933938ad-c125-4d87-851e-2e52f6550e22",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "b55be290-945f-4c08-be82-a0effcbf77e1",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ],
   "subtypes": [
     {
       "documentTypeMetaId": "933938ad-c125-4d87-851e-2e52f6550e22",
-      "name": "Draft",
-      "caption": { "en": "Draft", "ar": "مسودة", "uk": "Чернетка" },
-      "subtypeValue": "Draft",
-      "subtypeCaption": { "en": "Draft", "ar": "مسودة", "ru": "Черновик", "uk": "Чернетка" },
-      "displayOrder": 1,
-      "isInitial": true,
-      "isReadOnly": false,
-      "metaId": "ecb2e336-e3d1-4025-8b5a-0b609b4f4085",
-      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
-    },
-    {
-      "documentTypeMetaId": "933938ad-c125-4d87-851e-2e52f6550e22",
       "name": "Posted",
-      "caption": { "en": "Posted", "ar": "مرحّل", "uk": "Проведено" },
+      "caption": {
+        "en": "Posted",
+        "ar": "مرحّل",
+        "uk": "Проведено"
+      },
       "subtypeValue": "Posted",
-      "subtypeCaption": { "en": "Posted", "ar": "مرحّل", "ru": "Проведено", "uk": "Проведено" },
+      "subtypeCaption": {
+        "en": "Posted",
+        "ar": "مرحّل",
+        "ru": "Проведено",
+        "uk": "Проведено"
+      },
       "displayOrder": 2,
       "isInitial": false,
       "isReadOnly": true,
@@ -94,13 +113,43 @@
     {
       "documentTypeMetaId": "933938ad-c125-4d87-851e-2e52f6550e22",
       "name": "Voided",
-      "caption": { "en": "Voided", "ar": "ملغى", "uk": "Анульовано" },
+      "caption": {
+        "en": "Voided",
+        "ar": "ملغى",
+        "uk": "Анульовано"
+      },
       "subtypeValue": "Voided",
-      "subtypeCaption": { "en": "Voided", "ar": "ملغى", "ru": "Аннулировано", "uk": "Анульовано" },
+      "subtypeCaption": {
+        "en": "Voided",
+        "ar": "ملغى",
+        "ru": "Аннулировано",
+        "uk": "Анульовано"
+      },
       "displayOrder": 3,
       "isInitial": false,
       "isReadOnly": true,
       "metaId": "e351a99c-8712-429e-981a-0414f3ec487f",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "documentTypeMetaId": "933938ad-c125-4d87-851e-2e52f6550e22",
+      "name": "Draft",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "uk": "Чернетка"
+      },
+      "subtypeValue": "Draft",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "ru": "Черновик",
+        "uk": "Чернетка"
+      },
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "ecb2e336-e3d1-4025-8b5a-0b609b4f4085",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ],
@@ -116,17 +165,17 @@
   ],
   "subtypeTransitions": [
     {
-      "fromSubtypeMetaId": "ecb2e336-e3d1-4025-8b5a-0b609b4f4085",
-      "toSubtypeMetaId": "027f6ba1-8e46-4d99-bbc2-4ed30a51ecd8",
-      "metaId": "4c8acbce-6c0d-4477-98e6-334115a0d32d",
-      "name": "Draft->Posted",
-      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
-    },
-    {
       "fromSubtypeMetaId": "027f6ba1-8e46-4d99-bbc2-4ed30a51ecd8",
       "toSubtypeMetaId": "e351a99c-8712-429e-981a-0414f3ec487f",
       "metaId": "55e225b9-809b-4c99-81f8-c9da91c91522",
       "name": "Posted->Voided",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "fromSubtypeMetaId": "ecb2e336-e3d1-4025-8b5a-0b609b4f4085",
+      "toSubtypeMetaId": "027f6ba1-8e46-4d99-bbc2-4ed30a51ecd8",
+      "metaId": "4c8acbce-6c0d-4477-98e6-334115a0d32d",
+      "name": "Draft->Posted",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
