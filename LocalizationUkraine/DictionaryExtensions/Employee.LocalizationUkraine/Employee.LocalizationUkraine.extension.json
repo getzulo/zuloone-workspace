@@ -2,7 +2,7 @@
   "kind": "DictionaryExtension",
   "object": {
     "targetDictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
-    "description": "РНОКПП сотрудника для додатка 4ДФ (J0510411 графа T1RXXXXG02) и Д1 (J0510111 графа T1RXXXXG7S). Живёт в пакете Украины: кадровое ядро не знает про український податковий номер.",
+    "description": "РНОКПП, дата/підстава звільнення і код спецстажу Д6. Кадрове ядро не знає про українські бланки ДПС; ознака 4ДФ (DpsIncomeSign) живе окремим полем того ж пакету.",
     "metaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
     "name": "Employee.LocalizationUkraine",
     "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
@@ -30,6 +30,77 @@
       "isCalculated": false,
       "metaId": "888d3bfc-2a12-4c94-bbff-162a1a4046eb",
       "name": "TaxCardNumber",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "FireDate",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 63,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Termination date (D5)",
+        "ar": "تاريخ إنهاء الخدمة",
+        "ru": "Дата увольнения (Д5)",
+        "uk": "Дата звільнення (Д5)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "4d7c2e91-8a15-4b36-9f80-3c1e6d9a2b54",
+      "name": "FireDate",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "FireReason",
+      "baseType": "String",
+      "length": 80,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 64,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Termination ground (KЗпП)",
+        "ar": "أساس إنهاء الخدمة",
+        "ru": "Подстава увольнения (КЗпП)",
+        "uk": "Підстава звільнення (КЗпП)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "6b8f1a23-5c47-4e90-ad12-7d3e9c5b8f01",
+      "name": "FireReason",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "DpsTenureGround",
+      "baseType": "String",
+      "length": 8,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 65,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Special tenure code (D6)",
+        "ar": "رمز الأقدمية الخاصة",
+        "ru": "Код спецстажа (Д6)",
+        "uk": "Код спецстажу (Д6)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "8c2d4f67-1e39-4a80-b5c6-0f9a3e7d2c18",
+      "name": "DpsTenureGround",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]

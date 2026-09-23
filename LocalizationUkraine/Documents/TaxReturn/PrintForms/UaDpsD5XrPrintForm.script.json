@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "e0a6c3d4-1f5b-4e78-ac92-3d4a5b6c7e8f",
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "TaxReturn",
+    "objectMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
+    "executionOrder": 0,
+    "metaId": "d9f5b2c3-0e4a-4d67-9b81-2c3f4a5b6d7e",
+    "name": "UaDpsD5XrPrintForm",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
