@@ -2,7 +2,7 @@
   "kind": "DictionaryExtension",
   "object": {
     "targetDictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
-    "description": "РНОКПП, звільнення, спецстаж Д6, сумісництво/переведення/категорія Д5, неповний час Д1 G22. Кадрове ядро не знає про бланки ДПС; ознака 4ДФ (DpsIncomeSign) живе окремим полем того ж пакету.",
+    "description": "РНОКПП, ПІБ Д1, звільнення, спецстаж Д6, сумісництво/переведення/категорія Д5, неповний час Д1 G22. Кадрове ядро не знає про бланки ДПС; ознака 4ДФ (DpsIncomeSign) живе окремим полем того ж пакету.",
     "metaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
     "name": "Employee.LocalizationUkraine",
     "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
@@ -198,6 +198,81 @@
       "isCalculated": false,
       "metaId": "6ece4ffb-d84e-488d-8532-6048662091bd",
       "name": "DpsPartTimeHours",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "DpsLastName",
+      "baseType": "String",
+      "length": 80,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 70,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Last name (D1 G111S)",
+        "ar": "اللقب",
+        "ru": "Фамилия (Д1)",
+        "uk": "Прізвище (Д1 G111S)"
+      },
+      "description": "Графа T1RXXXXG111S. Порожньо — Employee.Name, не розбирати рядок на слова.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "1ba8b4f9-ba18-418f-b9f9-82ee641afe9e",
+      "name": "DpsLastName",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "DpsFirstName",
+      "baseType": "String",
+      "length": 80,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 71,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "First name (D1 G112S)",
+        "ar": "الاسم",
+        "ru": "Имя (Д1)",
+        "uk": "Ім'я (Д1 G112S)"
+      },
+      "description": "Графа T1RXXXXG112S. Порожньо — порожня комірка, не брати друге слово з Name.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "937c423f-a6de-4e57-9ccd-33cdacf79179",
+      "name": "DpsFirstName",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "DpsPatronymic",
+      "baseType": "String",
+      "length": 80,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 72,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Patronymic (D1 G113S)",
+        "ar": "اسم الأب",
+        "ru": "Отчество (Д1)",
+        "uk": "По батькові (Д1 G113S)"
+      },
+      "description": "Графа T1RXXXXG113S. Порожньо — порожня комірка.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "2b6a5adb-7025-4320-8164-46dbb366cb68",
+      "name": "DpsPatronymic",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]

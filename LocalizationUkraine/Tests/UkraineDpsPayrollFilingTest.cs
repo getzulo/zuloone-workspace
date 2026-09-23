@@ -85,8 +85,10 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
+        Assert.IsTrue(text.Contains("1;3123456789;1;1;3;2026;Петренко;;;0;0;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "рядок Д1. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("T1RXXXXG5") && text.Contains("T1RXXXXG112S"),
+            "G5 громадянство і G112S ім'я в шапці. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("R01G20;2200.00"), "разом ЄСВ роботодавця. Факт:\n{0}", text);
     }
 
@@ -103,7 +105,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;20;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
+        Assert.IsTrue(text.Contains("1;3123456789;1;1;3;2026;Петренко;;;0;0;20;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "G14 = дні від найму, не довжина місяця. Факт:\n{0}", text);
         Assert.IsTrue(!text.Contains(";0;0;31;0;10000.00"),
             "цілий березень не підставляється. Факт:\n{0}", text);
@@ -122,7 +124,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;10;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
+        Assert.IsTrue(text.Contains("1;3123456789;1;1;3;2026;Петренко;;;0;0;10;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "G14 обрізається датою звільнення. Факт:\n{0}", text);
     }
 
@@ -179,7 +181,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var d1 = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(d1.Contains("3123456789;1;1;3;2026;Петренко;0;0;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
+        Assert.IsTrue(d1.Contains("1;3123456789;1;1;3;2026;Петренко;;;0;0;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "Д1 нараховане ЄСВ не з'їдає сплата. Факт:\n{0}", d1);
         Assert.IsTrue(d1.Contains("R01G20;2200.00"), "разом G20 лишається. Факт:\n{0}", d1);
 
@@ -224,7 +226,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
 
         var text = await PayloadAsync(env.Entity, "J0510111");
         Assert.IsTrue(text.Contains("T1RXXXXG12"), "графа G12 в шапці CSV. Факт:\n{0}", text);
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;5;0;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
+        Assert.IsTrue(text.Contains("1;3123456789;1;1;3;2026;Петренко;;;5;0;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "G12 = 5 днів Sick 10–14 березня, Vacation 20–22 не додає, G15 декрет нуль. Факт:\n{0}", text);
     }
 
@@ -258,7 +260,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;31;5;10000.00;10000.00;0.00;2200.00;1;0;0"),
+        Assert.IsTrue(text.Contains("1;3123456789;1;1;3;2026;Петренко;;;0;0;31;5;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "G15 = 5 днів декрету, G12 лікарняний нуль. Факт:\n{0}", text);
     }
 
@@ -275,7 +277,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;31;0;10000.00;10000.00;0.00;2200.00;0;0;0"),
+        Assert.IsTrue(text.Contains("1;3123456789;1;1;3;2026;Петренко;;;0;0;31;0;10000.00;10000.00;0.00;2200.00;0;0;0"),
             "G21=0 при внутрішньому сумісництві, G22 лишається 0. Факт:\n{0}", text);
     }
 
@@ -318,7 +320,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
 
         var text = await PayloadAsync(env.Entity, "J0510111");
         Assert.IsTrue(text.Contains("T1RXXXXG13"), "графа G13 в шапці CSV. Факт:\n{0}", text);
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;5;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
+        Assert.IsTrue(text.Contains("1;3123456789;1;1;3;2026;Петренко;;;0;5;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "G13 = 5 днів без збереження, Vacation без прапорця не додає. Факт:\n{0}", text);
     }
 
@@ -336,8 +338,81 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
 
         var text = await PayloadAsync(env.Entity, "J0510111");
         Assert.IsTrue(text.Contains("T1RXXXXG22"), "графа G22 в шапці CSV. Факт:\n{0}", text);
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;31;0;10000.00;10000.00;0.00;2200.00;1;1;0"),
+        Assert.IsTrue(text.Contains("1;3123456789;1;1;3;2026;Петренко;;;0;0;31;0;10000.00;10000.00;0.00;2200.00;1;1;0"),
             "G22=1, G21 лишається 1. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("Д1 J0510111: не-UA громадянство дає G5=0")]
+    public async Task D1CitizenFromNationality()
+    {
+        var env = await SetupAsync();
+        await ConfigureHrAsync();
+        await ConfigureUaAsync();
+
+        var country = Dict.NewRecord<Country>();
+        country.Name = "Poland";
+        country.CodeISO2 = "PL";
+        country.CodeISO3 = "POL";
+        country.PhoneCode = "48";
+        country = await Dict.SaveRecordAsync(country);
+
+        var employee = (await Dict.GetRecordsAsync<Employee>($"Division = '{env.Division}'"))
+            .FirstOrDefault(e => e.MetaId == env.Employee);
+        Assert.IsTrue(employee != null, "працівник");
+        await Db.UpdateAsync("Employee", env.Employee, new Dictionary<string, object?>
+        {
+            ["TaxCardNumber"] = "3123456789",
+            ["Division"] = env.Division,
+            ["HireDate"] = new DateTime(2024, 1, 1),
+            ["Name"] = "Петренко",
+            ["Position"] = employee!.Position,
+            ["IsActive"] = true,
+            ["Nationality"] = country.MetaId,
+        });
+        await AccrueAsync(env.Division, env.Employee, 10000m, new DateTime(2026, 3, 15));
+
+        var returnId = await Returns.BuildAsync(env.Entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportDpsPayrollAsync(returnId);
+
+        var text = await PayloadAsync(env.Entity, "J0510111");
+        Assert.IsTrue(text.Contains("0;3123456789;1;1;3;2026;Петренко;;;"),
+            "G5=0 для не-UA. Факт:\n{0}", text);
+        Assert.IsTrue(!text.Contains("1;3123456789;1;1;3;2026;Петренко;;;0;0;31"),
+            "громадянина України не підставляємо. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("Д1 J0510111: прізвище/ім'я/по батькові з картки, Name не розбирається")]
+    public async Task D1NamePartsFromEmployee()
+    {
+        var env = await SetupAsync();
+        await ConfigureHrAsync();
+        await ConfigureUaAsync();
+        var employee = (await Dict.GetRecordsAsync<Employee>($"Division = '{env.Division}'"))
+            .FirstOrDefault(e => e.MetaId == env.Employee);
+        Assert.IsTrue(employee != null, "працівник");
+        await Db.UpdateAsync("Employee", env.Employee, new Dictionary<string, object?>
+        {
+            ["DpsLastName"] = "Петренко",
+            ["DpsFirstName"] = "Іван",
+            ["DpsPatronymic"] = "Петрович",
+            ["TaxCardNumber"] = "3123456789",
+            ["Division"] = env.Division,
+            ["HireDate"] = new DateTime(2024, 1, 1),
+            ["Name"] = "Петренко Іван Петрович",
+            ["Position"] = employee!.Position,
+            ["IsActive"] = true,
+            ["Nationality"] = employee.Nationality,
+        });
+        await AccrueAsync(env.Division, env.Employee, 10000m, new DateTime(2026, 3, 15));
+
+        var returnId = await Returns.BuildAsync(env.Entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportDpsPayrollAsync(returnId);
+
+        var text = await PayloadAsync(env.Entity, "J0510111");
+        Assert.IsTrue(text.Contains("1;3123456789;1;1;3;2026;Петренко;Іван;Петрович;0;0;31;0;10000.00"),
+            "G111S/G112S/G113S з полів, не з розбору Name. Факт:\n{0}", text);
+        Assert.IsTrue(!text.Contains("Петренко Іван Петрович"),
+            "повне Name не кладемо в прізвище. Факт:\n{0}", text);
     }
 
     [IntegrationTest("4ДФ J0510411: ознака 102 з картки працівника")]
@@ -370,6 +445,10 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
             "рядок 1.1 без 101. Факт:\n{0}", calc);
         Assert.IsTrue(!calc.Contains("R01011G3;Сума нарахованої заробітної плати;10000.00"),
             "ЦПХ не зарплата. Факт:\n{0}", calc);
+
+        var d1 = await PayloadAsync(env.Entity, "J0510111");
+        Assert.IsTrue(d1.Contains("1;3123456789;26;1;3;2026;Петренко;;;"),
+            "Д1 G8=26 для ЦПХ, не код Д5 і не 1. Факт:\n{0}", d1);
     }
 
     [IntegrationTest("Д5 J0510511: прийом 12.03.2026, R065, без Д2/Д3")]
