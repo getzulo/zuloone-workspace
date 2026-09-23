@@ -6,7 +6,7 @@ using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// Бланк J0510111 (додаток Д1). Категорія ЗО 1, тип нарахувань 1, G14 — дні відносин, G15 — лікарняний.
+// Бланк J0510111 (додаток Д1). G12 лікарняний, G13 без збереження, G14 дні, G15 декрет, G21/G22.
 public partial class UaDpsD1XrPrintForm : PrintFormBase
 {
     public override SlimTable GetDataTemplate()

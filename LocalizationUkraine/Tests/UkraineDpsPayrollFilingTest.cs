@@ -37,6 +37,8 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
             "графи 3а/3/4а/4/5а/5/ознака. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("R01G03A;10000.00"), "разом нарахованого доходу. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("R01G03;0.00"), "разом виплаченого нуль. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R00G01I;1"), "лічильник ознаки 101. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R00G02I;0"), "ознаки 102 немає. Факт:\n{0}", text);
     }
 
     [IntegrationTest("Розрахунок J0500111: зарплата 10000, ЄСВ 2200")]
@@ -51,12 +53,18 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0500111");
+        Assert.IsTrue(text.Contains("R0101G3;Загальна сума нарахованого доходу;10000.00"),
+            "рядок 1 = 1.1+1.2. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("R01011G3;Сума нарахованої заробітної плати;10000.00"),
             "рядок 1.1. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R01012G3;Винагорода за ЦПХ / гіг-контракт;0.00"),
+            "рядок 1.2 порожній без ознаки 102. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("R01031G3;Рядок 2.1 × 22 %;2200.00"),
             "ЄСВ 22%. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("R0107G3;Єдиний внесок до сплати;2200.00"),
-            "до сплати. Факт:\n{0}", text);
+            "до сплати = рядок 3. Факт:\n{0}", text);
+        Assert.IsTrue(!text.Contains("R0104G3"),
+            "R0104 — донарахування помилок, не перераховано. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("R061G3;1") && text.Contains("R064G3;1"),
             "відмітки додатків Д1 і 4ДФ. Факт:\n{0}", text);
         Assert.IsTrue(!text.Contains("R065G3") && !text.Contains("R066G3"),
@@ -77,7 +85,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;31;0;10000.00;10000.00;0.00;2200.00;1;0"),
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "рядок Д1. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("R01G20;2200.00"), "разом ЄСВ роботодавця. Факт:\n{0}", text);
     }
@@ -95,9 +103,9 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;20;0;10000.00;10000.00;0.00;2200.00;1;0"),
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;20;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "G14 = дні від найму, не довжина місяця. Факт:\n{0}", text);
-        Assert.IsTrue(!text.Contains(";31;0;10000.00"),
+        Assert.IsTrue(!text.Contains(";0;0;31;0;10000.00"),
             "цілий березень не підставляється. Факт:\n{0}", text);
     }
 
@@ -114,7 +122,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;10;0;10000.00;10000.00;0.00;2200.00;1;0"),
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;10;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "G14 обрізається датою звільнення. Факт:\n{0}", text);
     }
 
@@ -158,7 +166,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         Assert.IsTrue(text.Contains("R01G5;500.00"), "разом ВЗ. Факт:\n{0}", text);
     }
 
-    [IntegrationTest("J0500111 і Д1: після сплати ЄСВ G20 лишається 2200, R0107 = 0")]
+    [IntegrationTest("J0500111 і Д1: після сплати ЄСВ G20 і R0107 лишаються 2200")]
     public async Task D1AccruedStaysAfterEsvPayment()
     {
         var env = await SetupAsync();
@@ -171,20 +179,22 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var d1 = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(d1.Contains("3123456789;1;1;3;2026;Петренко;31;0;10000.00;10000.00;0.00;2200.00;1;0"),
+        Assert.IsTrue(d1.Contains("3123456789;1;1;3;2026;Петренко;0;0;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
             "Д1 нараховане ЄСВ не з'їдає сплата. Факт:\n{0}", d1);
         Assert.IsTrue(d1.Contains("R01G20;2200.00"), "разом G20 лишається. Факт:\n{0}", d1);
 
         var calc = await PayloadAsync(env.Entity, "J0500111");
         Assert.IsTrue(calc.Contains("R01031G3;Рядок 2.1 × 22 %;2200.00"),
             "нараховано лишається. Факт:\n{0}", calc);
-        Assert.IsTrue(calc.Contains("R0104G3;Перераховано єдиного внеску;2200.00"),
-            "сплачено з платежу в фонд. Факт:\n{0}", calc);
-        Assert.IsTrue(calc.Contains("R0107G3;Єдиний внесок до сплати;0.00"),
-            "до сплати нуль. Факт:\n{0}", calc);
+        Assert.IsTrue(calc.Contains("R0107G3;Єдиний внесок до сплати;2200.00"),
+            "R0107 = рядок 3, сплата не комірка форми. Факт:\n{0}", calc);
+        Assert.IsTrue(!calc.Contains("R0104G3"),
+            "R0104 — донарахування помилок, не перераховано. Факт:\n{0}", calc);
+        Assert.IsTrue(calc.Contains("# Сплачено ЄСВ платежем у фонд (не комірка форми);2200.00"),
+            "сплата лишається коментарем CSV. Факт:\n{0}", calc);
     }
 
-    [IntegrationTest("Д1 J0510111: TimeOff Kind=Sick дає G15=5, Vacation не рахується")]
+    [IntegrationTest("Д1 J0510111: TimeOff Kind=Sick дає G12=5, Vacation не рахується")]
     public async Task D1SickDaysFromTimeOff()
     {
         var env = await SetupAsync();
@@ -213,11 +223,121 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("T1RXXXXG15"), "графа G15 в шапці CSV. Факт:\n{0}", text);
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;31;5;10000.00;10000.00;0.00;2200.00;1;0"),
-            "G15 = 5 днів Sick 10–14 березня, Vacation 20–22 не додає. Факт:\n{0}", text);
-        Assert.IsTrue(text.Contains(";1;"),
-            "тип нарахувань лишається 1, не 3. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("T1RXXXXG12"), "графа G12 в шапці CSV. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;5;0;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
+            "G12 = 5 днів Sick 10–14 березня, Vacation 20–22 не додає, G15 декрет нуль. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("Д1 J0510111: TimeOff категорія 5 дає G15=5, категорія 6 не рахується")]
+    public async Task D1MaternityDaysFromTimeOff()
+    {
+        var env = await SetupAsync();
+        await ConfigureHrAsync();
+        await ConfigureUaAsync();
+
+        var maternity = Dict.NewRecord<TimeOff>();
+        maternity.Name = "Декрет";
+        maternity.Employee = env.Employee;
+        maternity.Kind = AttendanceDayKind.Absence;
+        maternity.DateFrom = new DateTime(2026, 3, 10);
+        maternity.DateTo = new DateTime(2026, 3, 14);
+        maternity = await Dict.SaveRecordAsync(maternity);
+        await Db.UpdateAsync("TimeOff", maternity.MetaId, new Dictionary<string, object?>
+        {
+            ["DpsPersonCategory"] = "5",
+            ["Employee"] = env.Employee,
+            ["Kind"] = (int)AttendanceDayKind.Absence,
+            ["DateFrom"] = new DateTime(2026, 3, 10),
+            ["DateTo"] = new DateTime(2026, 3, 14),
+            ["Name"] = "Декрет",
+        });
+
+        await AccrueAsync(env.Division, env.Employee, 10000m, new DateTime(2026, 3, 15));
+
+        var returnId = await Returns.BuildAsync(env.Entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportDpsPayrollAsync(returnId);
+
+        var text = await PayloadAsync(env.Entity, "J0510111");
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;31;5;10000.00;10000.00;0.00;2200.00;1;0;0"),
+            "G15 = 5 днів декрету, G12 лікарняний нуль. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("Д1 J0510111: внутрішнє сумісництво дає G21=0")]
+    public async Task D1MainWorkplaceFromPartTime()
+    {
+        var env = await SetupAsync();
+        await ConfigureHrAsync();
+        await ConfigureUaAsync();
+        await PatchEmployeeAsync(env, partTime: true);
+        await AccrueAsync(env.Division, env.Employee, 10000m, new DateTime(2026, 3, 15));
+
+        var returnId = await Returns.BuildAsync(env.Entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportDpsPayrollAsync(returnId);
+
+        var text = await PayloadAsync(env.Entity, "J0510111");
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;31;0;10000.00;10000.00;0.00;2200.00;0;0;0"),
+            "G21=0 при внутрішньому сумісництві, G22 лишається 0. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("Д1 J0510111: TimeOff DpsUnpaidLeave дає G13=5, Vacation без прапорця ні")]
+    public async Task D1UnpaidLeaveDaysFromTimeOff()
+    {
+        var env = await SetupAsync();
+        await ConfigureHrAsync();
+        await ConfigureUaAsync();
+
+        var unpaid = Dict.NewRecord<TimeOff>();
+        unpaid.Name = "Без збереження";
+        unpaid.Employee = env.Employee;
+        unpaid.Kind = AttendanceDayKind.Absence;
+        unpaid.DateFrom = new DateTime(2026, 3, 10);
+        unpaid.DateTo = new DateTime(2026, 3, 14);
+        unpaid = await Dict.SaveRecordAsync(unpaid);
+        await Db.UpdateAsync("TimeOff", unpaid.MetaId, new Dictionary<string, object?>
+        {
+            ["DpsUnpaidLeave"] = true,
+            ["Employee"] = env.Employee,
+            ["Kind"] = (int)AttendanceDayKind.Absence,
+            ["DateFrom"] = new DateTime(2026, 3, 10),
+            ["DateTo"] = new DateTime(2026, 3, 14),
+            ["Name"] = "Без збереження",
+        });
+
+        var vacation = Dict.NewRecord<TimeOff>();
+        vacation.Name = "Відпустка";
+        vacation.Employee = env.Employee;
+        vacation.Kind = AttendanceDayKind.Vacation;
+        vacation.DateFrom = new DateTime(2026, 3, 20);
+        vacation.DateTo = new DateTime(2026, 3, 22);
+        await Dict.SaveRecordAsync(vacation);
+
+        await AccrueAsync(env.Division, env.Employee, 10000m, new DateTime(2026, 3, 15));
+
+        var returnId = await Returns.BuildAsync(env.Entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportDpsPayrollAsync(returnId);
+
+        var text = await PayloadAsync(env.Entity, "J0510111");
+        Assert.IsTrue(text.Contains("T1RXXXXG13"), "графа G13 в шапці CSV. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;5;31;0;10000.00;10000.00;0.00;2200.00;1;0;0"),
+            "G13 = 5 днів без збереження, Vacation без прапорця не додає. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("Д1 J0510111: неповний час дає G22=1, сумісництво окремо")]
+    public async Task D1PartTimeHoursFlag()
+    {
+        var env = await SetupAsync();
+        await ConfigureHrAsync();
+        await ConfigureUaAsync();
+        await PatchEmployeeAsync(env, partTimeHours: true);
+        await AccrueAsync(env.Division, env.Employee, 10000m, new DateTime(2026, 3, 15));
+
+        var returnId = await Returns.BuildAsync(env.Entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportDpsPayrollAsync(returnId);
+
+        var text = await PayloadAsync(env.Entity, "J0510111");
+        Assert.IsTrue(text.Contains("T1RXXXXG22"), "графа G22 в шапці CSV. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;0;0;31;0;10000.00;10000.00;0.00;2200.00;1;1;0"),
+            "G22=1, G21 лишається 1. Факт:\n{0}", text);
     }
 
     [IntegrationTest("4ДФ J0510411: ознака 102 з картки працівника")]
@@ -240,6 +360,16 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         var text = await PayloadAsync(env.Entity, "J0510411");
         Assert.IsTrue(text.Contains("10000.00;0.00;1800.00;0.00;500.00;0.00;102"),
             "ознака з працівника, не з одиночних налаштувань. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R00G02I;1"), "лічильник ознаки 102. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R00G01I;0"), "ознаки 101 немає. Факт:\n{0}", text);
+
+        var calc = await PayloadAsync(env.Entity, "J0500111");
+        Assert.IsTrue(calc.Contains("R01012G3;Винагорода за ЦПХ / гіг-контракт;10000.00"),
+            "рядок 1.2 з ознаки 102. Факт:\n{0}", calc);
+        Assert.IsTrue(calc.Contains("R01011G3;Сума нарахованої заробітної плати;0.00"),
+            "рядок 1.1 без 101. Факт:\n{0}", calc);
+        Assert.IsTrue(!calc.Contains("R01011G3;Сума нарахованої заробітної плати;10000.00"),
+            "ЦПХ не зарплата. Факт:\n{0}", calc);
     }
 
     [IntegrationTest("Д5 J0510511: прийом 12.03.2026, R065, без Д2/Д3")]
@@ -400,7 +530,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         Assert.IsTrue(d6.Contains("01032026;31032026;31"), "період березень. Факт:\n{0}", d6);
 
         var d1 = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(d1.Contains("2200.00;1;1"), "Д1 G23 спецстаж. Факт:\n{0}", d1);
+        Assert.IsTrue(d1.Contains("2200.00;1;0;1"), "Д1 G23 спецстаж. Факт:\n{0}", d1);
 
         var calc = await PayloadAsync(env.Entity, "J0500111");
         Assert.IsTrue(calc.Contains("R065G3;1") && calc.Contains("R066G3;1"),
@@ -412,7 +542,9 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         DateTime? hire = null,
         DateTime? fire = null,
         string? fireReason = null,
-        string? tenure = null)
+        string? tenure = null,
+        bool partTime = false,
+        bool partTimeHours = false)
     {
         var bag = new Dictionary<string, object?>
         {
@@ -425,6 +557,8 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         if (fire != null) bag["FireDate"] = fire;
         if (fireReason != null) bag["FireReason"] = fireReason;
         if (tenure != null) bag["DpsTenureGround"] = tenure;
+        if (partTime) bag["DpsInternalPartTime"] = true;
+        if (partTimeHours) bag["DpsPartTimeHours"] = true;
         var employee = (await Dict.GetRecordsAsync<Employee>($"Division = '{env.Division}'"))
             .FirstOrDefault(e => e.MetaId == env.Employee);
         if (employee != null)

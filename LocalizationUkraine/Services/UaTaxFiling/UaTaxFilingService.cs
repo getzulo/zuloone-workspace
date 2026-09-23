@@ -56,7 +56,7 @@ public partial class UaTaxFiling
     /// <summary>Додаток 4ДФ до J0500111. Виплачено — PayrollPayment, перераховано — UaTaxRemittance.</summary>
     public const string Dps4DfType = "J0510411";
 
-    /// <summary>Додаток Д1 (ЄСВ по застрахованих). G14 дні відносин, G15 дні лікарняного з TimeOff.Kind=Sick, тип нарахувань 1.</summary>
+    /// <summary>Додаток Д1 (ЄСВ по застрахованих). G12 лікарняний, G13 без збереження, G14 дні відносин, G15 декрет, G21 основне місце, G22 неповний час, тип нарахувань 1.</summary>
     public const string DpsD1Type = "J0510111";
 
     /// <summary>
@@ -296,6 +296,9 @@ public partial class UaTaxFiling
             declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
         var lines = await ListDpsCalculationAsync(
             declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
+        var esvDetail = await EsvByEmployeeAsync(
+            declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
+        var paidEsv = esvDetail.Values.Sum(v => v.PaidEr);
         var (reg, sti) = await InspectorateOfAsync(declaration.LegalEntity);
 
         await SaveExportAsync(declaration, Dps4DfType, BuildDps4DfPayload(declaration, entity, four, reg, sti));
@@ -304,7 +307,7 @@ public partial class UaTaxFiling
         await SaveExportAsync(declaration, DpsD6Type, BuildDpsD6Payload(declaration, entity, d6, reg, sti));
         return await SaveExportAsync(
             declaration, DpsCalculationType, BuildDpsCalculationPayload(
-                declaration, entity, lines, reg, sti, d5.Count > 0, d6.Count > 0));
+                declaration, entity, lines, reg, sti, d5.Count > 0, d6.Count > 0, paidEsv));
     }
 
     public async Task<List<(string TaxCard, string Name, decimal AccruedIncome, decimal PaidIncome, decimal AccruedPdfo, decimal TransferredPdfo, decimal AccruedVz, decimal TransferredVz, string IncomeSign, string HireDate, string FireDate)>>
@@ -362,10 +365,10 @@ public partial class UaTaxFiling
         return result;
     }
 
-    public async Task<List<(string TaxCard, string LastName, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string SpecialTenure)>>
+    public async Task<List<(string TaxCard, string LastName, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, int UnpaidDays, int MaternityDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string MainJob, string PartTimeHours, string SpecialTenure)>>
         ListDpsD1Async(Guid legalEntity, DateTime from, DateTime to)
     {
-        var result = new List<(string, string, string, string, int, int, int, int, decimal, decimal, decimal, decimal, string)>();
+        var result = new List<(string, string, string, string, int, int, int, int, int, int, decimal, decimal, decimal, decimal, string, string, string)>();
         var esv = await EsvByEmployeeAsync(legalEntity, from, to);
         var levies = await LevyByEmployeeAsync(legalEntity, from, to);
         var ids = esv.Keys.Union(levies.Keys).OrderBy(id => id);
@@ -391,7 +394,9 @@ public partial class UaTaxFiling
             var fire = await EmployeeDateAsync(id, "FireDate");
             var hireDate = employee?.HireDate ?? from;
             var inRelation = EmploymentDays(from, to, hireDate, fire);
-            var sickDays = await SickDaysAsync(id, from, to, hireDate, fire);
+            var (sickDays, unpaidDays, maternityDays) = await LeaveDaysAsync(id, from, to, hireDate, fire);
+            var mainJob = await EmployeeFlagAsync(id, "DpsInternalPartTime") ? "0" : "1";
+            var partTimeHours = await EmployeeFlagAsync(id, "DpsPartTimeHours") ? "1" : "0";
             result.Add((
                 await TaxCardOfAsync(id),
                 employee?.Name ?? "",
@@ -401,10 +406,14 @@ public partial class UaTaxFiling
                 year,
                 inRelation,
                 sickDays,
+                unpaidDays,
+                maternityDays,
                 pdfoBase,
                 capped,
                 empEsv,
                 erEsv,
+                mainJob,
+                partTimeHours,
                 tenure));
         }
 
@@ -512,23 +521,25 @@ public partial class UaTaxFiling
     {
         var four = await ListDps4DfAsync(legalEntity, from, to);
         var d1 = await ListDpsD1Async(legalEntity, from, to);
-        var esvDetail = await EsvByEmployeeAsync(legalEntity, from, to);
-        var gross = four.Sum(r => r.AccruedIncome);
+        var salary = four.Where(r => r.IncomeSign == "101").Sum(r => r.AccruedIncome);
+        var cpd = four.Where(r => r.IncomeSign == "102").Sum(r => r.AccruedIncome);
+        var gross = salary + cpd;
         var capped = d1.Sum(r => r.Capped);
         var esv = d1.Sum(r => r.EmployerEsv);
-        var paid = esvDetail.Values.Sum(v => v.PaidEr);
-        var due = esv > paid ? esv - paid : 0m;
+        // Official R0104 = extra ESС from error corrections, not transferred.
+        // Official R0106 = decrease from corrections. We have neither.
+        // Official R0107 = row 3 + row 4 − row 6.
         return new List<(string, string, decimal)>
         {
             ("R092G3", "Працівників, яким нараховано зарплату", four.Count),
             ("R0101G3", "Загальна сума нарахованого доходу", gross),
-            ("R01011G3", "Сума нарахованої заробітної плати", gross),
+            ("R01011G3", "Сума нарахованої заробітної плати", salary),
+            ("R01012G3", "Винагорода за ЦПХ / гіг-контракт", cpd),
             ("R0102G3", "Дохід у межах максимальної величини ЄСВ", capped),
             ("R01021G3", "Дохід, на який нараховується 22 %", capped),
             ("R0103G3", "Нараховано єдиного внеску", esv),
             ("R01031G3", "Рядок 2.1 × 22 %", esv),
-            ("R0104G3", "Перераховано єдиного внеску", paid),
-            ("R0107G3", "Єдиний внесок до сплати", due),
+            ("R0107G3", "Єдиний внесок до сплати", esv),
         };
     }
 
@@ -547,6 +558,7 @@ public partial class UaTaxFiling
             text.AppendLine("# Виплачено — PayrollPayment (PaidBase); перераховано — UaTaxRemittance (Transferred).");
         Header(text, entity, Dps4DfType, declaration, cReg, cSti);
         text.AppendLine($"R00G01I;{rows.Count(r => r.IncomeSign == "101")}");
+        text.AppendLine($"R00G02I;{rows.Count(r => r.IncomeSign == "102")}");
         text.AppendLine();
         text.AppendLine("T1RXXXXG02;T1RXXXXG03A;T1RXXXXG03;T1RXXXXG04A;T1RXXXXG04;T1RXXXXG5A;T1RXXXXG5;T1RXXXXG05;T1RXXXXG06D;T1RXXXXG07D;Name");
         foreach (var row in rows)
@@ -570,23 +582,24 @@ public partial class UaTaxFiling
     public string BuildDpsD1Payload(
         TaxReturn declaration,
         LegalEntity? entity,
-        List<(string TaxCard, string LastName, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string SpecialTenure)> rows,
+        List<(string TaxCard, string LastName, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, int UnpaidDays, int MaternityDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string MainJob, string PartTimeHours, string SpecialTenure)> rows,
         string cReg = "",
         string cSti = "")
     {
         var text = new StringBuilder();
         text.AppendLine("# J0510111 Додаток Д1 (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
         text.AppendLine("# T1RXXXXG8=1 (наймані), T1RXXXXG9=1 (зарплата). Тип 2/3 лікарняних немає: окремої суми в PayrollAccrual немає.");
-        text.AppendLine("# T1RXXXXG14 — дні трудових відносин (HireDate/FireDate). T1RXXXXG15 — дні лікарняного з TimeOff.Kind=Sick, не Vacation/Absence.");
+        text.AppendLine("# G12 лікарняний (Kind=Sick), G13 без збереження (DpsUnpaidLeave), G14 дні відносин, G15 декрет (категорія 5), G21 основне місце, G22 неповний час (не сумісництво).");
         Header(text, entity, DpsD1Type, declaration, cReg, cSti);
-        text.AppendLine("T1RXXXXG7S;T1RXXXXG8;T1RXXXXG9;T1RXXXXG101;T1RXXXXG102;T1RXXXXG111S;T1RXXXXG14;T1RXXXXG15;T1RXXXXG16;T1RXXXXG17;T1RXXXXG19;T1RXXXXG20;T1RXXXXG21;T1RXXXXG23");
+        text.AppendLine("T1RXXXXG7S;T1RXXXXG8;T1RXXXXG9;T1RXXXXG101;T1RXXXXG102;T1RXXXXG111S;T1RXXXXG12;T1RXXXXG13;T1RXXXXG14;T1RXXXXG15;T1RXXXXG16;T1RXXXXG17;T1RXXXXG19;T1RXXXXG20;T1RXXXXG21;T1RXXXXG22;T1RXXXXG23");
         foreach (var row in rows)
         {
             text.AppendLine(string.Format(
                 CultureInfo.InvariantCulture,
-                "{0};{1};{2};{3};{4};{5};{6};{7};{8:0.00};{9:0.00};{10:0.00};{11:0.00};1;{12}",
+                "{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10:0.00};{11:0.00};{12:0.00};{13:0.00};{14};{15};{16}",
                 row.TaxCard, row.Category, row.AccrualType, row.Month, row.Year, row.LastName,
-                row.Days, row.SickDays, row.Gross, row.Capped, row.EmployeeEsv, row.EmployerEsv, row.SpecialTenure));
+                row.SickDays, row.UnpaidDays, row.Days, row.MaternityDays, row.Gross, row.Capped, row.EmployeeEsv, row.EmployerEsv,
+                row.MainJob, row.PartTimeHours, row.SpecialTenure));
         }
         text.AppendLine();
         text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G16;{0:0.00}", rows.Sum(r => r.Gross)));
@@ -651,11 +664,20 @@ public partial class UaTaxFiling
         string cReg = "",
         string cSti = "",
         bool hasD5 = false,
-        bool hasD6 = false)
+        bool hasD6 = false,
+        decimal paidEsv = 0)
     {
         var text = new StringBuilder();
         text.AppendLine("# J0500111 Податковий розрахунок ЮО (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
         text.AppendLine("# Розділ I — SocialInsurance і UaPayrollLevy. Д2/Д3 (J0510211/J0510311) звичайний роботодавець не подає.");
+        text.AppendLine("# R01011 — ознака 101, R01012 — ознака 102. R0104/R0106 (помилки) порожні. R0107 = рядок 3.");
+        if (paidEsv > 0)
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture,
+                "# Сплачено ЄСВ платежем у фонд (не комірка форми);{0:0.00}",
+                paidEsv));
+        }
         Header(text, entity, DpsCalculationType, declaration, cReg, cSti);
         text.AppendLine($"HZ;1");
         text.AppendLine($"HZY;{declaration.PeriodFrom:yyyy}");
@@ -1022,31 +1044,44 @@ public partial class UaTaxFiling
     }
 
     /// <summary>
-    /// G15 Д1: календарні дні тимчасової непрацездатності у межах трудових відносин місяця.
-    /// Джерело — TimeOff.Kind=Sick. Vacation і Absence сюди не йдуть: це не лікарняний.
-    /// Перетин двох лікарняних не подвоює день.
+    /// G12 — лікарняний (Kind=Sick). G13 — відпустка без збереження (DpsUnpaidLeave).
+    /// G15 — декрет (DpsPersonCategory=5). Vacation/Absence і категорії 4/6 самі не рахуються.
     /// </summary>
-    private async Task<int> SickDaysAsync(Guid employeeId, DateTime from, DateTime to, DateTime hire, DateTime? fire)
+    private async Task<(int Sick, int Unpaid, int Maternity)> LeaveDaysAsync(
+        Guid employeeId, DateTime from, DateTime to, DateTime hire, DateTime? fire)
     {
         var relStart = from.Date;
         var relEnd = to.Date;
         if (hire.Year >= 1902 && hire.Date > relStart) relStart = hire.Date;
         if (fire is DateTime fired && fired.Year >= 1902 && fired.Date < relEnd) relEnd = fired.Date;
-        if (relEnd < relStart) return 0;
+        if (relEnd < relStart) return (0, 0, 0);
 
-        var seen = new HashSet<DateTime>();
+        var sick = new HashSet<DateTime>();
+        var unpaid = new HashSet<DateTime>();
+        var maternity = new HashSet<DateTime>();
         var offs = await _timeOff.GetRecordsAsync($"Employee = '{employeeId}'");
         foreach (var off in offs)
         {
-            if (off.Kind != AttendanceDayKind.Sick) continue;
-            var a = off.DateFrom.Date > relStart ? off.DateFrom.Date : relStart;
-            var b = off.DateTo.Date < relEnd ? off.DateTo.Date : relEnd;
-            if (off.DateFrom.Year < 1902 || off.DateTo.Year < 1902 || b < a) continue;
-            for (var day = a; day <= b; day = day.AddDays(1))
-                seen.Add(day);
+            if (off.Kind == AttendanceDayKind.Sick)
+                AddOverlapDays(sick, relStart, relEnd, off.DateFrom, off.DateTo);
+            if (await TimeOffFlagAsync(off.MetaId, "DpsUnpaidLeave"))
+                AddOverlapDays(unpaid, relStart, relEnd, off.DateFrom, off.DateTo);
+            if (await TimeOffCategoryAsync(off.MetaId) == "5")
+                AddOverlapDays(maternity, relStart, relEnd, off.DateFrom, off.DateTo);
         }
 
-        return seen.Count;
+        return (sick.Count, unpaid.Count, maternity.Count);
+    }
+
+    private static void AddOverlapDays(
+        HashSet<DateTime> seen, DateTime relStart, DateTime relEnd, DateTime dateFrom, DateTime dateTo)
+    {
+        if (dateFrom.Year < 1902 || dateTo.Year < 1902) return;
+        var a = dateFrom.Date > relStart ? dateFrom.Date : relStart;
+        var b = dateTo.Date < relEnd ? dateTo.Date : relEnd;
+        if (b < a) return;
+        for (var day = a; day <= b; day = day.AddDays(1))
+            seen.Add(day);
     }
 
     private static string DpsDate(DateTime value)
@@ -1095,6 +1130,23 @@ public partial class UaTaxFiling
         catch
         {
             return "";
+        }
+    }
+
+    private async Task<bool> TimeOffFlagAsync(Guid timeOffId, string field)
+    {
+        try
+        {
+            var bag = await _data.GetByIdAsync("TimeOff", timeOffId);
+            var raw = bag?[field];
+            if (raw is bool flag) return flag;
+            if (raw is int number) return number != 0;
+            var text = Convert.ToString(raw)?.Trim();
+            return text == "1" || string.Equals(text, "true", StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+            return false;
         }
     }
 

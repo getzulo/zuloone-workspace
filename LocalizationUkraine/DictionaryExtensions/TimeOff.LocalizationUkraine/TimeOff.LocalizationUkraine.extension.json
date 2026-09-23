@@ -2,7 +2,7 @@
   "kind": "DictionaryExtension",
   "object": {
     "targetDictionaryMetaId": "5b30950b-2198-4292-8626-9abec2fcc1e3",
-    "description": "Категорія особи Д5 на відсутності: 4/5/6 (догляд 3–6, декрет, догляд до 3). Порожньо — TimeOff лишається табелем, не додатком Д5. Vacation/Sick/Absence самі по собі в Д5 не мапляться.",
+    "description": "Категорія особи Д5 (4/5/6) і відпустка без збереження Д1 G13. Vacation/Sick/Absence самі не мапляться в бланки.",
     "metaId": "3a7e1c94-6b28-4d50-9f13-8e4c2a7b5d01",
     "name": "TimeOff.LocalizationUkraine",
     "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
@@ -30,6 +30,30 @@
       "isCalculated": false,
       "metaId": "5c9f3e16-8d4a-4e61-b024-9f5d3c8a6e12",
       "name": "DpsPersonCategory",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "3a7e1c94-6b28-4d50-9f13-8e4c2a7b5d01",
+      "dictionaryMetaId": "5b30950b-2198-4292-8626-9abec2fcc1e3",
+      "fieldName": "DpsUnpaidLeave",
+      "baseType": "Boolean",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 21,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Unpaid leave (D1 G13)",
+        "ar": "إجازة بدون راتب",
+        "ru": "Отпуск без сохранения (Д1)",
+        "uk": "Відпустка без збереження (Д1 G13)"
+      },
+      "description": "Календарні дні в T1RXXXXG13. Kind=Absence сам по собі — неявка, не відпустка без збереження.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "1ec14a2f-968e-4d2d-a915-09fa9ad086fa",
+      "name": "DpsUnpaidLeave",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
