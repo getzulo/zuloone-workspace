@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+
+  "permissions": {
+    "defaultMode": "acceptEdits",
+
+    "additionalDirectories": [
+      "D:/Sources/zulo.one"
+    ],
+
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+
+      "Bash(curl *)",
+
+      "Bash(docker ps*)",
+      "Bash(docker stats*)",
+      "Bash(docker logs*)",
+      "Bash(docker inspect*)",
+      "Bash(docker restart*)",
+      "Bash(docker start*)",
+      "Bash(docker stop*)",
+
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git branch*)",
+
+      "Bash(node *)",
+
+      "Bash(ls*)",
+      "Bash(cat*)",
+      "Bash(head*)",
+      "Bash(tail*)",
+      "Bash(wc*)",
+      "Bash(stat*)",
+      "Bash(find*)",
+      "Bash(grep*)",
+      "Bash(rg*)",
+      "Bash(sed*)",
+      "Bash(sort*)",
+      "Bash(uniq*)",
+      "Bash(cut*)",
+      "Bash(tr*)",
+      "Bash(diff*)",
+      "Bash(echo*)",
+      "Bash(date*)",
+      "Bash(sleep*)",
+      "Bash(seq*)",
+      "Bash(basename*)",
+      "Bash(dirname*)",
+      "Bash(mkdir*)",
+      "Bash(cp*)",
+      "Bash(ps*)",
+      "Bash(for *)",
+      "Bash(if *)"
+    ],
+
+    "deny": [
+      "Bash(git push*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean*)",
+      "Bash(git rebase*)",
+      "Bash(git checkout *)",
+      "Bash(git restore*)",
+
+      "Bash(rm -rf*)",
+      "Bash(rm -fr*)",
+
+      "Bash(docker compose down*)",
+      "Bash(docker-compose down*)",
+      "Bash(docker rm*)",
+      "Bash(docker volume*)",
+      "Bash(docker system prune*)",
+
+      "Edit(.generated/**)",
+      "Write(.generated/**)",
+      "Edit(Core/**)",
+      "Write(Core/**)",
+      "Edit(ZuloOne.Workspace.csproj)",
+      "Write(ZuloOne.Workspace.csproj)",
+      "Edit(.zuloone-export-manifest.json)",
+      "Write(.zuloone-export-manifest.json)"
+    ]
+  }
+}
