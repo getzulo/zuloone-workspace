@@ -106,6 +106,48 @@ public partial class <Имя>Command
 «Добавить свой поверх» на полоске этой команды, `nextAsync<CommandResult>`
 (`zuloone-extend` §2г). Забытый `next` — ZOCOC003.
 
+## Команда СПРАВОЧНИКА — `Commands/Dictionary/<Имя>/`
+
+Та же тройка, три отличия. Подтипов у справочника нет, поэтому нет и
+`subtypeBindings`; вместо них — `dictionaryMetaId` на самом объекте:
+
+```json
+{ "kind": "DictionaryCommand",
+  "object": {
+    "dictionaryMetaId": "<GUID справочника>",
+    "caption": { "en": …, "ru": … },
+    "scriptMetaId": "<GUID скрипта>", "parameterMode": "None",
+    "reloadAfterExecution": true,
+    "metaId": "<GUID-команды>", "name": "<Имя>", "modelId": "<GUID модели>" } }
+```
+
+В `<Имя>Script.script.json` — `"scriptType": "DictionaryCommand"` (всё
+остальное как у документа), а в коде первый параметр — ЗАПИСЬ:
+
+```csharp
+public partial class <Имя>Command
+{
+    public override async Task ExecuteAsync(<Справочник> record, CommandContext context)
+        => context.AddClientAction(ClientAction.Message(
+               await context.GetService<I<Сервис>>().DoAsync(record.MetaId), "success"));
+}
+```
+
+Пункт меню заводить не надо — кнопка появляется на форме справочника сама.
+В тесте: `Db.FindCommandIdAsync("dictionary", "<Имя>")` +
+`Db.ExecuteDictionaryCommandAsync(commandId, recordId)` (у документа —
+`"document"` / `ExecuteDocumentCommandAsync`). Это и делает такой тест
+честным: `FindCommandIdAsync` БРОСАЕТ, когда команды нет, поэтому тест на
+кнопку физически не может пройти, пока кнопки не существует.
+
+**Порядок заливки:** `apply-file` команды ДО её скрипта даст
+`FOREIGN KEY … MetaScripts` — команда ссылается на `scriptMetaId`. Залей
+скрипт, потом повтори файл команды.
+
+`ClientAction.OpenDocument` принимает **`Guid` metaId ТИПА документа**, не имя
+(`OpenRecord` — наоборот, строковое имя таблицы). Полный список фабрик —
+`src/ZuloOne.Runtime/Commands/ClientAction.cs`.
+
 ## Конвенции
 
 - **Валидируй через УЖЕ СУЩЕСТВУЮЩИЕ сервисы, не инлайн и не новым
@@ -117,9 +159,19 @@ public partial class <Имя>Command
   «разверните», не писать строки из команды перехода). Команда тонкая:
   reload → спросить сервис → `ClientAction.Message` или целевой подтип.
 - **Не зови мутирующие AfterPost API из команды** (`CreateCalculationAsync`,
-  `InvoiceOrderAsync`, `CompleteTripAsync`, `CreateAccrualAsync`, `BuildAsync`,
+  `InvoiceOrderAsync`, `CompleteTripAsync`, `CreateAccrualAsync`,
   `IGeneralLedgerService.PostAsync`, `SubmitReturnAsync`): их уже зовут
   события при Save. Второй вызов удваивает счета, налоги и задания.
+- **`ITaxReturnService.BuildAsync` / `BuildFromPeriodAsync` — отдельный
+  случай, и раньше он стоял в списке выше по НЕВЕРНОЙ причине.** События их не
+  зовут: до 2026-09-22 их не звал вообще никто, сервис жил с девятью тестами и
+  без единой двери из интерфейса. Нельзя их звать не «потому что уже позвали», а
+  потому что они декларацию **СОЗДАЮТ** — кнопка на самой `TaxReturn` плодила бы
+  вторую. Правильное место такой команды — справочник-источник (`TaxPeriod`,
+  команда `BuildTaxReturn`), а не создаваемый документ.
+  Мораль шире одного сервиса: прежде чем поверить «это уже зовут события»,
+  **грепни места вызова**. Сервис без вызывающих — такой же дефект, как
+  отсутствующий, только выглядит готовым.
 - **Одна команда — один переход**: не делай одну команду, которая по
   внутренней логике прыгает между несколькими целевыми подтипами; для каждого
   перехода — своя команда со своей привязкой.

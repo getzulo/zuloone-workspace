@@ -1,0 +1,22 @@
+{
+  "kind": "DictionaryCommand",
+  "object": {
+    "dictionaryMetaId": "c2561117-28e1-41aa-8d88-a20ad4983b68",
+    "caption": {
+      "en": "Build return",
+      "ar": "إنشاء الإقرار الضريبي",
+      "ru": "Сформировать декларацию",
+      "uk": "Сформувати декларацію"
+    },
+    "scriptMetaId": "0422a487-62a8-4036-9a9b-4c5c8437265b",
+    "parameterMode": "None",
+    "displayOrder": 0,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "1bb32f43-6ada-478b-82cc-7b6a8083298d",
+    "name": "BuildTaxReturn",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

@@ -337,6 +337,71 @@ public class TaxReturnTest : IntegrationTestScriptBase
             "сборка датами по закрытому окну тоже отклоняется, факт: {0}", byDates);
     }
 
+    [IntegrationTest("Кнопка «Сформировать декларацию» собирает её с периода")]
+    public async Task CommandBuildsReturnFromPeriod()
+    {
+        var legal = await NewLegalEntityAsync();
+        var output = await NewDirectionAsync("OUTPUT");
+        var code = await NewCodeAsync(Uniq(), "Standard");
+        var tax = (await RecordAsync<TaxCode>(code))!.Tax;
+        var period = await NewRecordAsync<TaxPeriod>(p =>
+        {
+            p.LegalEntity = legal;
+            p.Tax = tax;
+            p.Code = $"Q1-{Uniq()}";
+            p.FromDate = new DateTime(2026, 1, 1);
+            p.ToDate = new DateTime(2026, 3, 31);
+        });
+
+        await PostAsync(legal, code, output, new DateTime(2026, 2, 10), 100m, 15m);
+
+        // Проверяется ДВЕРЬ, а не сервис. BuildFromPeriodAsync был покрыт девятью
+        // тестами и при этом не вызывался из продакшена ни разу: декларацию умел
+        // собрать только тест, а пользователю оставалось завести документ руками.
+        var commandId = await Db.FindCommandIdAsync("dictionary", "BuildTaxReturn");
+        var run = await Db.ExecuteDictionaryCommandAsync(commandId, period);
+        Assert.IsTrue(run.Success, "команда должна выполниться: {0}", run.Message ?? "");
+
+        var built = await DocumentManager.QueryDocumentsAsync<TaxReturn>();
+        var mine = built.Where(r => r.TaxPeriod == period).ToList();
+        Assert.IsTrue(mine.Count == 1, "кнопка собрала ровно одну декларацию, факт {0}", mine.Count);
+
+        var doc = await DocumentManager.GetDocumentAsync<TaxReturn>(mine[0].MetaId);
+        Assert.IsTrue(doc!.OutputTax == 15m,
+            "суммы посчитал сервис, а не пользователь глазами, факт {0}", doc.OutputTax);
+        Assert.IsTrue(doc.PeriodFrom.Date == new DateTime(2026, 1, 1), "дата с периода");
+        Assert.IsTrue(doc.PeriodTo.Date == new DateTime(2026, 3, 31), "дата по периода");
+    }
+
+    [IntegrationTest("Кнопка на закрытом периоде объясняет отказ, а не падает")]
+    public async Task CommandOnClosedPeriodExplains()
+    {
+        var legal = await NewLegalEntityAsync();
+        var code = await NewCodeAsync(Uniq(), "Standard");
+        var tax = (await RecordAsync<TaxCode>(code))!.Tax;
+        var period = await NewRecordAsync<TaxPeriod>(p =>
+        {
+            p.LegalEntity = legal;
+            p.Tax = tax;
+            p.Code = $"Q1-{Uniq()}";
+            p.FromDate = new DateTime(2026, 1, 1);
+            p.ToDate = new DateTime(2026, 3, 31);
+            p.IsClosed = true;
+        });
+
+        var commandId = await Db.FindCommandIdAsync("dictionary", "BuildTaxReturn");
+        var run = await Db.ExecuteDictionaryCommandAsync(commandId, period);
+
+        // Сервис отказывает исключением; кнопка обязана превратить его в
+        // сообщение — иначе пользователь получит трассировку вместо причины.
+        Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("закрыт"),
+            "пользователь получил причину отказа: {0}", string.Join("; ", run.ClientMessages));
+
+        var built = await DocumentManager.QueryDocumentsAsync<TaxReturn>();
+        Assert.IsTrue(built.All(r => r.TaxPeriod != period),
+            "по закрытому периоду декларация не создана");
+    }
+
     private async Task<Guid> NewLegalEntityAsync()
     {
         var currency = await NewRecordAsync<Currency>(c =>

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DictionaryCommand",
+    "objectType": "Command",
+    "objectName": "BuildTaxReturn",
+    "objectMetaId": "1bb32f43-6ada-478b-82cc-7b6a8083298d",
+    "executionOrder": 0,
+    "metaId": "0422a487-62a8-4036-9a9b-4c5c8437265b",
+    "name": "BuildTaxReturnScript",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}
