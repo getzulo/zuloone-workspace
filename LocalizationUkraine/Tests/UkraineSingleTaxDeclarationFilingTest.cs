@@ -79,6 +79,37 @@ public class UkraineSingleTaxDeclarationFilingTest : IntegrationTestScriptBase
             "до сплати 400+200. Факт:\n{0}", text);
     }
 
+    [IntegrationTest("J0103509: UA-EPB5 у рядок 3 графа 4, UA-EPF5 у рядок 4")]
+    public async Task BarterAndForbiddenGoToRows3And4()
+    {
+        var entity = await EntityAsync();
+        var output = await OutputAsync();
+        var five = await TaxCodeAsync("UA-EP5");
+        var barter = await TaxCodeAsync("UA-EPB5");
+        var forbidden = await TaxCodeAsync("UA-EPF5");
+        var day = new DateTime(2026, 3, 15);
+        await PostAsync(entity, five, output, day, 8000m, 400m);
+        await PostAsync(entity, barter, output, day, 1000m, 100m);
+        await PostAsync(entity, forbidden, output, day, 500m, 50m);
+
+        var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportAsync(returnId, "J0103509");
+        var text = await PayloadAsync(entity);
+
+        Assert.IsTrue(text.Contains("1;Обсяг доходу за основною ставкою;0.00;8000.00"),
+            "рядок 1 без бартеру. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("3;Негрошові розрахунки;0.00;1000.00"),
+            "рядок 3 з UA-EPB5. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("4;Заборонені види діяльності;0.00;500.00"),
+            "рядок 4 з UA-EPF5. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("5;Усього доходу (р.1+р.2+р.3+р.4);0.00;9500.00"),
+            "рядок 5 з бартером і забороненим. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("7;Єдиний податок за подвійною ставкою;0.00;150.00"),
+            "рядок 7 податок з р.3+р.4. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("10;До сплати за період (рядок 8 − рядок 9);0.00;550.00"),
+            "до сплати 400+150. Факт:\n{0}", text);
+    }
+
     [IntegrationTest("J0103509: півріччя — рядок 9 = I кв., рядок 10 = II кв.")]
     public async Task PreviousPeriodFromLedgerOnHalfYear()
     {

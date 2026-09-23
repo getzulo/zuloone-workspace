@@ -6,7 +6,7 @@ using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// Бланк J0510511 (додаток Д5). Події з HireDate / FireDate / TimeOff.DpsPersonCategory.
+// Бланк J0510511 (додаток Д5). Події з HireDate / FireDate / DpsTransferDate / TimeOff.
 public partial class UaDpsD5XrPrintForm : PrintFormBase
 {
     public override SlimTable GetDataTemplate()

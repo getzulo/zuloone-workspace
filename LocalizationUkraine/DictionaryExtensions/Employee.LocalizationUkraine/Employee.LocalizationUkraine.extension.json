@@ -2,7 +2,7 @@
   "kind": "DictionaryExtension",
   "object": {
     "targetDictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
-    "description": "РНОКПП, дата/підстава звільнення і код спецстажу Д6. Кадрове ядро не знає про українські бланки ДПС; ознака 4ДФ (DpsIncomeSign) живе окремим полем того ж пакету.",
+    "description": "РНОКПП, звільнення, спецстаж Д6, сумісництво/переведення/категорія Д5. Кадрове ядро не знає про бланки ДПС; ознака 4ДФ (DpsIncomeSign) живе окремим полем того ж пакету.",
     "metaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
     "name": "Employee.LocalizationUkraine",
     "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
@@ -101,6 +101,79 @@
       "isCalculated": false,
       "metaId": "8c2d4f67-1e39-4a80-b5c6-0f9a3e7d2c18",
       "name": "DpsTenureGround",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "DpsInternalPartTime",
+      "baseType": "Boolean",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 66,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Internal part-time (D5 G11)",
+        "ar": "عمل جزئي داخلي",
+        "ru": "Внутреннее совместительство (Д5)",
+        "uk": "Внутрішнє сумісництво (Д5)"
+      },
+      "description": "Графа T1RXXXXG11. Порожньо — 0. Не виводити 1 з факту другої посади: другої посади в кадрах немає.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c6e0a413-9d5b-4f82-b137-4e0c8f6d3f29",
+      "name": "DpsInternalPartTime",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "DpsTransferDate",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 67,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Transfer date (D5 G12)",
+        "ar": "تاريخ النقل",
+        "ru": "Дата перевода (Д5)",
+        "uk": "Дата переведення (Д5)"
+      },
+      "description": "Подія переведення в місяці: графа T1RXXXXG12=1. Історії посад у HR немає — дату ставлять на картці, як FireDate.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d7f1b524-0e6c-4093-c248-5f1d9a7e403a",
+      "name": "DpsTransferDate",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "DpsLaborCategory",
+      "baseType": "String",
+      "length": 1,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 68,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "D5 labor category (1/2/3)",
+        "ar": "فئة العمل D5",
+        "ru": "Категория лица Д5 (1/2/3)",
+        "uk": "Категорія особи Д5 (1/2/3)"
+      },
+      "description": "1 наймані, 2 військовослужбовці, 3 ЦПХ. Порожньо — з ознаки 4ДФ: 102→3, інакше 1. 4/5/6 живуть на TimeOff, не тут.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e802c635-1f7d-41a4-d359-6a2e0b8f514b",
+      "name": "DpsLaborCategory",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]

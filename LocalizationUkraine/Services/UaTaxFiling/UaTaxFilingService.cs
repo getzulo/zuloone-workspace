@@ -56,7 +56,7 @@ public partial class UaTaxFiling
     /// <summary>Додаток 4ДФ до J0500111. Виплачено — PayrollPayment, перераховано — UaTaxRemittance.</summary>
     public const string Dps4DfType = "J0510411";
 
-    /// <summary>Додаток Д1 (ЄСВ по застрахованих). Категорія ЗО 1, тип нарахувань 1.</summary>
+    /// <summary>Додаток Д1 (ЄСВ по застрахованих). G14 дні відносин, G15 дні лікарняного з TimeOff.Kind=Sick, тип нарахувань 1.</summary>
     public const string DpsD1Type = "J0510111";
 
     /// <summary>
@@ -362,17 +362,16 @@ public partial class UaTaxFiling
         return result;
     }
 
-    public async Task<List<(string TaxCard, string LastName, string Category, string AccrualType, int Month, int Year, int Days, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string SpecialTenure)>>
+    public async Task<List<(string TaxCard, string LastName, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string SpecialTenure)>>
         ListDpsD1Async(Guid legalEntity, DateTime from, DateTime to)
     {
-        var result = new List<(string, string, string, string, int, int, int, decimal, decimal, decimal, decimal, string)>();
+        var result = new List<(string, string, string, string, int, int, int, int, decimal, decimal, decimal, decimal, string)>();
         var esv = await EsvByEmployeeAsync(legalEntity, from, to);
         var levies = await LevyByEmployeeAsync(legalEntity, from, to);
         var ids = esv.Keys.Union(levies.Keys).OrderBy(id => id);
         var ceiling = await WageCeilingAsync();
         var month = from.Month;
         var year = from.Year;
-        var days = DateTime.DaysInMonth(year, month);
 
         foreach (var id in ids)
         {
@@ -389,6 +388,10 @@ public partial class UaTaxFiling
             }
             var capped = ceiling > 0m && pdfoBase > ceiling ? ceiling : pdfoBase;
             var tenure = string.IsNullOrWhiteSpace(await EmployeeStringAsync(id, "DpsTenureGround")) ? "0" : "1";
+            var fire = await EmployeeDateAsync(id, "FireDate");
+            var hireDate = employee?.HireDate ?? from;
+            var inRelation = EmploymentDays(from, to, hireDate, fire);
+            var sickDays = await SickDaysAsync(id, from, to, hireDate, fire);
             result.Add((
                 await TaxCardOfAsync(id),
                 employee?.Name ?? "",
@@ -396,7 +399,8 @@ public partial class UaTaxFiling
                 "1",
                 month,
                 year,
-                days,
+                inRelation,
+                sickDays,
                 pdfoBase,
                 capped,
                 empEsv,
@@ -407,10 +411,10 @@ public partial class UaTaxFiling
         return result;
     }
 
-    public async Task<List<(string Citizen, string Cpd, string Category, string TaxCard, string Name, string EventDate, string InternalPartTime, string Transfer, string Position, string Document, string FireReason)>>
+    public async Task<List<(string Citizen, string Cpd, string Category, string TaxCard, string Name, string EventDate, string InternalPartTime, string Transfer, string Profession, string Position, string Document, string FireReason)>>
         ListDpsD5Async(Guid legalEntity, DateTime from, DateTime to)
     {
-        var result = new List<(string, string, string, string, string, string, string, string, string, string, string)>();
+        var result = new List<(string, string, string, string, string, string, string, string, string, string, string, string)>();
         var people = await EmployeesOfAsync(legalEntity);
         foreach (var employee in people.OrderBy(e => e.Name).ThenBy(e => e.MetaId))
         {
@@ -419,19 +423,33 @@ public partial class UaTaxFiling
             var citizen = await CitizenFlagAsync(employee);
             var tax = await TaxCardOfAsync(employee.MetaId);
             var position = await PositionNameAsync(employee.Position);
-            if (InPeriod(employee.HireDate, from, to))
+            var profession = await PositionStringAsync(employee.Position, "DkppCode");
+            var partTime = await EmployeeFlagAsync(employee.MetaId, "DpsInternalPartTime") ? "1" : "0";
+            var transferOn = await EmployeeDateAsync(employee.MetaId, "DpsTransferDate");
+
+            void Add(DateTime when, string transfer, string document, string reason)
             {
                 result.Add((citizen, cpd, category, tax, employee.Name ?? "",
-                    DpsDate(employee.HireDate), "0", "0", position, "", ""));
+                    DpsDate(when), partTime, transfer, profession, position, document, reason));
             }
 
+            var hireIn = InPeriod(employee.HireDate, from, to);
             var fire = await EmployeeDateAsync(employee.MetaId, "FireDate");
-            if (fire is DateTime fired && InPeriod(fired, from, to))
+            var fireIn = fire is DateTime fired && InPeriod(fired, from, to);
+            var xferIn = transferOn is DateTime xfer && InPeriod(xfer, from, to);
+            var xferIsHire = xferIn && SameDay(transferOn, employee.HireDate);
+            var xferIsFire = fireIn && xferIn && SameDay(transferOn, fire);
+
+            if (hireIn)
+                Add(employee.HireDate, xferIsHire ? "1" : "0", "", "");
+            if (fireIn && fire is DateTime fireDay)
             {
-                result.Add((citizen, cpd, category, tax, employee.Name ?? "",
-                    DpsDate(fired), "0", "0", position, "",
-                    await EmployeeStringAsync(employee.MetaId, "FireReason")));
+                Add(fireDay, xferIsFire ? "1" : "0", "",
+                    await EmployeeStringAsync(employee.MetaId, "FireReason"));
             }
+
+            if (xferIn && transferOn is DateTime xferDay && !xferIsHire && !xferIsFire)
+                Add(xferDay, "1", "", "");
 
             var offs = await _timeOff.GetRecordsAsync($"Employee = '{employee.MetaId}'");
             foreach (var off in offs)
@@ -441,12 +459,12 @@ public partial class UaTaxFiling
                 if (InPeriod(off.DateFrom, from, to))
                 {
                     result.Add((citizen, "0", leaveCategory, tax, employee.Name ?? "",
-                        DpsDate(off.DateFrom), "0", "0", position, off.Name ?? "", ""));
+                        DpsDate(off.DateFrom), partTime, "0", profession, position, off.Name ?? "", ""));
                 }
                 if (InPeriod(off.DateTo, from, to) && off.DateTo.Date != off.DateFrom.Date)
                 {
                     result.Add((citizen, "0", leaveCategory, tax, employee.Name ?? "",
-                        DpsDate(off.DateTo), "0", "0", position, off.Name ?? "", ""));
+                        DpsDate(off.DateTo), partTime, "0", profession, position, off.Name ?? "", ""));
                 }
             }
         }
@@ -552,22 +570,23 @@ public partial class UaTaxFiling
     public string BuildDpsD1Payload(
         TaxReturn declaration,
         LegalEntity? entity,
-        List<(string TaxCard, string LastName, string Category, string AccrualType, int Month, int Year, int Days, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string SpecialTenure)> rows,
+        List<(string TaxCard, string LastName, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string SpecialTenure)> rows,
         string cReg = "",
         string cSti = "")
     {
         var text = new StringBuilder();
         text.AppendLine("# J0510111 Додаток Д1 (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
-        text.AppendLine("# T1RXXXXG8=1 (наймані), T1RXXXXG9=1 (нарахування за звітний місяць).");
+        text.AppendLine("# T1RXXXXG8=1 (наймані), T1RXXXXG9=1 (зарплата). Тип 2/3 лікарняних немає: окремої суми в PayrollAccrual немає.");
+        text.AppendLine("# T1RXXXXG14 — дні трудових відносин (HireDate/FireDate). T1RXXXXG15 — дні лікарняного з TimeOff.Kind=Sick, не Vacation/Absence.");
         Header(text, entity, DpsD1Type, declaration, cReg, cSti);
-        text.AppendLine("T1RXXXXG7S;T1RXXXXG8;T1RXXXXG9;T1RXXXXG101;T1RXXXXG102;T1RXXXXG111S;T1RXXXXG14;T1RXXXXG16;T1RXXXXG17;T1RXXXXG19;T1RXXXXG20;T1RXXXXG21;T1RXXXXG23");
+        text.AppendLine("T1RXXXXG7S;T1RXXXXG8;T1RXXXXG9;T1RXXXXG101;T1RXXXXG102;T1RXXXXG111S;T1RXXXXG14;T1RXXXXG15;T1RXXXXG16;T1RXXXXG17;T1RXXXXG19;T1RXXXXG20;T1RXXXXG21;T1RXXXXG23");
         foreach (var row in rows)
         {
             text.AppendLine(string.Format(
                 CultureInfo.InvariantCulture,
-                "{0};{1};{2};{3};{4};{5};{6};{7:0.00};{8:0.00};{9:0.00};{10:0.00};1;{11}",
+                "{0};{1};{2};{3};{4};{5};{6};{7};{8:0.00};{9:0.00};{10:0.00};{11:0.00};1;{12}",
                 row.TaxCard, row.Category, row.AccrualType, row.Month, row.Year, row.LastName,
-                row.Days, row.Gross, row.Capped, row.EmployeeEsv, row.EmployerEsv, row.SpecialTenure));
+                row.Days, row.SickDays, row.Gross, row.Capped, row.EmployeeEsv, row.EmployerEsv, row.SpecialTenure));
         }
         text.AppendLine();
         text.AppendLine(string.Format(CultureInfo.InvariantCulture, "R01G16;{0:0.00}", rows.Sum(r => r.Gross)));
@@ -580,22 +599,23 @@ public partial class UaTaxFiling
     public string BuildDpsD5Payload(
         TaxReturn declaration,
         LegalEntity? entity,
-        List<(string Citizen, string Cpd, string Category, string TaxCard, string Name, string EventDate, string InternalPartTime, string Transfer, string Position, string Document, string FireReason)> rows,
+        List<(string Citizen, string Cpd, string Category, string TaxCard, string Name, string EventDate, string InternalPartTime, string Transfer, string Profession, string Position, string Document, string FireReason)> rows,
         string cReg = "",
         string cSti = "")
     {
         var text = new StringBuilder();
         text.AppendLine("# J0510511 Додаток Д5 (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
-        text.AppendLine("# Прийом — HireDate, звільнення — FireDate, декрет — TimeOff.DpsPersonCategory 4/5/6. Vacation/Sick самі не мапляться.");
+        text.AppendLine("# Прийом — HireDate, звільнення — FireDate, переведення — DpsTransferDate, декрет — TimeOff.DpsPersonCategory 4/5/6.");
+        text.AppendLine("# G11 внутрішнє сумісництво, G12 переведення, G13S код КП з Position.DkppCode. Vacation/Sick самі не мапляться.");
         if (rows.Count == 0)
             text.AppendLine("# Немає кадрових подій за період — додаток Д5 не подають.");
         Header(text, entity, DpsD5Type, declaration, cReg, cSti);
-        text.AppendLine("T1RXXXXG5;T1RXXXXG6;T1RXXXXG7;T1RXXXXG8S;T1RXXXXG9S;T1RXXXXG10D;T1RXXXXG11;T1RXXXXG12;T1RXXXXG15S;T1RXXXXG16S;T1RXXXXG17S");
+        text.AppendLine("T1RXXXXG5;T1RXXXXG6;T1RXXXXG7;T1RXXXXG8S;T1RXXXXG9S;T1RXXXXG10D;T1RXXXXG11;T1RXXXXG12;T1RXXXXG13S;T1RXXXXG15S;T1RXXXXG16S;T1RXXXXG17S");
         foreach (var row in rows)
         {
             text.AppendLine(string.Join(";",
                 row.Citizen, row.Cpd, row.Category, row.TaxCard, row.Name, row.EventDate,
-                row.InternalPartTime, row.Transfer, row.Position, row.Document, row.FireReason));
+                row.InternalPartTime, row.Transfer, row.Profession, row.Position, row.Document, row.FireReason));
         }
         return text.ToString();
     }
@@ -914,7 +934,11 @@ public partial class UaTaxFiling
     }
 
     private async Task<string> D5LaborCategoryAsync(Guid employeeId)
-        => await IncomeSignOfAsync(employeeId) == "102" ? "3" : "1";
+    {
+        var raw = await EmployeeStringAsync(employeeId, "DpsLaborCategory");
+        if (raw is "1" or "2" or "3") return raw;
+        return await IncomeSignOfAsync(employeeId) == "102" ? "3" : "1";
+    }
 
     private async Task<string> CitizenFlagAsync(Employee? employee)
     {
@@ -944,8 +968,86 @@ public partial class UaTaxFiling
         return position?.Name ?? "";
     }
 
+    private async Task<string> PositionStringAsync(Guid positionId, string field)
+    {
+        if (positionId == Guid.Empty) return "";
+        try
+        {
+            var bag = await _data.GetByIdAsync("Position", positionId);
+            return Convert.ToString(bag?[field])?.Trim() ?? "";
+        }
+        catch
+        {
+            return "";
+        }
+    }
+
+    private async Task<bool> EmployeeFlagAsync(Guid employeeId, string field)
+    {
+        try
+        {
+            var bag = await _data.GetByIdAsync("Employee", employeeId);
+            var raw = bag?[field];
+            if (raw is bool flag) return flag;
+            if (raw is int number) return number != 0;
+            var text = Convert.ToString(raw)?.Trim();
+            return text == "1" || string.Equals(text, "true", StringComparison.OrdinalIgnoreCase);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
     private static bool InPeriod(DateTime value, DateTime from, DateTime to)
         => value.Year >= 1902 && value.Date >= from.Date && value.Date < to.Date.AddDays(1);
+
+    private static bool SameDay(DateTime? left, DateTime? right)
+        => left is DateTime a && right is DateTime b && a.Year >= 1902 && b.Year >= 1902 && a.Date == b.Date;
+
+    /// <summary>
+    /// G14 Д1: календарні дні перебування у трудових відносинах у звітному місяці.
+    /// Цілий місяць підставляти не можна: прийнятий 12-го дає 20 днів, не 31.
+    /// </summary>
+    private static int EmploymentDays(DateTime from, DateTime to, DateTime hire, DateTime? fire)
+    {
+        var start = from.Date;
+        var end = to.Date;
+        if (hire.Year >= 1902 && hire.Date > start)
+            start = hire.Date;
+        if (fire is DateTime fired && fired.Year >= 1902 && fired.Date < end)
+            end = fired.Date;
+        if (end < start) return 0;
+        return (end - start).Days + 1;
+    }
+
+    /// <summary>
+    /// G15 Д1: календарні дні тимчасової непрацездатності у межах трудових відносин місяця.
+    /// Джерело — TimeOff.Kind=Sick. Vacation і Absence сюди не йдуть: це не лікарняний.
+    /// Перетин двох лікарняних не подвоює день.
+    /// </summary>
+    private async Task<int> SickDaysAsync(Guid employeeId, DateTime from, DateTime to, DateTime hire, DateTime? fire)
+    {
+        var relStart = from.Date;
+        var relEnd = to.Date;
+        if (hire.Year >= 1902 && hire.Date > relStart) relStart = hire.Date;
+        if (fire is DateTime fired && fired.Year >= 1902 && fired.Date < relEnd) relEnd = fired.Date;
+        if (relEnd < relStart) return 0;
+
+        var seen = new HashSet<DateTime>();
+        var offs = await _timeOff.GetRecordsAsync($"Employee = '{employeeId}'");
+        foreach (var off in offs)
+        {
+            if (off.Kind != AttendanceDayKind.Sick) continue;
+            var a = off.DateFrom.Date > relStart ? off.DateFrom.Date : relStart;
+            var b = off.DateTo.Date < relEnd ? off.DateTo.Date : relEnd;
+            if (off.DateFrom.Year < 1902 || off.DateTo.Year < 1902 || b < a) continue;
+            for (var day = a; day <= b; day = day.AddDays(1))
+                seen.Add(day);
+        }
+
+        return seen.Count;
+    }
 
     private static string DpsDate(DateTime value)
         => value.ToString("ddMMyyyy");
@@ -1257,6 +1359,7 @@ public partial class UaTaxFiling
     /// <summary>
     /// Рядки J0103509. Графа 3 — ставка 3 %, графа 4 — 5 %. Рядок 9 — леджер
     /// з 1 січня до кінця попереднього кварталу. Рядок 2 — UA-EP6 / UA-EP10.
+    /// Рядок 3 — UA-EPB3 / UA-EPB5 (негрошові). Рядок 4 — UA-EPF3 / UA-EPF5.
     /// UA-EP15 на цій формі не зіставлено. МПЗ — з UaLandPlot.
     /// </summary>
     public async Task<List<(string Row, string Caption, decimal Col3, decimal Col4)>>

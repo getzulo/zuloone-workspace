@@ -63,7 +63,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 12
+        "rowCount": 16
       },
       {
         "entity": "TaxReportMapping",
@@ -75,7 +75,7 @@
           "Direction"
         ],
         "mode": "upsert",
-        "rowCount": 14
+        "rowCount": 18
       }
     ]
   },
@@ -808,6 +808,106 @@
         "Name_uk": "Єдиний податок 10% подвійна ставка (Україна)"
       },
       {
+        "Code": "UA-EPB3",
+        "Name": "Single tax barter 6% (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP6",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Единый налог: неденежные расчёты 6% (Украина)",
+        "Name_uk": "Єдиний податок: негрошові розрахунки 6% (Україна)"
+      },
+      {
+        "Code": "UA-EPB5",
+        "Name": "Single tax barter 10% (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP10",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Единый налог: неденежные расчёты 10% (Украина)",
+        "Name_uk": "Єдиний податок: негрошові розрахунки 10% (Україна)"
+      },
+      {
+        "Code": "UA-EPF3",
+        "Name": "Single tax forbidden activity 6% (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP6",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Единый налог: запрещённый вид 6% (Украина)",
+        "Name_uk": "Єдиний податок: заборонений вид 6% (Україна)"
+      },
+      {
+        "Code": "UA-EPF5",
+        "Name": "Single tax forbidden activity 10% (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP10",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Единый налог: запрещённый вид 10% (Украина)",
+        "Name_uk": "Єдиний податок: заборонений вид 10% (Україна)"
+      },
+      {
         "Code": "UA-PDFO",
         "Name": "Personal income tax on salary (Ukraine)",
         "EffectiveFrom": "2016-01-01T00:00:00Z",
@@ -945,6 +1045,38 @@
         "EffectiveFrom": "2025-01-01T00:00:00Z",
         "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
         "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EP10" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0103509",
+        "ReturnBox": "3.3",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EPB3" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0103509",
+        "ReturnBox": "3.4",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EPB5" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0103509",
+        "ReturnBox": "4.3",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EPF3" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0103509",
+        "ReturnBox": "4.4",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EPF5" } },
         "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
       },
       {

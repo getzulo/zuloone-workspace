@@ -1,0 +1,37 @@
+{
+  "kind": "DictionaryExtension",
+  "object": {
+    "targetDictionaryMetaId": "3ffd2704-716e-40c3-9dc5-a585c96b4be7",
+    "description": "Код класифікатора професій (ДК 003) для графи Д5 T1RXXXXG13S. Кадрове ядро посаду знає назвою; код ДПС йому не потрібен.",
+    "metaId": "a4c8e2f1-7b39-4d60-9e15-2c8a6f4b1d07",
+    "name": "Position.LocalizationUkraine",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "fields": [
+    {
+      "extensionMetaId": "a4c8e2f1-7b39-4d60-9e15-2c8a6f4b1d07",
+      "dictionaryMetaId": "3ffd2704-716e-40c3-9dc5-a585c96b4be7",
+      "fieldName": "DkppCode",
+      "baseType": "String",
+      "length": 16,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 20,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Profession classifier (D5 KP)",
+        "ar": "رمز تصنيف المهنة",
+        "ru": "Код КП (Д5)",
+        "uk": "Код КП (Д5)"
+      },
+      "description": "Код з класифікатора професій ДК 003, графа T1RXXXXG13S. Порожньо — графа порожня, назва посади лишається в G15S.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b5d9f302-8c4a-4e71-a026-3d9b7e5c2e18",
+      "name": "DkppCode",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}
