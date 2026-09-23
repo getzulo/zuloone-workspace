@@ -143,6 +143,37 @@ curl -s -X POST http://localhost:5257/api/metadata/tests/run-all      # все
 curl -s -X POST http://localhost:5257/api/metadata/tests/<GUID>/run   # один
 ```
 
+### `run-all` РЕЖЕТ ОТВЕТ, А НЕ ПРОГОН — итог считай по `lastRunStatus`
+
+Ответ `run-all` неполон, и молча. Измерено 2026-09-23: `totalPassed: 438`,
+`totalFailed: 0`, **`totalSkipped: 0`** — и при этом в `scripts` лежит **127**
+сьютов из **177** зарегистрированных и активных. В отрезанных 51 было
+50 Passed и **один Failed** (`UkraineSeededRatesTest`), которого по ответу не
+видно вообще.
+
+Соблазн прочитать это как «run-all пропустил 51 сьют» — и вывод будет неверным.
+Исполнились ВСЕ: в `GET /api/metadata/tests` у всех 177 строк `lastRun` ОДИН И
+ТОТ ЖЕ, а `lastRunStatus` у каждой свой. Режется ответ.
+
+Поэтому настоящий итог берётся так:
+
+```bash
+curl -s -X POST http://localhost:5257/api/metadata/tests/run-all > /tmp/run.json
+curl -s http://localhost:5257/api/metadata/tests | python -c "
+import json,sys; from collections import Counter
+t=json.load(sys.stdin); t=t if isinstance(t,list) else t.get('tests') or t
+newest=max(x['lastRun'] for x in t if x.get('lastRun'))
+this=[x for x in t if x.get('lastRun')==newest]
+print(len(this),'of',len(t),'|',Counter(x['lastRunStatus'] for x in this))
+for x in this:
+    if x['lastRunStatus']!='Passed': print('  RED:',x['name'],x['metaId'])"
+```
+
+Там же второе расхождение того же вызова: `durationMs` в теле насчитал 7.3 мин,
+а wall-clock `curl` — 30. Поле считает только исполнение, без применения пакетов
+данных (в логе того прогона 7866 операций пакетов). Не докладывай «прогон занял
+N минут» по телу ответа.
+
 ## СНАЧАЛА БАЗОВАЯ ЛИНИЯ, ПОТОМ ВИНА
 
 Прогоняй затронутые наборы ДО своей правки и записывай числа. Красный тест
