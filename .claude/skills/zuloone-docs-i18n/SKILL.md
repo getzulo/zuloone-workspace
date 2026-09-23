@@ -184,6 +184,34 @@ node tools/stamp-translation.mjs uk/wiki/business/payroll.md   # путь ОТ i
 он не доказывает ни наличия перевода, ни его отсутствия. Переводы подписей
 живут в таблице `MetaTranslations`; смотри туда.
 
+### Как именно туда смотреть (без учётки, за одну команду)
+
+Подпись хранится в ДВУХ местах, и проверять надо оба: `en` — собственная
+колонка `Caption` объекта, а `ru`/`uk`/`ar` — строки `MetaTranslations`
+(`ObjectMetaId`, `LanguageCode`, `Value`). Английского в `MetaTranslations`
+нет и не должно быть; его отсутствие там — не поломка.
+
+```bash
+PW=$(docker inspect zuloone-sqlserver-1 --format '{{range .Config.Env}}{{println .}}{{end}}' \
+     | grep -iE "SA_PASSWORD" | head -1 | cut -d= -f2-)
+MSYS_NO_PATHCONV=1 docker exec zuloone-sqlserver-1 /opt/mssql-tools18/bin/sqlcmd \
+  -S localhost -U sa -P "$PW" -C -d ZuloOneDb -h -1 -W -s "|" -Q "SET NOCOUNT ON;
+SELECT ObjectMetaId, LanguageCode, Value FROM MetaTranslations
+ WHERE ObjectMetaId IN ('<metaId поля>','<metaId команды>') ORDER BY ObjectMetaId, LanguageCode;
+SELECT FieldName, Caption FROM MetaTablePartProperties WHERE MetaId IN ('<metaId поля>');
+SELECT Name, Caption FROM MetaDocumentCommands WHERE MetaId='<metaId команды>';"
+```
+
+Поля справочника лежат в `MetaDictionaryProperties` (НЕ `MetaDictionaryFields`
+— такой таблицы нет). На Windows `MSYS_NO_PATHCONV=1` обязателен, иначе Git
+Bash превратит `/opt/mssql-tools18/…` в `C:/Program Files/Git/opt/…`.
+
+**Что это доказывает и чего не доказывает.** Доказывает, что подпись в продукте
+есть на этом языке — то есть страница не обещает кнопку, которой не будет. НЕ
+доказывает, что экран её отрисовал. Поэтому это ПОЛОВИНА `native`: вторая
+половина — пройти сценарий глазами в этой локали, и без неё `review` остаётся
+`machine`.
+
 И не путай два вопроса: **регистрация языка** (`/api/metadata/languages`) —
 одно, **наличие переводов** — другое. Язык, не зарегистрированный на стенде,
 импорт метаданных молча игнорирует.
