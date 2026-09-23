@@ -7,6 +7,7 @@ using ZuloOne.Managers;
 // Сгенерированные классы (PurchaseOrder, PurchaseOrderLinesTablePartRow, Currency…).
 // Тест-скрипты НЕ получают это пространство имён глобальным using'ом.
 using ZuloOne.Runtime.Generated;
+using ZuloOne.Services.Contracts;
 
 // Покрытие команды «Заказать» (Draft → Ordered) и того, что новое промежуточное
 // состояние не сломало приход: из Ordered документ по-прежнему переводится в
@@ -214,11 +215,76 @@ public class PlaceOrderCommandTest : IntegrationTestScriptBase
             "пользователь видит приход: {0}", string.Join("; ", run.ClientMessages));
     }
 
+    [IntegrationTest("AutoReceiveOnOrder: непройденная приёмка оставляет заказ черновиком")]
+    public async Task AutoReceiveBlockedKeepsDraft()
+    {
+        var s = await SetupAsync();
+        await SetAutoReceiveAsync(true);
+        await SetWarehouseDisciplineAsync(true);
+
+        // Включение дисциплины — не пассивный флаг: его OnAfterSave достраивает
+        // дворы и ДОВЫВОДИТ назначение типа из его ИМЕНИ. Тип из SetupAsync назван
+        // "Receiving", так что сразу после этого шага ячейка как раз приёмочная.
+        // Поэтому назначение переставляется явно и строго ПОСЛЕ включения —
+        // сделать это раньше значило бы дать выводу из имени затереть его обратно.
+        var cellRec = await GetService<IDictionaryManager<StoreCell>>().GetRecordAsync(s.Location);
+        Assert.IsNotNull(cellRec, "ячейка из подготовки читается");
+        var types = GetService<IDictionaryManager<StoreCellType>>();
+        var typeRec = await types.GetRecordAsync(cellRec!.Type);
+        Assert.IsNotNull(typeRec, "тип ячейки читается");
+        typeRec!.Purpose = StoreCellPurpose.Storage;
+        await types.SaveRecordAsync(typeRec);
+
+        // Предусловия проверяются явно: без них провал теста означает только
+        // «что-то не так» и посылает искать ошибку в команде, даже когда на
+        // самом деле не доехала настройка или у ячейки другое назначение.
+        var cells = GetService<IStoreCellService>();
+        Assert.IsTrue(await cells.IsWarehouseDisciplineOnAsync(),
+            "предусловие: дисциплина складских заданий включена");
+        var purpose = await cells.GetCellPurposeAsync(s.Location);
+        Assert.IsTrue(purpose != StoreCellPurpose.Receiving,
+            "предусловие: у ячейки назначение не ПРИЁМКА, факт {0}", purpose);
+        Assert.IsTrue(!await cells.IsCellAllowedForAsync(s.Location, StoreCellPurpose.Receiving),
+            "предусловие: ячейка не годится под приёмку");
+
+        var order = await DocumentManager.NewDocumentAsync<PurchaseOrder>();
+        order.Supplier = s.Supplier;
+        order.Location = s.Location;
+        order.Lines.Add(new PurchaseOrderLinesTablePartRow { Item = s.Item, Quantity = 4m, UnitPrice = 3m });
+        await DocumentManager.SaveDocumentAsync(order);
+
+        var commandId = await Db.FindCommandIdAsync("document", "PlaceOrder");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, order.MetaId);
+
+        var after = await DocumentManager.GetDocumentAsync<PurchaseOrder>(order.MetaId);
+        Assert.IsNotNull(after, "заказ читается менеджером после отказа команды");
+
+        // Суть проверки. Отказ приёмки не имеет права оставить заказ в Ordered:
+        // пользователь просил ОДНУ операцию «заказать и принять», и половина её
+        // результата — это не успех, а состояние, которого он не выбирал.
+        Assert.IsTrue(after!.Subtype == PurchaseOrder.Subtypes.Draft,
+            "заказ остаётся черновиком, факт {0}", after.Subtype ?? "<null>");
+
+        var onHand = await CellStockAsync(s.Location);
+        Assert.IsTrue(onHand == 0m, "склад не двигается, факт {0}", onHand);
+
+        Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("ПРИЁМКИ"),
+            "пользователь получил причину отказа: {0}", string.Join("; ", run.ClientMessages));
+    }
+
     private static async Task SetAutoReceiveAsync(bool value)
     {
         var rows = await DictionaryManager.GetRecordsAsync<PurchasingSettings>(null, 1);
         var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<PurchasingSettings>();
         settings.AutoReceiveOnOrder = value;
+        await DictionaryManager.SaveRecordAsync(settings);
+    }
+
+    private static async Task SetWarehouseDisciplineAsync(bool value)
+    {
+        var rows = await DictionaryManager.GetRecordsAsync<InventorySettings>(null, 1);
+        var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<InventorySettings>();
+        settings.EnforceWarehouseTasks = value;
         await DictionaryManager.SaveRecordAsync(settings);
     }
 }
