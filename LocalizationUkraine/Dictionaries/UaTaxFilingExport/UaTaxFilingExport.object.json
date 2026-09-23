@@ -7,7 +7,7 @@
       "ru": "Выгрузка декларации",
       "uk": "Вивантаження декларації"
     },
-    "description": "Готовая выгрузка декларации для подачи. Бухгалтеры подают ДВУМЯ способами — ТОВ через M.E.Doc, ФОПов через кабинет банка, — и часть данных вбивают руками. Поэтому рядом с экранной формой нужен ФАЙЛ, из которого можно перенести цифры без пересчётов. Формат НЕЙТРАЛЬНЫЙ и так и называется: это не схема ДПС, выдавать его за неё нельзя.",
+    "description": "Готовая выгрузка декларации для подачи. CSV — перенос цифр руками. Поле DeclarXml — unsigned DECLAR (windows-1251, наказ Міндоходів № 729) для імпорту в M.E.Doc. Не підписаний контейнер кабінету (наказ ДПА № 499 / КЕП).",
     "isLogged": true,
     "isHierarchical": false,
     "numberSequenceMetaId": "f3fbdb66-e2e1-4753-a80f-cda415e12291",
@@ -184,6 +184,29 @@
       "isCalculated": false,
       "metaId": "e61ebd75-c092-4e31-bad3-8e67e8297e67",
       "name": "ReturnType",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "26e74f46-866c-4975-83cc-b5e71535872d",
+      "fieldName": "DeclarXml",
+      "baseType": "LargeText",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "description": "Unsigned DECLAR для імпорту в M.E.Doc / збереження файлом. Кодування в декларації windows-1251; поле в базі Unicode. Не транспортний контейнер № 499 і не КЕП. Порожньо на Д5/Д6 без подій — додаток не подають.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "DECLAR XML (M.E.Doc import)",
+        "ar": "XML DECLAR",
+        "ru": "XML DECLAR (импорт в M.E.Doc)",
+        "uk": "XML DECLAR (імпорт у M.E.Doc)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a48bf1ce-6703-4c7d-a418-84617391e650",
+      "name": "DeclarXml",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]

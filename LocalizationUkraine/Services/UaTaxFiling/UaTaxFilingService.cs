@@ -47,9 +47,8 @@ public partial class UaTaxFiling
 
     /// <summary>
     /// Ідентифікатор форми ДПС для юрособи з 01.08.2026: Податковий розрахунок
-    /// (наказ Мінфіну 13.01.2015 № 4 у редакції 07.05.2026 № 243). Не XML-конверт
-    /// кабінету: у шапці CSV є Код ДПІ (C_REG/C_STI з юрлица), але схеми кабінету немає.
-    /// Це рядки розділу I, які є в регістрах.
+    /// (наказ Мінфіну 13.01.2015 № 4 у редакції 07.05.2026 № 243). CSV — перенос
+    /// цифр; DeclarXml — unsigned DECLAR (наказ Міндоходів № 729). Не контейнер № 499.
     /// </summary>
     public const string DpsCalculationType = "J0500111";
 
@@ -275,7 +274,8 @@ public partial class UaTaxFiling
     /// <summary>
     /// Бланки ДПС за період декларації: J0500111, J0510411, J0510111,
     /// і за наявності подій — J0510511 (Д5) та J0510611 (Д6).
-    /// Д2/Д3 звичайний роботодавець не подає. Повертає id рядка J0500111.
+    /// CSV лишається; DeclarXml — unsigned DECLAR для імпорту в M.E.Doc.
+    /// Д2/Д3 і КЕП-контейнер кабінету не пишемо. Повертає id рядка J0500111.
     /// </summary>
     public async Task<Guid?> ExportDpsPayrollAsync(Guid taxReturnId)
     {
@@ -300,14 +300,31 @@ public partial class UaTaxFiling
             declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
         var paidEsv = esvDetail.Values.Sum(v => v.PaidEr);
         var (reg, sti) = await InspectorateOfAsync(declaration.LegalEntity);
+        var hasD5 = d5.Count > 0;
+        var hasD6 = d6.Count > 0;
 
-        await SaveExportAsync(declaration, Dps4DfType, BuildDps4DfPayload(declaration, entity, four, reg, sti));
-        await SaveExportAsync(declaration, DpsD1Type, BuildDpsD1Payload(declaration, entity, d1, reg, sti));
-        await SaveExportAsync(declaration, DpsD5Type, BuildDpsD5Payload(declaration, entity, d5, reg, sti));
-        await SaveExportAsync(declaration, DpsD6Type, BuildDpsD6Payload(declaration, entity, d6, reg, sti));
+        await SaveExportAsync(
+            declaration, Dps4DfType,
+            BuildDps4DfPayload(declaration, entity, four, reg, sti),
+            four.Count == 0 ? "" : BuildDps4DfDeclar(declaration, entity, four, reg, sti));
+        await SaveExportAsync(
+            declaration, DpsD1Type,
+            BuildDpsD1Payload(declaration, entity, d1, reg, sti),
+            d1.Count == 0 ? "" : BuildDpsD1Declar(declaration, entity, d1, reg, sti));
+        await SaveExportAsync(
+            declaration, DpsD5Type,
+            BuildDpsD5Payload(declaration, entity, d5, reg, sti),
+            hasD5 ? BuildDpsD5Declar(declaration, entity, d5, reg, sti) : "");
+        await SaveExportAsync(
+            declaration, DpsD6Type,
+            BuildDpsD6Payload(declaration, entity, d6, reg, sti),
+            hasD6 ? BuildDpsD6Declar(declaration, entity, d6, reg, sti) : "");
         return await SaveExportAsync(
-            declaration, DpsCalculationType, BuildDpsCalculationPayload(
-                declaration, entity, lines, reg, sti, d5.Count > 0, d6.Count > 0, paidEsv));
+            declaration, DpsCalculationType,
+            BuildDpsCalculationPayload(
+                declaration, entity, lines, reg, sti, hasD5, hasD6, paidEsv),
+            BuildDpsCalculationDeclar(
+                declaration, entity, lines, reg, sti, d1.Count > 0, four.Count > 0, hasD5, hasD6));
     }
 
     public async Task<List<(string TaxCard, string Name, decimal AccruedIncome, decimal PaidIncome, decimal AccruedPdfo, decimal TransferredPdfo, decimal AccruedVz, decimal TransferredVz, string IncomeSign, string HireDate, string FireDate)>>
@@ -559,7 +576,7 @@ public partial class UaTaxFiling
         string cSti = "")
     {
         var text = new StringBuilder();
-        text.AppendLine("# J0510411 Додаток 4ДФ (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
+        text.AppendLine("# J0510411 Додаток 4ДФ (наказ Мінфіну 07.05.2026 № 243). CSV; XML DECLAR — поле DeclarXml.");
         if (rows.All(r => r.PaidIncome == 0m && r.TransferredPdfo == 0m && r.TransferredVz == 0m))
             text.AppendLine("# Графи виплачено/перераховано порожні: виплати ФОТ і перерахування до бюджету не проведено.");
         else
@@ -595,7 +612,7 @@ public partial class UaTaxFiling
         string cSti = "")
     {
         var text = new StringBuilder();
-        text.AppendLine("# J0510111 Додаток Д1 (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
+        text.AppendLine("# J0510111 Додаток Д1 (наказ Мінфіну 07.05.2026 № 243). CSV; XML DECLAR — поле DeclarXml.");
         text.AppendLine("# G5 громадянство з Nationality. G6S стать Ч/Ж з DpsSex; порожньо не вигадуємо. G8=1 наймані, 26 ЦПХ (ознака 102). Каталог Д5 у G8 не мапиться.");
         text.AppendLine("# T1RXXXXG9=1 (зарплата). Тип 2/3 лікарняних немає: окремої суми в PayrollAccrual немає.");
         text.AppendLine("# G111S/G112S/G113S — прізвище/ім'я/по батькові; порожнє прізвище → Name, ім'я не розбираємо з рядка.");
@@ -629,7 +646,7 @@ public partial class UaTaxFiling
         string cSti = "")
     {
         var text = new StringBuilder();
-        text.AppendLine("# J0510511 Додаток Д5 (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
+        text.AppendLine("# J0510511 Додаток Д5 (наказ Мінфіну 07.05.2026 № 243). CSV; XML DECLAR — поле DeclarXml.");
         text.AppendLine("# Прийом — HireDate, звільнення — FireDate, переведення — DpsTransferDate, декрет — TimeOff.DpsPersonCategory 4/5/6.");
         text.AppendLine("# G11 внутрішнє сумісництво, G12 переведення, G13S код КП з Position.DkppCode. Vacation/Sick самі не мапляться.");
         if (rows.Count == 0)
@@ -653,7 +670,7 @@ public partial class UaTaxFiling
         string cSti = "")
     {
         var text = new StringBuilder();
-        text.AppendLine("# J0510611 Додаток Д6 (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
+        text.AppendLine("# J0510611 Додаток Д6 (наказ Мінфіну 07.05.2026 № 243). CSV; XML DECLAR — поле DeclarXml.");
         text.AppendLine("# Код підстави — Employee.DpsTenureGround (8 символів з додатка 3 до Порядку № 4). Порожньо — додаток не подають.");
         if (rows.Count == 0)
             text.AppendLine("# Немає працівників зі спецстажем.");
@@ -680,7 +697,7 @@ public partial class UaTaxFiling
         decimal paidEsv = 0)
     {
         var text = new StringBuilder();
-        text.AppendLine("# J0500111 Податковий розрахунок ЮО (наказ Мінфіну 07.05.2026 № 243). Не XML кабінету ДПС.");
+        text.AppendLine("# J0500111 Податковий розрахунок ЮО (наказ Мінфіну 07.05.2026 № 243). CSV; XML DECLAR — поле DeclarXml.");
         text.AppendLine("# Розділ I — SocialInsurance і UaPayrollLevy. Д2/Д3 (J0510211/J0510311) звичайний роботодавець не подає.");
         text.AppendLine("# R01011 — ознака 101, R01012 — ознака 102. R0104/R0106 (помилки) порожні. R0107 = рядок 3.");
         if (paidEsv > 0)
@@ -910,7 +927,7 @@ public partial class UaTaxFiling
     private static Guid AnalyticGuid(IReadOnlyDictionary<string, string> values, string analytic)
         => values.TryGetValue(analytic, out var v) && Guid.TryParse(v, out var g) ? g : Guid.Empty;
 
-    private async Task<Guid?> SaveExportAsync(TaxReturn declaration, string returnType, string payload)
+    private async Task<Guid?> SaveExportAsync(TaxReturn declaration, string returnType, string payload, string? declarXml = null)
     {
         var existing = (await _exports.GetRecordsAsync(
                 $"LegalEntity = '{declaration.LegalEntity}'"))
@@ -924,6 +941,7 @@ public partial class UaTaxFiling
         row.PeriodFrom = declaration.PeriodFrom;
         row.PeriodTo = declaration.PeriodTo;
         row.Payload = payload;
+        row.DeclarXml = declarXml ?? "";
         row.CreatedOn = DateTime.UtcNow;
         var saved = await _dictionaries.SaveRecordAsync(row);
         return saved.MetaId;
@@ -1112,6 +1130,290 @@ public partial class UaTaxFiling
 
     private static string DpsDate(DateTime value)
         => value.ToString("ddMMyyyy");
+
+    private string BuildDpsCalculationDeclar(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        List<(string Cell, string Caption, decimal Amount)> lines,
+        string cReg,
+        string cSti,
+        bool hasD1,
+        bool has4Df,
+        bool hasD5,
+        bool hasD6)
+    {
+        var body = new StringBuilder();
+        body.Append(El("HZ", "1"));
+        body.Append(El("HZY", declaration.PeriodFrom.ToString("yyyy")));
+        body.Append(El("HZM", declaration.PeriodFrom.Month.ToString(CultureInfo.InvariantCulture)));
+        body.Append(El("HNAME", entity?.Name ?? ""));
+        body.Append(El("HTIN", entity?.TaxRegistrationNumber ?? ""));
+        body.Append(El("R081G3", "1"));
+        if (hasD1) body.Append(El("R061G3", "1"));
+        if (has4Df) body.Append(El("R064G3", "1"));
+        if (hasD5) body.Append(El("R065G3", "1"));
+        if (hasD6) body.Append(El("R066G3", "1"));
+        foreach (var line in lines)
+            body.Append(El(line.Cell, Dec(line.Amount)));
+        var links = new List<(string Sub, int Type)>();
+        if (hasD1) links.Add(("101", 1));
+        if (has4Df) links.Add(("104", 1));
+        if (hasD5) links.Add(("105", 1));
+        if (hasD6) links.Add(("106", 1));
+        return WrapDeclar(DpsCalculationType, declaration, entity, cReg, cSti, body.ToString(), links);
+    }
+
+    private string BuildDps4DfDeclar(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        List<(string TaxCard, string Name, decimal AccruedIncome, decimal PaidIncome, decimal AccruedPdfo, decimal TransferredPdfo, decimal AccruedVz, decimal TransferredVz, string IncomeSign, string HireDate, string FireDate)> rows,
+        string cReg,
+        string cSti)
+    {
+        var body = new StringBuilder();
+        body.Append(El("R00G01I", rows.Count(r => r.IncomeSign == "101").ToString(CultureInfo.InvariantCulture)));
+        body.Append(El("R00G02I", rows.Count(r => r.IncomeSign == "102").ToString(CultureInfo.InvariantCulture)));
+        var n = 0;
+        foreach (var row in rows)
+        {
+            n++;
+            body.Append(RowEl("T1RXXXXG02", n, row.TaxCard));
+            body.Append(RowEl("T1RXXXXG03A", n, Dec(row.AccruedIncome)));
+            body.Append(RowEl("T1RXXXXG03", n, Dec(row.PaidIncome)));
+            body.Append(RowEl("T1RXXXXG04A", n, Dec(row.AccruedPdfo)));
+            body.Append(RowEl("T1RXXXXG04", n, Dec(row.TransferredPdfo)));
+            body.Append(RowEl("T1RXXXXG5A", n, Dec(row.AccruedVz)));
+            body.Append(RowEl("T1RXXXXG5", n, Dec(row.TransferredVz)));
+            body.Append(RowEl("T1RXXXXG05", n, row.IncomeSign));
+            if (!string.IsNullOrWhiteSpace(row.HireDate))
+                body.Append(RowEl("T1RXXXXG06D", n, XmlDate(row.HireDate)));
+            if (!string.IsNullOrWhiteSpace(row.FireDate))
+                body.Append(RowEl("T1RXXXXG07D", n, XmlDate(row.FireDate)));
+        }
+        body.Append(El("R01G03A", Dec(rows.Sum(r => r.AccruedIncome))));
+        body.Append(El("R01G03", Dec(rows.Sum(r => r.PaidIncome))));
+        body.Append(El("R01G04A", Dec(rows.Sum(r => r.AccruedPdfo))));
+        body.Append(El("R01G04", Dec(rows.Sum(r => r.TransferredPdfo))));
+        body.Append(El("R01G5A", Dec(rows.Sum(r => r.AccruedVz))));
+        body.Append(El("R01G5", Dec(rows.Sum(r => r.TransferredVz))));
+        return WrapDeclar(Dps4DfType, declaration, entity, cReg, cSti, body.ToString(), new[] { ("001", 2) });
+    }
+
+    private string BuildDpsD1Declar(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        List<(string Citizen, string Sex, string TaxCard, string LastName, string FirstName, string Patronymic, string Category, string AccrualType, int Month, int Year, int Days, int SickDays, int UnpaidDays, int MaternityDays, decimal Gross, decimal Capped, decimal EmployeeEsv, decimal EmployerEsv, string MainJob, string PartTimeHours, string SpecialTenure, string NewWorkplace)> rows,
+        string cReg,
+        string cSti)
+    {
+        var body = new StringBuilder();
+        var n = 0;
+        foreach (var row in rows)
+        {
+            n++;
+            body.Append(RowEl("T1RXXXXG5", n, row.Citizen));
+            if (!string.IsNullOrWhiteSpace(row.Sex))
+                body.Append(RowEl("T1RXXXXG6S", n, row.Sex));
+            body.Append(RowEl("T1RXXXXG7S", n, row.TaxCard));
+            body.Append(RowEl("T1RXXXXG8", n, row.Category));
+            body.Append(RowEl("T1RXXXXG9", n, row.AccrualType));
+            body.Append(RowEl("T1RXXXXG101", n, row.Month.ToString(CultureInfo.InvariantCulture)));
+            body.Append(RowEl("T1RXXXXG102", n, row.Year.ToString(CultureInfo.InvariantCulture)));
+            body.Append(RowEl("T1RXXXXG111S", n, row.LastName));
+            if (!string.IsNullOrWhiteSpace(row.FirstName))
+                body.Append(RowEl("T1RXXXXG112S", n, row.FirstName));
+            if (!string.IsNullOrWhiteSpace(row.Patronymic))
+                body.Append(RowEl("T1RXXXXG113S", n, row.Patronymic));
+            body.Append(RowEl("T1RXXXXG12", n, row.SickDays.ToString(CultureInfo.InvariantCulture)));
+            body.Append(RowEl("T1RXXXXG13", n, row.UnpaidDays.ToString(CultureInfo.InvariantCulture)));
+            body.Append(RowEl("T1RXXXXG14", n, row.Days.ToString(CultureInfo.InvariantCulture)));
+            body.Append(RowEl("T1RXXXXG15", n, row.MaternityDays.ToString(CultureInfo.InvariantCulture)));
+            body.Append(RowEl("T1RXXXXG16", n, Dec(row.Gross)));
+            body.Append(RowEl("T1RXXXXG17", n, Dec(row.Capped)));
+            body.Append(RowEl("T1RXXXXG19", n, Dec(row.EmployeeEsv)));
+            body.Append(RowEl("T1RXXXXG20", n, Dec(row.EmployerEsv)));
+            body.Append(RowEl("T1RXXXXG21", n, row.MainJob));
+            body.Append(RowEl("T1RXXXXG22", n, row.PartTimeHours));
+            body.Append(RowEl("T1RXXXXG23", n, row.SpecialTenure));
+            body.Append(RowEl("T1RXXXXG24", n, row.NewWorkplace));
+        }
+        body.Append(El("R01G16", Dec(rows.Sum(r => r.Gross))));
+        body.Append(El("R01G17", Dec(rows.Sum(r => r.Capped))));
+        body.Append(El("R01G19", Dec(rows.Sum(r => r.EmployeeEsv))));
+        body.Append(El("R01G20", Dec(rows.Sum(r => r.EmployerEsv))));
+        return WrapDeclar(DpsD1Type, declaration, entity, cReg, cSti, body.ToString(), new[] { ("001", 2) });
+    }
+
+    private string BuildDpsD5Declar(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        List<(string Citizen, string Cpd, string Category, string TaxCard, string Name, string EventDate, string InternalPartTime, string Transfer, string Profession, string Position, string Document, string FireReason)> rows,
+        string cReg,
+        string cSti)
+    {
+        var body = new StringBuilder();
+        var n = 0;
+        foreach (var row in rows)
+        {
+            n++;
+            body.Append(RowEl("T1RXXXXG5", n, row.Citizen));
+            body.Append(RowEl("T1RXXXXG6", n, row.Cpd));
+            body.Append(RowEl("T1RXXXXG7", n, row.Category));
+            body.Append(RowEl("T1RXXXXG8S", n, row.TaxCard));
+            body.Append(RowEl("T1RXXXXG9S", n, row.Name));
+            body.Append(RowEl("T1RXXXXG10D", n, row.EventDate));
+            body.Append(RowEl("T1RXXXXG11", n, row.InternalPartTime));
+            body.Append(RowEl("T1RXXXXG12", n, row.Transfer));
+            if (!string.IsNullOrWhiteSpace(row.Profession))
+                body.Append(RowEl("T1RXXXXG13S", n, row.Profession));
+            if (!string.IsNullOrWhiteSpace(row.Position))
+                body.Append(RowEl("T1RXXXXG15S", n, row.Position));
+            if (!string.IsNullOrWhiteSpace(row.Document))
+                body.Append(RowEl("T1RXXXXG16S", n, row.Document));
+            if (!string.IsNullOrWhiteSpace(row.FireReason))
+                body.Append(RowEl("T1RXXXXG17S", n, row.FireReason));
+        }
+        return WrapDeclar(DpsD5Type, declaration, entity, cReg, cSti, body.ToString(), new[] { ("001", 2) });
+    }
+
+    private string BuildDpsD6Declar(
+        TaxReturn declaration,
+        LegalEntity? entity,
+        List<(string Citizen, string TaxCard, string Ground, string Name, string Start, string End, int Days)> rows,
+        string cReg,
+        string cSti)
+    {
+        var body = new StringBuilder();
+        var n = 0;
+        foreach (var row in rows)
+        {
+            n++;
+            body.Append(RowEl("T1RXXXXG5", n, row.Citizen));
+            body.Append(RowEl("T1RXXXXG6S", n, row.TaxCard));
+            body.Append(RowEl("T1RXXXXG7S", n, row.Ground));
+            body.Append(RowEl("T1RXXXXG8S", n, row.Name));
+            body.Append(RowEl("T1RXXXXG9D", n, row.Start));
+            body.Append(RowEl("T1RXXXXG10D", n, row.End));
+            body.Append(RowEl("T1RXXXXG11", n, row.Days.ToString(CultureInfo.InvariantCulture)));
+        }
+        return WrapDeclar(DpsD6Type, declaration, entity, cReg, cSti, body.ToString(), new[] { ("001", 2) });
+    }
+
+    private static string WrapDeclar(
+        string formId,
+        TaxReturn declaration,
+        LegalEntity? entity,
+        string cReg,
+        string cSti,
+        string body,
+        IReadOnlyList<(string Sub, int Type)> links)
+    {
+        var cDoc = formId.Length >= 3 ? formId[..3] : "J05";
+        var sub = formId.Length >= 6 ? formId[3..6] : "001";
+        var ver = formId.Length >= 8 ? formId[6..8] : "11";
+        var tin = entity?.TaxRegistrationNumber ?? "";
+        var fill = declaration.DocumentDate.Year >= 1902 ? declaration.DocumentDate : declaration.PeriodTo;
+        var xml = new StringBuilder();
+        xml.Append("<?xml version=\"1.0\" encoding=\"windows-1251\"?>");
+        xml.Append("<DECLAR xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"");
+        xml.Append(Esc(formId));
+        xml.Append(".xsd\">");
+        xml.Append("<DECLARHEAD>");
+        xml.Append(El("TIN", tin));
+        xml.Append(El("C_DOC", cDoc));
+        xml.Append(El("C_DOC_SUB", sub));
+        xml.Append(El("C_DOC_VER", ver));
+        xml.Append(El("C_DOC_TYPE", "0"));
+        xml.Append(El("C_DOC_CNT", "1"));
+        if (!string.IsNullOrWhiteSpace(cReg))
+            xml.Append(El("C_REG", XmlInt(cReg)));
+        if (!string.IsNullOrWhiteSpace(cSti))
+            xml.Append(El("C_RAJ", XmlInt(cSti)));
+        xml.Append(El("PERIOD_MONTH", declaration.PeriodFrom.Month.ToString(CultureInfo.InvariantCulture)));
+        xml.Append(El("PERIOD_TYPE", "1"));
+        xml.Append(El("PERIOD_YEAR", declaration.PeriodFrom.ToString("yyyy")));
+        var orig = StiOrig(cReg, cSti);
+        if (!string.IsNullOrEmpty(orig))
+            xml.Append(El("C_STI_ORIG", orig));
+        xml.Append(El("C_DOC_STAN", "1"));
+        if (links.Count > 0)
+        {
+            xml.Append("<LINKED_DOCS>");
+            var num = 0;
+            foreach (var link in links)
+            {
+                num++;
+                xml.Append("<DOC NUM=\"");
+                xml.Append(num.ToString(CultureInfo.InvariantCulture));
+                xml.Append("\" TYPE=\"");
+                xml.Append(link.Type.ToString(CultureInfo.InvariantCulture));
+                xml.Append("\">");
+                xml.Append(El("C_DOC", cDoc));
+                xml.Append(El("C_DOC_SUB", link.Sub));
+                xml.Append(El("C_DOC_VER", ver));
+                xml.Append(El("C_DOC_TYPE", "0"));
+                xml.Append(El("C_DOC_CNT", "1"));
+                xml.Append(El("C_DOC_STAN", "1"));
+                xml.Append(El("FILENAME", DpsFileName(cDoc, link.Sub, ver, tin, declaration, orig)));
+                xml.Append("</DOC>");
+            }
+            xml.Append("</LINKED_DOCS>");
+        }
+        xml.Append(El("D_FILL", fill.ToString("ddMMyyyy")));
+        xml.Append(El("SOFTWARE", "ZuloOne"));
+        xml.Append("</DECLARHEAD>");
+        xml.Append("<DECLARBODY>");
+        xml.Append(body);
+        xml.Append("</DECLARBODY></DECLAR>");
+        return xml.ToString();
+    }
+
+    private static string DpsFileName(
+        string cDoc, string sub, string ver, string tin, TaxReturn declaration, string stiOrig)
+    {
+        var tin10 = tin.Length <= 10 ? tin.PadLeft(10, '0') : tin[..10];
+        var sti = string.IsNullOrEmpty(stiOrig) ? "0000" : stiOrig.PadLeft(4, '0');
+        var month = declaration.PeriodFrom.Month.ToString("00", CultureInfo.InvariantCulture);
+        var year = declaration.PeriodFrom.ToString("yyyy");
+        return sti + tin10 + cDoc + sub + ver + "0" + "0000001" + "1" + "1" + month + year + sti + ".XML";
+    }
+
+    private static string StiOrig(string cReg, string cSti)
+    {
+        if (!int.TryParse(cReg, NumberStyles.Integer, CultureInfo.InvariantCulture, out var reg))
+            return "";
+        if (!int.TryParse(cSti, NumberStyles.Integer, CultureInfo.InvariantCulture, out var raj))
+            return "";
+        return (reg * 100 + raj).ToString(CultureInfo.InvariantCulture);
+    }
+
+    private static string XmlInt(string raw)
+        => int.TryParse(raw, NumberStyles.Integer, CultureInfo.InvariantCulture, out var n)
+            ? n.ToString(CultureInfo.InvariantCulture)
+            : raw.Trim();
+
+    private static string XmlDate(string raw)
+    {
+        var digits = new string(raw.Where(char.IsDigit).ToArray());
+        return digits.Length >= 8 ? digits[..8] : digits;
+    }
+
+    private static string Dec(decimal value)
+        => value.ToString("0.00", CultureInfo.InvariantCulture);
+
+    private static string El(string name, string value)
+        => string.IsNullOrEmpty(value) ? "" : "<" + name + ">" + Esc(value) + "</" + name + ">";
+
+    private static string RowEl(string name, int row, string value)
+        => string.IsNullOrEmpty(value)
+            ? ""
+            : "<" + name + " ROWNUM=\"" + row.ToString(CultureInfo.InvariantCulture) + "\">" + Esc(value) + "</" + name + ">";
+
+    private static string Esc(string value)
+        => value.Replace("&", "&amp;", StringComparison.Ordinal)
+            .Replace("<", "&lt;", StringComparison.Ordinal)
+            .Replace(">", "&gt;", StringComparison.Ordinal)
+            .Replace("\"", "&quot;", StringComparison.Ordinal);
 
     private async Task<string> EmployeeStringAsync(Guid employeeId, string field)
     {

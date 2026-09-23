@@ -92,6 +92,69 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         Assert.IsTrue(text.Contains("R01G20;2200.00"), "разом ЄСВ роботодавця. Факт:\n{0}", text);
     }
 
+    [IntegrationTest("J0500111 XML DECLAR: C_DOC, LINKED_DOCS 101/104, без Д2/Д3 і без КЕП")]
+    public async Task DpsDeclarXmlForCabinetImport()
+    {
+        var env = await SetupAsync();
+        await ConfigureHrAsync();
+        await ConfigureUaAsync();
+        await AccrueAsync(env.Division, env.Employee, 10000m, new DateTime(2026, 3, 15));
+
+        var returnId = await Returns.BuildAsync(env.Entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportDpsPayrollAsync(returnId);
+
+        var csv = await PayloadAsync(env.Entity, "J0500111");
+        Assert.IsTrue(csv.Contains("R01011G3;Сума нарахованої заробітної плати;10000.00"),
+            "CSV лишається. Факт:\n{0}", csv);
+
+        var calc = await DeclarXmlAsync(env.Entity, "J0500111");
+        Assert.IsTrue(calc.StartsWith("<?xml version=\"1.0\" encoding=\"windows-1251\"?>"),
+            "декларація encoding windows-1251. Факт:\n{0}", calc);
+        Assert.IsTrue(calc.Contains("xsi:noNamespaceSchemaLocation=\"J0500111.xsd\""),
+            "схема форми. Факт:\n{0}", calc);
+        Assert.IsTrue(calc.Contains("<C_DOC>J05</C_DOC>") && calc.Contains("<C_DOC_SUB>001</C_DOC_SUB>")
+            && calc.Contains("<C_DOC_VER>11</C_DOC_VER>"),
+            "голова J0500111. Факт:\n{0}", calc);
+        Assert.IsTrue(calc.Contains("<C_DOC_SUB>101</C_DOC_SUB>") && calc.Contains("<C_DOC_SUB>104</C_DOC_SUB>"),
+            "LINKED_DOCS на Д1 і 4ДФ. Факт:\n{0}", calc);
+        Assert.IsTrue(!calc.Contains("<C_DOC_SUB>102</C_DOC_SUB>") && !calc.Contains("<C_DOC_SUB>103</C_DOC_SUB>")
+            && !calc.Contains("<C_DOC_SUB>105</C_DOC_SUB>") && !calc.Contains("<C_DOC_SUB>106</C_DOC_SUB>"),
+            "Д2/Д3 і порожні Д5/Д6 не лінкуємо. Факт:\n{0}", calc);
+        Assert.IsTrue(calc.Contains("<R01011G3>10000.00</R01011G3>") && calc.Contains("<R081G3>1</R081G3>"),
+            "розділ I і ознака страхувальника. Факт:\n{0}", calc);
+        Assert.IsTrue(calc.Contains("<C_REG>26</C_REG>") && calc.Contains("<C_RAJ>1</C_RAJ>")
+            && calc.Contains("<C_STI_ORIG>2601</C_STI_ORIG>"),
+            "інспекція з юрлица. Факт:\n{0}", calc);
+        Assert.IsTrue(!calc.Contains("Signature") && !calc.Contains("KEP"),
+            "без підпису. Факт:\n{0}", calc);
+        Assert.IsTrue(!calc.Contains("> <") && !calc.Contains(">\n<"),
+            "без пробілів між елементами. Факт:\n{0}", calc);
+
+        var d1 = await DeclarXmlAsync(env.Entity, "J0510111");
+        Assert.IsTrue(d1.Contains("xsi:noNamespaceSchemaLocation=\"J0510111.xsd\""),
+            "схема Д1. Факт:\n{0}", d1);
+        Assert.IsTrue(d1.Contains("<C_DOC_SUB>101</C_DOC_SUB>") && d1.Contains("<C_DOC_SUB>001</C_DOC_SUB>"),
+            "Д1 лінкує головну. Факт:\n{0}", d1);
+        Assert.IsTrue(d1.Contains("<T1RXXXXG7S ROWNUM=\"1\">3123456789</T1RXXXXG7S>"),
+            "РНОКПП у XML. Факт:\n{0}", d1);
+        Assert.IsTrue(d1.Contains("<T1RXXXXG24 ROWNUM=\"1\">0</T1RXXXXG24>"),
+            "G24=0 без прапорця. Факт:\n{0}", d1);
+        Assert.IsTrue(!d1.Contains("T1RXXXXG6S") && !d1.Contains("T1RXXXXG18"),
+            "порожні G6S/G18 не пишемо. Факт:\n{0}", d1);
+
+        var four = await DeclarXmlAsync(env.Entity, "J0510411");
+        Assert.IsTrue(four.Contains("<C_DOC_SUB>104</C_DOC_SUB>"), "голова 4ДФ. Факт:\n{0}", four);
+        Assert.IsTrue(four.Contains("<T1RXXXXG05 ROWNUM=\"1\">101</T1RXXXXG05>"),
+            "ознака 101. Факт:\n{0}", four);
+        Assert.IsTrue(four.Contains("<R00G01I>1</R00G01I>") && four.Contains("<R00G02I>0</R00G02I>"),
+            "лічильники ознак. Факт:\n{0}", four);
+
+        var d5 = await DeclarXmlAsync(env.Entity, "J0510511");
+        Assert.IsTrue(string.IsNullOrEmpty(d5), "без кадрових подій XML Д5 порожній. Факт:\n{0}", d5);
+        var d6 = await DeclarXmlAsync(env.Entity, "J0510611");
+        Assert.IsTrue(string.IsNullOrEmpty(d6), "без спецстажу XML Д6 порожній. Факт:\n{0}", d6);
+    }
+
     [IntegrationTest("Д1 J0510111: HireDate 12.03 дає G14=20, не 31")]
     public async Task D1DaysFollowHireDate()
     {
@@ -735,12 +798,18 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
     }
 
     private async Task<string> PayloadAsync(Guid entity, string returnType)
+        => Convert.ToString((await ExportRowAsync(entity, returnType)).Payload) ?? "";
+
+    private async Task<string> DeclarXmlAsync(Guid entity, string returnType)
+        => Convert.ToString((await ExportRowAsync(entity, returnType)).DeclarXml) ?? "";
+
+    private async Task<UaTaxFilingExport> ExportRowAsync(Guid entity, string returnType)
     {
         var rows = await GetService<IDictionaryManager<UaTaxFilingExport>>()
             .GetRecordsAsync($"LegalEntity = '{entity}'");
         var row = rows.FirstOrDefault(r => r.ReturnType == returnType);
         Assert.IsTrue(row != null, "рядок {0} має бути", returnType);
-        return Convert.ToString(row!.Payload) ?? "";
+        return row!;
     }
 
     private async Task<(Guid Division, Guid Entity, Guid Employee)> SetupAsync()
