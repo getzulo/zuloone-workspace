@@ -1,0 +1,10 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+    "description": "Виплата ФОТ закриває графу «виплачено дохід» 4ДФ: PaidBase на UaPayrollLevy. Не сума нетто рядка — нарахована база ПДФО, що лишилася невиплаченою.",
+    "metaId": "23ba1ca4-166b-4d94-b768-f7c7eb87c100",
+    "name": "PayrollPayment.LocalizationUkraine",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

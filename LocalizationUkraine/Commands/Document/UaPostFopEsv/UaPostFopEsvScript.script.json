@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "UaPostFopEsv",
+    "objectMetaId": "2f56db45-0517-4619-a20e-b1d408318a4d",
+    "executionOrder": 0,
+    "metaId": "d964770c-67d2-4cb7-9063-9c0597916fb6",
+    "name": "UaPostFopEsvScript",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

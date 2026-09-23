@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "b8d440c4-1022-48ee-87f3-7b1ca9e2119a",
+    "name": "UaFopEsvAccrualSeq",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "UaTaxRemittanceLinesTablePartRow",
+    "caption": {
+      "en": "Remittance lines",
+      "ar": "بنود التحويل",
+      "ru": "Строки перечисления",
+      "uk": "Рядки перерахування"
+    },
+    "tableName": "TP_UaTaxRemittanceLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "1740cc93-7721-4bad-9e48-7f46ba422913",
+    "name": "UaTaxRemittanceLines",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "1740cc93-7721-4bad-9e48-7f46ba422913",
+      "fieldName": "Amount",
+      "caption": {
+        "en": "Amount",
+        "ar": "المبلغ",
+        "ru": "Сумма",
+        "uk": "Сума"
+      },
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "18fc89bb-ff33-4ccd-bc7e-34a05ea6620c",
+      "name": "Amount",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "tablePartTypeMetaId": "1740cc93-7721-4bad-9e48-7f46ba422913",
+      "fieldName": "Employee",
+      "caption": {
+        "en": "Employee",
+        "ar": "الموظف",
+        "ru": "Сотрудник",
+        "uk": "Працівник"
+      },
+      "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
+      "isRequired": true,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "referenceName": "Employee",
+      "displayOrder": 1,
+      "metaId": "6f379f47-ab29-4d15-83a5-c9a6793d2de3",
+      "name": "Employee",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

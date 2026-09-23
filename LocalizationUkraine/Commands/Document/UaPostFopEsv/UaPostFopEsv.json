@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Post FOP ESS",
+      "ar": "ترحيل التأمين الاجتماعي للفرد",
+      "ru": "Провести ЄСВ ФОП",
+      "uk": "Провести ЄСВ ФОП"
+    },
+    "scriptMetaId": "d964770c-67d2-4cb7-9063-9c0597916fb6",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "2f56db45-0517-4619-a20e-b1d408318a4d",
+    "name": "UaPostFopEsv",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "2dc6f126-2a92-44c2-a5a9-033898ef7232",
+      "documentCommandMetaId": "2f56db45-0517-4619-a20e-b1d408318a4d",
+      "documentSubtypeMetaId": "ecb2e336-e3d1-4025-8b5a-0b609b4f4085"
+    }
+  ]
+}

@@ -30,6 +30,54 @@
       "metaId": "baf7fe1f-e9e7-4416-9f13-a5ec08d1395a",
       "name": "UaTaxRegime",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "6ed5fbfb-3280-4399-8465-9d888a2a4107",
+      "dictionaryMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+      "fieldName": "DpsRegionCode",
+      "baseType": "String",
+      "length": 2,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 62,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "DPS region code (C_REG)",
+        "ar": "رمز منطقة DPS (C_REG)",
+        "ru": "Код региона ДПС (C_REG)",
+        "uk": "Код регіону ДПС (C_REG)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b63207ba-d70c-401a-926c-18b9aae95ad0",
+      "name": "DpsRegionCode",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "6ed5fbfb-3280-4399-8465-9d888a2a4107",
+      "dictionaryMetaId": "4adf1361-f1dc-4a7d-b944-05dd005073a0",
+      "fieldName": "DpsOfficeCode",
+      "baseType": "String",
+      "length": 2,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 63,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "DPS office code (C_STI)",
+        "ar": "رمز مكتب DPS (C_STI)",
+        "ru": "Код инспекции ДПС (C_STI)",
+        "uk": "Код інспекції ДПС (C_STI)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "2c3d3e69-e196-477e-bbe8-0538df045f39",
+      "name": "DpsOfficeCode",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

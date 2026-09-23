@@ -64,6 +64,92 @@ public class UkraineFopSingleTaxDeclarationFilingTest : IntegrationTestScriptBas
             "ВЗ з усього доходу. Факт:\n{0}", text);
     }
 
+    [IntegrationTest("F0103309: півріччя — рядок 13 = I кв., рядок 14.1 = II кв.")]
+    public async Task PreviousPeriodFromLedgerOnHalfYear()
+    {
+        var entity = await EntityAsync();
+        var output = await OutputAsync();
+        var five = await TaxCodeAsync("UA-EP5");
+        await PostAsync(entity, five, output, new DateTime(2026, 3, 15), 10000m, 500m);
+        await PostAsync(entity, five, output, new DateTime(2026, 6, 10), 4000m, 200m);
+
+        var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 6, 30));
+        await Filing.ExportAsync(returnId, "F0103309");
+        var text = await PayloadAsync(entity);
+
+        Assert.IsTrue(text.Contains("12;Усього нараховано (р.09+р.10+р.11);700.00"),
+            "наростаючий підсумок. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("13;Нараховано за попередній період;500.00"),
+            "I кв. з леджера. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("14.1;До сплати за період (рядок 12 − рядок 13);200.00"),
+            "II кв. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("24;ВЗ за попередній період;100.00"),
+            "ВЗ I кв. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("25;ВЗ до сплати (рядок 23 − рядок 24);40.00"),
+            "ВЗ II кв. 140-100. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("F0103309: UaFopEsvAccrual 1760 → F0133109")]
+    public async Task FopEsvAnnexFromDocument()
+    {
+        var entity = await EntityAsync();
+        var output = await OutputAsync();
+        var five = await TaxCodeAsync("UA-EP5");
+        await PostAsync(entity, five, output, new DateTime(2026, 3, 15), 10000m, 500m);
+
+        var docs = GetService<IDocumentManager>();
+        var doc = await docs.NewDocumentAsync<UaFopEsvAccrual>();
+        doc.LegalEntity = entity;
+        doc.Amount = 1760m;
+        doc.DocumentDate = new DateTime(2026, 3, 20);
+        await docs.SaveDocumentAsync(doc);
+        var commandId = await Db.FindCommandIdAsync("document", "UaPostFopEsv");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, doc.MetaId);
+        Assert.IsTrue(run.Success, "нарахування ЄСВ ФОП: {0}", run.Message ?? "");
+
+        var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportAsync(returnId, "F0103309");
+        var text = await PayloadAsync(entity);
+
+        Assert.IsTrue(text.Contains("F0133109 ЄСВ за себе;1760.00"),
+            "додаток з документа. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("F0103309: ділянка 100000 → рядок 14.2 = 1250")]
+    public async Task MpzFromLandPlot()
+    {
+        var entity = await EntityAsync();
+        var output = await OutputAsync();
+        var five = await TaxCodeAsync("UA-EP5");
+        await PostAsync(entity, five, output, new DateTime(2026, 3, 15), 10000m, 500m);
+
+        var plot = Dict.NewRecord<UaLandPlot>();
+        plot.Name = "Город";
+        plot.LegalEntity = entity;
+        plot.NormativeValue = 100000m;
+        await Dict.SaveRecordAsync(plot);
+
+        var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportAsync(returnId, "F0103309");
+        var text = await PayloadAsync(entity);
+
+        Assert.IsTrue(text.Contains("14.2;Додаток 2 МПЗ;1250.00"),
+            "рядок 14.2. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("14;Усього до сплати (р.14.1+р.14.2);1750.00"),
+            "500 + 1250. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("F0133209 МПЗ;1250.00"),
+            "додаток. Факт:\n{0}", text);
+    }
+
+    private async Task<string> PayloadAsync(Guid entity)
+    {
+        var rows = await GetService<IDictionaryManager<UaTaxFilingExport>>()
+            .GetRecordsAsync($"LegalEntity = '{entity}'");
+        var row = rows.FirstOrDefault(r => r.ReturnType == "F0103309");
+        Assert.IsTrue(row != null, "рядок F0103309 має бути");
+        return Convert.ToString(row!.Payload) ?? "";
+    }
+
     private async Task<string> ExportAsync(
         decimal mappedBase, decimal mappedTax, decimal excessBase, decimal excessTax)
     {
@@ -81,12 +167,7 @@ public class UkraineFopSingleTaxDeclarationFilingTest : IntegrationTestScriptBas
 
         var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 3, 31));
         await Filing.ExportAsync(returnId, "F0103309");
-
-        var rows = await GetService<IDictionaryManager<UaTaxFilingExport>>()
-            .GetRecordsAsync($"LegalEntity = '{entity}'");
-        var row = rows.FirstOrDefault(r => r.ReturnType == "F0103309");
-        Assert.IsTrue(row != null, "рядок F0103309 має бути");
-        return Convert.ToString(row!.Payload) ?? "";
+        return await PayloadAsync(entity);
     }
 
     private async Task<Guid> OutputAsync()

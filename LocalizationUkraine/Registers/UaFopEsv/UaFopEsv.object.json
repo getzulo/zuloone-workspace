@@ -1,0 +1,62 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "FOP ESS for self (Ukraine)",
+      "ar": "التأمين الاجتماعي للفرد (أوكرانيا)",
+      "ru": "ЄСВ ФОП за себя (Украина)",
+      "uk": "ЄСВ ФОП за себе (Україна)"
+    },
+    "description": "Нарахований єдиний внесок ФОП «за себе». Додаток F0133109 читає Amount за юрособою і періодом. Найм сюди не пише — той SocialInsurance.",
+    "isObsolete": false,
+    "iconName": "fluent-color:person-money-32",
+    "largeIconName": "fluent-color:person-money-32",
+    "registerEngineType": "Standard",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": true,
+    "isExtension": false,
+    "metaId": "d0030d34-d8b8-43ae-9cdd-54d47d33e16c",
+    "name": "UaFopEsv",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "d0030d34-d8b8-43ae-9cdd-54d47d33e16c",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "c92b223d-0ae9-477d-a9bc-d4c479cba469",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "d0030d34-d8b8-43ae-9cdd-54d47d33e16c",
+      "fieldName": "Amount",
+      "caption": {
+        "en": "Amount",
+        "ar": "المبلغ",
+        "ru": "Сумма",
+        "uk": "Сума"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 1,
+      "metaId": "08e3144b-8dd3-47a7-b2cc-66965da3986d",
+      "name": "Amount",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

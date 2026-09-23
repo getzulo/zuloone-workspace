@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Post VAT refund claim",
+      "ar": "ترحيل طلب الاسترداد",
+      "ru": "Провести заявление на возмещение",
+      "uk": "Провести заяву на відшкодування"
+    },
+    "scriptMetaId": "890b4620-cb0f-475e-b11e-4e3fb65486f8",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "5872c96a-d15a-4e09-a565-808de2d23a6b",
+    "name": "UaPostVatRefund",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "cc68e0ea-ee60-4b89-b282-b8dbc87ea1f5",
+      "documentCommandMetaId": "5872c96a-d15a-4e09-a565-808de2d23a6b",
+      "documentSubtypeMetaId": "69bf1845-dc34-4868-b7e4-a0a0bdd8ef7e"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "UaPostVatRefund",
+    "objectMetaId": "5872c96a-d15a-4e09-a565-808de2d23a6b",
+    "executionOrder": 0,
+    "metaId": "890b4620-cb0f-475e-b11e-4e3fb65486f8",
+    "name": "UaPostVatRefundScript",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

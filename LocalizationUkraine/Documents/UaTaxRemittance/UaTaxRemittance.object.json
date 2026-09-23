@@ -1,0 +1,192 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": {
+      "en": "Tax remittance to budget (Ukraine)",
+      "ar": "تحويل الضريبة إلى الميزانية (أوكرانيا)",
+      "ru": "Перечисление налога в бюджет (Украина)",
+      "uk": "Перерахування податку до бюджету (Україна)"
+    },
+    "description": "Перерахування утриманого ПДФО або військового збору до бюджету. Окремий документ, а не підтип виплати ФОТ: виплата гасить борг перед працівником, це — борг перед бюджетом. Рядки 4ДФ G04/G5 читають ресурс Transferred регістра UaPayrollLevy.",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "de4abb8b-20ab-4047-a265-e4780762e6e2",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:money-hand-32",
+    "largeIconName": "fluent-color:money-hand-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+    "name": "UaTaxRemittance",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+      "fieldName": "ID",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "8c2840fb-369d-48d2-bf55-dab03768e45b",
+      "name": "ID",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "documentTypeMetaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "e0030874-122a-4899-88e8-98f9dbeddc0f",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "documentTypeMetaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+      "fieldName": "TaxCode",
+      "caption": {
+        "en": "Tax code",
+        "ar": "رمز الضريبة",
+        "ru": "Код налога",
+        "uk": "Код податку"
+      },
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "1c7d29f2-26a7-41fc-882a-36b105383fd5",
+      "name": "TaxCode",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+      "name": "Draft",
+      "caption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "uk": "Чернетка"
+      },
+      "subtypeValue": "Draft",
+      "subtypeCaption": {
+        "en": "Draft",
+        "ar": "مسودة",
+        "ru": "Черновик",
+        "uk": "Чернетка"
+      },
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "b2d2fb16-cf46-4d17-8e71-121d495824fe",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "documentTypeMetaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+      "name": "Paid",
+      "caption": {
+        "en": "Paid",
+        "ar": "مدفوع",
+        "uk": "Перераховано"
+      },
+      "subtypeValue": "Paid",
+      "subtypeCaption": {
+        "en": "Paid",
+        "ar": "مدفوع",
+        "ru": "Перечислено",
+        "uk": "Перераховано"
+      },
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "b4f937b6-5256-4b30-b7ad-d275d556572c",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "documentTypeMetaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+      "name": "Voided",
+      "caption": {
+        "en": "Voided",
+        "ar": "ملغى",
+        "uk": "Анульовано"
+      },
+      "subtypeValue": "Voided",
+      "subtypeCaption": {
+        "en": "Voided",
+        "ar": "ملغى",
+        "ru": "Аннулировано",
+        "uk": "Анульовано"
+      },
+      "displayOrder": 3,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "bb9d2113-fb31-467a-a672-f287a120ab55",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+      "tablePartTypeMetaId": "1740cc93-7721-4bad-9e48-7f46ba422913",
+      "isCloneable": true,
+      "metaId": "7f2a562f-b1dd-4149-b0d0-3d4923fba6df",
+      "name": "Lines",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "b4f937b6-5256-4b30-b7ad-d275d556572c",
+      "scriptMetaId": "adb6d514-aa79-42ec-9a27-053f93fe14e2",
+      "executionOrder": 1,
+      "metaId": "91042902-b27b-4c73-94dd-9a0c9d6e63a4",
+      "name": "",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "b2d2fb16-cf46-4d17-8e71-121d495824fe",
+      "toSubtypeMetaId": "b4f937b6-5256-4b30-b7ad-d275d556572c",
+      "metaId": "bfbf975c-2cc2-4917-97f6-e3ab8ca32e52",
+      "name": "Draft->Paid",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "fromSubtypeMetaId": "b4f937b6-5256-4b30-b7ad-d275d556572c",
+      "toSubtypeMetaId": "bb9d2113-fb31-467a-a672-f287a120ab55",
+      "metaId": "f295ded7-dbf5-4762-b99a-8beedd26dfb1",
+      "name": "Paid->Voided",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

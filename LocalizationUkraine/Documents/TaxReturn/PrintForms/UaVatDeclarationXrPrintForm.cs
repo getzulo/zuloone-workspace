@@ -31,6 +31,10 @@ public partial class UaVatDeclarationXrPrintForm : PrintFormBase
         var rows = await context.GetService<IUaTaxFiling>().ListVatDeclarationAsync(doc);
         var n = 0;
         var total = 0m;
+        var refund = rows.FirstOrDefault(r => r.Row == "20.2").ColB;
+        var disclaimer = refund == 0m
+            ? "J0200126; рядок 20.2 порожній"
+            : "J0200126; рядок 20.2 із заяви UaVatRefund";
         foreach (var row in rows)
         {
             n++;
@@ -40,7 +44,7 @@ public partial class UaVatDeclarationXrPrintForm : PrintFormBase
                 DateText(doc.DocumentDate),
                 seller,
                 period,
-                "J0200126; рядок 20.2 порожній",
+                disclaimer,
                 n,
                 row.Caption,
                 "",

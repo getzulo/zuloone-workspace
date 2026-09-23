@@ -2,34 +2,34 @@
   "kind": "DictionaryExtension",
   "object": {
     "targetDictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
-    "description": "РНОКПП сотрудника для додатка 4ДФ (J0510411 графа T1RXXXXG02) и Д1 (J0510111 графа T1RXXXXG7S). Живёт в пакете Украины: кадровое ядро не знает про український податковий номер.",
-    "metaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+    "description": "Ознака доходу 4ДФ на працівнику, не лише в одиночних налаштуваннях: зарплата 101 і ЦПХ 102 живуть в одній базі.",
+    "metaId": "5d273a93-61c1-4c9a-a6d2-9e810042d99a",
     "name": "Employee.LocalizationUkraine",
     "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
   },
   "fields": [
     {
-      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "extensionMetaId": "5d273a93-61c1-4c9a-a6d2-9e810042d99a",
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
-      "fieldName": "TaxCardNumber",
+      "fieldName": "DpsIncomeSign",
       "baseType": "String",
-      "length": 10,
+      "length": 8,
       "isSystem": false,
       "isRequired": false,
-      "displayOrder": 62,
+      "displayOrder": 80,
       "isIndexed": false,
       "isUnique": false,
       "caption": {
-        "en": "Tax card number (РНОКПП)",
-        "ar": "رقم البطاقة الضريبية",
-        "ru": "РНОКПП",
-        "uk": "РНОКПП"
+        "en": "4ДФ income sign",
+        "ar": "علامة الدخل 4ДФ",
+        "ru": "Ознака доходу 4ДФ",
+        "uk": "Ознака доходу 4ДФ"
       },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "888d3bfc-2a12-4c94-bbff-162a1a4046eb",
-      "name": "TaxCardNumber",
+      "metaId": "e418291e-4966-4690-9cf1-2e1287a71c2d",
+      "name": "DpsIncomeSign",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]

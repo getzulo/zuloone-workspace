@@ -32,6 +32,10 @@ public partial class UaSingleTaxDeclarationXrPrintForm : PrintFormBase
         var rows = await context.GetService<IUaTaxFiling>().ListSingleTaxDeclarationAsync(doc);
         var n = 0;
         var total = 0m;
+        var row2 = rows.FirstOrDefault(r => r.Row == "2");
+        var disclaimer = row2.Col3 == 0m && row2.Col4 == 0m
+            ? "J0103509; рядок 2 порожній коли немає UA-EP6/UA-EP10; не UA-EP15"
+            : "J0103509; рядок 2 з UA-EP6/UA-EP10; не UA-EP15";
         foreach (var row in rows)
         {
             n++;
@@ -41,7 +45,7 @@ public partial class UaSingleTaxDeclarationXrPrintForm : PrintFormBase
                 DateText(doc.DocumentDate),
                 seller,
                 period,
-                "J0103509; рядок 2 і додаток МПЗ порожні; не UA-EP15",
+                disclaimer,
                 n,
                 row.Caption,
                 "",

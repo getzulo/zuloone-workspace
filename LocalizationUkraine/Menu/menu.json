@@ -206,6 +206,37 @@
     },
     {
       "caption": {
+        "en": "Documents",
+        "ar": "المستندات",
+        "ru": "Документы",
+        "uk": "Документи"
+      },
+      "parentMetaId": "b9b14276-a8a9-400a-beb2-a01c58334a14",
+      "displayOrder": 3,
+      "icon": "fluent-color:document-32",
+      "targetType": "Group",
+      "metaId": "231ab5fe-bfce-4401-a6f6-c3441c373bf6",
+      "name": "Documents",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "Tax remittance to budget",
+        "ar": "تحويل الضريبة إلى الميزانية",
+        "ru": "Перечисление налога в бюджет",
+        "uk": "Перерахування податку до бюджету"
+      },
+      "parentMetaId": "231ab5fe-bfce-4401-a6f6-c3441c373bf6",
+      "displayOrder": 0,
+      "icon": "fluent-color:money-hand-32",
+      "targetType": "Document",
+      "targetMetaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+      "metaId": "112a492e-fbbc-4e09-a094-054d0554e895",
+      "name": "UaTaxRemittance",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
         "en": "Payroll levies withheld",
         "ar": "الاقتطاعات على الرواتب",
         "ru": "Утримання із зарплати",
@@ -234,6 +265,86 @@
       "targetMetaId": "7e47a197-63ce-4038-bbaf-2eeb5492e9db",
       "metaId": "9f7d2b77-7c6d-4505-8d01-93c342778998",
       "name": "UaBankStatement",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "Land plot (MPZ)",
+        "ar": "قطعة أرض",
+        "ru": "Земельный участок (МПЗ)",
+        "uk": "Земельна ділянка (МПЗ)"
+      },
+      "parentMetaId": "7a3c1e90-4b2d-4f81-9c6e-1d8a5b7f2e04",
+      "displayOrder": 3,
+      "icon": "fluent-color:globe-location-32",
+      "targetType": "Dictionary",
+      "targetMetaId": "50d39ce3-a434-4f92-a4e8-7356ee74f0d8",
+      "metaId": "8ce3b4ab-b003-48e0-b54a-3342beb9840d",
+      "name": "UaLandPlot",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "FOP ESS for self",
+        "ar": "التأمين الاجتماعي للفرد",
+        "ru": "ЄСВ ФОП за себя",
+        "uk": "ЄСВ ФОП за себе"
+      },
+      "parentMetaId": "231ab5fe-bfce-4401-a6f6-c3441c373bf6",
+      "displayOrder": 1,
+      "icon": "fluent-color:person-money-32",
+      "targetType": "Document",
+      "targetMetaId": "933938ad-c125-4d87-851e-2e52f6550e22",
+      "metaId": "67312027-a77c-4536-8c42-05c2498d52d2",
+      "name": "UaFopEsvAccrual",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "VAT refund claim",
+        "ar": "طلب استرداد ضريبة القيمة المضافة",
+        "ru": "Заявление на возмещение НДС",
+        "uk": "Заява на відшкодування ПДВ"
+      },
+      "parentMetaId": "231ab5fe-bfce-4401-a6f6-c3441c373bf6",
+      "displayOrder": 2,
+      "icon": "fluent-color:money-calculator-32",
+      "targetType": "Document",
+      "targetMetaId": "c667cec8-1313-4fd8-b8a5-15d246730223",
+      "metaId": "f14a415c-5ced-4719-a5e8-e53a88929521",
+      "name": "UaVatRefund",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "FOP ESS accrued",
+        "ar": "التأمين الاجتماعي للفرد المستحق",
+        "ru": "ЄСВ ФОП начислено",
+        "uk": "ЄСВ ФОП нараховано"
+      },
+      "parentMetaId": "cddd5022-8771-48f0-a706-6fc04e1ceded",
+      "displayOrder": 6,
+      "icon": "fluent-color:person-money-32",
+      "targetType": "Register",
+      "targetMetaId": "d0030d34-d8b8-43ae-9cdd-54d47d33e16c",
+      "metaId": "ea362892-5556-4f6e-b193-6cd5f550a36b",
+      "name": "UaFopEsv",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "caption": {
+        "en": "VAT refund claimed",
+        "ar": "استرداد ضريبة القيمة المضافة المطالب به",
+        "ru": "Заявленное возмещение НДС",
+        "uk": "Заявлене відшкодування ПДВ"
+      },
+      "parentMetaId": "cddd5022-8771-48f0-a706-6fc04e1ceded",
+      "displayOrder": 7,
+      "icon": "fluent-color:money-calculator-32",
+      "targetType": "Register",
+      "targetMetaId": "607b96d7-de5b-4fab-9e06-cb2c68c664e7",
+      "metaId": "ea62d627-ba6f-493d-b5ff-8df8ba04b366",
+      "name": "UaVatRefundClaim",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]

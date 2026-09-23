@@ -111,6 +111,38 @@
       "metaId": "01cd9d78-933d-4eb6-9a0a-f11ed635ef3f",
       "name": "Base",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+      "fieldName": "PaidBase",
+      "caption": {
+        "en": "Paid income",
+        "ar": "الدخل المدفوع",
+        "ru": "Выплаченный доход",
+        "uk": "Виплачений дохід"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 3,
+      "metaId": "f16e19a6-7b40-4834-8511-91c54e211a86",
+      "name": "PaidBase",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+      "fieldName": "Transferred",
+      "caption": {
+        "en": "Transferred to budget",
+        "ar": "محول إلى الميزانية",
+        "ru": "Перечислено в бюджет",
+        "uk": "Перераховано до бюджету"
+      },
+      "isOperational": true,
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "displayOrder": 4,
+      "metaId": "5e49197c-d22b-4ca3-8232-d5c9c8bb8b0b",
+      "name": "Transferred",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

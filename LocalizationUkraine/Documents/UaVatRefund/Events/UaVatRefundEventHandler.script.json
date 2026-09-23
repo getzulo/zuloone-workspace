@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "UaVatRefund",
+    "objectMetaId": "c667cec8-1313-4fd8-b8a5-15d246730223",
+    "executionOrder": 0,
+    "metaId": "22c16fa1-22ea-42b0-921a-31a232d79d6e",
+    "name": "UaVatRefundEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "23ba1ca4-166b-4d94-b768-f7c7eb87c100",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "PayrollPayment",
+    "objectMetaId": "50fcf37d-6a2c-4e1b-9d3f-7c4a6e2d1b85",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 20,
+    "metaId": "f286b4ed-bf03-4c96-913b-4c15a118d79e",
+    "name": "UaPayrollPaymentLevyEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

@@ -1,12 +1,13 @@
 #nullable enable
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// Бланк J0510411 (додаток 4ДФ). Нараховано з UaPayrollLevy; виплачено/перераховано 0.
+// Бланк J0510411 (додаток 4ДФ). Нараховано з UaPayrollLevy; виплачено/перераховано — з PaidBase/Transferred.
 public partial class UaDps4DfXrPrintForm : PrintFormBase
 {
     public override SlimTable GetDataTemplate()
@@ -31,6 +32,10 @@ public partial class UaDps4DfXrPrintForm : PrintFormBase
         var rows = await context.GetService<IUaTaxFiling>()
             .ListDps4DfAsync(doc.LegalEntity, doc.PeriodFrom, doc.PeriodTo);
         var n = 0;
+        var paid = rows.Sum(r => r.PaidIncome + r.TransferredPdfo + r.TransferredVz);
+        var form = paid == 0m
+            ? "J0510411; виплачено/перераховано порожні"
+            : "J0510411";
         foreach (var row in rows)
         {
             n++;
@@ -39,7 +44,7 @@ public partial class UaDps4DfXrPrintForm : PrintFormBase
                 DateText(doc.DocumentDate),
                 seller,
                 period,
-                "J0510411; виплачено/перераховано порожні",
+                form,
                 n,
                 row.Name,
                 row.TaxCard,

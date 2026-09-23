@@ -38,6 +38,34 @@ public class UkraineVatDeclarationFilingTest : IntegrationTestScriptBase
             "відшкодування не підставляється. Факт:\n{0}", text);
     }
 
+    [IntegrationTest("J0200126: UA-ZX рядок 2.1 експорт, UA-Z рядок 3 внутрішня нульова")]
+    public async Task ZeroRatedRowsFromSeedCodes()
+    {
+        var entity = await EntityAsync();
+        var output = await DirectionAsync("OUTPUT");
+        var zx = (await Dict.GetRecordsAsync<TaxCode>("Code = 'UA-ZX'")).FirstOrDefault();
+        var z = (await Dict.GetRecordsAsync<TaxCode>("Code = 'UA-Z'")).FirstOrDefault();
+        Assert.IsTrue(zx != null, "код UA-ZX зобов'язаний бути в поставці");
+        Assert.IsTrue(z != null, "код UA-Z зобов'язаний бути в поставці");
+
+        var day = new DateTime(2026, 3, 15);
+        await PostAsync(entity, zx!.MetaId, output, day, 8000m, 0m);
+        await PostAsync(entity, z!.MetaId, output, day, 2000m, 0m);
+
+        var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportAsync(returnId, "J0200126");
+
+        var rows = await GetService<IDictionaryManager<UaTaxFilingExport>>()
+            .GetRecordsAsync($"LegalEntity = '{entity}'");
+        var row = rows.FirstOrDefault(r => r.ReturnType == "J0200126");
+        Assert.IsTrue(row != null, "рядок J0200126 має бути");
+        var text = Convert.ToString(row!.Payload) ?? "";
+        Assert.IsTrue(text.Contains("2.1;Експорт товарів (нульова ставка);8000.00;0.00"),
+            "експорт UA-ZX. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("3;Операції за нульовою ставкою (крім експорту);2000.00;0.00"),
+            "внутрішня нульова UA-Z. Факт:\n{0}", text);
+    }
+
     [IntegrationTest("J0200126: кредит більший за зобов'язання — рядок 18 нуль, 19 = різниця")]
     public async Task NegativeValueWhenCreditExceeds()
     {
@@ -46,6 +74,44 @@ public class UkraineVatDeclarationFilingTest : IntegrationTestScriptBase
             "до сплати нуль. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("19;Від'ємне значення (рядок 17 − рядок 9). Не рядок 20.2;0.00;800.00"),
             "від'ємне 800. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("J0200126: UaVatRefund 500 при від'ємному 800 → рядок 20.2 = 500")]
+    public async Task RefundClaimFillsRow202CappedAtNegative()
+    {
+        var entity = await EntityAsync();
+        var output = await DirectionAsync("OUTPUT");
+        var input = await DirectionAsync("INPUT");
+        var code = await CodeAsync();
+        await MapAsync(code, output, "1.1");
+        await MapAsync(code, input, "10.1");
+
+        var day = new DateTime(2026, 3, 15);
+        await PostAsync(entity, code, output, day, 1000m, 200m);
+        await PostAsync(entity, code, input, day, 5000m, 1000m);
+
+        var docs = GetService<IDocumentManager>();
+        var claim = await docs.NewDocumentAsync<UaVatRefund>();
+        claim.LegalEntity = entity;
+        claim.Amount = 500m;
+        claim.DocumentDate = day;
+        await docs.SaveDocumentAsync(claim);
+        var commandId = await Db.FindCommandIdAsync("document", "UaPostVatRefund");
+        var run = await Db.ExecuteDocumentCommandAsync(commandId, claim.MetaId);
+        Assert.IsTrue(run.Success, "заява на відшкодування: {0}", run.Message ?? "");
+
+        var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportAsync(returnId, "J0200126");
+        var rows = await GetService<IDictionaryManager<UaTaxFilingExport>>()
+            .GetRecordsAsync($"LegalEntity = '{entity}'");
+        var row = rows.FirstOrDefault(r => r.ReturnType == "J0200126");
+        Assert.IsTrue(row != null, "рядок J0200126 має бути");
+        var text = Convert.ToString(row!.Payload) ?? "";
+
+        Assert.IsTrue(text.Contains("19;Від'ємне значення (рядок 17 − рядок 9). Не рядок 20.2;0.00;800.00"),
+            "від'ємне лишається. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("20.2;Бюджетне відшкодування (рядок 20.2);0.00;500.00"),
+            "заявлена сума, не більше 19. Факт:\n{0}", text);
     }
 
     private async Task<string> ExportAsync(

@@ -54,6 +54,84 @@ public class UkraineSingleTaxDeclarationFilingTest : IntegrationTestScriptBase
             "перевищення видно окремо. Факт:\n{0}", text);
     }
 
+    [IntegrationTest("J0103509: UA-EP10 у рядок 2 графа 4, не UA-EP15")]
+    public async Task DoubleRateTenPercentGoesToRow2()
+    {
+        var entity = await EntityAsync();
+        var output = await OutputAsync();
+        var five = await TaxCodeAsync("UA-EP5");
+        var ten = await TaxCodeAsync("UA-EP10");
+        var day = new DateTime(2026, 3, 15);
+        await PostAsync(entity, five, output, day, 8000m, 400m);
+        await PostAsync(entity, ten, output, day, 2000m, 200m);
+
+        var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportAsync(returnId, "J0103509");
+        var text = await PayloadAsync(entity);
+
+        Assert.IsTrue(text.Contains("1;Обсяг доходу за основною ставкою;0.00;8000.00"),
+            "рядок 1 у межах ліміту. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("2;Дохід понад ліміт (подвійна ставка). Не UA-EP15;0.00;2000.00"),
+            "рядок 2 з UA-EP10. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("7;Єдиний податок за подвійною ставкою;0.00;200.00"),
+            "рядок 7. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("10;До сплати за період (рядок 8 − рядок 9);0.00;600.00"),
+            "до сплати 400+200. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("J0103509: півріччя — рядок 9 = I кв., рядок 10 = II кв.")]
+    public async Task PreviousPeriodFromLedgerOnHalfYear()
+    {
+        var entity = await EntityAsync();
+        var output = await OutputAsync();
+        var five = await TaxCodeAsync("UA-EP5");
+        await PostAsync(entity, five, output, new DateTime(2026, 3, 15), 10000m, 500m);
+        await PostAsync(entity, five, output, new DateTime(2026, 6, 10), 4000m, 200m);
+
+        var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 6, 30));
+        await Filing.ExportAsync(returnId, "J0103509");
+        var text = await PayloadAsync(entity);
+
+        Assert.IsTrue(text.Contains("8;Усього нараховано (р.6+р.7);0.00;700.00"),
+            "наростаючий підсумок. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("9;Нараховано за попередній період;0.00;500.00"),
+            "I кв. з леджера. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("10;До сплати за період (рядок 8 − рядок 9);0.00;200.00"),
+            "до сплати II кв. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("J0103509: ділянка 100000 → МПЗ 1250 за I кв.")]
+    public async Task MpzFromLandPlot()
+    {
+        var entity = await EntityAsync();
+        var output = await OutputAsync();
+        var five = await TaxCodeAsync("UA-EP5");
+        await PostAsync(entity, five, output, new DateTime(2026, 3, 15), 10000m, 500m);
+
+        var plot = Dict.NewRecord<UaLandPlot>();
+        plot.Name = "Поле";
+        plot.LegalEntity = entity;
+        plot.NormativeValue = 100000m;
+        plot.CadastralNumber = "1234567890:01:001:0001";
+        await Dict.SaveRecordAsync(plot);
+
+        var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportAsync(returnId, "J0103509");
+        var text = await PayloadAsync(entity);
+
+        Assert.IsTrue(text.Contains("J0135709 МПЗ;1250.00"),
+            "100000 × 5% × 3/12. Факт:\n{0}", text);
+    }
+
+    private async Task<string> PayloadAsync(Guid entity)
+    {
+        var rows = await GetService<IDictionaryManager<UaTaxFilingExport>>()
+            .GetRecordsAsync($"LegalEntity = '{entity}'");
+        var row = rows.FirstOrDefault(r => r.ReturnType == "J0103509");
+        Assert.IsTrue(row != null, "рядок J0103509 має бути");
+        return Convert.ToString(row!.Payload) ?? "";
+    }
+
     private async Task<string> ExportAsync(
         decimal mappedBase, decimal mappedTax, decimal excessBase, decimal excessTax)
     {
@@ -71,12 +149,7 @@ public class UkraineSingleTaxDeclarationFilingTest : IntegrationTestScriptBase
 
         var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 3, 31));
         await Filing.ExportAsync(returnId, "J0103509");
-
-        var rows = await GetService<IDictionaryManager<UaTaxFilingExport>>()
-            .GetRecordsAsync($"LegalEntity = '{entity}'");
-        var row = rows.FirstOrDefault(r => r.ReturnType == "J0103509");
-        Assert.IsTrue(row != null, "рядок J0103509 має бути");
-        return Convert.ToString(row!.Payload) ?? "";
+        return await PayloadAsync(entity);
     }
 
     private async Task<Guid> OutputAsync()

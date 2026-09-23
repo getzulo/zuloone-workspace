@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "UaTaxRemittance",
+    "objectMetaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+    "executionOrder": 1,
+    "metaId": "adb6d514-aa79-42ec-9a27-053f93fe14e2",
+    "name": "UaTaxRemittancePaidTx",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

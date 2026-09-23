@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "UaLandPlot",
+    "objectMetaId": "50d39ce3-a434-4f92-a4e8-7356ee74f0d8",
+    "executionOrder": 0,
+    "metaId": "7cecb944-1986-4f6a-ab87-5db76d448512",
+    "name": "UaLandPlotEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

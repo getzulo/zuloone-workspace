@@ -32,6 +32,10 @@ public partial class UaFopSingleTaxDeclarationXrPrintForm : PrintFormBase
         var rows = await context.GetService<IUaTaxFiling>().ListFopSingleTaxDeclarationAsync(doc);
         var n = 0;
         var total = 0m;
+        var mpz = rows.FirstOrDefault(r => r.Row == "14.2").Amount;
+        var disclaimer = mpz == 0m
+            ? "F0103309; додатки F0133109 і F0133209 порожні"
+            : "F0103309; додаток F0133209 МПЗ заповнено";
         foreach (var row in rows)
         {
             n++;
@@ -41,7 +45,7 @@ public partial class UaFopSingleTaxDeclarationXrPrintForm : PrintFormBase
                 DateText(doc.DocumentDate),
                 seller,
                 period,
-                "F0103309; додатки F0133109 і F0133209 порожні",
+                disclaimer,
                 n,
                 row.Caption,
                 "",

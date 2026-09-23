@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "UaVoidTaxRemittance",
+    "objectMetaId": "700b5f22-c302-432e-9916-a5bcc173bb87",
+    "executionOrder": 0,
+    "metaId": "154218a3-a2b6-4401-b000-3b788fb0bb04",
+    "name": "UaVoidTaxRemittanceScript",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Land plot (Ukraine MPZ)",
+      "ar": "قطعة أرض (أوكرانيا)",
+      "ru": "Земельный участок (МПЗ Украина)",
+      "uk": "Земельна ділянка (МПЗ Україна)"
+    },
+    "description": "Ділянка для мінімального податкового зобов'язання. МПЗ = нормативна грошова оцінка × ставка з налаштувань × місяці періоду / 12. Порожній довідник — додатки J0135709 / F0133209 порожні.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "8aff4e33-a640-4f75-bfb9-266a33e25fff",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "iconName": "fluent-color:globe-location-32",
+    "largeIconName": "fluent-color:globe-location-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "50d39ce3-a434-4f92-a4e8-7356ee74f0d8",
+    "name": "UaLandPlot",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "50d39ce3-a434-4f92-a4e8-7356ee74f0d8",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ar": "الاسم",
+        "ru": "Наименование",
+        "uk": "Найменування"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "6d664f42-c0bd-4665-9d5f-f8370892745e",
+      "name": "Name",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "50d39ce3-a434-4f92-a4e8-7356ee74f0d8",
+      "fieldName": "LegalEntity",
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "910d2cd4-2b07-42f8-93dc-84c619cec260",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "50d39ce3-a434-4f92-a4e8-7356ee74f0d8",
+      "fieldName": "CadastralNumber",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Cadastral number",
+        "ar": "الرقم المساحي",
+        "ru": "Кадастровый номер",
+        "uk": "Кадастровий номер"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c6e6aaba-f100-446b-a1de-74828276f292",
+      "name": "CadastralNumber",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "50d39ce3-a434-4f92-a4e8-7356ee74f0d8",
+      "fieldName": "NormativeValue",
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "description": "Нормативна грошова оцінка ділянки. МПЗ рахується з суми оцінок юрособи.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Normative value",
+        "ar": "القيمة المعيارية",
+        "ru": "Нормативная оценка",
+        "uk": "Нормативна оцінка"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "0e138b45-78e9-4f19-b2e4-e470468a4cc1",
+      "name": "NormativeValue",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

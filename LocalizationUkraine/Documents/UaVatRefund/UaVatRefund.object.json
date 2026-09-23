@@ -1,0 +1,133 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": {
+      "en": "VAT refund claim (Ukraine)",
+      "ar": "طلب استرداد ضريبة القيمة المضافة (أوكرانيا)",
+      "ru": "Заявление на возмещение НДС (Украина)",
+      "uk": "Заява на відшкодування ПДВ (Україна)"
+    },
+    "description": "Заява на бюджетне відшкодування ПДВ. Проведення пише UaVatRefundClaim. Рядок 20.2 J0200126 бере суму, але не більше рядка 19.",
+    "isLogged": false,
+    "isCloneable": true,
+    "numberSequenceMetaId": "fcfa8a88-5fb4-4d7c-b669-0b09c0e57284",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "iconName": "fluent-color:money-calculator-32",
+    "largeIconName": "fluent-color:money-calculator-32",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "c667cec8-1313-4fd8-b8a5-15d246730223",
+    "name": "UaVatRefund",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "c667cec8-1313-4fd8-b8a5-15d246730223",
+      "fieldName": "LegalEntity",
+      "caption": {
+        "en": "Legal entity",
+        "ar": "الكيان القانوني",
+        "ru": "Юрлицо",
+        "uk": "Юрособа"
+      },
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "c79c44d9-cc12-4618-8bdd-98d73476c040",
+      "name": "LegalEntity",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "documentTypeMetaId": "c667cec8-1313-4fd8-b8a5-15d246730223",
+      "fieldName": "Amount",
+      "caption": {
+        "en": "Amount",
+        "ar": "المبلغ",
+        "ru": "Сумма",
+        "uk": "Сума"
+      },
+      "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "c7e0e8f2-e7f0-40fd-8ee6-4db757f330c2",
+      "name": "Amount",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "c667cec8-1313-4fd8-b8a5-15d246730223",
+      "name": "Draft",
+      "caption": { "en": "Draft", "ar": "مسودة", "uk": "Чернетка" },
+      "subtypeValue": "Draft",
+      "subtypeCaption": { "en": "Draft", "ar": "مسودة", "ru": "Черновик", "uk": "Чернетка" },
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "69bf1845-dc34-4868-b7e4-a0a0bdd8ef7e",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "documentTypeMetaId": "c667cec8-1313-4fd8-b8a5-15d246730223",
+      "name": "Posted",
+      "caption": { "en": "Posted", "ar": "مرحّل", "uk": "Проведено" },
+      "subtypeValue": "Posted",
+      "subtypeCaption": { "en": "Posted", "ar": "مرحّل", "ru": "Проведено", "uk": "Проведено" },
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "fac6d792-8d05-46c2-a1c5-1df8d3bb189e",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "documentTypeMetaId": "c667cec8-1313-4fd8-b8a5-15d246730223",
+      "name": "Voided",
+      "caption": { "en": "Voided", "ar": "ملغى", "uk": "Анульовано" },
+      "subtypeValue": "Voided",
+      "subtypeCaption": { "en": "Voided", "ar": "ملغى", "ru": "Аннулировано", "uk": "Анульовано" },
+      "displayOrder": 3,
+      "isInitial": false,
+      "isReadOnly": true,
+      "metaId": "f8fe28d0-b722-49ce-86c9-86275920547f",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "subtypeTransactionScripts": [
+    {
+      "subtypeMetaId": "fac6d792-8d05-46c2-a1c5-1df8d3bb189e",
+      "scriptMetaId": "77ef5c60-f659-408a-a129-ca969f72cc69",
+      "executionOrder": 1,
+      "metaId": "ace1fbd3-3696-4cc5-a74c-5e4c9878957e",
+      "name": "",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ],
+  "subtypeTransitions": [
+    {
+      "fromSubtypeMetaId": "69bf1845-dc34-4868-b7e4-a0a0bdd8ef7e",
+      "toSubtypeMetaId": "fac6d792-8d05-46c2-a1c5-1df8d3bb189e",
+      "metaId": "642c3ca6-c9f3-463b-96f3-fd9c00a4b504",
+      "name": "Draft->Posted",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "fromSubtypeMetaId": "fac6d792-8d05-46c2-a1c5-1df8d3bb189e",
+      "toSubtypeMetaId": "f8fe28d0-b722-49ce-86c9-86275920547f",
+      "metaId": "4aeed4b4-517c-407e-b778-fea5c458aac2",
+      "name": "Posted->Voided",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    }
+  ]
+}

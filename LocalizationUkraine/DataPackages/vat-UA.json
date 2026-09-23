@@ -42,7 +42,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 9
+        "rowCount": 11
       },
       {
         "entity": "TaxRate",
@@ -53,7 +53,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 8
+        "rowCount": 10
       },
       {
         "entity": "TaxCode",
@@ -63,7 +63,7 @@
           "Code"
         ],
         "mode": "upsert",
-        "rowCount": 9
+        "rowCount": 12
       },
       {
         "entity": "TaxReportMapping",
@@ -75,7 +75,7 @@
           "Direction"
         ],
         "mode": "upsert",
-        "rowCount": 10
+        "rowCount": 14
       }
     ]
   },
@@ -271,6 +271,32 @@
         "Name_uk": "Єдиний податок 15% (перевищення)"
       },
       {
+        "Code": "EP6",
+        "Name": "Single tax 6% (double 3%)",
+        "Treatment": "STANDARD",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "Name_ru": "Единый налог 6% (двойная 3%)",
+        "Name_uk": "Єдиний податок 6% (подвійна 3%)"
+      },
+      {
+        "Code": "EP10",
+        "Name": "Single tax 10% (double 5%)",
+        "Treatment": "STANDARD",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "Name_ru": "Единый налог 10% (двойная 5%)",
+        "Name_uk": "Єдиний податок 10% (подвійна 5%)"
+      },
+      {
         "Code": "PDFO",
         "Name": "Salary income",
         "Treatment": "STANDARD",
@@ -404,6 +430,52 @@
           "$ref": "TaxCategory",
           "key": {
             "Code": "EP15",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Code": "EP6",
+        "Rate": 0.06,
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP6",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Code": "EP10",
+        "Rate": 0.10,
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP10",
             "Tax": {
               "$ref": "Tax",
               "key": {
@@ -561,6 +633,31 @@
         "Name_uk": "Нульова ставка (Україна)"
       },
       {
+        "Code": "UA-ZX",
+        "Name": "Zero-rated export (Ukraine)",
+        "EffectiveFrom": "2014-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "VAT-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "ZERO_RATED",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "VAT-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Нулевая ставка экспорт (Украина)",
+        "Name_uk": "Нульова ставка експорт (Україна)"
+      },
+      {
         "Code": "UA-E",
         "Name": "Exempt (Ukraine)",
         "EffectiveFrom": "2014-01-01T00:00:00Z",
@@ -661,6 +758,56 @@
         "Name_uk": "Єдиний податок 15% з перевищення (Україна)"
       },
       {
+        "Code": "UA-EP6",
+        "Name": "Single tax 6% double rate (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP6",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Единый налог 6% двойная ставка (Украина)",
+        "Name_uk": "Єдиний податок 6% подвійна ставка (Україна)"
+      },
+      {
+        "Code": "UA-EP10",
+        "Name": "Single tax 10% double rate (Ukraine)",
+        "EffectiveFrom": "2011-01-01T00:00:00Z",
+        "Tax": {
+          "$ref": "Tax",
+          "key": {
+            "Code": "EP-UA"
+          }
+        },
+        "TaxCategory": {
+          "$ref": "TaxCategory",
+          "key": {
+            "Code": "EP10",
+            "Tax": {
+              "$ref": "Tax",
+              "key": {
+                "Code": "EP-UA"
+              }
+            }
+          }
+        },
+        "Name_ru": "Единый налог 10% двойная ставка (Украина)",
+        "Name_uk": "Єдиний податок 10% подвійна ставка (Україна)"
+      },
+      {
         "Code": "UA-PDFO",
         "Name": "Personal income tax on salary (Ukraine)",
         "EffectiveFrom": "2016-01-01T00:00:00Z",
@@ -730,6 +877,22 @@
       },
       {
         "ReturnType": "J0200126",
+        "ReturnBox": "2.1",
+        "EffectiveFrom": "2024-10-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-ZX" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0200126",
+        "ReturnBox": "3",
+        "EffectiveFrom": "2024-10-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-Z" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0200126",
         "ReturnBox": "5",
         "EffectiveFrom": "2024-10-01T00:00:00Z",
         "Tax": { "$ref": "Tax", "key": { "Code": "VAT-UA" } },
@@ -766,6 +929,22 @@
         "EffectiveFrom": "2025-01-01T00:00:00Z",
         "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
         "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EP5" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0103509",
+        "ReturnBox": "2.3",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EP6" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0103509",
+        "ReturnBox": "2.4",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EP10" } },
         "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
       },
       {

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "UaPayTaxRemittance",
+    "objectMetaId": "39c2ff9b-2784-43b2-9fd9-61e061542dbb",
+    "executionOrder": 0,
+    "metaId": "18506a95-fd67-4d6d-a99d-ad3db9b2a86a",
+    "name": "UaPayTaxRemittanceScript",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

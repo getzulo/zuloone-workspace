@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Void FOP ESS",
+      "ar": "إلغاء التأمين الاجتماعي للفرد",
+      "ru": "Аннулировать ЄСВ ФОП",
+      "uk": "Анулювати ЄСВ ФОП"
+    },
+    "scriptMetaId": "f653f57b-e5ea-41ea-b856-fe0fb4ba9fea",
+    "parameterMode": "None",
+    "displayOrder": 2,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": true,
+    "reloadAfterExecution": true,
+    "metaId": "3886486b-e300-494c-ab58-0d7ff797675a",
+    "name": "UaVoidFopEsv",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "cbf67f78-c4ed-4823-b5e0-4a6674b8a7bd",
+      "documentCommandMetaId": "3886486b-e300-494c-ab58-0d7ff797675a",
+      "documentSubtypeMetaId": "027f6ba1-8e46-4d99-bbc2-4ed30a51ecd8"
+    }
+  ]
+}

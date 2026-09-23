@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Remit to budget",
+      "ar": "تحويل إلى الميزانية",
+      "ru": "Перечислить в бюджет",
+      "uk": "Перерахувати до бюджету"
+    },
+    "scriptMetaId": "18506a95-fd67-4d6d-a99d-ad3db9b2a86a",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "39c2ff9b-2784-43b2-9fd9-61e061542dbb",
+    "name": "UaPayTaxRemittance",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "20e0de27-fd78-4da4-a91c-fba34e3af718",
+      "documentCommandMetaId": "39c2ff9b-2784-43b2-9fd9-61e061542dbb",
+      "documentSubtypeMetaId": "b2d2fb16-cf46-4d17-8e71-121d495824fe"
+    }
+  ]
+}

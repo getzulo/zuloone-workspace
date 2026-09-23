@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Void VAT refund claim",
+      "ar": "إلغاء طلب الاسترداد",
+      "ru": "Аннулировать заявление на возмещение",
+      "uk": "Анулювати заяву на відшкодування"
+    },
+    "scriptMetaId": "03e0a483-aecf-487c-8360-78742cf71ee8",
+    "parameterMode": "None",
+    "displayOrder": 2,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": true,
+    "reloadAfterExecution": true,
+    "metaId": "c0a37d73-bbcf-4c51-966c-77cf6b316e5c",
+    "name": "UaVoidVatRefund",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "6a6cff7c-6b4a-4bc7-bc66-638817b6969a",
+      "documentCommandMetaId": "c0a37d73-bbcf-4c51-966c-77cf6b316e5c",
+      "documentSubtypeMetaId": "fac6d792-8d05-46c2-a1c5-1df8d3bb189e"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "UaVatRefund",
+    "objectMetaId": "c667cec8-1313-4fd8-b8a5-15d246730223",
+    "executionOrder": 1,
+    "metaId": "77ef5c60-f659-408a-a129-ca969f72cc69",
+    "name": "UaVatRefundPostedTx",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

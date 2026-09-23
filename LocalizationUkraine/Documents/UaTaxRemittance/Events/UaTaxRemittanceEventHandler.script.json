@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "UaTaxRemittance",
+    "objectMetaId": "9b4d4f83-3133-4b56-859f-fec9811cff7d",
+    "executionOrder": 0,
+    "metaId": "d427e6f4-7888-4c83-bb7d-6dfb5c263d51",
+    "name": "UaTaxRemittanceEventHandler",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

@@ -309,6 +309,31 @@
       "metaId": "f447b34f-6543-424c-a320-1f25f65f8937",
       "name": "PayrollIncomeSign",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "MpzRate",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 4,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 13,
+      "description": "Ставка мінімального податкового зобов'язання (ПКУ 377.1). Нуль або порожньо — 0,05 (5 % нормативної грошової оцінки). МПЗ = оцінка × ставка × місяці періоду / 12.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "MPZ rate",
+        "ar": "معدل الالتزام الضريبي الأدنى",
+        "ru": "Ставка МПЗ",
+        "uk": "Ставка МПЗ"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e46af436-867a-4054-b829-167fe3885313",
+      "name": "MpzRate",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]
 }

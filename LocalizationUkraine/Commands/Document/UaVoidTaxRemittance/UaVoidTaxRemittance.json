@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Void remittance",
+      "ar": "إلغاء التحويل",
+      "ru": "Аннулировать перечисление",
+      "uk": "Анулювати перерахування"
+    },
+    "scriptMetaId": "154218a3-a2b6-4401-b000-3b788fb0bb04",
+    "parameterMode": "None",
+    "displayOrder": 2,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": true,
+    "reloadAfterExecution": true,
+    "metaId": "700b5f22-c302-432e-9916-a5bcc173bb87",
+    "name": "UaVoidTaxRemittance",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "24a60af9-f382-4c21-a143-fe976ed7963a",
+      "documentCommandMetaId": "700b5f22-c302-432e-9916-a5bcc173bb87",
+      "documentSubtypeMetaId": "b4f937b6-5256-4b30-b7ad-d275d556572c"
+    }
+  ]
+}

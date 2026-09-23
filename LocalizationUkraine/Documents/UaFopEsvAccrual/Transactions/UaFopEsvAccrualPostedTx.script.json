@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "UaFopEsvAccrual",
+    "objectMetaId": "933938ad-c125-4d87-851e-2e52f6550e22",
+    "executionOrder": 1,
+    "metaId": "71d0e921-68e0-44d4-9317-e3ef135ebabf",
+    "name": "UaFopEsvAccrualPostedTx",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
