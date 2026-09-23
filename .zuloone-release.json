@@ -45,9 +45,18 @@
     "So the order is fixed and one-way: a platform that reads what CI writes",
     "reaches the registry FIRST, this pin moves to it SECOND, and only then may",
     "the tree change shape. Bumping this line before the platform exists ships",
-    "an image whose tenants boot healthy with no business layer."
+    "an image whose tenants boot healthy with no business layer.",
+    "",
+    "2026.0.171 -> 2026.0.270 on 2026-09-23, and the reason is not a feature.",
+    "The registry PRUNES old tags. This workspace was red for three days with",
+    "'zuloone-core:2026.0.171: not found' (docker exit 125) while the platform",
+    "went on publishing happily — the two failures looked like one and were not",
+    "related at all. A pin is therefore perishable: it names a tag that can stop",
+    "existing without anyone touching this file. If CI dies on a missing image,",
+    "read the platform's last SUCCESSFUL run for the tag it pushed and move this",
+    "line to it; do not assume a red platform is the cause."
   ],
-  "platformImage": "localhost:5000/zuloone-core:2026.0.171",
+  "platformImage": "localhost:5000/zuloone-core:2026.0.270",
 
   "$comment_exclude": [
     "Models with NO bundle exported for them.",
