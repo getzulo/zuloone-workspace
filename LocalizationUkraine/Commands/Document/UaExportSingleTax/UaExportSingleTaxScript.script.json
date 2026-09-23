@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "UaExportSingleTax",
+    "objectMetaId": "8c4e17a2-6f91-4b3d-9e08-1d5a7c2b4e90",
+    "executionOrder": 0,
+    "metaId": "9d5f28b3-7a02-4c4e-af19-2e6b8d3c5f01",
+    "name": "UaExportSingleTaxScript",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

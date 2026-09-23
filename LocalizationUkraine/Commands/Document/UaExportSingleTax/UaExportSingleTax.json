@@ -1,0 +1,33 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Export single tax (J0103509)",
+      "ar": "تصدير الضريبة الموحدة J0103509",
+      "ru": "Выгрузить единый налог (J0103509)",
+      "uk": "Вивантажити єдиний податок (J0103509)"
+    },
+    "scriptMetaId": "9d5f28b3-7a02-4c4e-af19-2e6b8d3c5f01",
+    "parameterMode": "None",
+    "displayOrder": 24,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "8c4e17a2-6f91-4b3d-9e08-1d5a7c2b4e90",
+    "name": "UaExportSingleTax",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "ae6029c4-8b13-4d5f-b02a-3f7c9e4d6012",
+      "documentCommandMetaId": "8c4e17a2-6f91-4b3d-9e08-1d5a7c2b4e90",
+      "documentSubtypeMetaId": "23febbcf-3076-44f7-b43b-2208b7b3a528"
+    },
+    {
+      "metaId": "bf713ad5-9c24-4e60-c13b-408daf5e7123",
+      "documentCommandMetaId": "8c4e17a2-6f91-4b3d-9e08-1d5a7c2b4e90",
+      "documentSubtypeMetaId": "9c882573-8eb8-4b1c-b3ab-ecebc640a4cc"
+    }
+  ]
+}

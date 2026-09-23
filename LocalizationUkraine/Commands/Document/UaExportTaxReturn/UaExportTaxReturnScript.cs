@@ -10,7 +10,7 @@ using ZuloOne.Services.Contracts;
 //
 // Тип декларации берётся из настроек пакета, а не из кнопки: он же решает, по
 // какому набору ячеек (TaxReportMapping) собиралась декларация, и разъехаться
-// эти два места не должны.
+// эти два места не должны. Пусто — J0200126 (декларація з ПДВ з 01.11.2024).
 public partial class UaExportTaxReturnCommand
 {
     public override async Task ExecuteAsync(TaxReturn document, CommandContext context)
@@ -18,13 +18,9 @@ public partial class UaExportTaxReturnCommand
         var settings = (await context.GetService<IDictionaryManager<LocalizationUkraineSettings>>()
             .GetRecordsAsync("1 = 1")).FirstOrDefault();
 
-        var returnType = settings?.VatReturnType;
-        if (string.IsNullOrWhiteSpace(returnType))
-        {
-            context.AddClientAction(ClientAction.Message(
-                "Не вказано тип декларації в налаштуваннях України — вивантажувати нема за яким набором рядків."));
-            return;
-        }
+        var returnType = string.IsNullOrWhiteSpace(settings?.VatReturnType)
+            ? "J0200126"
+            : settings!.VatReturnType;
 
         var id = await context.GetService<IUaTaxFiling>().ExportAsync(document.MetaId, returnType);
         if (id is null)
@@ -34,6 +30,6 @@ public partial class UaExportTaxReturnCommand
         }
 
         context.AddClientAction(ClientAction.Message(
-            "Вивантаження сформовано: Довідники → Вивантаження декларації."));
+            "Вивантаження сформовано: Довідники → Вивантаження декларації (тип " + returnType + ")."));
     }
 }

@@ -20,14 +20,14 @@
   },
   "subtypeBindings": [
     {
-      "metaId": "c9b5dc88-ec98-4e2e-8e7c-7055c6a6bf19",
-      "documentCommandMetaId": "41a54595-bc09-4413-95c4-7112350b0d6f",
-      "documentSubtypeMetaId": "23febbcf-3076-44f7-b43b-2208b7b3a528"
-    },
-    {
       "metaId": "1b169998-fb3c-4978-9145-70ab5663e586",
       "documentCommandMetaId": "41a54595-bc09-4413-95c4-7112350b0d6f",
       "documentSubtypeMetaId": "9c882573-8eb8-4b1c-b3ab-ecebc640a4cc"
+    },
+    {
+      "metaId": "c9b5dc88-ec98-4e2e-8e7c-7055c6a6bf19",
+      "documentCommandMetaId": "41a54595-bc09-4413-95c4-7112350b0d6f",
+      "documentSubtypeMetaId": "23febbcf-3076-44f7-b43b-2208b7b3a528"
     }
   ]
 }

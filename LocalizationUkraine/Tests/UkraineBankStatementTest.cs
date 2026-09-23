@@ -101,9 +101,7 @@ public class UkraineBankStatementTest : IntegrationTestScriptBase
 
     private async Task<Guid> LegalEntityAsync()
     {
-        // Без TOP — синтаксис SQL Server; Postgres хочет LIMIT. См. парный
-        // комментарий в UkraineBankConnectionTest.
-        var existing = await Sql.SelectAsync("SELECT [MetaId] FROM [LegalEntity]");
+        var existing = await Sql.SelectAsync("SELECT TOP 1 [MetaId] FROM [LegalEntity]");
         if (existing.Count > 0 && existing[0]["MetaId"] is Guid id)
             return id;
 

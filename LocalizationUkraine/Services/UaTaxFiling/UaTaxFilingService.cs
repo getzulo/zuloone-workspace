@@ -57,6 +57,33 @@ public partial class UaTaxFiling
     /// <summary>Додаток Д1 (ЄСВ по застрахованих). Категорія ЗО 1, тип нарахувань 1.</summary>
     public const string DpsD1Type = "J0510111";
 
+    /// <summary>
+    /// Ідентифікатор форми ДПС для юрособи з 01.11.2024: декларація з ПДВ
+    /// (наказ Мінфіну 09.08.2024 № 400). Рядки — з паперової форми, не XML R00xG3.
+    /// </summary>
+    public const string DpsVatType = "J0200126";
+
+    /// <summary>
+    /// Ідентифікатор форми ДПС для юрособи 3 групи: декларація єдиного податку
+    /// (наказ Мінфіну 19.06.2015 № 578 у редакції 31.01.2025 № 57). Графа 3 = 3 %,
+    /// графа 4 = 5 %. Рядок 2 (подвійна ставка 6/10 %) і додаток МПЗ не заповнюються:
+    /// перевищення в леджере йде кодом UA-EP15 (15 %, це форма ФОП), землі немає.
+    /// </summary>
+    public const string DpsSingleTaxType = "J0103509";
+
+    private static readonly HashSet<string> VatRow9Boxes = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "1.1", "1.2", "1.3", "2.3.2", "2.3.3",
+        "4.1", "4.1.1", "4.2", "4.2.1", "4.3", "4.3.1",
+        "6.1", "6.2", "7.1", "7.2.2", "7.2.3", "8",
+    };
+
+    private static readonly HashSet<string> VatRow17Boxes = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "10.1", "10.2", "10.3", "11.1", "11.2", "11.3",
+        "12", "13.1", "13.2", "14", "15", "16",
+    };
+
     private readonly IDocumentManager _documents;
     private readonly IDictionaryManager _dictionaries;
     private readonly IDictionaryManager<LegalEntity> _entities;
@@ -115,7 +142,11 @@ public partial class UaTaxFiling
             ? await _entities.GetRecordAsync(declaration.LegalEntity)
             : null;
 
-        var payload = BuildPayload(declaration, entity, returnType);
+        var payload = string.Equals(returnType, DpsVatType, StringComparison.OrdinalIgnoreCase)
+            ? BuildVatDeclarationPayload(declaration, entity)
+            : string.Equals(returnType, DpsSingleTaxType, StringComparison.OrdinalIgnoreCase)
+                ? BuildSingleTaxDeclarationPayload(declaration, entity)
+                : BuildPayload(declaration, entity, returnType);
 
         var existing = (await _exports.GetRecordsAsync(
                 $"LegalEntity = '{declaration.LegalEntity}'"))
@@ -768,6 +799,150 @@ public partial class UaTaxFiling
     {
         if (!row.TryGetValue(field, out var raw) || raw is null) return 0m;
         return raw is decimal d ? d : Convert.ToDecimal(raw);
+    }
+
+    /// <summary>
+    /// Рядки J0200126 з декларації. 9 і 17 — формули наказу № 21 у редакції № 400,
+    /// не сума всього підряд. 18 і 19 — різниця; рядок 20.2 (відшкодування) не
+    /// заповнюється: рахунку СЕА ПДВ у нас немає.
+    /// </summary>
+    public List<(string Row, string Caption, decimal ColA, decimal ColB)>
+        ListVatDeclaration(TaxReturn declaration)
+    {
+        var grouped = declaration.Lines
+            .GroupBy(l => string.IsNullOrWhiteSpace(l.ReturnBox) ? NotMapped : l.ReturnBox!.Trim())
+            .ToDictionary(
+                g => g.Key,
+                g => (ColA: g.Sum(l => l.TaxBase), ColB: g.Sum(l => l.TaxAmount)),
+                StringComparer.OrdinalIgnoreCase);
+
+        var rows = new List<(string, string, decimal, decimal)>();
+        foreach (var key in grouped.Keys.OrderBy(k => k, StringComparer.OrdinalIgnoreCase))
+        {
+            var pair = grouped[key];
+            rows.Add((key, VatRowCaption(key), pair.ColA, pair.ColB));
+        }
+
+        decimal SumBoxes(HashSet<string> boxes)
+        {
+            decimal sum = 0m;
+            foreach (var box in boxes)
+            {
+                if (grouped.TryGetValue(box, out var pair))
+                    sum += pair.ColB;
+            }
+            return sum;
+        }
+
+        var row9 = SumBoxes(VatRow9Boxes);
+        var row17 = SumBoxes(VatRow17Boxes);
+        var payable = row9 > row17 ? row9 - row17 : 0m;
+        var negative = row17 > row9 ? row17 - row9 : 0m;
+        rows.Add(("9", "Усього податкових зобов'язань (колонка Б)", 0m, row9));
+        rows.Add(("17", "Усього податкового кредиту (колонка Б)", 0m, row17));
+        rows.Add(("18", "До сплати (рядок 9 − рядок 17)", 0m, payable));
+        rows.Add(("19", "Від'ємне значення (рядок 17 − рядок 9). Не рядок 20.2", 0m, negative));
+        return rows;
+    }
+
+    public string BuildVatDeclarationPayload(TaxReturn declaration, LegalEntity? entity)
+    {
+        var text = new StringBuilder();
+        text.AppendLine("# J0200126 Податкова декларація з ПДВ (наказ Мінфіну 09.08.2024 № 400). Не XML кабінету ДПС.");
+        text.AppendLine("# Рядки — з форми. Колонка А = база, колонка Б = ПДВ. Рядок 20.2 (відшкодування) порожній.");
+        Header(text, entity, DpsVatType, declaration);
+        text.AppendLine("Рядок;Назва;Колонка А;Колонка Б");
+        foreach (var row in ListVatDeclaration(declaration))
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture,
+                "{0};{1};{2:0.00};{3:0.00}",
+                row.Row, row.Caption, row.ColA, row.ColB));
+        }
+        return text.ToString();
+    }
+
+    private static string VatRowCaption(string box) => box switch
+    {
+        "1.1" => "Операції за основною ставкою 20%",
+        "1.2" => "Операції за ставкою 7%",
+        "1.3" => "Операції за ставкою 14%",
+        "5" => "Звільнені від оподаткування",
+        "10.1" => "Придбання зі ставкою 20%",
+        "10.2" => "Придбання зі ставкою 7%",
+        "10.3" => "Придбання зі ставкою 14%",
+        _ => box == NotMapped ? "Не зіставлено" : box,
+    };
+
+    /// <summary>
+    /// Рядки J0103509. Графа 3 — ставка 3 %, графа 4 — 5 %. Рядок 9 (попередній
+    /// період) нуль: декларацію збирають наростаючим підсумком з 1 січня.
+    /// Рядок 2 і додаток J0135709 порожні.
+    /// </summary>
+    public List<(string Row, string Caption, decimal Col3, decimal Col4)>
+        ListSingleTaxDeclaration(TaxReturn declaration)
+    {
+        var grouped = declaration.Lines
+            .GroupBy(l => string.IsNullOrWhiteSpace(l.ReturnBox) ? NotMapped : l.ReturnBox!.Trim())
+            .ToDictionary(
+                g => g.Key,
+                g => (Base: g.Sum(l => l.TaxBase), Tax: g.Sum(l => l.TaxAmount)),
+                StringComparer.OrdinalIgnoreCase);
+
+        (decimal Base, decimal Tax) Box(string key)
+            => grouped.TryGetValue(key, out var pair) ? pair : (0m, 0m);
+
+        var r1c3 = Box("1.3");
+        var r1c4 = Box("1.4");
+        var r2c3 = Box("2.3");
+        var r2c4 = Box("2.4");
+        var r3c3 = Box("3.3");
+        var r3c4 = Box("3.4");
+        var r4c3 = Box("4.3");
+        var r4c4 = Box("4.4");
+        var row5c3 = r1c3.Base + r2c3.Base + r3c3.Base + r4c3.Base;
+        var row5c4 = r1c4.Base + r2c4.Base + r3c4.Base + r4c4.Base;
+        var row6c3 = r1c3.Tax;
+        var row6c4 = r1c4.Tax;
+        var row7c3 = r2c3.Tax + r3c3.Tax + r4c3.Tax;
+        var row7c4 = r2c4.Tax + r3c4.Tax + r4c4.Tax;
+        var row8c3 = row6c3 + row7c3;
+        var row8c4 = row6c4 + row7c4;
+
+        var rows = new List<(string, string, decimal, decimal)>
+        {
+            ("1", "Обсяг доходу за основною ставкою", r1c3.Base, r1c4.Base),
+            ("2", "Дохід понад ліміт (подвійна ставка). Не UA-EP15", r2c3.Base, r2c4.Base),
+            ("3", "Негрошові розрахунки", r3c3.Base, r3c4.Base),
+            ("4", "Заборонені види діяльності", r4c3.Base, r4c4.Base),
+            ("5", "Усього доходу (р.1+р.2+р.3+р.4)", row5c3, row5c4),
+            ("6", "Сума єдиного податку (р.1 × ставка)", row6c3, row6c4),
+            ("7", "Єдиний податок за подвійною ставкою", row7c3, row7c4),
+            ("8", "Усього нараховано (р.6+р.7)", row8c3, row8c4),
+            ("9", "Нараховано за попередній період (з 1 січня — нуль)", 0m, 0m),
+            ("10", "До сплати за період (рядок 8 − рядок 9)", row8c3, row8c4),
+        };
+
+        if (grouped.TryGetValue(NotMapped, out var orphan))
+            rows.Add((NotMapped, "Не зіставлено (зокрема UA-EP15 ≠ рядок 2 ЮО)", orphan.Base, orphan.Tax));
+        return rows;
+    }
+
+    public string BuildSingleTaxDeclarationPayload(TaxReturn declaration, LegalEntity? entity)
+    {
+        var text = new StringBuilder();
+        text.AppendLine("# J0103509 Декларація платника єдиного податку 3 групи ЮО (наказ Мінфіну 31.01.2025 № 57). Не XML кабінету ДПС.");
+        text.AppendLine("# Графа 3 = 3 %, графа 4 = 5 %. Рядок 2 і додаток МПЗ порожні. Період — наростаючим підсумком з 1 січня.");
+        Header(text, entity, DpsSingleTaxType, declaration);
+        text.AppendLine("Рядок;Назва;Графа 3 (3%);Графа 4 (5%)");
+        foreach (var row in ListSingleTaxDeclaration(declaration))
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture,
+                "{0};{1};{2:0.00};{3:0.00}",
+                row.Row, row.Caption, row.Col3, row.Col4));
+        }
+        return text.ToString();
     }
 
     /// <summary>

@@ -1,0 +1,10 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
+    "description": "Extension of TaxReturn by model LocalizationUkraine",
+    "metaId": "e434bd4e-efae-4543-a7ed-99b8608c1141",
+    "name": "TaxReturn.LocalizationUkraine",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

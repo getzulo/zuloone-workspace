@@ -18,17 +18,17 @@
   },
   "bindings": [
     {
-      "metaId": "ecfaff29-e241-4052-bbe7-18f9dac8ed14",
-      "printFormMetaId": "be0990d2-37c3-418e-80d3-9ad20caef912",
-      "targetKind": "DocumentSubtype",
-      "targetMetaId": "9c882573-8eb8-4b1c-b3ab-ecebc640a4cc",
-      "scope": "Record"
-    },
-    {
       "metaId": "7b52a3a4-5f5e-4e22-ad00-74f9cfded619",
       "printFormMetaId": "be0990d2-37c3-418e-80d3-9ad20caef912",
       "targetKind": "DocumentSubtype",
       "targetMetaId": "23febbcf-3076-44f7-b43b-2208b7b3a528",
+      "scope": "Record"
+    },
+    {
+      "metaId": "ecfaff29-e241-4052-bbe7-18f9dac8ed14",
+      "printFormMetaId": "be0990d2-37c3-418e-80d3-9ad20caef912",
+      "targetKind": "DocumentSubtype",
+      "targetMetaId": "9c882573-8eb8-4b1c-b3ab-ecebc640a4cc",
       "scope": "Record"
     }
   ]

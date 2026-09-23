@@ -64,6 +64,18 @@
         ],
         "mode": "upsert",
         "rowCount": 9
+      },
+      {
+        "entity": "TaxReportMapping",
+        "table": "TaxReportMapping",
+        "kind": "Dictionary",
+        "businessKey": [
+          "ReturnType",
+          "TaxCode",
+          "Direction"
+        ],
+        "mode": "upsert",
+        "rowCount": 7
       }
     ]
   },
@@ -697,6 +709,64 @@
         },
         "Name_ru": "Военный сбор с зарплаты (Украина)",
         "Name_uk": "Військовий збір із зарплати (Україна)"
+      }
+    ],
+    "TaxReportMapping": [
+      {
+        "ReturnType": "J0200126",
+        "ReturnBox": "1.1",
+        "EffectiveFrom": "2024-10-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-S" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0200126",
+        "ReturnBox": "1.2",
+        "EffectiveFrom": "2024-10-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-7" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0200126",
+        "ReturnBox": "5",
+        "EffectiveFrom": "2024-10-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-E" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0200126",
+        "ReturnBox": "10.1",
+        "EffectiveFrom": "2024-10-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-S" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "INPUT" } }
+      },
+      {
+        "ReturnType": "J0200126",
+        "ReturnBox": "10.2",
+        "EffectiveFrom": "2024-10-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "VAT-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-7" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "INPUT" } }
+      },
+      {
+        "ReturnType": "J0103509",
+        "ReturnBox": "1.3",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EP3" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
+      },
+      {
+        "ReturnType": "J0103509",
+        "ReturnBox": "1.4",
+        "EffectiveFrom": "2025-01-01T00:00:00Z",
+        "Tax": { "$ref": "Tax", "key": { "Code": "EP-UA" } },
+        "TaxCode": { "$ref": "TaxCode", "key": { "Code": "UA-EP5" } },
+        "Direction": { "$ref": "TaxDirection", "key": { "Code": "OUTPUT" } }
       }
     ]
   }

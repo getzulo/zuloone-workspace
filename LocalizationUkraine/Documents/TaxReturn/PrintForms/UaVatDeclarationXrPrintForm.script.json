@@ -1,14 +1,14 @@
 {
   "kind": "Script",
   "object": {
-    "extensionMetaId": "d75377a7-7bc7-4e77-a538-a2faf07d0334",
+    "extensionMetaId": "80d8d553-7529-44f1-b3af-86f0596a3c5c",
     "scriptType": "PrintForm",
     "objectType": "Document",
     "objectName": "TaxReturn",
     "objectMetaId": "fdba6c82-e480-4aea-8ca3-1cb91e04c6df",
     "executionOrder": 0,
-    "metaId": "175178ad-b8b6-40f7-ae15-b55e088217f8",
-    "name": "UaDpsCalculationXrPrintForm",
+    "metaId": "4f8b02d5-7c3e-4019-ad26-b9e5f302c781",
+    "name": "UaVatDeclarationXrPrintForm",
     "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
   }
 }
