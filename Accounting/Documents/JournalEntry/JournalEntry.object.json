@@ -152,6 +152,26 @@
       "metaId": "9a96566b-d5e0-4ac7-8cfc-d4f76ceace64",
       "name": "LegalEntity",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "documentTypeMetaId": "188246b3-5ed0-4da0-98cb-a86b6da36581",
+      "fieldName": "ExchangeRate",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 8,
+      "isRequired": false,
+      "isVisible": true,
+      "displayOrder": 20,
+      "description": "Factor from the document currency to the legal entity's functional one, stamped on save. One when they match. The ledger amount is line amount x this.",
+      "caption": {
+        "en": "Exchange rate",
+        "ar": "سعر الصرف",
+        "ru": "Курс",
+        "uk": "Курс"
+      },
+      "metaId": "73c8c85b-9dea-4ea6-9f82-15127ecfe907",
+      "name": "ExchangeRate",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     }
   ],
   "subtypes": [

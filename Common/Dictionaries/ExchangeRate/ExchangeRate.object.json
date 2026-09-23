@@ -1,0 +1,142 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Exchange rates",
+      "ar": "أسعار الصرف",
+      "ru": "Курсы валют",
+      "uk": "Курси валют"
+    },
+    "description": "Dated rate of a currency to the base one. Pairs convert THROUGH the base: from.RateToBase / to.RateToBase.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "1d8d428b-26be-4691-822e-b6b5a054459b",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Currency",
+    "displayFormat": "{Currency} {RateToBase}",
+    "isKernel": false,
+    "iconName": "fluent-color:arrow-swap-24",
+    "largeIconName": "fluent-color:arrow-swap-24",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "5c88d15d-6bf8-46c6-aa29-562fa32874e5",
+    "name": "ExchangeRate",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "5c88d15d-6bf8-46c6-aa29-562fa32874e5",
+      "fieldName": "Currency",
+      "edtMetaId": "8d2b209b-68a9-41ed-bf05-f069a12dbe2c",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Currency",
+        "ar": "العملة",
+        "ru": "Валюта",
+        "uk": "Валюта"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "6f46992a-62e7-46e8-93fa-474a9ccf4020",
+      "name": "Currency",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "dictionaryMetaId": "5c88d15d-6bf8-46c6-aa29-562fa32874e5",
+      "fieldName": "EffectiveFrom",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective from",
+        "ar": "سارٍ من",
+        "ru": "Действует с",
+        "uk": "Діє з"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "3efa5b20-ce28-485e-8bb4-65bc65c2606d",
+      "name": "EffectiveFrom",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "dictionaryMetaId": "5c88d15d-6bf8-46c6-aa29-562fa32874e5",
+      "fieldName": "EffectiveTo",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "description": "Open window when empty. Windows of one currency may not overlap.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Effective to",
+        "ar": "سارٍ إلى",
+        "ru": "Действует по",
+        "uk": "Діє по"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "cdb8a6a9-98e8-4af5-a66b-49cacea2951c",
+      "name": "EffectiveTo",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "dictionaryMetaId": "5c88d15d-6bf8-46c6-aa29-562fa32874e5",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b39cde45-d2fd-4e6d-a19d-767d887aba4f",
+      "name": "ID",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    },
+    {
+      "dictionaryMetaId": "5c88d15d-6bf8-46c6-aa29-562fa32874e5",
+      "fieldName": "RateToBase",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 8,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "description": "How much of the BASE currency one unit of this one is worth. The base currency is whichever carries 1 — it is not configured anywhere, exactly as UnitOfMeasure.RatioToBase needs no named base unit.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Rate to base",
+        "ar": "السعر مقابل الأساس",
+        "ru": "Курс к базовой",
+        "uk": "Курс до базової"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b64621b8-1a12-4e09-93da-360db57e16a3",
+      "name": "RateToBase",
+      "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "CurrencyRateService",
+    "executionOrder": 0,
+    "metaId": "73e40bdc-ef59-4e48-aae6-a0eb11ff773d",
+    "name": "CurrencyRateService",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  }
+}

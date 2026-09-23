@@ -22,18 +22,27 @@ public partial class GLPostingTx
         var mgt = tags.Any(t => string.Equals(t, "MGT", StringComparison.OrdinalIgnoreCase));
         var tax = tags.Any(t => string.Equals(t, "TAX", StringComparison.OrdinalIgnoreCase));
 
+        // Книга ведётся в ФУНКЦИОНАЛЬНОЙ валюте юрлица, а строки введены в
+        // валюте документа. Курс проштампован на шапке в OnBeforeSave: сюда
+        // сходить за ним нечем — GetTransactions синхронный. Ноль сюда не
+        // доезжает, его отклоняет OnBeforePost; единица — обычный случай
+        // совпадающих валют.
+        var fx = document.ExchangeRate <= 0m ? 1m : document.ExchangeRate;
+
         foreach (var line in document.Lines)
         {
+            var debit = line.Debit * fx;
+            var credit = line.Credit * fx;
             transactions.Add(new RegisterMovementSpec("GL")
                 .An(Analytics.GL.Account, line.Account)
                 .An(Analytics.GL.LegalEntity, document.LegalEntity)
                 .An(Analytics.GL.FiscalPeriod, document.FiscalPeriod)
-                .Res("Debit", line.Debit)
-                .Res("Credit", line.Credit)
-                .Res("ManagementDebit", mgt ? line.Debit : 0m)
-                .Res("ManagementCredit", mgt ? line.Credit : 0m)
-                .Res("TaxDebit", tax ? line.Debit : 0m)
-                .Res("TaxCredit", tax ? line.Credit : 0m));
+                .Res("Debit", debit)
+                .Res("Credit", credit)
+                .Res("ManagementDebit", mgt ? debit : 0m)
+                .Res("ManagementCredit", mgt ? credit : 0m)
+                .Res("TaxDebit", tax ? debit : 0m)
+                .Res("TaxCredit", tax ? credit : 0m));
         }
     }
 }

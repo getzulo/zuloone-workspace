@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "ExchangeRate",
+    "objectMetaId": "5c88d15d-6bf8-46c6-aa29-562fa32874e5",
+    "executionOrder": 0,
+    "metaId": "ac0d006f-ae82-404f-bd52-c94d1a8c97a4",
+    "name": "ExchangeRateEventHandler",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  }
+}

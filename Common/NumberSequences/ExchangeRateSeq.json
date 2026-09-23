@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "1d8d428b-26be-4691-822e-b6b5a054459b",
+    "name": "ExchangeRateSeq",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  }
+}

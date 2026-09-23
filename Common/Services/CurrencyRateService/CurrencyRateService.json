@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Курс валюты на дату и перевод сумм между валютами через базовую; окна датированы, пересечения запрещены событием справочника",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "73e40bdc-ef59-4e48-aae6-a0eb11ff773d",
+    "metaId": "88ac84ba-3b69-45f0-b8d1-53abefa0fc10",
+    "name": "CurrencyRateService",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  }
+}
