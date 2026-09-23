@@ -115,6 +115,31 @@
       "metaId": "be2d9a61-2b3b-4246-af6e-9bef3bcf11b5",
       "name": "Name",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "c747510e-3085-4992-a948-0645e821c83b",
+      "fieldName": "CapacityMinutesPerDay",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 4,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "description": "Minutes this center can run in a day. Zero = no ceiling declared, and the load report only counts.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Capacity, min/day",
+        "ar": "الطاقة، دقيقة/يوم",
+        "ru": "Мощность, мин/день",
+        "uk": "Потужність, хв/день"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "23dc8546-3905-468b-97d3-da893bd57afc",
+      "name": "CapacityMinutesPerDay",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     }
   ]
 }

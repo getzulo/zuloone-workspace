@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Load of a work center: planned minutes queued at it by released production orders, against the declared daily capacity.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "274a07bf-d318-4e1e-8d8e-27223e5e8585",
+    "metaId": "317a7794-87dc-484c-931b-a230eaf12961",
+    "name": "WorkCenterLoadService",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}

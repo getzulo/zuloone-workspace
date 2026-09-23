@@ -51,7 +51,17 @@ public partial class ReleaseProductionCommand
 
         full.Subtype = ProductionOrder.Subtypes.Released;
         await docs.SaveDocumentAsync(full);
-        context.AddClientAction(ClientAction.Message("Заказ запущен в работу: комплектующие списаны."));
+
+        // Мощность — план, а не физический закон: запуск сверх неё законен
+        // (сверхурочные, вторая смена). Поэтому перегрузка ПРЕДУПРЕЖДАЕТ, а не
+        // отказывает, и считается ПОСЛЕ запуска — иначе пришлось бы решать,
+        // числить этот заказ в очереди или ещё нет.
+        var overload = await context.GetService<IWorkCenterLoadService>()
+            .OverloadWarningAsync(full.MetaId);
+        context.AddClientAction(ClientAction.Message(
+            overload == null
+                ? "Заказ запущен в работу: комплектующие списаны."
+                : $"Заказ запущен в работу: комплектующие списаны. Перегрузка на день заказа — {overload}."));
     }
 
     static async Task<decimal> BaseQtyAsync(
