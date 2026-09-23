@@ -77,7 +77,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;31;10000.00;10000.00;0.00;2200.00;1;0"),
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;31;0;10000.00;10000.00;0.00;2200.00;1;0"),
             "рядок Д1. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("R01G20;2200.00"), "разом ЄСВ роботодавця. Факт:\n{0}", text);
     }
@@ -95,9 +95,9 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;20;10000.00;10000.00;0.00;2200.00;1;0"),
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;20;0;10000.00;10000.00;0.00;2200.00;1;0"),
             "G14 = дні від найму, не довжина місяця. Факт:\n{0}", text);
-        Assert.IsTrue(!text.Contains(";31;10000.00"),
+        Assert.IsTrue(!text.Contains(";31;0;10000.00"),
             "цілий березень не підставляється. Факт:\n{0}", text);
     }
 
@@ -114,7 +114,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var text = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;10;10000.00;10000.00;0.00;2200.00;1;0"),
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;10;0;10000.00;10000.00;0.00;2200.00;1;0"),
             "G14 обрізається датою звільнення. Факт:\n{0}", text);
     }
 
@@ -171,7 +171,7 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         await Filing.ExportDpsPayrollAsync(returnId);
 
         var d1 = await PayloadAsync(env.Entity, "J0510111");
-        Assert.IsTrue(d1.Contains("3123456789;1;1;3;2026;Петренко;31;10000.00;10000.00;0.00;2200.00;1;0"),
+        Assert.IsTrue(d1.Contains("3123456789;1;1;3;2026;Петренко;31;0;10000.00;10000.00;0.00;2200.00;1;0"),
             "Д1 нараховане ЄСВ не з'їдає сплата. Факт:\n{0}", d1);
         Assert.IsTrue(d1.Contains("R01G20;2200.00"), "разом G20 лишається. Факт:\n{0}", d1);
 
@@ -182,6 +182,42 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
             "сплачено з платежу в фонд. Факт:\n{0}", calc);
         Assert.IsTrue(calc.Contains("R0107G3;Єдиний внесок до сплати;0.00"),
             "до сплати нуль. Факт:\n{0}", calc);
+    }
+
+    [IntegrationTest("Д1 J0510111: TimeOff Kind=Sick дає G15=5, Vacation не рахується")]
+    public async Task D1SickDaysFromTimeOff()
+    {
+        var env = await SetupAsync();
+        await ConfigureHrAsync();
+        await ConfigureUaAsync();
+
+        var sick = Dict.NewRecord<TimeOff>();
+        sick.Name = "Лікарняний";
+        sick.Employee = env.Employee;
+        sick.Kind = AttendanceDayKind.Sick;
+        sick.DateFrom = new DateTime(2026, 3, 10);
+        sick.DateTo = new DateTime(2026, 3, 14);
+        await Dict.SaveRecordAsync(sick);
+
+        var vacation = Dict.NewRecord<TimeOff>();
+        vacation.Name = "Відпустка";
+        vacation.Employee = env.Employee;
+        vacation.Kind = AttendanceDayKind.Vacation;
+        vacation.DateFrom = new DateTime(2026, 3, 20);
+        vacation.DateTo = new DateTime(2026, 3, 22);
+        await Dict.SaveRecordAsync(vacation);
+
+        await AccrueAsync(env.Division, env.Employee, 10000m, new DateTime(2026, 3, 15));
+
+        var returnId = await Returns.BuildAsync(env.Entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportDpsPayrollAsync(returnId);
+
+        var text = await PayloadAsync(env.Entity, "J0510111");
+        Assert.IsTrue(text.Contains("T1RXXXXG15"), "графа G15 в шапці CSV. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("3123456789;1;1;3;2026;Петренко;31;5;10000.00;10000.00;0.00;2200.00;1;0"),
+            "G15 = 5 днів Sick 10–14 березня, Vacation 20–22 не додає. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains(";1;"),
+            "тип нарахувань лишається 1, не 3. Факт:\n{0}", text);
     }
 
     [IntegrationTest("4ДФ J0510411: ознака 102 з картки працівника")]
