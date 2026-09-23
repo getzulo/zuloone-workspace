@@ -70,6 +70,31 @@
     },
     {
       "dictionaryMetaId": "c747510e-3085-4992-a948-0645e821c83b",
+      "fieldName": "HourlyRate",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 4,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "description": "Absorption rate of one hour at this center. Used when the confirmed operation names no operator; an operator's position rate wins.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Hourly rate",
+        "ar": "السعر بالساعة",
+        "ru": "Ставка за час",
+        "uk": "Ставка за годину"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "ccea6812-16f5-4fef-a792-d0e5b113defb",
+      "name": "HourlyRate",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "c747510e-3085-4992-a948-0645e821c83b",
       "fieldName": "Name",
       "baseType": "String",
       "length": 160,

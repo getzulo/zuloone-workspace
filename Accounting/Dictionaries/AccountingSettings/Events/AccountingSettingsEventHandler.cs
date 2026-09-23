@@ -69,6 +69,7 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
             ["Расходы на соцстрах"] = record.SocialInsuranceExpenseAccountCode,
             ["Задолженность перед фондом"] = record.SocialInsurancePayableAccountCode,
             ["Незавершёнка"] = record.WipAccountCode,
+            ["Отнесённый труд"] = record.LaborAbsorbedAccountCode,
         };
 
         foreach (var kv in codes)
@@ -95,6 +96,7 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
         record.InventoryAccountCode = await CodeOfAsync(accounts, record.InventoryAccount, record.InventoryAccountCode);
         record.InventorySurplusAccountCode = await CodeOfAsync(accounts, record.InventorySurplusAccount, record.InventorySurplusAccountCode);
         record.InventoryWriteOffAccountCode = await CodeOfAsync(accounts, record.InventoryWriteOffAccount, record.InventoryWriteOffAccountCode);
+        record.LaborAbsorbedAccountCode = await CodeOfAsync(accounts, record.LaborAbsorbedAccount, record.LaborAbsorbedAccountCode);
         record.PayableAccountCode = await CodeOfAsync(accounts, record.PayableAccount, record.PayableAccountCode);
         record.PayrollExpenseAccountCode = await CodeOfAsync(accounts, record.PayrollExpenseAccount, record.PayrollExpenseAccountCode);
         record.PayrollLiabilityAccountCode = await CodeOfAsync(accounts, record.PayrollLiabilityAccount, record.PayrollLiabilityAccountCode);

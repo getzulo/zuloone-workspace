@@ -18,6 +18,74 @@
   "properties": [
     {
       "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "fieldName": "ActualMinutes",
+      "caption": {
+        "en": "Actual minutes",
+        "ar": "الدقائق الفعلية",
+        "ru": "Факт, минут",
+        "uk": "Факт, хвилин"
+      },
+      "description": "Shop-floor confirmation: minutes actually spent. Zero means not confirmed yet.",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 4,
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 6,
+      "metaId": "cbff11e7-4864-433d-a548-69371afd30af",
+      "name": "ActualMinutes",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "fieldName": "CompletedOn",
+      "caption": {
+        "en": "Completed on",
+        "ar": "تاريخ الإنجاز",
+        "ru": "Отмечено",
+        "uk": "Відмічено"
+      },
+      "description": "When the shop floor confirmed the step. Empty means open.",
+      "baseType": "DateTime",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 7,
+      "metaId": "f926716c-65af-4bf4-a210-161e966658ca",
+      "name": "CompletedOn",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "fieldName": "Employee",
+      "caption": {
+        "en": "Operator",
+        "ar": "المشغّل",
+        "ru": "Исполнитель",
+        "uk": "Виконавець"
+      },
+      "description": "Who ran the step. Optional: the work center rate applies when unset.",
+      "edtMetaId": "8c097519-437b-4612-bd87-c61b5fa1d498",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "referenceName": "Employee",
+      "displayOrder": 8,
+      "metaId": "6471b588-e103-4fcc-912c-630e89bb945c",
+      "name": "Employee",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
       "fieldName": "Name",
       "caption": {
         "en": "Name",

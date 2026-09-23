@@ -797,6 +797,53 @@
       "metaId": "8a3c1e5f-2b47-4d90-9c16-7e4f0a2b8d51",
       "name": "WipAccountCode",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "LaborAbsorbedAccount",
+      "edtMetaId": "6157dcf8-a8d6-4b52-ba00-83679883938d",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 18,
+      "description": "Chart of accounts leaf for this posting leg. Stamps the matching *AccountCode on save. Empty = keep the string code (legacy / tests).",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Labor absorbed account",
+        "ar": "حساب العمالة المحمّلة",
+        "ru": "Счёт отнесённого труда",
+        "uk": "Рахунок віднесеної праці"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "1db18707-3677-4efb-841d-07ff7d254796",
+      "name": "LaborAbsorbedAccount",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "LaborAbsorbedAccountCode",
+      "baseType": "String",
+      "length": 32,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 18,
+      "description": "Код счёта плана счетов (ChartOfAccounts.Code), в который субледжер разносит эту сторону проводки. Hidden: pick the matching *Account reference; this code is stamped on save.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Labor absorbed account code",
+        "ar": "رمز حساب العمالة المحمّلة",
+        "ru": "Счёт отнесённого труда",
+        "uk": "Рахунок віднесеної праці"
+      },
+      "isTranslatable": false,
+      "isVisible": false,
+      "isCalculated": false,
+      "metaId": "68aff9c1-4ee9-4fb2-a1de-f8daf4874b37",
+      "name": "LaborAbsorbedAccountCode",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     }
   ]
 }

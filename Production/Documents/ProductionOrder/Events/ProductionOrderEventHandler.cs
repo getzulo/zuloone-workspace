@@ -79,6 +79,11 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         if (document.Subtype != "Finished" && document.Subtype != "Released")
             return EventResult.Ok();
 
+        // Цеховая отметка проверяется ОДНИМ предикатом сервиса — тем же, что
+        // защищает оценку. Отрицательный факт минут удешевил бы выпуск.
+        var laborProblem = await context.GetService<ILaborCostService>().ProblemAsync(document.MetaId);
+        if (laborProblem != null) return EventResult.Cancel(laborProblem);
+
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<ProductionOrder>(document.MetaId);
         var components = full?.Components ?? document.Components;
         var quantity = full?.Quantity ?? document.Quantity;
@@ -137,6 +142,14 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
     // what the engine took off the layers. Taking them, output is valued by the
     // same method as the issue, and inventory value stays value-neutral under
     // any setting — by construction, not by coincidence.
+    //
+    // ТРУД СВЕРХ МАТЕРИАЛОВ. Отмеченные цехом операции маршрута поглощаются
+    // изделием по часовой ставке (ILaborCostService) — выпуск стоит дороже
+    // списанных материалов ровно на эту сумму. Заказ без отметки даёт ноль,
+    // поэтому поведение прежних заказов не меняется и флага-рубильника нет:
+    // умолчание рабочее. Книга добирает ту же сумму отдельной проводкой
+    // Dr запасы / Cr отнесённый труд (ProductionGLEventHandler), иначе леджер
+    // разошёлся бы с регистром себестоимости на стоимость труда.
     public override async Task<EventResult> OnAfterPostAsync(ProductionOrder document, EventContext context){
         var prior = await next(document, context);
         if (!prior.Success) return prior;
@@ -162,6 +175,8 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
             var amount = row["Amount"] is null ? 0m : Convert.ToDecimal(row["Amount"]);
             if (amount < 0m) totalCost += -amount;
         }
+
+        totalCost += await context.GetService<ILaborCostService>().OrderLaborCostAsync(document.MetaId);
 
         var movementDate = (full?.DocumentDate ?? document.DocumentDate) == default
             ? DateTime.UtcNow.Date

@@ -2,6 +2,9 @@ import json, subprocess, sys
 
 # Прогон тестов по GUID через API стенда с человекочитаемым итогом.
 # Ответ /run: {"scripts":[{"testName","cases":[{"name","outcome","errorDetail"}]}]}
+# Консоль Windows по умолчанию cp1252 — кириллица в сообщениях падала бы
+# UnicodeEncodeError уже ПОСЛЕ прогона, пряча настоящую причину отказа.
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 base = "http://localhost:5257/api/metadata/tests"
 bad = 0
 for tid in sys.argv[1:]:

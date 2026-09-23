@@ -1,0 +1,28 @@
+{
+  "kind": "DocumentCommand",
+  "object": {
+    "caption": {
+      "en": "Confirm operations",
+      "ar": "تأكيد العمليات",
+      "ru": "Отметить операции",
+      "uk": "Відмітити операції"
+    },
+    "scriptMetaId": "10266560-a928-4e49-b147-ff0d8fee7d96",
+    "parameterMode": "None",
+    "displayOrder": 1,
+    "beginGroup": false,
+    "isEnabled": true,
+    "requiresConfirmation": false,
+    "reloadAfterExecution": true,
+    "metaId": "6948e09c-5763-41c4-b6b3-1eb52ae88963",
+    "name": "ConfirmOperations",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  },
+  "subtypeBindings": [
+    {
+      "metaId": "93ae72c1-bab4-4828-b13e-1898fa87800f",
+      "documentCommandMetaId": "6948e09c-5763-41c4-b6b3-1eb52ae88963",
+      "documentSubtypeMetaId": "9c8d7e6f-5a4b-4c3d-8e2f-1a0b9c8d7e6f"
+    }
+  ]
+}

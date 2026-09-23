@@ -34,7 +34,57 @@ public partial class ProductionGLEventHandler : TypedDocumentEventHandler<Produc
         if (jeId.HasValue)
             await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, jeId.Value);
 
+        var laborId = await PostLaborAsync(document, context);
+        if (laborId.HasValue)
+            await context.GetService<IDocumentManager>().AddLinkAsync(document.MetaId, laborId.Value);
+
         return EventResult.Ok();
+    }
+
+    // ТРУД — ВТОРАЯ ПАРА, И БЕЗ НЕЁ КНИГА РАСХОДИТСЯ С РЕГИСТРОМ.
+    //
+    // Пара выше двусторонняя по одной сумме: Released Dr WIP / Cr запасы на
+    // стоимость МАТЕРИАЛОВ, Finished — обратно. Она читает ItemCostFifo и
+    // видит только отрицательные суммы, то есть списание компонентов.
+    //
+    // А слой выпуска, который заводит владелец документа, стоит материалы ПЛЮС
+    // отнесённый труд. Оставить как было значило бы: регистр себестоимости
+    // подорожал на труд, леджер — нет, и разница тихо живёт до сверки.
+    // Поэтому на выпуске добавляется Dr запасы / Cr отнесённый труд.
+    //
+    // Счёт отнесённого труда — контрсчёт расхода на оплату труда: ФОТ начислен
+    // отдельно (PayrollGLEventHandler), а эта проводка переносит его часть в
+    // запас. Счёт не заполнен — проводки нет, как и у любой другой ноги
+    // профиля: разноска best-effort и выпуск ронять не должна.
+    private static async Task<Guid?> PostLaborAsync(ProductionOrder header, EventContext context)
+    {
+        if (header.Subtype != "Finished") return null;
+
+        var gl = context.GetService<IGeneralLedgerService>();
+        var settings = await gl.GetSettingsAsync();
+        if (settings == null) return null;
+        if (string.IsNullOrWhiteSpace(settings.LaborAbsorbedAccountCode)
+            || string.IsNullOrWhiteSpace(settings.InventoryAccountCode))
+            return null;
+
+        var labor = await context.GetService<ILaborCostService>().OrderLaborCostAsync(header.MetaId);
+        if (labor <= 0m) return null;
+
+        var docs = context.GetService<IDocumentManager>();
+        var order = await docs.GetDocumentAsync<ProductionOrder>(header.MetaId);
+        if (order == null) return null;
+
+        var le = await ResolveLegalEntityAsync(order.Location, context);
+        if (le == null) return null;
+
+        var date = order.DocumentDate == default ? DateTime.UtcNow.Date : order.DocumentDate.Date;
+        return await gl.PostAsync(
+            date, le.MetaId, le.Currency, labor,
+            settings.InventoryAccountCode,
+            settings.LaborAbsorbedAccountCode,
+            "Production labor " + header.MetaId,
+            "Труд в себестоимости выпуска",
+            "Отнесение труда на изделие");
     }
 
     private static async Task<Guid?> PostToLedgerAsync(ProductionOrder header, EventContext context)

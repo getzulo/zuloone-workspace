@@ -76,6 +76,22 @@ public partial class <Документ>LinesEventHandler
 }
 ```
 
+**Необязательный скаляр СТРОКИ генерится nullable — не как поле справочника.**
+`isRequired: false` + `baseType: "Decimal"` даёт `public decimal? Quantity`,
+`Integer` → `int?`, `DateTime` → `DateTime?`. У справочника та же строка даёт
+non-nullable (и оттуда правило «флаг называй так, чтобы рабочим было `false`»,
+§9). У табличной части — наоборот, и это ловушка в две стороны:
+
+- `row.CompletedOn == default` НЕ значит «не заполнено»: сравнивать надо с
+  `null`. Арифметика — через `?? 0`.
+- Ошибка приходит под чужим именем: `Math.Round(row.Minutes / 60m * rate, 2)`
+  падает как **`CS1503 cannot convert from 'decimal?' to 'decimal'`**, то есть
+  выглядит опечаткой в аргументах, а не проблемой метаданных.
+
+Ссылка (`edtMetaId`) при этом non-nullable и в строке: пустая ссылка —
+`Guid.Empty`. Так что в одной строке уживаются оба соглашения. Сверяйся с
+`.generated/Entities/<Имя>TablePartRow.cs` — это и есть истина.
+
 ## 2. Документ — `Documents/<Имя>/<Имя>.object.json`
 
 ```json

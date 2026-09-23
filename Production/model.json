@@ -7,7 +7,7 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.7.0",
+    "modelVersion": "1.8.0",
     "metaId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80",
     "name": "Production",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -31,6 +31,12 @@
       "minVersion": "1.0.0",
       "metaId": "2b8c1f6a-4d7e-4a9b-8c3f-1e5a6d2b7c90",
       "name": "Production->Inventory"
+    },
+    {
+      "dependsOnModelMetaId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8",
+      "minVersion": "1.9.0",
+      "metaId": "8058aa11-e6b2-4232-9434-9a4b9ce92285",
+      "name": "Production->HR"
     }
   ]
 }

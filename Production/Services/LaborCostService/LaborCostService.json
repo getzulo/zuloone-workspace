@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Labor absorbed by a production order: confirmed operation minutes priced by the operator's position rate or the work center rate.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "01beb8e7-916a-4a7f-9bc1-793a6ac3436e",
+    "metaId": "fb47c58f-814b-4729-a512-611fedb965d3",
+    "name": "LaborCostService",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}

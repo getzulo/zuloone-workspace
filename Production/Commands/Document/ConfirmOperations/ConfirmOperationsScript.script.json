@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "ConfirmOperations",
+    "objectMetaId": "6948e09c-5763-41c4-b6b3-1eb52ae88963",
+    "executionOrder": 0,
+    "metaId": "10266560-a928-4e49-b147-ff0d8fee7d96",
+    "name": "ConfirmOperationsScript",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}
