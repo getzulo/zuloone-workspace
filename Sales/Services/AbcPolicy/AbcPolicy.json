@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "ABC/XYZ replenishment: match SliceLast classes to AbcPolicyCell and write IR AbcSuggestion. Does not post stock.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "945d4209-820b-4905-a957-4e128a5acc9b",
+    "metaId": "14131d19-8249-49e6-bd59-08fa9a65f347",
+    "name": "AbcPolicy",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

@@ -220,6 +220,96 @@
       "metaId": "fbe5d61f-3c0e-434a-9575-caf9ba3299ed",
       "name": "DepartedAt",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
+      "fieldName": "PlannedLat",
+      "caption": {
+        "en": "Planned latitude",
+        "ar": "خط العرض المخطط",
+        "ru": "Широта плана",
+        "uk": "Широта плану"
+      },
+      "description": "Copied from the route stop. Empty when the stop has no pin.",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 6,
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 11,
+      "metaId": "d4f7b125-9e63-4048-c1b7-5e0c3f8b1f54",
+      "name": "PlannedLat",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
+      "fieldName": "PlannedLng",
+      "caption": {
+        "en": "Planned longitude",
+        "ar": "خط الطول المخطط",
+        "ru": "Долгота плана",
+        "uk": "Довгота плану"
+      },
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 6,
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 12,
+      "metaId": "e5a8c236-0f74-4159-d2c8-6f1d4a9c2a65",
+      "name": "PlannedLng",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
+      "fieldName": "ActualLat",
+      "caption": {
+        "en": "Actual latitude",
+        "ar": "خط العرض الفعلي",
+        "ru": "Широта факта",
+        "uk": "Широта факту"
+      },
+      "description": "Where the stop was actually served. Empty means no pin was taken.",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 6,
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 13,
+      "metaId": "f6b9d347-1085-426a-e3d9-7a2e5b0d3b76",
+      "name": "ActualLat",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "tablePartTypeMetaId": "4ecb5a90-963c-4aca-8b16-52bb0e3d8ee9",
+      "fieldName": "ActualLng",
+      "caption": {
+        "en": "Actual longitude",
+        "ar": "خط الطول الفعلي",
+        "ru": "Долгота факта",
+        "uk": "Довгота факту"
+      },
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 6,
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 14,
+      "metaId": "a7c0e458-2196-437b-f4ea-8b3f6c1e4c87",
+      "name": "ActualLng",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

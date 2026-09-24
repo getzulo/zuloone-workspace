@@ -1,0 +1,141 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "ABC replenishment cells",
+      "ar": "خلايا تجديد ABC",
+      "ru": "Ячейки пополнения ABC",
+      "uk": "Комірки поповнення ABC"
+    },
+    "description": "One AX…CZ cell of a profile: class pair plus keep-stock or buy-to-order. Letters are data, not hardcoded.",
+    "isLogged": true,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "6b74ab8d-ebf5-44d7-bbf3-5162411b9994",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "AbcClass",
+    "displayFormat": "{AbcClass}/{XyzClass}",
+    "isKernel": false,
+    "iconName": "fluent-color:grid-24",
+    "largeIconName": "fluent-color:grid-24",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
+    "name": "AbcPolicyCell",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
+      "fieldName": "Profile",
+      "edtMetaId": "5af84ef5-89c0-485e-a632-521c70da482e",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Profile",
+        "ar": "الملف",
+        "ru": "Профиль",
+        "uk": "Профіль"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "cbf6174f-9f21-4719-b392-ddfdeac745f7",
+      "name": "Profile",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
+      "fieldName": "AbcClass",
+      "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "ABC",
+        "ar": "ABC",
+        "ru": "ABC",
+        "uk": "ABC"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d2d53587-9273-4988-8c3e-339713b1c565",
+      "name": "AbcClass",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
+      "fieldName": "XyzClass",
+      "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "XYZ",
+        "ar": "XYZ",
+        "ru": "XYZ",
+        "uk": "XYZ"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "cace45a4-35ee-47b9-8aa7-7d4b7cc01e1e",
+      "name": "XyzClass",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
+      "fieldName": "Mode",
+      "edtMetaId": "9d40d528-0511-4042-b986-8429c0549a03",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Mode",
+        "ar": "الوضع",
+        "ru": "Режим",
+        "uk": "Режим"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e8e5f785-bf41-4c39-a16e-95e744c66663",
+      "name": "Mode",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
+      "fieldName": "CoverDays",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Cover, days",
+        "ar": "التغطية، أيام",
+        "ru": "Покрытие, дней",
+        "uk": "Покриття, днів"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f0e91832-a7af-488f-9bfe-65b051f51e3b",
+      "name": "CoverDays",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ]
+}

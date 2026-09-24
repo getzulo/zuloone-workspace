@@ -203,6 +203,56 @@
       "metaId": "3c5eab69-f835-4d58-82fa-0a8fa866443b",
       "name": "WindowToMinutes",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "d6048607-6f9b-4758-9647-3cfbd5c7474c",
+      "fieldName": "Lat",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 6,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "description": "Planned latitude. Both Lat and Lng zero means the stop has no pin.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Latitude",
+        "ar": "خط العرض",
+        "ru": "Широта",
+        "uk": "Широта"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b2d5f903-7c41-4e26-af95-3c8a1d6f9d32",
+      "name": "Lat",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "d6048607-6f9b-4758-9647-3cfbd5c7474c",
+      "fieldName": "Lng",
+      "baseType": "Decimal",
+      "precision": 18,
+      "scale": 6,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "description": "Planned longitude. Both Lat and Lng zero means the stop has no pin.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Longitude",
+        "ar": "خط الطول",
+        "ru": "Долгота",
+        "uk": "Довгота"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c3e6a014-8d52-4f37-b0a6-4d9b2e7a0e43",
+      "name": "Lng",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]
 }

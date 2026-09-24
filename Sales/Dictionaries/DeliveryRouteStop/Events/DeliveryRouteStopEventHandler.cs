@@ -22,6 +22,13 @@ public partial class DeliveryRouteStopEventHandler : TypedDictionaryEventHandler
         if (record.WindowFromMinutes > 0 && record.WindowToMinutes > 0
             && record.WindowFromMinutes > record.WindowToMinutes)
             return EventResult.Cancel("Окно остановки задано наоборот: начало позже конца");
+        if (record.Lat != 0m || record.Lng != 0m)
+        {
+            if (record.Lat < -90m || record.Lat > 90m)
+                return EventResult.Cancel("Широта должна быть от −90 до 90");
+            if (record.Lng < -180m || record.Lng > 180m)
+                return EventResult.Cancel("Долгота должна быть от −180 до 180");
+        }
 
         var outlet = await context.GetService<IDictionaryManager<CustomerOutlet>>()
             .GetRecordAsync(record.Outlet);

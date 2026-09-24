@@ -176,8 +176,27 @@ public partial class DeliveryService
                 if (departed < arrived)
                     return $"{name}: убытие ({departed:HH:mm}) раньше прибытия ({arrived:HH:mm}).";
             }
+            var pin = PinProblem(line);
+            if (pin != null) return $"{name}: {pin}";
         }
         return null;
+    }
+
+    private static string? PinProblem(DeliveryTripLinesTablePartRow line)
+    {
+        if ((line.PlannedLat is decimal) != (line.PlannedLng is decimal)
+            || (line.ActualLat is decimal) != (line.ActualLng is decimal))
+            return "укажите и широту, и долготу.";
+        if (OutOfRange(line.PlannedLat, line.PlannedLng) || OutOfRange(line.ActualLat, line.ActualLng))
+            return "координаты вне диапазона.";
+        return null;
+    }
+
+    private static bool OutOfRange(decimal? lat, decimal? lng)
+    {
+        if (lat is not decimal a || lng is not decimal b) return false;
+        if (a == 0m && b == 0m) return false;
+        return a < -90m || a > 90m || b < -180m || b > 180m;
     }
 
     /// <summary>
@@ -217,6 +236,58 @@ public partial class DeliveryService
                 late.Add($"точка {line.StopSequence?.ToString() ?? "?"} — {verdict}");
         }
         return late.Count == 0 ? "" : string.Join(", ", late);
+    }
+
+    /// <summary>
+    /// Метры по дуге большого круга (радиус Земли 6 371 км). Оба нуля — не точка:
+    /// так же, как визит без координат.
+    /// </summary>
+    public int PinDistanceMeters(decimal lat1, decimal lng1, decimal lat2, decimal lng2)
+    {
+        const double earth = 6_371_000d;
+        var p1 = (double)lat1 * Math.PI / 180d;
+        var p2 = (double)lat2 * Math.PI / 180d;
+        var dLat = ((double)lat2 - (double)lat1) * Math.PI / 180d;
+        var dLng = ((double)lng2 - (double)lng1) * Math.PI / 180d;
+        var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2)
+            + Math.Cos(p1) * Math.Cos(p2) * Math.Sin(dLng / 2) * Math.Sin(dLng / 2);
+        var meters = earth * 2d * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1d - a));
+        return (int)Math.Round(meters, MidpointRounding.AwayFromZero);
+    }
+
+    /// <summary>
+    /// Точки, чей факт дальше допуска маршрута. Пусто, если допуск 0, пина нет
+    /// или факт в допуске. Завершение это называет и всё равно закрывает рейс.
+    /// </summary>
+    public async Task<string> PinOffSummaryAsync(Guid tripId)
+    {
+        var trip = await _documents.GetDocumentAsync<DeliveryTrip>(tripId);
+        if (trip is null || trip.Route == Guid.Empty) return "";
+        var route = await _routes.GetRecordAsync(trip.Route);
+        if (route is null || route.ArriveRadiusMeters <= 0) return "";
+
+        var off = new List<string>();
+        foreach (var line in trip.Lines.OrderBy(l => l.StopSequence ?? 0))
+        {
+            if (!TryPin(line.PlannedLat, line.PlannedLng, out var plat, out var plng)) continue;
+            if (!TryPin(line.ActualLat, line.ActualLng, out var alat, out var alng)) continue;
+            var meters = PinDistanceMeters(plat, plng, alat, alng);
+            if (meters > route.ArriveRadiusMeters)
+                off.Add($"точка {line.StopSequence?.ToString() ?? "?"} — {meters} м от плана");
+        }
+        return off.Count == 0 ? "" : string.Join(", ", off);
+    }
+
+    private static bool TryPin(decimal? lat, decimal? lng, out decimal la, out decimal ln)
+    {
+        la = 0m;
+        ln = 0m;
+        if (lat is not decimal a || lng is not decimal b) return false;
+        if (a == 0m && b == 0m) return false;
+        if (a < -90m || a > 90m || b < -180m || b > 180m) return false;
+        la = a;
+        ln = b;
+        return true;
     }
 
     /// <summary>Add confirmed orders of the route outlets on the trip date.
@@ -259,6 +330,8 @@ public partial class DeliveryService
                     PlannedFromMinutes = stop.WindowFromMinutes,
                     PlannedToMinutes = stop.WindowToMinutes,
                     DwellMinutes = stop.DwellMinutes,
+                    PlannedLat = stop.Lat == 0m && stop.Lng == 0m ? null : stop.Lat,
+                    PlannedLng = stop.Lat == 0m && stop.Lng == 0m ? null : stop.Lng,
                 });
                 taken.Add(orderId);
                 added++;

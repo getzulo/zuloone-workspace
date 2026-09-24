@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"Ячейка матрицы\",\"columns\":1,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"Profile\"},{\"type\":\"field\",\"name\":\"AbcClass\"},{\"type\":\"field\",\"name\":\"XyzClass\"},{\"type\":\"field\",\"name\":\"Mode\"},{\"type\":\"field\",\"name\":\"CoverDays\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[\"ID\"]}",
+    "metaId": "64ee9384-17eb-4241-bda4-b2e92c084e1e",
+    "name": "AbcPolicyCell.Record",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

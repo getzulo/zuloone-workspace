@@ -1,0 +1,57 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "Что делать с товаром этого класса ABC/XYZ. Ноль обязан быть «не задано»: перечисление не-nullable, пустое поле равно нулю и ячейку не применяет.",
+    "isExtension": false,
+    "metaId": "fbb2bc04-3fb9-48fc-8e21-1d10dcb11808",
+    "name": "AbcStockMode",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "values": [
+    {
+      "enumMetaId": "fbb2bc04-3fb9-48fc-8e21-1d10dcb11808",
+      "value": 0,
+      "caption": {
+        "en": "Not set",
+        "ar": "غير محدد",
+        "ru": "Не задано",
+        "uk": "Не задано"
+      },
+      "displayOrder": 0,
+      "description": "Ячейка есть, но предложение не считается. Пустое поле равно этому значению.",
+      "metaId": "970af264-3159-4f2e-a214-720d6870dfc9",
+      "name": "Unspecified",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "enumMetaId": "fbb2bc04-3fb9-48fc-8e21-1d10dcb11808",
+      "value": 1,
+      "caption": {
+        "en": "Keep stock",
+        "ar": "الاحتفاظ بالمخزون",
+        "ru": "Держать запас",
+        "uk": "Тримати запас"
+      },
+      "displayOrder": 1,
+      "description": "Цель — покрытие в днях среднего расхода. К заказу — недостача до этой цели.",
+      "metaId": "06917961-ff40-4601-b1da-7028e63dab62",
+      "name": "Keep",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "enumMetaId": "fbb2bc04-3fb9-48fc-8e21-1d10dcb11808",
+      "value": 2,
+      "caption": {
+        "en": "Buy to order",
+        "ar": "الشراء تحت الطلب",
+        "ru": "Под заказ",
+        "uk": "Під замовлення"
+      },
+      "displayOrder": 2,
+      "description": "Запас не держим. Предложение к заказу — ноль, даже если остаток есть.",
+      "metaId": "b3174be9-1510-47f8-a550-5bd1bec36fa8",
+      "name": "Order",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    }
+  ]
+}

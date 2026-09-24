@@ -9,6 +9,8 @@ public partial class DeliveryRouteEventHandler : TypedDictionaryEventHandler<Del
         if (!prior.Success) return prior;
         if (string.IsNullOrWhiteSpace(record.Name))
             return EventResult.Cancel("Укажите наименование маршрута");
+        if (record.ArriveRadiusMeters < 0)
+            return EventResult.Cancel("Допуск прибытия не может быть отрицательным");
         return EventResult.Ok();
     }
 }

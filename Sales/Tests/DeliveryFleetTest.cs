@@ -563,6 +563,111 @@ public class DeliveryFleetTest : IntegrationTestScriptBase
             "рейс Completed, факт {0}", done.Subtype ?? "<null>");
     }
 
+    [IntegrationTest("Километр на север от 50.4501, 30.5234 — около 1001 м")]
+    public async Task OneKilometreNorthIsAbout1001Meters()
+    {
+        var meters = Delivery.PinDistanceMeters(50.450100m, 30.523400m, 50.459100m, 30.523400m);
+        Assert.IsTrue(meters >= 990 && meters <= 1010, "около 1001 м, факт {0}", meters);
+        await Task.CompletedTask;
+    }
+
+    [IntegrationTest("Набор с маршрута копирует координаты остановки")]
+    public async Task FillCopiesTheStopPin()
+    {
+        var s = await SetupAsync();
+        var stops = await GetService<IDictionaryManager<DeliveryRouteStop>>()
+            .GetRecordsAsync($"Route = '{s.Route}'");
+        var stop = stops.Single(x => x.Sequence == 1);
+        stop.Lat = 50.450100m;
+        stop.Lng = 30.523400m;
+        await DictionaryManager.SaveRecordAsync(stop);
+
+        await ConfirmOrderAsync(s, s.Outlet, WaveDay, 1m);
+        var trip = await DocumentManager.NewDocumentAsync<DeliveryTrip>();
+        trip.DeliveryDate = WaveDay;
+        trip.Route = s.Route;
+        await DocumentManager.SaveDocumentAsync(trip);
+        await Delivery.FillTripFromRouteAsync(trip.MetaId);
+
+        var filled = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
+        Assert.IsTrue(filled!.Lines[0].PlannedLat == 50.450100m, "широта плана, факт {0}", filled.Lines[0].PlannedLat);
+        Assert.IsTrue(filled.Lines[0].PlannedLng == 30.523400m, "долгота плана, факт {0}", filled.Lines[0].PlannedLng);
+    }
+
+    [IntegrationTest("Факт дальше допуска: рейс завершается и называет метры")]
+    public async Task FarPinIsNamedOnComplete()
+    {
+        var s = await SetupAsync();
+        var route = await GetService<IDictionaryManager<DeliveryRoute>>().GetRecordAsync(s.Route);
+        route!.ArriveRadiusMeters = 300;
+        await DictionaryManager.SaveRecordAsync(route);
+
+        var orderId = await ConfirmOrderAsync(s, s.Outlet, WaveDay, 1m);
+        var trip = await NewTripAsync(s, s.Vehicle, s.Driver, orderId, s.Outlet, 1);
+        await RunCommandAsync("DispatchTrip", trip.MetaId);
+
+        var full = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
+        full!.Lines[0].PlannedLat = 50.450100m;
+        full.Lines[0].PlannedLng = 30.523400m;
+        full.Lines[0].ActualLat = 50.459100m;
+        full.Lines[0].ActualLng = 30.523400m;
+        await DocumentManager.SaveDocumentAsync(full);
+
+        var reloaded = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
+        var line = reloaded!.Lines[0];
+        Assert.IsTrue(line.PlannedLat == 50.450100m, "широта плана после записи, факт {0}", line.PlannedLat);
+        Assert.IsTrue(line.ActualLat == 50.459100m, "широта факта после записи, факт {0}", line.ActualLat);
+        var radius = (await GetService<IDictionaryManager<DeliveryRoute>>().GetRecordAsync(s.Route))!.ArriveRadiusMeters;
+        Assert.IsTrue(radius == 300, "допуск маршрута, факт {0}", radius);
+        var summary = await Delivery.PinOffSummaryAsync(trip.MetaId);
+        Assert.IsTrue(summary.Contains("от плана"), "сводка до команды: {0}", summary);
+
+        var messages = await RunCommandForMessagesAsync("CompleteTrip", trip.MetaId);
+        Assert.IsTrue(messages.Contains("м от плана"), "завершение называет расстояние. Факт: {0}", messages);
+        Assert.IsTrue(messages.Contains("точка 1"), "и номер точки. Факт: {0}", messages);
+        var done = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
+        Assert.IsTrue(done!.Subtype == DeliveryTrip.Subtypes.Completed,
+            "рейс всё равно Completed, факт {0}", done.Subtype ?? "<null>");
+    }
+
+    [IntegrationTest("Допуск 0 и пустой факт координату не обсуждают")]
+    public async Task ZeroRadiusAndMissingPinStaySilent()
+    {
+        var s = await SetupAsync();
+        var orderId = await ConfirmOrderAsync(s, s.Outlet, WaveDay, 1m);
+        var trip = await NewTripAsync(s, s.Vehicle, s.Driver, orderId, s.Outlet, 1);
+        await RunCommandAsync("DispatchTrip", trip.MetaId);
+
+        var full = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
+        full!.Lines[0].PlannedLat = 50.450100m;
+        full.Lines[0].PlannedLng = 30.523400m;
+        await DocumentManager.SaveDocumentAsync(full);
+
+        var messages = await RunCommandForMessagesAsync("CompleteTrip", trip.MetaId);
+        Assert.IsTrue(!messages.Contains("от плана"),
+            "без факта и без допуска — тишина. Факт: {0}", messages);
+    }
+
+    [IntegrationTest("Широта 95 на остановке не сохраняется")]
+    public async Task LatitudeOutOfRangeIsRejected()
+    {
+        var s = await SetupAsync();
+        var stops = await GetService<IDictionaryManager<DeliveryRouteStop>>()
+            .GetRecordsAsync($"Route = '{s.Route}'");
+        var stop = stops.Single(x => x.Sequence == 1);
+        stop.Lat = 95m;
+        stop.Lng = 30.523400m;
+        try
+        {
+            await DictionaryManager.SaveRecordAsync(stop);
+            Assert.IsTrue(false, "широта 95 должна быть отказана");
+        }
+        catch (Exception ex)
+        {
+            Assert.IsTrue(ex.Message.Contains("Широта"), "текст отказа: {0}", ex.Message);
+        }
+    }
+
     /// <summary>Окно и факт на единственной точке рейса. Минуты — от полуночи дня доставки.</summary>
     private static async Task StampStopAsync(
         Guid tripId, int? from, int? to, int arriveAt, int departAfter)

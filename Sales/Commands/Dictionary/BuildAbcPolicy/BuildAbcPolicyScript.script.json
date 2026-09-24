@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DictionaryCommand",
+    "objectType": "Command",
+    "objectName": "BuildAbcPolicy",
+    "objectMetaId": "c581d2a6-8b58-49e6-89b4-803f82f08bba",
+    "executionOrder": 0,
+    "metaId": "1598cbea-9a9d-46a2-9b59-de7b142b66b9",
+    "name": "BuildAbcPolicyScript",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

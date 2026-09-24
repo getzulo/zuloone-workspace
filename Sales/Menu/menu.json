@@ -508,6 +508,22 @@
     },
     {
       "caption": {
+        "en": "ABC replenishment cells",
+        "ar": "خلايا تجديد ABC",
+        "ru": "Ячейки пополнения ABC",
+        "uk": "Комірки поповнення ABC"
+      },
+      "parentMetaId": "019d7614-3204-5496-90af-b58cacca2d58",
+      "displayOrder": 12,
+      "icon": "fluent-color:grid-24",
+      "targetType": "Dictionary",
+      "targetMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
+      "metaId": "46c7c251-a874-435f-b487-9ff6a753b36c",
+      "name": "AbcPolicyCell",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": {
         "en": "ABC classification",
         "ar": "تصنيف ABC",
         "ru": "Классификация ABC",
@@ -520,6 +536,22 @@
       "targetMetaId": "f756c744-d92f-4a2a-b684-b697629e04ab",
       "metaId": "291ea883-9d07-440c-b79c-f5a1f5899a6b",
       "name": "AbcClassification",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "caption": {
+        "en": "ABC replenishment suggestion",
+        "ar": "اقتراح تجديد ABC",
+        "ru": "Предложение пополнения ABC",
+        "uk": "Пропозиція поповнення ABC"
+      },
+      "parentMetaId": "cad86e08-d829-485c-b79b-984c300fa847",
+      "displayOrder": 21,
+      "icon": "fluent-color:grid-24",
+      "targetType": "Register",
+      "targetMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
+      "metaId": "71abf7d2-cd1d-4706-8458-9f69fd9cec8c",
+      "name": "AbcSuggestion",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
