@@ -1,0 +1,54 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Reproducible fictional master data and twelve months of documents for the public showcase tenant",
+    "modelVersion": "1.0.1",
+    "publisher": "ZuloOne",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "metaId": "55992c7d-0ecb-4cba-b064-8df4e2e8e125",
+    "name": "DemoData",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 3
+  },
+  "dependencies": [
+    {
+      "dependsOnModelMetaId": "ee2cf537-a2c6-459e-9041-f221de8439c8",
+      "minVersion": "1.8.0",
+      "name": "DemoData->Common",
+      "metaId": "a7af0d1f-1c6e-4e2b-8d77-542e781c964e"
+    },
+    {
+      "dependsOnModelMetaId": "c3291d8e-1a28-4195-b799-071ac3cd3908",
+      "minVersion": "1.4.1",
+      "name": "DemoData->Organization",
+      "metaId": "537b8936-dfa2-4fe0-9cd3-0762f6f8e412"
+    },
+    {
+      "dependsOnModelMetaId": "91774783-bd29-42b4-88f8-21aad85a5850",
+      "minVersion": "1.16.2",
+      "name": "DemoData->Inventory",
+      "metaId": "8f89a9a6-3a31-4bf9-99d4-edb93791dae5"
+    },
+    {
+      "dependsOnModelMetaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
+      "minVersion": "1.46.0",
+      "name": "DemoData->Sales",
+      "metaId": "b0ca1db8-a714-4528-ab12-fa53e0e1e628"
+    },
+    {
+      "dependsOnModelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "minVersion": "1.12.1",
+      "name": "DemoData->Purchasing",
+      "metaId": "a357c236-4e0c-47e6-a134-cd42725e6cfb"
+    },
+    {
+      "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",
+      "minVersion": "1.14.0",
+      "name": "DemoData->Tax",
+      "metaId": "db3f4a4d-4db0-45f8-8f22-b81ad1c4ab6a"
+    }
+  ]
+}

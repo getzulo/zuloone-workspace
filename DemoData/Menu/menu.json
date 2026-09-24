@@ -1,0 +1,19 @@
+{
+  "kind": "Menu",
+  "items": [
+    {
+      "caption": {
+        "en": "Demo data",
+        "ar": "بيانات العرض",
+        "ru": "Демо-данные",
+        "uk": "Демо-дані"
+      },
+      "displayOrder": 99,
+      "icon": "fluent-color:data-pie-32",
+      "targetType": "Group",
+      "metaId": "41304823-8741-4b3c-919d-2d16c778e851",
+      "name": "DemoData",
+      "modelId": "55992c7d-0ecb-4cba-b064-8df4e2e8e125"
+    }
+  ]
+}

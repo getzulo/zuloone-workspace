@@ -1,0 +1,13 @@
+[
+  {
+    "id": "showcase",
+    "file": "showcase.json",
+    "caption": "Fictional showcase company and twelve months of activity",
+    "captionRu": "Вымышленная демо-компания и операции за 12 месяцев",
+    "caption_ru": "Вымышленная демо-компания и операции за 12 месяцев",
+    "captionAr": "شركة عرض وهمية وعمليات لمدة 12 شهراً",
+    "caption_ar": "شركة عرض وهمية وعمليات لمدة 12 شهراً",
+    "when": "manual",
+    "sort": 900
+  }
+]
