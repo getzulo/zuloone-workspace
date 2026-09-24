@@ -1,0 +1,83 @@
+{
+  "scenario": "item-create",
+  "title": "Завести товар",
+  "owner": "wiki/learn/user/02-item-create.md",
+  "defaults": {
+    "locale": "ru",
+    "theme": "light"
+  },
+  "steps": [
+    {
+      "id": "open-items",
+      "title": "Откройте **Лента → Склад → Товары**",
+      "ribbon": "Inventory",
+      "menu": "Items",
+      "actions": [
+        { "do": "tableView" },
+        { "do": "expectRows", "atLeast": 10 }
+      ],
+      "shot": {
+        "name": "item-create-list",
+        "of": "page"
+      },
+      "note": "Список товаров. Колонки — группа, бренд, штрихкод, цена."
+    },
+    {
+      "id": "press-create",
+      "title": "Нажмите **Создать**",
+      "actions": [
+        { "do": "click", "role": "button", "name": "Создать" },
+        { "do": "wait", "ms": 1500 }
+      ],
+      "shot": {
+        "name": "item-create-card-empty",
+        "of": "page"
+      },
+      "note": "Пустая карточка товара. Поле «ID» не заполняется руками — номер присвоит номерная серия при сохранении."
+    },
+    {
+      "id": "fill-header",
+      "title": "Заполните «Наименование», «Группа» и «Единица измерения»",
+      "actions": [
+        { "do": "fill", "label": "Наименование", "value": "Болт М8" },
+        { "do": "pickReference", "label": "Группа", "value": "Крепёж" },
+        { "do": "pickReference", "label": "Единица измерения", "value": "шт" },
+        { "do": "blur" }
+      ],
+      "shot": {
+        "name": "item-create-card-filled",
+        "of": "page",
+        "locale": "all"
+      },
+      "note": "Заполненная шапка. Ссылочные поля выбираются из связанных справочников: наберите код и нажмите Enter."
+    },
+    {
+      "id": "save",
+      "title": "Нажмите **Сохранить**",
+      "actions": [
+        { "do": "click", "role": "button", "name": "Сохранить" },
+        { "do": "wait", "ms": 2000 }
+      ],
+      "shot": {
+        "name": "item-create-saved",
+        "of": "selector",
+        "selector": "[data-testid=\"record-header\"]"
+      },
+      "note": "Шапка сохранённой записи: в поле «ID» появился номер из серии."
+    },
+    {
+      "id": "back-to-list",
+      "title": "Закройте вкладку карточки и вернитесь в список",
+      "actions": [
+        { "do": "click", "role": "button", "name": "Закрыть" },
+        { "do": "expectRows", "atLeast": 11 }
+      ],
+      "shot": {
+        "name": "item-create-list-after",
+        "of": "page",
+        "theme": "dark"
+      },
+      "note": "Новая строка в списке — самопроверка урока. Снимок в тёмной теме: список выглядит так же, меняется только палитра."
+    }
+  ]
+}
