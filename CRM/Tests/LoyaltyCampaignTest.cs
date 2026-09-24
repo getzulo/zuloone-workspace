@@ -120,12 +120,32 @@ public class LoyaltyCampaignTest : IntegrationTestScriptBase
         Assert.IsTrue(await Svc.EarnRateOfAsync(Origin, b) == 3m, "группа B");
     }
 
+    [IntegrationTest("Телефон получает имя победившей кампании: своя группа бьёт общую")]
+    public async Task OverlayNamesTheSpecificCampaign()
+    {
+        var group = await ExtraGroupAsync();
+        await NewCampaignAsync(2m, Origin, name: "All");
+        await NewCampaignAsync(4m, Origin, itemGroup: group, name: "Beans");
+
+        var specific = await Svc.OverlayOfAsync(DateTime.UtcNow.Date, group);
+        Assert.IsTrue(specific.Rate == 4m && specific.Name == "Beans",
+            "своя группа 4 Beans, факт {0} {1}", specific.Rate, specific.Name);
+
+        var other = await Svc.OverlayOfAsync(DateTime.UtcNow.Date, Guid.NewGuid());
+        Assert.IsTrue(other.Rate == 2m && other.Name == "All",
+            "чужая группа остаётся на общей, факт {0} {1}", other.Rate, other.Name);
+
+        var closed = await Svc.OverlayOfAsync(new DateTime(2019, 1, 1), group);
+        Assert.IsTrue(closed.Rate == 0m && closed.Name == "",
+            "до окна оверлея нет, факт {0} {1}", closed.Rate, closed.Name);
+    }
+
     private async Task NewCampaignAsync(
-        decimal rate, DateTime from, DateTime? to = null, Guid? itemGroup = null)
+        decimal rate, DateTime from, DateTime? to = null, Guid? itemGroup = null, string name = "Promo")
     {
         var row = DictionaryManager.NewRecord<LoyaltyCampaign>();
         row.Code = $"C-{Uniq()}";
-        row.Name = "Promo";
+        row.Name = name;
         row.EarnRate = rate;
         row.EffectiveFrom = from;
         row.EffectiveTo = to;

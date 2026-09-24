@@ -1,0 +1,19 @@
+{
+  "kind": "CustomReport",
+  "object": {
+    "caption": {
+      "en": "Gross margin",
+      "ar": "هامش الربح",
+      "ru": "Маржа продажи",
+      "uk": "Маржа продажу"
+    },
+    "scriptMetaId": "b8d4f02c-5e31-408b-8c27-3f6e9d1b8042",
+    "iconName": "fluent-color:data-bar-vertical-ascending-24",
+    "largeIconName": "fluent-color:data-bar-vertical-ascending-24",
+    "userHelp": "Продажи → Отчёты → Маржа продажи. Строка — документ и товар, по которым есть выручка. Себестоимость — модуль отрицательной стоимости запасов на том же документе. Бой и отпуск в производство без выручки сюда не входят.",
+    "devComment": "TR_Revenue joined to negative TR_InventoryValue through MetaAnalyticSetValues of analytic Item 4384343f-aa55-4cc4-9e0d-9893bfc47fb3. Same rule as IGrossMarginService. Costing cannot own this report: it must not depend on Sales.",
+    "metaId": "a7c3e91b-4d20-4f8a-9b16-2e5d8c0a7f41",
+    "name": "GrossMarginReport",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

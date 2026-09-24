@@ -62,6 +62,27 @@
     },
     {
       "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
+      "fieldName": "ScheduledOn",
+      "caption": {
+        "en": "Scheduled on",
+        "ar": "مجدول في",
+        "ru": "Срок",
+        "uk": "Строк"
+      },
+      "description": "Day the step is planned to run. Empty means the order date. Filled by Schedule production.",
+      "baseType": "DateTime",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 8,
+      "metaId": "c4e8a1b2-7d3f-4a96-8e15-2b6c9d0e4f71",
+      "name": "ScheduledOn",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "tablePartTypeMetaId": "12f598d2-44b9-4ac9-98db-5c640d07490e",
       "fieldName": "Employee",
       "caption": {
         "en": "Operator",

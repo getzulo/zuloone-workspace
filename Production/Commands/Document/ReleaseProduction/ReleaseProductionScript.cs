@@ -61,7 +61,7 @@ public partial class ReleaseProductionCommand
         context.AddClientAction(ClientAction.Message(
             overload == null
                 ? "Заказ запущен в работу: комплектующие списаны."
-                : $"Заказ запущен в работу: комплектующие списаны. Перегрузка на день заказа — {overload}."));
+                : $"Заказ запущен в работу: комплектующие списаны. Перегрузка — {overload}."));
     }
 
     static async Task<decimal> BaseQtyAsync(

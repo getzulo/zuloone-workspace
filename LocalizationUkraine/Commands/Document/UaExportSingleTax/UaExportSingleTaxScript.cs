@@ -17,7 +17,10 @@ public partial class UaExportSingleTaxCommand
             return;
         }
 
-        context.AddClientAction(ClientAction.Message(
-            "Вивантаження сформовано: Довідники → Вивантаження декларації (J0103509). Період — з 1 січня. Додаток МПЗ порожній."));
+        var saved = await context.GetService<IDictionaryManager<UaTaxFilingExport>>().GetRecordAsync(id.Value);
+        var hasPlots = (Convert.ToString(saved?.Payload) ?? "").Contains("J0135709 МПЗ;");
+        context.AddClientAction(ClientAction.Message(hasPlots
+            ? "Вивантаження сформовано: Довідники → Вивантаження декларації (J0103509). Період — з 1 січня. Додаток МПЗ — рядки ділянок у тому ж файлі."
+            : "Вивантаження сформовано: Довідники → Вивантаження декларації (J0103509). Період — з 1 січня. Додаток МПЗ порожній."));
     }
 }

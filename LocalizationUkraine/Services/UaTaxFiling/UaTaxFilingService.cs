@@ -549,8 +549,30 @@ public partial class UaTaxFiling
         var salary = four.Where(r => r.IncomeSign == "101").Sum(r => r.AccruedIncome);
         var cpd = four.Where(r => r.IncomeSign == "102").Sum(r => r.AccruedIncome);
         var gross = salary + cpd;
-        var capped = d1.Sum(r => r.Capped);
-        var esv = d1.Sum(r => r.EmployerEsv);
+        // The posted employer contribution already carries the rate: 8.41% and
+        // 5.3% are statutory rows of J0500111, everything else stays on 22%.
+        // Guessing a disability flag would put an ordinary employer on 8.41%.
+        decimal base22 = 0m, esv22 = 0m, base841 = 0m, esv841 = 0m, base53 = 0m, esv53 = 0m;
+        foreach (var row in d1)
+        {
+            if (MatchesEsvRate(row.Capped, row.EmployerEsv, 0.0841m))
+            {
+                base841 += row.Capped;
+                esv841 += row.EmployerEsv;
+            }
+            else if (MatchesEsvRate(row.Capped, row.EmployerEsv, 0.053m))
+            {
+                base53 += row.Capped;
+                esv53 += row.EmployerEsv;
+            }
+            else
+            {
+                base22 += row.Capped;
+                esv22 += row.EmployerEsv;
+            }
+        }
+        var capped = base22 + base841 + base53;
+        var esv = esv22 + esv841 + esv53;
         // Official R0104 = extra ESС from error corrections, not transferred.
         // Official R0106 = decrease from corrections. We have neither.
         // Official R0107 = row 3 + row 4 − row 6.
@@ -561,9 +583,13 @@ public partial class UaTaxFiling
             ("R01011G3", "Сума нарахованої заробітної плати", salary),
             ("R01012G3", "Винагорода за ЦПХ / гіг-контракт", cpd),
             ("R0102G3", "Дохід у межах максимальної величини ЄСВ", capped),
-            ("R01021G3", "Дохід, на який нараховується 22 %", capped),
+            ("R01021G3", "Дохід, на який нараховується 22 %", base22),
+            ("R01022G3", "Дохід, на який нараховується 8,41 %", base841),
+            ("R01023G3", "Дохід, на який нараховується 5,3 %", base53),
             ("R0103G3", "Нараховано єдиного внеску", esv),
-            ("R01031G3", "Рядок 2.1 × 22 %", esv),
+            ("R01031G3", "Рядок 2.1 × 22 %", esv22),
+            ("R01032G3", "Рядок 2.2 × 8,41 %", esv841),
+            ("R01033G3", "Рядок 2.3 × 5,3 %", esv53),
             ("R0107G3", "Єдиний внесок до сплати", esv),
         };
     }
@@ -700,6 +726,7 @@ public partial class UaTaxFiling
         text.AppendLine("# J0500111 Податковий розрахунок ЮО (наказ Мінфіну 07.05.2026 № 243). CSV; XML DECLAR — поле DeclarXml.");
         text.AppendLine("# Розділ I — SocialInsurance і UaPayrollLevy. Д2/Д3 (J0510211/J0510311) звичайний роботодавець не подає.");
         text.AppendLine("# R01011 — ознака 101, R01012 — ознака 102. R0104/R0106 (помилки) порожні. R0107 = рядок 3.");
+        text.AppendLine("# R01022/R01032 — проведений ЄСВ рівно 8,41 % бази; R01023/R01033 — рівно 5,3 %. Інша ставка лишається в 22 %.");
         if (paidEsv > 0)
         {
             text.AppendLine(string.Format(
@@ -1130,6 +1157,17 @@ public partial class UaTaxFiling
 
     private static string DpsDate(DateTime value)
         => value.ToString("ddMMyyyy");
+
+    /// <summary>
+    /// Posted employer contribution equals capped base × a statutory rate,
+    /// rounded the same way SocialInsuranceService rounds (2 digits, away from zero).
+    /// </summary>
+    private static bool MatchesEsvRate(decimal capped, decimal employerEsv, decimal rate)
+    {
+        if (capped <= 0m || employerEsv <= 0m) return false;
+        var expected = Math.Round(capped * rate, 2, MidpointRounding.AwayFromZero);
+        return employerEsv == expected;
+    }
 
     private string BuildDpsCalculationDeclar(
         TaxReturn declaration,
@@ -1805,13 +1843,11 @@ public partial class UaTaxFiling
         string cSti = "")
     {
         var rows = await ListSingleTaxDeclarationAsync(declaration);
-        var mpz = await MpzOfAsync(declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
+        var mpzLines = await MpzLinesAsync(declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
         var text = new StringBuilder();
         text.AppendLine("# J0103509 Декларація платника єдиного податку 3 групи ЮО (наказ Мінфіну 31.01.2025 № 57). Не XML кабінету ДПС.");
         text.AppendLine("# Графа 3 = 3 %, графа 4 = 5 %. Період — наростаючим підсумком з 1 січня.");
-        text.AppendLine(mpz == 0m
-            ? "# J0135709 МПЗ порожній."
-            : string.Format(CultureInfo.InvariantCulture, "# J0135709 МПЗ;{0:0.00}", mpz));
+        AppendMpzLines(text, "J0135709", mpzLines);
         Header(text, entity, DpsSingleTaxType, declaration, cReg, cSti);
         text.AppendLine("Рядок;Назва;Графа 3 (3%);Графа 4 (5%)");
         foreach (var row in rows)
@@ -1900,18 +1936,14 @@ public partial class UaTaxFiling
         string cSti = "")
     {
         var rows = await ListFopSingleTaxDeclarationAsync(declaration);
-        var mpz = rows.FirstOrDefault(r => r.Row == "14.2").Amount;
-        var esv = await SumRegisterAsync(
-            "UaFopEsv", declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
+        var esvLines = await FopEsvLinesAsync(
+            declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo);
         var text = new StringBuilder();
         text.AppendLine("# F0103309 Декларація платника єдиного податку 3 групи ФОП (наказ Мінфіну 31.01.2025 № 57). Не XML кабінету ДПС.");
         text.AppendLine("# Рядок 07 = 15 % (ПКУ 293.4). Рядок 23 = 1 % з доходу. Період — з 1 січня.");
-        text.AppendLine(esv == 0m
-            ? "# F0133109 ЄСВ за себе порожній."
-            : string.Format(CultureInfo.InvariantCulture, "# F0133109 ЄСВ за себе;{0:0.00}", esv));
-        text.AppendLine(mpz == 0m
-            ? "# F0133209 МПЗ порожній."
-            : string.Format(CultureInfo.InvariantCulture, "# F0133209 МПЗ;{0:0.00}", mpz));
+        AppendFopEsvLines(text, esvLines);
+        AppendMpzLines(text, "F0133209", await MpzLinesAsync(
+            declaration.LegalEntity, declaration.PeriodFrom, declaration.PeriodTo));
         Header(text, entity, DpsFopSingleTaxType, declaration, cReg, cSti);
         text.AppendLine("Рядок;Назва;Сума");
         foreach (var row in rows)
@@ -1999,16 +2031,142 @@ public partial class UaTaxFiling
     }
 
     private async Task<decimal> MpzOfAsync(Guid legalEntity, DateTime from, DateTime to)
+        => (await MpzLinesAsync(legalEntity, from, to)).Sum(l => l.Mpz);
+
+    /// <summary>
+    /// One row per plot. The sum of Mpz equals the rounded total
+    /// (value sum × rate × months / 12); the last plot absorbs the kopiyka
+    /// so the lines cannot drift from row 14.2.
+    /// </summary>
+    private async Task<List<(string Cadastral, string Name, decimal Value, decimal Mpz)>> MpzLinesAsync(
+        Guid legalEntity, DateTime from, DateTime to)
     {
-        if (legalEntity == Guid.Empty) return 0m;
-        var plots = await _dictionaries.GetRecordsAsync<UaLandPlot>($"LegalEntity = '{legalEntity}'");
-        var sum = plots.Sum(p => p.NormativeValue);
-        if (sum <= 0m) return 0m;
+        var lines = new List<(string, string, decimal, decimal)>();
+        if (legalEntity == Guid.Empty) return lines;
+        var plots = (await _dictionaries.GetRecordsAsync<UaLandPlot>($"LegalEntity = '{legalEntity}'"))
+            .Where(p => p.NormativeValue > 0m)
+            .OrderBy(p => p.CadastralNumber)
+            .ThenBy(p => p.Name)
+            .ToList();
+        if (plots.Count == 0) return lines;
+
         var months = (to.Year - from.Year) * 12 + to.Month - from.Month + 1;
         if (months < 1) months = 1;
         var rows = await _uaSettings.GetRecordsAsync(take: 1);
         var rate = rows.Count > 0 && rows[0].MpzRate > 0m ? rows[0].MpzRate : 0.05m;
-        return Math.Round(sum * rate * months / 12m, 2, MidpointRounding.AwayFromZero);
+        var total = Math.Round(plots.Sum(p => p.NormativeValue) * rate * months / 12m, 2, MidpointRounding.AwayFromZero);
+        decimal allocated = 0m;
+        for (var i = 0; i < plots.Count; i++)
+        {
+            var plot = plots[i];
+            decimal share;
+            if (i == plots.Count - 1)
+                share = total - allocated;
+            else
+            {
+                share = Math.Round(plot.NormativeValue * rate * months / 12m, 2, MidpointRounding.AwayFromZero);
+                allocated += share;
+            }
+            lines.Add((CsvCell(plot.CadastralNumber), CsvCell(plot.Name), plot.NormativeValue, share));
+        }
+        return lines;
+    }
+
+    private static void AppendMpzLines(
+        StringBuilder text,
+        string formId,
+        IReadOnlyList<(string Cadastral, string Name, decimal Value, decimal Mpz)> lines)
+    {
+        if (lines.Count == 0)
+        {
+            text.AppendLine(string.Format(CultureInfo.InvariantCulture, "# {0} МПЗ порожній.", formId));
+            return;
+        }
+
+        text.AppendLine(string.Format(
+            CultureInfo.InvariantCulture, "# {0} МПЗ;{1:0.00}", formId, lines.Sum(l => l.Mpz)));
+        text.AppendLine("# Кадастровий номер;Найменування;Нормативна оцінка;МПЗ");
+        foreach (var line in lines)
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture,
+                "{0};{1};{2:0.00};{3:0.00}",
+                line.Cadastral, line.Name, line.Value, line.Mpz));
+        }
+    }
+
+    private static string CsvCell(string? value)
+        => (value ?? "").Replace(';', ' ').Replace("\r", "").Replace("\n", " ");
+
+    /// <summary>
+    /// Posted UaFopEsv movements in the period, netted by document.
+    /// A void inside the same period nets to zero and drops out, so the
+    /// lines stay equal to the comment total.
+    /// </summary>
+    private async Task<List<(string Date, string Number, decimal Amount)>> FopEsvLinesAsync(
+        Guid legalEntity, DateTime from, DateTime to)
+    {
+        var lines = new List<(string, string, decimal)>();
+        if (legalEntity == Guid.Empty) return lines;
+        var movements = await _totals.QueryMovementsAsync(
+            "UaFopEsv",
+            $"[LegalEntity] = '{legalEntity}' AND [MovementDate] >= '{from.Date:yyyy-MM-dd HH:mm:ss}' AND [MovementDate] < '{to.Date.AddDays(1):yyyy-MM-dd HH:mm:ss}'");
+
+        var grouped = new Dictionary<Guid, (DateTime Date, decimal Amount)>();
+        foreach (var movement in movements)
+        {
+            var docId = AsGuid(movement, "DocumentMetaId");
+            var amount = AsDecimal(movement, "Amount");
+            var date = AsDate(movement, "MovementDate");
+            var prev = grouped.TryGetValue(docId, out var v) ? v : (DateTime.MaxValue, 0m);
+            var earliest = date.Year >= 1902 && (prev.Item1.Year < 1902 || date < prev.Item1) ? date : prev.Item1;
+            grouped[docId] = (earliest, prev.Item2 + amount);
+        }
+
+        foreach (var pair in grouped.Where(p => p.Value.Amount != 0m).OrderBy(p => p.Value.Date).ThenBy(p => p.Key))
+        {
+            var date = pair.Value.Date;
+            var number = "";
+            if (pair.Key != Guid.Empty)
+            {
+                var doc = await _documents.GetDocumentAsync<UaFopEsvAccrual>(pair.Key);
+                if (doc != null)
+                {
+                    number = doc.ID ?? "";
+                    if (doc.DocumentDate.Year >= 1902) date = doc.DocumentDate;
+                }
+            }
+            lines.Add((date.Year >= 1902 ? date.ToString("yyyy-MM-dd") : "", CsvCell(number), pair.Value.Amount));
+        }
+        return lines;
+    }
+
+    private static void AppendFopEsvLines(
+        StringBuilder text, IReadOnlyList<(string Date, string Number, decimal Amount)> lines)
+    {
+        if (lines.Count == 0)
+        {
+            text.AppendLine("# F0133109 ЄСВ за себе порожній.");
+            return;
+        }
+
+        text.AppendLine(string.Format(
+            CultureInfo.InvariantCulture, "# F0133109 ЄСВ за себе;{0:0.00}", lines.Sum(l => l.Amount)));
+        text.AppendLine("# Дата;Номер;Сума");
+        foreach (var line in lines)
+        {
+            text.AppendLine(string.Format(
+                CultureInfo.InvariantCulture, "{0};{1};{2:0.00}", line.Date, line.Number, line.Amount));
+        }
+    }
+
+    private static DateTime AsDate(Dictionary<string, object?> row, string field)
+    {
+        if (!row.TryGetValue(field, out var raw) || raw is null) return DateTime.MinValue;
+        if (raw is DateTime dt) return dt;
+        return DateTime.TryParse(Convert.ToString(raw), CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsed)
+            ? parsed
+            : DateTime.MinValue;
     }
 
     private async Task<decimal> SumRegisterAsync(string register, Guid legalEntity, DateTime from, DateTime to)

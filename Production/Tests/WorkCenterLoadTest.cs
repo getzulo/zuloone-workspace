@@ -99,6 +99,65 @@ public class WorkCenterLoadTest : IntegrationTestScriptBase
             "перегрузка не отменяет запуск, факт {0}", live.Subtype ?? "<null>");
     }
 
+    [IntegrationTest("Последовательность сдвигает операцию на следующий день, только когда в этот она не влезает")]
+    public async Task SequenceSpillsOnlyWhenTheDayIsFull()
+    {
+        var f = await FixtureAsync("Срок", capacity: 100m);
+        var day = new DateTime(2026, 9, 24);
+
+        var tight = await NewOrderAsync(f, day, setup: 0, run: 80m);
+        tight = await AddOpAsync(tight, 20, 0, 80m, f.WorkCenter);
+        var n = await Load.ScheduleAsync(tight.MetaId);
+        Assert.IsTrue(n == 2, "расставлены обе операции, факт {0}", n);
+
+        var live = await Docs.GetDocumentAsync<ProductionOrder>(tight.MetaId);
+        var first = live!.Operations.Single(o => o.Sequence == 1);
+        var second = live.Operations.Single(o => o.Sequence == 20);
+        Assert.IsTrue(first.ScheduledOn is DateTime a && a.Date == day,
+            "первая операция остаётся на дате заказа, факт {0}", first.ScheduledOn);
+        Assert.IsTrue(second.ScheduledOn is DateTime b && b.Date == day.AddDays(1),
+            "80+80 при мощности 100 сажает вторую на следующий день, факт {0}", second.ScheduledOn);
+
+        live.Subtype = ProductionOrder.Subtypes.Released;
+        await Docs.SaveDocumentAsync(live);
+        var q0 = await Load.QueuedMinutesAsync(f.WorkCenter, day, Guid.Empty);
+        var q1 = await Load.QueuedMinutesAsync(f.WorkCenter, day.AddDays(1), Guid.Empty);
+        Assert.IsTrue(q0 == 80m, "в день заказа очередь 80, не весь заказ, факт {0}", q0);
+        Assert.IsTrue(q1 == 80m, "на следующий день очередь 80, факт {0}", q1);
+
+        var fits = await NewOrderAsync(f, day.AddDays(3), setup: 0, run: 30m);
+        fits = await AddOpAsync(fits, 20, 0, 30m, f.WorkCenter);
+        await Load.ScheduleAsync(fits.MetaId);
+        var both = await Docs.GetDocumentAsync<ProductionOrder>(fits.MetaId);
+        Assert.IsTrue(both!.Operations.All(o => o.ScheduledOn is DateTime d && d.Date == day.AddDays(3)),
+            "30+30 при мощности 100 остаются в один день");
+    }
+
+    [IntegrationTest("Необъявленная мощность не сдвигает сроки, чужая очередь сдвигает")]
+    public async Task UndeclaredCapacityStaysPutAndForeignQueuePushes()
+    {
+        var open = await FixtureAsync("БезСрока", capacity: 0m);
+        var day = new DateTime(2026, 9, 24);
+        var order = await NewOrderAsync(open, day, setup: 0, run: 80m);
+        order = await AddOpAsync(order, 20, 0, 80m, open.WorkCenter);
+        await Load.ScheduleAsync(order.MetaId);
+        var live = await Docs.GetDocumentAsync<ProductionOrder>(order.MetaId);
+        Assert.IsTrue(live!.Operations.All(o => o.ScheduledOn is DateTime d && d.Date == day),
+            "мощность 0 не разносит операции по дням");
+
+        var f = await FixtureAsync("Чужая", capacity: 100m);
+        var taken = await NewOrderAsync(f, day, setup: 0, run: 80m);
+        taken.Subtype = ProductionOrder.Subtypes.Released;
+        await Docs.SaveDocumentAsync(taken);
+
+        var mine = await NewOrderAsync(f, day, setup: 0, run: 80m);
+        await Load.ScheduleAsync(mine.MetaId);
+        var pushed = await Docs.GetDocumentAsync<ProductionOrder>(mine.MetaId);
+        var when = pushed!.Operations.Single().ScheduledOn;
+        Assert.IsTrue(when is DateTime p && p.Date == day.AddDays(1),
+            "80 чужих минут при мощности 100 сдвигают срок на следующий день, факт {0}", when);
+    }
+
     // ── фикстура ────────────────────────────────────────────────────────────
 
     private sealed class Fixture
@@ -166,6 +225,21 @@ public class WorkCenterLoadTest : IntegrationTestScriptBase
             Sequence = 1,
             Name = "Операция",
             WorkCenter = f.WorkCenter,
+            SetupMinutes = setup,
+            RunMinutes = run,
+        });
+        await Docs.SaveDocumentAsync(order);
+        return (await Docs.GetDocumentAsync<ProductionOrder>(order.MetaId))!;
+    }
+
+    private static async Task<ProductionOrder> AddOpAsync(
+        ProductionOrder order, int sequence, int setup, decimal run, Guid center)
+    {
+        order.Operations.Add(new ProductionOrderOperationsTablePartRow
+        {
+            Sequence = sequence,
+            Name = $"Оп{sequence}",
+            WorkCenter = center,
             SetupMinutes = setup,
             RunMinutes = run,
         });

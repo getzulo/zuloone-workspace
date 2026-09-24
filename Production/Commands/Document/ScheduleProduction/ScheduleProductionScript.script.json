@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DocumentCommand",
+    "objectType": "Command",
+    "objectName": "ScheduleProduction",
+    "objectMetaId": "5a1c8e34-6b27-4d90-a3f5-8c2e1d4b7a09",
+    "executionOrder": 0,
+    "metaId": "8d2f6b41-9c35-4e18-b7a0-3f5d2c8e1b64",
+    "name": "ScheduleProductionScript",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}

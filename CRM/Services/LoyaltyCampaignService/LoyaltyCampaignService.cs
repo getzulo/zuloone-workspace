@@ -23,6 +23,24 @@ public partial class LoyaltyCampaignService
     /// </summary>
     public async Task<decimal> EarnRateOfAsync(DateTime onDate, Guid itemGroup)
     {
+        var winner = await WinnerAsync(onDate, itemGroup);
+        return winner?.EarnRate ?? 0m;
+    }
+
+    /// <summary>
+    /// The live window that wins for this group, name included. A matching
+    /// group beats the global window. Rate 0 and an empty name mean no overlay:
+    /// the phone must not invent a tier rate, that one depends on the balance
+    /// before the invoice.
+    /// </summary>
+    public async Task<(decimal Rate, string Name)> OverlayOfAsync(DateTime onDate, Guid itemGroup)
+    {
+        var winner = await WinnerAsync(onDate, itemGroup);
+        return winner == null ? (0m, "") : (winner.EarnRate, winner.Name ?? "");
+    }
+
+    private async Task<LoyaltyCampaign?> WinnerAsync(DateTime onDate, Guid itemGroup)
+    {
         var live = (await _rows.GetRecordsAsync("1 = 1"))
             .Where(r => !r.IsDisabled && Covers(r, onDate) && r.EarnRate > 0m)
             .ToList();
@@ -32,14 +50,13 @@ public partial class LoyaltyCampaignService
                 .Where(r => r.ItemGroup == itemGroup)
                 .OrderByDescending(r => r.EffectiveFrom)
                 .FirstOrDefault();
-            if (specific != null) return specific.EarnRate;
+            if (specific != null) return specific;
         }
 
-        var global = live
+        return live
             .Where(r => r.ItemGroup == Guid.Empty)
             .OrderByDescending(r => r.EffectiveFrom)
             .FirstOrDefault();
-        return global?.EarnRate ?? 0m;
     }
 
     /// <summary>MetaId of another live window that overlaps the same ItemGroup, or null.</summary>

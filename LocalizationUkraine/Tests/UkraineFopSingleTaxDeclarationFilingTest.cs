@@ -106,6 +106,7 @@ public class UkraineFopSingleTaxDeclarationFilingTest : IntegrationTestScriptBas
         var commandId = await Db.FindCommandIdAsync("document", "UaPostFopEsv");
         var run = await Db.ExecuteDocumentCommandAsync(commandId, doc.MetaId);
         Assert.IsTrue(run.Success, "нарахування ЄСВ ФОП: {0}", run.Message ?? "");
+        doc = await docs.GetDocumentAsync<UaFopEsvAccrual>(doc.MetaId);
 
         var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 3, 31));
         await Filing.ExportAsync(returnId, "F0103309");
@@ -113,6 +114,8 @@ public class UkraineFopSingleTaxDeclarationFilingTest : IntegrationTestScriptBas
 
         Assert.IsTrue(text.Contains("F0133109 ЄСВ за себе;1760.00"),
             "додаток з документа. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("2026-03-20;" + doc.ID + ";1760.00"),
+            "рядок документа в додатку. Факт:\n{0}", text);
     }
 
     [IntegrationTest("F0103309: ділянка 100000 → рядок 14.2 = 1250")]
@@ -127,6 +130,7 @@ public class UkraineFopSingleTaxDeclarationFilingTest : IntegrationTestScriptBas
         plot.Name = "Город";
         plot.LegalEntity = entity;
         plot.NormativeValue = 100000m;
+        plot.CadastralNumber = "8000000000:01:001:0001";
         await Dict.SaveRecordAsync(plot);
 
         var returnId = await Returns.BuildAsync(entity, new DateTime(2026, 1, 1), new DateTime(2026, 3, 31));
@@ -139,6 +143,8 @@ public class UkraineFopSingleTaxDeclarationFilingTest : IntegrationTestScriptBas
             "500 + 1250. Факт:\n{0}", text);
         Assert.IsTrue(text.Contains("F0133209 МПЗ;1250.00"),
             "додаток. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("8000000000:01:001:0001;Город;100000.00;1250.00"),
+            "рядок ділянки. Факт:\n{0}", text);
     }
 
     private async Task<string> PayloadAsync(Guid entity)

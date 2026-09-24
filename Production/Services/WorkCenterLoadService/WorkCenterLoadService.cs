@@ -14,11 +14,17 @@ using ZuloOne.Runtime.Generated;
 // заказ целиком ещё не завершён. Поэтому цеховая отметка разгружает участок,
 // и это единственная связь между двумя контурами.
 //
-// ДАТА — ДОКУМЕНТА, и это осознанное ограничение v1. У операции своей даты
-// нет, значит вся очередь заказа висит на дате его документа: сервис отвечает
-// «сколько стоит на участке в этот день», а не «когда именно оно пойдёт».
-// Настоящее расписание (последовательность, параллельные машины, смены) —
-// отдельный контур, и врать про него нельзя.
+// ДЕНЬ ОПЕРАЦИИ. Пустой ScheduledOn = дата документа: старые заказы без
+// кнопки «Расставить сроки» висят на дне заказа, как раньше. Заполненный
+// срок кладёт минуты на свой день, и очередь заказа больше не обязана
+// целиком сидеть на DocumentDate.
+//
+// РАССТАНОВКА СРОКОВ. Операции идут по Sequence. Следующий номер может
+// начаться в тот же день, если на участке ещё хватает минут; не влезла —
+// следующий день. Мощность 0 = потолка нет, сдвига нет. Операция длиннее
+// дня остаётся на первом дне и даёт предупреждение: по дням её не режем.
+// Параллельные станки и календарь смен сюда не входят: дневная мощность —
+// уже одно число, в которое планировщик сам сложил станки и смены.
 //
 // МОЩНОСТЬ НОЛЬ = потолок не объявлен, а НЕ «нулевая мощность»: перегрузки
 // тогда не бывает по построению. Умолчание обязано быть рабочим — у всех
@@ -51,19 +57,22 @@ public partial class WorkCenterLoadService
         foreach (var head in orders)
         {
             if (head.MetaId == exceptOrder) continue;
-            var when = head.DocumentDate == default ? DateTime.UtcNow.Date : head.DocumentDate.Date;
-            if (when != day) continue;
-
             var full = await _docs.GetDocumentAsync<ProductionOrder>(head.MetaId);
             if (full == null) continue;
-            total += PlannedMinutes(full, workCenter);
+            foreach (var op in full.Operations)
+            {
+                if (op.WorkCenter != workCenter) continue;
+                if (op.CompletedOn != null) continue;
+                if (ScheduleDay(op, full) != day) continue;
+                total += (op.SetupMinutes ?? 0) + (op.RunMinutes ?? 0m);
+            }
         }
         return total;
     }
 
     /// <summary>
     /// Плановые минуты ОДНОГО заказа на участке: неотмеченные операции,
-    /// наладка плюс работа.
+    /// наладка плюс работа. По всем дням срока, не по одному.
     /// </summary>
     public decimal PlannedMinutes(ProductionOrder order, Guid workCenter)
     {
@@ -71,7 +80,7 @@ public partial class WorkCenterLoadService
         foreach (var op in order.Operations)
         {
             if (op.WorkCenter != workCenter) continue;
-            if (op.CompletedOn != null) continue;      // отмеченное из очереди ушло
+            if (op.CompletedOn != null) continue;
             total += (op.SetupMinutes ?? 0) + (op.RunMinutes ?? 0m);
         }
         return total;
@@ -88,37 +97,114 @@ public partial class WorkCenterLoadService
     }
 
     /// <summary>
+    /// Ставит каждой операции день: по Sequence и остатку дневной мощности.
+    /// Подтип не меняет. Завершённый заказ и заказ без операций — 0.
+    /// Возвращает число операций, которым день записан.
+    /// </summary>
+    public async Task<int> ScheduleAsync(Guid orderId)
+    {
+        var order = orderId == Guid.Empty ? null : await _docs.GetDocumentAsync<ProductionOrder>(orderId);
+        if (order == null || order.Operations.Count == 0) return 0;
+        if (order.Subtype == ProductionOrder.Subtypes.Finished) return 0;
+
+        var start = order.DocumentDate == default ? DateTime.UtcNow.Date : order.DocumentDate.Date;
+        var placed = new Dictionary<(Guid Center, DateTime Day), decimal>();
+        var capacity = new Dictionary<Guid, decimal>();
+        var earliest = start;
+
+        foreach (var group in order.Operations.GroupBy(o => o.Sequence).OrderBy(g => g.Key))
+        {
+            var groupLast = earliest;
+            foreach (var op in group.OrderBy(o => o.Name))
+            {
+                if (op.CompletedOn != null)
+                {
+                    var done = op.CompletedOn.Value.Date;
+                    if (!(op.ScheduledOn is DateTime already && already.Year >= 1902))
+                        op.ScheduledOn = done;
+                    if (done > groupLast) groupLast = done;
+                    continue;
+                }
+
+                var minutes = (op.SetupMinutes ?? 0) + (op.RunMinutes ?? 0m);
+                var day = await FirstFitAsync(op.WorkCenter, earliest, minutes, order.MetaId, placed, capacity);
+                op.ScheduledOn = day;
+                if (op.WorkCenter != Guid.Empty)
+                {
+                    var key = (op.WorkCenter, day);
+                    placed[key] = (placed.TryGetValue(key, out var used) ? used : 0m) + minutes;
+                }
+                if (day > groupLast) groupLast = day;
+            }
+            earliest = groupLast;
+        }
+
+        await _docs.SaveDocumentAsync(order);
+        return order.Operations.Count;
+    }
+
+    /// <summary>
     /// Что переполнится, если запустить этот заказ, — текстом, или null.
     /// Это ПРЕДУПРЕЖДЕНИЕ, а не запрет: мощность — план, и запускать сверх неё
-    /// законно (сверхурочные, вторая смена). Поэтому вызывающий печатает текст,
-    /// а не отказывает.
+    /// законно (сверхурочные, вторая смена). Считается по дню каждой операции.
     /// </summary>
     public async Task<string?> OverloadWarningAsync(Guid orderId)
     {
         var order = orderId == Guid.Empty ? null : await _docs.GetDocumentAsync<ProductionOrder>(orderId);
         if (order == null || order.Operations.Count == 0) return null;
 
-        var day = order.DocumentDate == default ? DateTime.UtcNow.Date : order.DocumentDate.Date;
-        var over = new List<string>();
-
-        foreach (var centerId in order.Operations
-            .Select(o => o.WorkCenter)
-            .Where(id => id != Guid.Empty)
-            .Distinct())
+        var mine = new Dictionary<(Guid Center, DateTime Day), decimal>();
+        foreach (var op in order.Operations)
         {
-            var capacity = await CapacityAsync(centerId);
-            if (capacity <= 0m) continue;              // потолок не объявлен
+            if (op.WorkCenter == Guid.Empty || op.CompletedOn != null) continue;
+            var minutes = (op.SetupMinutes ?? 0) + (op.RunMinutes ?? 0m);
+            if (minutes <= 0m) continue;
+            var key = (op.WorkCenter, ScheduleDay(op, order));
+            mine[key] = (mine.TryGetValue(key, out var have) ? have : 0m) + minutes;
+        }
 
-            var mine = PlannedMinutes(order, centerId);
-            if (mine <= 0m) continue;
-            var queued = await QueuedMinutesAsync(centerId, day, orderId);
-            var after = queued + mine;
+        var over = new List<string>();
+        foreach (var kv in mine.OrderBy(k => k.Key.Day).ThenBy(k => k.Key.Center))
+        {
+            var capacity = await CapacityAsync(kv.Key.Center);
+            if (capacity <= 0m) continue;
+            var queued = await QueuedMinutesAsync(kv.Key.Center, kv.Key.Day, orderId);
+            var after = queued + kv.Value;
             if (after <= capacity) continue;
 
-            var center = await _centers.GetRecordAsync(centerId);
-            over.Add($"{center?.Name ?? "участок"}: {after:0.##} мин при мощности {capacity:0.##}");
+            var center = await _centers.GetRecordAsync(kv.Key.Center);
+            over.Add($"{center?.Name ?? "участок"} {kv.Key.Day:yyyy-MM-dd}: {after:0.##} мин при мощности {capacity:0.##}");
         }
 
         return over.Count == 0 ? null : string.Join("; ", over);
+    }
+
+    async Task<DateTime> FirstFitAsync(
+        Guid workCenter, DateTime earliest, decimal minutes, Guid orderId,
+        Dictionary<(Guid Center, DateTime Day), decimal> placed,
+        Dictionary<Guid, decimal> capacityCache)
+    {
+        if (workCenter == Guid.Empty || minutes <= 0m) return earliest;
+        if (!capacityCache.TryGetValue(workCenter, out var capacity))
+        {
+            capacity = await CapacityAsync(workCenter);
+            capacityCache[workCenter] = capacity;
+        }
+        if (capacity <= 0m || minutes > capacity) return earliest;
+
+        for (var day = earliest; day < earliest.AddDays(366); day = day.AddDays(1))
+        {
+            var queued = await QueuedMinutesAsync(workCenter, day, orderId);
+            var mine = placed.TryGetValue((workCenter, day), out var used) ? used : 0m;
+            if (queued + mine + minutes <= capacity) return day;
+        }
+        return earliest;
+    }
+
+    static DateTime ScheduleDay(ProductionOrderOperationsTablePartRow op, ProductionOrder order)
+    {
+        if (op.ScheduledOn is DateTime scheduled && scheduled.Year >= 1902)
+            return scheduled.Date;
+        return order.DocumentDate == default ? DateTime.UtcNow.Date : order.DocumentDate.Date;
     }
 }

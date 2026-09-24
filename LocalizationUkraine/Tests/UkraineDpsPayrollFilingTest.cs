@@ -71,6 +71,40 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
             "без кадрових подій Д5/Д6 не відмічають. Факт:\n{0}", text);
         Assert.IsTrue(!text.Contains("R062G3") && !text.Contains("R063G3"),
             "Д2/Д3 звичайний роботодавець не подає. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R01022G3;Дохід, на який нараховується 8,41 %;0.00"),
+            "звичайна ставка не сідає в 8,41 %. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R01032G3;Рядок 2.2 × 8,41 %;0.00"),
+            "внесок 22 % не підписується як 8,41 %. Факт:\n{0}", text);
+    }
+
+    [IntegrationTest("Розрахунок J0500111: ставка роботодавця 8,41 % йде в рядок 2.2, не в 22 %")]
+    public async Task PreferentialEsvRate841()
+    {
+        var env = await SetupAsync();
+        await ConfigureHrAsync(0.0841m);
+        await ConfigureUaAsync();
+        await AccrueAsync(env.Division, env.Employee, 10000m, new DateTime(2026, 3, 15));
+
+        var returnId = await Returns.BuildAsync(env.Entity, new DateTime(2026, 3, 1), new DateTime(2026, 3, 31));
+        await Filing.ExportDpsPayrollAsync(returnId);
+
+        var text = await PayloadAsync(env.Entity, "J0500111");
+        Assert.IsTrue(text.Contains("R01022G3;Дохід, на який нараховується 8,41 %;10000.00"),
+            "база 8,41 %. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R01032G3;Рядок 2.2 × 8,41 %;841.00"),
+            "внесок 841. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R01021G3;Дохід, на який нараховується 22 %;0.00"),
+            "22 % порожній. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R01031G3;Рядок 2.1 × 22 %;0.00"),
+            "рядок 3.1 не забирає пільговий внесок. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R0103G3;Нараховано єдиного внеску;841.00"),
+            "рядок 3 — фактично нараховане. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("R0107G3;Єдиний внесок до сплати;841.00"),
+            "до сплати = рядок 3. Факт:\n{0}", text);
+
+        var xml = await DeclarXmlAsync(env.Entity, "J0500111");
+        Assert.IsTrue(xml.Contains("<R01022G3>10000.00</R01022G3>") && xml.Contains("<R01032G3>841.00</R01032G3>"),
+            "ті самі комірки в DECLAR. Факт:\n{0}", xml);
     }
 
     [IntegrationTest("Д1 J0510111: категорія 1, база 10000, ЄСВ роботодавця 2200")]
@@ -884,14 +918,14 @@ public class UkraineDpsPayrollFilingTest : IntegrationTestScriptBase
         return (division.MetaId, entity.MetaId, employee.MetaId);
     }
 
-    private async Task ConfigureHrAsync()
+    private async Task ConfigureHrAsync(decimal employerRate = 0.22m)
     {
         var settings = Dict.NewRecord<HRSettings>();
         settings.PayrollRunDay = 25;
         settings.WorkHoursPerDay = 8m;
         settings.SocialInsuranceEmployeeRate = 0m;
-        settings.SocialInsuranceEmployerRate = 0.22m;
-        settings.SocialInsuranceForeignEmployerRate = 0.22m;
+        settings.SocialInsuranceEmployerRate = employerRate;
+        settings.SocialInsuranceForeignEmployerRate = employerRate;
         settings.SocialInsuranceWageCeiling = 120000m;
         await Dict.SaveRecordAsync(settings);
     }

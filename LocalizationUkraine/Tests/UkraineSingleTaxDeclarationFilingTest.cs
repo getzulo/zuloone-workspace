@@ -152,6 +152,8 @@ public class UkraineSingleTaxDeclarationFilingTest : IntegrationTestScriptBase
 
         Assert.IsTrue(text.Contains("J0135709 МПЗ;1250.00"),
             "100000 × 5% × 3/12. Факт:\n{0}", text);
+        Assert.IsTrue(text.Contains("1234567890:01:001:0001;Поле;100000.00;1250.00"),
+            "рядок ділянки. Факт:\n{0}", text);
     }
 
     private async Task<string> PayloadAsync(Guid entity)
