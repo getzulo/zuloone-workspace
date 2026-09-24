@@ -3,7 +3,7 @@
   "object": {
     "modelType": "Custom",
     "description": "Reproducible fictional master data and twelve months of documents for the public showcase tenant",
-    "modelVersion": "1.0.1",
+    "modelVersion": "1.0.2",
     "publisher": "ZuloOne",
     "isSystem": false,
     "isSealed": false,
