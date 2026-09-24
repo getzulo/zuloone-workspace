@@ -1505,15 +1505,11 @@ public partial class UaTaxFiling
 
     private async Task<string> IncomeSignOfAsync(Guid employeeId)
     {
-        try
-        {
-            var bag = await _data.GetByIdAsync("Employee", employeeId);
-            var raw = Convert.ToString(bag?["DpsIncomeSign"])?.Trim();
-            if (!string.IsNullOrWhiteSpace(raw)) return raw;
-        }
-        catch
-        {
-        }
+        // An empty employee value falls back to settings. A missing column or
+        // failed read must surface: treating it as 101 misclassifies CPD income.
+        var bag = await _data.GetByIdAsync("Employee", employeeId);
+        var raw = Convert.ToString(bag?["DpsIncomeSign"])?.Trim();
+        if (!string.IsNullOrWhiteSpace(raw)) return raw;
 
         return await IncomeSignAsync();
     }

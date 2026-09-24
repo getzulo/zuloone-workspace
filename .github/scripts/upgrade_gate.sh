@@ -12,7 +12,8 @@
 # stand on this build's tree over the same database, and looks at what moved.
 #
 # Arguments: <platform-image> <previous-git-ref>
-set -euo pipefail
+set -Eeuo pipefail
+trap 'echo "::error::Upgrade gate failed at line ${LINENO}: ${BASH_COMMAND}" >&2' ERR
 
 IMG="${1:?platform image required}"
 PREV="${2:?previous git ref required}"
@@ -21,6 +22,30 @@ APP="ug-app-$$"
 NET="ug-net-$$"
 
 cleanup() {
+  local rc=$?
+  if [ "$rc" -ne 0 ]; then
+    # Installation can report an error long before /health becomes ready.
+    # Keep those diagnostics visible even when a later assertion fails.
+    docker logs "$APP" 2>&1 | python3 -c '
+import json, sys
+for line in sys.stdin:
+    try:
+        row = json.loads(line)
+    except ValueError:
+        continue
+    message = row.get("@mt", "").lower()
+    if row.get("@l") in ("Error", "Fatal") or any(part in message for part in (
+        "model tree", "package versions", "import warnings"
+    )):
+        detail = {k: v for k, v in row.items() if k in (
+            "@t", "@mt", "@l", "Errors", "Held", "Names", "Count",
+            "Created", "Updated", "Skipped"
+        )}
+        if "@x" in row:
+            detail["exception"] = row["@x"][:2000]
+        print(json.dumps(detail, ensure_ascii=False))
+' >&2 || true
+  fi
   docker rm -f "$APP" "$PG" >/dev/null 2>&1 || true
   docker network rm "$NET" >/dev/null 2>&1 || true
   # The staged trees live inside the checkout, and the image build runs after this
@@ -120,7 +145,21 @@ boot() {
   return 1
 }
 
-summary() { docker logs "$APP" 2>&1 | grep -o '"Created":[0-9]*,"Updated":[0-9]*,"Skipped":[0-9]*' | tail -1; }
+summary() {
+  local logs counters
+  logs=$(docker logs "$APP" 2>&1) || return 1
+  if counters=$(printf '%s\n' "$logs" | grep -o '"Created":[0-9]*,"Updated":[0-9]*,"Skipped":[0-9]*' | tail -1); then
+    printf '%s\n' "$counters"
+  elif [[ "$logs" == *"Model tree is current:"* ]]; then
+    # A repeat boot with no changed versions does not run the importer, so
+    # there is no Created/Updated event. It is a valid zero-update install.
+    printf '%s\n' '"Created":0,"Updated":0,"Skipped":0'
+  else
+    echo "::error::The stand is ready but has no model-tree installation result." >&2
+    printf '%s\n' "$logs" | tail -40 >&2
+    return 1
+  fi
+}
 
 echo "Previous release: $PREV"
 echo "Model versions that moved since then: ${moved:-none}"
@@ -143,12 +182,17 @@ run_boot() {
 
 echo "--- installing the previous tree ---"
 run_boot .ug-prev
-echo "  $(summary)"
+previous_summary=$(summary)
+echo "  ${previous_summary}"
 
 echo "--- installing this build's tree over it ---"
 run_boot .ug-now
 now_summary=$(summary)
 echo "  ${now_summary}"
+
+# A positive aggregate Updated count can hide one failed or stale model.
+# Check both metadata and package stamps after startup compilation completed.
+python3 .github/scripts/check_installed_models.py "$PG" .ug-now
 
 updated=$(echo "$now_summary" | sed -n 's/.*"Updated":\([0-9]*\).*/\1/p')
 updated=${updated:-0}

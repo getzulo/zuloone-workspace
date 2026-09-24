@@ -11,6 +11,31 @@
     {
       "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
       "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
+      "fieldName": "DpsIncomeSign",
+      "baseType": "String",
+      "length": 3,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 75,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Income sign (4DF)",
+        "ar": "رمز الدخل (4DF)",
+        "ru": "Признак дохода (4ДФ)",
+        "uk": "Ознака доходу (4ДФ)"
+      },
+      "description": "Ознака доходу працівника для 4ДФ: 101 — зарплата, 102 — винагорода за ЦПХ. Порожньо — PayrollIncomeSign у налаштуваннях України, потім 101.",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "30a6d68a-548e-49b8-bcce-ea15505889ab",
+      "name": "DpsIncomeSign",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "extensionMetaId": "8a6bb359-8b93-446f-bc54-6b01d7e36e11",
+      "dictionaryMetaId": "30e06ab7-b362-4982-9341-bc9c9d1d9075",
       "fieldName": "TaxCardNumber",
       "baseType": "String",
       "length": 10,

@@ -54,9 +54,14 @@
     "related at all. A pin is therefore perishable: it names a tag that can stop",
     "existing without anyone touching this file. If CI dies on a missing image,",
     "read the platform's last SUCCESSFUL run for the tag it pushed and move this",
-    "line to it; do not assume a red platform is the cause."
+    "line to it; do not assume a red platform is the cause.",
+    "",
+    "The blocking upgrade gate requires natural-key reconciliation of subtype",
+    "transitions in WorkspaceImportService. Image 2026.0.272 contains that fix:",
+    "an edge recreated by the designer is matched to the exported edge instead",
+    "of colliding and preventing package-version stamps."
   ],
-  "platformImage": "localhost:5000/zuloone-core:2026.0.270",
+  "platformImage": "localhost:5000/zuloone-core:2026.0.272",
 
   "$comment_exclude": [
     "Models with NO bundle exported for them.",

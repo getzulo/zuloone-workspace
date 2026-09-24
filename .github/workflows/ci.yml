@@ -105,6 +105,10 @@ jobs:
         shell: bash
         run: python3 .github/scripts/check_caption_format.py
 
+      - name: Upgrade assertions must reject incomplete installs
+        shell: bash
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
+
       - name: A release must change something
         if: steps.ver.outputs.release == 'true'
         shell: bash
@@ -217,14 +221,8 @@ jobs:
       # The first stand is torn down first. The runner has 7 GB and two ZuloOne
       # stands at once do not fit.
       - name: Upgrade gate
-        # NOT blocking yet, and that is an admission rather than a decision.
-        # The gate passes when run by hand on the runner and dies in CI a
-        # millisecond after the second stand's heading, printing nothing — three
-        # attempts at making it explain itself have not landed. Until it is
-        # trustworthy it must not hold back the image: a gate nobody can act on
-        # that also blocks the pipeline is worse than no gate. Its output is
-        # still in the log, and finishing it is tracked.
-        continue-on-error: true
+        # An image must upgrade the previous release before it can be published.
+        # The gate reports the failing command and the stand's install result.
         shell: bash
         env:
           PLATFORM: ${{ steps.cfg.outputs.image }}

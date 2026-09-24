@@ -101,9 +101,10 @@ public class UkraineBankStatementTest : IntegrationTestScriptBase
 
     private async Task<Guid> LegalEntityAsync()
     {
-        var existing = await Sql.SelectAsync("SELECT TOP 1 [MetaId] FROM [LegalEntity]");
-        if (existing.Count > 0 && existing[0]["MetaId"] is Guid id)
-            return id;
+        // The manager applies the provider's row limit; TOP is SQL Server-only.
+        var existing = await Dict.GetRecordsAsync<LegalEntity>(take: 1);
+        if (existing.Count > 0)
+            return existing[0].MetaId;
 
         var currency = Dict.NewRecord<Currency>();
         currency.Name = "Hryvnia";
