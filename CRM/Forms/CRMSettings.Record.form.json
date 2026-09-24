@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "4d8e6d80-cbf0-5dc2-b88b-00a1eae5cdf8",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"Лояльность\",\"columns\":1,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"LoyaltyEnabled\"},{\"type\":\"field\",\"name\":\"PointsPerCurrencyUnit\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[\"ID\"]}",
+    "metaId": "6f1b3d79-2086-4245-f947-3b0d6c8a2f54",
+    "name": "CRMSettings.Record",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  }
+}

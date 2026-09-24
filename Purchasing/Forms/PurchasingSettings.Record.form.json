@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "e8c8174d-fd25-5eb9-b255-2209f294e1bf",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"Заказ поставщику\",\"columns\":1,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"AutoReceiveOnOrder\"},{\"type\":\"field\",\"name\":\"DefaultPaymentTermDays\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[\"ID\"]}",
+    "metaId": "2b7d9f35-8c42-4e01-b503-9d6f2e4c8b10",
+    "name": "PurchasingSettings.Record",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  }
+}

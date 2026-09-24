@@ -168,10 +168,8 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
         var prior = await next(document, context);
         if (!prior.Success) return prior;
 
-        // The invoice is created by ApproveSalesOrderCommand after SaveDocumentAsync:
-        // InvoiceOrderAsync from this transaction cannot see uncommitted lines.
-        if (document.Subtype == "Confirmed")
-            await context.GetService<ISalesFulfillmentService>().EnsurePickTaskAsync(document.MetaId);
+        // Invoice and the storage gather both run from ConfirmOrderAsync after
+        // this save returns. A nested posting started here is swallowed.
         return EventResult.Ok();
     }
 }

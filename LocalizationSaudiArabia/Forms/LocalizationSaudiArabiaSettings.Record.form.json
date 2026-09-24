@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "e2d38cb7-3c6b-54f9-97fa-4069ead80ea6",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"Э-фактура\",\"columns\":1,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"EInvoiceEnabled\"},{\"type\":\"field\",\"name\":\"VatRegistrationNumber\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[\"ID\"]}",
+    "metaId": "be6a8c24-75db-4790-4e92-8a5c1b3f7e09",
+    "name": "LocalizationSaudiArabiaSettings.Record",
+    "modelId": "8d2f5a41-9c6b-4e3f-8a7d-1b4c6e2f9a50"
+  }
+}

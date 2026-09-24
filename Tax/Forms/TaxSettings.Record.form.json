@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "970b6be9-ec41-5651-8ff3-51ab037cd79d",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"Налог\",\"columns\":1,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"DefaultTaxCode\"},{\"type\":\"field\",\"name\":\"PricesIncludeTax\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[\"ID\"]}",
+    "metaId": "5e0a2c68-1f75-4134-e836-2a9c5b7f1e43",
+    "name": "TaxSettings.Record",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  }
+}

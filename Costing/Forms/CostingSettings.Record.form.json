@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "dab95d48-61e1-56c4-b852-6964435dc152",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"Расчёт\",\"columns\":1,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"CostingMethod\"},{\"type\":\"field\",\"name\":\"RoundCosts\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[\"ID\"]}",
+    "metaId": "7a2c4e80-3197-4356-0a58-4c1e7d9b3a65",
+    "name": "CostingSettings.Record",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+  }
+}

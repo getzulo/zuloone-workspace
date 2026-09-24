@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "65ae241d-012a-566d-aca6-3487f75e00a8",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"Календарь\",\"columns\":2,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"HomeCountry\"},{\"type\":\"field\",\"name\":\"PayrollRunDay\"},{\"type\":\"field\",\"name\":\"WeeklyHours\"},{\"type\":\"field\",\"name\":\"WorkHoursPerDay\"}]},{\"type\":\"group\",\"title\":\"Соцстрах\",\"columns\":2,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"SocialInsuranceEmployeeRate\"},{\"type\":\"field\",\"name\":\"SocialInsuranceEmployerRate\"},{\"type\":\"field\",\"name\":\"SocialInsuranceForeignEmployerRate\"},{\"type\":\"field\",\"name\":\"SocialInsuranceWageCeiling\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[\"ID\"]}",
+    "metaId": "4d9f1b57-0e64-4023-d725-1f8b4a6e0d32",
+    "name": "HRSettings.Record",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  }
+}

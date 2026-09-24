@@ -116,6 +116,29 @@
     },
     {
       "dictionaryMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
+      "fieldName": "FulfillmentScheme",
+      "edtMetaId": "e4a7c3b6-0158-4d29-bf64-823dc0519f70",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "description": "Как подтверждённый заказ доставляет товар на ячейку списания, когда включено «Требовать складские задания». Упрощённая — сама проводит перемещение из хранения. Расширенная и пустое — черновик отбора, кладовщик подтверждает его сам. Без складских заданий поле ни на что не влияет.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Shipment scheme",
+        "ar": "مخطط الشحن",
+        "ru": "Схема отгрузки",
+        "uk": "Схема відвантаження"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f5b8d4c7-1269-4e30-8075-934ed1620a81",
+      "name": "FulfillmentScheme",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+    },
+    {
+      "dictionaryMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
       "fieldName": "ID",
       "baseType": "String",
       "length": 50,

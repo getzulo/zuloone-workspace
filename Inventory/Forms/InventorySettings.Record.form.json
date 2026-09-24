@@ -4,7 +4,7 @@
     "objectType": "Dictionary",
     "objectMetaId": "4e5f6a7b-8c9d-4e0f-9a1b-3c4d5e6f7a78",
     "formKind": "Record",
-    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":1,\"borderStyle\":\"dashed\",\"items\":[{\"type\":\"field\",\"name\":\"ID\"},{\"type\":\"field\",\"name\":\"DefaultUnit\"},{\"type\":\"field\",\"name\":\"DefaultReceivingLocation\"},{\"type\":\"field\",\"name\":\"EnforceUnitConversion\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[]}",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"Номенклатура\",\"columns\":1,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"DefaultUnit\"},{\"type\":\"field\",\"name\":\"EnforceUnitConversion\"}]},{\"type\":\"group\",\"title\":\"Адресный склад\",\"columns\":1,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"DefaultReceivingLocation\"},{\"type\":\"field\",\"name\":\"EnforceWarehouseTasks\"},{\"type\":\"field\",\"name\":\"FulfillmentScheme\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[\"ID\"]}",
     "metaId": "08033ab9-cb38-4756-bdd9-816631fdba2f",
     "name": "InventorySettings.Record",
     "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"

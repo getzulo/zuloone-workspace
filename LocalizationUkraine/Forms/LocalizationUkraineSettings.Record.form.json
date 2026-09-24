@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"Налоговая накладная\",\"columns\":2,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"EInvoiceEnabled\"},{\"type\":\"field\",\"name\":\"VatReturnType\"},{\"type\":\"field\",\"name\":\"TaxInvoiceFormCode\"},{\"type\":\"field\",\"name\":\"TaxInvoiceAdjustmentFormCode\"}]},{\"type\":\"group\",\"title\":\"НДС и единый налог\",\"columns\":2,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"ExemptVatCode\"},{\"type\":\"field\",\"name\":\"MpzRate\"},{\"type\":\"field\",\"name\":\"SingleTaxCode3\"},{\"type\":\"field\",\"name\":\"SingleTaxCode5\"},{\"type\":\"field\",\"name\":\"SingleTaxCodeExcess\"},{\"type\":\"field\",\"name\":\"SingleTaxCodeDouble3\"},{\"type\":\"field\",\"name\":\"SingleTaxCodeDouble5\"}]},{\"type\":\"group\",\"title\":\"Зарплата\",\"columns\":2,\"frame\":\"card\",\"labels\":\"left\",\"align\":\"left\",\"items\":[{\"type\":\"field\",\"name\":\"IncomeTaxCode\"},{\"type\":\"field\",\"name\":\"MilitaryLevyCode\"},{\"type\":\"field\",\"name\":\"PayrollIncomeSign\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"},{\"type\":\"panel\",\"key\":\"panel:attachments\"}],\"hidden\":[\"ID\"]}",
+    "metaId": "ad5f7b13-64ca-4689-3d81-7f4b0a2e6d98",
+    "name": "LocalizationUkraineSettings.Record",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "description": "Схема отгрузки: упрощённая двигает остаток сама, расширенная оставляет отбор кладовщику",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "4c8e1a72-6b30-4f15-9d84-2a7f0c5e8b19",
+    "isRequired": false,
+    "metaId": "e4a7c3b6-0158-4d29-bf64-823dc0519f70",
+    "name": "WarehouseFulfillmentSchemeEdt",
+    "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+  }
+}
