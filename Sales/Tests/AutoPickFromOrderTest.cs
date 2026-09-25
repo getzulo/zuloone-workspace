@@ -233,6 +233,10 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
         => TotalsManager.GetBalanceAsync("Stock", "Qty",
             new Dictionary<string, object?> { ["Cell"] = cell, ["Item"] = item });
 
+    private static Task<decimal> ReservedAsync(Guid cell, Guid item)
+        => TotalsManager.GetBalanceAsync("ReservedStock", "Qty",
+            new Dictionary<string, object?> { ["Cell"] = cell, ["Item"] = item });
+
     private static async Task SetSchemeAsync(WarehouseFulfillmentScheme scheme)
     {
         var manager = GetService<IDictionaryManager<InventorySettings>>();
@@ -285,6 +289,8 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
             "переносится 4, сколько в строке заказа");
         Assert.IsTrue(await OnHandAsync(y.Storage, y.Item) == 6m, "в хранении осталось 6");
         Assert.IsTrue(await OnHandAsync(y.Picking, y.Item) == 4m, "на ячейке списания 4");
+        Assert.IsTrue(await ReservedAsync(y.Storage, y.Item) == 0m, "хранение резерв не держит: товар уже уехал");
+        Assert.IsTrue(await ReservedAsync(y.Picking, y.Item) == 4m, "резерв на ячейке списания, факт {0}", await ReservedAsync(y.Picking, y.Item));
         await AssertParentIsOrderAsync(order.MetaId, transfer.MetaId);
     }
 
@@ -388,6 +394,52 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
             "отбор из хранения на ячейку заказа, всё количество строки");
         Assert.IsTrue(await OnHandAsync(y.Storage, y.Item) == 10m, "остаток ещё в хранении");
         Assert.IsTrue(await OnHandAsync(y.Picking, y.Item) == 0m, "ячейка списания пустая, пока отбор не подтверждён");
+        Assert.IsTrue(await ReservedAsync(y.Storage, y.Item) == 4m,
+            "резерв сидит в хранении, факт {0}", await ReservedAsync(y.Storage, y.Item));
+        Assert.IsTrue(await ReservedAsync(y.Picking, y.Item) == 0m, "пустая ячейка отбора резерв не держит");
+    }
+
+    [IntegrationTest("Подтверждение отбора переносит резерв на ячейку отбора")]
+    public async Task ConfirmingThePickMovesTheReserve()
+    {
+        var y = await SetupAsync();
+        await SetDisciplineAsync(true);
+        await SetSchemeAsync(WarehouseFulfillmentScheme.Extended);
+        await SeedAsync(y.Storage, y.Item, 10m);
+
+        var order = await NewOrderAsync(y, y.Picking, 4m);
+        await SubmitAndApproveAsync(order.MetaId);
+
+        var picks = await PickIdsAsync(order.MetaId);
+        var pick = await DocumentManager.GetDocumentAsync<PickTask>(picks[0]);
+        pick!.Subtype = PickTask.Subtypes.Confirmed;
+        await DocumentManager.SaveDocumentAsync(pick);
+
+        Assert.IsTrue(await OnHandAsync(y.Storage, y.Item) == 6m, "из хранения ушло 4");
+        Assert.IsTrue(await OnHandAsync(y.Picking, y.Item) == 4m, "на отборе 4");
+        Assert.IsTrue(await ReservedAsync(y.Storage, y.Item) == 0m, "хранение резерв отпустило");
+        Assert.IsTrue(await ReservedAsync(y.Picking, y.Item) == 4m,
+            "резерв переехал с товаром, факт {0}", await ReservedAsync(y.Picking, y.Item));
+    }
+
+    [IntegrationTest("Отмена заказа снимает резерв ячейки хранения")]
+    public async Task CancellingTheOrderReleasesTheStorageReserve()
+    {
+        var y = await SetupAsync();
+        await SetDisciplineAsync(true);
+        await SetSchemeAsync(WarehouseFulfillmentScheme.Extended);
+        await SeedAsync(y.Storage, y.Item, 10m);
+
+        var order = await NewOrderAsync(y, y.Picking, 4m);
+        await SubmitAndApproveAsync(order.MetaId);
+        Assert.IsTrue(await ReservedAsync(y.Storage, y.Item) == 4m, "до отмены резерв в хранении");
+
+        await RunCommandAsync("CancelSalesOrder", order.MetaId);
+
+        Assert.IsTrue(await ReservedAsync(y.Storage, y.Item) == 0m,
+            "после отмены хранение свободно, факт {0}", await ReservedAsync(y.Storage, y.Item));
+        Assert.IsTrue(await ReservedAsync(y.Picking, y.Item) == 0m, "ячейка отбора тоже пустая");
+        Assert.IsTrue((await PickIdsAsync(order.MetaId)).Count == 0, "черновик отбора удалён");
     }
 
     [IntegrationTest("20 из ячеек 10, 5 и 7 — три черновика отбора, остаток на месте")]
@@ -525,5 +577,101 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
             "заказ из хранения остаётся Submitted, факт {0}", after.Subtype ?? "<null>");
         Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("ОТБОРА") || !run.Success,
             "отказ про ячейку отбора: {0}", string.Join("; ", run.ClientMessages));
+    }
+
+    private async Task<PurchaseOrder> PlaceSupplyAsync(Yard y, decimal qty, DateTime? expected)
+    {
+        var supplier = DictionaryManager.NewRecord<Supplier>();
+        supplier.Name = "Supply Co";
+        supplier = await DictionaryManager.SaveRecordAsync(supplier);
+
+        var po = await DocumentManager.NewDocumentAsync<PurchaseOrder>();
+        po.Supplier = supplier.MetaId;
+        po.Location = y.Receiving;
+        if (expected is DateTime day) po.ExpectedReceipt = day;
+        po.Lines.Add(new PurchaseOrderLinesTablePartRow { Item = y.Item, Quantity = qty, UnitPrice = 2m });
+        await DocumentManager.SaveDocumentAsync(po);
+        po.Subtype = PurchaseOrder.Subtypes.Ordered;
+        await DocumentManager.SaveDocumentAsync(po);
+        return po;
+    }
+
+    private async Task<SalesOrder> NewOrderOnAsync(Yard y, decimal qty, DateTime delivery)
+    {
+        var order = await NewOrderAsync(y, y.Picking, qty);
+        order.DeliveryDate = delivery;
+        await DocumentManager.SaveDocumentAsync(order);
+        return order;
+    }
+
+    [IntegrationTest("Заказ поставщику с приходом до отгрузки закрывает нехватку")]
+    public async Task AtpCountsOrderedReceiptBeforeDelivery()
+    {
+        var y = await SetupAsync();
+        await SetDisciplineAsync(true);
+        await SetBackorderAsync(false);
+        var supply = await PlaceSupplyAsync(y, 4m, DateTime.UtcNow.Date.AddDays(3));
+        var stored = await DocumentManager.GetDocumentAsync<PurchaseOrder>(supply.MetaId);
+        var horizon = DateTime.UtcNow.Date.AddDays(10);
+        var atp = await Fulfillment.AtpQtyAsync(y.Picking, y.Item, horizon);
+        Assert.IsTrue(atp == 4m,
+            "ATP {0}, дата {1:yyyy-MM-dd}, подтип {2}, ячейка {3}",
+            atp, stored!.ExpectedReceipt, stored.Subtype, stored.Location);
+
+        var order = await NewOrderOnAsync(y, 4m, DateTime.UtcNow.Date.AddDays(10));
+        await SubmitAndApproveAsync(order.MetaId);
+        var confirmed = await DocumentManager.GetDocumentAsync<SalesOrder>(order.MetaId);
+        Assert.IsTrue(confirmed!.Subtype == SalesOrder.Subtypes.Confirmed,
+            "ожидаемый приход покрывает отгрузку, факт {0}", confirmed.Subtype ?? "<null>");
+
+        var second = await NewOrderOnAsync(y, 1m, DateTime.UtcNow.Date.AddDays(10));
+        await RunCommandAsync("SubmitSalesOrder", second.MetaId);
+        var approveId = await Db.FindCommandIdAsync("document", "ApproveSalesOrder");
+        var run = await Db.ExecuteDocumentCommandAsync(approveId, second.MetaId);
+        var after = await DocumentManager.GetDocumentAsync<SalesOrder>(second.MetaId);
+        Assert.IsTrue(after!.Subtype == SalesOrder.Subtypes.Submitted,
+            "тот же приход второму заказу уже не обещан, факт {0}", after.Subtype ?? "<null>");
+        Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("остатка") || !run.Success,
+            "пользователь видит отказ: {0}", string.Join("; ", run.ClientMessages));
+    }
+
+    [IntegrationTest("Приход позже отгрузки свободный остаток не увеличивает")]
+    public async Task AtpIgnoresReceiptAfterDelivery()
+    {
+        var y = await SetupAsync();
+        await SetDisciplineAsync(true);
+        await SetBackorderAsync(false);
+        await PlaceSupplyAsync(y, 4m, DateTime.UtcNow.Date.AddDays(20));
+
+        var order = await NewOrderAsync(y, y.Picking, 4m);
+        await RunCommandAsync("SubmitSalesOrder", order.MetaId);
+        var approveId = await Db.FindCommandIdAsync("document", "ApproveSalesOrder");
+        var run = await Db.ExecuteDocumentCommandAsync(approveId, order.MetaId);
+        var after = await DocumentManager.GetDocumentAsync<SalesOrder>(order.MetaId);
+        Assert.IsTrue(after!.Subtype == SalesOrder.Subtypes.Submitted,
+            "приход на 20-й день не закрывает отгрузку завтра, факт {0}", after.Subtype ?? "<null>");
+        Assert.IsTrue(string.Join("; ", run.ClientMessages).Contains("остатка") || !run.Success,
+            "пользователь видит отказ: {0}", string.Join("; ", run.ClientMessages));
+    }
+
+    [IntegrationTest("Пустая дата прихода не обещает остаток, принятый заказ не считается дважды")]
+    public async Task AtpIgnoresEmptyDateAndDoesNotDoubleCountReceipt()
+    {
+        var y = await SetupAsync();
+        await SetDisciplineAsync(true);
+        var open = await PlaceSupplyAsync(y, 4m, null);
+        var horizon = DateTime.UtcNow.Date.AddDays(10);
+        var withoutDate = await Fulfillment.AtpQtyAsync(y.Picking, y.Item, horizon);
+        Assert.IsTrue(withoutDate == 0m, "без ожидаемой даты приход не в ATP, факт {0}", withoutDate);
+
+        open.ExpectedReceipt = DateTime.UtcNow.Date;
+        await DocumentManager.SaveDocumentAsync(open);
+        var promised = await Fulfillment.AtpQtyAsync(y.Picking, y.Item, horizon);
+        Assert.IsTrue(promised == 4m, "размещённый заказ даёт 4, факт {0}", promised);
+
+        open.Subtype = PurchaseOrder.Subtypes.Received;
+        await DocumentManager.SaveDocumentAsync(open);
+        var onHand = await Fulfillment.AtpQtyAsync(y.Picking, y.Item, horizon);
+        Assert.IsTrue(onHand == 4m, "после приёмки те же 4, не 8, факт {0}", onHand);
     }
 }

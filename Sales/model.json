@@ -7,7 +7,7 @@
     "isSealed": false,
     "isEnabled": true,
     "publisher": "ZuloOne",
-    "modelVersion": "1.53.4",
+    "modelVersion": "1.55.0",
     "metaId": "47861dd2-1009-4926-9ea3-c506cae5118d",
     "name": "Sales",
     "modelId": "00000000-0000-0000-0000-000000000000",
@@ -43,6 +43,12 @@
       "minVersion": "1.0.0",
       "metaId": "8210acbe-0b01-493e-b589-8d9d2244b898",
       "name": "Sales->Organization"
+    },
+    {
+      "dependsOnModelMetaId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3",
+      "minVersion": "1.15.0",
+      "metaId": "a7c3e1d4-5b28-4f90-9c16-8d2e4a0b7f53",
+      "name": "Sales->Purchasing"
     },
     {
       "dependsOnModelMetaId": "39489aa3-094f-411d-a0a0-d5089980790a",

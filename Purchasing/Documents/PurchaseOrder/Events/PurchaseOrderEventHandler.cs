@@ -42,6 +42,13 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
 
     public override async Task<EventResult> OnBeforeSaveAsync(PurchaseOrder document, bool isNew, EventContext context)
     {
+        // Taken before next(). That call writes the typed copy back, and a
+        // partial update (subtype only) does not contain ExpectedReceipt at all.
+        // Treating the missing field as empty and assigning 1901 makes WriteBack
+        // invent the column and wipe the date stored on insert.
+        var postedReceipt = PostedReceipt(context);
+        var bagHasReceipt = BagHas("ExpectedReceipt", context);
+
         // Stamp DueDate on every save; clamp empty clock on INSERT only.
         var prior = await next(document, isNew, context);
         if (!prior.Success) return prior;
@@ -55,7 +62,40 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
         if (isNew && document.DueDate.Year < 1902)
             document.DueDate = new DateTime(1901, 1, 1);
 
+        var receipt = document.ExpectedReceipt.Year >= 1902 ? document.ExpectedReceipt : postedReceipt;
+        if (receipt.Year >= 1902)
+            document.ExpectedReceipt = receipt;
+        else if (bagHasReceipt)
+            document.ExpectedReceipt = new DateTime(1901, 1, 1);
+
         return EventResult.Ok();
+    }
+
+    /// <summary>Date already on the save bag, before the typed copy is written back.</summary>
+    private static DateTime PostedReceipt(EventContext context)
+    {
+        if (!TryBag("ExpectedReceipt", context, out var raw) || raw is null) return default;
+        if (raw is DateTime dt) return dt;
+        return DateTime.TryParse(raw.ToString(), out var parsed) ? parsed : default;
+    }
+
+    private static bool BagHas(string field, EventContext context)
+        => TryBag(field, context, out _);
+
+    private static bool TryBag(string field, EventContext context, out object? raw)
+    {
+        var record = Record(context);
+        if (record.TryGetValue(field, out raw)) return true;
+        foreach (var kv in record)
+        {
+            if (string.Equals(kv.Key, field, StringComparison.OrdinalIgnoreCase))
+            {
+                raw = kv.Value;
+                return true;
+            }
+        }
+        raw = null;
+        return false;
     }
 
     private static async Task<int> DefaultDaysAsync(EventContext context)

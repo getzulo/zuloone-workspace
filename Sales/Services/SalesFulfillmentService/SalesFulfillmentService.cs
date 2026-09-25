@@ -70,9 +70,10 @@ public partial class SalesFulfillmentService
             .FirstOrDefault();
         if (settings?.AllowBackorder != true)
         {
+            var horizon = full.DeliveryDate.Year >= 1902 ? full.DeliveryDate : DateTime.UtcNow;
             foreach (var line in full.Lines)
             {
-                var free = await AvailableQtyAsync(full.Location, line.Item);
+                var free = await AtpQtyAsync(full.Location, line.Item, horizon);
                 if (free < line.Quantity)
                     return $"Не хватает свободного остатка: нужно {line.Quantity}, свободно {free}";
             }
@@ -90,7 +91,8 @@ public partial class SalesFulfillmentService
     /// <summary>Available = Stock − ReservedStock. Without discipline — by the
     /// order cell. With discipline the goods are still in storage while the order
     /// points at picking: look at every cell of that cell's store, otherwise
-    /// confirmation always reports "no stock".</summary>
+    /// confirmation always reports "no stock". A draft pick holds the storage
+    /// cell, so the same sum also sees that hold.</summary>
     public async Task<decimal> AvailableQtyAsync(Guid cell, Guid item)
     {
         if (cell == Guid.Empty || item == Guid.Empty) return 0m;
@@ -113,6 +115,50 @@ public partial class SalesFulfillmentService
         var one = new Dictionary<string, object?> { ["Cell"] = cell, ["Item"] = item };
         return await _totals.GetBalanceAsync("Stock", "Qty", one)
              - await _totals.GetBalanceAsync("ReservedStock", "Qty", one);
+    }
+
+    /// <summary>Available to promise on <paramref name="onDate"/>: free stock
+    /// plus purchase orders already placed (<c>Ordered</c>) whose
+    /// <c>ExpectedReceipt</c> falls on or before that day and whose receiving
+    /// cell is in the same store. An empty expected date does not promise
+    /// anything — payment <c>DueDate</c> is not an arrival. A received order
+    /// is already in stock and is not added again.</summary>
+    public async Task<decimal> AtpQtyAsync(Guid cell, Guid item, DateTime onDate)
+    {
+        var free = await AvailableQtyAsync(cell, item);
+        if (cell == Guid.Empty || item == Guid.Empty) return free;
+        var horizon = onDate.Year >= 1902 ? onDate : DateTime.UtcNow;
+        return free + await IncomingOnOrBeforeAsync(cell, item, horizon);
+    }
+
+    private async Task<decimal> IncomingOnOrBeforeAsync(Guid cell, Guid item, DateTime horizon)
+    {
+        decimal incoming = 0m;
+        var open = await _documents.QueryDocumentsAsync<PurchaseOrder>("Subtype = 'Ordered'");
+        foreach (var header in open)
+        {
+            var full = await _documents.GetDocumentAsync<PurchaseOrder>(header.MetaId);
+            if (full == null) continue;
+            if (full.ExpectedReceipt.Year < 1902 || full.ExpectedReceipt.Date > horizon.Date)
+                continue;
+            if (!await SameWarehouseAsync(full.Location, cell)) continue;
+            foreach (var line in full.Lines)
+            {
+                if (line.Item != item) continue;
+                var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
+                if (qty > 0m) incoming += qty;
+            }
+        }
+        return incoming;
+    }
+
+    private async Task<bool> SameWarehouseAsync(Guid left, Guid right)
+    {
+        if (left == Guid.Empty || right == Guid.Empty) return false;
+        if (left == right) return true;
+        var a = await Cells.GetStoreAsync(left);
+        var b = await Cells.GetStoreAsync(right);
+        return a is Guid storeA && b is Guid storeB && storeA == storeB;
     }
 
     /// <summary>
@@ -508,5 +554,54 @@ public partial class SalesFulfillmentService
             .Select(e => e.ParentDocId)
             .Distinct()
             .ToList();
+    }
+
+    /// <summary>True when this pick was spawned for a sales order. A manual
+    /// warehouse pick has no such parent and must not keep a reservation
+    /// after it is confirmed.</summary>
+    public async Task<bool> PickServesSalesOrderAsync(Guid pickId)
+    {
+        if (pickId == Guid.Empty) return false;
+        return (await OrderParentsAsync(pickId)).Count > 0;
+    }
+
+    /// <summary>Cell, item and quantity a pick of this order is holding.
+    /// Draft — the storage cell. Confirmed — the picking cell the line
+    /// names. A wave's single task is shared; callers must not take more
+    /// than their own line.</summary>
+    public async Task<List<Dictionary<string, object?>>> PickHoldsAsync(Guid orderId)
+    {
+        var result = new List<Dictionary<string, object?>>();
+        if (orderId == Guid.Empty) return result;
+
+        var family = await _documents.GetDocumentFamilyAsync(orderId);
+        var children = new HashSet<Guid>(
+            family.Edges.Where(e => e.ParentDocId == orderId).Select(e => e.ChildDocId));
+
+        foreach (var node in family.Nodes)
+        {
+            if (node.DocTypeName != "PickTask" || !children.Contains(node.DocId)) continue;
+            var pick = await _documents.GetDocumentAsync<PickTask>(node.DocId);
+            if (pick == null) continue;
+
+            var confirmed = pick.Subtype == "Confirmed";
+            foreach (var line in pick.Lines)
+            {
+                var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
+                if (qty <= 0m || line.Item == Guid.Empty) continue;
+                var cell = confirmed
+                    ? (line.ToCell != Guid.Empty ? line.ToCell : pick.FromCell)
+                    : pick.FromCell;
+                if (cell == Guid.Empty) continue;
+                result.Add(new Dictionary<string, object?>
+                {
+                    ["Cell"] = cell,
+                    ["Item"] = line.Item,
+                    ["Qty"] = qty,
+                });
+            }
+        }
+
+        return result;
     }
 }

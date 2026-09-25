@@ -1,0 +1,10 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "57100801-0000-4000-8000-000000000000",
+    "description": "Резерв заказа на ячейке, из которой отбор ещё не забрал товар, и на ячейке отбора после подтверждения",
+    "metaId": "c4e8a1b2-6d3f-4a90-8e17-2b5c9d0e4f31",
+    "name": "PickTask.Sales",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

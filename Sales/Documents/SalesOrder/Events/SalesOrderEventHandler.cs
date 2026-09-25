@@ -211,9 +211,10 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
             return EventResult.Ok();
 
         var fulfill = context.GetService<ISalesFulfillmentService>();
+        var horizon = onDate.Year >= 1902 ? onDate : DateTime.UtcNow;
         foreach (var line in lines)
         {
-            var free = await fulfill.AvailableQtyAsync(location, line.Item);
+            var free = await fulfill.AtpQtyAsync(location, line.Item, horizon);
             if (free < line.Quantity)
                 return EventResult.Cancel(
                     $"Не хватает свободного остатка: нужно {line.Quantity}, свободно {free}");

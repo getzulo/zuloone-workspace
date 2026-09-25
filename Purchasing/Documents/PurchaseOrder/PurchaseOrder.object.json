@@ -45,6 +45,28 @@
     },
     {
       "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
+      "fieldName": "ExpectedReceipt",
+      "caption": {
+        "en": "Expected receipt",
+        "ar": "تاريخ الاستلام المتوقع",
+        "ru": "Ожидаемый приход",
+        "uk": "Очікуване надходження"
+      },
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "description": "Когда товар будет на складе. Пусто — заказ не обещает остаток покупателю. Срок оплаты DueDate сюда не подставляется.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "b6e4c2a1-7d39-4e81-8a05-3f1c9b2d6e74",
+      "name": "ExpectedReceipt",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "documentTypeMetaId": "6935af7d-5f73-45d5-ad4c-d4a21dbe0b67",
       "fieldName": "ID",
       "caption": {
         "en": "Number",

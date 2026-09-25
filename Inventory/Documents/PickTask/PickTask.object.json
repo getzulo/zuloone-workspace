@@ -123,10 +123,26 @@
   ],
   "subtypeTransactionScripts": [
     {
+      "subtypeMetaId": "57100804-0000-4000-8000-000000000000",
+      "scriptMetaId": "d17a4c82-9e05-4b6a-a3f8-1c0d5e7b2a64",
+      "executionOrder": 1,
+      "metaId": "11aa22bb-3344-4c55-8d66-778899aabb01",
+      "name": "",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+    },
+    {
       "subtypeMetaId": "57100805-0000-4000-8000-000000000000",
       "scriptMetaId": "5710080d-0000-4000-8000-000000000000",
       "executionOrder": 1,
       "metaId": "57100807-0000-4000-8000-000000000000",
+      "name": "",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+    },
+    {
+      "subtypeMetaId": "57100805-0000-4000-8000-000000000000",
+      "scriptMetaId": "e28b5d93-0f16-4c7b-b4a9-2d1e6f8c3b75",
+      "executionOrder": 2,
+      "metaId": "11aa22bb-3344-4c55-8d66-778899aabb02",
       "name": "",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }

@@ -1,3 +1,4 @@
+using System.Linq;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
@@ -13,6 +14,12 @@ public partial class CancelSalesOrderCommand
         var docs = context.GetService<IDocumentManager>();
         var full = await docs.GetDocumentAsync<SalesOrder>(document.MetaId);
         if (full == null) return;
+
+        // Черновик отбора держит резерв хранения. Снять его надо до отмены счёта:
+        // счёт компенсирует только то, что ещё висит на подтверждённом отборе.
+        var family = await docs.GetDocumentFamilyAsync(full.MetaId);
+        foreach (var pick in family.Nodes.Where(n => n.DocTypeName == "PickTask" && n.Subtype == "Draft"))
+            await docs.DeleteDocumentAsync<PickTask>(pick.DocId);
 
         // Cancel linked realization invoice if it exists and has not yet been issued.
         var posting = context.GetService<IDocumentPostingService>();

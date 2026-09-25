@@ -1,0 +1,14 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "c4e8a1b2-6d3f-4a90-8e17-2b5c9d0e4f31",
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "PickTask",
+    "objectMetaId": "57100801-0000-4000-8000-000000000000",
+    "executionOrder": 2,
+    "metaId": "e28b5d93-0f16-4c7b-b4a9-2d1e6f8c3b75",
+    "name": "PickTaskFollowReserveTx",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}
