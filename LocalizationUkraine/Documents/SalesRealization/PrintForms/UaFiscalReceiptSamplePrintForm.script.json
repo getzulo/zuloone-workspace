@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "PrintForm",
+    "objectType": "Document",
+    "objectName": "SalesRealization",
+    "objectMetaId": "34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3",
+    "executionOrder": 0,
+    "metaId": "9f3c2d71-5e84-4a06-b158-2d7f6c8e0a19",
+    "name": "UaFiscalReceiptSamplePrintForm",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  }
+}
