@@ -1,0 +1,215 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "learn-getting-started",
+    "entities": [
+      {
+        "entity": "LegalEntity",
+        "table": "LegalEntity",
+        "kind": "Dictionary",
+        "businessKey": ["RegistrationNumber"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "Division",
+        "table": "Division",
+        "kind": "Dictionary",
+        "businessKey": ["LegalEntity", "Name"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "Store",
+        "table": "Store",
+        "kind": "Dictionary",
+        "businessKey": ["Division", "Name"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "StoreZone",
+        "table": "StoreZone",
+        "kind": "Dictionary",
+        "businessKey": ["Store", "Name"],
+        "mode": "insert",
+        "rowCount": 2
+      },
+      {
+        "entity": "StoreCell",
+        "table": "StoreCell",
+        "kind": "Dictionary",
+        "businessKey": ["StoreZone", "Name"],
+        "mode": "insert",
+        "rowCount": 2
+      },
+      {
+        "entity": "ItemGroup",
+        "table": "ItemGroup",
+        "kind": "Dictionary",
+        "businessKey": ["Code"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "Brand",
+        "table": "Brand",
+        "kind": "Dictionary",
+        "businessKey": ["Name"],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "Item",
+        "table": "Item",
+        "kind": "Dictionary",
+        "businessKey": ["Name"],
+        "mode": "insert",
+        "rowCount": 1
+      }
+    ]
+  },
+  "data": {
+    "LegalEntity": [
+      {
+        "Name": "Learning Fixture",
+        "RegistrationNumber": "8001000001",
+        "Country": { "$ref": "Country", "key": { "CodeISO2": "SA" } },
+        "Currency": { "$ref": "Currency", "key": { "Code": "SAR" } }
+      }
+    ],
+    "Division": [
+      {
+        "Name": "Learning Floor",
+        "LegalEntity": { "$ref": "LegalEntity", "key": { "RegistrationNumber": "8001000001" } },
+        "DivisionType": { "$ref": "DivisionType", "key": { "Code": "WAREHOUSE" } }
+      }
+    ],
+    "Store": [
+      {
+        "Name": "Learning Warehouse",
+        "Division": {
+          "$ref": "Division",
+          "key": {
+            "LegalEntity": { "$ref": "LegalEntity", "key": { "RegistrationNumber": "8001000001" } },
+            "Name": "Learning Floor"
+          }
+        },
+        "IsSimple": false
+      }
+    ],
+    "StoreZone": [
+      {
+        "Name": "Receiving dock",
+        "Store": {
+          "$ref": "Store",
+          "key": {
+            "Division": {
+              "$ref": "Division",
+              "key": {
+                "LegalEntity": { "$ref": "LegalEntity", "key": { "RegistrationNumber": "8001000001" } },
+                "Name": "Learning Floor"
+              }
+            },
+            "Name": "Learning Warehouse"
+          }
+        },
+        "IsBarcodeTracking": true
+      },
+      {
+        "Name": "Ambient storage",
+        "Store": {
+          "$ref": "Store",
+          "key": {
+            "Division": {
+              "$ref": "Division",
+              "key": {
+                "LegalEntity": { "$ref": "LegalEntity", "key": { "RegistrationNumber": "8001000001" } },
+                "Name": "Learning Floor"
+              }
+            },
+            "Name": "Learning Warehouse"
+          }
+        },
+        "IsBarcodeTracking": true
+      }
+    ],
+    "StoreCell": [
+      {
+        "Name": "DOCK-01-01",
+        "StoreZone": {
+          "$ref": "StoreZone",
+          "key": {
+            "Store": {
+              "$ref": "Store",
+              "key": {
+                "Division": {
+                  "$ref": "Division",
+                  "key": {
+                    "LegalEntity": { "$ref": "LegalEntity", "key": { "RegistrationNumber": "8001000001" } },
+                    "Name": "Learning Floor"
+                  }
+                },
+                "Name": "Learning Warehouse"
+              }
+            },
+            "Name": "Receiving dock"
+          }
+        },
+        "Type": { "$ref": "StoreCellType", "key": { "Code": "RECEIVING" } },
+        "LineNumber": 1,
+        "RackNumber": 1,
+        "ShelfNumber": 1,
+        "CellNumber": 1,
+        "IsPickable": false,
+        "MaxQty": 5000
+      },
+      {
+        "Name": "A-01-01",
+        "StoreZone": {
+          "$ref": "StoreZone",
+          "key": {
+            "Store": {
+              "$ref": "Store",
+              "key": {
+                "Division": {
+                  "$ref": "Division",
+                  "key": {
+                    "LegalEntity": { "$ref": "LegalEntity", "key": { "RegistrationNumber": "8001000001" } },
+                    "Name": "Learning Floor"
+                  }
+                },
+                "Name": "Learning Warehouse"
+              }
+            },
+            "Name": "Ambient storage"
+          }
+        },
+        "Type": { "$ref": "StoreCellType", "key": { "Code": "STORAGE" } },
+        "LineNumber": 1,
+        "RackNumber": 1,
+        "ShelfNumber": 1,
+        "CellNumber": 1,
+        "IsPickable": true,
+        "MaxQty": 5000
+      }
+    ],
+    "ItemGroup": [
+      { "Code": "CONF", "Name": "Confectionery" }
+    ],
+    "Brand": [
+      { "Name": "Roshen" }
+    ],
+    "Item": [
+      {
+        "Name": "Milk Chocolate 90g",
+        "Barcode": "4820000000901",
+        "ItemGroup": { "$ref": "ItemGroup", "key": { "Code": "CONF" } },
+        "Brand": { "$ref": "Brand", "key": { "Name": "Roshen" } },
+        "UnitOfMeasure": { "$ref": "UnitOfMeasure", "key": { "Code": "PCS" } },
+        "IsRawMaterial": false,
+        "IsSellable": true
+      }
+    ]
+  }
+}

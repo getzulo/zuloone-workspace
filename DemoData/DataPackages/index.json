@@ -9,5 +9,16 @@
     "caption_ar": "شركة عرض وهمية وعمليات لمدة 12 شهراً",
     "when": "manual",
     "sort": 900
+  },
+  {
+    "id": "learn-getting-started",
+    "file": "learn-getting-started.json",
+    "caption": "Rows the getting-started lesson names",
+    "captionRu": "Строки, на которые опирается урок «Начало работы»",
+    "caption_ru": "Строки, на которые опирается урок «Начало работы»",
+    "captionAr": "الصفوف التي يعتمد عليها درس البداية",
+    "caption_ar": "الصفوف التي يعتمد عليها درس البداية",
+    "when": "manual",
+    "sort": 910
   }
 ]
