@@ -74,7 +74,8 @@ public partial class KnowledgeCheck
             },
             new Dictionary<string, object?>
             {
-                ["Kind"] = passed ? LearningEventKind.CheckPassed : LearningEventKind.CheckFailed,
+                // Число, не enum: Npgsql не пишет сгенерированный тип.
+                ["Kind"] = (int)(passed ? LearningEventKind.CheckPassed : LearningEventKind.CheckFailed),
             });
 
         if (!passed)
@@ -194,7 +195,7 @@ public partial class KnowledgeCheck
             },
             new Dictionary<string, object?>
             {
-                ["Kind"] = correct ? LearningEventKind.CheckPassed : LearningEventKind.CheckFailed,
+                ["Kind"] = (int)(correct ? LearningEventKind.CheckPassed : LearningEventKind.CheckFailed),
             });
 
         if (!correct) return false;

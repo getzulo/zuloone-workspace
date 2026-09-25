@@ -128,7 +128,8 @@ public partial class LearningProgress
                 },
                 new Dictionary<string, object?>
                 {
-                    ["Source"] = EnrollmentSource.Self,
+                    // Число, не enum: Npgsql не пишет сгенерированный тип.
+                    ["Source"] = (int)EnrollmentSource.Self,
                 });
         }
     }
@@ -155,7 +156,8 @@ public partial class LearningProgress
             },
             new Dictionary<string, object?>
             {
-                ["Kind"] = LearningEventKind.Opened,
+                // Число, не enum: Npgsql не пишет сгенерированный тип.
+                ["Kind"] = (int)LearningEventKind.Opened,
             });
     }
 }
