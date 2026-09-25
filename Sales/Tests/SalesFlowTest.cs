@@ -239,4 +239,55 @@ public class SalesFlowTest : IntegrationTestScriptBase
 
         Assert.IsTrue(rejected, "продажа 20 при остатке 10 должна быть отклонена");
     }
+
+    [IntegrationTest("Чужой резерв ячейки отклоняет выставление, отбор своего заказа не отклоняет")]
+    public async Task ForeignHoldLimitsIssueOwnPickDoesNot()
+    {
+        var s = await SetupAsync();
+        await StockInAsync(s, 10m);
+
+        var stranger = await DocumentManager.NewDocumentAsync<PickTask>();
+        stranger.FromCell = s.Location;
+        stranger.Lines.Add(new PickTaskLinesTablePartRow { Item = s.Item, Quantity = 8m, ToCell = Db.NewId() });
+        await DocumentManager.SaveDocumentAsync(stranger);
+
+        var blocked = await NewInvoiceAsync(s, qty: 4m, price: 5m);
+        var detail = "";
+        try
+        {
+            blocked.Subtype = SalesRealization.Subtypes.Issued;
+            await DocumentManager.SaveDocumentAsync(blocked);
+        }
+        catch (Exception ex) { detail = ex.ToString(); }
+        Assert.IsTrue(detail.Contains("требуется 4, в наличии 2"),
+            "нужно 4, свободно 2, факт {0}", detail);
+
+        var ok = await NewInvoiceAsync(s, qty: 2m, price: 5m);
+        ok.Subtype = SalesRealization.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(ok);
+        Assert.IsTrue(await StockAsync(s) == 8m, "выставление 2 оставляет 8");
+
+        s.Location = Db.NewId();
+        await StockInAsync(s, 10m);
+        var order = await DocumentManager.NewDocumentAsync<SalesOrder>();
+        order.Customer = s.Customer;
+        order.Outlet = s.Outlet;
+        order.Contract = s.Contract;
+        order.Location = s.Location;
+        order.Lines.Add(new SalesOrderLinesTablePartRow { Item = s.Item, Quantity = 8m, UnitPrice = 5m });
+        await DocumentManager.SaveDocumentAsync(order);
+
+        var ownPick = await DocumentManager.NewDocumentAsync<PickTask>();
+        ownPick.FromCell = s.Location;
+        ownPick.Lines.Add(new PickTaskLinesTablePartRow { Item = s.Item, Quantity = 8m, ToCell = s.Location });
+        await DocumentManager.SaveDocumentAsync(ownPick);
+        await DocumentManager.AddLinkAsync(order.MetaId, ownPick.MetaId);
+
+        var covered = await NewInvoiceAsync(s, qty: 8m, price: 5m);
+        covered.SourceOrder = order.MetaId;
+        await DocumentManager.SaveDocumentAsync(covered);
+        covered.Subtype = SalesRealization.Subtypes.Issued;
+        await DocumentManager.SaveDocumentAsync(covered);
+        Assert.IsTrue(await StockAsync(s) == 2m, "отбор своего заказа не мешает выставить 8, на ячейке 2, факт {0}", await StockAsync(s));
+    }
 }

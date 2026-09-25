@@ -1,8 +1,8 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
 
@@ -193,12 +193,12 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
     public override Task<EventResult> OnAfterDeleteAsync(Guid recordId, EventContext context)
         => next(recordId, context);
 
-    // Before posting: reject overselling — a line cannot ship more than is on hand
-    // at the sale location. Stock is a single-entry register (allowNegativeBalance:true),
-    // so the engine does not guard this; the check lives here (reads on-hand via
-    // IRegisterMovementService.GetBalanceAsync on the physical Item+Cell dimensions).
+    // Before posting: reject overselling. Stock allows a negative balance, so the
+    // guard lives here. The number is free stock on the cell: physical quantity,
+    // plus what this invoice already took, minus reservations of other documents.
+    // This invoice's own hold and a pick of its sales order do not count as other
+    // documents — issuing them is the point of the reservation.
     // Note: check-then-act, not atomic with posting.
-    private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
 
     /// <summary>Document type — target of the header-only update.</summary>
     private static readonly Guid SalesInvoiceType = Guid.Parse("34a1af4c-aeaf-48d1-8626-9a0a13b2d5c3");
@@ -309,14 +309,23 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
             demand[line.Item] = (demand.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
         }
 
-        var stock = context.GetService<IRegisterMovementService>();
+        var freeStock = context.GetService<ICellFreeStock>();
+        var holds = await context.GetService<ISalesFulfillmentService>().PickHoldsAsync(issued.SourceOrder);
         foreach (var kv in demand)
         {
-            var bal = await stock.GetBalanceAsync(StockRegister,
-                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = header.Location });
-            var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
-            if (kv.Value > onHand)
-                return EventResult.Cancel($"Недостаточно остатка на ячейке: требуется {kv.Value}, в наличии {onHand}");
+            var available = await freeStock.FreeForDocumentAsync(header.MetaId, issued.Location, kv.Key);
+            foreach (var hold in holds)
+            {
+                if (hold["Item"] is not Guid item || item != kv.Key) continue;
+                if (hold["Cell"] is not Guid cell || cell != issued.Location) continue;
+                if (hold["Qty"] is decimal qty && qty > 0m) available += qty;
+            }
+            if (kv.Value > available)
+            {
+                var need = kv.Value.ToString("0.####", CultureInfo.InvariantCulture);
+                var free = available.ToString("0.####", CultureInfo.InvariantCulture);
+                return EventResult.Cancel($"Недостаточно остатка на ячейке: требуется {need}, в наличии {free}");
+            }
         }
 
         // Tax is CONFIGURED, but there is no rate on the invoice date — do not
