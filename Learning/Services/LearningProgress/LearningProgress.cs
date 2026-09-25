@@ -55,7 +55,31 @@ public partial class LearningProgress
             if (module != null && !badges.Contains(module.StableId))
                 badges.Add(module.StableId);
         }
-        return "{\"opened\":[" + string.Join(",", opened.Select(Quote)) + "],\"badges\":[" + string.Join(",", badges.Select(Quote)) + "]}";
+        var assigned = new List<string>();
+        var enrollments = await _info.SliceLastAsync(
+            "Enrollment",
+            DateTime.UtcNow.AddMinutes(1),
+            new Dictionary<string, object?> { ["Learner"] = learner.MetaId });
+        var tracks = await _dictionaries.GetRecordsAsync<Track>("1 = 1");
+        foreach (var row in enrollments)
+        {
+            if (!IsAssigned(row)) continue;
+            var trackId = AsGuid(row, "Track");
+            var track = tracks.FirstOrDefault(item => item.MetaId == trackId);
+            if (track != null && !string.IsNullOrWhiteSpace(track.StableId) && !assigned.Contains(track.StableId))
+                assigned.Add(track.StableId);
+        }
+        return "{\"opened\":[" + string.Join(",", opened.Select(Quote))
+            + "],\"badges\":[" + string.Join(",", badges.Select(Quote))
+            + "],\"assigned\":[" + string.Join(",", assigned.Select(Quote)) + "]}";
+    }
+
+    private static bool IsAssigned(Dictionary<string, object?> row)
+    {
+        if (!row.TryGetValue("Source", out var value) || value == null) return false;
+        if (value is int number) return number == (int)EnrollmentSource.Assigned;
+        var text = value.ToString() ?? "";
+        return text == "2" || text == "Assigned";
     }
 
     private static bool AsBool(Dictionary<string, object?> row, string key)

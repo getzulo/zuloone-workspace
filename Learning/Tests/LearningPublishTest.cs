@@ -413,6 +413,52 @@ public class LearningPublishTest : IntegrationTestScriptBase
         Assert.AreEqual("{\"error\":\"Нет доступа\"}", strangers);
     }
 
+    [IntegrationTest("Владелец назначает путь, участник видит его, письмо не нужно")]
+    public async Task OwnerAssignsAPathAndTheMemberSeesIt()
+    {
+        var suffix = Guid.NewGuid().ToString("N").Substring(0, 8);
+        var owner = await LearnerAsync("owner-as-" + suffix + "@example.com");
+        var member = await LearnerAsync("member-as-" + suffix + "@example.com");
+        var org = Dictionaries.NewRecord<Organization>();
+        org.Name = "Назначение " + suffix;
+        org.StandSlug = "assign-" + suffix;
+        org = await Dictionaries.SaveRecordAsync(org);
+        var links = GetService<ILinkTableManager>();
+        await links.AddAsync("Membership", new Dictionary<string, object?>
+        {
+            ["Learner"] = owner.MetaId, ["Organization"] = org.MetaId, ["Role"] = "Owner",
+        });
+        await links.AddAsync("Membership", new Dictionary<string, object?>
+        {
+            ["Learner"] = member.MetaId, ["Organization"] = org.MetaId, ["Role"] = "Member",
+        });
+
+        var trackId = "learn.assign." + suffix;
+        await GetService<ILearningCatalog>().ImportAsync(
+            "{\"tracks\":[{\"stableId\":\"" + trackId + "\",\"name\":\"Назначенный путь\",\"modules\":[\"learn.assign." + suffix + ".mod\"]}]," +
+            "\"modules\":[{\"stableId\":\"learn.assign." + suffix + ".mod\",\"name\":\"Модуль\",\"minutes\":5," +
+            "\"articlePath\":\"\",\"articleRevision\":\"\",\"units\":[{\"stableId\":\"learn.assign." + suffix + ".page\"," +
+            "\"name\":\"Страница\",\"kind\":\"lesson\",\"sortOrder\":1,\"body\":\"Текст\",\"checks\":[]}]}]}");
+
+        var report = GetService<ILearningReport>();
+        var body = "{\"learner\":\"" + member.Email + "\",\"track\":\"" + trackId + "\",\"due\":\"2026-10-01\"}";
+        var refused = await report.AssignAsync(member.Email, org.StandSlug, body);
+        Assert.AreEqual("{\"error\":\"Нет доступа\"}", refused);
+
+        var assigned = await report.AssignAsync(owner.Email, org.StandSlug, body);
+        Assert.AreEqual("{\"ok\":true}", assigned);
+
+        var place = await GetService<ILearningProgress>().PlaceAsync(member.Email);
+        Assert.IsTrue(place.Contains(trackId), "участник видит назначенный путь");
+        Assert.IsTrue(place.IndexOf("learn.assign." + suffix + ".page", StringComparison.Ordinal) < 0,
+            "назначение само по себе страницу не открывает");
+
+        var owners = await report.ForStandAsync(owner.Email, org.StandSlug);
+        Assert.IsTrue(owners.Contains("\"open\":[\"Назначенный путь\"]"), "владелец видит, кто не закончил");
+        Assert.IsTrue(owners.IndexOf("\"tracks\":[\"Назначенный путь\"]", StringComparison.Ordinal) < 0,
+            "незакрытый путь не числится сданным");
+    }
+
     private static async Task<Learner> LearnerAsync(string email)
     {
         var learner = Dictionaries.NewRecord<Learner>();

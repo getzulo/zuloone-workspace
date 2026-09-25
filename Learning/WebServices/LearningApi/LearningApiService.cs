@@ -40,6 +40,17 @@ public partial class LearningApiService
             };
         }
 
+        if (string.Equals(request.Action, "assign", StringComparison.Ordinal))
+        {
+            return new LearningApiResponse
+            {
+                Ok = true,
+                Error = "",
+                Payload = await GetService<ILearningReport>().AssignAsync(
+                    request.Email ?? "", request.StableId ?? "", request.Answers ?? ""),
+            };
+        }
+
         if (string.Equals(request.Action, "report", StringComparison.Ordinal))
         {
             return new LearningApiResponse
