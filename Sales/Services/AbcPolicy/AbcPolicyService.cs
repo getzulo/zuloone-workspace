@@ -11,7 +11,9 @@ using ZuloOne.Runtime.Generated;
 // Матрица AX…CZ — строки AbcPolicyCell, не буквы в коде. Класс уже лежит
 // в AbcClassification. Здесь только «держать N дней расхода» или «под заказ».
 // Расход — базовое количество счетов Реализовано/Отгружен за окно профиля.
-// Остаток — сумма Stock.Qty. Заказ поставщику и движения склада не создаются.
+// Остаток — сумма Stock.Qty. Ночной проход пишет предложение только по
+// живым профилям товаров: у покупателя запаса нет, и кнопка по-прежнему
+// отклоняет такой профиль. Заказ поставщику и движения склада не создаются.
 public partial class AbcPolicy
 {
     private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
@@ -34,6 +36,24 @@ public partial class AbcPolicy
         _info = info;
         _movements = movements;
         _sql = sql;
+    }
+
+    /// <summary>
+    /// Every enabled item profile, same write as <see cref="BuildAsync"/>.
+    /// Customer profiles and disabled profiles are skipped: the night job
+    /// walks the whole catalog, and a customer profile has no stock to cover.
+    /// </summary>
+    public async Task<int> BuildEnabledItemProfilesAsync(DateTime asOf)
+    {
+        var written = 0;
+        foreach (var profile in await _profiles.GetRecordsAsync("1 = 1"))
+        {
+            if (profile.IsDisabled) continue;
+            if (!string.Equals(profile.Subject, "Item", StringComparison.OrdinalIgnoreCase))
+                continue;
+            written += await BuildAsync(profile.MetaId, asOf);
+        }
+        return written;
     }
 
     /// <summary>Item profile only. Reads issued invoices and on-hand, writes AbcSuggestion. Returns rows written.</summary>

@@ -30,7 +30,7 @@ public class StockFlowTest : IntegrationTestScriptBase
     private static IDocumentManager DocumentManager => GetService<IDocumentManager>();
     private static ITotalsManager TotalsManager => GetService<ITotalsManager>();
 
-    private async Task<(Guid Loc1, Guid Loc2, Guid Item)> SetupAsync()
+    private async Task<(Guid Loc1, Guid Loc2, Guid Item, Guid Zone, Guid CellType)> SetupAsync()
     {
         var currency = DictionaryManager.NewRecord<Currency>();
         currency.Name = "Euro";
@@ -99,7 +99,7 @@ public class StockFlowTest : IntegrationTestScriptBase
         item.UnitOfMeasure = uom.MetaId;
         item = await DictionaryManager.SaveRecordAsync(item);
 
-        return (loc1.MetaId, loc2.MetaId, item.MetaId);
+        return (loc1.MetaId, loc2.MetaId, item.MetaId, zone.MetaId, cellType.MetaId);
     }
 
     private static async Task<StoreCell> NewCellAsync(string name, Guid type, Guid zone, int cellNumber)
@@ -317,5 +317,94 @@ public class StockFlowTest : IntegrationTestScriptBase
 
         Assert.IsTrue(reason.Contains("больше нуля"),
             "отрицательный отпуск обязан быть отклонён с внятной причиной, факт: {0}", reason);
+    }
+
+    [IntegrationTest("Одно перемещение забирает из двух ячеек")]
+    public async Task TransferTakesFromTwoCells()
+    {
+        var s = await SetupAsync();
+        var dest = await NewCellAsync("A-03", s.CellType, s.Zone, 3);
+        await PostAdjustmentAsync(s.Loc1, s.Item, 4m);
+        await PostAdjustmentAsync(s.Loc2, s.Item, 3m);
+
+        var doc = await DocumentManager.NewDocumentAsync<StockTransfer>();
+        doc.FromCell = s.Loc1;
+        doc.ToCell = dest.MetaId;
+        doc.Lines.Add(new StockTransferLinesTablePartRow { Item = s.Item, Quantity = 4m });
+        doc.Lines.Add(new StockTransferLinesTablePartRow { Item = s.Item, Quantity = 3m, FromCell = s.Loc2 });
+        await DocumentManager.SaveDocumentAsync(doc);
+
+        doc.Subtype = StockTransfer.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(doc);
+
+        Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 0m, "первая ячейка отдаёт строку без своей ячейки");
+        Assert.IsTrue(await OnHandAsync(s.Loc2, s.Item) == 0m, "вторая строка уходит из своей ячейки");
+        Assert.IsTrue(await OnHandAsync(dest.MetaId, s.Item) == 7m, "на целевой 4+3, факт {0}", await OnHandAsync(dest.MetaId, s.Item));
+    }
+
+    [IntegrationTest("Списание строки смотрит на ячейку строки, а не шапки")]
+    public async Task AdjustmentWriteOffUsesTheLineCell()
+    {
+        var s = await SetupAsync();
+        await PostAdjustmentAsync(s.Loc1, s.Item, 10m);
+        await PostAdjustmentAsync(s.Loc2, s.Item, 2m);
+
+        var wo = await DocumentManager.NewDocumentAsync<StockAdjustment>();
+        wo.Cell = s.Loc1;
+        wo.Lines.Add(new StockAdjustmentLinesTablePartRow { Item = s.Item, Quantity = -3m, Cell = s.Loc2 });
+        await DocumentManager.SaveDocumentAsync(wo);
+
+        var rejected = false;
+        try
+        {
+            wo.Subtype = StockAdjustment.Subtypes.Posted;
+            await DocumentManager.SaveDocumentAsync(wo);
+        }
+        catch
+        {
+            rejected = true;
+        }
+
+        Assert.IsTrue(rejected, "3 из ячейки, где лежит 2, отклоняется, хотя в шапке 10");
+    }
+
+    [IntegrationTest("Отпуск строки списывает ячейку строки")]
+    public async Task GoodsIssueUsesTheLineCell()
+    {
+        var s = await SetupAsync();
+        await PostAdjustmentAsync(s.Loc1, s.Item, 10m);
+        await PostAdjustmentAsync(s.Loc2, s.Item, 3m);
+
+        var issue = await DocumentManager.NewDocumentAsync<GoodsIssue>();
+        issue.FromCell = s.Loc1;
+        issue.Lines.Add(new GoodsIssueLinesTablePartRow { Item = s.Item, Quantity = 3m, FromCell = s.Loc2 });
+        await DocumentManager.SaveDocumentAsync(issue);
+        var storedIssue = await DocumentManager.GetDocumentAsync<GoodsIssue>(issue.MetaId);
+        Assert.IsTrue(storedIssue != null && storedIssue.Lines.Count == 1 && storedIssue.Lines[0].FromCell == s.Loc2,
+            "ячейка строки отпуска сохранилась, факт {0}", storedIssue?.Lines.Count == 1 ? storedIssue.Lines[0].FromCell : Guid.Empty);
+        issue.Subtype = GoodsIssue.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(issue);
+
+        Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 10m, "шапка не тронута");
+        Assert.IsTrue(await OnHandAsync(s.Loc2, s.Item) == 0m, "строка списала свою ячейку");
+    }
+
+    [IntegrationTest("Инвентаризация строки сравнивает факт с ячейкой строки")]
+    public async Task StockCountUsesTheLineCell()
+    {
+        var s = await SetupAsync();
+        await PostAdjustmentAsync(s.Loc1, s.Item, 10m);
+        await PostAdjustmentAsync(s.Loc2, s.Item, 4m);
+
+        var count = await DocumentManager.NewDocumentAsync<StockCount>();
+        count.Cell = s.Loc1;
+        count.CountDate = DateTime.UtcNow.Date;
+        count.Lines.Add(new StockCountLinesTablePartRow { Item = s.Item, CountedQty = 7m, Cell = s.Loc2 });
+        await DocumentManager.SaveDocumentAsync(count);
+        count.Subtype = StockCount.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(count);
+
+        Assert.IsTrue(await OnHandAsync(s.Loc1, s.Item) == 10m, "ячейка шапки не пересчитана");
+        Assert.IsTrue(await OnHandAsync(s.Loc2, s.Item) == 7m, "факт 7 в ячейке строки, было 4");
     }
 }

@@ -187,6 +187,12 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
         await RunCommandAsync("ApproveSalesOrder", orderId);
     }
 
+    private static async Task<List<Guid>> PickIdsAsync(Guid orderId)
+    {
+        var family = await DocumentManager.GetDocumentFamilyAsync(orderId);
+        return family.Nodes.Where(n => n.DocTypeName == "PickTask").Select(n => n.DocId).ToList();
+    }
+
     private static async Task<List<StockTransfer>> TransfersAsync(Guid orderId)
     {
         var family = await DocumentManager.GetDocumentFamilyAsync(orderId);
@@ -382,6 +388,102 @@ public class AutoPickFromOrderTest : IntegrationTestScriptBase
             "отбор из хранения на ячейку заказа, всё количество строки");
         Assert.IsTrue(await OnHandAsync(y.Storage, y.Item) == 10m, "остаток ещё в хранении");
         Assert.IsTrue(await OnHandAsync(y.Picking, y.Item) == 0m, "ячейка списания пустая, пока отбор не подтверждён");
+    }
+
+    [IntegrationTest("20 из ячеек 10, 5 и 7 — три черновика отбора, остаток на месте")]
+    public async Task ExtendedSchemeSplitsDraftsAcrossStorageCells()
+    {
+        var y = await SetupAsync();
+        await SetDisciplineAsync(true);
+        await SetSchemeAsync(WarehouseFulfillmentScheme.Extended);
+        var second = await NewCellAsync(y.Zone, StoreCellPurpose.Storage, "S-02", 4);
+        var third = await NewCellAsync(y.Zone, StoreCellPurpose.Storage, "S-03", 5);
+        await SeedAsync(y.Storage, y.Item, 10m);
+        await SeedAsync(second, y.Item, 5m);
+        await SeedAsync(third, y.Item, 7m);
+
+        var order = await NewOrderAsync(y, y.Picking, 20m);
+        await SubmitAndApproveAsync(order.MetaId);
+
+        var family = await DocumentManager.GetDocumentFamilyAsync(order.MetaId);
+        Assert.IsTrue(!family.Nodes.Any(n => n.DocTypeName == "StockTransfer"),
+            "расширенная схема перемещение не проводит");
+        var picks = new List<PickTask>();
+        foreach (var id in await PickIdsAsync(order.MetaId))
+        {
+            var pick = await DocumentManager.GetDocumentAsync<PickTask>(id);
+            Assert.IsNotNull(pick, "черновик читается");
+            picks.Add(pick!);
+        }
+        Assert.IsTrue(picks.Count == 3, "три ячейки-источника — три задания, факт {0}", picks.Count);
+        decimal qty = 0m;
+        foreach (var pick in picks)
+        {
+            Assert.IsTrue(pick.Subtype == PickTask.Subtypes.Draft, "кладовщик подтверждает сам");
+            Assert.IsTrue(pick.Lines.Count == 1 && pick.Lines[0].ToCell == y.Picking,
+                "строка садится на ячейку заказа");
+            qty += pick.Lines[0].Quantity;
+        }
+        Assert.IsTrue(qty == 20m, "в заданиях ровно 20, факт {0}", qty);
+        Assert.IsTrue(await OnHandAsync(y.Picking, y.Item) == 0m, "ячейка списания пустая");
+        var left = await OnHandAsync(y.Storage, y.Item)
+                 + await OnHandAsync(second, y.Item)
+                 + await OnHandAsync(third, y.Item);
+        Assert.IsTrue(left == 22m, "хранение не тронуто, факт {0}", left);
+    }
+
+    [IntegrationTest("Расширенная схема: по хранению не хватает — черновика нет")]
+    public async Task ExtendedShortStorageCreatesNoPick()
+    {
+        var y = await SetupAsync();
+        await SetDisciplineAsync(true);
+        await SetSchemeAsync(WarehouseFulfillmentScheme.Extended);
+        await SetBackorderAsync(true);
+        var other = await NewCellAsync(y.Zone, StoreCellPurpose.Storage, "S-02", 4);
+        await SeedAsync(y.Storage, y.Item, 3m);
+        await SeedAsync(other, y.Item, 2m);
+
+        var order = await NewOrderAsync(y, y.Picking, 8m);
+        await SubmitAndApproveAsync(order.MetaId);
+
+        var picks = await PickIdsAsync(order.MetaId);
+        Assert.IsTrue(picks.Count == 0, "5 по хранению на заказ 8 — задания нет, факт {0}", picks.Count);
+        Assert.IsTrue(await OnHandAsync(y.Picking, y.Item) == 0m, "ячейка списания пустая");
+    }
+
+    [IntegrationTest("Два черновика с одной ячейки хранения становятся одним заданием")]
+    public async Task PickWaveFoldsDraftsFromTheSameCell()
+    {
+        var y = await SetupAsync();
+        await SetDisciplineAsync(true);
+        await SetSchemeAsync(WarehouseFulfillmentScheme.Extended);
+        await SeedAsync(y.Storage, y.Item, 20m);
+
+        var first = await NewOrderAsync(y, y.Picking, 4m);
+        var second = await NewOrderAsync(y, y.Picking, 6m);
+        await SubmitAndApproveAsync(first.MetaId);
+        await SubmitAndApproveAsync(second.MetaId);
+
+        var commandId = await Db.FindCommandIdAsync("user", "PlanPickWave");
+        var run = await Db.ExecuteUserCommandAsync(commandId);
+        Assert.IsTrue(run.Success, "волна отбора: {0}", run.Message ?? "");
+
+        var left = await PickIdsAsync(first.MetaId);
+        var right = await PickIdsAsync(second.MetaId);
+        Assert.IsTrue(left.Count == 1 && right.Count == 1 && left[0] == right[0],
+            "оба заказа смотрят на одно задание");
+        var pick = await DocumentManager.GetDocumentAsync<PickTask>(left[0]);
+        Assert.IsTrue(pick!.Subtype == PickTask.Subtypes.Draft, "волна остаётся черновиком");
+        Assert.IsTrue(pick.FromCell == y.Storage, "ячейка хранения та же");
+        decimal qty = 0m;
+        foreach (var line in pick.Lines) qty += line.Quantity;
+        Assert.IsTrue(qty == 10m, "строки обоих заказов, факт {0}", qty);
+        Assert.IsTrue(await OnHandAsync(y.Storage, y.Item) == 20m, "волна остаток не двигает");
+
+        var again = await Fulfillment.PlanPickWaveAsync();
+        Assert.IsTrue(again == 0, "повтор не снимает единственный черновик, факт {0}", again);
+        var still = await PickIdsAsync(first.MetaId);
+        Assert.IsTrue(still.Count == 1 && still[0] == left[0], "задание то же");
     }
 
     [IntegrationTest("Свободный остаток при дисциплине — по складу: второй заказ сверх хранения отклонён")]

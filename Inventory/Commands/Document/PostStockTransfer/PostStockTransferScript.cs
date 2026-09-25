@@ -19,7 +19,7 @@ public partial class PostStockTransferCommand
 
         var stock = context.GetService<IStockAvailabilityService>();
         var conv = context.GetService<IItemQuantityConverter>();
-        var demand = new Dictionary<Guid, decimal>();
+        var demand = new Dictionary<(Guid Cell, Guid Item), decimal>();
         foreach (var line in full.Lines)
         {
             var qty = await BaseQtyAsync(conv, line.Item, line.Quantity, line.BaseQuantity, line.Unit);
@@ -28,13 +28,15 @@ public partial class PostStockTransferCommand
                 context.AddClientAction(ClientAction.Message("Количество перемещения должно быть больше нуля."));
                 return;
             }
-            demand[line.Item] = (demand.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
+            var cell = line.FromCell != Guid.Empty ? line.FromCell : full.FromCell;
+            var key = (cell, line.Item);
+            demand[key] = (demand.TryGetValue(key, out var d) ? d : 0m) + qty;
         }
 
         foreach (var kv in demand)
         {
-            if (await stock.HasSufficientStockAsync(full.FromCell, kv.Key, kv.Value)) continue;
-            var onHand = await stock.OnHandAsync(full.FromCell, kv.Key);
+            if (await stock.HasSufficientStockAsync(kv.Key.Cell, kv.Key.Item, kv.Value)) continue;
+            var onHand = await stock.OnHandAsync(kv.Key.Cell, kv.Key.Item);
             context.AddClientAction(ClientAction.Message(
                 $"Перемещение сверх остатка: перемещается {kv.Value}, в наличии {onHand}"));
             return;

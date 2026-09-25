@@ -1,7 +1,7 @@
 {
   "kind": "Job",
   "object": {
-    "description": "Recalc every enabled AbcProfile into AbcClassification (same path as RecalcAbc).",
+    "description": "Recalc every enabled AbcProfile into AbcClassification, then rebuild AbcSuggestion for enabled item profiles. Customer profiles are classified and not replenished.",
     "scriptMetaId": "a38190f4-505a-4c67-a9cd-f1a060a277a7",
     "cronExpression": "0 2 * * *",
     "isActive": true,

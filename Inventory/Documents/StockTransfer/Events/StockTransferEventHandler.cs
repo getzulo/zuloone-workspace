@@ -70,22 +70,24 @@ public partial class StockTransferEventHandler : TypedDocumentEventHandler<Stock
 
         var full = await context.GetService<IDocumentManager>().GetDocumentAsync<StockTransfer>(header.MetaId);
         var lines = full?.Lines ?? header.Lines;
-        var from = full?.FromCell ?? header.FromCell;
+        var headerFrom = full?.FromCell ?? header.FromCell;
 
-        var need = new Dictionary<Guid, decimal>();
+        var need = new Dictionary<(Guid Cell, Guid Item), decimal>();
         foreach (var line in lines)
         {
             var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
             if (qty <= 0m)
                 return EventResult.Cancel("Количество перемещения должно быть больше нуля");
-            need[line.Item] = (need.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
+            var cell = line.FromCell != Guid.Empty ? line.FromCell : headerFrom;
+            var key = (cell, line.Item);
+            need[key] = (need.TryGetValue(key, out var d) ? d : 0m) + qty;
         }
 
         var stock = context.GetService<ITotalsManager>();
         foreach (var kv in need)
         {
             var bal = await stock.GetBalanceAsync("Stock",
-                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = from });
+                new Dictionary<string, object?> { ["Item"] = kv.Key.Item, ["Cell"] = kv.Key.Cell });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)
                 return EventResult.Cancel($"Перемещение сверх остатка: перемещается {kv.Value}, в наличии {onHand}");

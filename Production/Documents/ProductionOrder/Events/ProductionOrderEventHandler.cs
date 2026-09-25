@@ -31,7 +31,40 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         if (!prior.Success) return prior;
         var block = await context.GetService<ITradeProfileService>().ProductionBlockReasonAsync();
         if (block != null) return EventResult.Cancel(block);
+        await StampOutputLocationAsync(header, isNew, context);
         return EventResult.Ok();
+    }
+
+    // Пустая ячейка выпуска — не «стереть». На обновлении пустой Guid значит
+    // «поля не было в пакете»: возвращаем сохранённое. Если и там пусто —
+    // берём ячейку из настроек модуля. Компоненты с этой подстановкой не
+    // переезжают: их списывает ячейка заказа.
+    private static async Task StampOutputLocationAsync(ProductionOrder header, bool isNew, EventContext context)
+    {
+        if (header.OutputLocation == Guid.Empty && !isNew)
+        {
+            var saved = await context.GetService<IDocumentManager>()
+                .GetDocumentAsync<ProductionOrder>(header.MetaId);
+            if (saved != null && saved.OutputLocation != Guid.Empty)
+                header.OutputLocation = saved.OutputLocation;
+        }
+        if (header.OutputLocation != Guid.Empty) return;
+
+        var cell = await DefaultOutputCellAsync(context);
+        if (cell != Guid.Empty) header.OutputLocation = cell;
+    }
+
+    private static async Task<Guid> DefaultOutputCellAsync(EventContext context)
+    {
+        var settings = (await context.GetService<IDictionaryManager<ProductionSettings>>()
+            .GetRecordsAsync("1 = 1")).FirstOrDefault();
+        if (settings == null) return Guid.Empty;
+        if (settings.DefaultOutputLocation != Guid.Empty) return settings.DefaultOutputLocation;
+        if (string.IsNullOrWhiteSpace(settings.DefaultOutputLocationCode)) return Guid.Empty;
+        var id = settings.DefaultOutputLocationCode.Replace("'", "''");
+        var row = (await context.GetService<IDictionaryManager<StoreCell>>()
+            .GetRecordsAsync($"ID = '{id}'", take: 1)).FirstOrDefault();
+        return row?.MetaId ?? Guid.Empty;
     }
 
     public override async Task<EventResult> OnAfterSaveAsync(ProductionOrder header, bool isNew, EventContext context){

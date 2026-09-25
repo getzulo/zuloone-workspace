@@ -5,10 +5,11 @@ using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
-// Promo earn-rate window. Two live campaigns of the same ItemGroup may not
-// overlap: the posting script needs one number per line. Empty ItemGroup is
-// global and may share dates with a specific group. Disabled rows do not
-// occupy the calendar.
+// Promo earn-rate window. Two live campaigns of the same ItemGroup and the
+// same customer type may not overlap: the posting script needs one number
+// per line. Empty ItemGroup is every line and may share dates with a
+// specific group. Empty CustomerType is every customer and may share dates
+// with a specific type. Disabled rows do not occupy the calendar.
 public partial class LoyaltyCampaignEventHandler : TypedDictionaryEventHandler<LoyaltyCampaign>
 {
     public override async Task<EventResult> OnBeforeSaveAsync(
@@ -25,6 +26,13 @@ public partial class LoyaltyCampaignEventHandler : TypedDictionaryEventHandler<L
             return EventResult.Cancel(
                 "Окно кампании задано наоборот: дата начала позже даты окончания");
 
+        record.CustomerType = string.IsNullOrWhiteSpace(record.CustomerType)
+            ? ""
+            : record.CustomerType.Trim();
+        if (record.CustomerType.Length > 8)
+            return EventResult.Cancel(
+                "Тип клиента на кампании длиннее 8 символов — столько же умещает карточка клиента");
+
         if (!record.IsDisabled)
         {
             var overlap = await context.GetService<ILoyaltyCampaignService>()
@@ -32,10 +40,11 @@ public partial class LoyaltyCampaignEventHandler : TypedDictionaryEventHandler<L
                     isNew ? Guid.Empty : record.MetaId,
                     record.EffectiveFrom,
                     record.EffectiveTo,
-                    record.ItemGroup);
+                    record.ItemGroup,
+                    record.CustomerType);
             if (overlap is not null)
                 return EventResult.Cancel(
-                    "На этот период уже есть другая кампания лояльности для этой группы");
+                    "На этот период уже есть другая кампания лояльности для этой группы и этого типа клиента");
         }
 
         return EventResult.Ok();

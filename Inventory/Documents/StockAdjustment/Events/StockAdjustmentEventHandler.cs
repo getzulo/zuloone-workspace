@@ -57,19 +57,21 @@ public partial class StockAdjustmentEventHandler : TypedDocumentEventHandler<Sto
 
         // Compared to the register balance, which is in the item's BASE unit — so
         // the write-off is also counted in BaseQuantity. Zero = unit not specified, no conversion.
-        var writeOff = new Dictionary<Guid, decimal>();
+        var writeOff = new Dictionary<(Guid Cell, Guid Item), decimal>();
         foreach (var line in lines)
         {
             var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
-            if (qty < 0m)
-                writeOff[line.Item] = (writeOff.TryGetValue(line.Item, out var d) ? d : 0m) + (-qty);
+            if (qty >= 0m) continue;
+            var cell = line.Cell != Guid.Empty ? line.Cell : header.Cell;
+            var key = (cell, line.Item);
+            writeOff[key] = (writeOff.TryGetValue(key, out var d) ? d : 0m) + (-qty);
         }
 
         var stock = context.GetService<ITotalsManager>();
         foreach (var kv in writeOff)
         {
             var bal = await stock.GetBalanceAsync("Stock",
-                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = header.Cell });
+                new Dictionary<string, object?> { ["Item"] = kv.Key.Item, ["Cell"] = kv.Key.Cell });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)
                 return EventResult.Cancel($"Списание сверх остатка: списывается {kv.Value}, в наличии {onHand}");

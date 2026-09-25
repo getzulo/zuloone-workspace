@@ -29,6 +29,12 @@ public partial class ProductionOrderXrPrintForm : PrintFormBase
         var display = context.GetService<IReferenceDisplay>();
         var ct = context.CancellationToken;
         var cell = await NameAsync(display, "StoreCell", doc.Location, ct);
+        if (doc.OutputLocation != Guid.Empty && doc.OutputLocation != doc.Location)
+        {
+            var output = await NameAsync(display, "StoreCell", doc.OutputLocation, ct);
+            if (output.Length > 0)
+                cell = string.IsNullOrEmpty(cell) ? output : cell + " → " + output;
+        }
         var product = await NameAsync(display, "Item", doc.Product, ct);
         var productUnit = await NameAsync(display, "UnitOfMeasure", doc.Unit, ct);
         var notes = string.IsNullOrEmpty(productUnit)

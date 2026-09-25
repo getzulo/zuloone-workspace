@@ -130,6 +130,65 @@ public class AbcClassificationTest : IntegrationTestScriptBase
             Classifier.RecalcAsync(profile.MetaId, AsOf));
     }
 
+    [IntegrationTest("Группа товаров оставляет в классах только свои позиции")]
+    public async Task ItemGroupKeepsOnlyItsItems()
+    {
+        var unit = Dictionaries.NewRecord<UnitOfMeasure>();
+        unit.Name = "Piece";
+        unit.Code = Guid.NewGuid().ToString("N")[..3].ToUpperInvariant();
+        unit = await Dictionaries.SaveRecordAsync(unit);
+
+        var mine = Dictionaries.NewRecord<ItemGroup>();
+        mine.Code = Guid.NewGuid().ToString("N")[..6];
+        mine.Name = "Mine";
+        mine = await Dictionaries.SaveRecordAsync(mine);
+        var other = Dictionaries.NewRecord<ItemGroup>();
+        other.Code = Guid.NewGuid().ToString("N")[..6];
+        other.Name = "Other";
+        other = await Dictionaries.SaveRecordAsync(other);
+
+        var inside = await ItemAsync(mine.MetaId, unit.MetaId, "Inside");
+        var outside = await ItemAsync(other.MetaId, unit.MetaId, "Outside");
+
+        var profile = await ProfileAsync("Item");
+        profile.ItemGroup = mine.MetaId;
+        profile = await Dictionaries.SaveRecordAsync(profile);
+        await ParetoBandsAsync(profile.MetaId);
+
+        await Classifier.RecalcWithScoresAsync(profile.MetaId, AsOf, new Dictionary<Guid, decimal>
+        {
+            [inside] = 50m,
+            [outside] = 50m,
+        });
+
+        Assert.IsTrue(await AbcOf(profile.MetaId, inside) == "A",
+            "единственный товар группы — класс A, доля 100");
+        var outsider = await Info.SliceLastAsync("AbcClassification", AsOf,
+            new Dictionary<string, object?> { ["Profile"] = profile.MetaId, ["Subject"] = outside });
+        Assert.IsTrue(outsider.Count == 0, "чужая группа в журнал не входит");
+
+        await Info.SetAsync("AbcClassification", AsOf,
+            new Dictionary<string, object?> { ["Profile"] = profile.MetaId, ["Subject"] = outside },
+            new Dictionary<string, object?>
+            {
+                ["AbcClass"] = "C",
+                ["XyzClass"] = "",
+                ["Score"] = 50m,
+                ["Share"] = 50m,
+                ["Cv"] = 0m,
+                ["ManualAbc"] = false,
+                ["ManualXyz"] = false,
+            });
+        await Classifier.RecalcWithScoresAsync(profile.MetaId, AsOf, new Dictionary<Guid, decimal>
+        {
+            [inside] = 50m,
+            [outside] = 50m,
+        });
+        outsider = await Info.SliceLastAsync("AbcClassification", AsOf,
+            new Dictionary<string, object?> { ["Profile"] = profile.MetaId, ["Subject"] = outside });
+        Assert.IsTrue(outsider.Count == 0, "старая строка чужой группы снимается");
+    }
+
     [IntegrationTest("Ночной пересчёт пропускает отключённый профиль")]
     public async Task RecalcAllEnabledSkipsDisabled()
     {
@@ -169,6 +228,19 @@ public class AbcClassificationTest : IntegrationTestScriptBase
         Assert.IsTrue(run.Success, "задание отработало; факт: {0}", run.Output);
         Assert.IsTrue(run.Output.Contains("rows=", StringComparison.Ordinal),
             "вывод несёт число строк; факт: {0}", run.Output);
+    }
+
+    private async Task<Guid> ItemAsync(Guid groupId, Guid unitId, string name)
+    {
+        var item = Dictionaries.NewRecord<Item>();
+        item.Name = name;
+        item.ItemGroup = groupId;
+        item.UnitOfMeasure = unitId;
+        item.IsSellable = true;
+        item.Image = Convert.FromBase64String(
+            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==");
+        item = await Dictionaries.SaveRecordAsync(item);
+        return item.MetaId;
     }
 
     private async Task<AbcProfile> ProfileAsync(string subject)

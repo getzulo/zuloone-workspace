@@ -26,13 +26,17 @@ public partial class StockAdjustmentXrPrintForm : PrintFormBase
 
         var display = context.GetService<IReferenceDisplay>();
         var ct = context.CancellationToken;
-        var cell = await NameAsync(display, "StoreCell", doc.Cell, ct);
+        var headerCell = await NameAsync(display, "StoreCell", doc.Cell, ct);
         var reason = doc.Reason ?? "";
 
         var n = 0;
         foreach (var line in doc.Lines)
         {
             n++;
+            var cellId = line.Cell != Guid.Empty ? line.Cell : doc.Cell;
+            var cell = cellId == doc.Cell
+                ? headerCell
+                : await NameAsync(display, "StoreCell", cellId, ct);
             var itemText = await NameAsync(display, "Item", line.Item, ct);
             var unitText = await NameAsync(display, "UnitOfMeasure", line.Unit, ct);
             table.Add(Row(
@@ -41,7 +45,7 @@ public partial class StockAdjustmentXrPrintForm : PrintFormBase
         }
 
         if (n == 0)
-            table.Add(Row(doc.ID ?? "", DateText(doc.DocumentDate), cell, reason, 0, "", 0m, ""));
+            table.Add(Row(doc.ID ?? "", DateText(doc.DocumentDate), headerCell, reason, 0, "", 0m, ""));
 
         return table;
     }

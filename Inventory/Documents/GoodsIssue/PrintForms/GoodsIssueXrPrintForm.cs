@@ -29,7 +29,7 @@ public partial class GoodsIssueXrPrintForm : PrintFormBase
         var display = context.GetService<IReferenceDisplay>();
         var ct = context.CancellationToken;
         var customerName = await NameAsync(display, "Customer", doc.Customer, ct);
-        var locationName = await NameAsync(display, "StoreCell", doc.FromCell, ct);
+        var headerCell = await NameAsync(display, "StoreCell", doc.FromCell, ct);
 
         // Quantity-only document: no money belongs on this page.
         var subTotal = 0m;
@@ -40,6 +40,10 @@ public partial class GoodsIssueXrPrintForm : PrintFormBase
         foreach (var line in doc.Lines)
         {
             n++;
+            var sourceId = line.FromCell != Guid.Empty ? line.FromCell : doc.FromCell;
+            var locationName = sourceId == doc.FromCell
+                ? headerCell
+                : await NameAsync(display, "StoreCell", sourceId, ct);
             var itemText = await NameAsync(display, "Item", line.Item, ct);
             var unitText = await NameAsync(display, "UnitOfMeasure", line.Unit, ct);
             table.Add(Row(
@@ -79,7 +83,7 @@ public partial class GoodsIssueXrPrintForm : PrintFormBase
                 "",
                 "",
                 "",
-                locationName,
+                headerCell,
                 "",
                 subTotal,
                 taxTotal,

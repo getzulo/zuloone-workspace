@@ -26,7 +26,7 @@ public partial class GoodsIssueEventHandler : TypedDocumentEventHandler<GoodsIss
         // Compared to the register balance, which is in the item's BASE unit — so
         // demand is also counted in BaseQuantity, otherwise "2 boxes" would pass
         // against 12 pieces on the shelf. Zero = unit not specified, no conversion.
-        var need = new Dictionary<Guid, decimal>();
+        var need = new Dictionary<(Guid Cell, Guid Item), decimal>();
         foreach (var line in lines)
         {
             var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
@@ -41,14 +41,16 @@ public partial class GoodsIssueEventHandler : TypedDocumentEventHandler<GoodsIss
             if (qty <= 0m)
                 return EventResult.Cancel("Количество отпуска должно быть больше нуля");
 
-            need[line.Item] = (need.TryGetValue(line.Item, out var d) ? d : 0m) + qty;
+            var cell = line.FromCell != Guid.Empty ? line.FromCell : header.FromCell;
+            var key = (cell, line.Item);
+            need[key] = (need.TryGetValue(key, out var d) ? d : 0m) + qty;
         }
 
         var stock = context.GetService<ITotalsManager>();
         foreach (var kv in need)
         {
             var bal = await stock.GetBalanceAsync("Stock",
-                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = header.FromCell });
+                new Dictionary<string, object?> { ["Item"] = kv.Key.Item, ["Cell"] = kv.Key.Cell });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             if (kv.Value > onHand)
                 return EventResult.Cancel($"Отгрузка сверх остатка: отгружается {kv.Value}, в наличии {onHand}");

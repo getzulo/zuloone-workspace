@@ -18,7 +18,7 @@ public partial class StockAdjustmentTx
         {
             var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
             transactions.Add(
-                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", document.Cell).Res("Qty", qty));
+                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", line.Cell != Guid.Empty ? line.Cell : document.Cell).Res("Qty", qty));
         }
     }
 }

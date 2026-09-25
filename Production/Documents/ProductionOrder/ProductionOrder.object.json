@@ -90,6 +90,28 @@
     },
     {
       "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
+      "fieldName": "OutputLocation",
+      "caption": {
+        "en": "Output cell",
+        "ar": "خلية الإنتاج",
+        "ru": "Ячейка выпуска",
+        "uk": "Комірка випуску"
+      },
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "description": "Куда приходуется изделие. Пусто — ячейка списания; если пусто и в настройках модуля задана ячейка выпуска, новый заказ берёт её. Компоненты и незавершёнка остаются на ячейке списания.",
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "c4e8a1b7-2d6f-4a93-8e15-7b0c3d9f2a64",
+      "name": "OutputLocation",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "documentTypeMetaId": "3a0b2c8f-5e9d-4f1a-8b2c-2d6e7f3a8b10",
       "fieldName": "Product",
       "caption": {
         "en": "Product",

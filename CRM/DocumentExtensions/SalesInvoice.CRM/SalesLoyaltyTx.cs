@@ -8,9 +8,10 @@ using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
 // Award loyalty points on issue. A live LoyaltyCampaign overlays the
-// course for matching ItemGroup lines (empty group = global). Otherwise a
-// reached LoyaltyTier with a positive EarnRate overlays CRMSettings. The
-// Boolean trap on LoyaltyEnabled stays.
+// course for matching ItemGroup lines and the customer's type (empty group
+// = every line, empty type = every customer). A narrower window wins.
+// Otherwise a reached LoyaltyTier with a positive EarnRate overlays
+// CRMSettings. The Boolean trap on LoyaltyEnabled stays.
 //
 // Settings are read once in the field initializer: the script instance lives
 // one posting. Tier cannot live there — it depends on document.Customer.
@@ -73,13 +74,14 @@ public partial class SalesLoyaltyTx
             ? DateTime.UtcNow.Date
             : document.DocumentDate.Date;
         var fallback = CustomerFallback(document.Customer, _loyalty.Rate);
+        var customerType = CustomerTypeOf(document.Customer);
 
         decimal points = 0m;
         foreach (var line in document.Lines)
         {
             var amount = pricing.LineAmount(line.Quantity, line.UnitPrice, document.DiscountPercent);
             var campaign = campaigns
-                .EarnRateOfAsync(onDate, GroupOf(items, groups, line.Item))
+                .EarnRateOfAsync(onDate, GroupOf(items, groups, line.Item), customerType)
                 .GetAwaiter().GetResult();
             var rate = campaign > 0m ? campaign : fallback;
             points += amount * rate;
@@ -90,6 +92,14 @@ public partial class SalesLoyaltyTx
             transactions.Add(new RegisterMovementSpec("LoyaltyPoints")
                 .Dim("Customer", document.Customer)
                 .Res("Points", points));
+    }
+
+    private static string CustomerTypeOf(Guid customerId)
+    {
+        if (customerId == Guid.Empty) return "";
+        var customer = GetService<IDictionaryManager<Customer>>()
+            .GetRecordAsync(customerId).GetAwaiter().GetResult();
+        return customer?.CustomerType ?? "";
     }
 
     private static Guid GroupOf(

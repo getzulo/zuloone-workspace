@@ -7,8 +7,9 @@ using ZuloOne.Runtime.Testing;
 using ZuloOne.Services.Contracts;
 
 // A live campaign overlays tier and settings. Expired or disabled windows
-// do not. Two live windows of the same ItemGroup may not overlap; different
-// groups may share dates. Earn is priced per invoice line.
+// do not. Two live windows of the same ItemGroup and customer type may not
+// overlap; different groups or types may share dates. Earn is priced per
+// invoice line. Empty customer type is every customer.
 public class LoyaltyCampaignTest : IntegrationTestScriptBase
 {
     private static ILoyaltyCampaignService Svc => GetService<ILoyaltyCampaignService>();
@@ -140,8 +141,100 @@ public class LoyaltyCampaignTest : IntegrationTestScriptBase
             "до окна оверлея нет, факт {0} {1}", closed.Rate, closed.Name);
     }
 
+    [IntegrationTest("Кампания типа клиента начисляет своему покупателю")]
+    public async Task CampaignForMatchingCustomerTypeOverlays()
+    {
+        await ConfigureLoyaltyAsync(true, 2m);
+        await NewCampaignAsync(5m, Origin, customerType: "B2B", name: "Trade");
+        var s = await IssueInvoiceAsync();
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 75m,
+            "тип B2B: 3 × 5 × 5 = 75, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
+    [IntegrationTest("Кампания чужого типа не бьёт настройки")]
+    public async Task CampaignForOtherCustomerTypeFallsBack()
+    {
+        await ConfigureLoyaltyAsync(true, 2m);
+        await NewCampaignAsync(9m, Origin, customerType: "Retail");
+        var s = await IssueInvoiceAsync();
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 30m,
+            "покупатель B2B мимо Retail: курс настроек 2 → 30, факт {0}",
+            await PointsBalanceAsync(s.Customer));
+    }
+
+    [IntegrationTest("Тип клиента бьёт общую кампанию, телефон общую и видит")]
+    public async Task CustomerTypeBeatsTheOpenCampaign()
+    {
+        await ConfigureLoyaltyAsync(true, 2m);
+        await NewCampaignAsync(4m, Origin, name: "All");
+        await NewCampaignAsync(5m, Origin, customerType: "B2B", name: "Trade");
+
+        var phone = await Svc.OverlayOfAsync(DateTime.UtcNow.Date, Guid.Empty);
+        Assert.IsTrue(phone.Rate == 4m && phone.Name == "All",
+            "каталог без клиента остаётся на общей, факт {0} {1}", phone.Rate, phone.Name);
+
+        var typed = await Svc.EarnRateOfAsync(DateTime.UtcNow.Date, Guid.Empty, "b2b");
+        Assert.IsTrue(typed == 5m, "b2b совпадает с B2B, факт {0}", typed);
+
+        var s = await IssueInvoiceAsync();
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 75m,
+            "счёт B2B: 3 × 5 × 5 = 75, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
+    [IntegrationTest("Разные типы клиента делят календарь, тот же тип нет")]
+    public async Task DifferentCustomerTypesMayOverlap()
+    {
+        await NewCampaignAsync(2m, Origin, customerType: "B2B");
+        await NewCampaignAsync(3m, Origin, customerType: "Retail");
+        Assert.IsTrue(await Svc.EarnRateOfAsync(Origin, Guid.Empty, "B2B") == 2m, "B2B");
+        Assert.IsTrue(await Svc.EarnRateOfAsync(Origin, Guid.Empty, "Retail") == 3m, "Retail");
+
+        var clash = DictionaryManager.NewRecord<LoyaltyCampaign>();
+        clash.Code = $"C-{Uniq()}";
+        clash.Name = "Same type";
+        clash.EarnRate = 4m;
+        clash.EffectiveFrom = Origin;
+        clash.CustomerType = "b2b";
+        var reason = string.Empty;
+        try { await DictionaryManager.SaveRecordAsync(clash); }
+        catch (Exception ex) { reason = ex.Message; }
+        Assert.IsTrue(reason.Contains("уже есть другая кампания"),
+            "b2b пересекает B2B, факт: {0}", reason);
+    }
+
+    [IntegrationTest("Тип длиннее карточки клиента отклоняется")]
+    public async Task CustomerTypeLongerThanTheCardIsRejected()
+    {
+        var row = DictionaryManager.NewRecord<LoyaltyCampaign>();
+        row.Code = $"C-{Uniq()}";
+        row.Name = "Long";
+        row.EarnRate = 2m;
+        row.EffectiveFrom = Origin;
+        row.CustomerType = "Wholesale";
+        var reason = string.Empty;
+        try { await DictionaryManager.SaveRecordAsync(row); }
+        catch (Exception ex) { reason = ex.Message; }
+        Assert.IsTrue(reason.Contains("8"),
+            "девять символов не входят в карточку, факт: {0}", reason);
+    }
+
+    [IntegrationTest("Группа и тип вместе бьют каждый фильтр по отдельности")]
+    public async Task GroupAndCustomerTypeBothNarrowTheRate()
+    {
+        await ConfigureLoyaltyAsync(true, 2m);
+        var s = await SetupAsync();
+        await NewCampaignAsync(4m, Origin, itemGroup: s.ItemGroup, name: "Beans");
+        await NewCampaignAsync(5m, Origin, customerType: "B2B", name: "Trade");
+        await NewCampaignAsync(9m, Origin, itemGroup: s.ItemGroup, customerType: "B2B", name: "Both");
+        var other = await ExtraItemAsync(s);
+        await IssueInvoiceFromAsync(s, (other.Item, 1m, 5m));
+        Assert.IsTrue(await PointsBalanceAsync(s.Customer) == 160m,
+            "3 × 5 × 9 + 1 × 5 × 5 = 160, факт {0}", await PointsBalanceAsync(s.Customer));
+    }
+
     private async Task NewCampaignAsync(
-        decimal rate, DateTime from, DateTime? to = null, Guid? itemGroup = null, string name = "Promo")
+        decimal rate, DateTime from, DateTime? to = null, Guid? itemGroup = null, string name = "Promo",
+        string? customerType = null)
     {
         var row = DictionaryManager.NewRecord<LoyaltyCampaign>();
         row.Code = $"C-{Uniq()}";
@@ -150,6 +243,7 @@ public class LoyaltyCampaignTest : IntegrationTestScriptBase
         row.EffectiveFrom = from;
         row.EffectiveTo = to;
         if (itemGroup.HasValue) row.ItemGroup = itemGroup.Value;
+        if (!string.IsNullOrWhiteSpace(customerType)) row.CustomerType = customerType;
         await DictionaryManager.SaveRecordAsync(row);
     }
 

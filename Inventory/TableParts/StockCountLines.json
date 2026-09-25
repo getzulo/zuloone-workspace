@@ -126,6 +126,30 @@
       "metaId": "87e1353e-9897-4afc-be7f-87df4cb12f27",
       "name": "Unit",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+    },
+    {
+      "tablePartTypeMetaId": "57100909-0000-4000-8000-000000000000",
+      "fieldName": "Cell",
+      "caption": {
+        "en": "Cell",
+        "ar": "الخلية",
+        "ru": "Ячейка",
+        "uk": "Комірка"
+      },
+      "description": "Пусто — ячейка шапки. Заполнена — факт сравнивается с остатком этой ячейки.",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
+      "referenceName": "StoreCell",
+      "displayOrder": 4,
+      "metaId": "e0f4b7d5-8a63-4c41-9d94-6b2f5e9a3c47",
+      "name": "Cell",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

@@ -105,6 +105,30 @@
       "metaId": "33040a6e-d8a9-4e6e-8984-0cd7a5a2ab40",
       "name": "Unit",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+    },
+    {
+      "tablePartTypeMetaId": "1d90aee7-f168-4a7b-bbaf-f3d05ca1ead3",
+      "fieldName": "Cell",
+      "caption": {
+        "en": "Cell",
+        "ar": "الخلية",
+        "ru": "Ячейка",
+        "uk": "Комірка"
+      },
+      "description": "Пусто — ячейка шапки. Заполнена — эта строка двигает свою ячейку.",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
+      "referenceName": "StoreCell",
+      "displayOrder": 4,
+      "metaId": "d9e3a6c4-7f52-4b30-8c83-5a1e4d8f2b36",
+      "name": "Cell",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

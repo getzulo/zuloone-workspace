@@ -7,7 +7,7 @@
       "ru": "Кампании лояльности",
       "uk": "Кампанії лояльності"
     },
-    "description": "Dated earn-rate overlay. Optional ItemGroup scopes the window; empty group is global. Beats LoyaltyTier and CRMSettings for matching lines.",
+    "description": "Dated earn-rate overlay. Optional ItemGroup and CustomerType scope the window; empty means every line or every customer. A more specific window beats a wider one, then LoyaltyTier and CRMSettings.",
     "isLogged": false,
     "isHierarchical": false,
     "numberSequenceMetaId": "f1c78734-7f37-4b26-bfe4-c985528399f7",
@@ -181,6 +181,30 @@
       "isCalculated": false,
       "metaId": "9172d64c-dc24-476d-b005-12642b7fdb60",
       "name": "ItemGroup",
+      "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+    },
+    {
+      "dictionaryMetaId": "880c6a10-fb42-44e6-be00-3079774d9d63",
+      "fieldName": "CustomerType",
+      "baseType": "String",
+      "length": 8,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "description": "Empty = every customer. Set = the same text as Customer.CustomerType, compared trimmed and case-insensitive. Longer than 8 is rejected: the customer card holds 8.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Customer type",
+        "ar": "نوع العميل",
+        "ru": "Тип клиента",
+        "uk": "Тип клієнта"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a3c8e1f4-6b27-4d90-9e15-8f4a2c7d1b63",
+      "name": "CustomerType",
       "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
     },
     {

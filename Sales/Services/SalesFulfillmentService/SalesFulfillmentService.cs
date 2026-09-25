@@ -117,8 +117,9 @@ public partial class SalesFulfillmentService
 
     /// <summary>
     /// Simple scheme posts transfers onto the write-off cell. Extended and an
-    /// empty scheme leave a draft pick for the warehouse to confirm. Discipline
-    /// off — neither. A second call finds the child already linked and stops.
+    /// empty scheme leave draft picks, one per storage cell that contributes.
+    /// Discipline off — neither. A second call finds a child already linked
+    /// and stops.
     /// </summary>
     public async Task<Guid> PrepareShipmentAsync(Guid orderId)
     {
@@ -165,28 +166,7 @@ public partial class SalesFulfillmentService
         cells.RemoveAll(c => c == order.Location);
         if (cells.Count == 0) return Guid.Empty;
 
-        var onHand = new Dictionary<(Guid Cell, Guid Item), decimal>();
-        var buckets = new Dictionary<Guid, Dictionary<Guid, decimal>>();
-        foreach (var line in order.Lines)
-        {
-            if (line.Quantity <= 0m || line.Item == Guid.Empty) continue;
-            decimal total = 0m;
-            foreach (var cell in cells)
-                total += await FreeAtAsync(onHand, cell, line.Item);
-            if (total < line.Quantity) continue;
-
-            var remaining = line.Quantity;
-            foreach (var cell in cells)
-            {
-                if (remaining <= 0m) break;
-                var free = await FreeAtAsync(onHand, cell, line.Item);
-                if (free <= 0m) continue;
-                var take = free < remaining ? free : remaining;
-                AddPick(buckets, cell, line.Item, take);
-                onHand[(cell, line.Item)] = free - take;
-                remaining -= take;
-            }
-        }
+        var buckets = await AllocateStorageAsync(order, cells);
         if (buckets.Count == 0) return Guid.Empty;
 
         Guid firstTransfer = Guid.Empty;
@@ -214,8 +194,13 @@ public partial class SalesFulfillmentService
         return firstTransfer;
     }
 
-    /// <summary>One draft pick from the first storage cell, for the whole line.
-    /// The warehouse confirms it. Stock stays where it is.</summary>
+    /// <summary>
+    /// Draft picks that gather a confirmed order onto the write-off cell.
+    /// Same split as the simple scheme: one task per storage cell, only for
+    /// the quantity that cell still has, and only when the line is covered
+    /// in full. The warehouse confirms each task. Stock stays where it is.
+    /// A line that fits in the first cell is still one task.
+    /// </summary>
     private async Task<Guid> EnsurePickDraftAsync(Guid orderId)
     {
         var order = await _documents.GetDocumentAsync<SalesOrder>(orderId);
@@ -223,28 +208,68 @@ public partial class SalesFulfillmentService
 
         var store = await Cells.GetStoreAsync(order.Location);
         if (store is null) return Guid.Empty;
-        var storage = await Cells.SuggestStorageCellAsync(store.Value);
-        if (storage is null) return Guid.Empty;
+        var cells = await StorageCellsInPickOrderAsync(store.Value);
+        cells.RemoveAll(c => c == order.Location);
+        if (cells.Count == 0) return Guid.Empty;
 
-        var task = await _documents.NewDocumentAsync<PickTask>("Draft", new Dictionary<string, object?>
+        var buckets = await AllocateStorageAsync(order, cells);
+        if (buckets.Count == 0) return Guid.Empty;
+
+        Guid first = Guid.Empty;
+        foreach (var cell in cells)
         {
-            ["FromCell"] = storage.Value,
-        });
+            if (!buckets.TryGetValue(cell, out var lines)) continue;
+            var task = await _documents.NewDocumentAsync<PickTask>("Draft", new Dictionary<string, object?>
+            {
+                ["FromCell"] = cell,
+            });
+            foreach (var (item, qty) in lines)
+            {
+                task.Lines.Add(new PickTaskLinesTablePartRow
+                {
+                    Item = item,
+                    Quantity = qty,
+                    ToCell = order.Location,
+                });
+            }
+            await _documents.SaveDocumentAsync(task);
+            await _documents.AddLinkAsync(order.MetaId, task.MetaId);
+            if (first == Guid.Empty) first = task.MetaId;
+        }
+        return first;
+    }
+
+    /// <summary>
+    /// Quantity per storage cell that covers each line in full. A line the
+    /// store cannot cover is left out: a partial gather cannot be issued,
+    /// and a draft the picker cannot confirm is the same trap.
+    /// </summary>
+    private async Task<Dictionary<Guid, Dictionary<Guid, decimal>>> AllocateStorageAsync(
+        SalesOrder order, IReadOnlyList<Guid> cells)
+    {
+        var onHand = new Dictionary<(Guid Cell, Guid Item), decimal>();
+        var buckets = new Dictionary<Guid, Dictionary<Guid, decimal>>();
         foreach (var line in order.Lines)
         {
             if (line.Quantity <= 0m || line.Item == Guid.Empty) continue;
-            task.Lines.Add(new PickTaskLinesTablePartRow
-            {
-                Item = line.Item,
-                Quantity = line.Quantity,
-                ToCell = order.Location,
-            });
-        }
-        if (task.Lines.Count == 0) return Guid.Empty;
+            decimal total = 0m;
+            foreach (var cell in cells)
+                total += await FreeAtAsync(onHand, cell, line.Item);
+            if (total < line.Quantity) continue;
 
-        await _documents.SaveDocumentAsync(task);
-        await _documents.AddLinkAsync(order.MetaId, task.MetaId);
-        return task.MetaId;
+            var remaining = line.Quantity;
+            foreach (var cell in cells)
+            {
+                if (remaining <= 0m) break;
+                var free = await FreeAtAsync(onHand, cell, line.Item);
+                if (free <= 0m) continue;
+                var take = free < remaining ? free : remaining;
+                AddPick(buckets, cell, line.Item, take);
+                onHand[(cell, line.Item)] = free - take;
+                remaining -= take;
+            }
+        }
+        return buckets;
     }
 
     private async Task<Guid?> LinkedChildAsync(Guid orderId, Guid docType)
@@ -412,5 +437,76 @@ public partial class SalesFulfillmentService
             await _posting.SetSubtypeAsync(SalesOrderType, order.MetaId, "Delivered");
             await _documents.AddLinkAsync(trip.MetaId, order.MetaId);
         }
+    }
+
+    /// <summary>
+    /// Several approved orders each got their own draft pick from the same
+    /// storage cell. Fold those drafts into one task so the picker confirms
+    /// once. A lone draft, a confirmed pick, and a pick with no sales order
+    /// stay put. Stock does not move here.
+    /// </summary>
+    public async Task<int> PlanPickWaveAsync()
+    {
+        var headers = await _documents.QueryDocumentsAsync<PickTask>("Subtype = 'Draft'");
+        var groups = new Dictionary<Guid, List<(PickTask Task, List<Guid> Orders)>>();
+        foreach (var header in headers)
+        {
+            var full = await _documents.GetDocumentAsync<PickTask>(header.MetaId);
+            if (full == null || full.Subtype != PickTask.Subtypes.Draft || full.FromCell == Guid.Empty)
+                continue;
+            var orders = await OrderParentsAsync(full.MetaId);
+            if (orders.Count == 0) continue;
+            if (!groups.TryGetValue(full.FromCell, out var list))
+            {
+                list = new List<(PickTask, List<Guid>)>();
+                groups[full.FromCell] = list;
+            }
+            list.Add((full, orders));
+        }
+
+        var removed = 0;
+        foreach (var group in groups.Values)
+        {
+            if (group.Count < 2) continue;
+            var wave = await _documents.NewDocumentAsync<PickTask>("Draft", new Dictionary<string, object?>
+            {
+                ["FromCell"] = group[0].Task.FromCell,
+            });
+            foreach (var (task, _) in group)
+            {
+                foreach (var line in task.Lines)
+                {
+                    wave.Lines.Add(new PickTaskLinesTablePartRow
+                    {
+                        Item = line.Item,
+                        Quantity = line.Quantity,
+                        ToCell = line.ToCell,
+                        Unit = line.Unit,
+                    });
+                }
+            }
+            if (wave.Lines.Count == 0) continue;
+            await _documents.SaveDocumentAsync(wave);
+            foreach (var (task, orders) in group)
+            {
+                foreach (var orderId in orders)
+                    await _documents.AddLinkAsync(orderId, wave.MetaId);
+                await _documents.DeleteDocumentAsync<PickTask>(task.MetaId);
+                removed++;
+            }
+        }
+        return removed;
+    }
+
+    private async Task<List<Guid>> OrderParentsAsync(Guid pickId)
+    {
+        var family = await _documents.GetDocumentFamilyAsync(pickId);
+        var orders = new HashSet<Guid>(
+            family.Nodes.Where(n => n.DocTypeName == "SalesOrder").Select(n => n.DocId));
+        return family.Edges
+            .Where(e => e.ChildDocId == pickId && orders.Contains(e.ParentDocId))
+            .Select(e => e.ParentDocId)
+            .Distinct()
+            .ToList();
     }
 }

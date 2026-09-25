@@ -18,7 +18,10 @@ public partial class ProductionOutputTx
     protected override void GetTransactions(ProductionOrder document, TransactionPairCollection transactionPairs, TransactionCollection transactions)
     {
         var qty = document.BaseQuantity != 0m ? document.BaseQuantity : document.Quantity;
+        // Пустая ячейка выпуска — та же, что списание. Заполненная (своей рукой
+        // или из настроек модуля при сохранении) принимает только изделие.
+        var cell = document.OutputLocation != Guid.Empty ? document.OutputLocation : document.Location;
         transactions.Add(new RegisterMovementSpec("Stock")
-            .Dim("Item", document.Product).Dim("Cell", document.Location).Res("Qty", qty));
+            .Dim("Item", document.Product).Dim("Cell", cell).Res("Qty", qty));
     }
 }

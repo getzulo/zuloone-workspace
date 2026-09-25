@@ -105,6 +105,30 @@
       "metaId": "31eb5a6c-a79c-4340-ae82-b42e01948c34",
       "name": "Unit",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+    },
+    {
+      "tablePartTypeMetaId": "111f1288-f692-4b6d-ab54-a2fd6658a98d",
+      "fieldName": "FromCell",
+      "caption": {
+        "en": "From cell",
+        "ar": "من الخلية",
+        "ru": "Из ячейки",
+        "uk": "З комірки"
+      },
+      "description": "Пусто — ячейка шапки. Заполнена — эта строка уходит из своей ячейки.",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
+      "referenceName": "StoreCell",
+      "displayOrder": 4,
+      "metaId": "b7c1e4a2-5d30-4f18-8a61-3e9c2b6d0f14",
+      "name": "FromCell",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

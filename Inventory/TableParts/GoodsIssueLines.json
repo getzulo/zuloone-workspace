@@ -105,6 +105,30 @@
       "metaId": "fd6968ea-708b-4ac2-921e-444cbab1c19f",
       "name": "Unit",
       "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
+    },
+    {
+      "tablePartTypeMetaId": "57101303-0000-4000-8000-000000000000",
+      "fieldName": "FromCell",
+      "caption": {
+        "en": "From cell",
+        "ar": "من الخلية",
+        "ru": "Из ячейки",
+        "uk": "З комірки"
+      },
+      "description": "Пусто — ячейка шапки. Заполнена — эта строка списывается из своей ячейки.",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "1ef94317-154c-468a-b167-4dd6057984d8",
+      "referenceName": "StoreCell",
+      "displayOrder": 4,
+      "metaId": "c8d2f5b3-6e41-4a29-9b72-4f0d3c7e1a25",
+      "name": "FromCell",
+      "modelId": "91774783-bd29-42b4-88f8-21aad85a5850"
     }
   ]
 }

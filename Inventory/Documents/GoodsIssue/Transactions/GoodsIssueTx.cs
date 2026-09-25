@@ -20,8 +20,9 @@ public partial class GoodsIssueTx
         foreach (var line in document.Lines)
         {
             var qty = line.BaseQuantity != 0m ? line.BaseQuantity : line.Quantity;
+            var from = line.FromCell != Guid.Empty ? line.FromCell : document.FromCell;
             transactions.Add(
-                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", document.FromCell).Res("Qty", -qty));
+                new RegisterMovementSpec("Stock").Dim("Item", line.Item).Dim("Cell", from).Res("Qty", -qty));
         }
     }
 }

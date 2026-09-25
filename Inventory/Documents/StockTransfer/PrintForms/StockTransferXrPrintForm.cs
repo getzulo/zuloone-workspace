@@ -26,13 +26,14 @@ public partial class StockTransferXrPrintForm : PrintFormBase
 
         var display = context.GetService<IReferenceDisplay>();
         var ct = context.CancellationToken;
-        var fromCell = await NameAsync(display, "StoreCell", doc.FromCell, ct);
         var toCell = await NameAsync(display, "StoreCell", doc.ToCell, ct);
 
         var n = 0;
         foreach (var line in doc.Lines)
         {
             n++;
+            var sourceId = line.FromCell != Guid.Empty ? line.FromCell : doc.FromCell;
+            var fromCell = await NameAsync(display, "StoreCell", sourceId, ct);
             var itemText = await NameAsync(display, "Item", line.Item, ct);
             var unitText = await NameAsync(display, "UnitOfMeasure", line.Unit, ct);
             table.Add(Row(
@@ -41,7 +42,10 @@ public partial class StockTransferXrPrintForm : PrintFormBase
         }
 
         if (n == 0)
+        {
+            var fromCell = await NameAsync(display, "StoreCell", doc.FromCell, ct);
             table.Add(Row(doc.ID ?? "", DateText(doc.DocumentDate), fromCell, toCell, 0, "", 0m, ""));
+        }
 
         return table;
     }

@@ -9,7 +9,9 @@ public class RecalcAbcClassificationsTask : TaskScriptBase
 {
     public override async Task ExecuteAsync(TaskContext context)
     {
-        var n = await ScriptServices.Get<IAbcClassifier>().RecalcAllEnabledAsync(DateTime.UtcNow.Date);
-        context.Log("rows=" + n);
+        var asOf = DateTime.UtcNow.Date;
+        var classes = await ScriptServices.Get<IAbcClassifier>().RecalcAllEnabledAsync(asOf);
+        var suggestions = await ScriptServices.Get<IAbcPolicy>().BuildEnabledItemProfilesAsync(asOf);
+        context.Log("classes=" + classes + " suggestions=" + suggestions);
     }
 }

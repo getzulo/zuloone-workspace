@@ -123,6 +123,40 @@ public class AbcPolicyTest : IntegrationTestScriptBase
                 new Dictionary<Guid, decimal>()));
     }
 
+    [IntegrationTest("Ночной проход пишет предложение товарам и пропускает покупателя")]
+    public async Task EnabledItemProfilesAreBuiltTogether()
+    {
+        var itemProfile = await ItemProfileAsync();
+        var subject = Guid.NewGuid();
+        await ClassAsync(itemProfile.MetaId, subject, "A", "X");
+        await CellAsync(itemProfile.MetaId, "A", "X", AbcStockMode.Keep, 14);
+
+        var buyer = await ItemProfileAsync();
+        buyer.Subject = "Customer";
+        buyer = await Dictionaries.SaveRecordAsync(buyer);
+
+        var off = await ItemProfileAsync();
+        off.IsDisabled = true;
+        off = await Dictionaries.SaveRecordAsync(off);
+        await ClassAsync(off.MetaId, Guid.NewGuid(), "A", "X");
+        await CellAsync(off.MetaId, "A", "X", AbcStockMode.Keep, 14);
+
+        var n = await Policy.BuildEnabledItemProfilesAsync(AsOf);
+        Assert.IsTrue(n >= 1, "живой товарный профиль пишет строку, факт {0}", n);
+
+        var row = await SuggestionAsync(itemProfile.MetaId, subject);
+        Assert.IsTrue(Dec(row, "SuggestQty") == 0m,
+            "без счетов к заказу 0, факт {0}", row["SuggestQty"]);
+
+        var buyerSlice = await Info.SliceLastAsync("AbcSuggestion", AsOf,
+            new Dictionary<string, object?> { ["Profile"] = buyer.MetaId });
+        Assert.AreEqual(0, buyerSlice.Count);
+
+        var offSlice = await Info.SliceLastAsync("AbcSuggestion", AsOf,
+            new Dictionary<string, object?> { ["Profile"] = off.MetaId });
+        Assert.AreEqual(0, offSlice.Count);
+    }
+
     [IntegrationTest("Без счетов расход ноль и к заказу ноль")]
     public async Task LiveBuildWithNoInvoicesSuggestsZero()
     {

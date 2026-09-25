@@ -12,7 +12,7 @@ public partial class StockCountTx
             if (line.QtyDelta == 0m) continue;
             transactions.Add(new RegisterMovementSpec("Stock")
                 .Dim("Item", line.Item)
-                .Dim("Cell", document.Cell)
+                .Dim("Cell", line.Cell != Guid.Empty ? line.Cell : document.Cell)
                 .Res("Qty", line.QtyDelta));
         }
     }

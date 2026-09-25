@@ -45,8 +45,9 @@ public partial class StockCountEventHandler : TypedDocumentEventHandler<StockCou
         foreach (var line in lines)
         {
             if (line.Item == Guid.Empty || line.MetaId == Guid.Empty) continue;
+            var lineCell = line.Cell != Guid.Empty ? line.Cell : cell;
             var bal = await stock.GetBalanceAsync("Stock",
-                new Dictionary<string, object?> { ["Item"] = line.Item, ["Cell"] = cell });
+                new Dictionary<string, object?> { ["Item"] = line.Item, ["Cell"] = lineCell });
             var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
             var counted = line.BaseQuantity != 0m ? line.BaseQuantity : line.CountedQty;
             var delta = counted - onHand;

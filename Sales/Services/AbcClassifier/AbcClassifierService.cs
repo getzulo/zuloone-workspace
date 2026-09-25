@@ -16,6 +16,7 @@ public partial class AbcClassifier
 
     private readonly IDictionaryManager<AbcProfile> _profiles;
     private readonly IDictionaryManager<AbcClassBand> _bands;
+    private readonly IDictionaryManager<Item> _items;
     private readonly IRegisterMovementService _movements;
     private readonly IInformationRegisterService _info;
     private readonly AnalyticSetService _analytics;
@@ -23,12 +24,14 @@ public partial class AbcClassifier
     public AbcClassifier(
         IDictionaryManager<AbcProfile> profiles,
         IDictionaryManager<AbcClassBand> bands,
+        IDictionaryManager<Item> items,
         IRegisterMovementService movements,
         IInformationRegisterService info,
         AnalyticSetService analytics)
     {
         _profiles = profiles;
         _bands = bands;
+        _items = items;
         _movements = movements;
         _info = info;
         _analytics = analytics;
@@ -38,11 +41,16 @@ public partial class AbcClassifier
     public async Task<int> RecalcAsync(Guid profileId, DateTime asOf)
     {
         var profile = await LoadProfileAsync(profileId);
+        var allowed = await AllowedItemsAsync(profile);
         var scores = await ScoreFromRegistersAsync(profile, asOf);
+        scores = Restrict(scores, allowed);
         IReadOnlyDictionary<Guid, decimal[]>? series = null;
         if (profile.Measure == "Revenue" && profile.XyzMethod != "None")
-            series = await RevenueSeriesAsync(profile, asOf);
-        return await WriteAsync(profile, asOf, scores, series);
+            series = RestrictSeries(await RevenueSeriesAsync(profile, asOf), allowed);
+        var written = await WriteAsync(profile, asOf, scores, series);
+        if (allowed != null)
+            await DropOutsideGroupAsync(profile.MetaId, asOf, scores.Keys);
+        return written;
     }
 
     /// <summary>Nightly path: every live profile, same RecalcAsync as the button.</summary>
@@ -64,7 +72,13 @@ public partial class AbcClassifier
         IReadOnlyDictionary<Guid, decimal> scores)
     {
         var profile = await LoadProfileAsync(profileId);
-        return await WriteAsync(profile, asOf, scores, series: null);
+        var allowed = await AllowedItemsAsync(profile);
+        if (allowed != null)
+            scores = Restrict(scores, allowed);
+        var written = await WriteAsync(profile, asOf, scores, series: null);
+        if (allowed != null)
+            await DropOutsideGroupAsync(profile.MetaId, asOf, scores.Keys);
+        return written;
     }
 
     private async Task<AbcProfile> LoadProfileAsync(Guid profileId)
@@ -163,6 +177,46 @@ public partial class AbcClassifier
         }
 
         return written;
+    }
+
+    /// <summary>
+    /// Null means the whole catalog. A customer profile ignores ItemGroup:
+    /// buyers are not members of an item group, and throwing would reject a
+    /// field the form still shows.
+    /// </summary>
+    private async Task<HashSet<Guid>?> AllowedItemsAsync(AbcProfile profile)
+    {
+        if (profile.Subject == "Customer" || profile.ItemGroup == Guid.Empty) return null;
+        var rows = await _items.GetRecordsAsync($"ItemGroup = '{profile.ItemGroup}'");
+        return rows.Select(i => i.MetaId).ToHashSet();
+    }
+
+    private static Dictionary<Guid, decimal> Restrict(
+        IReadOnlyDictionary<Guid, decimal> scores, HashSet<Guid>? allowed)
+    {
+        if (allowed == null) return scores as Dictionary<Guid, decimal> ?? scores.ToDictionary(kv => kv.Key, kv => kv.Value);
+        return scores.Where(kv => allowed.Contains(kv.Key)).ToDictionary(kv => kv.Key, kv => kv.Value);
+    }
+
+    private static Dictionary<Guid, decimal[]> RestrictSeries(
+        IReadOnlyDictionary<Guid, decimal[]> series, HashSet<Guid>? allowed)
+    {
+        if (allowed == null) return series as Dictionary<Guid, decimal[]> ?? series.ToDictionary(kv => kv.Key, kv => kv.Value);
+        return series.Where(kv => allowed.Contains(kv.Key)).ToDictionary(kv => kv.Key, kv => kv.Value);
+    }
+
+    private async Task DropOutsideGroupAsync(Guid profileId, DateTime asOf, IEnumerable<Guid> keep)
+    {
+        var kept = keep.ToHashSet();
+        var rows = await _info.QueryRecordsAsync("AbcClassification", asOf, asOf);
+        foreach (var row in rows)
+        {
+            if (AsGuid(row, "Profile") != profileId) continue;
+            if (kept.Contains(AsGuid(row, "Subject"))) continue;
+            var id = AsGuid(row, "MetaId");
+            if (id == Guid.Empty) continue;
+            await _info.DeleteAsync("AbcClassification", id);
+        }
     }
 
     private async Task<Dictionary<Guid, decimal>> ScoreFromRegistersAsync(AbcProfile profile, DateTime asOf)
