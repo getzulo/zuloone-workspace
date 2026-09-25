@@ -136,7 +136,12 @@ public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<Purch
                 // Значение доезжает до вызывающего: менеджер после проведения
                 // перечитывает строку и отдаёт проставленное обратно. Без этого
                 // адресная запись ниже запирала бы документ в Received.
-                if (document.LegalEntity == Guid.Empty) document.LegalEntity = leId;
+                // Умолчание модуля — не выбор покупателя: иначе приход уходит
+                // под юрлицо стенда, а кредит ищется по юрлицу ячейки.
+                var defaults = context.GetService<IRecordDefaults>();
+                var moduleEntity = defaults.Pick(await defaults.SeedAsync("PurchaseOrder"), "LegalEntity");
+                if (defaults.IsPlaceholder(document.LegalEntity, moduleEntity))
+                    document.LegalEntity = leId;
             }
             var stamp = new Dictionary<string, object?>
             {

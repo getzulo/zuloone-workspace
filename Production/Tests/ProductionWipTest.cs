@@ -121,6 +121,7 @@ public class ProductionWipTest : IntegrationTestScriptBase
         order.Product = product;
         order.Quantity = qty;
         order.Location = _cell;
+        order.OutputLocation = _cell;
         await DocumentManager.SaveDocumentAsync(order);
         var full = (await DocumentManager.GetDocumentAsync<ProductionOrder>(order.MetaId))!;
         var need = await Bom.ExpandByProductAsync(product, qty);

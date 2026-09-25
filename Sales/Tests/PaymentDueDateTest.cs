@@ -43,12 +43,26 @@ public class PaymentDueDateTest : IntegrationTestScriptBase
         var s = await SetupAsync();
         var rows = await DictionaryManager.GetRecordsAsync<SalesSettings>(null, 1);
         var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<SalesSettings>();
-        settings.DefaultPaymentTermDays = 30;
-        await DictionaryManager.SaveRecordAsync(settings);
+        var priorTerm = settings.DefaultPaymentTerm;
+        var priorDays = settings.DefaultPaymentTermDays;
+        try
+        {
+            // Связанное условие перебивает дни при сохранении. Пустое условие
+            // оставляет ровно DefaultPaymentTermDays.
+            settings.DefaultPaymentTerm = Guid.Empty;
+            settings.DefaultPaymentTermDays = 30;
+            await DictionaryManager.SaveRecordAsync(settings);
 
-        var inv = await InvoiceAsync(s, new DateTime(2026, 9, 1), Guid.Empty);
-        Assert.IsTrue(inv.DueDate.Date == new DateTime(2026, 10, 1),
-            "срок 01.09 + 30 = 01.10, факт {0:yyyy-MM-dd}", inv.DueDate);
+            var inv = await InvoiceAsync(s, new DateTime(2026, 9, 1), Guid.Empty);
+            Assert.IsTrue(inv.DueDate.Date == new DateTime(2026, 10, 1),
+                "срок 01.09 + 30 = 01.10, факт {0:yyyy-MM-dd}", inv.DueDate);
+        }
+        finally
+        {
+            settings.DefaultPaymentTerm = priorTerm;
+            settings.DefaultPaymentTermDays = priorDays;
+            await DictionaryManager.SaveRecordAsync(settings);
+        }
     }
 
     [IntegrationTest("InvoiceXr печатает DueDate рядом с условием")]

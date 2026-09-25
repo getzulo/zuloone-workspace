@@ -40,7 +40,11 @@ public partial class PurchaseCreditNoteEventHandler : TypedDocumentEventHandler<
 
         if (header.Supplier == Guid.Empty)
             header.Supplier = order.Supplier;
-        if (header.LegalEntity == Guid.Empty)
+        // Юрлицо из настроек модуля — заготовка, не покупатель. Иначе сторно
+        // Received уходит на организацию стенда, а приход уже сидит на юрлице ячейки.
+        var defaults = context.GetService<IRecordDefaults>();
+        var moduleEntity = defaults.Pick(await defaults.SeedAsync("PurchaseCreditNote"), "LegalEntity");
+        if (defaults.IsPlaceholder(header.LegalEntity, moduleEntity))
         {
             var le = await context.GetService<IStoreCellService>().GetLegalEntityAsync(order.Location);
             if (le.HasValue && le.Value != Guid.Empty)
@@ -94,13 +98,18 @@ public partial class PurchaseCreditNoteEventHandler : TypedDocumentEventHandler<
             return EventResult.Cancel("Укажите поставщика");
         if (full.Supplier != order.Supplier)
             return EventResult.Cancel("Поставщик ноты должен совпадать с заказом");
-        if (full.LegalEntity == Guid.Empty)
+        var postDefaults = context.GetService<IRecordDefaults>();
+        var postModuleEntity = postDefaults.Pick(await postDefaults.SeedAsync("PurchaseCreditNote"), "LegalEntity");
+        if (postDefaults.IsPlaceholder(full.LegalEntity, postModuleEntity))
         {
             var le = await context.GetService<IStoreCellService>().GetLegalEntityAsync(order.Location);
             if (le.HasValue && le.Value != Guid.Empty)
             {
                 full.LegalEntity = le.Value;
                 document.LegalEntity = le.Value;
+                await docs.UpdateDocumentAsync(
+                    Guid.Parse("10f6b734-1288-40f2-aa0f-3717a4e3995f"), document.MetaId,
+                    new Dictionary<string, object?> { ["LegalEntity"] = le.Value });
             }
         }
         if (full.LegalEntity == Guid.Empty)

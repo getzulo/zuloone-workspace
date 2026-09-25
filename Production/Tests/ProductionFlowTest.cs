@@ -195,6 +195,7 @@ public class ProductionFlowTest : IntegrationTestScriptBase
         order.Product = product;
         order.Quantity = quantity;
         order.Location = location;
+        order.OutputLocation = location;
         order.Components.Add(new ProductionOrderComponentsTablePartRow { Component = component, QtyRequired = qtyRequired });
         await DocumentManager.SaveDocumentAsync(order);
         return order;

@@ -378,8 +378,10 @@ public class SalesOutputTaxTest : IntegrationTestScriptBase
 
         var inv = await NewInvoiceAsync(s, 2m, 10m);
         var draft = await DocumentManager.GetDocumentAsync<SalesRealization>(inv.MetaId);
-        Assert.IsTrue(draft!.LegalEntity == Guid.Empty,
-            "у черновика юрлица ещё нет — его проставляет именно выставление");
+        var defaults = GetService<IRecordDefaults>();
+        var moduleSeller = defaults.Pick(await defaults.SeedAsync("SalesRealization"), "LegalEntity");
+        Assert.IsTrue(defaults.IsPlaceholder(draft!.LegalEntity, moduleSeller),
+            "до выставления продавец ещё не выбран по ячейке, факт {0}", draft.LegalEntity);
 
         inv.Subtype = SalesRealization.Subtypes.Issued;
         await DocumentManager.SaveDocumentAsync(inv);

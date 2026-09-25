@@ -182,6 +182,9 @@ public class PayrollPaymentGLTest : IntegrationTestScriptBase
     [IntegrationTest("Выплата ФОТ дебетует задолженность и кредитует денежные средства")]
     public async Task PaymentPostsToLedger()
     {
+        var restoreLevy = await SuspendUaLevyAsync();
+        try
+        {
         var s = await SetupAsync();
 
         var accrual = await DocumentManager.NewDocumentAsync<PayrollAccrual>();
@@ -229,11 +232,16 @@ public class PayrollPaymentGLTest : IntegrationTestScriptBase
         // И регистр HR говорит то же самое.
         var register = await LiabilityRegisterAsync(s);
         Assert.IsTrue(register == 0m, "регистр PayrollLiability обнулён, факт {0}", register);
+        }
+        finally { await restoreLevy(); }
     }
 
     [IntegrationTest("Частичная выплата гасит долг в книге ровно на свою сумму")]
     public async Task PartialPaymentPostsPartially()
     {
+        var restoreLevy = await SuspendUaLevyAsync();
+        try
+        {
         var s = await SetupAsync();
 
         var accrual = await DocumentManager.NewDocumentAsync<PayrollAccrual>();
@@ -261,5 +269,53 @@ public class PayrollPaymentGLTest : IntegrationTestScriptBase
         // начислено 700 − выплачено 300 = 400 непогашенного долга в обоих.
         var register = await LiabilityRegisterAsync(s);
         Assert.IsTrue(register == 400m, "регистр PayrollLiability = 400, факт {0}", register);
+        }
+        finally { await restoreLevy(); }
+    }
+
+    private static async Task<Func<Task>> SuspendUaLevyAsync()
+    {
+        // Справочник чужой модели: типизированный класс в сборку GLIntegration не входит.
+        var rows = await DictionaryManager.GetRecordsAsync("LocalizationUkraineSettings", take: 1);
+        if (rows.Count == 0) return () => Task.CompletedTask;
+        var row = rows[0];
+        object? Get(string key)
+        {
+            if (row.TryGetValue(key, out var direct)) return direct;
+            foreach (var kv in row)
+                if (string.Equals(kv.Key, key, StringComparison.OrdinalIgnoreCase))
+                    return kv.Value;
+            return null;
+        }
+        Guid ReadGuid(string key)
+        {
+            var raw = Get(key);
+            if (raw is null) return Guid.Empty;
+            if (raw is Guid g) return g;
+            return Guid.TryParse(Convert.ToString(raw), out var parsed) ? parsed : Guid.Empty;
+        }
+        var metaId = ReadGuid("MetaId");
+        if (metaId == Guid.Empty) metaId = ReadGuid("ID");
+        if (metaId == Guid.Empty) return () => Task.CompletedTask;
+        var incomeId = ReadGuid("IncomeTax");
+        var incomeCode = Convert.ToString(Get("IncomeTaxCode")) ?? "";
+        var militaryId = ReadGuid("MilitaryLevy");
+        var militaryCode = Convert.ToString(Get("MilitaryLevyCode")) ?? "";
+        if (incomeId == Guid.Empty && militaryId == Guid.Empty
+            && string.IsNullOrWhiteSpace(incomeCode) && string.IsNullOrWhiteSpace(militaryCode))
+            return () => Task.CompletedTask;
+
+        async Task Write(Guid tax, string taxCode, Guid levy, string levyCode)
+        {
+            row["MetaId"] = metaId;
+            row["IncomeTax"] = tax;
+            row["IncomeTaxCode"] = taxCode;
+            row["MilitaryLevy"] = levy;
+            row["MilitaryLevyCode"] = levyCode;
+            await DictionaryManager.SaveRecordAsync("LocalizationUkraineSettings", row);
+        }
+
+        await Write(Guid.Empty, "", Guid.Empty, "");
+        return () => Write(incomeId, incomeCode, militaryId, militaryCode);
     }
 }

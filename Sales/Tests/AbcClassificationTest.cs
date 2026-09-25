@@ -226,8 +226,9 @@ public class AbcClassificationTest : IntegrationTestScriptBase
         var jobId = Guid.Parse(Convert.ToString(rows[0]["MetaId"])!);
         var run = await Db.RunJobAsync(jobId);
         Assert.IsTrue(run.Success, "задание отработало; факт: {0}", run.Output);
-        Assert.IsTrue(run.Output.Contains("rows=", StringComparison.Ordinal),
-            "вывод несёт число строк; факт: {0}", run.Output);
+        Assert.IsTrue(run.Output.Contains("classes=", StringComparison.Ordinal)
+            && run.Output.Contains("suggestions=", StringComparison.Ordinal),
+            "вывод несёт число классов и предложений; факт: {0}", run.Output);
     }
 
     private async Task<Guid> ItemAsync(Guid groupId, Guid unitId, string name)

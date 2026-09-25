@@ -462,6 +462,7 @@ public class InventoryWriteOffGLTest : IntegrationTestScriptBase
         var s = await SetupAsync();
 
         var payment = await DocumentManager.NewDocumentAsync<VendorPayment>();
+        payment.LegalEntity = Guid.Empty;
         payment.Lines.Add(new VendorPaymentLinesTablePartRow { Supplier = s.Supplier, Amount = 70m });
         await DocumentManager.SaveDocumentAsync(payment);
         payment.Subtype = VendorPayment.Subtypes.Paid;

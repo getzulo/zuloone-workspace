@@ -134,6 +134,7 @@ public class ProductionBomReleaseTest : IntegrationTestScriptBase
         order.Product = product;
         order.Quantity = qty;
         order.Location = _cell;
+        order.OutputLocation = _cell;
         await DocumentManager.SaveDocumentAsync(order);
         return (await DocumentManager.GetDocumentAsync<ProductionOrder>(order.MetaId))!;
     }

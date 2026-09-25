@@ -257,7 +257,9 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
         // failed on that). SaveDocumentAsync is also wrong here: it rewrites
         // EVERY line mid-posting.
         var current = full?.LegalEntity ?? header.LegalEntity;
-        if (current == Guid.Empty)
+        var sellerDefaults = context.GetService<IRecordDefaults>();
+        var moduleSeller = sellerDefaults.Pick(await sellerDefaults.SeedAsync("SalesRealization"), "LegalEntity");
+        if (sellerDefaults.IsPlaceholder(current, moduleSeller))
         {
             var resolved = await context.GetService<IStoreCellService>()
                 .GetLegalEntityAsync(full?.Location ?? header.Location);

@@ -50,6 +50,12 @@ public partial class UaPaymentEntityGuardEventHandler : TypedDocumentEventHandle
 
         var firstEvent = context.GetService<IUaFirstEvent>();
         var header = payment.LegalEntity;
+        // Юрлицо из настроек модуля — не выбор оператора. Пустое подставляется
+        // из договора ниже; умолчание стенда иначе спорит с юрлицом договора.
+        var defaults = context.GetService<IRecordDefaults>();
+        var moduleEntity = defaults.Pick(await defaults.SeedAsync("CustomerPayment"), "LegalEntity");
+        if (defaults.IsPlaceholder(header, moduleEntity))
+            header = Guid.Empty;
         var fromContracts = Guid.Empty;
 
         foreach (var line in payment.Lines)

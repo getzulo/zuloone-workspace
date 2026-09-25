@@ -171,6 +171,9 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
     [IntegrationTest("Удержание взноса уменьшает задолженность перед сотрудником до нетто")]
     public async Task WithholdingReducesLiabilityToNet()
     {
+        var restoreLevy = await SuspendUaLevyAsync();
+        try
+        {
         var s = await SetupAsync();
         await ConfigureAsync(s.Home);
         var emp = await NewEmployeeAsync(s.Division, s.Home, "Fatima");
@@ -184,6 +187,8 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
         var liability = await LiabilityAsync(emp);
         Assert.IsTrue(liability == 9025m,
             "задолженность = gross 10000 − удержано 975 = 9025, факт {0}", liability);
+        }
+        finally { await restoreLevy(); }
     }
 
     [IntegrationTest("За иностранца платит только работодатель и по своей ставке")]
@@ -224,6 +229,9 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
     [IntegrationTest("Без настроек соцстраха начисление ФОТ проводится как раньше")]
     public async Task NoSettingsStillAccrues()
     {
+        var restoreLevy = await SuspendUaLevyAsync();
+        try
+        {
         var s = await SetupAsync();
         // ConfigureAsync НЕ вызываем: настроек соцстраха нет.
         var emp = await NewEmployeeAsync(s.Division, s.Home, "Nadia");
@@ -239,6 +247,56 @@ public class SocialInsuranceTest : IntegrationTestScriptBase
         // И сам ФОТ отработал: задолженность перед сотрудником признана.
         var liability = await LiabilityAsync(emp);
         Assert.IsTrue(liability == 10000m, "задолженность 10000, факт {0}", liability);
+        }
+        finally { await restoreLevy(); }
+    }
+
+    // ПДФО и военный сбор — настройки стенда, они переживают откат теста.
+    // Эти кейсы про соцстрах, не про украинский налог: на время проверки коды снимаем.
+    private static async Task<Func<Task>> SuspendUaLevyAsync()
+    {
+        // Справочник чужой модели: типизированный класс в сборку HR не входит.
+        var rows = await DictionaryManager.GetRecordsAsync("LocalizationUkraineSettings", take: 1);
+        if (rows.Count == 0) return () => Task.CompletedTask;
+        var row = rows[0];
+        object? Get(string key)
+        {
+            if (row.TryGetValue(key, out var direct)) return direct;
+            foreach (var kv in row)
+                if (string.Equals(kv.Key, key, StringComparison.OrdinalIgnoreCase))
+                    return kv.Value;
+            return null;
+        }
+        Guid ReadGuid(string key)
+        {
+            var raw = Get(key);
+            if (raw is null) return Guid.Empty;
+            if (raw is Guid g) return g;
+            return Guid.TryParse(Convert.ToString(raw), out var parsed) ? parsed : Guid.Empty;
+        }
+        var metaId = ReadGuid("MetaId");
+        if (metaId == Guid.Empty) metaId = ReadGuid("ID");
+        if (metaId == Guid.Empty) return () => Task.CompletedTask;
+        var incomeId = ReadGuid("IncomeTax");
+        var incomeCode = Convert.ToString(Get("IncomeTaxCode")) ?? "";
+        var militaryId = ReadGuid("MilitaryLevy");
+        var militaryCode = Convert.ToString(Get("MilitaryLevyCode")) ?? "";
+        if (incomeId == Guid.Empty && militaryId == Guid.Empty
+            && string.IsNullOrWhiteSpace(incomeCode) && string.IsNullOrWhiteSpace(militaryCode))
+            return () => Task.CompletedTask;
+
+        async Task Write(Guid tax, string taxCode, Guid levy, string levyCode)
+        {
+            row["MetaId"] = metaId;
+            row["IncomeTax"] = tax;
+            row["IncomeTaxCode"] = taxCode;
+            row["MilitaryLevy"] = levy;
+            row["MilitaryLevyCode"] = levyCode;
+            await DictionaryManager.SaveRecordAsync("LocalizationUkraineSettings", row);
+        }
+
+        await Write(Guid.Empty, "", Guid.Empty, "");
+        return () => Write(incomeId, incomeCode, militaryId, militaryCode);
     }
 
     // СНЯТ 2026-09-22: RepostDoesNotDuplicateContributions проверял сценарий,

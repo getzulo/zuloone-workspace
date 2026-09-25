@@ -209,6 +209,7 @@ public class TaxPaymentTest : IntegrationTestScriptBase
         var s = await SetupAsync();
 
         var payment = await DocumentManager.NewDocumentAsync<TaxPayment>();
+        payment.LegalEntity = Guid.Empty;
         payment.Lines.Add(new TaxPaymentLinesTablePartRow { TaxCode = s.TaxCode, Amount = 150m });
         await DocumentManager.SaveDocumentAsync(payment);
         payment.Subtype = TaxPayment.Subtypes.Paid;

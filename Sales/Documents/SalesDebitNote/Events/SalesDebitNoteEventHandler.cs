@@ -43,7 +43,9 @@ public partial class SalesDebitNoteEventHandler : TypedDocumentEventHandler<Sale
             header.Outlet = invoice.Outlet;
         if (header.Contract == Guid.Empty)
             header.Contract = invoice.Contract;
-        if (header.LegalEntity == Guid.Empty)
+        var noteDefaults = context.GetService<IRecordDefaults>();
+        var moduleSeller = noteDefaults.Pick(await noteDefaults.SeedAsync("SalesDebitNote"), "LegalEntity");
+        if (noteDefaults.IsPlaceholder(header.LegalEntity, moduleSeller) && invoice.LegalEntity != Guid.Empty)
             header.LegalEntity = invoice.LegalEntity;
         if (header.TaxRateApplied == 0m)
             header.TaxRateApplied = invoice.TaxRateApplied;
