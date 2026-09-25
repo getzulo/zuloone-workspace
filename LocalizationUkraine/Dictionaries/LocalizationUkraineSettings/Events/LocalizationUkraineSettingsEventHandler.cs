@@ -27,9 +27,30 @@ public partial class LocalizationUkraineSettingsEventHandler
     {
         var prior = await next(record, isNew, context);
         if (!prior.Success) return prior;
-        if (await ShouldFillAsync(record, isNew, context))
+        LocalizationUkraineSettings? stored = null;
+        if (!isNew && record.MetaId != Guid.Empty)
+            stored = await context.GetService<IDictionaryManager<LocalizationUkraineSettings>>()
+                .GetRecordAsync(record.MetaId);
+        if (isNew ? AllCodesBlank(record) : stored is not null && AllCodesBlank(stored))
             await FillFromSeedAsync(record, context);
-        await StampAsync(record, context);
+
+        var codes = context.GetService<IDictionaryManager<TaxCode>>();
+        await AlignAsync(codes, stored?.ExemptVat ?? Guid.Empty, stored?.ExemptVatCode,
+            record.ExemptVat, record.ExemptVatCode, id => record.ExemptVat = id, code => record.ExemptVatCode = code);
+        await AlignAsync(codes, stored?.IncomeTax ?? Guid.Empty, stored?.IncomeTaxCode,
+            record.IncomeTax, record.IncomeTaxCode, id => record.IncomeTax = id, code => record.IncomeTaxCode = code);
+        await AlignAsync(codes, stored?.MilitaryLevy ?? Guid.Empty, stored?.MilitaryLevyCode,
+            record.MilitaryLevy, record.MilitaryLevyCode, id => record.MilitaryLevy = id, code => record.MilitaryLevyCode = code);
+        await AlignAsync(codes, stored?.SingleTax3 ?? Guid.Empty, stored?.SingleTaxCode3,
+            record.SingleTax3, record.SingleTaxCode3, id => record.SingleTax3 = id, code => record.SingleTaxCode3 = code);
+        await AlignAsync(codes, stored?.SingleTax5 ?? Guid.Empty, stored?.SingleTaxCode5,
+            record.SingleTax5, record.SingleTaxCode5, id => record.SingleTax5 = id, code => record.SingleTaxCode5 = code);
+        await AlignAsync(codes, stored?.SingleTaxExcess ?? Guid.Empty, stored?.SingleTaxCodeExcess,
+            record.SingleTaxExcess, record.SingleTaxCodeExcess, id => record.SingleTaxExcess = id, code => record.SingleTaxCodeExcess = code);
+        await AlignAsync(codes, stored?.SingleTaxDouble3 ?? Guid.Empty, stored?.SingleTaxCodeDouble3,
+            record.SingleTaxDouble3, record.SingleTaxCodeDouble3, id => record.SingleTaxDouble3 = id, code => record.SingleTaxCodeDouble3 = code);
+        await AlignAsync(codes, stored?.SingleTaxDouble5 ?? Guid.Empty, stored?.SingleTaxCodeDouble5,
+            record.SingleTaxDouble5, record.SingleTaxCodeDouble5, id => record.SingleTaxDouble5 = id, code => record.SingleTaxCodeDouble5 = code);
         return EventResult.Ok();
     }
 
@@ -48,17 +69,6 @@ public partial class LocalizationUkraineSettingsEventHandler
         record.SingleTaxDouble3 = await IdOfAsync(codes, record.SingleTaxDouble3, record.SingleTaxCodeDouble3);
         record.SingleTaxDouble5 = await IdOfAsync(codes, record.SingleTaxDouble5, record.SingleTaxCodeDouble5);
         return EventResult.Ok();
-    }
-
-    private static async Task<bool> ShouldFillAsync(
-        LocalizationUkraineSettings record, bool isNew, EventContext context)
-    {
-        if (isNew) return AllCodesBlank(record);
-
-        var current = await context
-            .GetService<IDictionaryManager<LocalizationUkraineSettings>>()
-            .GetRecordAsync(record.MetaId);
-        return current is not null && AllCodesBlank(current);
     }
 
     private static bool AllCodesBlank(LocalizationUkraineSettings record)
@@ -100,25 +110,31 @@ public partial class LocalizationUkraineSettingsEventHandler
         setCode(rows[0].Code!);
     }
 
-    private static async Task StampAsync(LocalizationUkraineSettings record, EventContext context)
+    private static async Task AlignAsync(
+        IDictionaryManager<TaxCode> codes,
+        Guid storedId, string? storedCode, Guid currentId, string? currentCode,
+        Action<Guid> setId, Action<string> setCode)
     {
-        var codes = context.GetService<IDictionaryManager<TaxCode>>();
-        if (record.ExemptVat != Guid.Empty)
-            record.ExemptVatCode = await CodeOfAsync(codes, record.ExemptVat, record.ExemptVatCode);
-        if (record.IncomeTax != Guid.Empty)
-            record.IncomeTaxCode = await CodeOfAsync(codes, record.IncomeTax, record.IncomeTaxCode);
-        if (record.MilitaryLevy != Guid.Empty)
-            record.MilitaryLevyCode = await CodeOfAsync(codes, record.MilitaryLevy, record.MilitaryLevyCode);
-        if (record.SingleTax3 != Guid.Empty)
-            record.SingleTaxCode3 = await CodeOfAsync(codes, record.SingleTax3, record.SingleTaxCode3);
-        if (record.SingleTax5 != Guid.Empty)
-            record.SingleTaxCode5 = await CodeOfAsync(codes, record.SingleTax5, record.SingleTaxCode5);
-        if (record.SingleTaxExcess != Guid.Empty)
-            record.SingleTaxCodeExcess = await CodeOfAsync(codes, record.SingleTaxExcess, record.SingleTaxCodeExcess);
-        if (record.SingleTaxDouble3 != Guid.Empty)
-            record.SingleTaxCodeDouble3 = await CodeOfAsync(codes, record.SingleTaxDouble3, record.SingleTaxCodeDouble3);
-        if (record.SingleTaxDouble5 != Guid.Empty)
-            record.SingleTaxCodeDouble5 = await CodeOfAsync(codes, record.SingleTaxDouble5, record.SingleTaxCodeDouble5);
+        var refChanged = currentId != storedId;
+        var codeChanged = (currentCode ?? "") != (storedCode ?? "");
+        if (refChanged && currentId != Guid.Empty)
+        {
+            var stamped = await CodeOfAsync(codes, currentId, currentCode);
+            if (!string.IsNullOrWhiteSpace(stamped)) setCode(stamped!);
+            return;
+        }
+        if (codeChanged && currentId != Guid.Empty)
+        {
+            var refCode = await CodeOfAsync(codes, currentId, null);
+            if ((refCode ?? "") != (currentCode ?? ""))
+                setId(await IdOfAsync(codes, Guid.Empty, currentCode));
+            return;
+        }
+        if (currentId != Guid.Empty && string.IsNullOrWhiteSpace(currentCode))
+        {
+            var stamped = await CodeOfAsync(codes, currentId, currentCode);
+            if (!string.IsNullOrWhiteSpace(stamped)) setCode(stamped!);
+        }
     }
 
     private static async Task<string?> CodeOfAsync(
