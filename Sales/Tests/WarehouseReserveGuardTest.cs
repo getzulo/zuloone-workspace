@@ -120,6 +120,42 @@ public class WarehouseReserveGuardTest : IntegrationTestScriptBase
             "чужой резерв на месте, факт {0}", await ReservedAsync(loc, item.MetaId));
     }
 
+    [IntegrationTest("Чужой резерв отклоняет возврат поставщику сверх свободного")]
+    public async Task ForeignHoldLimitsPurchaseReturn()
+    {
+        var loc = Db.NewId();
+        var item = await NewItemAsync("Товар-возврат");
+        var supplier = DictionaryManager.NewRecord<Supplier>();
+        supplier.Name = "Поставщик-резерв";
+        supplier = await DictionaryManager.SaveRecordAsync(supplier);
+        await SeedAsync(loc, item.MetaId, 10m);
+        await HoldAsync(loc, item.MetaId, 8m);
+
+        var blocked = await DocumentManager.NewDocumentAsync<PurchaseReturn>();
+        blocked.Supplier = supplier.MetaId;
+        blocked.Location = loc;
+        blocked.Lines.Add(new PurchaseReturnLinesTablePartRow { Item = item.MetaId, Quantity = 4m, UnitPrice = 1m });
+        await DocumentManager.SaveDocumentAsync(blocked);
+        var detail = await RejectAsync(async () =>
+        {
+            blocked.Subtype = PurchaseReturn.Subtypes.Posted;
+            await DocumentManager.SaveDocumentAsync(blocked);
+        });
+        Assert.IsTrue(detail.Contains("требуется 4, свободно 2"),
+            "возврат 4 при свободных 2, факт {0}", detail);
+
+        var ok = await DocumentManager.NewDocumentAsync<PurchaseReturn>();
+        ok.Supplier = supplier.MetaId;
+        ok.Location = loc;
+        ok.Lines.Add(new PurchaseReturnLinesTablePartRow { Item = item.MetaId, Quantity = 2m, UnitPrice = 1m });
+        await DocumentManager.SaveDocumentAsync(ok);
+        ok.Subtype = PurchaseReturn.Subtypes.Posted;
+        await DocumentManager.SaveDocumentAsync(ok);
+        Assert.IsTrue(await OnHandAsync(loc, item.MetaId) == 8m, "возврат 2 оставляет 8");
+        Assert.IsTrue(await ReservedAsync(loc, item.MetaId) == 8m,
+            "чужой резерв на месте, факт {0}", await ReservedAsync(loc, item.MetaId));
+    }
+
     [IntegrationTest("Свой черновик отбора не мешает подтверждению, чужой — мешает")]
     public async Task OwnPickHoldDoesNotBlockConfirm()
     {
