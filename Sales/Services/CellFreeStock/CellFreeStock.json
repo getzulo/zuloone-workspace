@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Сколько товара документ ещё может забрать с ячейки: физический Stock, плюс уже списанное им самим, минус чужой ReservedStock",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "2e7b4c91-8a16-4f30-9d5c-1b6a8e4f0c27",
+    "metaId": "6a1c8e24-9b37-4d50-a1f6-3c8e2d7b5a90",
+    "name": "CellFreeStock",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

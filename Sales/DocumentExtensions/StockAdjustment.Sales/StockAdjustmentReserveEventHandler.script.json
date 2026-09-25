@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "9e4a1c36-7d80-4f51-a032-8c6e1f4b3d02",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "StockAdjustment",
+    "objectMetaId": "31619a66-935d-4e19-a792-dcfe2e5f85eb",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 20,
+    "metaId": "5b0c3e84-6f79-4a12-b8e3-0c5a7f9b2e37",
+    "name": "StockAdjustmentReserveEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

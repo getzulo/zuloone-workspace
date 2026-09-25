@@ -1,0 +1,10 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
+    "description": "Перемещение не забирает с ячейки-источника товар, который уже держит чужой резерв",
+    "metaId": "8d3f0b25-6c79-4e40-9f21-7b5d0e3a2c91",
+    "name": "StockTransfer.Sales",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

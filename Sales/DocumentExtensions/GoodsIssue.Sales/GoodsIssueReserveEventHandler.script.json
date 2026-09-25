@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "7c2e9a14-5b68-4d3f-8e10-6a4c9d2f1b80",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "GoodsIssue",
+    "objectMetaId": "57101301-0000-4000-8000-000000000000",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 20,
+    "metaId": "3f8a1c62-4d57-4e90-b6c1-8a3e5d7f0c15",
+    "name": "GoodsIssueReserveEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

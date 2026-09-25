@@ -1,0 +1,15 @@
+{
+  "kind": "Script",
+  "object": {
+    "extensionMetaId": "8d3f0b25-6c79-4e40-9f21-7b5d0e3a2c91",
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "StockTransfer",
+    "objectMetaId": "242aad95-3647-45b4-bcf7-e3e969d233ba",
+    "baseClassName": "TypedDocumentEventHandler",
+    "executionOrder": 20,
+    "metaId": "4a9b2d73-5e68-4f01-a7d2-9b4f6e8a1d26",
+    "name": "StockTransferReserveEventHandler",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "kind": "DocumentExtension",
+  "object": {
+    "targetDocumentTypeMetaId": "57100701-0000-4000-8000-000000000000",
+    "description": "Подтверждение раскладки не забирает из ячейки приёмки чужой резерв",
+    "metaId": "0f5b2d47-8e91-4a62-b143-9d7f2a5c4e13",
+    "name": "PutAwayTask.Sales",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}
