@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "3fc35e27-6b6d-46ed-a00a-1081d9b66e63",
+    "isRequired": false,
+    "metaId": "2a5226ca-b195-4561-89a7-e6ddb3f0681e",
+    "name": "UnitKindEdt",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

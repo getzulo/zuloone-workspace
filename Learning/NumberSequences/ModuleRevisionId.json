@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "ModuleRevision ID",
+    "description": "Auto-created for the ModuleRevision system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "18a9544a-0d3e-49fe-ba51-9827d7a0d2eb",
+    "name": "ModuleRevisionId",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

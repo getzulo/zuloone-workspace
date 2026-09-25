@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Пишет событие обучения по версии страницы.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "483213d0-a529-4d4d-9735-2e0bad4a822a",
+    "metaId": "2c784d3c-c482-41af-bfbe-6cf88984b6d8",
+    "name": "LearningProgress",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

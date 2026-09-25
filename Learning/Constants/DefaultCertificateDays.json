@@ -1,0 +1,17 @@
+{
+  "kind": "GlobalConstant",
+  "object": {
+    "caption": {
+      "en": "Certificate validity, days",
+      "ru": "Срок сертификата, дни"
+    },
+    "groupMetaId": "b472fa45-9ff8-4b70-ba87-ab7a5ccfe912",
+    "constantType": "Integer",
+    "numberValue": 365.00,
+    "value": 365,
+    "displayValue": "365",
+    "metaId": "cbfa5d2f-307e-4f80-9519-3415d1e79eb5",
+    "name": "DefaultCertificateDays",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "Certificate",
+    "objectMetaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+    "executionOrder": 0,
+    "metaId": "5a61e6e2-21f3-4b00-9d4f-0fe42adf8ccb",
+    "name": "CertificateEventHandler",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

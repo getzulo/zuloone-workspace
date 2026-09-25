@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "ExamQuestion ID",
+    "description": "Auto-created for the ExamQuestion system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "1b8f40bd-8c8b-43bf-b27f-e29c4c40b9c4",
+    "name": "ExamQuestionId",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Публикует версию модуля и страницы. Повтор того же текста новую версию не создаёт.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "7b43297c-e8f4-4361-a02c-0f6818275e55",
+    "metaId": "0536c7fd-a453-4723-8ec2-0670348fad69",
+    "name": "LearningCatalog",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

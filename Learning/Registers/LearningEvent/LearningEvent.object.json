@@ -1,0 +1,71 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "Learning history",
+      "ru": "История обучения"
+    },
+    "description": "Каждое открытие и каждая проверка — новый период. Срез последний — где остановились.",
+    "isObsolete": false,
+    "registerEngineType": "Information",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": false,
+    "isExtension": false,
+    "metaId": "a6c5bb8d-23bf-4f93-b32a-f73568bce9b2",
+    "name": "LearningEvent",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "a6c5bb8d-23bf-4f93-b32a-f73568bce9b2",
+      "fieldName": "Learner",
+      "caption": {
+        "en": "Learner",
+        "ru": "Учащийся"
+      },
+      "edtMetaId": "6c513637-6496-43a4-99b6-8f2235b3ea60",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "f79f44ef-a9f5-4ee1-b6f6-cd80ee64b1b4",
+      "name": "Learner",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "registerMetaId": "a6c5bb8d-23bf-4f93-b32a-f73568bce9b2",
+      "fieldName": "UnitRevision",
+      "caption": {
+        "en": "Page revision",
+        "ru": "Версия страницы"
+      },
+      "edtMetaId": "cce2fda2-85dd-490e-929d-2a91db6c8012",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 2,
+      "metaId": "c53fb2c1-2801-4947-a40c-bcd58914773f",
+      "name": "UnitRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "a6c5bb8d-23bf-4f93-b32a-f73568bce9b2",
+      "fieldName": "Kind",
+      "caption": {
+        "en": "Kind",
+        "ru": "Событие"
+      },
+      "isOperational": false,
+      "edtMetaId": "699ec367-3427-4f6f-acbf-c6b775128ec7",
+      "displayOrder": 1,
+      "metaId": "275f68e4-3ff1-424c-88d9-cd22c75cc235",
+      "name": "Kind",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

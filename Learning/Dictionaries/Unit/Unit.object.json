@@ -1,0 +1,108 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Page",
+      "ru": "Страница"
+    },
+    "description": "Карточка страницы урока.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "3cf918cc-92ca-469b-9891-be0236eb18cc",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+    "name": "Unit",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c75a127e-2a7a-4b18-8ad6-2ec3e0c0e9ab",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "68946e89-3926-4432-817d-00e79d53690b",
+      "name": "Name",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "fieldName": "PublishedRevision",
+      "edtMetaId": "cce2fda2-85dd-490e-929d-2a91db6c8012",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Published revision",
+        "ru": "Опубликованная версия"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "6be66ade-2802-455d-be54-5dc1bd9662bd",
+      "name": "PublishedRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "fieldName": "StableId",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": {
+        "en": "Stable id",
+        "ru": "Стабильный код"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "356c4ff5-4d4a-487a-889b-7523499a7931",
+      "name": "StableId",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

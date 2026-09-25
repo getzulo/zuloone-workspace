@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "ExamSession",
+    "executionOrder": 0,
+    "metaId": "64f051e5-5f98-49a7-9157-f6a440ce1a42",
+    "name": "ExamSession",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "ConstantGroups",
+  "items": [
+    {
+      "caption": {
+        "en": "Learning",
+        "ru": "Обучение"
+      },
+      "metaId": "b472fa45-9ff8-4b70-ba87-ab7a5ccfe912",
+      "name": "Learning",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

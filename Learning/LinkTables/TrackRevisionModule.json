@@ -1,0 +1,73 @@
+{
+  "kind": "LinkTable",
+  "object": {
+    "caption": {
+      "en": "Path modules",
+      "ru": "Модули пути"
+    },
+    "tableName": "LT_TrackRevisionModule",
+    "isKernel": false,
+    "isLogged": false,
+    "metaId": "e741ffa1-1d9e-4555-a429-f09f5ec31fd8",
+    "name": "TrackRevisionModule",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "properties": [
+    {
+      "linkTableMetaId": "e741ffa1-1d9e-4555-a429-f09f5ec31fd8",
+      "fieldName": "ModuleRevision",
+      "caption": {
+        "en": "Module revision",
+        "ru": "Версия модуля"
+      },
+      "isRequired": true,
+      "isPrimaryKey": false,
+      "isLogged": false,
+      "isIndexed": true,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "displayOrder": 2,
+      "metaId": "81814201-f41f-40d5-a20e-5f100395ffdc",
+      "name": "ModuleRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "linkTableMetaId": "e741ffa1-1d9e-4555-a429-f09f5ec31fd8",
+      "fieldName": "SortOrder",
+      "caption": {
+        "en": "Order",
+        "ru": "Порядок"
+      },
+      "baseType": "Integer",
+      "isRequired": false,
+      "isPrimaryKey": false,
+      "isLogged": false,
+      "isIndexed": false,
+      "isReference": false,
+      "displayOrder": 3,
+      "metaId": "cb630887-3e82-4295-b109-24bf2dd7ce7d",
+      "name": "SortOrder",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "linkTableMetaId": "e741ffa1-1d9e-4555-a429-f09f5ec31fd8",
+      "fieldName": "TrackRevision",
+      "caption": {
+        "en": "Path revision",
+        "ru": "Версия пути"
+      },
+      "isRequired": true,
+      "isPrimaryKey": false,
+      "isLogged": false,
+      "isIndexed": true,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "40f54d9b-7e92-473f-aa2c-1b72d62b4ba8",
+      "displayOrder": 1,
+      "metaId": "8f450c73-6c36-4365-b847-73cd2e403ed4",
+      "name": "TrackRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

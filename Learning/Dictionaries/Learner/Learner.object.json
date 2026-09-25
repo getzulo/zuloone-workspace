@@ -1,0 +1,88 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Learner",
+      "ru": "Учащийся"
+    },
+    "description": "Человек каталога. Ключ — почта.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "dc0c7286-dc1b-4ace-bf65-f4bb9450fd0f",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "660c03a2-60f4-4b07-b4ce-4ea76f0892a4",
+    "name": "Learner",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "660c03a2-60f4-4b07-b4ce-4ea76f0892a4",
+      "fieldName": "Email",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": {
+        "en": "Email",
+        "ru": "Почта"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "5fd9b47e-716a-43f8-a604-2798b4cd03a5",
+      "name": "Email",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "660c03a2-60f4-4b07-b4ce-4ea76f0892a4",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "901670b9-dc17-4d7a-b1d6-6b7c66bb89a6",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "660c03a2-60f4-4b07-b4ce-4ea76f0892a4",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ru": "Имя"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b612a68c-b259-4896-9ac5-a716557e269e",
+      "name": "Name",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

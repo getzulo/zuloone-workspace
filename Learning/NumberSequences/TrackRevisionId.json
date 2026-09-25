@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "TrackRevision ID",
+    "description": "Auto-created for the TrackRevision system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "d0a9b1d6-9e98-4c35-92fb-c87e86071827",
+    "name": "TrackRevisionId",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

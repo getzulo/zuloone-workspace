@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "LearningProgress",
+    "executionOrder": 0,
+    "metaId": "483213d0-a529-4d4d-9735-2e0bad4a822a",
+    "name": "LearningProgress",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

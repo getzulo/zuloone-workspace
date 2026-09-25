@@ -1,0 +1,71 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "Path trophy",
+      "ru": "Трофей пути"
+    },
+    "description": "Трофей за конкретную версию пути.",
+    "isObsolete": false,
+    "registerEngineType": "Information",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": false,
+    "isExtension": false,
+    "metaId": "ca4eabec-ca49-4458-9ac9-bcbb41b852a7",
+    "name": "TrackAward",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "ca4eabec-ca49-4458-9ac9-bcbb41b852a7",
+      "fieldName": "Learner",
+      "caption": {
+        "en": "Learner",
+        "ru": "Учащийся"
+      },
+      "edtMetaId": "6c513637-6496-43a4-99b6-8f2235b3ea60",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "4922151d-835c-4793-ae7d-417b2945b05a",
+      "name": "Learner",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "registerMetaId": "ca4eabec-ca49-4458-9ac9-bcbb41b852a7",
+      "fieldName": "TrackRevision",
+      "caption": {
+        "en": "Path revision",
+        "ru": "Версия пути"
+      },
+      "edtMetaId": "6d2ab9a9-caf4-4423-a88f-01320d264189",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 2,
+      "metaId": "43975a28-d90a-4119-b5dd-d21bd0b1498e",
+      "name": "TrackRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "ca4eabec-ca49-4458-9ac9-bcbb41b852a7",
+      "fieldName": "Awarded",
+      "caption": {
+        "en": "Awarded",
+        "ru": "Закрыт"
+      },
+      "isOperational": false,
+      "edtMetaId": "94e8fdcc-b08c-485d-bd8e-ce5303ab135a",
+      "displayOrder": 1,
+      "metaId": "8e048808-aa86-4bc7-9b5b-6e60e3f9268a",
+      "name": "Awarded",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

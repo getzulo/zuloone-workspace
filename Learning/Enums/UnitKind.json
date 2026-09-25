@@ -1,0 +1,39 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "Page or end-of-module check. Zero is Unspecified so an empty field is not a lesson.",
+    "isExtension": false,
+    "metaId": "3fc35e27-6b6d-46ed-a00a-1081d9b66e63",
+    "name": "UnitKind",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "values": [
+    {
+      "enumMetaId": "3fc35e27-6b6d-46ed-a00a-1081d9b66e63",
+      "value": 2,
+      "displayOrder": 2,
+      "description": "Knowledge check",
+      "metaId": "62428127-e1d3-48e5-9b8f-8c1ed7774cca",
+      "name": "Check",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "enumMetaId": "3fc35e27-6b6d-46ed-a00a-1081d9b66e63",
+      "value": 1,
+      "displayOrder": 1,
+      "description": "Lesson page",
+      "metaId": "0d1c2351-b19e-468c-be10-c69f04a64154",
+      "name": "Lesson",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "enumMetaId": "3fc35e27-6b6d-46ed-a00a-1081d9b66e63",
+      "value": 0,
+      "displayOrder": 0,
+      "description": "Not set",
+      "metaId": "597f058d-006a-4b2b-8d7e-ff2a216bea84",
+      "name": "Unspecified",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

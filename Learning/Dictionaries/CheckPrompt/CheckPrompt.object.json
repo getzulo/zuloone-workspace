@@ -1,0 +1,128 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Check question",
+      "ru": "Вопрос проверки"
+    },
+    "description": "Вопрос версии страницы-проверки.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "071dbce3-6f5d-4e0d-a787-67f79d76cfd4",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "372b2b5b-2b15-4cdd-aac2-f57201c51afc",
+    "name": "CheckPrompt",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "372b2b5b-2b15-4cdd-aac2-f57201c51afc",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "18203da9-7669-409c-88ec-73bb6970a694",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "372b2b5b-2b15-4cdd-aac2-f57201c51afc",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "4fdca96a-226c-45f3-8891-2e009f86237b",
+      "name": "Name",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "372b2b5b-2b15-4cdd-aac2-f57201c51afc",
+      "fieldName": "SortOrder",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Order",
+        "ru": "Порядок"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "119b1009-f481-457b-938f-40e786e75afa",
+      "name": "SortOrder",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "372b2b5b-2b15-4cdd-aac2-f57201c51afc",
+      "fieldName": "Text",
+      "baseType": "Text",
+      "length": 4000,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Text",
+        "ru": "Текст"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d42fdd0d-4f01-44a1-9360-34595413ae22",
+      "name": "Text",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "372b2b5b-2b15-4cdd-aac2-f57201c51afc",
+      "fieldName": "UnitRevision",
+      "edtMetaId": "cce2fda2-85dd-490e-929d-2a91db6c8012",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Page revision",
+        "ru": "Версия страницы"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "cf9b8d76-358e-4550-9006-e0a09979d2b9",
+      "name": "UnitRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

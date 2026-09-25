@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "ExamOption ID",
+    "description": "Auto-created for the ExamOption system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "7bd9c0fc-48be-493a-be46-6789becdeaba",
+    "name": "ExamOptionId",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

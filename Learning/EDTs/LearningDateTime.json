@@ -1,0 +1,13 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "DateTime",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "239954c2-3a26-4c99-977d-5b0da67d0c40",
+    "name": "LearningDateTime",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

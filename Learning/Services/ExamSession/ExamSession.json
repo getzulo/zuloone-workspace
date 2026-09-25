@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Публикует версию экзамена, начинает попытку со снимком листа, выдаёт и просрочивает сертификат.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "64f051e5-5f98-49a7-9157-f6a440ce1a42",
+    "metaId": "b7171453-fcc1-497b-881e-3ae102cab7ba",
+    "name": "ExamSession",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

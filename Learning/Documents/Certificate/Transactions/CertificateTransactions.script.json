@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "Certificate",
+    "objectMetaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+    "executionOrder": 0,
+    "metaId": "8dff14ae-6ab2-4dc4-baae-5c6c91877aae",
+    "name": "CertificateTransactions",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

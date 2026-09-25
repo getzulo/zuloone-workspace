@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Document",
+    "objectName": "ExamAttempt",
+    "objectMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+    "executionOrder": 0,
+    "metaId": "a972299c-73f7-41da-ad82-dfd74c0c7084",
+    "name": "ExamAttemptEventHandler",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

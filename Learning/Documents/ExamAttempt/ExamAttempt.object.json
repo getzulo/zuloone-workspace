@@ -1,0 +1,158 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": {
+      "en": "Exam attempt",
+      "ru": "Попытка экзамена"
+    },
+    "description": "Лист фиксируется при старте. Снимок текста остаётся после новой версии экзамена.",
+    "isLogged": false,
+    "isCloneable": false,
+    "numberSequenceMetaId": "cf9456cd-721f-41ff-95f0-240f6faa26dc",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+    "name": "ExamAttempt",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+      "fieldName": "ExamRevision",
+      "caption": {
+        "en": "Exam revision",
+        "ru": "Версия экзамена"
+      },
+      "edtMetaId": "6f335d65-c1d4-4f29-9df7-76a6b02e69ea",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "b80d6b8c-0992-4d79-90f3-5a8a5385316a",
+      "name": "ExamRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "documentTypeMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+      "fieldName": "ID",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "7574857e-86a2-49e5-b6ef-25732e979329",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "documentTypeMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+      "fieldName": "Learner",
+      "caption": {
+        "en": "Learner",
+        "ru": "Учащийся"
+      },
+      "edtMetaId": "6c513637-6496-43a4-99b6-8f2235b3ea60",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "191c1bbb-0b89-4b66-85b2-2d95ec31e47b",
+      "name": "Learner",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "documentTypeMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+      "fieldName": "Score",
+      "caption": {
+        "en": "Score",
+        "ru": "Результат, %"
+      },
+      "baseType": "Decimal",
+      "precision": 9,
+      "scale": 2,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "87ff7170-dbad-45cd-a643-db38429bc02d",
+      "name": "Score",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+      "name": "InProgress",
+      "subtypeValue": "InProgress",
+      "subtypeCaption": {
+        "en": "In progress",
+        "ru": "Идёт"
+      },
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "211283a6-ee04-4bde-998b-d1172a09cc23",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "documentTypeMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+      "name": "Failed",
+      "subtypeValue": "Failed",
+      "subtypeCaption": {
+        "en": "Failed",
+        "ru": "Не сдан"
+      },
+      "displayOrder": 3,
+      "isInitial": false,
+      "isReadOnly": false,
+      "metaId": "2697f6f0-07b1-4243-b075-cd734f85786a",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "documentTypeMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+      "name": "Passed",
+      "subtypeValue": "Passed",
+      "subtypeCaption": {
+        "en": "Passed",
+        "ru": "Сдан"
+      },
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": false,
+      "metaId": "f4128a7c-4ca7-4724-bf0f-9e41908d1896",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "tableParts": [
+    {
+      "documentTypeMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+      "tablePartTypeMetaId": "85eab0e4-febc-4810-85ee-d054b332ab10",
+      "isCloneable": false,
+      "metaId": "ce4dee7f-0afb-4add-811c-a7d877eed76f",
+      "name": "Lines",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

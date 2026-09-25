@@ -1,0 +1,146 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Exam revision",
+      "ru": "Версия экзамена"
+    },
+    "description": "Неизменяемый лист экзамена.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "42f242ef-cb48-4348-8492-886351e78baf",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "bfac1c9a-0fc4-4c5c-9b5b-d679b0140589",
+    "name": "ExamRevision",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "bfac1c9a-0fc4-4c5c-9b5b-d679b0140589",
+      "fieldName": "Exam",
+      "edtMetaId": "664be464-b605-4fa5-aa7b-348550ff9197",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Exam",
+        "ru": "Экзамен"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "092445a5-7ecf-46c8-aa2e-39678196eed4",
+      "name": "Exam",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "bfac1c9a-0fc4-4c5c-9b5b-d679b0140589",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "fee10821-e398-4a76-ba98-3f072d4abf31",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "bfac1c9a-0fc4-4c5c-9b5b-d679b0140589",
+      "fieldName": "Number",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Number",
+        "ru": "Номер"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "245bd092-c153-41be-88f4-4c86af0efd27",
+      "name": "Number",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "bfac1c9a-0fc4-4c5c-9b5b-d679b0140589",
+      "fieldName": "PassPercent",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Pass percent",
+        "ru": "Порог, %"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "89977b4f-f3b7-4454-b3df-771ef42d5ef0",
+      "name": "PassPercent",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "bfac1c9a-0fc4-4c5c-9b5b-d679b0140589",
+      "fieldName": "PublishedAt",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Published",
+        "ru": "Опубликована"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "1a58e538-9a00-48d6-badb-4e814c7eda48",
+      "name": "PublishedAt",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "bfac1c9a-0fc4-4c5c-9b5b-d679b0140589",
+      "fieldName": "ValidDays",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Valid days",
+        "ru": "Срок, дни"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "45787881-ca73-473c-876d-a15c9eaca6b1",
+      "name": "ValidDays",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

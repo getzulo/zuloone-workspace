@@ -1,0 +1,221 @@
+{
+  "kind": "Menu",
+  "items": [
+    {
+      "caption": {
+        "en": "Learning",
+        "ru": "Обучение"
+      },
+      "displayOrder": 12,
+      "targetType": "Group",
+      "metaId": "3f148db0-f251-448d-badd-094c7200460d",
+      "name": "Learning",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Dictionaries",
+        "ru": "Справочники"
+      },
+      "parentMetaId": "3f148db0-f251-448d-badd-094c7200460d",
+      "displayOrder": 1,
+      "targetType": "Group",
+      "metaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
+      "name": "Dictionaries",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Documents",
+        "ru": "Документы"
+      },
+      "parentMetaId": "3f148db0-f251-448d-badd-094c7200460d",
+      "displayOrder": 2,
+      "targetType": "Group",
+      "metaId": "2c01457c-91c8-4a99-a843-38bcdcdb788a",
+      "name": "Documents",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Totals",
+        "ru": "Итоги"
+      },
+      "parentMetaId": "3f148db0-f251-448d-badd-094c7200460d",
+      "displayOrder": 3,
+      "targetType": "Group",
+      "metaId": "962b9935-5a1e-4261-809a-5dd969e5a1d3",
+      "name": "Registers",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Exam attempts",
+        "ru": "Попытки"
+      },
+      "parentMetaId": "2c01457c-91c8-4a99-a843-38bcdcdb788a",
+      "displayOrder": 1,
+      "targetType": "Document",
+      "targetMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+      "metaId": "8c246787-9395-4c57-b19a-f818af3757a9",
+      "name": "ExamAttempt",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Learners",
+        "ru": "Учащиеся"
+      },
+      "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
+      "displayOrder": 1,
+      "targetType": "Dictionary",
+      "targetMetaId": "660c03a2-60f4-4b07-b4ce-4ea76f0892a4",
+      "metaId": "1a53d4d4-8675-4504-af36-2d4cc22b6563",
+      "name": "Learner",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Learning history",
+        "ru": "История обучения"
+      },
+      "parentMetaId": "962b9935-5a1e-4261-809a-5dd969e5a1d3",
+      "displayOrder": 1,
+      "targetType": "Register",
+      "targetMetaId": "a6c5bb8d-23bf-4f93-b32a-f73568bce9b2",
+      "metaId": "c2716a60-91ab-46fc-9df7-639293358f97",
+      "name": "LearningEvent",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Certificates",
+        "ru": "Сертификаты"
+      },
+      "parentMetaId": "2c01457c-91c8-4a99-a843-38bcdcdb788a",
+      "displayOrder": 2,
+      "targetType": "Document",
+      "targetMetaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+      "metaId": "d705390b-cf4e-4ce5-8d5c-47cbbf58b202",
+      "name": "Certificate",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Module badges",
+        "ru": "Значки модулей"
+      },
+      "parentMetaId": "962b9935-5a1e-4261-809a-5dd969e5a1d3",
+      "displayOrder": 2,
+      "targetType": "Register",
+      "targetMetaId": "4ae87d53-5dfd-4314-a10d-38dfb1f834dc",
+      "metaId": "42a73484-881d-4a88-b194-7075b5f20a4b",
+      "name": "ModuleAward",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Organizations",
+        "ru": "Организации"
+      },
+      "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
+      "displayOrder": 2,
+      "targetType": "Dictionary",
+      "targetMetaId": "2c6c0c0f-356c-4ba4-b262-0f139df166ba",
+      "metaId": "9cb956ba-35a5-4ffd-ac7d-fb39380cb05e",
+      "name": "Organization",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Paths",
+        "ru": "Пути"
+      },
+      "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
+      "displayOrder": 3,
+      "targetType": "Dictionary",
+      "targetMetaId": "4776844e-e847-4b56-ad39-83d0ab150fbb",
+      "metaId": "30c01819-f8c6-4331-ba83-8262c5a8bfd4",
+      "name": "Track",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Path trophies",
+        "ru": "Трофеи путей"
+      },
+      "parentMetaId": "962b9935-5a1e-4261-809a-5dd969e5a1d3",
+      "displayOrder": 3,
+      "targetType": "Register",
+      "targetMetaId": "ca4eabec-ca49-4458-9ac9-bcbb41b852a7",
+      "metaId": "78c48500-c03a-422f-bf2f-14cacbdcbc41",
+      "name": "TrackAward",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Enrollments",
+        "ru": "Записи на путь"
+      },
+      "parentMetaId": "962b9935-5a1e-4261-809a-5dd969e5a1d3",
+      "displayOrder": 4,
+      "targetType": "Register",
+      "targetMetaId": "5f2c6aef-718a-4f36-802b-aca576cf4aef",
+      "metaId": "6957c33e-b7b2-481e-bd9f-55cfba934178",
+      "name": "Enrollment",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Modules",
+        "ru": "Модули"
+      },
+      "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
+      "displayOrder": 4,
+      "targetType": "Dictionary",
+      "targetMetaId": "bae04c0f-c756-4d27-bed7-9ca326a36c01",
+      "metaId": "ffcfd970-a9f7-46e8-98a7-73f90028a8f9",
+      "name": "Module",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Pages",
+        "ru": "Страницы"
+      },
+      "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
+      "displayOrder": 5,
+      "targetType": "Dictionary",
+      "targetMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "metaId": "20f333f8-1b43-4f3d-a277-d3728730cdcd",
+      "name": "Unit",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Exams",
+        "ru": "Экзамены"
+      },
+      "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
+      "displayOrder": 6,
+      "targetType": "Dictionary",
+      "targetMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+      "metaId": "1f996abd-8e77-4770-884c-837a44a262bd",
+      "name": "Exam",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "caption": {
+        "en": "Exam questions",
+        "ru": "Вопросы экзамена"
+      },
+      "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
+      "displayOrder": 7,
+      "targetType": "Dictionary",
+      "targetMetaId": "eb026368-0e90-4e3c-8c4c-98bcc4ffbe3e",
+      "metaId": "021aaaa7-5ff0-4a1e-be56-4ed21c4a5bd5",
+      "name": "ExamQuestion",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

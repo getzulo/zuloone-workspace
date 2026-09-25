@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "eb026368-0e90-4e3c-8c4c-98bcc4ffbe3e",
+    "isRequired": false,
+    "metaId": "880a815b-f9c5-4d27-a3e6-084919418991",
+    "name": "RefExamQuestion",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

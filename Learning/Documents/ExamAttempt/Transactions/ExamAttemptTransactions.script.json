@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "TransactionScript",
+    "objectType": "Document",
+    "objectName": "ExamAttempt",
+    "objectMetaId": "0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9",
+    "executionOrder": 0,
+    "metaId": "b662b0ab-9193-49e4-8da3-8ae5c5935dab",
+    "name": "ExamAttemptTransactions",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

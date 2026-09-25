@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "TrackRevision",
+    "objectMetaId": "40f54d9b-7e92-473f-aa2c-1b72d62b4ba8",
+    "executionOrder": 0,
+    "metaId": "c0661728-d127-4942-a991-9b53748182bf",
+    "name": "TrackRevisionEventHandler",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Organization",
+      "ru": "Организация"
+    },
+    "description": "Стенд, к которому привязан учащийся.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "d6406c45-f45f-46b9-9185-be613d57b1b0",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "2c6c0c0f-356c-4ba4-b262-0f139df166ba",
+    "name": "Organization",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "2c6c0c0f-356c-4ba4-b262-0f139df166ba",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e4367ff6-bebf-46b5-8a20-41f3438fb9da",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "2c6c0c0f-356c-4ba4-b262-0f139df166ba",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b5bc3827-e8c6-4e94-8c1e-8af0983aca2b",
+      "name": "Name",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "2c6c0c0f-356c-4ba4-b262-0f139df166ba",
+      "fieldName": "StandSlug",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": {
+        "en": "Stand",
+        "ru": "Стенд"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "fa907503-0243-4ec0-b81b-f152f7cdcc58",
+      "name": "StandSlug",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

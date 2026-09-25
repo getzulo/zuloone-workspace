@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "ExamRevision",
+    "objectMetaId": "bfac1c9a-0fc4-4c5c-9b5b-d679b0140589",
+    "executionOrder": 0,
+    "metaId": "fb11b2e3-6407-425e-bb90-88f01489d29b",
+    "name": "ExamRevisionEventHandler",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

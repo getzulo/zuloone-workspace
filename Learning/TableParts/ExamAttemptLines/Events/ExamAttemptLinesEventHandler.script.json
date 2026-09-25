@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "TablePart",
+    "objectName": "ExamAttemptLines",
+    "objectMetaId": "85eab0e4-febc-4810-85ee-d054b332ab10",
+    "executionOrder": 0,
+    "metaId": "2767dcdb-41ef-4fc2-bf70-f987fb27b3c1",
+    "name": "ExamAttemptLinesEventHandler",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

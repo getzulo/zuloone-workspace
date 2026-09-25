@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "CheckOption",
+    "objectMetaId": "c5b68bd8-53a5-401f-bbdf-40984c329e64",
+    "executionOrder": 0,
+    "metaId": "4a013ab1-e6f3-4b5b-b539-a35b18fd2de7",
+    "name": "CheckOptionEventHandler",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "Organization",
+    "objectMetaId": "2c6c0c0f-356c-4ba4-b262-0f139df166ba",
+    "executionOrder": 0,
+    "metaId": "eee699b5-afc6-478d-8ab2-9c049167c22b",
+    "name": "OrganizationEventHandler",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

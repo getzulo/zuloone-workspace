@@ -1,0 +1,208 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Page revision",
+      "ru": "Версия страницы"
+    },
+    "description": "Неизменяемый текст страницы.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "93d1639d-2c3f-4fe8-b14e-5b4b27a04b5f",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "f798f7ea-d990-46dc-aac4-14616f66b055",
+    "name": "UnitRevision",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "f798f7ea-d990-46dc-aac4-14616f66b055",
+      "fieldName": "Body",
+      "baseType": "Text",
+      "length": 4000,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Body",
+        "ru": "Текст"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "3a5912c2-de45-47e0-8a85-dcd147cb00eb",
+      "name": "Body",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f798f7ea-d990-46dc-aac4-14616f66b055",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "6ed01e40-8399-4699-ad8c-b2db23460aa7",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f798f7ea-d990-46dc-aac4-14616f66b055",
+      "fieldName": "Kind",
+      "edtMetaId": "2a5226ca-b195-4561-89a7-e6ddb3f0681e",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Kind",
+        "ru": "Вид"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "ba232391-62de-44f2-adbb-2b215800588b",
+      "name": "Kind",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f798f7ea-d990-46dc-aac4-14616f66b055",
+      "fieldName": "ModuleRevision",
+      "edtMetaId": "751c2087-9cf0-483f-afb2-653ac2034c48",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Module revision",
+        "ru": "Версия модуля"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d7c27771-c089-4b94-9ce6-a65e3f4295a9",
+      "name": "ModuleRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f798f7ea-d990-46dc-aac4-14616f66b055",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "dc9b426a-16c0-4e1c-92e4-b2e9c8388d0e",
+      "name": "Name",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f798f7ea-d990-46dc-aac4-14616f66b055",
+      "fieldName": "Number",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Number",
+        "ru": "Номер"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "42dfe372-aef4-4327-b8a7-7ff380857c0a",
+      "name": "Number",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f798f7ea-d990-46dc-aac4-14616f66b055",
+      "fieldName": "PublishedAt",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Published",
+        "ru": "Опубликована"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "77079481-13fd-4768-8aa8-098d39b7f29d",
+      "name": "PublishedAt",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f798f7ea-d990-46dc-aac4-14616f66b055",
+      "fieldName": "SortOrder",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Order",
+        "ru": "Порядок"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "08050b08-7e76-4be7-b02d-69806f12231a",
+      "name": "SortOrder",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f798f7ea-d990-46dc-aac4-14616f66b055",
+      "fieldName": "Unit",
+      "edtMetaId": "58148053-3d09-4074-809c-b49589ae6247",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Page",
+        "ru": "Страница"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d395551e-e746-48a0-b402-5990495f8c26",
+      "name": "Unit",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

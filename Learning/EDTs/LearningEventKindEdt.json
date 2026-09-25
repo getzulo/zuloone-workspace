@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "a0899aa7-50a5-4f06-ba36-a7efb9022fe1",
+    "isRequired": false,
+    "metaId": "699ec367-3427-4f6f-acbf-c6b775128ec7",
+    "name": "LearningEventKindEdt",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

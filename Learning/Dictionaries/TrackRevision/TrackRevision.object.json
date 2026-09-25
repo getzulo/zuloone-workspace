@@ -1,0 +1,127 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Path revision",
+      "ru": "Версия пути"
+    },
+    "description": "Неизменяемая редакция пути.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "d0a9b1d6-9e98-4c35-92fb-c87e86071827",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "40f54d9b-7e92-473f-aa2c-1b72d62b4ba8",
+    "name": "TrackRevision",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "40f54d9b-7e92-473f-aa2c-1b72d62b4ba8",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e02146c2-e43e-4580-b80b-f513cd0baaf5",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40f54d9b-7e92-473f-aa2c-1b72d62b4ba8",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b15352b9-6cf3-4599-9342-f906a31e515e",
+      "name": "Name",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40f54d9b-7e92-473f-aa2c-1b72d62b4ba8",
+      "fieldName": "Number",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Number",
+        "ru": "Номер"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "9dd43d70-c86b-4a68-9a08-990590d3212f",
+      "name": "Number",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40f54d9b-7e92-473f-aa2c-1b72d62b4ba8",
+      "fieldName": "PublishedAt",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Published",
+        "ru": "Опубликована"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c7773e23-f2ca-4e51-9914-dcabbf193088",
+      "name": "PublishedAt",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40f54d9b-7e92-473f-aa2c-1b72d62b4ba8",
+      "fieldName": "Track",
+      "edtMetaId": "f24000f0-613a-4928-98ff-91b7dd7a0261",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Path",
+        "ru": "Путь"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "bd5baeac-b197-4287-b982-9fb01f712dea",
+      "name": "Track",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

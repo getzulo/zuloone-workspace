@@ -1,0 +1,55 @@
+{
+  "kind": "LinkTable",
+  "object": {
+    "caption": {
+      "en": "Membership",
+      "ru": "Участие"
+    },
+    "tableName": "LT_Membership",
+    "isKernel": false,
+    "isLogged": false,
+    "metaId": "f3f01dd0-98bd-40ce-840c-cec1957b1972",
+    "name": "Membership",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "properties": [
+    {
+      "linkTableMetaId": "f3f01dd0-98bd-40ce-840c-cec1957b1972",
+      "fieldName": "Learner",
+      "caption": {
+        "en": "Learner",
+        "ru": "Учащийся"
+      },
+      "isRequired": true,
+      "isPrimaryKey": false,
+      "isLogged": false,
+      "isIndexed": true,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "660c03a2-60f4-4b07-b4ce-4ea76f0892a4",
+      "displayOrder": 1,
+      "metaId": "0446ae58-0349-4a7c-b2c1-929f5c418b50",
+      "name": "Learner",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "linkTableMetaId": "f3f01dd0-98bd-40ce-840c-cec1957b1972",
+      "fieldName": "Organization",
+      "caption": {
+        "en": "Organization",
+        "ru": "Организация"
+      },
+      "isRequired": true,
+      "isPrimaryKey": false,
+      "isLogged": false,
+      "isIndexed": true,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "2c6c0c0f-356c-4ba4-b262-0f139df166ba",
+      "displayOrder": 2,
+      "metaId": "8931f5bd-ad64-430a-9360-ed934cd098a7",
+      "name": "Organization",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

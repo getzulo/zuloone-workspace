@@ -1,0 +1,189 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Module revision",
+      "ru": "Версия модуля"
+    },
+    "description": "Неизменяемая редакция модуля.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "18a9544a-0d3e-49fe-ba51-9827d7a0d2eb",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+    "name": "ModuleRevision",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "fieldName": "ArticlePath",
+      "baseType": "String",
+      "length": 512,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Article",
+        "ru": "Статья"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "eda0a07f-28c0-4eae-aea2-87329b2544c5",
+      "name": "ArticlePath",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "fieldName": "ArticleRevision",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Article revision",
+        "ru": "Редакция статьи"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d686c554-63fc-444e-a677-bf1a9c0ad8e1",
+      "name": "ArticleRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "793d9253-1b31-4222-8a1a-6bd453a81f29",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "fieldName": "Minutes",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Minutes",
+        "ru": "Минуты"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f4fd2a53-0acd-4219-bdce-80fcdbf8c705",
+      "name": "Minutes",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "fieldName": "Module",
+      "edtMetaId": "3a7a6dc9-d4f0-4cab-8569-ddb2033206be",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Module",
+        "ru": "Модуль"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e3d5ecd3-4036-46a3-8350-6ab526a84d22",
+      "name": "Module",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "5f925812-0daa-4ee1-9888-f022b471fd83",
+      "name": "Name",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "fieldName": "Number",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Number",
+        "ru": "Номер"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "918b3435-91a7-4817-8c01-db9a015896fc",
+      "name": "Number",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "fieldName": "PublishedAt",
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Published",
+        "ru": "Опубликована"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "ff9be1b9-9458-4e4f-b92c-1e0224b6dfce",
+      "name": "PublishedAt",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

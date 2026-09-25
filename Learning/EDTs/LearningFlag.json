@@ -1,0 +1,13 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Boolean",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "isRequired": false,
+    "metaId": "94e8fdcc-b08c-485d-bd8e-ce5303ab135a",
+    "name": "LearningFlag",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "CheckPrompt",
+    "objectMetaId": "372b2b5b-2b15-4cdd-aac2-f57201c51afc",
+    "executionOrder": 0,
+    "metaId": "118df603-42a4-4a70-8304-24a0fbc46fa4",
+    "name": "CheckPromptEventHandler",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

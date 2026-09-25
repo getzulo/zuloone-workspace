@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "UnitRevision ID",
+    "description": "Auto-created for the UnitRevision system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "93d1639d-2c3f-4fe8-b14e-5b4b27a04b5f",
+    "name": "UnitRevisionId",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

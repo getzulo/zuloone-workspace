@@ -1,0 +1,108 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Learning path",
+      "ru": "Путь"
+    },
+    "description": "Карточка навыка. Текст лежит в версии.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "2c5c8937-e3a5-4cdf-89b1-8b0fcdae850a",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "4776844e-e847-4b56-ad39-83d0ab150fbb",
+    "name": "Track",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "4776844e-e847-4b56-ad39-83d0ab150fbb",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "37873589-8662-4765-a6fc-c1271520f28d",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "4776844e-e847-4b56-ad39-83d0ab150fbb",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a1b1c3f8-2995-445e-81c5-bc2489bf030c",
+      "name": "Name",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "4776844e-e847-4b56-ad39-83d0ab150fbb",
+      "fieldName": "PublishedRevision",
+      "edtMetaId": "6d2ab9a9-caf4-4423-a88f-01320d264189",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Published revision",
+        "ru": "Опубликованная версия"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "895f6afc-141e-412b-bb07-4fda31a04192",
+      "name": "PublishedRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "4776844e-e847-4b56-ad39-83d0ab150fbb",
+      "fieldName": "StableId",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": {
+        "en": "Stable id",
+        "ru": "Стабильный код"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "99e00e41-8260-46c0-8f55-573b6ce0af8c",
+      "name": "StableId",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

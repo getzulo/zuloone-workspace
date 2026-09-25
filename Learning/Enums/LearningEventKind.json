@@ -1,0 +1,48 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "What the learner did on a page version. Zero is Unspecified.",
+    "isExtension": false,
+    "metaId": "a0899aa7-50a5-4f06-ba36-a7efb9022fe1",
+    "name": "LearningEventKind",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "values": [
+    {
+      "enumMetaId": "a0899aa7-50a5-4f06-ba36-a7efb9022fe1",
+      "value": 3,
+      "displayOrder": 3,
+      "description": "Missed the check",
+      "metaId": "9113f07f-c8b4-4f66-a3f1-843d57b67f59",
+      "name": "CheckFailed",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "enumMetaId": "a0899aa7-50a5-4f06-ba36-a7efb9022fe1",
+      "value": 2,
+      "displayOrder": 2,
+      "description": "Passed the check",
+      "metaId": "2cdfa09f-683c-4b22-940a-dfae8271cb47",
+      "name": "CheckPassed",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "enumMetaId": "a0899aa7-50a5-4f06-ba36-a7efb9022fe1",
+      "value": 1,
+      "displayOrder": 1,
+      "description": "Opened the page",
+      "metaId": "85e2d242-0613-4696-b32e-29e860b50266",
+      "name": "Opened",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "enumMetaId": "a0899aa7-50a5-4f06-ba36-a7efb9022fe1",
+      "value": 0,
+      "displayOrder": 0,
+      "description": "Not set",
+      "metaId": "5d8ec260-ba5b-4ab8-9324-2ea26e93869d",
+      "name": "Unspecified",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

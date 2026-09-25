@@ -1,0 +1,12 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "padLength": 0,
+    "startValue": 1000,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "dc311602-9b0f-42fe-bb28-a3565c5c954e",
+    "name": "CertificateSeq",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

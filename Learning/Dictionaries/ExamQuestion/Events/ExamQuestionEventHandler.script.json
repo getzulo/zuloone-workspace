@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "ExamQuestion",
+    "objectMetaId": "eb026368-0e90-4e3c-8c4c-98bcc4ffbe3e",
+    "executionOrder": 0,
+    "metaId": "67621d4b-8100-4803-89ae-6e7016e38ffe",
+    "name": "ExamQuestionEventHandler",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

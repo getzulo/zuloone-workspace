@@ -1,0 +1,148 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Exam option",
+      "ru": "Вариант экзамена"
+    },
+    "description": "Вариант ответа версии экзамена.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "7bd9c0fc-48be-493a-be46-6789becdeaba",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "f4562102-8aaa-4b17-9452-10db430397b1",
+    "name": "ExamOption",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "f4562102-8aaa-4b17-9452-10db430397b1",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "2245f766-abb1-48e4-b54e-b636e43eca71",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f4562102-8aaa-4b17-9452-10db430397b1",
+      "fieldName": "IsCorrect",
+      "baseType": "Boolean",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Correct",
+        "ru": "Верный"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "97fbccbf-c29e-463f-ae2b-14fb04a814e8",
+      "name": "IsCorrect",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f4562102-8aaa-4b17-9452-10db430397b1",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "84ee287c-f4eb-4add-a60e-5189f6966b83",
+      "name": "Name",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f4562102-8aaa-4b17-9452-10db430397b1",
+      "fieldName": "Question",
+      "edtMetaId": "880a815b-f9c5-4d27-a3e6-084919418991",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Question",
+        "ru": "Вопрос"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "3f14bcff-5261-42f2-965c-cdf77516b640",
+      "name": "Question",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f4562102-8aaa-4b17-9452-10db430397b1",
+      "fieldName": "SortOrder",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Order",
+        "ru": "Порядок"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7bc893b5-4686-43e5-ae20-7d4a8f3afa61",
+      "name": "SortOrder",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "f4562102-8aaa-4b17-9452-10db430397b1",
+      "fieldName": "Text",
+      "baseType": "Text",
+      "length": 4000,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Text",
+        "ru": "Текст"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "01f22757-b341-463a-8235-a9bb432bc595",
+      "name": "Text",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

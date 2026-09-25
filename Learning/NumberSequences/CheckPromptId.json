@@ -1,0 +1,14 @@
+{
+  "kind": "NumberSequence",
+  "object": {
+    "caption": "CheckPrompt ID",
+    "description": "Auto-created for the CheckPrompt system ID field",
+    "padLength": 6,
+    "startValue": 1,
+    "increment": 1,
+    "resetPolicy": "None",
+    "metaId": "071dbce3-6f5d-4e0d-a787-67f79d76cfd4",
+    "name": "CheckPromptId",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

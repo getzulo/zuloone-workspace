@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "EventHandler",
+    "objectType": "Dictionary",
+    "objectName": "Learner",
+    "objectMetaId": "660c03a2-60f4-4b07-b4ce-4ea76f0892a4",
+    "executionOrder": 0,
+    "metaId": "2fc73e97-8824-4d79-b78a-4f74aa0228e8",
+    "name": "LearnerEventHandler",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

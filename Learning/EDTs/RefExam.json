@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Reference",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "referenceDictionaryMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+    "isRequired": false,
+    "metaId": "664be464-b605-4fa5-aa7b-348550ff9197",
+    "name": "RefExam",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

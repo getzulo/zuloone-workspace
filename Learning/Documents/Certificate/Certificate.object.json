@@ -1,0 +1,151 @@
+{
+  "kind": "Document",
+  "object": {
+    "caption": {
+      "en": "Certificate",
+      "ru": "Сертификат"
+    },
+    "description": "Выдаётся за сданную попытку конкретной версии экзамена.",
+    "isLogged": false,
+    "isCloneable": false,
+    "numberSequenceMetaId": "dc311602-9b0f-42fe-bb28-a3565c5c954e",
+    "requiresPosting": true,
+    "postOnSave": true,
+    "documentGuid": "00000000-0000-0000-0000-000000000000",
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+    "name": "Certificate",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "headerFields": [
+    {
+      "documentTypeMetaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+      "fieldName": "ExamAttempt",
+      "caption": {
+        "en": "Attempt",
+        "ru": "Попытка"
+      },
+      "baseType": "Guid",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "76b54147-5894-4b1b-b6d1-5eb0e37efbe1",
+      "name": "ExamAttempt",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "documentTypeMetaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+      "fieldName": "ExamRevision",
+      "caption": {
+        "en": "Exam revision",
+        "ru": "Версия экзамена"
+      },
+      "edtMetaId": "6f335d65-c1d4-4f29-9df7-76a6b02e69ea",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "7774f497-5f4a-432a-9213-af5996209f6b",
+      "name": "ExamRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "documentTypeMetaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+      "fieldName": "ExpiresAt",
+      "caption": {
+        "en": "Expires",
+        "ru": "Истекает"
+      },
+      "baseType": "DateTime",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "f9d0dd45-e5eb-405f-b343-2c479e93733d",
+      "name": "ExpiresAt",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "documentTypeMetaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+      "fieldName": "ID",
+      "caption": {
+        "en": "Number",
+        "ar": "الرقم",
+        "ru": "Номер"
+      },
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "fe09b320-0e37-4da3-b8c6-9aca64f69b6d",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "documentTypeMetaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+      "fieldName": "Learner",
+      "caption": {
+        "en": "Learner",
+        "ru": "Учащийся"
+      },
+      "edtMetaId": "6c513637-6496-43a4-99b6-8f2235b3ea60",
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "isVisible": true,
+      "isTranslatable": false,
+      "metaId": "3662fbbb-1e18-4825-91e6-53e51198e785",
+      "name": "Learner",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "subtypes": [
+    {
+      "documentTypeMetaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+      "name": "Issued",
+      "subtypeValue": "Issued",
+      "subtypeCaption": {
+        "en": "Issued",
+        "ru": "Выдан"
+      },
+      "displayOrder": 1,
+      "isInitial": true,
+      "isReadOnly": false,
+      "metaId": "09bb64a4-7f57-4041-a590-81b2d5e3695d",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "documentTypeMetaId": "178bf8fd-4dac-48c8-b27e-775b5d2d36a4",
+      "name": "Expired",
+      "subtypeValue": "Expired",
+      "subtypeCaption": {
+        "en": "Expired",
+        "ru": "Просрочен"
+      },
+      "displayOrder": 2,
+      "isInitial": false,
+      "isReadOnly": false,
+      "metaId": "d83315c1-aef0-4163-8b6f-acb01ee85286",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

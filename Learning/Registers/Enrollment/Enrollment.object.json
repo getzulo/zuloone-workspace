@@ -1,0 +1,85 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "Enrollment",
+      "ru": "Запись на путь"
+    },
+    "description": "Запись на карточку пути, не на редакцию текста.",
+    "isObsolete": false,
+    "registerEngineType": "Information",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": false,
+    "isExtension": false,
+    "metaId": "5f2c6aef-718a-4f36-802b-aca576cf4aef",
+    "name": "Enrollment",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "5f2c6aef-718a-4f36-802b-aca576cf4aef",
+      "fieldName": "Learner",
+      "caption": {
+        "en": "Learner",
+        "ru": "Учащийся"
+      },
+      "edtMetaId": "6c513637-6496-43a4-99b6-8f2235b3ea60",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "ac94e5ab-d797-43e5-ba9d-5825bb24ba85",
+      "name": "Learner",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "registerMetaId": "5f2c6aef-718a-4f36-802b-aca576cf4aef",
+      "fieldName": "Track",
+      "caption": {
+        "en": "Path",
+        "ru": "Путь"
+      },
+      "edtMetaId": "f24000f0-613a-4928-98ff-91b7dd7a0261",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 2,
+      "metaId": "f3c9bde2-7eae-4dab-8498-051be6e9d695",
+      "name": "Track",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "5f2c6aef-718a-4f36-802b-aca576cf4aef",
+      "fieldName": "DueAt",
+      "caption": {
+        "en": "Due",
+        "ru": "Срок"
+      },
+      "isOperational": false,
+      "edtMetaId": "239954c2-3a26-4c99-977d-5b0da67d0c40",
+      "displayOrder": 2,
+      "metaId": "fc172bc3-0329-43c2-ac77-66dd4b64bf4a",
+      "name": "DueAt",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "registerMetaId": "5f2c6aef-718a-4f36-802b-aca576cf4aef",
+      "fieldName": "Source",
+      "caption": {
+        "en": "Source",
+        "ru": "Источник"
+      },
+      "isOperational": false,
+      "edtMetaId": "abc75b82-8f81-4b54-81c5-bf1f485662d4",
+      "displayOrder": 1,
+      "metaId": "1d126abf-b0e0-4d34-a865-ba426bb88fe7",
+      "name": "Source",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

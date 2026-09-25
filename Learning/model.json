@@ -1,0 +1,16 @@
+{
+  "kind": "Model",
+  "object": {
+    "modelType": "Custom",
+    "description": "Каталог обучения: версии уроков и экзаменов, история прохождения, попытки и сертификаты.",
+    "isSystem": false,
+    "isSealed": false,
+    "isEnabled": true,
+    "publisher": "ZuloOne",
+    "modelVersion": "1.0.0",
+    "metaId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8",
+    "name": "Learning",
+    "modelId": "00000000-0000-0000-0000-000000000000",
+    "layerId": 2
+  }
+}

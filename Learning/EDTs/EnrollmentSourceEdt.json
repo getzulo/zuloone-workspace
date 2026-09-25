@@ -1,0 +1,14 @@
+{
+  "kind": "EDT",
+  "object": {
+    "edtType": "Enum",
+    "hasTime": true,
+    "hasTimezone": false,
+    "dateOnly": false,
+    "enumMetaId": "d8a4cedb-8fff-4d70-9964-d1d734e278c3",
+    "isRequired": false,
+    "metaId": "abc75b82-8f81-4b54-81c5-bf1f485662d4",
+    "name": "EnrollmentSourceEdt",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

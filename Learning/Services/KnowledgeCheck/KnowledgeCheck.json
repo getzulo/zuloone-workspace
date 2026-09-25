@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Сверяет ответ проверки с ключом версии и ставит значок модуля.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "15917adc-e7f6-4822-a9cd-27684d637d36",
+    "metaId": "d0eebb7a-e95a-40a8-b24b-b00265eceb25",
+    "name": "KnowledgeCheck",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

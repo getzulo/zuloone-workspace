@@ -1,0 +1,111 @@
+{
+  "kind": "TablePartType",
+  "object": {
+    "className": "ExamAttemptLinesTablePartRow",
+    "caption": {
+      "en": "Attempt lines",
+      "ru": "Строки попытки"
+    },
+    "tableName": "TP_ExamAttemptLines",
+    "softDeletion": false,
+    "isLogged": false,
+    "metaId": "85eab0e4-febc-4810-85ee-d054b332ab10",
+    "name": "ExamAttemptLines",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "properties": [
+    {
+      "tablePartTypeMetaId": "85eab0e4-febc-4810-85ee-d054b332ab10",
+      "fieldName": "ChosenIsCorrect",
+      "caption": {
+        "en": "Chosen option was correct",
+        "ru": "Выбран верный"
+      },
+      "baseType": "Boolean",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 5,
+      "metaId": "4141c23d-f0f1-4248-b8a7-dc0853f6b489",
+      "name": "ChosenIsCorrect",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "tablePartTypeMetaId": "85eab0e4-febc-4810-85ee-d054b332ab10",
+      "fieldName": "ChosenText",
+      "caption": {
+        "en": "Chosen answer",
+        "ru": "Выбранный ответ"
+      },
+      "baseType": "LargeText",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 4,
+      "metaId": "1ad35fe3-838c-4786-ab97-e5f590888c98",
+      "name": "ChosenText",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "tablePartTypeMetaId": "85eab0e4-febc-4810-85ee-d054b332ab10",
+      "fieldName": "PromptText",
+      "caption": {
+        "en": "Question text",
+        "ru": "Текст вопроса"
+      },
+      "baseType": "LargeText",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 3,
+      "metaId": "fbd679a3-2b90-482d-a088-624944002796",
+      "name": "PromptText",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "tablePartTypeMetaId": "85eab0e4-febc-4810-85ee-d054b332ab10",
+      "fieldName": "Question",
+      "caption": {
+        "en": "Question",
+        "ru": "Вопрос"
+      },
+      "edtMetaId": "880a815b-f9c5-4d27-a3e6-084919418991",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "eb026368-0e90-4e3c-8c4c-98bcc4ffbe3e",
+      "referenceName": "ExamQuestion",
+      "displayOrder": 1,
+      "metaId": "b7ac8104-1a99-483a-b326-1cd7d9e4b2ba",
+      "name": "Question",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "tablePartTypeMetaId": "85eab0e4-febc-4810-85ee-d054b332ab10",
+      "fieldName": "SortOrder",
+      "caption": {
+        "en": "Order",
+        "ru": "Порядок"
+      },
+      "baseType": "Integer",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 2,
+      "metaId": "66ee802b-3c94-42cd-b125-ff8723eb198b",
+      "name": "SortOrder",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

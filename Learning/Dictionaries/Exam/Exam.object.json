@@ -1,0 +1,127 @@
+{
+  "kind": "Dictionary",
+  "object": {
+    "caption": {
+      "en": "Exam",
+      "ru": "Экзамен"
+    },
+    "description": "Карточка экзамена. Вопросы лежат в версии.",
+    "isLogged": false,
+    "isHierarchical": false,
+    "numberSequenceMetaId": "b097bdac-2a94-4f7d-9114-240a6d53e87e",
+    "isVersioned": false,
+    "isCached": false,
+    "isSingleton": false,
+    "notificationEnabled": false,
+    "defaultSearchProperty": "Name",
+    "displayFormat": "{Name}",
+    "isKernel": false,
+    "isObsolete": false,
+    "isExtension": false,
+    "metaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+    "name": "Exam",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "fields": [
+    {
+      "dictionaryMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+      "fieldName": "DraftRevision",
+      "edtMetaId": "6f335d65-c1d4-4f29-9df7-76a6b02e69ea",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Draft revision",
+        "ru": "Черновик"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7dc542b6-b752-49db-b7b6-be5943199007",
+      "name": "DraftRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "53f4c5ed-f2f9-4e49-8551-d4818dea33a4",
+      "name": "ID",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+      "fieldName": "Name",
+      "baseType": "String",
+      "length": 256,
+      "isSystem": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Name",
+        "ru": "Наименование"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "14b24b0f-daa0-44b9-861f-4fc9061c71cc",
+      "name": "Name",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+      "fieldName": "PublishedRevision",
+      "edtMetaId": "6f335d65-c1d4-4f29-9df7-76a6b02e69ea",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Published revision",
+        "ru": "Опубликованная версия"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "83410ae0-8692-444c-8f98-a8591470c604",
+      "name": "PublishedRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+      "fieldName": "Track",
+      "edtMetaId": "f24000f0-613a-4928-98ff-91b7dd7a0261",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": {
+        "en": "Path",
+        "ru": "Путь"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "caa11113-31a3-45b6-82c3-3ded87a3fd10",
+      "name": "Track",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

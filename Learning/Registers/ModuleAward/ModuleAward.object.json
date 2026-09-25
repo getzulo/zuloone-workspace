@@ -1,0 +1,71 @@
+{
+  "kind": "Register",
+  "object": {
+    "caption": {
+      "en": "Module badge",
+      "ru": "Значок модуля"
+    },
+    "description": "Значок за конкретную версию модуля. Новая версия его не закрывает.",
+    "isObsolete": false,
+    "registerEngineType": "Information",
+    "isDoubleEntry": false,
+    "allowNegativeBalance": true,
+    "useBalanceTable": false,
+    "isExtension": false,
+    "metaId": "4ae87d53-5dfd-4314-a10d-38dfb1f834dc",
+    "name": "ModuleAward",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "dimensions": [
+    {
+      "registerMetaId": "4ae87d53-5dfd-4314-a10d-38dfb1f834dc",
+      "fieldName": "Learner",
+      "caption": {
+        "en": "Learner",
+        "ru": "Учащийся"
+      },
+      "edtMetaId": "6c513637-6496-43a4-99b6-8f2235b3ea60",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 1,
+      "metaId": "cdf16fdb-9513-4f46-8db9-7ff0861fb287",
+      "name": "Learner",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "registerMetaId": "4ae87d53-5dfd-4314-a10d-38dfb1f834dc",
+      "fieldName": "ModuleRevision",
+      "caption": {
+        "en": "Module revision",
+        "ru": "Версия модуля"
+      },
+      "edtMetaId": "751c2087-9cf0-483f-afb2-653ac2034c48",
+      "isOperational": true,
+      "isInformational": false,
+      "isPivotDimension": false,
+      "isTranslatable": false,
+      "displayOrder": 2,
+      "metaId": "28442e09-473b-457b-8f1d-66e5f65565d6",
+      "name": "ModuleRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "resources": [
+    {
+      "registerMetaId": "4ae87d53-5dfd-4314-a10d-38dfb1f834dc",
+      "fieldName": "Awarded",
+      "caption": {
+        "en": "Awarded",
+        "ru": "Сдан"
+      },
+      "isOperational": false,
+      "edtMetaId": "94e8fdcc-b08c-485d-bd8e-ce5303ab135a",
+      "displayOrder": 1,
+      "metaId": "0efa22e5-9068-464c-98a0-d48f2296c675",
+      "name": "Awarded",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

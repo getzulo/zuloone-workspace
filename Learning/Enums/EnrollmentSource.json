@@ -1,0 +1,39 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "Who put the learner on the path. Zero is Unspecified.",
+    "isExtension": false,
+    "metaId": "d8a4cedb-8fff-4d70-9964-d1d734e278c3",
+    "name": "EnrollmentSource",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "values": [
+    {
+      "enumMetaId": "d8a4cedb-8fff-4d70-9964-d1d734e278c3",
+      "value": 2,
+      "displayOrder": 2,
+      "description": "Assigned by an owner",
+      "metaId": "d2a029e2-a5ce-4192-9490-588374515398",
+      "name": "Assigned",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "enumMetaId": "d8a4cedb-8fff-4d70-9964-d1d734e278c3",
+      "value": 1,
+      "displayOrder": 1,
+      "description": "Enrolled themselves",
+      "metaId": "4896d700-9cf6-45cf-9079-1107773c4043",
+      "name": "Self",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "enumMetaId": "d8a4cedb-8fff-4d70-9964-d1d734e278c3",
+      "value": 0,
+      "displayOrder": 0,
+      "description": "Not set",
+      "metaId": "52492dbf-a6a5-4a3b-8d86-0d2088b3812f",
+      "name": "Unspecified",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}
