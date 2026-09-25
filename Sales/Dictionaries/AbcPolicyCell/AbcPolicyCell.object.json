@@ -29,28 +29,6 @@
   "fields": [
     {
       "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
-      "fieldName": "Profile",
-      "edtMetaId": "5af84ef5-89c0-485e-a632-521c70da482e",
-      "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 1,
-      "isIndexed": true,
-      "isUnique": false,
-      "caption": {
-        "en": "Profile",
-        "ar": "الملف",
-        "ru": "Профиль",
-        "uk": "Профіль"
-      },
-      "isTranslatable": false,
-      "isVisible": true,
-      "isCalculated": false,
-      "metaId": "cbf6174f-9f21-4719-b392-ddfdeac745f7",
-      "name": "Profile",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
       "fieldName": "AbcClass",
       "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
       "isSystem": false,
@@ -73,24 +51,43 @@
     },
     {
       "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
-      "fieldName": "XyzClass",
-      "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
+      "fieldName": "CoverDays",
+      "baseType": "Integer",
       "isSystem": false,
       "isRequired": false,
-      "displayOrder": 3,
+      "displayOrder": 5,
       "isIndexed": false,
       "isUnique": false,
       "caption": {
-        "en": "XYZ",
-        "ar": "XYZ",
-        "ru": "XYZ",
-        "uk": "XYZ"
+        "en": "Cover, days",
+        "ar": "التغطية، أيام",
+        "ru": "Покрытие, дней",
+        "uk": "Покриття, днів"
       },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "cace45a4-35ee-47b9-8aa7-7d4b7cc01e1e",
-      "name": "XyzClass",
+      "metaId": "f0e91832-a7af-488f-9bfe-65b051f51e3b",
+      "name": "CoverDays",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
+      "fieldName": "ID",
+      "baseType": "String",
+      "length": 50,
+      "isSystem": true,
+      "isRequired": true,
+      "displayOrder": 0,
+      "description": "System identifier issued by the bound number sequence (read-only, unique)",
+      "isIndexed": true,
+      "isUnique": true,
+      "caption": "ID",
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "2afa3436-e5f2-46a3-9a22-e884d762947e",
+      "name": "ID",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {
@@ -117,24 +114,46 @@
     },
     {
       "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
-      "fieldName": "CoverDays",
-      "baseType": "Integer",
+      "fieldName": "Profile",
+      "edtMetaId": "5af84ef5-89c0-485e-a632-521c70da482e",
       "isSystem": false,
-      "isRequired": false,
-      "displayOrder": 5,
-      "isIndexed": false,
+      "isRequired": true,
+      "displayOrder": 1,
+      "isIndexed": true,
       "isUnique": false,
       "caption": {
-        "en": "Cover, days",
-        "ar": "التغطية، أيام",
-        "ru": "Покрытие, дней",
-        "uk": "Покриття, днів"
+        "en": "Profile",
+        "ar": "الملف",
+        "ru": "Профиль",
+        "uk": "Профіль"
       },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "f0e91832-a7af-488f-9bfe-65b051f51e3b",
-      "name": "CoverDays",
+      "metaId": "cbf6174f-9f21-4719-b392-ddfdeac745f7",
+      "name": "Profile",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "e6bb29e2-d944-47a7-ac98-5104102ae045",
+      "fieldName": "XyzClass",
+      "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "XYZ",
+        "ar": "XYZ",
+        "ru": "XYZ",
+        "uk": "XYZ"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "cace45a4-35ee-47b9-8aa7-7d4b7cc01e1e",
+      "name": "XyzClass",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]

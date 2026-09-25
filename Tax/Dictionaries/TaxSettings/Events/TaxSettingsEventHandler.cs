@@ -1,4 +1,9 @@
 #nullable enable
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using ZuloOne.Managers;
+
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for TaxSettings records (MIQS DictionaryEventHandlerBase<T>).
@@ -22,9 +27,15 @@ public partial class TaxSettingsEventHandler : TypedDictionaryEventHandler<TaxSe
         var prior = await next(record, isNew, context);
         if (!prior.Success) return prior;
 
-        // if (string.IsNullOrEmpty(record.Name))
-        //     return EventResult.Cancel("Name is required");
-        // context.AddClientAction(ClientAction.Message("Saved", "success"));
+        // Движок и тесты читают DefaultTaxCode. Ссылка штампует код только
+        // когда она пришла: пустой Guid на UPDATE — это «поле не в мешке».
+        if (record.DefaultTax != Guid.Empty)
+        {
+            var row = await context.GetService<IDictionaryManager<TaxCode>>().GetRecordAsync(record.DefaultTax);
+            if (!string.IsNullOrWhiteSpace(row?.Code))
+                record.DefaultTaxCode = row!.Code;
+        }
+
         return EventResult.Ok();
     }
 
@@ -56,8 +67,19 @@ public partial class TaxSettingsEventHandler : TypedDictionaryEventHandler<TaxSe
         => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
-    public override Task<EventResult> OnAfterLoadAsync(TaxSettings record, EventContext context)
-        => next(record, context);
+    public override async Task<EventResult> OnAfterLoadAsync(TaxSettings record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        if (record.DefaultTax == Guid.Empty && !string.IsNullOrWhiteSpace(record.DefaultTaxCode))
+        {
+            var code = record.DefaultTaxCode.Replace("'", "''");
+            var row = (await context.GetService<IDictionaryManager<TaxCode>>()
+                .GetRecordsAsync($"Code = '{code}'", take: 1)).FirstOrDefault();
+            if (row != null) record.DefaultTax = row.MetaId;
+        }
+        return EventResult.Ok();
+    }
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(TaxSettings record, string fieldName, object? value, EventContext context)

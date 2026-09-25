@@ -55,6 +55,7 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 2,
+      "description": "ID ячейки. Штампуется из DefaultOutputLocation, если ссылка заполнена. Пустая ссылка строку не стирает.",
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -64,10 +65,33 @@
         "uk": "Код комірки випуску за замовчуванням"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "ee8ef201-af88-5532-8627-ddabd0611ab5",
       "name": "DefaultOutputLocationCode",
+      "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+    },
+    {
+      "dictionaryMetaId": "bd0fccd2-d075-5de8-b054-dd7ba806c280",
+      "fieldName": "DefaultOutputLocation",
+      "edtMetaId": "75009966-e135-4d22-8e67-133f3e4307fc",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "description": "Ячейка выпуска. ID штампуется в DefaultOutputLocationCode, если ссылка заполнена. Пустая ссылка строку не стирает.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Default output location",
+        "ar": "موقع الإنتاج الافتراضي",
+        "ru": "Ячейка выпуска по умолчанию",
+        "uk": "Комірка випуску за замовчуванням"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d0f614e7-508b-429d-ce43-9170bf5d42a3",
+      "name": "DefaultOutputLocation",
       "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
     },
     {

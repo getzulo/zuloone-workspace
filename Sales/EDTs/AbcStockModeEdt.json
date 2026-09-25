@@ -2,11 +2,11 @@
   "kind": "EDT",
   "object": {
     "edtType": "Enum",
-    "enumMetaId": "fbb2bc04-3fb9-48fc-8e21-1d10dcb11808",
     "description": "ABC/XYZ replenishment mode. Zero is unset and does not suggest a quantity.",
     "hasTime": true,
     "hasTimezone": false,
     "dateOnly": false,
+    "enumMetaId": "fbb2bc04-3fb9-48fc-8e21-1d10dcb11808",
     "isRequired": false,
     "metaId": "9d40d528-0511-4042-b986-8429c0549a03",
     "name": "AbcStockModeEdt",

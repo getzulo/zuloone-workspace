@@ -42,6 +42,7 @@ public class FieldDeskXrPrintTest : IntegrationTestScriptBase
         Assert.IsTrue(script.Code.Contains("FormatAsync", StringComparison.Ordinal), "имена через IReferenceDisplay");
         Assert.IsTrue(script.Code.Contains("Customer", StringComparison.Ordinal), "клиент");
         Assert.IsTrue(script.Code.Contains("CheckedInAt", StringComparison.Ordinal), "чек-ин");
+        Assert.IsTrue(script.Code.Contains("Visit =", StringComparison.Ordinal), "номера заказов, которые назвали этот визит");
         Assert.IsTrue(
             !script.Code.Contains("IPricingService", StringComparison.Ordinal),
             "визит без сумм продажи");

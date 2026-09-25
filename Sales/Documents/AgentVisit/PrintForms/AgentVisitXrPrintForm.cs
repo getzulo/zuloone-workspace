@@ -1,13 +1,18 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ZuloOne.Core.Services;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Data;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
-// Visit slip: customer, outlet, check-in/out, skip reason. No sales money.
+// Visit slip: customer, outlet, check-in/out, skip reason, and the numbers of
+// orders that name this visit. Amounts stay on the order — this slip does not
+// add them up.
 public partial class AgentVisitXrPrintForm : PrintFormBase
 {
     public override SlimTable GetDataTemplate()
@@ -56,8 +61,42 @@ public partial class AgentVisitXrPrintForm : PrintFormBase
             doc.GeoStatus ?? "",
             ""));
 
+        var data = context.GetService<IDataService>();
+        var orders = await data.QueryAsync("SalesOrder", $"Visit = '{doc.MetaId}'");
+        var line = 0;
+        foreach (var order in orders.OrderBy(r => Text(r, "ID")))
+        {
+            line++;
+            table.Add(Row(
+                doc.ID ?? "",
+                DateText(doc.DocumentDate),
+                customer,
+                "",
+                "",
+                route,
+                outlet,
+                "",
+                "",
+                0m,
+                0m,
+                0m,
+                line,
+                Text(order, "ID"),
+                0m,
+                "",
+                0m,
+                0m,
+                0m,
+                0m,
+                "",
+                Text(order, "Subtype")));
+        }
+
         return table;
     }
+
+    private static string Text(IDictionary<string, object?> row, string key)
+        => row.TryGetValue(key, out var value) ? value?.ToString() ?? "" : "";
 
     private static object Row(
         string number,

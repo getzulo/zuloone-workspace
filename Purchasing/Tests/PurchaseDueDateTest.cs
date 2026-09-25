@@ -37,6 +37,35 @@ public class PurchaseDueDateTest : IntegrationTestScriptBase
             "срок 01.09 + 10 = 11.09, факт {0:yyyy-MM-dd}", stored.DueDate);
     }
 
+    [IntegrationTest("Условие в настройках закупок даёт срок заказу без своего условия")]
+    public async Task SettingsTermStampsDueDate()
+    {
+        var loc = await LocationAsync();
+        var supplier = DictionaryManager.NewRecord<Supplier>();
+        supplier.Name = "Settings term Co";
+        supplier = await DictionaryManager.SaveRecordAsync(supplier);
+
+        var term = DictionaryManager.NewRecord<PaymentTerm>();
+        term.Name = "Net 10 settings";
+        term.Days = 10;
+        term = await DictionaryManager.SaveRecordAsync(term);
+
+        var rows = await DictionaryManager.GetRecordsAsync<PurchasingSettings>(null, 1);
+        var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<PurchasingSettings>();
+        settings.DefaultPaymentTerm = term.MetaId;
+        await DictionaryManager.SaveRecordAsync(settings);
+
+        var order = await DocumentManager.NewDocumentAsync<PurchaseOrder>();
+        order.Supplier = supplier.MetaId;
+        order.Location = loc;
+        order.DocumentDate = new DateTime(2026, 9, 1);
+        await DocumentManager.SaveDocumentAsync(order);
+        var stored = await DocumentManager.GetDocumentAsync<PurchaseOrder>(order.MetaId);
+        Assert.IsTrue(stored != null, "заказ должен сохраниться");
+        Assert.IsTrue(stored!.DueDate.Date == new DateTime(2026, 9, 11),
+            "срок из настройки 01.09 + 10 = 11.09, факт {0:yyyy-MM-dd}", stored.DueDate);
+    }
+
     [IntegrationTest("PurchaseOrderXr печатает DueDate")]
     public async Task PurchaseOrderXrMentionsDueDate()
     {

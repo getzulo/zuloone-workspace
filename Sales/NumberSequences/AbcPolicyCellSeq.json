@@ -4,7 +4,6 @@
     "padLength": 0,
     "startValue": 1000,
     "increment": 1,
-    "nextValue": 1000,
     "resetPolicy": "None",
     "metaId": "6b74ab8d-ebf5-44d7-bbf3-5162411b9994",
     "name": "AbcPolicyCellSeq",

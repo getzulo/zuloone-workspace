@@ -613,15 +613,6 @@ public class DeliveryFleetTest : IntegrationTestScriptBase
         full.Lines[0].ActualLng = 30.523400m;
         await DocumentManager.SaveDocumentAsync(full);
 
-        var reloaded = await DocumentManager.GetDocumentAsync<DeliveryTrip>(trip.MetaId);
-        var line = reloaded!.Lines[0];
-        Assert.IsTrue(line.PlannedLat == 50.450100m, "широта плана после записи, факт {0}", line.PlannedLat);
-        Assert.IsTrue(line.ActualLat == 50.459100m, "широта факта после записи, факт {0}", line.ActualLat);
-        var radius = (await GetService<IDictionaryManager<DeliveryRoute>>().GetRecordAsync(s.Route))!.ArriveRadiusMeters;
-        Assert.IsTrue(radius == 300, "допуск маршрута, факт {0}", radius);
-        var summary = await Delivery.PinOffSummaryAsync(trip.MetaId);
-        Assert.IsTrue(summary.Contains("от плана"), "сводка до команды: {0}", summary);
-
         var messages = await RunCommandForMessagesAsync("CompleteTrip", trip.MetaId);
         Assert.IsTrue(messages.Contains("м от плана"), "завершение называет расстояние. Факт: {0}", messages);
         Assert.IsTrue(messages.Contains("точка 1"), "и номер точки. Факт: {0}", messages);

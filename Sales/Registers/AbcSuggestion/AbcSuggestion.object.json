@@ -24,7 +24,12 @@
     {
       "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
       "fieldName": "Profile",
-      "caption": { "en": "Profile", "ar": "الملف", "ru": "Профиль", "uk": "Профіль" },
+      "caption": {
+        "en": "Profile",
+        "ar": "الملف",
+        "ru": "Профиль",
+        "uk": "Профіль"
+      },
       "edtMetaId": "5af84ef5-89c0-485e-a632-521c70da482e",
       "isOperational": true,
       "isInformational": false,
@@ -38,7 +43,12 @@
     {
       "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
       "fieldName": "Subject",
-      "caption": { "en": "Item", "ar": "الصنف", "ru": "Товар", "uk": "Товар" },
+      "caption": {
+        "en": "Item",
+        "ar": "الصنف",
+        "ru": "Товар",
+        "uk": "Товар"
+      },
       "edtMetaId": "be233f32-8bc6-472d-806c-d89486f830ac",
       "isOperational": true,
       "isInformational": false,
@@ -54,7 +64,12 @@
     {
       "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
       "fieldName": "AbcClass",
-      "caption": { "en": "ABC", "ar": "ABC", "ru": "ABC", "uk": "ABC" },
+      "caption": {
+        "en": "ABC",
+        "ar": "ABC",
+        "ru": "ABC",
+        "uk": "ABC"
+      },
       "isOperational": false,
       "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
       "displayOrder": 1,
@@ -64,30 +79,13 @@
     },
     {
       "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
-      "fieldName": "XyzClass",
-      "caption": { "en": "XYZ", "ar": "XYZ", "ru": "XYZ", "uk": "XYZ" },
-      "isOperational": false,
-      "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
-      "displayOrder": 2,
-      "metaId": "9bacadbb-aa29-4644-91e4-3ab1f495ed83",
-      "name": "XyzClass",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
-      "fieldName": "Mode",
-      "caption": { "en": "Mode", "ar": "الوضع", "ru": "Режим", "uk": "Режим" },
-      "isOperational": false,
-      "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
-      "displayOrder": 3,
-      "metaId": "4328b907-1058-41a3-adbb-0586d12f9032",
-      "name": "Mode",
-      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
-    },
-    {
-      "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
       "fieldName": "CoverDays",
-      "caption": { "en": "Cover, days", "ar": "التغطية، أيام", "ru": "Покрытие, дней", "uk": "Покриття, днів" },
+      "caption": {
+        "en": "Cover, days",
+        "ar": "التغطية، أيام",
+        "ru": "Покрытие, дней",
+        "uk": "Покриття, днів"
+      },
       "isOperational": false,
       "edtMetaId": "8aaf0600-87ce-4f9d-b103-cc1379103167",
       "displayOrder": 4,
@@ -98,7 +96,12 @@
     {
       "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
       "fieldName": "IssuedQty",
-      "caption": { "en": "Issued qty", "ar": "الكمية المصروفة", "ru": "Расход", "uk": "Витрата" },
+      "caption": {
+        "en": "Issued qty",
+        "ar": "الكمية المصروفة",
+        "ru": "Расход",
+        "uk": "Витрата"
+      },
       "isOperational": false,
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "displayOrder": 5,
@@ -108,8 +111,29 @@
     },
     {
       "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
+      "fieldName": "Mode",
+      "caption": {
+        "en": "Mode",
+        "ar": "الوضع",
+        "ru": "Режим",
+        "uk": "Режим"
+      },
+      "isOperational": false,
+      "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
+      "displayOrder": 3,
+      "metaId": "4328b907-1058-41a3-adbb-0586d12f9032",
+      "name": "Mode",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
       "fieldName": "OnHandQty",
-      "caption": { "en": "On hand", "ar": "المتوفر", "ru": "Остаток", "uk": "Залишок" },
+      "caption": {
+        "en": "On hand",
+        "ar": "المتوفر",
+        "ru": "Остаток",
+        "uk": "Залишок"
+      },
       "isOperational": false,
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "displayOrder": 6,
@@ -120,12 +144,33 @@
     {
       "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
       "fieldName": "SuggestQty",
-      "caption": { "en": "Suggest qty", "ar": "الكمية المقترحة", "ru": "К заказу", "uk": "До замовлення" },
+      "caption": {
+        "en": "Suggest qty",
+        "ar": "الكمية المقترحة",
+        "ru": "К заказу",
+        "uk": "До замовлення"
+      },
       "isOperational": false,
       "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
       "displayOrder": 7,
       "metaId": "cdf326de-d9d0-4af0-a39d-4bfbaa6170a7",
       "name": "SuggestQty",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "registerMetaId": "f1a5e6b8-ad89-46df-98d8-7ee04dfe3307",
+      "fieldName": "XyzClass",
+      "caption": {
+        "en": "XYZ",
+        "ar": "XYZ",
+        "ru": "XYZ",
+        "uk": "XYZ"
+      },
+      "isOperational": false,
+      "edtMetaId": "2b82f87c-a5ae-4d23-97a2-f6f318ef2053",
+      "displayOrder": 2,
+      "metaId": "9bacadbb-aa29-4644-91e4-3ab1f495ed83",
+      "name": "XyzClass",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     }
   ]

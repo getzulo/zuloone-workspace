@@ -54,6 +54,38 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
         return EventResult.Ok();
     }
 
+    public override async Task<EventResult> OnAfterSaveAsync(SalesOrder header, bool isNew, EventContext context)
+    {
+        var prior = await next(header, isNew, context);
+        if (!prior.Success) return prior;
+        await LinkVisitAsync(header, context);
+        return EventResult.Ok();
+    }
+
+    /// <summary>
+    /// The order names the visit in <c>Visit</c>. The visit card reads document
+    /// links, so the parent is the visit and the child is this order. Only
+    /// AgentVisit parents are moved: a quotation parent stays.
+    /// </summary>
+    private static async Task LinkVisitAsync(SalesOrder header, EventContext context)
+    {
+        if (header.MetaId == Guid.Empty) return;
+        var docs = context.GetService<IDocumentManager>();
+        var stored = await docs.GetDocumentAsync<SalesOrder>(header.MetaId);
+        var visitId = stored?.Visit ?? Guid.Empty;
+
+        foreach (var parent in await docs.GetDocumentParentsAsync(header.MetaId))
+        {
+            if (parent == visitId) continue;
+            if (await docs.GetDocumentAsync<AgentVisit>(parent) is null) continue;
+            await docs.RemoveLinkAsync(parent, header.MetaId);
+        }
+
+        if (visitId == Guid.Empty) return;
+        if (await docs.GetDocumentAsync<AgentVisit>(visitId) is null) return;
+        await docs.AddLinkAsync(visitId, header.MetaId);
+    }
+
     private static bool IsDraft(string? subtype)
         => string.IsNullOrEmpty(subtype)
            || string.Equals(subtype, "Draft", StringComparison.Ordinal);
@@ -90,6 +122,9 @@ public partial class SalesOrderEventHandler : TypedDocumentEventHandler<SalesOrd
         if (header.Contract == Guid.Empty) header.Contract = stored.Contract;
         if (header.Location == Guid.Empty) header.Location = stored.Location;
         if (header.DeliveryDate == default) header.DeliveryDate = stored.DeliveryDate;
+        // Same partial-save rule as Contract: an empty Visit is "not in the
+        // payload", not "detach the visit". A real move sends the new id.
+        if (header.Visit == Guid.Empty) header.Visit = stored.Visit;
     }
 
     private static void ApplyStamp(SalesOrder header, Dictionary<string, object?> stamp)

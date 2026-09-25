@@ -33,6 +33,7 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 1,
+      "description": "FIFO или AVG. Штампуется из ValuationMethod, если выбран метод. «Не задано» строку не стирает: драйвер CostingValuation читает её, и на UPDATE пустое перечисление значит «поле не пришло».",
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -42,10 +43,33 @@
         "uk": "Метод собівартості (AVG/FIFO)"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "6e2b6045-91b3-53e0-8acf-59e00352b7e8",
       "name": "CostingMethod",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    },
+    {
+      "dictionaryMetaId": "dab95d48-61e1-56c4-b852-6964435dc152",
+      "fieldName": "ValuationMethod",
+      "edtMetaId": "ad7e2065-3182-4f5b-ce94-601c5d8fa127",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 1,
+      "description": "FIFO или средняя. Сохранение пишет CostingMethod (FIFO/AVG). «Не задано» строку не меняет.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Costing method",
+        "ar": "طريقة التكلفة",
+        "ru": "Метод себестоимости",
+        "uk": "Метод собівартості"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "be8f3176-4293-406c-dfa5-712d6e9ab238",
+      "name": "ValuationMethod",
       "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
     },
     {

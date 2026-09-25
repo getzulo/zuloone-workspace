@@ -1,4 +1,6 @@
 #nullable enable
+using System;
+
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for CostingSettings records (MIQS DictionaryEventHandlerBase<T>).
@@ -22,9 +24,13 @@ public partial class CostingSettingsEventHandler : TypedDictionaryEventHandler<C
         var prior = await next(record, isNew, context);
         if (!prior.Success) return prior;
 
-        // if (string.IsNullOrEmpty(record.Name))
-        //     return EventResult.Cancel("Name is required");
-        // context.AddClientAction(ClientAction.Message("Saved", "success"));
+        // Драйвер читает строку. «Не задано» её не трогает: на UPDATE ноль
+        // значит «поле не пришло», и тест, который пишет FIFO строкой, жив.
+        if (record.ValuationMethod == CostingMethodKind.Fifo)
+            record.CostingMethod = "FIFO";
+        else if (record.ValuationMethod == CostingMethodKind.Average)
+            record.CostingMethod = "AVG";
+
         return EventResult.Ok();
     }
 
@@ -56,8 +62,19 @@ public partial class CostingSettingsEventHandler : TypedDictionaryEventHandler<C
         => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
-    public override Task<EventResult> OnAfterLoadAsync(CostingSettings record, EventContext context)
-        => next(record, context);
+    public override async Task<EventResult> OnAfterLoadAsync(CostingSettings record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        if (record.ValuationMethod == CostingMethodKind.Unspecified)
+        {
+            if (string.Equals(record.CostingMethod, "AVG", StringComparison.OrdinalIgnoreCase))
+                record.ValuationMethod = CostingMethodKind.Average;
+            else if (string.Equals(record.CostingMethod, "FIFO", StringComparison.OrdinalIgnoreCase))
+                record.ValuationMethod = CostingMethodKind.Fifo;
+        }
+        return EventResult.Ok();
+    }
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(CostingSettings record, string fieldName, object? value, EventContext context)

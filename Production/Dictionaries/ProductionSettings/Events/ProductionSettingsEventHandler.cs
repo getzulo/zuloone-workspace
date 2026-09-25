@@ -1,4 +1,9 @@
 #nullable enable
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using ZuloOne.Managers;
+
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for ProductionSettings records (MIQS DictionaryEventHandlerBase<T>).
@@ -22,9 +27,14 @@ public partial class ProductionSettingsEventHandler : TypedDictionaryEventHandle
         var prior = await next(record, isNew, context);
         if (!prior.Success) return prior;
 
-        // if (string.IsNullOrEmpty(record.Name))
-        //     return EventResult.Cancel("Name is required");
-        // context.AddClientAction(ClientAction.Message("Saved", "success"));
+        if (record.DefaultOutputLocation != Guid.Empty)
+        {
+            var row = await context.GetService<IDictionaryManager<StoreCell>>()
+                .GetRecordAsync(record.DefaultOutputLocation);
+            if (!string.IsNullOrWhiteSpace(row?.ID))
+                record.DefaultOutputLocationCode = row!.ID;
+        }
+
         return EventResult.Ok();
     }
 
@@ -56,8 +66,19 @@ public partial class ProductionSettingsEventHandler : TypedDictionaryEventHandle
         => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
-    public override Task<EventResult> OnAfterLoadAsync(ProductionSettings record, EventContext context)
-        => next(record, context);
+    public override async Task<EventResult> OnAfterLoadAsync(ProductionSettings record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        if (record.DefaultOutputLocation == Guid.Empty && !string.IsNullOrWhiteSpace(record.DefaultOutputLocationCode))
+        {
+            var id = record.DefaultOutputLocationCode.Replace("'", "''");
+            var row = (await context.GetService<IDictionaryManager<StoreCell>>()
+                .GetRecordsAsync($"ID = '{id}'", take: 1)).FirstOrDefault();
+            if (row != null) record.DefaultOutputLocation = row.MetaId;
+        }
+        return EventResult.Ok();
+    }
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(ProductionSettings record, string fieldName, object? value, EventContext context)

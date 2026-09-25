@@ -1,4 +1,9 @@
 #nullable enable
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using ZuloOne.Managers;
+
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for OrganizationSettings records (MIQS DictionaryEventHandlerBase<T>).
@@ -22,9 +27,14 @@ public partial class OrganizationSettingsEventHandler : TypedDictionaryEventHand
         var prior = await next(record, isNew, context);
         if (!prior.Success) return prior;
 
-        // if (string.IsNullOrEmpty(record.Name))
-        //     return EventResult.Cancel("Name is required");
-        // context.AddClientAction(ClientAction.Message("Saved", "success"));
+        if (record.DefaultLegalEntity != Guid.Empty)
+        {
+            var row = await context.GetService<IDictionaryManager<LegalEntity>>()
+                .GetRecordAsync(record.DefaultLegalEntity);
+            if (!string.IsNullOrWhiteSpace(row?.ID))
+                record.DefaultLegalEntityCode = row!.ID;
+        }
+
         return EventResult.Ok();
     }
 
@@ -56,8 +66,19 @@ public partial class OrganizationSettingsEventHandler : TypedDictionaryEventHand
         => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
-    public override Task<EventResult> OnAfterLoadAsync(OrganizationSettings record, EventContext context)
-        => next(record, context);
+    public override async Task<EventResult> OnAfterLoadAsync(OrganizationSettings record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        if (record.DefaultLegalEntity == Guid.Empty && !string.IsNullOrWhiteSpace(record.DefaultLegalEntityCode))
+        {
+            var id = record.DefaultLegalEntityCode.Replace("'", "''");
+            var row = (await context.GetService<IDictionaryManager<LegalEntity>>()
+                .GetRecordsAsync($"ID = '{id}'", take: 1)).FirstOrDefault();
+            if (row != null) record.DefaultLegalEntity = row.MetaId;
+        }
+        return EventResult.Ok();
+    }
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(OrganizationSettings record, string fieldName, object? value, EventContext context)

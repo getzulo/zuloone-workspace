@@ -65,7 +65,7 @@
         "uk": "Код звільнення від ПДВ (режими без ПДВ)"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "7f4e2c91-b8a3-4d16-9e50-2c6f8a1b3d09",
       "name": "ExemptVatCode",
@@ -112,7 +112,7 @@
         "uk": "Код ПДФО (зарплата)"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "d37c09fe-ac25-4282-964a-9b95d84d2f25",
       "name": "IncomeTaxCode",
@@ -136,7 +136,7 @@
         "uk": "Код військового збору (зарплата)"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "3421b5d1-121c-4c74-b0a9-343cc062a432",
       "name": "MilitaryLevyCode",
@@ -160,7 +160,7 @@
         "uk": "Код єдиного податку 3% (з ПДВ)"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "feb84d14-0877-4e3c-a17b-d0bf9a402d05",
       "name": "SingleTaxCode3",
@@ -184,7 +184,7 @@
         "uk": "Код єдиного податку 5% (без ПДВ)"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "b40c7a43-fb44-437e-a1c2-4016a7b00368",
       "name": "SingleTaxCode5",
@@ -208,7 +208,7 @@
         "uk": "Код єдиного податку 15% (перевищення)"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "ea726dcc-6c99-4977-a958-2a891e8b7e82",
       "name": "SingleTaxCodeExcess",
@@ -353,7 +353,7 @@
         "uk": "Код подвійної ставки 6% (ЮО на 3%)"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "e3ff6abc-390f-4f5b-a7a8-46e82ec83c90",
       "name": "SingleTaxCodeDouble3",
@@ -377,10 +377,194 @@
         "uk": "Код подвійної ставки 10% (ЮО на 5%)"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "8d114586-9bf4-42fb-b2d3-8e97cddf0516",
       "name": "SingleTaxCodeDouble5",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "ExemptVat",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "description": "Налоговый код освобождения. ExemptVatCode штампуется при сохранении, если ссылка заполнена. Пустая ссылка строку не стирает.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Exempt VAT (no-VAT regimes)",
+        "ar": "ضريبة القيمة المضافة المعفاة",
+        "ru": "Освобождение от НДС",
+        "uk": "Звільнення від ПДВ"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f21836a9-720d-44bf-a065-b392d17f64c5",
+      "name": "ExemptVat",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "IncomeTax",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 7,
+      "description": "Налоговый код ПДФО. IncomeTaxCode штампуется при сохранении, если ссылка заполнена.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Personal income tax (payroll)",
+        "ar": "ضريبة الدخل الشخصي",
+        "ru": "НДФЛ (зарплата)",
+        "uk": "ПДФО (зарплата)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a32947ba-831e-45c0-b176-c4a3e28075d6",
+      "name": "IncomeTax",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "MilitaryLevy",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "description": "Налоговый код военного сбора. MilitaryLevyCode штампуется при сохранении, если ссылка заполнена.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Military levy (payroll)",
+        "ar": "الرسم العسكري",
+        "ru": "Военный сбор (зарплата)",
+        "uk": "Військовий збір (зарплата)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b43a58cb-942f-46d1-c287-d5b4f39186e7",
+      "name": "MilitaryLevy",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "SingleTax3",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "description": "Налоговый код единого налога 3%. SingleTaxCode3 штампуется при сохранении, если ссылка заполнена.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Single tax 3% (with VAT)",
+        "ar": "الضريبة الموحدة 3%",
+        "ru": "Единый налог 3% (с НДС)",
+        "uk": "Єдиний податок 3% (з ПДВ)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c54b69dc-a530-47e2-d398-e6c504a297f8",
+      "name": "SingleTax3",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "SingleTax5",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "description": "Налоговый код единого налога 5%. SingleTaxCode5 штампуется при сохранении, если ссылка заполнена.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Single tax 5% (without VAT)",
+        "ar": "الضريبة الموحدة 5%",
+        "ru": "Единый налог 5% (без НДС)",
+        "uk": "Єдиний податок 5% (без ПДВ)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d65c7aed-b641-48f3-e4a9-f7d615b3a809",
+      "name": "SingleTax5",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "SingleTaxExcess",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "description": "Налоговый код 15% на превышение. SingleTaxCodeExcess штампуется при сохранении, если ссылка заполнена.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Single tax 15% (over the limit)",
+        "ar": "الضريبة الموحدة 15%",
+        "ru": "Единый налог 15% (превышение)",
+        "uk": "Єдиний податок 15% (перевищення)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "e76d8bfe-c752-4904-f5ba-a8e726c4b91a",
+      "name": "SingleTaxExcess",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "SingleTaxDouble3",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 30,
+      "description": "Налоговый код подвійної ставки 6%. SingleTaxCodeDouble3 штампуется при сохранении, если ссылка заполнена.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Double rate 6% (legal person, 3%)",
+        "ar": "الضعف 6٪",
+        "ru": "Подвійна ставка 6% (ЮО на 3%)",
+        "uk": "Подвійна ставка 6% (ЮО на 3%)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f87e9c0f-d863-4a15-a6cb-b9f837d5ca2b",
+      "name": "SingleTaxDouble3",
+      "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+    },
+    {
+      "dictionaryMetaId": "b3823cc5-e789-4a7c-b626-2a639f7836ca",
+      "fieldName": "SingleTaxDouble5",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 31,
+      "description": "Налоговый код подвійної ставки 10%. SingleTaxCodeDouble5 штампуется при сохранении, если ссылка заполнена.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Double rate 10% (legal person, 5%)",
+        "ar": "الضعف 10٪",
+        "ru": "Подвійна ставка 10% (ЮО на 5%)",
+        "uk": "Подвійна ставка 10% (ЮО на 5%)"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "a98fad10-e974-4b26-b7dc-c0a948e6db3c",
+      "name": "SingleTaxDouble5",
       "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
     }
   ]

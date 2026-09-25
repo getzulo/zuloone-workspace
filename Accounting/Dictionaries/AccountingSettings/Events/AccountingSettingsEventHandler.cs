@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Managers;
 using ZuloOne.Services.Contracts;
@@ -49,6 +50,7 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
         var gl = context.GetService<IGeneralLedgerService>();
         var accounts = context.GetService<IDictionaryManager<ChartOfAccounts>>();
         await StampCodesFromRefsAsync(record, accounts);
+        await StampCurrencyAsync(record, context);
 
         // Empty code = "this leg is not configured", and that is lawful: posting
         // will skip it quietly. Only a FILLED code is checked.
@@ -108,6 +110,14 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
         record.WipAccountCode = await CodeOfAsync(accounts, record.WipAccount, record.WipAccountCode);
     }
 
+    private static async Task StampCurrencyAsync(AccountingSettings record, EventContext context)
+    {
+        if (record.DefaultCurrency == Guid.Empty) return;
+        var row = await context.GetService<IDictionaryManager<Currency>>().GetRecordAsync(record.DefaultCurrency);
+        if (!string.IsNullOrWhiteSpace(row?.Code))
+            record.DefaultCurrencyCode = row!.Code;
+    }
+
     private static async Task<string> CodeOfAsync(
         IDictionaryManager<ChartOfAccounts> accounts, Guid accountId, string? fallback)
     {
@@ -144,8 +154,19 @@ public partial class AccountingSettingsEventHandler : TypedDictionaryEventHandle
         => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
-    public override Task<EventResult> OnAfterLoadAsync(AccountingSettings record, EventContext context)
-        => next(record, context);
+    public override async Task<EventResult> OnAfterLoadAsync(AccountingSettings record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        if (record.DefaultCurrency == Guid.Empty && !string.IsNullOrWhiteSpace(record.DefaultCurrencyCode))
+        {
+            var code = record.DefaultCurrencyCode.Replace("'", "''");
+            var row = (await context.GetService<IDictionaryManager<Currency>>()
+                .GetRecordsAsync($"Code = '{code}'", take: 1)).FirstOrDefault();
+            if (row != null) record.DefaultCurrency = row.MetaId;
+        }
+        return EventResult.Ok();
+    }
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(AccountingSettings record, string fieldName, object? value, EventContext context)

@@ -376,4 +376,30 @@ public class CostingMethodTest : IntegrationTestScriptBase
         Assert.IsTrue(await InventoryValueAsync("Value") - value0 == 70m,
             "отмена вернула стоимость запаса к +70, факт {0}", await InventoryValueAsync("Value") - value0);
     }
+
+    [IntegrationTest("Выбор средней штампует AVG")]
+    public async Task AverageChoiceStampsAvg()
+    {
+        var rows = await DictionaryManager.GetRecordsAsync<CostingSettings>(null, 1);
+        var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<CostingSettings>();
+        settings.ValuationMethod = CostingMethodKind.Average;
+        settings = await DictionaryManager.SaveRecordAsync(settings);
+        var saved = await DictionaryManager.GetRecordAsync<CostingSettings>(settings.MetaId);
+        Assert.IsTrue(saved != null, "settings row must exist");
+        Assert.IsTrue(saved!.CostingMethod == "AVG",
+            "stamped AVG, got {0}", saved.CostingMethod);
+        Assert.IsTrue(saved.ValuationMethod == CostingMethodKind.Average, "choice must stay");
+    }
+
+    [IntegrationTest("Строка FIFO без выбора сохраняется")]
+    public async Task StringFifoWithoutChoiceStillSaves()
+    {
+        var rows = await DictionaryManager.GetRecordsAsync<CostingSettings>(null, 1);
+        var settings = rows.Count > 0 ? rows[0] : DictionaryManager.NewRecord<CostingSettings>();
+        settings.ValuationMethod = CostingMethodKind.Unspecified;
+        settings.CostingMethod = "FIFO";
+        settings = await DictionaryManager.SaveRecordAsync(settings);
+        Assert.IsTrue(settings.CostingMethod == "FIFO",
+            "code kept FIFO, got {0}", settings.CostingMethod);
+    }
 }

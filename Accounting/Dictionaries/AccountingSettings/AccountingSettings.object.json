@@ -196,6 +196,7 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 2,
+      "description": "ISO-код. Штампуется из DefaultCurrency, если ссылка заполнена. Пустая ссылка строку не стирает.",
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -205,10 +206,33 @@
         "uk": "Код валюти за замовчуванням"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "b10efd5d-a292-54a5-ae3d-7ac4db85550f",
       "name": "DefaultCurrencyCode",
+      "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+    },
+    {
+      "dictionaryMetaId": "34401e5e-877c-513d-a793-b2c549619c84",
+      "fieldName": "DefaultCurrency",
+      "edtMetaId": "8d2b209b-68a9-41ed-bf05-f069a12dbe2c",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "description": "Валюта справочника. Код штампуется при сохранении, если ссылка заполнена. Пустая ссылка код не стирает.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Default currency",
+        "ar": "العملة الافتراضية",
+        "ru": "Валюта по умолчанию",
+        "uk": "Валюта за замовчуванням"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b8d4f2c5-3e69-407b-ac21-7f5e9d3b2081",
+      "name": "DefaultCurrency",
       "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
     },
     {

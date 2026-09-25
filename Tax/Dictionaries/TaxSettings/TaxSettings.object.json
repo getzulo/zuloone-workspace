@@ -33,6 +33,30 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 2,
+      "description": "TaxCode.Code. Штампуется из DefaultTax, если ссылка заполнена. Пустая ссылка строку не стирает: определение налога и тесты читают код.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Default tax code",
+        "ar": "الرمز الضريبي الافتراضي",
+        "ru": "Налоговый код по умолчанию",
+        "uk": "Податковий код за замовчуванням"
+      },
+      "isTranslatable": false,
+      "isVisible": false,
+      "isCalculated": false,
+      "metaId": "93bb6784-d4d1-5311-86a4-dcaee1428b73",
+      "name": "DefaultTaxCode",
+      "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+    },
+    {
+      "dictionaryMetaId": "970b6be9-ec41-5651-8ff3-51ab037cd79d",
+      "fieldName": "DefaultTax",
+      "edtMetaId": "40f60298-ea1b-4769-932a-e7c6744335b7",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "description": "Налоговый код справочника. Строка DefaultTaxCode штампуется при сохранении, если ссылка заполнена. Пустая ссылка строку не стирает: движок и тесты читают код.",
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -44,8 +68,8 @@
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
-      "metaId": "93bb6784-d4d1-5311-86a4-dcaee1428b73",
-      "name": "DefaultTaxCode",
+      "metaId": "e10725f8-619c-43ae-df54-a281c06e53b4",
+      "name": "DefaultTax",
       "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
     },
     {

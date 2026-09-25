@@ -1,4 +1,9 @@
 #nullable enable
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using ZuloOne.Managers;
+
 namespace ZuloOne.Runtime.Generated;
 
 // Strongly-typed lifecycle handler for CommonSettings records (MIQS DictionaryEventHandlerBase<T>).
@@ -22,9 +27,17 @@ public partial class CommonSettingsEventHandler : TypedDictionaryEventHandler<Co
         var prior = await next(record, isNew, context);
         if (!prior.Success) return prior;
 
-        // if (string.IsNullOrEmpty(record.Name))
-        //     return EventResult.Cancel("Name is required");
-        // context.AddClientAction(ClientAction.Message("Saved", "success"));
+        // Ссылка — то, что видит форма. Статус тенанта и старые строки читают
+        // код. Пустую ссылку не трогаем: UPDATE гидратирует только затронутые
+        // поля, и «пусто» здесь значит «поле не пришло», а не «стереть UAH».
+        if (record.DefaultCurrency != Guid.Empty)
+        {
+            var currencies = context.GetService<IDictionaryManager<Currency>>();
+            var row = await currencies.GetRecordAsync(record.DefaultCurrency);
+            if (!string.IsNullOrWhiteSpace(row?.Code))
+                record.DefaultCurrencyCode = row!.Code;
+        }
+
         return EventResult.Ok();
     }
 
@@ -56,8 +69,21 @@ public partial class CommonSettingsEventHandler : TypedDictionaryEventHandler<Co
         => next(record, context);
 
     // After a record is loaded: compute transient/derived property values.
-    public override Task<EventResult> OnAfterLoadAsync(CommonSettings record, EventContext context)
-        => next(record, context);
+    public override async Task<EventResult> OnAfterLoadAsync(CommonSettings record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+
+        if (record.DefaultCurrency == Guid.Empty && !string.IsNullOrWhiteSpace(record.DefaultCurrencyCode))
+        {
+            var code = record.DefaultCurrencyCode.Replace("'", "''");
+            var currencies = context.GetService<IDictionaryManager<Currency>>();
+            var row = (await currencies.GetRecordsAsync($"Code = '{code}'", take: 1)).FirstOrDefault();
+            if (row != null) record.DefaultCurrency = row.MetaId;
+        }
+
+        return EventResult.Ok();
+    }
 
     // Validate a single field (name + current value).
     public override Task<EventResult> OnValidateFieldAsync(CommonSettings record, string fieldName, object? value, EventContext context)

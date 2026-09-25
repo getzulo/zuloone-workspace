@@ -76,6 +76,7 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 2,
+      "description": "Дни из PaymentTerm. Штампуются из DefaultPaymentTerm, если ссылка заполнена. Пустая ссылка число не стирает: счёт без своего условия читает его.",
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -85,10 +86,33 @@
         "uk": "Строк оплати за замовчуванням (днів)"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "06ede618-4403-5234-8734-528dd48e613c",
       "name": "DefaultPaymentTermDays",
+      "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+    },
+    {
+      "dictionaryMetaId": "f330a37a-a4d4-5565-9969-3f689aae5730",
+      "fieldName": "DefaultPaymentTerm",
+      "edtMetaId": "3365e777-0ae8-421c-b36d-b8fe2dec5fbc",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 2,
+      "description": "Условие оплаты, если на счёте своё не выбрано. Дни штампуются в DefaultPaymentTermDays.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Default payment term",
+        "ar": "شرط السداد الافتراضي",
+        "ru": "Условие оплаты по умолчанию",
+        "uk": "Умова оплати за замовчуванням"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d5b92f31-8c46-4e27-a053-9f7e2b4d6c81",
+      "name": "DefaultPaymentTerm",
       "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
     },
     {

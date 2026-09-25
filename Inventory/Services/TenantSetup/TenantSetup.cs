@@ -177,6 +177,7 @@ public partial class TenantSetup
         var settings = (await Live.GetRecordsAsync<CommonSettings>("1 = 1", take: 1)).FirstOrDefault()
             ?? Live.NewRecord<CommonSettings>();
         settings.DefaultCountryCode = country.MetaId;
+        settings.DefaultCurrency = currency.MetaId;
         settings.DefaultCurrencyCode = currency.Code;
         await Live.SaveRecordAsync(settings);
     }

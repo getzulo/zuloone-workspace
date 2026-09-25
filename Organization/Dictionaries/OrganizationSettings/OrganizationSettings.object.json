@@ -56,6 +56,7 @@
       "isSystem": false,
       "isRequired": false,
       "displayOrder": 3,
+      "description": "ID юрлица. Штампуется из DefaultLegalEntity, если ссылка заполнена. Пустая ссылка строку не стирает.",
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -65,10 +66,33 @@
         "uk": "Код юрособи за замовчуванням"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "b4917c1e-cd65-54fd-bdae-59ca88cf3d31",
       "name": "DefaultLegalEntityCode",
+      "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
+    },
+    {
+      "dictionaryMetaId": "a569f2b2-31fe-5dc6-b910-685f70da8aba",
+      "fieldName": "DefaultLegalEntity",
+      "edtMetaId": "4ddbfca6-2464-452f-b913-443463c0094f",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "description": "Юрлицо справочника. ID штампуется в DefaultLegalEntityCode, если ссылка заполнена. Пустая ссылка строку не стирает.",
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": {
+        "en": "Default legal entity",
+        "ar": "الكيان القانوني الافتراضي",
+        "ru": "Юрлицо по умолчанию",
+        "uk": "Юрособа за замовчуванням"
+      },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "c9e503d6-4f7a-418c-bd32-806fae4c3192",
+      "name": "DefaultLegalEntity",
       "modelId": "c3291d8e-1a28-4195-b799-071ac3cd3908"
     },
     {

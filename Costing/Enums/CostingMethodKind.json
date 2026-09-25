@@ -1,0 +1,57 @@
+{
+  "kind": "Enum",
+  "object": {
+    "description": "Как оценивать выбытие партий. Ноль обязан быть «не задано»: перечисление не-nullable, и пустое поле равно нулю. Пустое драйвер читает как FIFO, пока строка CostingMethod не равна AVG.",
+    "isExtension": false,
+    "metaId": "6f3a8c21-9d4e-4b17-8a50-2c7e1f4b6d83",
+    "name": "CostingMethodKind",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+  },
+  "values": [
+    {
+      "enumMetaId": "6f3a8c21-9d4e-4b17-8a50-2c7e1f4b6d83",
+      "value": 2,
+      "caption": {
+        "en": "Weighted average",
+        "ar": "المتوسط المرجح",
+        "ru": "Средняя",
+        "uk": "Середня"
+      },
+      "displayOrder": 2,
+      "description": "Единица выбытия = сумма открытых партий / их количество. В строку CostingMethod пишется AVG.",
+      "metaId": "9c6d1f54-2071-4e4a-bd83-5f0b4c7e9016",
+      "name": "Average",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    },
+    {
+      "enumMetaId": "6f3a8c21-9d4e-4b17-8a50-2c7e1f4b6d83",
+      "value": 1,
+      "caption": {
+        "en": "FIFO",
+        "ar": "الوارد أولاً",
+        "ru": "FIFO",
+        "uk": "FIFO"
+      },
+      "displayOrder": 1,
+      "description": "Расход гасит старейшие партии. В строку CostingMethod пишется FIFO.",
+      "metaId": "8b5c0e43-1f60-4d39-ac72-4e9a3b6d8f05",
+      "name": "Fifo",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    },
+    {
+      "enumMetaId": "6f3a8c21-9d4e-4b17-8a50-2c7e1f4b6d83",
+      "value": 0,
+      "caption": {
+        "en": "Not set",
+        "ar": "غير محدد",
+        "ru": "Не задано",
+        "uk": "Не задано"
+      },
+      "displayOrder": 0,
+      "description": "Строку CostingMethod не трогает. Драйвер без AVG считает FIFO.",
+      "metaId": "7a4b9d32-0e5f-4c28-9b61-3d8f2a5c7e94",
+      "name": "Unspecified",
+      "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+    }
+  ]
+}
