@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "LearningReport",
+    "executionOrder": 0,
+    "metaId": "3b7d1e90-5a24-4c6f-8d12-0e9f4a7b3c61",
+    "name": "LearningReport",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

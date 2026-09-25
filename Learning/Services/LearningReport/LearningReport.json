@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Отчёт владельца стенда: кто закрыл путь, модуль и сертификат.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "3b7d1e90-5a24-4c6f-8d12-0e9f4a7b3c61",
+    "metaId": "9c4e2a71-6b18-4f0d-a5e3-1d8b7c6a4e20",
+    "name": "LearningReport",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

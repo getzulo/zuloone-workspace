@@ -12,6 +12,7 @@ using ZuloOne.Runtime.Generated;
 public partial class ExamSession
 {
     private static readonly Guid CertificateType = Guid.Parse("178bf8fd-4dac-48c8-b27e-775b5d2d36a4");
+    private static readonly Guid AttemptType = Guid.Parse("0a339c7f-6a7c-4ea1-a279-28dc8e67c3f9");
 
     private readonly IDictionaryManager _dictionaries;
     private readonly IDocumentManager _documents;
@@ -94,6 +95,131 @@ public partial class ExamSession
         await _documents.SaveDocumentAsync(attempt);
         return attempt.MetaId;
     }
+
+    /// <summary>
+    /// The current question of an in-progress attempt. Starts one when there is none.
+    /// Options are labels only: the correct flag is not in the text.
+    /// </summary>
+    public async Task<string> AskAsync(string email, string examName)
+    {
+        var learner = await LearnerAsync(email);
+        var exam = await ExamByNameAsync(examName);
+        if (learner == null || exam == null || exam.PublishedRevision == Guid.Empty)
+            return "{\"done\":false,\"error\":\"Экзамен не опубликован\"}";
+
+        var attempt = await OpenAttemptAsync(learner.MetaId, exam);
+        if (attempt == null) return "{\"done\":false,\"error\":\"Попытка не открылась\"}";
+        var line = NextLine(attempt);
+        if (line == null) return await FinishAsync(attempt);
+        return await QuestionJsonAsync(attempt, line);
+    }
+
+    /// <summary>
+    /// Record the chosen option on the current question and return the next one,
+    /// or the result when the paper is complete. The result does not say which option was correct.
+    /// </summary>
+    public async Task<string> ReplyAsync(string email, string attemptId, string optionId)
+    {
+        if (!Guid.TryParse(attemptId, out var id))
+            return "{\"done\":false,\"error\":\"Нет попытки\"}";
+        var attempt = await _documents.GetDocumentAsync<ExamAttempt>(id);
+        var learner = await LearnerAsync(email);
+        if (attempt == null || learner == null || attempt.Learner != learner.MetaId)
+            return "{\"done\":false,\"error\":\"Нет попытки\"}";
+        if (attempt.Subtype != ExamAttempt.Subtypes.InProgress)
+            return await ResultJsonAsync(attempt, attempt.Subtype == ExamAttempt.Subtypes.Passed, attempt.Score);
+
+        var line = NextLine(attempt);
+        if (line == null) return await FinishAsync(attempt);
+
+        var options = (await _dictionaries.GetRecordsAsync<ExamOption>($"Question = '{line.Question}'")).ToList();
+        var picked = options.FirstOrDefault(option => option.SortOrder.ToString() == (optionId ?? ""));
+        if (picked == null) return await QuestionJsonAsync(attempt, line);
+
+        line.ChosenText = picked.Text ?? "";
+        line.ChosenIsCorrect = picked.IsCorrect;
+        await _documents.SaveDocumentAsync(attempt);
+
+        attempt = await _documents.GetDocumentAsync<ExamAttempt>(id);
+        var next = NextLine(attempt!);
+        if (next != null) return await QuestionJsonAsync(attempt!, next);
+        return await FinishAsync(attempt!);
+    }
+
+    private async Task<ExamAttempt?> OpenAttemptAsync(Guid learnerId, Exam exam)
+    {
+        var rows = await _documents.QueryDocumentsAsync<ExamAttempt>($"Learner = '{learnerId}'");
+        var open = rows.FirstOrDefault(row =>
+            row.ExamRevision == exam.PublishedRevision && row.Subtype == ExamAttempt.Subtypes.InProgress);
+        if (open != null) return await _documents.GetDocumentAsync<ExamAttempt>(open.MetaId);
+        var id = await StartAttemptAsync(learnerId, exam.MetaId);
+        return id == Guid.Empty ? null : await _documents.GetDocumentAsync<ExamAttempt>(id);
+    }
+
+    private async Task<string> FinishAsync(ExamAttempt attempt)
+    {
+        var lines = attempt.Lines;
+        var correct = lines.Count(line => line.ChosenIsCorrect == true);
+        var score = lines.Count == 0 ? 0m : Math.Round(100m * correct / lines.Count, 0);
+        attempt.Score = score;
+        await _documents.SaveDocumentAsync(attempt);
+
+        var revision = await _dictionaries.GetRecordAsync<ExamRevision>(attempt.ExamRevision);
+        var passed = score >= (revision?.PassPercent ?? 100);
+        var subtype = passed ? ExamAttempt.Subtypes.Passed : ExamAttempt.Subtypes.Failed;
+        await _posting.SetSubtypeAsync(AttemptType, attempt.MetaId, subtype);
+        return await ResultJsonAsync(attempt, passed, score);
+    }
+
+    private async Task<string> QuestionJsonAsync(ExamAttempt attempt, ExamAttemptLinesTablePartRow line)
+    {
+        var options = (await _dictionaries.GetRecordsAsync<ExamOption>($"Question = '{line.Question}'"))
+            .OrderBy(option => option.SortOrder)
+            .Select(option => "{\"id\":" + Quote(option.SortOrder.ToString()) + ",\"text\":" + Quote(option.Text) + "}");
+        return "{\"done\":false,\"attempt\":" + Quote(attempt.MetaId.ToString())
+            + ",\"prompt\":" + Quote(line.PromptText)
+            + ",\"options\":[" + string.Join(",", options) + "]}";
+    }
+
+    private async Task<string> ResultJsonAsync(ExamAttempt attempt, bool passed, decimal score)
+    {
+        var number = "";
+        if (passed)
+        {
+            var issued = await _documents.QueryDocumentsAsync<Certificate>($"ExamAttempt = '{attempt.MetaId}'");
+            number = issued.FirstOrDefault()?.ID ?? "";
+        }
+        var text = "{\"done\":true,\"passed\":" + (passed ? "true" : "false") + ",\"score\":" + score.ToString("0");
+        if (number.Length > 0) text += ",\"number\":" + Quote(number);
+        return text + "}";
+    }
+
+    private static ExamAttemptLinesTablePartRow? NextLine(ExamAttempt attempt)
+        => attempt.Lines
+            .OrderBy(line => line.SortOrder ?? 0)
+            .FirstOrDefault(line => string.IsNullOrEmpty(line.ChosenText));
+
+    private async Task<Learner?> LearnerAsync(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email)) return null;
+        var learner = (await _dictionaries.GetRecordsAsync<Learner>($"Email = '{Esc(email)}'")).FirstOrDefault();
+        if (learner != null) return learner;
+        learner = _dictionaries.NewRecord<Learner>();
+        learner.Email = email;
+        learner.Name = email;
+        return await _dictionaries.SaveRecordAsync(learner);
+    }
+
+    private async Task<Exam?> ExamByNameAsync(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return null;
+        return (await _dictionaries.GetRecordsAsync<Exam>($"Name = '{Esc(name)}'")).FirstOrDefault();
+    }
+
+    private static string Quote(string? value)
+        => "\"" + (value ?? "").Replace("\\", "\\\\").Replace("\"", "\\\"") + "\"";
+
+    private static string Esc(string value) => (value ?? "").Replace("'", "''");
 
     /// <summary>Create the certificate for a passed attempt. A second call keeps the first certificate.</summary>
     public async Task IssueCertificateAsync(Guid attemptId)

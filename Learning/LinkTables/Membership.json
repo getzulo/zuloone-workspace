@@ -50,6 +50,25 @@
       "metaId": "8931f5bd-ad64-430a-9360-ed934cd098a7",
       "name": "Organization",
       "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "linkTableMetaId": "f3f01dd0-98bd-40ce-840c-cec1957b1972",
+      "fieldName": "Role",
+      "caption": {
+        "en": "Role",
+        "ru": "Роль"
+      },
+      "baseType": "String",
+      "length": 20,
+      "isRequired": false,
+      "isPrimaryKey": false,
+      "isLogged": false,
+      "isIndexed": false,
+      "isReference": false,
+      "displayOrder": 3,
+      "metaId": "5e8a1c34-2d47-4b90-9f16-7a3c0d5e8b42",
+      "name": "Role",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
     }
   ]
 }
