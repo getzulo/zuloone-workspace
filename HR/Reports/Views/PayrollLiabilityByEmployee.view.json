@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "8e31292c-3d5a-4f8b-9c2e-7a4f1b6d8e30",
+    "caption": "Payroll liability by employee",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"Employee\"],\"variables\":[{\"id\":\"amt-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"wh-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Withheld\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"wh-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Withheld\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"wh-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Withheld\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"wh-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Withheld\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "c1e5a9d3-6f42-4180-ac37-8a4d2e6f1b53",
+    "name": "PayrollLiabilityByEmployee",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  },
+  "bindings": [
+    {
+      "metaId": "d2f6b0e4-7053-4291-bd48-9b5e3f7a2c64",
+      "reportViewMetaId": "c1e5a9d3-6f42-4180-ac37-8a4d2e6f1b53",
+      "ownerType": "Register",
+      "ownerMetaId": "8e31292c-3d5a-4f8b-9c2e-7a4f1b6d8e30"
+    }
+  ]
+}

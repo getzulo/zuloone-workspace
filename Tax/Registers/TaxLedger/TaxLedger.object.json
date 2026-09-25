@@ -43,6 +43,7 @@
       "caption": {
         "en": "TaxAmount",
         "ar": "مبلغ الضريبة",
+        "ru": "Сумма налога",
         "uk": "Сума податку"
       },
       "isOperational": true,
@@ -58,6 +59,7 @@
       "caption": {
         "en": "TaxBase",
         "ar": "الوعاء الضريبي",
+        "ru": "База",
         "uk": "База оподаткування"
       },
       "isOperational": true,

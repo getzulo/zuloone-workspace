@@ -26,6 +26,7 @@
       "caption": {
         "en": "Amount",
         "ar": "المبلغ",
+        "ru": "Сумма",
         "uk": "Сума"
       },
       "isOperational": true,

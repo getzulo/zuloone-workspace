@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8",
+    "caption": "Tax ledger by code, direction and entity",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"TaxCode\",\"TaxDirection\",\"LegalEntity\"],\"variables\":[{\"id\":\"tb-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"TaxBase\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"tb-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"TaxBase\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"tb-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"TaxBase\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"tb-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"TaxBase\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ta-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"TaxAmount\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ta-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"TaxAmount\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ta-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"TaxAmount\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ta-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"TaxAmount\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ra-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"RecoverableAmount\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ra-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"RecoverableAmount\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ra-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"RecoverableAmount\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ra-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"RecoverableAmount\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "a9c3e7b1-4d20-4f68-8a15-6e2b0c4d9f31",
+    "name": "TaxLedgerByCodeDirectionEntity",
+    "modelId": "39489aa3-094f-411d-a0a0-d5089980790a"
+  },
+  "bindings": [
+    {
+      "metaId": "b0d4f8c2-5e31-4079-9b26-7f3c1d5e0a42",
+      "reportViewMetaId": "a9c3e7b1-4d20-4f68-8a15-6e2b0c4d9f31",
+      "ownerType": "Register",
+      "ownerMetaId": "6955f3f7-088a-418e-bf6d-a37eedfe16b8"
+    }
+  ]
+}
