@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
@@ -11,6 +12,21 @@ namespace ZuloOne.Runtime.Generated;
 // would make BuildFromPeriodAsync pick at random.
 public partial class TaxPeriodEventHandler : TypedDictionaryEventHandler<TaxPeriod>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(TaxPeriod record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("TaxPeriod");
+        if (record.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) record.LegalEntity = createId;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforeSaveAsync(
         TaxPeriod record, bool isNew, EventContext context)
     {

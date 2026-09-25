@@ -13,6 +13,26 @@ namespace ZuloOne.Runtime.Generated;
 // table parts in an event handler).
 public partial class JournalEntryEventHandler : TypedDocumentEventHandler<JournalEntry>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(JournalEntry header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("JournalEntry");
+        if (header.Currency == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "Currency");
+            if (createId != Guid.Empty) header.Currency = createId;
+        }
+        if (header.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) header.LegalEntity = createId;
+        }
+        return EventResult.Ok();
+    }
+
     /// <summary>
     /// Курс документа к функциональной валюте юрлица, штампуется на КАЖДОМ
     /// сохранении — переход подтипа тоже сохранение, а иначе поле не доедет до

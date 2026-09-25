@@ -1,6 +1,8 @@
+using System;
 #nullable enable
 using System.Linq;
 using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
@@ -14,6 +16,21 @@ namespace ZuloOne.Runtime.Generated;
 // table part (the same pattern as VendorPayment and TaxCalculation).
 public partial class TaxPaymentEventHandler : TypedDocumentEventHandler<TaxPayment>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(TaxPayment header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("TaxPayment");
+        if (header.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) header.LegalEntity = createId;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforePostAsync(TaxPayment document, EventContext context){
         var prior = await next(document, context);
         if (!prior.Success) return prior;

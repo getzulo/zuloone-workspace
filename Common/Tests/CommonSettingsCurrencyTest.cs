@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Runtime.Testing;
+using ZuloOne.Services.Contracts;
 
 // Валюта по умолчанию — ссылка на Currency. Код штампуется для статуса тенанта.
 // Пустая ссылка код не стирает. Загрузка подставляет ссылку по уже записанному коду.
@@ -53,6 +54,41 @@ public class CommonSettingsCurrencyTest : IntegrationTestScriptBase
         Assert.IsTrue(loaded!.DefaultCurrency == currency.MetaId,
             "load must resolve the code to the currency");
         Assert.IsTrue(loaded.DefaultCurrencyCode == code, "code stays after load");
+    }
+
+    [IntegrationTest("Новая запись берёт валюту и дату начала из настроек")]
+    public async Task NewRecordTakesCurrencyAndStartDate()
+    {
+        var code = Code3();
+        var currency = DictionaryManager.NewRecord<Currency>();
+        currency.Code = code;
+        currency.Name = "Create default";
+        currency = await DictionaryManager.SaveRecordAsync(currency);
+
+        var settings = await SettingsAsync();
+        var priorRef = settings.DefaultCurrency;
+        var priorCode = settings.DefaultCurrencyCode;
+        try
+        {
+            settings.DefaultCurrency = currency.MetaId;
+            settings = await DictionaryManager.SaveRecordAsync(settings);
+
+            var preview = await GetService<IRecordDefaults>().ForNewAsync("ExchangeRate");
+            Assert.IsTrue(preview.TryGetValue("Currency", out var cur) && cur is Guid curId && curId == currency.MetaId,
+                "курс открывается в валюте настроек");
+            Assert.IsTrue(preview.TryGetValue("EffectiveFrom", out var from) && from is DateTime day && day.Date == DateTime.UtcNow.Date,
+                "дата начала нового курса — сегодня");
+
+            var entry = await GetService<IRecordDefaults>().ForNewAsync("JournalEntry");
+            Assert.IsTrue(entry.TryGetValue("Currency", out var entryCur) && entryCur is Guid entryId && entryId == currency.MetaId,
+                "проводка открывается в валюте настроек");
+        }
+        finally
+        {
+            settings.DefaultCurrency = priorRef;
+            settings.DefaultCurrencyCode = priorCode;
+            await DictionaryManager.SaveRecordAsync(settings);
+        }
     }
 
     private async Task<CommonSettings> SettingsAsync()

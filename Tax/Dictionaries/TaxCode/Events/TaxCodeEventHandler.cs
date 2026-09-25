@@ -2,6 +2,7 @@
 using System;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
@@ -31,6 +32,14 @@ public partial class TaxCodeEventHandler : TypedDictionaryEventHandler<TaxCode>
         var prior = await next(record, context);
         if (!prior.Success) return prior;
 
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("TaxCode");
+        if (record.EffectiveFrom.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "EffectiveFrom");
+            if (createDay.Year >= 1902) record.EffectiveFrom = createDay;
+        }
         // record.CreatedOn = DateTime.UtcNow;
         return EventResult.Ok();
     }

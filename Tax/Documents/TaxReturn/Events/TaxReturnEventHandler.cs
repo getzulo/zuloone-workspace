@@ -1,3 +1,4 @@
+using System;
 #nullable enable
 using ZuloOne.Services.Contracts;
 
@@ -11,8 +12,25 @@ namespace ZuloOne.Runtime.Generated;
 public partial class TaxReturnEventHandler : TypedDocumentEventHandler<TaxReturn>
 {
     // Building a new document server-side: seed header defaults (number, date).
-    public override Task<EventResult> OnBeforeCreateAsync(TaxReturn header, EventContext context)
-        => next(header, context);
+    public override async Task<EventResult> OnBeforeCreateAsync(TaxReturn header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("TaxReturn");
+        if (header.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) header.LegalEntity = createId;
+        }
+        if (header.PeriodFrom.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "PeriodFrom");
+            if (createDay.Year >= 1902) header.PeriodFrom = createDay;
+        }
+        return EventResult.Ok();
+    }
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
     public override Task<EventResult> OnBeforeSaveAsync(TaxReturn header, bool isNew, EventContext context)

@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "RecordDefaults",
+    "executionOrder": 0,
+    "metaId": "b7e2c4a1-6d58-4f93-8a17-3c9e5b0d2f64",
+    "name": "RecordDefaults",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  }
+}

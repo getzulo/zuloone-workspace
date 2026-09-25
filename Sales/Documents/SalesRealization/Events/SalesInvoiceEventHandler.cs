@@ -17,8 +17,30 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
 {
     // Building a new document server-side: seed header defaults (number, date).
     // Copy-defaults from Customer are applied in OnBeforeSaveAsync(isNew=true) below.
-    public override Task<EventResult> OnBeforeCreateAsync(SalesRealization header, EventContext context)
-        => next(header, context);
+    public override async Task<EventResult> OnBeforeCreateAsync(SalesRealization header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("SalesRealization");
+        if (header.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) header.LegalEntity = createId;
+        }
+        if (header.PaymentTerm == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "PaymentTerm");
+            if (createId != Guid.Empty) header.PaymentTerm = createId;
+        }
+        if (header.DueDate.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "DueDate");
+            if (createDay.Year >= 1902) header.DueDate = createDay;
+        }
+        return EventResult.Ok();
+    }
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
     // DiscountPercent outside [0, 100] flips LineAmount (>100%) or is a markup
@@ -40,19 +62,25 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
         var contracts = context.GetService<ISalesContractService>();
         var stamp = await contracts.ResolveStampAsync(
             header.Customer, header.Outlet, header.Contract, onDate);
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("SalesRealization");
+        var moduleTerm = createDefaults.Pick(createSeed, "PaymentTerm");
+        var moduleEntity = createDefaults.Pick(createSeed, "LegalEntity");
         if (header.Customer == Guid.Empty && stamp.TryGetValue("Customer", out var c) && c is Guid stampedCustomer)
             header.Customer = stampedCustomer;
         if (header.Outlet == Guid.Empty && stamp.TryGetValue("Outlet", out var o) && o is Guid stampedOutlet)
             header.Outlet = stampedOutlet;
         if (header.Contract == Guid.Empty && stamp.TryGetValue("Contract", out var k) && k is Guid stampedContract)
             header.Contract = stampedContract;
-        if (header.PaymentTerm == Guid.Empty && stamp.TryGetValue("PaymentTerm", out var p) && p is Guid term)
+        if (createDefaults.IsPlaceholder(header.PaymentTerm, moduleTerm)
+            && stamp.TryGetValue("PaymentTerm", out var p) && p is Guid term && term != Guid.Empty)
             header.PaymentTerm = term;
         if (header.DeliveryTerm == Guid.Empty && stamp.TryGetValue("DeliveryTerm", out var d) && d is Guid delivery)
             header.DeliveryTerm = delivery;
         if (header.Contact == Guid.Empty && stamp.TryGetValue("Contact", out var n) && n is Guid stampedContact)
             header.Contact = stampedContact;
-        if (header.LegalEntity == Guid.Empty && stamp.TryGetValue("LegalEntity", out var le) && le is Guid legal)
+        if (createDefaults.IsPlaceholder(header.LegalEntity, moduleEntity)
+            && stamp.TryGetValue("LegalEntity", out var le) && le is Guid legal && legal != Guid.Empty)
             header.LegalEntity = legal;
 
         var pair = await contracts.ValidatePairAsync(
@@ -67,7 +95,7 @@ public partial class SalesInvoiceEventHandler : TypedDocumentEventHandler<SalesR
             var customer = await dm.GetRecordAsync(header.Customer);
             if (customer is not null)
             {
-                if (header.PaymentTerm == Guid.Empty && customer.PaymentTerm != Guid.Empty)
+                if (createDefaults.IsPlaceholder(header.PaymentTerm, moduleTerm) && customer.PaymentTerm != Guid.Empty)
                     header.PaymentTerm = customer.PaymentTerm;
 
                 if (header.Contact == Guid.Empty)

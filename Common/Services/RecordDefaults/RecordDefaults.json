@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Значения новой записи из настроек модулей: валюта, юрлицо, ячейка выпуска, срок оплаты и даты начала.",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "b7e2c4a1-6d58-4f93-8a17-3c9e5b0d2f64",
+    "metaId": "a6d1b3f0-5c47-4e82-9b06-2d8e4a9c1f53",
+    "name": "RecordDefaults",
+    "modelId": "ee2cf537-a2c6-459e-9041-f221de8439c8"
+  }
+}

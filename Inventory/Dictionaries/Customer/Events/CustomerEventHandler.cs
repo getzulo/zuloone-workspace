@@ -1,3 +1,5 @@
+using System;
+using ZuloOne.Services.Contracts;
 #nullable enable
 namespace ZuloOne.Runtime.Generated;
 
@@ -12,6 +14,14 @@ public partial class CustomerEventHandler : TypedDictionaryEventHandler<Customer
         var prior = await next(record, context);
         if (!prior.Success) return prior;
 
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("Customer");
+        if (record.PaymentTerm == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "PaymentTerm");
+            if (createId != Guid.Empty) record.PaymentTerm = createId;
+        }
         // record.CreatedOn = DateTime.UtcNow;
         return EventResult.Ok();
     }

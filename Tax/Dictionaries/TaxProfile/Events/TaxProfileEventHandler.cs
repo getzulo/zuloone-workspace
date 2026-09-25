@@ -10,6 +10,21 @@ namespace ZuloOne.Runtime.Generated;
 // rows match — same split as TaxRegistration.
 public partial class TaxProfileEventHandler : TypedDictionaryEventHandler<TaxProfile>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(TaxProfile record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("TaxProfile");
+        if (record.EffectiveFrom.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "EffectiveFrom");
+            if (createDay.Year >= 1902) record.EffectiveFrom = createDay;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforeSaveAsync(
         TaxProfile record, bool isNew, EventContext context)
     {

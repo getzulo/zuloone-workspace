@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
@@ -13,6 +14,26 @@ namespace ZuloOne.Runtime.Generated;
 // законны: курса на дату может не быть, и это честное «не знаю», а не ноль.
 public partial class ExchangeRateEventHandler : TypedDictionaryEventHandler<ExchangeRate>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(ExchangeRate record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("ExchangeRate");
+        if (record.Currency == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "Currency");
+            if (createId != Guid.Empty) record.Currency = createId;
+        }
+        if (record.EffectiveFrom.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "EffectiveFrom");
+            if (createDay.Year >= 1902) record.EffectiveFrom = createDay;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforeSaveAsync(ExchangeRate record, bool isNew, EventContext context)
     {
         var prior = await next(record, isNew, context);

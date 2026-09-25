@@ -1,3 +1,5 @@
+using System;
+using ZuloOne.Services.Contracts;
 #nullable enable
 namespace ZuloOne.Runtime.Generated;
 
@@ -8,6 +10,21 @@ namespace ZuloOne.Runtime.Generated;
 // postable, otherwise its own balance and the sum of children would drift.
 public partial class ChartOfAccountsEventHandler : TypedDictionaryEventHandler<ChartOfAccounts>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(ChartOfAccounts record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("ChartOfAccounts");
+        if (record.Currency == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "Currency");
+            if (createId != Guid.Empty) record.Currency = createId;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforeSaveAsync(ChartOfAccounts record, bool isNew, EventContext context){
         var prior = await next(record, isNew, context);
         if (!prior.Success) return prior;

@@ -1,3 +1,5 @@
+using System;
+using ZuloOne.Services.Contracts;
 #nullable enable
 namespace ZuloOne.Runtime.Generated;
 
@@ -12,6 +14,14 @@ public partial class EmployeeEventHandler : TypedDictionaryEventHandler<Employee
         var prior = await next(record, context);
         if (!prior.Success) return prior;
 
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("Employee");
+        if (record.HireDate.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "HireDate");
+            if (createDay.Year >= 1902) record.HireDate = createDay;
+        }
         // record.CreatedOn = DateTime.UtcNow;
         return EventResult.Ok();
     }

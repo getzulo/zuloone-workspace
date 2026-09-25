@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
@@ -8,6 +9,21 @@ namespace ZuloOne.Runtime.Generated;
 // TaxDocument (credit note), not an edit of the accepted one.
 public partial class TaxDocumentEventHandler : TypedDocumentEventHandler<TaxDocument>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(TaxDocument header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("TaxDocument");
+        if (header.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) header.LegalEntity = createId;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforeSaveAsync(TaxDocument header, bool isNew, EventContext context)
     {
         var prior = await next(header, isNew, context);

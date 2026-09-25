@@ -9,6 +9,26 @@ namespace ZuloOne.Runtime.Generated;
 
 public partial class SalesQuotationEventHandler : TypedDocumentEventHandler<SalesQuotation>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(SalesQuotation header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("SalesQuotation");
+        if (header.DeliveryDate.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "DeliveryDate");
+            if (createDay.Year >= 1902) header.DeliveryDate = createDay;
+        }
+        if (header.PaymentTerm == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "PaymentTerm");
+            if (createId != Guid.Empty) header.PaymentTerm = createId;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforeSaveAsync(SalesQuotation header, bool isNew, EventContext context)
     {
         if (!isNew)
@@ -20,7 +40,9 @@ public partial class SalesQuotationEventHandler : TypedDocumentEventHandler<Sale
         var contracts = context.GetService<ISalesContractService>();
         var stamp = await contracts.ResolveStampAsync(
             header.Customer, header.Outlet, header.Contract, onDate);
-        ApplyStamp(header, stamp);
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var moduleTerm = createDefaults.Pick(await createDefaults.SeedAsync("SalesQuotation"), "PaymentTerm");
+        ApplyStamp(header, stamp, moduleTerm);
 
         var pair = await contracts.ValidatePairAsync(
             header.Customer, header.Outlet, header.Contract, onDate);
@@ -33,7 +55,7 @@ public partial class SalesQuotationEventHandler : TypedDocumentEventHandler<Sale
             var customer = await dm.GetRecordAsync(header.Customer);
             if (customer is not null)
             {
-                if (header.PaymentTerm == Guid.Empty && customer.PaymentTerm != Guid.Empty)
+                if (createDefaults.IsPlaceholder(header.PaymentTerm, moduleTerm) && customer.PaymentTerm != Guid.Empty)
                     header.PaymentTerm = customer.PaymentTerm;
 
                 if (header.Contact == Guid.Empty)
@@ -119,7 +141,7 @@ public partial class SalesQuotationEventHandler : TypedDocumentEventHandler<Sale
             header.ValidUntil = stored.ValidUntil;
     }
 
-    private static void ApplyStamp(SalesQuotation header, Dictionary<string, object?> stamp)
+    private static void ApplyStamp(SalesQuotation header, Dictionary<string, object?> stamp, Guid moduleTerm)
     {
         if (header.Customer == Guid.Empty && stamp.TryGetValue("Customer", out var c) && c is Guid customer)
             header.Customer = customer;
@@ -127,7 +149,8 @@ public partial class SalesQuotationEventHandler : TypedDocumentEventHandler<Sale
             header.Outlet = outlet;
         if (header.Contract == Guid.Empty && stamp.TryGetValue("Contract", out var k) && k is Guid contract)
             header.Contract = contract;
-        if (header.PaymentTerm == Guid.Empty && stamp.TryGetValue("PaymentTerm", out var p) && p is Guid term)
+        if ((header.PaymentTerm == Guid.Empty || (moduleTerm != Guid.Empty && header.PaymentTerm == moduleTerm))
+            && stamp.TryGetValue("PaymentTerm", out var p) && p is Guid term && term != Guid.Empty)
             header.PaymentTerm = term;
         if (header.DeliveryTerm == Guid.Empty && stamp.TryGetValue("DeliveryTerm", out var d) && d is Guid delivery)
             header.DeliveryTerm = delivery;

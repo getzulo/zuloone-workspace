@@ -1,3 +1,5 @@
+using System;
+using ZuloOne.Services.Contracts;
 #nullable enable
 namespace ZuloOne.Runtime.Generated;
 
@@ -8,6 +10,26 @@ namespace ZuloOne.Runtime.Generated;
 // what the owner wrote. [Replace] swallows the chain on purpose.
 public partial class UaTaxFilingExportEventHandler : TypedDictionaryEventHandler<UaTaxFilingExport>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(UaTaxFilingExport record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("UaTaxFilingExport");
+        if (record.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) record.LegalEntity = createId;
+        }
+        if (record.PeriodFrom.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "PeriodFrom");
+            if (createDay.Year >= 1902) record.PeriodFrom = createDay;
+        }
+        return EventResult.Ok();
+    }
+
     // public override async Task<EventResult> OnBeforeSaveAsync(UaTaxFilingExport record, bool isNew, EventContext context)
     // {
     //     return EventResult.Ok();

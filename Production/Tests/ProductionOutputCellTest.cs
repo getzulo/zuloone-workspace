@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Managers;
 using ZuloOne.Runtime.Generated;
+using ZuloOne.Services.Contracts;
 
 // Изделие и компоненты могут лежать в разных ячейках. Пустая ячейка выпуска
 // на новом заказе копируется из настроек модуля; компоненты остаются на ячейке
@@ -80,7 +81,14 @@ public class ProductionOutputCellTest : IntegrationTestScriptBase
                 new Dictionary<string, object?> { ["Cell"] = consume, ["Item"] = comp.MetaId },
                 new Dictionary<string, decimal> { ["Qty"] = 10m });
 
+            var preview = await GetService<IRecordDefaults>().ForNewAsync("ProductionOrder");
+            Assert.IsTrue(preview.TryGetValue("OutputLocation", out var previewCell)
+                && previewCell is Guid previewId && previewId == output,
+                "карточка до сохранения уже с ячейкой из настроек");
+
             var order = await DocumentManager.NewDocumentAsync<ProductionOrder>();
+            Assert.IsTrue(order.OutputLocation == output,
+                "новый заказ открывается с ячейкой из настроек, факт {0}", order.OutputLocation);
             order.Product = product.MetaId;
             order.Quantity = 2m;
             order.Location = consume;

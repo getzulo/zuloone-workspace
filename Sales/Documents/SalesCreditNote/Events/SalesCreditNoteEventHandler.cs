@@ -1,3 +1,4 @@
+using System;
 #nullable enable
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,21 @@ namespace ZuloOne.Runtime.Generated;
 
 public partial class SalesCreditNoteEventHandler : TypedDocumentEventHandler<SalesCreditNote>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(SalesCreditNote header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("SalesCreditNote");
+        if (header.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) header.LegalEntity = createId;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforeSaveAsync(SalesCreditNote header, bool isNew, EventContext context)
     {
         var prior = await next(header, isNew, context);

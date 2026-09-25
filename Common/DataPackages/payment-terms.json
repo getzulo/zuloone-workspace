@@ -21,43 +21,50 @@
         "Name": "Immediate",
         "Days": 0,
         "Name_ru": "Сразу",
+        "Name_uk": "Одразу",
         "Name_ar": "فوري"
       },
       {
-        "Name": "Net 7",
+        "Name": "7 days",
         "Days": 7,
-        "Name_ru": "Нетто 7",
-        "Name_ar": "صافي 7"
+        "Name_ru": "7 дней",
+        "Name_uk": "7 днів",
+        "Name_ar": "7 أيام"
       },
       {
-        "Name": "Net 14",
+        "Name": "14 days",
         "Days": 14,
-        "Name_ru": "Нетто 14",
-        "Name_ar": "صافي 14"
+        "Name_ru": "14 дней",
+        "Name_uk": "14 днів",
+        "Name_ar": "14 يوماً"
       },
       {
-        "Name": "Net 30",
+        "Name": "30 days",
         "Days": 30,
-        "Name_ru": "Нетто 30",
-        "Name_ar": "صافي 30"
+        "Name_ru": "30 дней",
+        "Name_uk": "30 днів",
+        "Name_ar": "30 يوماً"
       },
       {
-        "Name": "Net 45",
+        "Name": "45 days",
         "Days": 45,
-        "Name_ru": "Нетто 45",
-        "Name_ar": "صافي 45"
+        "Name_ru": "45 дней",
+        "Name_uk": "45 днів",
+        "Name_ar": "45 يوماً"
       },
       {
-        "Name": "Net 60",
+        "Name": "60 days",
         "Days": 60,
-        "Name_ru": "Нетто 60",
-        "Name_ar": "صافي 60"
+        "Name_ru": "60 дней",
+        "Name_uk": "60 днів",
+        "Name_ar": "60 يوماً"
       },
       {
-        "Name": "Net 90",
+        "Name": "90 days",
         "Days": 90,
-        "Name_ru": "Нетто 90",
-        "Name_ar": "صافي 90"
+        "Name_ru": "90 дней",
+        "Name_uk": "90 днів",
+        "Name_ar": "90 يوماً"
       }
     ]
   }

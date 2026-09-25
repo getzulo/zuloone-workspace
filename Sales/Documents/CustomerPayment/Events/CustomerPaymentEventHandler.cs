@@ -1,3 +1,5 @@
+using System;
+using ZuloOne.Services.Contracts;
 #nullable enable
 namespace ZuloOne.Runtime.Generated;
 
@@ -9,8 +11,20 @@ namespace ZuloOne.Runtime.Generated;
 public partial class CustomerPaymentEventHandler : TypedDocumentEventHandler<CustomerPayment>
 {
     // Building a new document server-side: seed header defaults (number, date).
-    public override Task<EventResult> OnBeforeCreateAsync(CustomerPayment header, EventContext context)
-        => next(header, context);
+    public override async Task<EventResult> OnBeforeCreateAsync(CustomerPayment header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("CustomerPayment");
+        if (header.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) header.LegalEntity = createId;
+        }
+        return EventResult.Ok();
+    }
 
     // MIQS BeforeSave: runs before ANY save — insert (isNew) or update.
     public override Task<EventResult> OnBeforeSaveAsync(CustomerPayment header, bool isNew, EventContext context)

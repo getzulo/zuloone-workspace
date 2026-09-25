@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
 
 namespace ZuloOne.Runtime.Generated;
 
@@ -16,6 +17,21 @@ namespace ZuloOne.Runtime.Generated;
 // posting the header gets CountDate via WriteBack (skill pitfall 4b).
 public partial class StockCountEventHandler : TypedDocumentEventHandler<StockCount>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(StockCount header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("StockCount");
+        if (header.CountDate.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "CountDate");
+            if (createDay.Year >= 1902) header.CountDate = createDay;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforeSaveAsync(StockCount header, bool isNew, EventContext context){
         var prior = await next(header, isNew, context);
         if (!prior.Success) return prior;

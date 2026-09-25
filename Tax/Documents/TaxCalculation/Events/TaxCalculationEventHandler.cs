@@ -34,6 +34,31 @@ namespace ZuloOne.Runtime.Generated;
 // table parts.
 public partial class TaxCalculationEventHandler : TypedDocumentEventHandler<TaxCalculation>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(TaxCalculation header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("TaxCalculation");
+        if (header.Currency == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "Currency");
+            if (createId != Guid.Empty) header.Currency = createId;
+        }
+        if (header.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) header.LegalEntity = createId;
+        }
+        if (header.TaxPointDate.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "TaxPointDate");
+            if (createDay.Year >= 1902) header.TaxPointDate = createDay;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforePostAsync(TaxCalculation document, EventContext context){
         var prior = await next(document, context);
         if (!prior.Success) return prior;

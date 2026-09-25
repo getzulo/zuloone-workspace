@@ -12,6 +12,21 @@ namespace ZuloOne.Runtime.Generated;
 // with a specific type. Disabled rows do not occupy the calendar.
 public partial class LoyaltyCampaignEventHandler : TypedDictionaryEventHandler<LoyaltyCampaign>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(LoyaltyCampaign record, EventContext context)
+    {
+        var prior = await next(record, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("LoyaltyCampaign");
+        if (record.EffectiveFrom.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "EffectiveFrom");
+            if (createDay.Year >= 1902) record.EffectiveFrom = createDay;
+        }
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforeSaveAsync(
         LoyaltyCampaign record, bool isNew, EventContext context)
     {

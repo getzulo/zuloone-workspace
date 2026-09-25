@@ -13,6 +13,31 @@ namespace ZuloOne.Runtime.Generated;
 // carry table parts).
 public partial class PurchaseOrderEventHandler : TypedDocumentEventHandler<PurchaseOrder>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(PurchaseOrder header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        // RecordDefaults: валюта, юрлицо, ячейка, срок и даты начала — из настроек, пока поле пустое.
+        var createDefaults = context.GetService<IRecordDefaults>();
+        var createSeed = await createDefaults.SeedAsync("PurchaseOrder");
+        if (header.LegalEntity == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "LegalEntity");
+            if (createId != Guid.Empty) header.LegalEntity = createId;
+        }
+        if (header.PaymentTerm == Guid.Empty)
+        {
+            var createId = createDefaults.Pick(createSeed, "PaymentTerm");
+            if (createId != Guid.Empty) header.PaymentTerm = createId;
+        }
+        if (header.DueDate.Year < 1902)
+        {
+            var createDay = createDefaults.PickDay(createSeed, "DueDate");
+            if (createDay.Year >= 1902) header.DueDate = createDay;
+        }
+        return EventResult.Ok();
+    }
+
     private static readonly Guid PurchaseOrderType = Guid.Parse("6935af7d-5f73-45d5-ad4c-d4a21dbe0b67");
 
     public override async Task<EventResult> OnBeforeSaveAsync(PurchaseOrder document, bool isNew, EventContext context)

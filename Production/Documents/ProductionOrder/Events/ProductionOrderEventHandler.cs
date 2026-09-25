@@ -25,6 +25,14 @@ namespace ZuloOne.Runtime.Generated;
 // register, allowNegativeBalance=true).
 public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<ProductionOrder>
 {
+    public override async Task<EventResult> OnBeforeCreateAsync(ProductionOrder header, EventContext context)
+    {
+        var prior = await next(header, context);
+        if (!prior.Success) return prior;
+        await StampOutputLocationAsync(header, true, context);
+        return EventResult.Ok();
+    }
+
     public override async Task<EventResult> OnBeforeSaveAsync(ProductionOrder header, bool isNew, EventContext context)
     {
         var prior = await next(header, isNew, context);
@@ -50,21 +58,9 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         }
         if (header.OutputLocation != Guid.Empty) return;
 
-        var cell = await DefaultOutputCellAsync(context);
+        var defaults = context.GetService<IRecordDefaults>();
+        var cell = defaults.Pick(await defaults.SeedAsync("ProductionOrder"), "OutputLocation");
         if (cell != Guid.Empty) header.OutputLocation = cell;
-    }
-
-    private static async Task<Guid> DefaultOutputCellAsync(EventContext context)
-    {
-        var settings = (await context.GetService<IDictionaryManager<ProductionSettings>>()
-            .GetRecordsAsync("1 = 1")).FirstOrDefault();
-        if (settings == null) return Guid.Empty;
-        if (settings.DefaultOutputLocation != Guid.Empty) return settings.DefaultOutputLocation;
-        if (string.IsNullOrWhiteSpace(settings.DefaultOutputLocationCode)) return Guid.Empty;
-        var id = settings.DefaultOutputLocationCode.Replace("'", "''");
-        var row = (await context.GetService<IDictionaryManager<StoreCell>>()
-            .GetRecordsAsync($"ID = '{id}'", take: 1)).FirstOrDefault();
-        return row?.MetaId ?? Guid.Empty;
     }
 
     public override async Task<EventResult> OnAfterSaveAsync(ProductionOrder header, bool isNew, EventContext context){
