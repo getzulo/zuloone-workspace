@@ -1,0 +1,86 @@
+{
+  "kind": "WebService",
+  "object": {
+    "scriptMetaId": "8c1e5a72-4d63-4f18-9b20-7a6c3e1d5b84",
+    "listResponse": false,
+    "isEnabled": true,
+    "isDevOnly": false,
+    "requireExplicitRoles": false,
+    "devComments": "Ответ страницы не содержит верный вариант. Сайт зовёт действием open.",
+    "metaId": "6f3a1c84-9e27-4b5d-a1c8-2d7e4b9a0f31",
+    "name": "LearningApi",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  },
+  "parameters": [
+    {
+      "webServiceMetaId": "6f3a1c84-9e27-4b5d-a1c8-2d7e4b9a0f31",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 0,
+      "metaId": "a11e2c30-5b74-4d6a-8f19-0c3d7e2a4b56",
+      "name": "Action",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "webServiceMetaId": "6f3a1c84-9e27-4b5d-a1c8-2d7e4b9a0f31",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 1,
+      "metaId": "b22f3d41-6c85-4e7b-9a20-1d4e8f3b5c67",
+      "name": "Email",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "webServiceMetaId": "6f3a1c84-9e27-4b5d-a1c8-2d7e4b9a0f31",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 2,
+      "metaId": "c33a4e52-7d96-4f8c-ab31-2e5f904c6d78",
+      "name": "StableId",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "webServiceMetaId": "6f3a1c84-9e27-4b5d-a1c8-2d7e4b9a0f31",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": false,
+      "position": 3,
+      "metaId": "7a91c0e4-2b58-4d6e-9f13-6c0a8e5d4b27",
+      "name": "Answers",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "webServiceMetaId": "6f3a1c84-9e27-4b5d-a1c8-2d7e4b9a0f31",
+      "paramType": "bool",
+      "isArray": false,
+      "isResponse": true,
+      "position": 0,
+      "metaId": "d44b5f63-8ea7-409d-bc42-3f6a015d7e89",
+      "name": "Ok",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "webServiceMetaId": "6f3a1c84-9e27-4b5d-a1c8-2d7e4b9a0f31",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 1,
+      "metaId": "e55c6074-9fb8-41ae-cd53-407b126e8f9a",
+      "name": "Error",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "webServiceMetaId": "6f3a1c84-9e27-4b5d-a1c8-2d7e4b9a0f31",
+      "paramType": "string",
+      "isArray": false,
+      "isResponse": true,
+      "position": 2,
+      "metaId": "f66d7185-a0c9-42bf-de64-518c237f90ab",
+      "name": "Payload",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "WebService",
+    "objectType": "WebService",
+    "objectName": "LearningApi",
+    "objectMetaId": "6f3a1c84-9e27-4b5d-a1c8-2d7e4b9a0f31",
+    "executionOrder": 0,
+    "metaId": "8c1e5a72-4d63-4f18-9b20-7a6c3e1d5b84",
+    "name": "LearningApiService",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}
