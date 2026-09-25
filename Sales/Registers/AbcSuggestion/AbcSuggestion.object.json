@@ -7,7 +7,7 @@
       "ru": "Предложение пополнения ABC",
       "uk": "Пропозиція поповнення ABC"
     },
-    "description": "SliceLast by Profile + Item. Written by IAbcPolicy. Does not post stock or a purchase order.",
+    "description": "SliceLast by Profile + Item. Written by IAbcPolicy. A purchase draft is a separate command and does not post stock.",
     "isObsolete": false,
     "iconName": "fluent-color:grid-24",
     "largeIconName": "fluent-color:grid-24",

@@ -13,7 +13,8 @@ using ZuloOne.Runtime.Generated;
 // Расход — базовое количество счетов Реализовано/Отгружен за окно профиля.
 // Остаток — сумма Stock.Qty. Ночной проход пишет предложение только по
 // живым профилям товаров: у покупателя запаса нет, и кнопка по-прежнему
-// отклоняет такой профиль. Заказ поставщику и движения склада не создаются.
+// отклоняет такой профиль. Черновик заказа берёт поставщика, ячейку, единицу
+// и цену с последнего принятого прихода этого товара. Склада не двигает.
 public partial class AbcPolicy
 {
     private static readonly Guid StockRegister = Guid.Parse("83559331-ac7f-46da-87a8-7da599ef6f41");
@@ -23,19 +24,25 @@ public partial class AbcPolicy
     private readonly IInformationRegisterService _info;
     private readonly IRegisterMovementService _movements;
     private readonly ISqlService _sql;
+    private readonly IDocumentManager _documents;
+    private readonly IDataService _data;
 
     public AbcPolicy(
         IDictionaryManager<AbcProfile> profiles,
         IDictionaryManager<AbcPolicyCell> cells,
         IInformationRegisterService info,
         IRegisterMovementService movements,
-        ISqlService sql)
+        ISqlService sql,
+        IDocumentManager documents,
+        IDataService data)
     {
         _profiles = profiles;
         _cells = cells;
         _info = info;
         _movements = movements;
         _sql = sql;
+        _documents = documents;
+        _data = data;
     }
 
     /// <summary>
@@ -187,6 +194,138 @@ public partial class AbcPolicy
             qty[item] = Decimal(row, "Qty");
         }
         return qty;
+    }
+
+    /// <summary>
+    /// Черновик заказа на каждую пару поставщик + ячейка приёмки + юрлицо.
+    /// Поставщик, ячейка, единица и цена — с последней строки прихода в
+    /// подтипе Принят. Товара без такого прихода в заказ не берём: цену
+    /// и поставщика не выдумываем. Ожидаемый приход пустой, чтобы черновик
+    /// не обещал остаток. Повтор не плодит второй черновик той же группы.
+    /// </summary>
+    public async Task<List<Guid>> CreatePurchaseDraftsAsync(Guid profileId, DateTime asOf)
+    {
+        var profile = await LoadItemProfileAsync(profileId);
+        var suggestions = await _info.SliceLastAsync("AbcSuggestion", asOf,
+            new Dictionary<string, object?> { ["Profile"] = profileId });
+        var wanted = new Dictionary<Guid, decimal>();
+        foreach (var row in suggestions)
+        {
+            var item = AsGuid(row, "Subject");
+            var qty = Decimal(row, "SuggestQty");
+            if (item == Guid.Empty || qty <= 0m) continue;
+            wanted[item] = qty;
+        }
+        if (wanted.Count == 0) return new List<Guid>();
+
+        var receipts = await LastReceiptsAsync(wanted.Keys);
+        var groups = new Dictionary<(Guid Supplier, Guid Location, Guid Legal), List<(Guid Item, decimal Qty, Guid Unit, decimal Price)>>();
+        foreach (var (item, qty) in wanted)
+        {
+            if (!receipts.TryGetValue(item, out var receipt) || receipt.Location == Guid.Empty) continue;
+            var key = (receipt.Supplier, receipt.Location, receipt.LegalEntity);
+            if (!groups.TryGetValue(key, out var lines))
+            {
+                lines = new List<(Guid, decimal, Guid, decimal)>();
+                groups[key] = lines;
+            }
+            lines.Add((item, qty, receipt.Unit, receipt.UnitPrice));
+        }
+
+        var created = new List<Guid>();
+        foreach (var (key, lines) in groups)
+        {
+            if (await DraftAlreadyExistsAsync(profileId, key.Supplier, key.Location, key.Legal)) continue;
+            var order = await _documents.NewDocumentAsync<PurchaseOrder>();
+            order.Supplier = key.Supplier;
+            order.Location = key.Location;
+            if (key.Legal != Guid.Empty) order.LegalEntity = key.Legal;
+            foreach (var line in lines)
+            {
+                var row = new PurchaseOrderLinesTablePartRow
+                {
+                    Item = line.Item,
+                    Quantity = line.Qty,
+                    UnitPrice = line.Price
+                };
+                if (line.Unit != Guid.Empty) row.Unit = line.Unit;
+                order.Lines.Add(row);
+            }
+            await _documents.SaveDocumentAsync(order);
+            var bag = await _data.GetByIdAsync("PurchaseOrder", order.MetaId);
+            if (bag == null) continue;
+            bag["AbcProfile"] = profileId;
+            await _data.UpdateAsync("PurchaseOrder", order.MetaId, bag);
+            created.Add(order.MetaId);
+        }
+        return created;
+    }
+
+    private async Task<Dictionary<Guid, LastReceipt>> LastReceiptsAsync(IEnumerable<Guid> items)
+    {
+        var ids = items.Distinct().ToList();
+        var found = new Dictionary<Guid, LastReceipt>();
+        if (ids.Count == 0) return found;
+        var list = string.Join(", ", ids.Select(id => $"'{id}'"));
+        var rows = await _sql.SelectAsync(
+            "SELECT h.[MetaId] AS [OrderId], h.[Supplier] AS [Supplier], h.[Location] AS [Location], " +
+            "h.[LegalEntity] AS [LegalEntity], h.[DocumentDate] AS [DocumentDate], " +
+            "l.[Item] AS [Item], l.[Unit] AS [Unit], l.[UnitPrice] AS [UnitPrice] " +
+            "FROM [PurchaseOrder] h " +
+            "INNER JOIN [TP_PurchaseOrderLines] l ON l.[OwnerMetaId] = h.[MetaId] " +
+            "WHERE h.[Subtype] = N'Received' AND l.[Item] IN (" + list + ")");
+        foreach (var row in rows)
+        {
+            var item = AsGuid(row, "Item");
+            if (item == Guid.Empty) continue;
+            var next = new LastReceipt
+            {
+                OrderId = AsGuid(row, "OrderId"),
+                Supplier = AsGuid(row, "Supplier"),
+                Location = AsGuid(row, "Location"),
+                LegalEntity = AsGuid(row, "LegalEntity"),
+                Unit = AsGuid(row, "Unit"),
+                UnitPrice = Decimal(row, "UnitPrice"),
+                DocumentDate = When(row, "DocumentDate")
+            };
+            if (!found.TryGetValue(item, out var cur)
+                || next.DocumentDate > cur.DocumentDate
+                || (next.DocumentDate == cur.DocumentDate && next.OrderId.CompareTo(cur.OrderId) > 0))
+                found[item] = next;
+        }
+        return found;
+    }
+
+    private async Task<bool> DraftAlreadyExistsAsync(Guid profileId, Guid supplier, Guid location, Guid legal)
+    {
+        var rows = await _sql.SelectAsync(
+            "SELECT [MetaId] AS [MetaId] FROM [PurchaseOrder] " +
+            $"WHERE [Subtype] = N'Draft' AND [AbcProfile] = '{profileId}' " +
+            $"AND [Supplier] = '{supplier}' AND [Location] = '{location}' " +
+            (legal == Guid.Empty
+                ? "AND ([LegalEntity] IS NULL OR [LegalEntity] = '00000000-0000-0000-0000-000000000000')"
+                : $"AND [LegalEntity] = '{legal}'"));
+        return rows.Count > 0;
+    }
+
+    private sealed class LastReceipt
+    {
+        public Guid OrderId;
+        public Guid Supplier;
+        public Guid Location;
+        public Guid LegalEntity;
+        public Guid Unit;
+        public decimal UnitPrice;
+        public DateTime DocumentDate;
+    }
+
+    private static DateTime When(IDictionary<string, object?> row, string column)
+    {
+        if (!row.TryGetValue(column, out var v) || v is null) return DateTime.MinValue;
+        if (v is DateTime dt) return dt;
+        return DateTime.TryParse(v.ToString(), CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var p)
+            ? p
+            : DateTime.MinValue;
     }
 
     private async Task<Dictionary<Guid, decimal>> OnHandAsync()

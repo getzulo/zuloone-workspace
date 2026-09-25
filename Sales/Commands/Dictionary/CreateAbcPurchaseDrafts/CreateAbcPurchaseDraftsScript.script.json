@@ -1,0 +1,13 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "DictionaryCommand",
+    "objectType": "Command",
+    "objectName": "CreateAbcPurchaseDrafts",
+    "objectMetaId": "6a1d8e43-5c72-4b90-a3f6-2e9b0c7d4a15",
+    "executionOrder": 0,
+    "metaId": "8c2f5b17-4e63-4a81-9d20-7b1e6c3a0f94",
+    "name": "CreateAbcPurchaseDraftsScript",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  }
+}
