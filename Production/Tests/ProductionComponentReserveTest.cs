@@ -74,6 +74,81 @@ public class ProductionComponentReserveTest : IntegrationTestScriptBase
             "выпуск из черновика не оставляет резерв, факт {0}", await ReservedAsync(loc, comp.MetaId));
     }
 
+    [IntegrationTest("Чужой резерв не мешает запуску, пока свободного хватает на свою потребность")]
+    public async Task ForeignHoldLeavesReleaseWhenFreeCovers()
+    {
+        var loc = Db.NewId();
+        var comp = await NewItemAsync("Компонент-соседи");
+        var product = await NewItemAsync("Изделие-соседи");
+        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Cell"] = loc, ["Item"] = comp.MetaId },
+            new Dictionary<string, decimal> { ["Qty"] = 10m });
+
+        await NewOrderAsync(product.MetaId, loc, comp.MetaId, 4m);
+        var mine = await NewOrderAsync(product.MetaId, loc, comp.MetaId, 4m);
+        Assert.IsTrue(await ReservedAsync(loc, comp.MetaId) == 8m, "два черновика держат 8");
+
+        mine.Subtype = ProductionOrder.Subtypes.Released;
+        await DocumentManager.SaveDocumentAsync(mine);
+        Assert.IsTrue(await OnHandAsync(loc, comp.MetaId) == 6m, "свой запуск списывает 4, на ячейке 6");
+        Assert.IsTrue(await ReservedAsync(loc, comp.MetaId) == 4m,
+            "чужой черновик остаётся, факт {0}", await ReservedAsync(loc, comp.MetaId));
+    }
+
+    [IntegrationTest("Чужой резерв отклоняет запуск, если свободного меньше потребности")]
+    public async Task ForeignHoldRejectsRelease()
+    {
+        var loc = Db.NewId();
+        var comp = await NewItemAsync("Компонент-занято");
+        var product = await NewItemAsync("Изделие-занято");
+        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Cell"] = loc, ["Item"] = comp.MetaId },
+            new Dictionary<string, decimal> { ["Qty"] = 10m });
+
+        await NewOrderAsync(product.MetaId, loc, comp.MetaId, 8m);
+        var mine = await NewOrderAsync(product.MetaId, loc, comp.MetaId, 4m);
+        Assert.IsTrue(await ReservedAsync(loc, comp.MetaId) == 12m, "перед отказом резерв 12");
+
+        var detail = "";
+        var rejected = false;
+        try
+        {
+            mine.Subtype = ProductionOrder.Subtypes.Released;
+            await DocumentManager.SaveDocumentAsync(mine);
+        }
+        catch (Exception ex)
+        {
+            rejected = true;
+            detail = ex.ToString();
+        }
+        Assert.IsTrue(rejected && detail.Contains("требуется 4.0000, в наличии 2.0000"),
+            "нужно 4, свободно 2, факт {0}", detail);
+    }
+
+    [IntegrationTest("Выпуск после запуска не забирает чужой резерв с оставшегося остатка")]
+    public async Task FinishAfterReleaseLeavesForeignHold()
+    {
+        var loc = Db.NewId();
+        var comp = await NewItemAsync("Компонент-хвост");
+        var product = await NewItemAsync("Изделие-хвост");
+        await TotalsManager.PostMovementAsync("Stock", null, DateTime.UtcNow.Date,
+            new Dictionary<string, object?> { ["Cell"] = loc, ["Item"] = comp.MetaId },
+            new Dictionary<string, decimal> { ["Qty"] = 10m });
+
+        var mine = await NewOrderAsync(product.MetaId, loc, comp.MetaId, 6m);
+        mine.Subtype = ProductionOrder.Subtypes.Released;
+        await DocumentManager.SaveDocumentAsync(mine);
+        await NewOrderAsync(product.MetaId, loc, comp.MetaId, 4m);
+        Assert.IsTrue(await OnHandAsync(loc, comp.MetaId) == 4m, "после запуска на ячейке 4");
+        Assert.IsTrue(await ReservedAsync(loc, comp.MetaId) == 4m, "хвост держит чужой черновик");
+
+        mine.Subtype = ProductionOrder.Subtypes.Finished;
+        await DocumentManager.SaveDocumentAsync(mine);
+        Assert.IsTrue(await OnHandAsync(loc, comp.MetaId) == 4m, "выпуск не списывает хвост повторно");
+        Assert.IsTrue(await ReservedAsync(loc, comp.MetaId) == 4m,
+            "чужой резерв на хвосте цел, факт {0}", await ReservedAsync(loc, comp.MetaId));
+    }
+
     private async Task<Item> NewItemAsync(string name)
     {
         var uom = DictionaryManager.NewRecord<UnitOfMeasure>();

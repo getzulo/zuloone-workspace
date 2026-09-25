@@ -26,7 +26,7 @@ public partial class ReleaseProductionCommand
             return;
         }
 
-        var stock = context.GetService<IStockAvailabilityService>();
+        var availability = context.GetService<IProductionComponentAvailability>();
         var conv = context.GetService<IItemQuantityConverter>();
         var demand = new Dictionary<Guid, decimal>();
         foreach (var line in full.Components)
@@ -42,10 +42,10 @@ public partial class ReleaseProductionCommand
 
         foreach (var kv in demand)
         {
-            if (await stock.HasSufficientStockAsync(full.Location, kv.Key, kv.Value)) continue;
-            var onHand = await stock.OnHandAsync(full.Location, kv.Key);
+            var available = await availability.AvailableForOrderAsync(full.MetaId, full.Location, kv.Key);
+            if (kv.Value <= available) continue;
             context.AddClientAction(ClientAction.Message(
-                $"Недостаточно компонента на ячейке: требуется {kv.Value}, в наличии {onHand}"));
+                $"Недостаточно компонента на ячейке: требуется {kv.Value}, в наличии {available}"));
             return;
         }
 

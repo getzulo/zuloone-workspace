@@ -1,0 +1,12 @@
+{
+  "kind": "Script",
+  "object": {
+    "scriptType": "Service",
+    "objectType": "Service",
+    "objectName": "ProductionComponentAvailability",
+    "executionOrder": 0,
+    "metaId": "4f8a1c63-2d57-4e90-b6c1-8a3e5d7f0b14",
+    "name": "ProductionComponentAvailability",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}

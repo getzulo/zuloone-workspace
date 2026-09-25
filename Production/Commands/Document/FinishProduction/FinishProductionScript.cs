@@ -26,6 +26,7 @@ public partial class FinishProductionCommand
             return;
         }
 
+        var availability = context.GetService<IProductionComponentAvailability>();
         var conv = context.GetService<IItemQuantityConverter>();
         var demand = new Dictionary<Guid, decimal>();
         foreach (var line in full.Components)
@@ -39,19 +40,13 @@ public partial class FinishProductionCommand
             demand[line.Component] = (demand.TryGetValue(line.Component, out var d) ? d : 0m) + qty;
         }
 
-        // Released already took the components off the cell. Mix will restore
-        // them and consume again; a naive on-hand check would refuse a valid finish.
-        if (full.Subtype != ProductionOrder.Subtypes.Released)
+        foreach (var kv in demand)
         {
-            var stock = context.GetService<IStockAvailabilityService>();
-            foreach (var kv in demand)
-            {
-                if (await stock.HasSufficientStockAsync(full.Location, kv.Key, kv.Value)) continue;
-                var onHand = await stock.OnHandAsync(full.Location, kv.Key);
-                context.AddClientAction(ClientAction.Message(
-                    $"Недостаточно компонента на ячейке: требуется {kv.Value}, в наличии {onHand}"));
-                return;
-            }
+            var available = await availability.AvailableForOrderAsync(full.MetaId, full.Location, kv.Key);
+            if (kv.Value <= available) continue;
+            context.AddClientAction(ClientAction.Message(
+                $"Недостаточно компонента на ячейке: требуется {kv.Value}, в наличии {available}"));
+            return;
         }
 
         full.Subtype = ProductionOrder.Subtypes.Finished;

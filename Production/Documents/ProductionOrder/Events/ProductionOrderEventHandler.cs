@@ -20,9 +20,9 @@ namespace ZuloOne.Runtime.Generated;
 // ReceiptCostTx/ReceiptFifoTx open it for purchasing.
 //
 // Components and quantity are re-read via IDocumentManager (the header event
-// does not carry the table part). Balance is checked on Stock physical
-// dimensions via ITotalsManager (no engine check: Stock is a one-sided
-// register, allowNegativeBalance=true).
+// does not carry the table part). The cell check asks
+// IProductionComponentAvailability: physical stock, plus what this order
+// already consumed, minus reservations that belong to other documents.
 public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<ProductionOrder>
 {
     public override async Task<EventResult> OnBeforeCreateAsync(ProductionOrder header, EventContext context)
@@ -129,24 +129,11 @@ public partial class ProductionOrderEventHandler : TypedDocumentEventHandler<Pro
         // conversion (that is how BOM-expanded lines arrive: BomService already
         // returns demand in the component's stock unit).
         var demand = ComponentDemand(components);
-
-        var stock = context.GetService<ITotalsManager>();
-        var own = new Dictionary<Guid, decimal>();
-        foreach (var row in await stock.QueryMovementsAsync(
-            "Stock", $"[DocumentMetaId] = '{document.MetaId}'"))
-        {
-            if (row["Item"] is not Guid item) continue;
-            var qty = row["Qty"] is null ? 0m : Convert.ToDecimal(row["Qty"]);
-            own[item] = (own.TryGetValue(item, out var d) ? d : 0m) + qty;
-        }
+        var availability = context.GetService<IProductionComponentAvailability>();
 
         foreach (var kv in demand)
         {
-            var bal = await stock.GetBalanceAsync("Stock",
-                new Dictionary<string, object?> { ["Item"] = kv.Key, ["Cell"] = location });
-            var onHand = bal is null ? 0m : Convert.ToDecimal(bal["Qty"]);
-            var alreadyTaken = own.TryGetValue(kv.Key, out var taken) ? taken : 0m;
-            var available = onHand - alreadyTaken;
+            var available = await availability.AvailableForOrderAsync(document.MetaId, location, kv.Key);
             if (kv.Value > available)
                 return EventResult.Cancel($"Недостаточно компонента на ячейке: требуется {kv.Value}, в наличии {available}");
         }

@@ -1,0 +1,11 @@
+{
+  "kind": "Service",
+  "object": {
+    "description": "Сколько компонента этот производственный заказ ещё может взять с ячейки: физический Stock, плюс уже списанное им самим, минус чужой ReservedStock",
+    "namespace": "ZuloOne.Services",
+    "scriptMetaId": "4f8a1c63-2d57-4e90-b6c1-8a3e5d7f0b14",
+    "metaId": "9b2e4c71-6a18-4d3f-8e50-1c7a9d4b6f28",
+    "name": "ProductionComponentAvailability",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  }
+}
