@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "4ae283e4-d6a7-45dc-ae4e-865c97ca2b34",
+    "caption": "Payable by supplier",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"Supplier\"],\"variables\":[{\"id\":\"amt-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "e3a9c6d0-4f85-4b12-ac37-8d5e1a2f3164",
+    "name": "PayableBySupplier",
+    "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+  },
+  "bindings": [
+    {
+      "metaId": "f4b0d7e1-5096-4c23-bd48-9e6f2b304275",
+      "reportViewMetaId": "e3a9c6d0-4f85-4b12-ac37-8d5e1a2f3164",
+      "ownerType": "Register",
+      "ownerMetaId": "4ae283e4-d6a7-45dc-ae4e-865c97ca2b34"
+    }
+  ]
+}

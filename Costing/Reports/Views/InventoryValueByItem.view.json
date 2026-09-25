@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "7e0b4d85-1a6f-4c9d-8e5b-8f1a4c7d0e60",
+    "caption": "Inventory value by item",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"Item\"],\"variables\":[{\"id\":\"qty-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Qty\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"qty-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Qty\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"qty-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Qty\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"qty-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Qty\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"val-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Value\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"val-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Value\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"val-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Value\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"val-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Value\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "c9e5a3d1-6f42-4b80-8c17-1a4d7e2b5063",
+    "name": "InventoryValueByItem",
+    "modelId": "4b7e1a52-8d3c-4f6a-9b2e-5c8d1f4a7b30"
+  },
+  "bindings": [
+    {
+      "metaId": "d0f6b4e2-7053-4c91-9d28-2b5e8f3c6174",
+      "reportViewMetaId": "c9e5a3d1-6f42-4b80-8c17-1a4d7e2b5063",
+      "ownerType": "Register",
+      "ownerMetaId": "7e0b4d85-1a6f-4c9d-8e5b-8f1a4c7d0e60"
+    }
+  ]
+}

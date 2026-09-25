@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "36549e8e-59a3-4a9e-af3d-86aaea866768",
+    "caption": "Work in progress by item and cell",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"Item\",\"Cell\"],\"variables\":[{\"id\":\"qty-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Qty\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"qty-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Qty\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"qty-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Qty\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"qty-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Qty\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "c6d0e4f8-3052-4179-bc3a-7e9f2a5d4368",
+    "name": "WipByItemCell",
+    "modelId": "7d3e9c14-2a5b-4f8e-9c1d-3b6a7e2f5d80"
+  },
+  "bindings": [
+    {
+      "metaId": "d7e1f509-4163-428a-cd4b-8f0a3b6e5479",
+      "reportViewMetaId": "c6d0e4f8-3052-4179-bc3a-7e9f2a5d4368",
+      "ownerType": "Register",
+      "ownerMetaId": "36549e8e-59a3-4a9e-af3d-86aaea866768"
+    }
+  ]
+}

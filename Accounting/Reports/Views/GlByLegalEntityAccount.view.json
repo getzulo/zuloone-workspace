@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe",
+    "caption": "GL by legal entity and account",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"LegalEntity\",\"Account\"],\"variables\":[{\"id\":\"dr-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Debit\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"dr-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Debit\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"dr-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Debit\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"dr-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Debit\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"cr-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Credit\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"cr-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Credit\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"cr-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Credit\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"cr-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Credit\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "a7c3e1b4-8d20-4f56-9a31-2e6b0c4d8f15",
+    "name": "GlByLegalEntityAccount",
+    "modelId": "db4dcc49-c937-4647-a527-cff5e3daaa44"
+  },
+  "bindings": [
+    {
+      "metaId": "b8d4f2c5-9e31-4067-ab42-3f7c1d5e9026",
+      "reportViewMetaId": "a7c3e1b4-8d20-4f56-9a31-2e6b0c4d8f15",
+      "ownerType": "Register",
+      "ownerMetaId": "f6c5d64c-f00a-4fa1-b42f-dec097362ffe"
+    }
+  ]
+}

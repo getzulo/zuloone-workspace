@@ -1,3 +1,6 @@
+using System.Linq;
+using ZuloOne.Managers;
+using ZuloOne.Runtime.Generated;
 using ZuloOne.Services.Contracts;
 
 // «Принять товар»: ячейка ПРИЁМКИ и действующая ставка налога на дату прихода.
@@ -10,6 +13,8 @@ public partial class ReceiveOrderCommand
 {
     public override async Task ExecuteAsync(PurchaseOrder document, CommandContext context)
     {
+        var full = await context.GetService<IDocumentManager>().GetDocumentAsync<PurchaseOrder>(document.MetaId);
+        var partial = full != null && full.Lines.Any(l => l.ReceiveQty > 0m);
         var error = await context.GetService<IPurchaseReceiptService>().ReceiveAsync(document.MetaId);
         if (error != null)
         {
@@ -17,6 +22,8 @@ public partial class ReceiveOrderCommand
             return;
         }
 
-        context.AddClientAction(ClientAction.Message("Товар принят."));
+        context.AddClientAction(ClientAction.Message(partial
+            ? "Товар принят. Непринятый остаток — отдельный заказ в состоянии «Заказан»."
+            : "Товар принят."));
     }
 }

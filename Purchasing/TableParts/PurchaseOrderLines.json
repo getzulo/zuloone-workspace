@@ -125,6 +125,27 @@
       "metaId": "d78ebd4e-b785-4e66-a147-a31bfb36d549",
       "name": "UnitPrice",
       "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
+    },
+    {
+      "tablePartTypeMetaId": "aafabd76-4419-4cdf-9223-8c4f97c906d0",
+      "fieldName": "ReceiveQty",
+      "caption": {
+        "en": "Receive now",
+        "ar": "الاستلام الآن",
+        "ru": "Принять сейчас",
+        "uk": "Прийняти зараз"
+      },
+      "edtMetaId": "7c8bdcd2-b2d6-433e-8fb3-3d182a561200",
+      "isRequired": false,
+      "isVisible": true,
+      "isLogged": false,
+      "isSystem": false,
+      "isReference": false,
+      "displayOrder": 6,
+      "developerComments": "0 на всех строках — принять количество целиком. Если хотя бы на одной строке больше нуля, ноль значит «эту строку не принимать»: она целиком уходит в остаточный заказ.",
+      "metaId": "c4e8a1b2-7d30-4f19-8a55-1e6b0c3d9f72",
+      "name": "ReceiveQty",
+      "modelId": "048b6f73-1c02-4ad7-857c-e19a3b5056c3"
     }
   ]
 }

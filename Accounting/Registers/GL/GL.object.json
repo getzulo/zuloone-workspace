@@ -27,6 +27,7 @@
       "caption": {
         "en": "Credit",
         "ar": "دائن",
+        "ru": "Кредит",
         "uk": "Кредит"
       },
       "isOperational": true,
@@ -42,6 +43,7 @@
       "caption": {
         "en": "Debit",
         "ar": "مدين",
+        "ru": "Дебет",
         "uk": "Дебет"
       },
       "isOperational": true,

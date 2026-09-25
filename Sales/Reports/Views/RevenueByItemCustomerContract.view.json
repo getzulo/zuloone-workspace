@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "103cdb23-2d49-4c42-9bf3-3c5a8ce46cdc",
+    "caption": "Revenue by item, customer and contract",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"Item\",\"Customer\",\"SalesContract\"],\"variables\":[{\"id\":\"amt-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "a4b8c2d6-1e30-4f57-9a18-5c7d0e3b2146",
+    "name": "RevenueByItemCustomerContract",
+    "modelId": "47861dd2-1009-4926-9ea3-c506cae5118d"
+  },
+  "bindings": [
+    {
+      "metaId": "b5c9d3e7-2f41-4068-ab29-6d8e1f4c3257",
+      "reportViewMetaId": "a4b8c2d6-1e30-4f57-9a18-5c7d0e3b2146",
+      "ownerType": "Register",
+      "ownerMetaId": "103cdb23-2d49-4c42-9bf3-3c5a8ce46cdc"
+    }
+  ]
+}
