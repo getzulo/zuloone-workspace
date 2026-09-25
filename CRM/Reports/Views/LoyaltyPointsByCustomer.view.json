@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80",
+    "caption": "Loyalty points by customer",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"Customer\"],\"variables\":[{\"id\":\"pts-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Points\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"pts-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Points\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"pts-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Points\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"pts-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Points\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "e8a1c4d2-6f30-4b17-9a55-2c7d0e3f8146",
+    "name": "LoyaltyPointsByCustomer",
+    "modelId": "5f8a3c21-7b6d-4e9f-8a1c-2d5e6f3a9b40"
+  },
+  "bindings": [
+    {
+      "metaId": "f9b2d5e3-7041-4c28-ab66-3d8e1f4a9257",
+      "reportViewMetaId": "e8a1c4d2-6f30-4b17-9a55-2c7d0e3f8146",
+      "ownerType": "Register",
+      "ownerMetaId": "9d2e7a65-1f0b-4c4d-8e5a-6b9c0d7e3f80"
+    }
+  ]
+}

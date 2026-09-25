@@ -26,6 +26,7 @@
       "caption": {
         "en": "Customer",
         "ar": "العميل",
+        "ru": "Клиент",
         "uk": "Клієнт"
       },
       "edtMetaId": "9f7e493e-734d-4b93-91ef-98396f4c5464",
@@ -46,6 +47,7 @@
       "caption": {
         "en": "Points",
         "ar": "النقاط",
+        "ru": "Баллы",
         "uk": "Бали"
       },
       "isOperational": true,
