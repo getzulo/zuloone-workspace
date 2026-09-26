@@ -2,9 +2,9 @@
   {
     "id": "catalog",
     "file": "catalog.json",
-    "caption": "Getting-started lessons and the end-of-course test",
-    "captionRu": "Уроки «Начало работы» и проверка курса",
-    "caption_ru": "Уроки «Начало работы» и проверка курса",
+    "caption": "Learning catalog: paths, modules, checks, exams",
+    "captionRu": "Каталог обучения: пути, модули, проверки, экзамены",
+    "caption_ru": "Каталог обучения: пути, модули, проверки, экзамены",
     "when": "once",
     "sort": 10
   }
