@@ -229,7 +229,7 @@ jobs:
           RELEASE: ${{ steps.ver.outputs.release }}
         run: |
           set -euo pipefail
-          docker rm -f "${WS_CORE:-}" "${WS_PG:-}" 2>/dev/null || true
+          docker rm -fv "${WS_CORE:-}" "${WS_PG:-}" 2>/dev/null || true
           docker network rm "${WS_NET:-}" 2>/dev/null || true
 
           # The release this build would follow. On a tag, the one before it;
@@ -331,5 +331,5 @@ jobs:
         if: always()
         shell: bash
         run: |
-          docker rm -f "${WS_CORE:-}" "${WS_PG:-}" 2>/dev/null || true
+          docker rm -fv "${WS_CORE:-}" "${WS_PG:-}" 2>/dev/null || true
           docker network rm "${WS_NET:-}" 2>/dev/null || true

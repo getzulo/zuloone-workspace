@@ -46,7 +46,7 @@ for line in sys.stdin:
         print(json.dumps(detail, ensure_ascii=False))
 ' >&2 || true
   fi
-  docker rm -f "$APP" "$PG" >/dev/null 2>&1 || true
+  docker rm -fv "$APP" "$PG" >/dev/null 2>&1 || true
   docker network rm "$NET" >/dev/null 2>&1 || true
   # The staged trees live inside the checkout, and the image build runs after this
   # step — leaving them would put two extra directories in front of stage_tree.py.
@@ -114,7 +114,7 @@ docker exec "$PG" pg_isready -U ug -q
 # older image without that lock. This flag is the CI workaround until the
 # platform wraps that backfill in the same scope (real tenants need that).
 boot() {
-  docker rm -f "$APP" >/dev/null 2>&1 || true
+  docker rm -fv "$APP" >/dev/null 2>&1 || true
   PORT=$(python3 -c "import socket;s=socket.socket();s.bind(('127.0.0.1',0));print(s.getsockname()[1]);s.close()")
   if ! docker run -d --name "$APP" --network "$NET" -p "127.0.0.1:${PORT}:8080" \
     -v "$PWD/$1":/opt/zuloone/workspace:ro \
