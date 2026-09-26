@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "43d58d23-0db9-43b9-8548-421cb88db32e",
+    "caption": "Ukraine input VAT credit by supplier",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"LegalEntity\",\"Supplier\"],\"variables\":[{\"id\":\"amt-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "c797a523-023e-4b33-9443-39a09e599bf0",
+    "name": "UaVatCreditBySupplier",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "bindings": [
+    {
+      "metaId": "706f4914-312e-4bb9-9fab-08080a3963fd",
+      "reportViewMetaId": "c797a523-023e-4b33-9443-39a09e599bf0",
+      "ownerType": "Register",
+      "ownerMetaId": "43d58d23-0db9-43b9-8548-421cb88db32e"
+    }
+  ]
+}

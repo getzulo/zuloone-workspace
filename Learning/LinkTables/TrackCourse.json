@@ -15,24 +15,11 @@
   "properties": [
     {
       "linkTableMetaId": "b1fd7c3d-6466-4a98-bd68-3370a2e4e7e1",
-      "fieldName": "Track",
-      "caption": { "en": "Lesson group", "ru": "Группа уроков" },
-      "isRequired": true,
-      "isPrimaryKey": false,
-      "isLogged": false,
-      "isIndexed": true,
-      "isReference": true,
-      "referenceKind": "Dictionary",
-      "referenceMetaId": "4776844e-e847-4b56-ad39-83d0ab150fbb",
-      "displayOrder": 1,
-      "metaId": "1de43d48-951f-4cff-9199-278710a6c8ef",
-      "name": "Track",
-      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
-    },
-    {
-      "linkTableMetaId": "b1fd7c3d-6466-4a98-bd68-3370a2e4e7e1",
       "fieldName": "Module",
-      "caption": { "en": "Course", "ru": "Курс" },
+      "caption": {
+        "en": "Course",
+        "ru": "Курс"
+      },
       "isRequired": true,
       "isPrimaryKey": false,
       "isLogged": false,
@@ -48,7 +35,10 @@
     {
       "linkTableMetaId": "b1fd7c3d-6466-4a98-bd68-3370a2e4e7e1",
       "fieldName": "SortOrder",
-      "caption": { "en": "Order", "ru": "Порядок" },
+      "caption": {
+        "en": "Order",
+        "ru": "Порядок"
+      },
       "baseType": "Integer",
       "isRequired": false,
       "isPrimaryKey": false,
@@ -58,6 +48,25 @@
       "displayOrder": 3,
       "metaId": "51674fad-a507-4a47-8a39-f5fce87be78d",
       "name": "SortOrder",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "linkTableMetaId": "b1fd7c3d-6466-4a98-bd68-3370a2e4e7e1",
+      "fieldName": "Track",
+      "caption": {
+        "en": "Lesson group",
+        "ru": "Группа уроков"
+      },
+      "isRequired": true,
+      "isPrimaryKey": false,
+      "isLogged": false,
+      "isIndexed": true,
+      "isReference": true,
+      "referenceKind": "Dictionary",
+      "referenceMetaId": "4776844e-e847-4b56-ad39-83d0ab150fbb",
+      "displayOrder": 1,
+      "metaId": "1de43d48-951f-4cff-9199-278710a6c8ef",
+      "name": "Track",
       "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
     }
   ]

@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "653951ac-f10e-48fd-bf25-35b538352422",
+    "caption": "Ukraine VAT payable by customer and contract",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"Customer\",\"SalesContract\"],\"variables\":[{\"id\":\"amt-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "f69fdb23-c738-49b3-ba8e-4999b5af36b5",
+    "name": "UaVatPayableByCustomerContract",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "bindings": [
+    {
+      "metaId": "ce2c945f-7025-454a-8f84-dfda92ca20d7",
+      "reportViewMetaId": "f69fdb23-c738-49b3-ba8e-4999b5af36b5",
+      "ownerType": "Register",
+      "ownerMetaId": "653951ac-f10e-48fd-bf25-35b538352422"
+    }
+  ]
+}

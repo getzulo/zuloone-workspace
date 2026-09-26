@@ -1,0 +1,11 @@
+[
+  {
+    "id": "catalog",
+    "file": "catalog.json",
+    "caption": "Getting-started lessons and the end-of-course test",
+    "captionRu": "Уроки «Начало работы» и проверка курса",
+    "caption_ru": "Уроки «Начало работы» и проверка курса",
+    "when": "once",
+    "sort": 10
+  }
+]

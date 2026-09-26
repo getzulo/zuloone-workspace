@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Core.Services;
 using ZuloOne.Managers;
+using ZuloOne.Runtime;
 using ZuloOne.Runtime.Generated;
 using ZuloOne.Runtime.Testing;
 using ZuloOne.Services.Contracts;
@@ -540,6 +541,20 @@ public class LearningPublishTest : IntegrationTestScriptBase
         var frozen = (await Dictionaries.GetRecordsAsync<CheckPrompt>($"UnitRevision = '{test.PublishedRevision}'")).ToList();
         Assert.IsTrue(frozen.Count >= 1, "у опубликованного теста есть вопрос");
         Assert.IsTrue(frozen.All(row => row.Unit == Guid.Empty), "опубликованный вопрос не дублируется на карточке");
+    }
+
+    [IntegrationTest("Пакет каталога ставит карточку урока и публикует её")]
+    public async Task CatalogPackagePublishesTheFindLesson()
+    {
+        var result = await GetService<IDataPackageService>().ApplyAsync("Learning/catalog");
+        Assert.IsTrue(result.Ok, string.Join("; ", result.Issues));
+
+        var catalog = GetService<ILearningCatalog>();
+        var page = await catalog.ReadPageAsync("learn.getting-started.find");
+        Assert.IsTrue(page.Contains("Milk Chocolate 90g"), page);
+        var paper = await catalog.ReadPageAsync("learn.getting-started.check");
+        Assert.IsTrue(paper.Contains("Кнопкой на карточке"), paper);
+        Assert.IsTrue(paper.IndexOf("\"correct\"", StringComparison.Ordinal) < 0, "ключ не в чтении");
     }
 
     [IntegrationTest("Экзамен наполняют с карточки: вопросы справа, сохранение публикует")]

@@ -1,0 +1,340 @@
+{
+  "manifest": {
+    "formatVersion": 1,
+    "profile": "learning-catalog",
+    "entities": [
+      {
+        "entity": "Track",
+        "table": "Track",
+        "kind": "Dictionary",
+        "businessKey": [
+          "StableId"
+        ],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "Module",
+        "table": "Module",
+        "kind": "Dictionary",
+        "businessKey": [
+          "StableId"
+        ],
+        "mode": "insert",
+        "rowCount": 1
+      },
+      {
+        "entity": "Unit",
+        "table": "Unit",
+        "kind": "Dictionary",
+        "businessKey": [
+          "StableId"
+        ],
+        "mode": "insert",
+        "rowCount": 4
+      },
+      {
+        "entity": "CheckPrompt",
+        "table": "CheckPrompt",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Unit",
+          "Name"
+        ],
+        "mode": "insert",
+        "rowCount": 3
+      },
+      {
+        "entity": "CheckOption",
+        "table": "CheckOption",
+        "kind": "Dictionary",
+        "businessKey": [
+          "Prompt",
+          "Name"
+        ],
+        "mode": "insert",
+        "rowCount": 6
+      },
+      {
+        "entity": "TrackCourse",
+        "table": "LT_TrackCourse",
+        "kind": "LinkTable",
+        "businessKey": [
+          "Track",
+          "Module"
+        ],
+        "mode": "insert",
+        "rowCount": 1
+      }
+    ]
+  },
+  "data": {
+    "Track": [
+      {
+        "StableId": "learn.user",
+        "Name": "Пользователь"
+      }
+    ],
+    "Module": [
+      {
+        "StableId": "learn.getting-started",
+        "Name": "Начало работы",
+        "Minutes": 45,
+        "Audience": "Пользователь",
+        "Level": "Начальный"
+      }
+    ],
+    "Unit": [
+      {
+        "StableId": "learn.getting-started.find",
+        "Name": "Найти товар",
+        "Kind": 1,
+        "SortOrder": 1,
+        "Body": "# Найти товар\n\nОткрыть карточку **Milk Chocolate 90g** и сверить группу и единицу.\n\n← [Начало работы](README.md)\n\n## Что нужно до начала\n\nВы вошли на демо-стенд. Как выглядит лента — в статье [начало работы](../../user/getting-started.md).\n\n## Шаги\n\n1. Нажмите **Ctrl+K**, наберите `Milk` и откройте **Milk Chocolate 90g**.\n2. На карточке прочитайте **Наименование**, **Группу** и **Единицу**.\n3. Закройте карточку клавишей закрытия вкладки. Ничего не сохраняйте.\n\n## Проверка\n\nНа карточке написано **Milk Chocolate 90g**, группа **Confectionery**, единица **Штука**.\n\n## Если не получилось\n\nПоиск с одного символа ничего не открывает. Нужны хотя бы два: `Mi`.",
+        "Module": {
+          "$ref": "Module",
+          "key": {
+            "StableId": "learn.getting-started"
+          }
+        }
+      },
+      {
+        "StableId": "learn.getting-started.put-away",
+        "Name": "Подтвердить раскладку",
+        "Kind": 1,
+        "SortOrder": 2,
+        "Body": "# Подтвердить раскладку\n\nПоложить **2** штуки **Milk Chocolate 90g** из приёмки в хранение.\n\n← [Начало работы](README.md)\n\n## Что нужно до начала\n\nКарточка товара из [первой страницы](01-find-an-item.md) открывается. Клавиши карточки — в статье [работа с данными](../../user/working-with-data.md).\n\n## Шаги\n\n1. В ленте откройте **Раскладка** и нажмите **Создать**.\n2. В шапке **Из ячейки (приёмка)** выберите **DOCK-01-01**.\n3. В строке: **Товар** — **Milk Chocolate 90g**, **Количество** — `2`, **В ячейку (хранение)** — **A-01-01**.\n4. Нажмите **Ctrl+S**. Запомните номер в заголовке и текущее состояние.\n5. Нажмите **Подтвердить приёмку**.\n\n## Проверка\n\nСостояние в заголовке — **Подтверждено**. Остаток **Milk Chocolate 90g** в ячейке **A-01-01** больше прежнего на **2**.\n\n## Если не получилось\n\nЯчейка **A-01-01** в шапке не подставляется: в шапке только ячейка приёмки. Хранение указывается в строке.",
+        "Module": {
+          "$ref": "Module",
+          "key": {
+            "StableId": "learn.getting-started"
+          }
+        }
+      },
+      {
+        "StableId": "learn.getting-started.layout",
+        "Name": "Сжать поле",
+        "Kind": 1,
+        "SortOrder": 3,
+        "Body": "# Сжать поле\n\nНа своей карточке номенклатуры прижать **Наименование** влево, чтобы оно не тянулось на всю ширину.\n\n← [Начало работы](README.md)\n\n## Что нужно до начала\n\nВы открывали карточку **Milk Chocolate 90g**. Что означает каждое свойство — в статье [дизайнер раскладки](../../user/form-designer.md).\n\n## Шаги\n\n1. Откройте **Номенклатура** и карточку **Milk Chocolate 90g**.\n2. В шапке карточки нажмите кнопку раскладки (сетка, подсказка «Настроить раскладку этой формы»).\n3. Выделите поле **Наименование**.\n4. В свойствах поставьте **Выравнивание** — **Слева**.\n5. Нажмите **Сохранить для себя** и закройте дизайнер.\n\n## Проверка\n\nБлок **Наименование** короче ширины карточки и стоит у левого края. У другого пользователя карточка не изменилась: сохраняли личную раскладку.\n\n## Если не получилось\n\nПоле по-прежнему на всю ширину, если в свойствах осталось **По ширине** или колонка и так узкая. Поставьте **Слева** и откройте карточку на широком окне.",
+        "Module": {
+          "$ref": "Module",
+          "key": {
+            "StableId": "learn.getting-started"
+          }
+        }
+      },
+      {
+        "StableId": "learn.getting-started.check",
+        "Name": "Проверка",
+        "Kind": 2,
+        "SortOrder": 4,
+        "Body": "# Проверка\n\nТри вопроса по пройденным страницам. Отвечать можно снова. Значок модуля появляется, когда верны все три.\n\n← [Начало работы](README.md)",
+        "Module": {
+          "$ref": "Module",
+          "key": {
+            "StableId": "learn.getting-started"
+          }
+        }
+      }
+    ],
+    "CheckPrompt": [
+      {
+        "Name": "learn.getting-started.check.save",
+        "Text": "Чем на карточке раскладки меняется состояние после сохранения?",
+        "SortOrder": 1,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.getting-started.check.cell",
+        "Text": "Куда в документе раскладки ставится ячейка A-01-01?",
+        "SortOrder": 2,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.getting-started.check.layout",
+        "Text": "Кому видна раскладка, сохранённая для себя?",
+        "SortOrder": 3,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      }
+    ],
+    "CheckOption": [
+      {
+        "Name": "list",
+        "Text": "Списком в заголовке.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.getting-started.check.save",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.getting-started.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "button",
+        "Text": "Кнопкой на карточке.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.getting-started.check.save",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.getting-started.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "header",
+        "Text": "В шапку, поле «Из ячейки (приёмка)».",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.getting-started.check.cell",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.getting-started.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "line",
+        "Text": "В строку, поле «В ячейку (хранение)».",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.getting-started.check.cell",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.getting-started.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "self",
+        "Text": "Только вам.",
+        "SortOrder": 1,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.getting-started.check.layout",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.getting-started.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "all",
+        "Text": "Всем пользователям стенда.",
+        "SortOrder": 2,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.getting-started.check.layout",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.getting-started.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      }
+    ],
+    "TrackCourse": [
+      {
+        "Track": {
+          "$ref": "Track",
+          "key": {
+            "StableId": "learn.user"
+          }
+        },
+        "Module": {
+          "$ref": "Module",
+          "key": {
+            "StableId": "learn.getting-started"
+          }
+        },
+        "SortOrder": 1
+      }
+    ]
+  }
+}

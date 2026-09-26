@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6",
+    "caption": "Social insurance by employee",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"Employee\"],\"variables\":[{\"id\":\"ee-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"EmployeeContribution\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ee-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"EmployeeContribution\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ee-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"EmployeeContribution\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"ee-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"EmployeeContribution\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"er-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"EmployerContribution\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"er-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"EmployerContribution\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"er-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"EmployerContribution\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"er-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"EmployerContribution\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "b5d241d7-497f-43da-bd0a-88daab9a9797",
+    "name": "SocialInsuranceByEmployee",
+    "modelId": "f61f0a5e-85ec-4b3e-81b4-7bb2e36186a8"
+  },
+  "bindings": [
+    {
+      "metaId": "6b2db14d-0f66-46a9-b3bc-67912e1dc9af",
+      "reportViewMetaId": "b5d241d7-497f-43da-bd0a-88daab9a9797",
+      "ownerType": "Register",
+      "ownerMetaId": "ab4af89b-b999-4aae-8b96-7c3f8983fae6"
+    }
+  ]
+}

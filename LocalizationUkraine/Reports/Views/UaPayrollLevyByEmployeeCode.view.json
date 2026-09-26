@@ -1,0 +1,19 @@
+{
+  "kind": "ReportView",
+  "object": {
+    "registerMetaId": "48bb80db-b251-46cb-993b-7400398dee94",
+    "caption": "Ukraine payroll levies by employee and tax code",
+    "configJson": "{\"period\":[null,null],\"groupBy\":[\"LegalEntity\",\"Employee\",\"TaxCode\"],\"variables\":[{\"id\":\"base-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Base\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"base-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Base\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"base-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Base\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"base-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Base\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"amt-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Amount\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"tr-opening\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Transferred\",\"kind\":\"Opening\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"tr-income\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Transferred\",\"kind\":\"Income\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"tr-outcome\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Transferred\",\"kind\":\"Outcome\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"},{\"id\":\"tr-closing\",\"columnType\":\"variable\",\"caption\":\"\",\"resource\":\"Transferred\",\"kind\":\"Closing\",\"showZeros\":true,\"aggregate\":\"Sum\",\"format\":\"###,###,###,##0.00\"}],\"filters\":{},\"nonZeroTurnover\":false,\"nonZeroBalance\":true,\"rowFilter\":\"\"}",
+    "metaId": "3534ee52-65c6-4601-b05b-93143381b070",
+    "name": "UaPayrollLevyByEmployeeCode",
+    "modelId": "1d269769-c682-4655-be04-4e00fd39eb08"
+  },
+  "bindings": [
+    {
+      "metaId": "0ca32738-2be3-4a34-be44-89da380a5a39",
+      "reportViewMetaId": "3534ee52-65c6-4601-b05b-93143381b070",
+      "ownerType": "Register",
+      "ownerMetaId": "48bb80db-b251-46cb-993b-7400398dee94"
+    }
+  ]
+}
