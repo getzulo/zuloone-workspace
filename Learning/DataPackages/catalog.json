@@ -42,7 +42,7 @@
           "Name"
         ],
         "mode": "insert",
-        "rowCount": 19
+        "rowCount": 40
       },
       {
         "entity": "CheckOption",
@@ -53,7 +53,7 @@
           "Name"
         ],
         "mode": "insert",
-        "rowCount": 38
+        "rowCount": 80
       },
       {
         "entity": "TrackCourse",
@@ -173,7 +173,7 @@
         "Name": "Проверка",
         "Kind": 2,
         "SortOrder": 3,
-        "Body": "# Проверка\n\nДва вопроса по юрлицу и договору.\n\n← [Организация](README.md)",
+        "Body": "# Проверка\n\nПять вопросов по юрлицу и договору.\n\n← [Организация](README.md)",
         "Module": {
           "$ref": "Module",
           "key": {
@@ -212,7 +212,7 @@
         "Name": "Проверка",
         "Kind": 2,
         "SortOrder": 3,
-        "Body": "# Проверка\n\nДва вопроса по коду и декларации.\n\n← [Налог](README.md)",
+        "Body": "# Проверка\n\nПять вопросов по коду и декларации.\n\n← [Налог](README.md)",
         "Module": {
           "$ref": "Module",
           "key": {
@@ -251,7 +251,7 @@
         "Name": "Проверка",
         "Kind": 2,
         "SortOrder": 3,
-        "Body": "# Проверка\n\nДва вопроса по модели и идентичности.\n\n← [Метаданные](README.md)",
+        "Body": "# Проверка\n\nПять вопросов по модели и идентичности.\n\n← [Метаданные](README.md)",
         "Module": {
           "$ref": "Module",
           "key": {
@@ -290,7 +290,7 @@
         "Name": "Проверка",
         "Kind": 2,
         "SortOrder": 3,
-        "Body": "# Проверка\n\nДва вопроса по скрипту и проверке.\n\n← [Скрипт](README.md)",
+        "Body": "# Проверка\n\nПять вопросов по скрипту и проверке.\n\n← [Скрипт](README.md)",
         "Module": {
           "$ref": "Module",
           "key": {
@@ -329,7 +329,7 @@
         "Name": "Проверка",
         "Kind": 2,
         "SortOrder": 3,
-        "Body": "# Проверка\n\nДва вопроса по заказу и частичной приёмке.\n\n← [Закупка](README.md)",
+        "Body": "# Проверка\n\nПять вопросов по заказу и частичной приёмке.\n\n← [Закупка](README.md)",
         "Module": {
           "$ref": "Module",
           "key": {
@@ -381,7 +381,7 @@
         "Name": "Проверка",
         "Kind": 2,
         "SortOrder": 4,
-        "Body": "# Проверка\n\nТри вопроса по КП, отклонению и выставлению. Значок модуля — когда верны все три.\n\n← [Продажа](README.md)",
+        "Body": "# Проверка\n\nПять вопросов по КП, отклонению и выставлению. Значок модуля — когда верны все пять.\n\n← [Продажа](README.md)",
         "Module": {
           "$ref": "Module",
           "key": {
@@ -433,7 +433,7 @@
         "Name": "Проверка",
         "Kind": 2,
         "SortOrder": 4,
-        "Body": "# Проверка\n\nТри вопроса по пройденным страницам. Отвечать можно снова. Значок модуля появляется, когда верны все три.\n\n← [Начало работы](README.md)",
+        "Body": "# Проверка\n\nПять вопросов по пройденным страницам. Отвечать можно снова. Значок модуля появляется, когда верны все пять.\n\n← [Начало работы](README.md)",
         "Module": {
           "$ref": "Module",
           "key": {
@@ -485,7 +485,7 @@
         "Name": "Проверка",
         "Kind": 2,
         "SortOrder": 4,
-        "Body": "# Проверка\n\nТри вопроса по схеме отгрузки и отбору.\n\n← [Склад](README.md)",
+        "Body": "# Проверка\n\nПять вопросов по схеме отгрузки и отбору.\n\n← [Склад](README.md)",
         "Module": {
           "$ref": "Module",
           "key": {
@@ -518,6 +518,39 @@
         }
       },
       {
+        "Name": "learn.analyst.org.check.country",
+        "Text": "Что обязательно заполнить на юрлице вместе со страной?",
+        "SortOrder": 3,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.org.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.analyst.org.check.many",
+        "Text": "Сколько режимов налогообложения может быть в одной базе?",
+        "SortOrder": 4,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.org.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.analyst.org.check.vat",
+        "Text": "Чем грозит пустой налоговый номер у плательщика НДС?",
+        "SortOrder": 5,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.org.check"
+          }
+        }
+      },
+      {
         "Name": "learn.analyst.tax.check.share",
         "Text": "Можно ли один налоговый код отдать двум странам?",
         "SortOrder": 1,
@@ -532,6 +565,39 @@
         "Name": "learn.analyst.tax.check.http",
         "Text": "Уходит ли собранная декларация в налоговую по HTTP?",
         "SortOrder": 2,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.tax.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.analyst.tax.check.pack",
+        "Text": "По чему ставится налоговый пакет страны?",
+        "SortOrder": 3,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.tax.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.analyst.tax.check.ledger",
+        "Text": "Откуда собирается TaxReturn?",
+        "SortOrder": 4,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.tax.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.analyst.tax.check.status",
+        "Text": "Какой статус у процесса «Налог: декларация и уплата»?",
+        "SortOrder": 5,
         "Unit": {
           "$ref": "Unit",
           "key": {
@@ -562,6 +628,39 @@
         }
       },
       {
+        "Name": "learn.dev.metadata.check.id",
+        "Text": "Кто создаёт поле ID у нового справочника?",
+        "SortOrder": 3,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.metadata.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.dev.metadata.check.guid",
+        "Text": "Что делать с metaId, когда добавляете новое поле?",
+        "SortOrder": 4,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.metadata.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.dev.metadata.check.bump",
+        "Text": "Что будет, если изменить объект и не поднять modelVersion?",
+        "SortOrder": 5,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.metadata.check"
+          }
+        }
+      },
+      {
         "Name": "learn.dev.scripts.check.next",
         "Text": "Кто не вызывает next в событиях объекта?",
         "SortOrder": 1,
@@ -584,6 +683,39 @@
         }
       },
       {
+        "Name": "learn.dev.scripts.check.service",
+        "Text": "Куда выносить логику, которая нужна двум обработчикам?",
+        "SortOrder": 3,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.scripts.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.dev.scripts.check.compile",
+        "Text": "Чего достаточно, чтобы считать правку применённой?",
+        "SortOrder": 4,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.scripts.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.dev.scripts.check.ext",
+        "Text": "Что обязан делать обработчик на объекте чужой модели?",
+        "SortOrder": 5,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.scripts.check"
+          }
+        }
+      },
+      {
         "Name": "learn.purchase.check.ordered",
         "Text": "Какое состояние у заказа после команды «Заказать»?",
         "SortOrder": 1,
@@ -598,6 +730,39 @@
         "Name": "learn.purchase.check.part",
         "Text": "Куда девается непринятое количество?",
         "SortOrder": 2,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.purchase.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.purchase.check.vendor",
+        "Text": "Пропустит ли команду «Заказать» пустой поставщик?",
+        "SortOrder": 3,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.purchase.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.purchase.check.full",
+        "Text": "Создаётся ли новый заказ, если принять всё количество?",
+        "SortOrder": 4,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.purchase.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.purchase.check.auto",
+        "Text": "Появляется ли приход сразу после «Заказать», если авто-приход выключен?",
+        "SortOrder": 5,
         "Unit": {
           "$ref": "Unit",
           "key": {
@@ -639,6 +804,28 @@
         }
       },
       {
+        "Name": "learn.sales.check.customer",
+        "Text": "Пропустит ли выпуск КП пустого клиента?",
+        "SortOrder": 4,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.sales.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.sales.check.stock",
+        "Text": "Что будет, если на реализации нет свободного остатка?",
+        "SortOrder": 5,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.sales.check"
+          }
+        }
+      },
+      {
         "Name": "learn.getting-started.check.save",
         "Text": "Чем на карточке раскладки меняется состояние после сохранения?",
         "SortOrder": 1,
@@ -672,6 +859,28 @@
         }
       },
       {
+        "Name": "learn.getting-started.check.search",
+        "Text": "Сколько символов нужно в Ctrl+K, чтобы открыть Milk Chocolate 90g?",
+        "SortOrder": 4,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.getting-started.check.qty",
+        "Text": "Сколько штук Milk Chocolate 90g кладут в ячейку A-01-01 в уроке раскладки?",
+        "SortOrder": 5,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
         "Name": "learn.warehouse.check.simple",
         "Text": "Кто проводит перемещение при упрощённой схеме?",
         "SortOrder": 1,
@@ -697,6 +906,28 @@
         "Name": "learn.warehouse.check.wave",
         "Text": "Что собирает волна отбора?",
         "SortOrder": 3,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.warehouse.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.warehouse.check.jobs",
+        "Text": "Влияет ли схема отгрузки, если складские задания выключены?",
+        "SortOrder": 4,
+        "Unit": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.warehouse.check"
+          }
+        }
+      },
+      {
+        "Name": "learn.warehouse.check.mix",
+        "Text": "Сложатся ли в одну волну черновики с разных ячеек хранения?",
+        "SortOrder": 5,
         "Unit": {
           "$ref": "Unit",
           "key": {
@@ -787,6 +1018,150 @@
           "$ref": "CheckPrompt",
           "key": {
             "Name": "learn.analyst.org.check.contract",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.org.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.org.check"
+          }
+        }
+      },
+      {
+        "Name": "logo",
+        "Text": "Логотип компании.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.org.check.country",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.org.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.org.check"
+          }
+        }
+      },
+      {
+        "Name": "tax",
+        "Text": "Налоговый номер.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.org.check.country",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.org.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.org.check"
+          }
+        }
+      },
+      {
+        "Name": "one",
+        "Text": "Только один на всю базу.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.org.check.many",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.org.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.org.check"
+          }
+        }
+      },
+      {
+        "Name": "each",
+        "Text": "Свой на каждом юрлице.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.org.check.many",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.org.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.org.check"
+          }
+        }
+      },
+      {
+        "Name": "ok",
+        "Text": "Ничем, номер декоративный.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.org.check.vat",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.org.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.org.check"
+          }
+        }
+      },
+      {
+        "Name": "hit",
+        "Text": "Потом ударит в декларации.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.org.check.vat",
             "Unit": {
               "$ref": "Unit",
               "key": {
@@ -899,6 +1274,150 @@
         }
       },
       {
+        "Name": "user",
+        "Text": "По языку интерфейса.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.tax.check.pack",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.tax.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.tax.check"
+          }
+        }
+      },
+      {
+        "Name": "iso",
+        "Text": "По ISO2 юрлица.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.tax.check.pack",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.tax.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.tax.check"
+          }
+        }
+      },
+      {
+        "Name": "excel",
+        "Text": "Из файла, который загрузил бухгалтер.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.tax.check.ledger",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.tax.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.tax.check"
+          }
+        }
+      },
+      {
+        "Name": "ledger",
+        "Text": "Из леджера.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.tax.check.ledger",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.tax.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.tax.check"
+          }
+        }
+      },
+      {
+        "Name": "done",
+        "Text": "Готово, канал в НО живой.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.tax.check.status",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.tax.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.tax.check"
+          }
+        }
+      },
+      {
+        "Name": "part",
+        "Text": "Частично: сборка есть, подачи нет.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.analyst.tax.check.status",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.analyst.tax.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.analyst.tax.check"
+          }
+        }
+      },
+      {
         "Name": "yes",
         "Text": "Да, это тот же git.",
         "SortOrder": 1,
@@ -979,6 +1498,150 @@
           "$ref": "CheckPrompt",
           "key": {
             "Name": "learn.dev.metadata.check.meta",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.metadata.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.metadata.check"
+          }
+        }
+      },
+      {
+        "Name": "you",
+        "Text": "Вы пишете его в json сами.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.metadata.check.id",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.metadata.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.metadata.check"
+          }
+        }
+      },
+      {
+        "Name": "server",
+        "Text": "Сервер при импорте.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.metadata.check.id",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.metadata.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.metadata.check"
+          }
+        }
+      },
+      {
+        "Name": "reuse",
+        "Text": "Взять Guid соседнего поля.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.metadata.check.guid",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.metadata.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.metadata.check"
+          }
+        }
+      },
+      {
+        "Name": "new",
+        "Text": "Выдать новый Guid, существующие не трогать.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.metadata.check.guid",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.metadata.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.metadata.check"
+          }
+        }
+      },
+      {
+        "Name": "ok",
+        "Text": "Тенант всё равно перезальёт модель.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.metadata.check.bump",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.metadata.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.metadata.check"
+          }
+        }
+      },
+      {
+        "Name": "skip",
+        "Text": "Тенант пропустит заливку: версии совпали.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.metadata.check.bump",
             "Unit": {
               "$ref": "Unit",
               "key": {
@@ -1091,6 +1754,150 @@
         }
       },
       {
+        "Name": "copy",
+        "Text": "Скопировать в оба файла.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.scripts.check.service",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.scripts.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.scripts.check"
+          }
+        }
+      },
+      {
+        "Name": "svc",
+        "Text": "В сервис, вызов через GetService.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.scripts.check.service",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.scripts.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.scripts.check"
+          }
+        }
+      },
+      {
+        "Name": "disk",
+        "Text": "Файла на диске.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.scripts.check.compile",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.scripts.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.scripts.check"
+          }
+        }
+      },
+      {
+        "Name": "applied",
+        "Text": "Workspace sync applied, compile Ok и зелёный тест.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.scripts.check.compile",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.scripts.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.scripts.check"
+          }
+        }
+      },
+      {
+        "Name": "replace",
+        "Text": "Молча заменить чужой код.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.scripts.check.ext",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.scripts.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.scripts.check"
+          }
+        }
+      },
+      {
+        "Name": "next",
+        "Text": "Пометиться ExtensionOf и звать next из каждого override.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.dev.scripts.check.ext",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.dev.scripts.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.dev.scripts.check"
+          }
+        }
+      },
+      {
         "Name": "draft",
         "Text": "Черновик.",
         "SortOrder": 1,
@@ -1171,6 +1978,150 @@
           "$ref": "CheckPrompt",
           "key": {
             "Name": "learn.purchase.check.part",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.purchase.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.purchase.check"
+          }
+        }
+      },
+      {
+        "Name": "yes",
+        "Text": "Да, поставщика можно дописать потом.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.purchase.check.vendor",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.purchase.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.purchase.check"
+          }
+        }
+      },
+      {
+        "Name": "no",
+        "Text": "Нет, пустой поставщик команду не пропускает.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.purchase.check.vendor",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.purchase.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.purchase.check"
+          }
+        }
+      },
+      {
+        "Name": "yes",
+        "Text": "Да, всегда появляется заказ на ноль.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.purchase.check.full",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.purchase.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.purchase.check"
+          }
+        }
+      },
+      {
+        "Name": "no",
+        "Text": "Нет, полное количество новый заказ не создаёт.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.purchase.check.full",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.purchase.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.purchase.check"
+          }
+        }
+      },
+      {
+        "Name": "yes",
+        "Text": "Да, приход создаётся всегда.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.purchase.check.auto",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.purchase.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.purchase.check"
+          }
+        }
+      },
+      {
+        "Name": "no",
+        "Text": "Нет, прихода ещё нет.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.purchase.check.auto",
             "Unit": {
               "$ref": "Unit",
               "key": {
@@ -1331,6 +2282,102 @@
         }
       },
       {
+        "Name": "yes",
+        "Text": "Да, клиента можно дописать потом.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.sales.check.customer",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.sales.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.sales.check"
+          }
+        }
+      },
+      {
+        "Name": "no",
+        "Text": "Нет, пустой клиент кнопку не пропускает.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.sales.check.customer",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.sales.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.sales.check"
+          }
+        }
+      },
+      {
+        "Name": "issue",
+        "Text": "Выставление всё равно проходит.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.sales.check.stock",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.sales.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.sales.check"
+          }
+        }
+      },
+      {
+        "Name": "deny",
+        "Text": "Выставление отказывает.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.sales.check.stock",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.sales.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.sales.check"
+          }
+        }
+      },
+      {
         "Name": "list",
         "Text": "Списком в заголовке.",
         "SortOrder": 1,
@@ -1475,6 +2522,102 @@
         }
       },
       {
+        "Name": "one",
+        "Text": "Достаточно одного.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.getting-started.check.search",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.getting-started.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "two",
+        "Text": "Хотя бы два.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.getting-started.check.search",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.getting-started.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "one",
+        "Text": "Одну.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.getting-started.check.qty",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.getting-started.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
+        "Name": "two",
+        "Text": "Две.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.getting-started.check.qty",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.getting-started.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.getting-started.check"
+          }
+        }
+      },
+      {
         "Name": "picker",
         "Text": "Кладовщик кнопкой подтверждения.",
         "SortOrder": 1,
@@ -1603,6 +2746,102 @@
           "$ref": "CheckPrompt",
           "key": {
             "Name": "learn.warehouse.check.wave",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.warehouse.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.warehouse.check"
+          }
+        }
+      },
+      {
+        "Name": "yes",
+        "Text": "Да, согласование всё равно двигает остаток.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.warehouse.check.jobs",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.warehouse.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.warehouse.check"
+          }
+        }
+      },
+      {
+        "Name": "no",
+        "Text": "Нет, без галки схема ни на что не влияет.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.warehouse.check.jobs",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.warehouse.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.warehouse.check"
+          }
+        }
+      },
+      {
+        "Name": "yes",
+        "Text": "Да, волна склеивает любые черновики.",
+        "SortOrder": 1,
+        "IsCorrect": false,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.warehouse.check.mix",
+            "Unit": {
+              "$ref": "Unit",
+              "key": {
+                "StableId": "learn.warehouse.check"
+              }
+            }
+          }
+        },
+        "Lesson": {
+          "$ref": "Unit",
+          "key": {
+            "StableId": "learn.warehouse.check"
+          }
+        }
+      },
+      {
+        "Name": "no",
+        "Text": "Нет, разные ячейки в одну волну не складываются.",
+        "SortOrder": 2,
+        "IsCorrect": true,
+        "Prompt": {
+          "$ref": "CheckPrompt",
+          "key": {
+            "Name": "learn.warehouse.check.mix",
             "Unit": {
               "$ref": "Unit",
               "key": {
