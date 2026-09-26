@@ -59,9 +59,14 @@
     "The blocking upgrade gate requires natural-key reconciliation of subtype",
     "transitions in WorkspaceImportService. Image 2026.0.272 contains that fix:",
     "an edge recreated by the designer is matched to the exported edge instead",
-    "of colliding and preventing package-version stamps."
+    "of colliding and preventing package-version stamps.",
+    "",
+    "2026.0.272 -> 2026.0.302 on 2026-09-26: Learning/catalog seeds the",
+    "TrackCourse link table. Apply on .272 answers",
+    "Unknown entity 'TrackCourse' (not a dictionary or document). Link-table",
+    "import landed in platform run 302 (commit 028454b7)."
   ],
-  "platformImage": "localhost:5000/zuloone-core:2026.0.272",
+  "platformImage": "localhost:5000/zuloone-core:2026.0.302",
 
   "$comment_exclude": [
     "Models with NO bundle exported for them.",
