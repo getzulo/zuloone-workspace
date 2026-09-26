@@ -446,6 +446,10 @@ public class LearningPublishTest : IntegrationTestScriptBase
         var refused = await report.AssignAsync(member.Email, org.StandSlug, body);
         Assert.AreEqual("{\"error\":\"Нет доступа\"}", refused);
 
+        var before = await report.ForStandAsync(owner.Email, org.StandSlug);
+        Assert.IsTrue(before.Contains("{\"id\":\"" + trackId + "\",\"name\":\"Назначенный путь\"}"),
+            "владелец выбирает путь из опубликованных, а не пишет код руками");
+
         var assigned = await report.AssignAsync(owner.Email, org.StandSlug, body);
         Assert.AreEqual("{\"ok\":true}", assigned);
 

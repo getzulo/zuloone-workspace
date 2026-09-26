@@ -29,7 +29,8 @@ public partial class LearningReport
     }
 
     /// <summary>
-    /// Closed paths, modules and certificate numbers of one stand.
+    /// Closed paths, modules and certificate numbers of one stand,
+    /// plus published lesson groups the owner can assign.
     /// A caller who is not an Owner of that stand gets a refusal with no addresses.
     /// </summary>
     public async Task<string> ForStandAsync(string email, string standSlug)
@@ -56,7 +57,8 @@ public partial class LearningReport
             if (learner == null || string.IsNullOrWhiteSpace(learner.Email)) continue;
             people.Add(await PersonAsync(learner));
         }
-        return "{\"people\":[" + string.Join(",", people) + "]}";
+        var paths = await PublishedPathsAsync();
+        return "{\"people\":[" + string.Join(",", people) + "],\"paths\":[" + string.Join(",", paths) + "]}";
     }
 
     /// <summary>
@@ -133,6 +135,16 @@ public partial class LearningReport
             + ",\"modules\":[" + string.Join(",", modules.Select(Quote)) + "]"
             + ",\"certificates\":[" + string.Join(",", numbers.Select(Quote)) + "]"
             + ",\"open\":[" + string.Join(",", open.Select(Quote)) + "]}";
+    }
+
+    private async Task<List<string>> PublishedPathsAsync()
+    {
+        var cards = await _dictionaries.GetRecordsAsync<Track>("1 = 1");
+        return cards
+            .Where(card => !string.IsNullOrWhiteSpace(card.StableId) && card.PublishedRevision != Guid.Empty)
+            .OrderBy(card => card.Name, StringComparer.Ordinal)
+            .Select(card => "{\"id\":" + Quote(card.StableId) + ",\"name\":" + Quote(card.Name) + "}")
+            .ToList();
     }
 
     private async Task<List<string>> ClosedTracksAsync(Guid learnerId)
