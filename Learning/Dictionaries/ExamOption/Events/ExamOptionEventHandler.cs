@@ -1,21 +1,26 @@
 #nullable enable
+using System;
+using System.Threading.Tasks;
+using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
+
 namespace ZuloOne.Runtime.Generated;
 
-// Handler for ExamOption. Override only the hooks you need.
-// This is the OWNER: it is link 0 of the chain, so it does not call next().
-// A handler in ANOTHER model declares itself with [ExtensionOf("ExamOption")] and
-// must call next(...) from every override (ZOCOC001) — work AFTER next() sees
-// what the owner wrote. [Replace] swallows the chain on purpose.
 public partial class ExamOptionEventHandler : TypedDictionaryEventHandler<ExamOption>
 {
-    // public override async Task<EventResult> OnBeforeSaveAsync(ExamOption record, bool isNew, EventContext context)
-    // {
-    //     return EventResult.Ok();
-    // }
+    public override Task<EventResult> OnBeforeSaveAsync(ExamOption record, bool isNew, EventContext context)
+    {
+        if (string.IsNullOrWhiteSpace(record.Name))
+            record.Name = "opt." + Guid.NewGuid().ToString("N").Substring(0, 8);
+        return Task.FromResult(EventResult.Ok());
+    }
 
-    // Live from the card (no Save): OnValidateField then OnFieldChanged.
-    // public override async Task<EventResult> OnFieldChangedAsync(ExamOption record, string fieldName, object? value, EventContext context)
-    // {
-    //     return EventResult.Ok();
-    // }
+    public override async Task<EventResult> OnAfterSaveAsync(ExamOption record, bool isNew, EventContext context)
+    {
+        var question = await context.GetService<IDictionaryManager>().GetRecordAsync<ExamQuestion>(record.Question);
+        if (question == null || question.ExamRevision != Guid.Empty || question.Exam == Guid.Empty)
+            return EventResult.Ok();
+        await context.GetService<IExamSession>().PublishFromCardAsync(question.Exam);
+        return EventResult.Ok();
+    }
 }

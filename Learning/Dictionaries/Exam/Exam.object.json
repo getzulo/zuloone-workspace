@@ -5,7 +5,7 @@
       "en": "Exam",
       "ru": "Экзамен"
     },
-    "description": "Карточка экзамена. Вопросы лежат в версии.",
+    "description": "Карточка экзамена. Вопросы справа, сохранение публикует версию.",
     "isLogged": false,
     "isHierarchical": false,
     "numberSequenceMetaId": "b097bdac-2a94-4f7d-9114-240a6d53e87e",
@@ -37,7 +37,7 @@
         "ru": "Черновик"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "7dc542b6-b752-49db-b7b6-be5943199007",
       "name": "DraftRevision",
@@ -97,7 +97,7 @@
         "ru": "Опубликованная версия"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "83410ae0-8692-444c-8f98-a8591470c604",
       "name": "PublishedRevision",
@@ -113,14 +113,66 @@
       "isIndexed": true,
       "isUnique": false,
       "caption": {
-        "en": "Path",
-        "ru": "Путь"
+        "en": "Lesson group",
+        "ru": "Группа уроков"
       },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
       "metaId": "caa11113-31a3-45b6-82c3-3ded87a3fd10",
       "name": "Track",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+      "fieldName": "PassPercent",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": { "en": "Pass percent", "ru": "Порог, %" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "68c0d2e3-4f51-4a62-b073-8d9e1a2b3c4d",
+      "name": "PassPercent",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+      "fieldName": "ValidDays",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": { "en": "Valid days", "ru": "Срок, дни" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "79d1e3f4-5062-4b73-c184-9e0f2b3c4d5e",
+      "name": "ValidDays",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "lists": [
+    {
+      "dictionaryMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+      "name": "Questions",
+      "caption": {
+        "en": "Questions",
+        "ru": "Вопросы"
+      },
+      "type": "ExamQuestion",
+      "otherKey": "Exam",
+      "autoLoad": true,
+      "cascadeDelete": true,
+      "defaultOrderBy": "SortOrder",
+      "description": "Черновики вопросов. Двойной щелчок открывает варианты.",
+      "metaId": "9bf30516-7284-4d95-e3a6-b0214d5e6f70",
       "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
     }
   ]

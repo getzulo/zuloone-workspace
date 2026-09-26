@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "eb026368-0e90-4e3c-8c4c-98bcc4ffbe3e",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Text\",\"widget\":\"textarea\",\"span\":2},{\"type\":\"field\",\"name\":\"SortOrder\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"}],\"hidden\":[\"ID\",\"Name\",\"Exam\",\"ExamRevision\"]}",
+    "metaId": "c0d41627-8395-4ea6-f4b7-c1325e6f7081",
+    "name": "ExamQuestion.Record",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

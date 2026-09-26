@@ -2,10 +2,10 @@
   "kind": "Dictionary",
   "object": {
     "caption": {
-      "en": "Module",
-      "ru": "Модуль"
+      "en": "Course",
+      "ru": "Курс"
     },
-    "description": "Карточка модуля. Текст лежит в версии.",
+    "description": "Курс внутри группы. Минуты и аудитория — данные карточки, публикация замораживает версию.",
     "isLogged": false,
     "isHierarchical": false,
     "numberSequenceMetaId": "4c9acb99-81dd-4887-a679-92285eb46b74",
@@ -69,7 +69,7 @@
       "edtMetaId": "751c2087-9cf0-483f-afb2-653ac2034c48",
       "isSystem": false,
       "isRequired": false,
-      "displayOrder": 3,
+      "displayOrder": 6,
       "isIndexed": true,
       "isUnique": false,
       "caption": {
@@ -77,7 +77,7 @@
         "ru": "Опубликованная версия"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "5e1c2b05-97b3-4599-bc87-97fa7237c871",
       "name": "PublishedRevision",
@@ -89,19 +89,90 @@
       "baseType": "String",
       "length": 256,
       "isSystem": false,
-      "isRequired": true,
+      "isRequired": false,
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": true,
       "caption": {
-        "en": "Stable id",
-        "ru": "Стабильный код"
+        "en": "Code",
+        "ru": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
       "metaId": "d14926f7-9dbd-4778-a339-b7ba5e325c96",
       "name": "StableId",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "bae04c0f-c756-4d27-bed7-9ca326a36c01",
+      "fieldName": "Minutes",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": { "en": "Minutes", "ru": "Минуты" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "381eabe5-85e6-46aa-aa0a-6b7fc89a2f79",
+      "name": "Minutes",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "bae04c0f-c756-4d27-bed7-9ca326a36c01",
+      "fieldName": "Audience",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": { "en": "Audience", "ru": "Для кого" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "f75d46ee-01ee-42ca-9da5-ccbaeb094791",
+      "name": "Audience",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "bae04c0f-c756-4d27-bed7-9ca326a36c01",
+      "fieldName": "Level",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": { "en": "Level", "ru": "Уровень" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "fce82503-f803-4753-b025-bf699c09bcd3",
+      "name": "Level",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "lists": [
+    {
+      "dictionaryMetaId": "bae04c0f-c756-4d27-bed7-9ca326a36c01",
+      "name": "Units",
+      "caption": {
+        "en": "Lessons and tests",
+        "ru": "Уроки и тесты"
+      },
+      "type": "Unit",
+      "otherKey": "Module",
+      "autoLoad": true,
+      "cascadeDelete": true,
+      "defaultOrderBy": "SortOrder",
+      "description": "Состав курса. На карточке курса, в меню отдельно тоже есть.",
+      "metaId": "13a5d7b8-f4c2-4609-27ae-b5103d048a69",
       "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
     }
   ]

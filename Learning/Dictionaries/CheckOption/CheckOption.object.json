@@ -2,8 +2,8 @@
   "kind": "Dictionary",
   "object": {
     "caption": {
-      "en": "Check option",
-      "ru": "Вариант проверки"
+      "en": "Test option",
+      "ru": "Вариант теста"
     },
     "description": "Вариант ответа. Верный помечен.",
     "isLogged": false,
@@ -13,8 +13,8 @@
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "defaultSearchProperty": "Name",
-    "displayFormat": "{Name}",
+    "defaultSearchProperty": "Text",
+    "displayFormat": "{Text}",
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
@@ -77,7 +77,7 @@
         "ru": "Наименование"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "cbac8027-46f2-4c74-a171-4d716e284ec3",
       "name": "Name",
@@ -142,6 +142,23 @@
       "isCalculated": false,
       "metaId": "d4f6800e-3221-4388-bf51-f54884b3a12c",
       "name": "Text",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "c5b68bd8-53a5-401f-bbdf-40984c329e64",
+      "fieldName": "Lesson",
+      "edtMetaId": "58148053-3d09-4074-809c-b49589ae6247",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": { "en": "Lesson", "ru": "Урок" },
+      "isTranslatable": false,
+      "isVisible": false,
+      "isCalculated": false,
+      "metaId": "57e91bfc-3806-4a4d-6be2-f9547148cead",
+      "name": "Lesson",
       "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
     }
   ]

@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZuloOne.Managers;
@@ -289,6 +290,100 @@ public partial class ExamSession
         option.IsCorrect = correct;
         await _dictionaries.SaveRecordAsync(option);
     }
+
+    /// <summary>
+    /// Publish the exam from draft questions on the card (Exam set, ExamRevision empty).
+    /// Same paper does not create a new revision. No drafts — leave the published one.
+    /// Frozen copies must not set Exam or they appear next to drafts on the card.
+    /// </summary>
+    public async Task<Guid> PublishFromCardAsync(Guid examId)
+    {
+        var exam = await _dictionaries.GetRecordAsync<Exam>(examId);
+        if (exam == null || string.IsNullOrWhiteSpace(exam.Name)) return Guid.Empty;
+
+        var drafts = (await _dictionaries.GetRecordsAsync<ExamQuestion>($"Exam = '{examId}'"))
+            .Where(row => row.ExamRevision == Guid.Empty)
+            .OrderBy(row => row.SortOrder)
+            .ThenBy(row => row.Name, StringComparer.Ordinal)
+            .ToList();
+        if (drafts.Count == 0) return exam.PublishedRevision;
+
+        var pass = exam.PassPercent > 0 ? exam.PassPercent : 70;
+        var days = exam.ValidDays > 0 ? exam.ValidDays : 365;
+
+        if (exam.PublishedRevision != Guid.Empty
+            && await SameDraftsAsync(exam.PublishedRevision, pass, days, drafts))
+            return exam.PublishedRevision;
+
+        var number = 1;
+        if (exam.PublishedRevision != Guid.Empty)
+        {
+            var previous = await _dictionaries.GetRecordAsync<ExamRevision>(exam.PublishedRevision);
+            if (previous != null) number = previous.Number + 1;
+        }
+
+        var revision = _dictionaries.NewRecord<ExamRevision>();
+        revision.Exam = examId;
+        revision.Number = number;
+        revision.PassPercent = pass;
+        revision.ValidDays = days;
+        revision.PublishedAt = DateTime.UtcNow;
+        revision = await _dictionaries.SaveRecordAsync(revision);
+
+        foreach (var draft in drafts)
+        {
+            var row = _dictionaries.NewRecord<ExamQuestion>();
+            row.ExamRevision = revision.MetaId;
+            row.SortOrder = draft.SortOrder;
+            row.Name = draft.Name;
+            row.Text = draft.Text;
+            row = await _dictionaries.SaveRecordAsync(row);
+            var options = (await _dictionaries.GetRecordsAsync<ExamOption>($"Question = '{draft.MetaId}'"))
+                .OrderBy(option => option.SortOrder)
+                .ThenBy(option => option.Name, StringComparer.Ordinal)
+                .ToList();
+            var order = 0;
+            foreach (var option in options)
+            {
+                order++;
+                await SaveOptionAsync(row.MetaId, option.SortOrder == 0 ? order : option.SortOrder, option.Text ?? "", option.IsCorrect);
+            }
+        }
+
+        exam.PublishedRevision = revision.MetaId;
+        exam.PassPercent = pass;
+        exam.ValidDays = days;
+        await _dictionaries.SaveRecordAsync(exam);
+        return revision.MetaId;
+    }
+
+    private async Task<bool> SameDraftsAsync(
+        Guid revisionId, int passPercent, int validDays, List<ExamQuestion> drafts)
+    {
+        var revision = await _dictionaries.GetRecordAsync<ExamRevision>(revisionId);
+        if (revision == null || revision.PassPercent != passPercent || revision.ValidDays != validDays)
+            return false;
+        var published = (await _dictionaries.GetRecordsAsync<ExamQuestion>($"ExamRevision = '{revisionId}'"))
+            .OrderBy(row => row.SortOrder)
+            .ThenBy(row => row.Name, StringComparer.Ordinal)
+            .ToList();
+        if (published.Count != drafts.Count) return false;
+        for (var i = 0; i < drafts.Count; i++)
+        {
+            if (drafts[i].Text != published[i].Text) return false;
+            var left = (await _dictionaries.GetRecordsAsync<ExamOption>($"Question = '{drafts[i].MetaId}'"))
+                .OrderBy(option => option.SortOrder).Select(CanonOption).ToList();
+            var right = (await _dictionaries.GetRecordsAsync<ExamOption>($"Question = '{published[i].MetaId}'"))
+                .OrderBy(option => option.SortOrder).Select(CanonOption).ToList();
+            if (left.Count != right.Count) return false;
+            for (var j = 0; j < left.Count; j++)
+                if (left[j] != right[j]) return false;
+        }
+        return true;
+    }
+
+    private static string CanonOption(ExamOption option)
+        => (option.Text ?? "") + "\t" + (option.IsCorrect ? "1" : "0");
 
     private static string Clip(string? text)
     {

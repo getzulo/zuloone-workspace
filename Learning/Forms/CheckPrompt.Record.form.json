@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "372b2b5b-2b15-4cdd-aac2-f57201c51afc",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Text\",\"widget\":\"textarea\",\"span\":2},{\"type\":\"field\",\"name\":\"SortOrder\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"}],\"hidden\":[\"ID\",\"Name\",\"Unit\",\"UnitRevision\"]}",
+    "metaId": "bd4f7152-9e6c-40a3-c148-5fba7dae2403",
+    "name": "CheckPrompt.Record",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

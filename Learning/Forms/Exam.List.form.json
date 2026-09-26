@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+    "formKind": "List",
+    "layoutJson": "{\"version\":4,\"presentation\":\"cards\",\"nodes\":[],\"hidden\":[\"PublishedRevision\",\"DraftRevision\"]}",
+    "metaId": "e2f63849-a5b7-40c8-16d9-e354708192a3",
+    "name": "Exam.List",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

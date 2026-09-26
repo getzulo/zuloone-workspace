@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "4776844e-e847-4b56-ad39-83d0ab150fbb",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Name\",\"span\":2},{\"type\":\"field\",\"name\":\"StableId\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"}],\"hidden\":[\"ID\",\"PublishedRevision\"]}",
+    "metaId": "8a1c4e2f-6b39-4d70-9e15-2c8f4a7b91d0",
+    "name": "Track.Record",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

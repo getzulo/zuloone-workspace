@@ -2,10 +2,10 @@
   "kind": "Dictionary",
   "object": {
     "caption": {
-      "en": "Learning path",
-      "ru": "Путь"
+      "en": "Lesson group",
+      "ru": "Группа уроков"
     },
-    "description": "Карточка навыка. Текст лежит в версии.",
+    "description": "Набор курсов, который назначают человеку. Состав — данные на карточке, публикация замораживает версию.",
     "isLogged": false,
     "isHierarchical": false,
     "numberSequenceMetaId": "2c5c8937-e3a5-4cdf-89b1-8b0fcdae850a",
@@ -77,7 +77,7 @@
         "ru": "Опубликованная версия"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "895f6afc-141e-412b-bb07-4fda31a04192",
       "name": "PublishedRevision",
@@ -89,13 +89,13 @@
       "baseType": "String",
       "length": 256,
       "isSystem": false,
-      "isRequired": true,
+      "isRequired": false,
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": true,
       "caption": {
-        "en": "Stable id",
-        "ru": "Стабильный код"
+        "en": "Code",
+        "ru": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,

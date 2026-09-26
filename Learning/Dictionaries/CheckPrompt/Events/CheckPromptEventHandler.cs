@@ -1,21 +1,26 @@
 #nullable enable
+using System;
+using System.Threading.Tasks;
+using ZuloOne.Managers;
+using ZuloOne.Services.Contracts;
+
 namespace ZuloOne.Runtime.Generated;
 
-// Handler for CheckPrompt. Override only the hooks you need.
-// This is the OWNER: it is link 0 of the chain, so it does not call next().
-// A handler in ANOTHER model declares itself with [ExtensionOf("CheckPrompt")] and
-// must call next(...) from every override (ZOCOC001) — work AFTER next() sees
-// what the owner wrote. [Replace] swallows the chain on purpose.
 public partial class CheckPromptEventHandler : TypedDictionaryEventHandler<CheckPrompt>
 {
-    // public override async Task<EventResult> OnBeforeSaveAsync(CheckPrompt record, bool isNew, EventContext context)
-    // {
-    //     return EventResult.Ok();
-    // }
+    public override Task<EventResult> OnBeforeSaveAsync(CheckPrompt record, bool isNew, EventContext context)
+    {
+        if (string.IsNullOrWhiteSpace(record.Name))
+            record.Name = "q." + Guid.NewGuid().ToString("N").Substring(0, 8);
+        return Task.FromResult(EventResult.Ok());
+    }
 
-    // Live from the card (no Save): OnValidateField then OnFieldChanged.
-    // public override async Task<EventResult> OnFieldChangedAsync(CheckPrompt record, string fieldName, object? value, EventContext context)
-    // {
-    //     return EventResult.Ok();
-    // }
+    public override async Task<EventResult> OnAfterSaveAsync(CheckPrompt record, bool isNew, EventContext context)
+    {
+        if (record.UnitRevision != Guid.Empty || record.Unit == Guid.Empty) return EventResult.Ok();
+        var unit = await context.GetService<IDictionaryManager>().GetRecordAsync<Unit>(record.Unit);
+        if (unit != null && !string.IsNullOrWhiteSpace(unit.StableId))
+            await context.GetService<ILearningCatalog>().PublishLessonAsync(unit.StableId);
+        return EventResult.Ok();
+    }
 }

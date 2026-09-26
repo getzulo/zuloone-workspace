@@ -1,10 +1,10 @@
 {
   "kind": "Dictionary",
   "object": {
-    "caption": {
-      "en": "Page revision",
-      "ru": "Версия страницы"
-    },
+      "caption": {
+        "en": "Lesson revision",
+        "ru": "Версия урока"
+      },
     "description": "Неизменяемый текст страницы.",
     "isLogged": false,
     "isHierarchical": false,
@@ -194,8 +194,8 @@
       "isIndexed": true,
       "isUnique": false,
       "caption": {
-        "en": "Page",
-        "ru": "Страница"
+        "en": "Lesson",
+        "ru": "Урок"
       },
       "isTranslatable": false,
       "isVisible": true,

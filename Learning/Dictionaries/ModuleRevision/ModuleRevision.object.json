@@ -184,6 +184,42 @@
       "metaId": "ff9be1b9-9458-4e4f-b92c-1e0224b6dfce",
       "name": "PublishedAt",
       "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "fieldName": "Audience",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 8,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": { "en": "Audience", "ru": "Для кого" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7bd3af69-a033-4c3c-9321-72552b5db579",
+      "name": "Audience",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "40af4a99-f7dd-47a6-bc41-4c45a3907ed8",
+      "fieldName": "Level",
+      "baseType": "String",
+      "length": 64,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 9,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": { "en": "Level", "ru": "Уровень" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d820a63e-ce43-4481-9935-76966e045377",
+      "name": "Level",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
     }
   ]
 }

@@ -5,7 +5,7 @@
       "en": "Exam question",
       "ru": "Вопрос экзамена"
     },
-    "description": "Вопрос одной версии экзамена.",
+    "description": "Вопрос экзамена. На карточке — черновик; публикация копирует на версию.",
     "isLogged": false,
     "isHierarchical": false,
     "numberSequenceMetaId": "1b8f40bd-8c8b-43bf-b27f-e29c4c40b9c4",
@@ -13,8 +13,8 @@
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "defaultSearchProperty": "Name",
-    "displayFormat": "{Name}",
+    "defaultSearchProperty": "Text",
+    "displayFormat": "{Text}",
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
@@ -28,7 +28,7 @@
       "fieldName": "ExamRevision",
       "edtMetaId": "6f335d65-c1d4-4f29-9df7-76a6b02e69ea",
       "isSystem": false,
-      "isRequired": true,
+      "isRequired": false,
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": false,
@@ -37,7 +37,7 @@
         "ru": "Версия экзамена"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "dc80f01d-2fe8-47d4-b156-d7aba8f7ccfd",
       "name": "ExamRevision",
@@ -77,7 +77,7 @@
         "ru": "Наименование"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "b6fcee36-2515-4a34-a8fd-c439c261576c",
       "name": "Name",
@@ -122,6 +122,41 @@
       "isCalculated": false,
       "metaId": "db181866-725a-4f41-ab25-90686483b617",
       "name": "Text",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "eb026368-0e90-4e3c-8c4c-98bcc4ffbe3e",
+      "fieldName": "Exam",
+      "edtMetaId": "664be464-b605-4fa5-aa7b-348550ff9197",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": { "en": "Exam", "ru": "Экзамен" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "8ae2f405-6173-4c84-d295-af103c4d5e6f",
+      "name": "Exam",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "lists": [
+    {
+      "dictionaryMetaId": "eb026368-0e90-4e3c-8c4c-98bcc4ffbe3e",
+      "name": "Options",
+      "caption": {
+        "en": "Answer options",
+        "ru": "Варианты ответа"
+      },
+      "type": "ExamOption",
+      "otherKey": "Question",
+      "autoLoad": true,
+      "cascadeDelete": true,
+      "defaultOrderBy": "SortOrder",
+      "description": "Варианты этого вопроса. На карточке вопроса.",
+      "metaId": "f3a7495a-b6c8-41d9-27ea-f4658192a3b4",
       "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
     }
   ]

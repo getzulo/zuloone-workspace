@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "f4562102-8aaa-4b17-9452-10db430397b1",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Text\",\"widget\":\"textarea\",\"span\":2},{\"type\":\"field\",\"name\":\"IsCorrect\"},{\"type\":\"field\",\"name\":\"SortOrder\"},{\"type\":\"field\",\"name\":\"Question\"}]}],\"hidden\":[\"ID\",\"Name\"]}",
+    "metaId": "d1e52738-94a6-4fb7-05c8-d2436f708192",
+    "name": "ExamOption.Record",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

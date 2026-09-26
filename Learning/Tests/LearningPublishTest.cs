@@ -459,6 +459,133 @@ public class LearningPublishTest : IntegrationTestScriptBase
             "незакрытый путь не числится сданным");
     }
 
+    [IntegrationTest("Группу уроков, урок и тест наполняют с карточки")]
+    public async Task AuthorFillsAGroupALessonAndATest()
+    {
+        var suffix = Guid.NewGuid().ToString("N").Substring(0, 8);
+        var group = Dictionaries.NewRecord<Track>();
+        group.StableId = "learn.fill." + suffix;
+        group.Name = "Группа наполнения";
+        group = await Dictionaries.SaveRecordAsync(group);
+
+        var course = Dictionaries.NewRecord<Module>();
+        course.StableId = "learn.fill." + suffix + ".course";
+        course.Name = "Курс наполнения";
+        course.Minutes = 20;
+        course.Audience = "Пользователь";
+        course.Level = "Начальный";
+        course = await Dictionaries.SaveRecordAsync(course);
+
+        await GetService<ILinkTableManager>().AddAsync("TrackCourse", new Dictionary<string, object?>
+        {
+            ["Track"] = group.MetaId,
+            ["Module"] = course.MetaId,
+            ["SortOrder"] = 1,
+        });
+        group = await Dictionaries.SaveRecordAsync(group);
+
+        var lesson = Dictionaries.NewRecord<Unit>();
+        lesson.StableId = "learn.fill." + suffix + ".lesson";
+        lesson.Name = "Урок наполнения";
+        lesson.Module = course.MetaId;
+        lesson.Kind = UnitKind.Lesson;
+        lesson.SortOrder = 1;
+        lesson.Body = "Текст урока с карточки";
+        lesson = await Dictionaries.SaveRecordAsync(lesson);
+
+        var test = Dictionaries.NewRecord<Unit>();
+        test.StableId = "learn.fill." + suffix + ".test";
+        test.Name = "Тест наполнения";
+        test.Module = course.MetaId;
+        test.Kind = UnitKind.Check;
+        test.SortOrder = 2;
+        test.Body = "Ответьте на вопрос";
+        test = await Dictionaries.SaveRecordAsync(test);
+
+        var prompt = Dictionaries.NewRecord<CheckPrompt>();
+        prompt.Unit = test.MetaId;
+        prompt.Name = "q1";
+        prompt.Text = "Два плюс два";
+        prompt.SortOrder = 1;
+        prompt = await Dictionaries.SaveRecordAsync(prompt);
+
+        var yes = Dictionaries.NewRecord<CheckOption>();
+        yes.Prompt = prompt.MetaId;
+        yes.Name = "four";
+        yes.Text = "4";
+        yes.SortOrder = 1;
+        yes.IsCorrect = true;
+        await Dictionaries.SaveRecordAsync(yes);
+        var no = Dictionaries.NewRecord<CheckOption>();
+        no.Prompt = prompt.MetaId;
+        no.Name = "five";
+        no.Text = "5";
+        no.SortOrder = 2;
+        no.IsCorrect = false;
+        await Dictionaries.SaveRecordAsync(no);
+
+        var catalog = GetService<ILearningCatalog>();
+        var page = await catalog.ReadPageAsync(lesson.StableId);
+        Assert.IsTrue(page.Contains("Текст урока с карточки"), "текст урока читается с опубликованной версии");
+        var paper = await catalog.ReadPageAsync(test.StableId);
+        Assert.IsTrue(paper.Contains("Два плюс два"), "вопрос теста на месте");
+        Assert.IsTrue(paper.Contains("\"4\""), "вариант виден");
+        Assert.IsTrue(paper.IndexOf("correct", StringComparison.Ordinal) < 0, "ключ с карточки не уходит в чтение");
+
+        group = (await Dictionaries.GetRecordAsync<Track>(group.MetaId))!;
+        Assert.IsTrue(group.PublishedRevision != Guid.Empty, "группа опубликована");
+        course = (await Dictionaries.GetRecordAsync<Module>(course.MetaId))!;
+        Assert.AreEqual("Пользователь", course.Audience);
+        test = (await Dictionaries.GetRecordAsync<Unit>(test.MetaId))!;
+        var frozen = (await Dictionaries.GetRecordsAsync<CheckPrompt>($"UnitRevision = '{test.PublishedRevision}'")).ToList();
+        Assert.IsTrue(frozen.Count >= 1, "у опубликованного теста есть вопрос");
+        Assert.IsTrue(frozen.All(row => row.Unit == Guid.Empty), "опубликованный вопрос не дублируется на карточке");
+    }
+
+    [IntegrationTest("Экзамен наполняют с карточки: вопросы справа, сохранение публикует")]
+    public async Task AuthorFillsAnExamFromTheCard()
+    {
+        var suffix = Guid.NewGuid().ToString("N").Substring(0, 8);
+        var exam = Dictionaries.NewRecord<Exam>();
+        var name = "ExamFill-" + suffix;
+        exam.Name = name;
+        exam.PassPercent = 70;
+        exam.ValidDays = 365;
+        exam = await Dictionaries.SaveRecordAsync(exam);
+
+        var prompt = Dictionaries.NewRecord<ExamQuestion>();
+        prompt.Exam = exam.MetaId;
+        prompt.Text = "Capital of France";
+        prompt.SortOrder = 1;
+        prompt = await Dictionaries.SaveRecordAsync(prompt);
+
+        var yes = Dictionaries.NewRecord<ExamOption>();
+        yes.Question = prompt.MetaId;
+        yes.Text = "Paris";
+        yes.SortOrder = 1;
+        yes.IsCorrect = true;
+        await Dictionaries.SaveRecordAsync(yes);
+        var no = Dictionaries.NewRecord<ExamOption>();
+        no.Question = prompt.MetaId;
+        no.Text = "Lyon";
+        no.SortOrder = 2;
+        no.IsCorrect = false;
+        await Dictionaries.SaveRecordAsync(no);
+
+        exam = (await Dictionaries.GetRecordAsync<Exam>(exam.MetaId))!;
+        Assert.IsTrue(exam.PublishedRevision != Guid.Empty, "экзамен опубликован с карточки");
+        var frozen = (await Dictionaries.GetRecordsAsync<ExamQuestion>($"ExamRevision = '{exam.PublishedRevision}'")).ToList();
+        Assert.AreEqual(1, frozen.Count);
+        Assert.IsTrue(frozen.All(row => row.Exam == Guid.Empty), "опубликованный вопрос не висит на карточке");
+
+        var email = "exam-fill-" + suffix + "@example.com";
+        var session = GetService<IExamSession>();
+        var ask = await session.AskAsync(email, exam.Name);
+        Assert.IsTrue(ask.Contains("Capital of France"), ask);
+        Assert.IsTrue(ask.IndexOf("correct", StringComparison.Ordinal) < 0, "ключ не в выдаче");
+        Assert.IsTrue(ask.Contains("Paris"), ask);
+    }
+
     private static async Task<Learner> LearnerAsync(string email)
     {
         var learner = Dictionaries.NewRecord<Learner>();

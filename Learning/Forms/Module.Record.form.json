@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "bae04c0f-c756-4d27-bed7-9ca326a36c01",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Name\",\"span\":2},{\"type\":\"field\",\"name\":\"Minutes\"},{\"type\":\"field\",\"name\":\"Audience\"},{\"type\":\"field\",\"name\":\"Level\"},{\"type\":\"field\",\"name\":\"StableId\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"}],\"hidden\":[\"ID\",\"PublishedRevision\"]}",
+    "metaId": "9b2d5f30-7c4a-4e81-af26-3d9e5b8c02e1",
+    "name": "Module.Record",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

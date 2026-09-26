@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Name\",\"span\":2},{\"type\":\"field\",\"name\":\"Track\"},{\"type\":\"field\",\"name\":\"PassPercent\"},{\"type\":\"field\",\"name\":\"ValidDays\"}]},{\"type\":\"panel\",\"key\":\"panel:details\"}],\"hidden\":[\"ID\",\"DraftRevision\",\"PublishedRevision\"]}",
+    "metaId": "df619374-b08e-42c5-e36a-71dc9fc04625",
+    "name": "Exam.Record",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}

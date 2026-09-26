@@ -2,10 +2,10 @@
   "kind": "Dictionary",
   "object": {
     "caption": {
-      "en": "Page",
-      "ru": "Страница"
+      "en": "Lesson or test",
+      "ru": "Урок или тест"
     },
-    "description": "Карточка страницы урока.",
+    "description": "Урок или тест. Текст и вид — данные карточки. Публикация копирует их в неизменяемую версию.",
     "isLogged": false,
     "isHierarchical": false,
     "numberSequenceMetaId": "3cf918cc-92ca-469b-9891-be0236eb18cc",
@@ -69,7 +69,7 @@
       "edtMetaId": "cce2fda2-85dd-490e-929d-2a91db6c8012",
       "isSystem": false,
       "isRequired": false,
-      "displayOrder": 3,
+      "displayOrder": 7,
       "isIndexed": true,
       "isUnique": false,
       "caption": {
@@ -77,7 +77,7 @@
         "ru": "Опубликованная версия"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "6be66ade-2802-455d-be54-5dc1bd9662bd",
       "name": "PublishedRevision",
@@ -89,19 +89,122 @@
       "baseType": "String",
       "length": 256,
       "isSystem": false,
-      "isRequired": true,
+      "isRequired": false,
       "displayOrder": 1,
       "isIndexed": true,
       "isUnique": true,
       "caption": {
-        "en": "Stable id",
-        "ru": "Стабильный код"
+        "en": "Code",
+        "ru": "Код"
       },
       "isTranslatable": false,
       "isVisible": true,
       "isCalculated": false,
       "metaId": "356c4ff5-4d4a-487a-889b-7523499a7931",
       "name": "StableId",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "fieldName": "Module",
+      "edtMetaId": "3a7a6dc9-d4f0-4cab-8569-ddb2033206be",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 3,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": { "en": "Course", "ru": "Курс" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "d53fa3e6-d815-4bbc-b92c-84b3bef88abe",
+      "name": "Module",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "fieldName": "Kind",
+      "edtMetaId": "2a5226ca-b195-4561-89a7-e6ddb3f0681e",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 4,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": { "en": "Kind", "ru": "Вид" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "5c1c0b59-2517-4ec2-9f48-75f119592da4",
+      "name": "Kind",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "fieldName": "SortOrder",
+      "baseType": "Integer",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 5,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": { "en": "Order", "ru": "Порядок" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "aa54a30e-e261-440e-b07f-44a83669b718",
+      "name": "SortOrder",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "fieldName": "Body",
+      "baseType": "Text",
+      "length": 4000,
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 6,
+      "isIndexed": false,
+      "isUnique": false,
+      "caption": { "en": "Text", "ru": "Текст" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "7b2f07fb-c724-4074-998e-5381c57fa313",
+      "name": "Body",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "lists": [
+    {
+      "dictionaryMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "name": "Questions",
+      "caption": {
+        "en": "Questions",
+        "ru": "Вопросы"
+      },
+      "type": "CheckPrompt",
+      "otherKey": "Unit",
+      "autoLoad": true,
+      "cascadeDelete": true,
+      "defaultOrderBy": "SortOrder",
+      "description": "Черновики вопросов теста. Двойной щелчок открывает варианты.",
+      "metaId": "24b6e8c9-05d3-471a-38bf-c6214e159b7a",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "d988e7b2-bd28-4690-a705-43860a9c2755",
+      "name": "Options",
+      "caption": {
+        "en": "Answer options",
+        "ru": "Варианты ответа"
+      },
+      "type": "CheckOption",
+      "otherKey": "Lesson",
+      "autoLoad": true,
+      "cascadeDelete": true,
+      "defaultOrderBy": "SortOrder",
+      "description": "Варианты всех вопросов этого теста. Вопрос выбирают в строке.",
+      "metaId": "35c7f9da-16e4-482b-49c0-d7325f26ac8b",
       "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
     }
   ]

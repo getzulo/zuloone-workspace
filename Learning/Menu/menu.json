@@ -102,8 +102,8 @@
     },
     {
       "caption": {
-        "en": "Module badges",
-        "ru": "Значки модулей"
+        "en": "Course badges",
+        "ru": "Значки курсов"
       },
       "parentMetaId": "962b9935-5a1e-4261-809a-5dd969e5a1d3",
       "displayOrder": 2,
@@ -128,8 +128,8 @@
     },
     {
       "caption": {
-        "en": "Paths",
-        "ru": "Пути"
+        "en": "Lesson groups",
+        "ru": "Группы уроков"
       },
       "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
       "displayOrder": 3,
@@ -142,7 +142,7 @@
     {
       "caption": {
         "en": "Path trophies",
-        "ru": "Трофеи путей"
+        "ru": "Трофеи групп"
       },
       "parentMetaId": "962b9935-5a1e-4261-809a-5dd969e5a1d3",
       "displayOrder": 3,
@@ -155,7 +155,7 @@
     {
       "caption": {
         "en": "Enrollments",
-        "ru": "Записи на путь"
+        "ru": "Записи на группу"
       },
       "parentMetaId": "962b9935-5a1e-4261-809a-5dd969e5a1d3",
       "displayOrder": 4,
@@ -167,8 +167,8 @@
     },
     {
       "caption": {
-        "en": "Modules",
-        "ru": "Модули"
+        "en": "Courses",
+        "ru": "Курсы"
       },
       "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
       "displayOrder": 4,
@@ -180,8 +180,8 @@
     },
     {
       "caption": {
-        "en": "Pages",
-        "ru": "Страницы"
+        "en": "Lessons and tests",
+        "ru": "Уроки и тесты"
       },
       "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
       "displayOrder": 5,
@@ -202,19 +202,6 @@
       "targetMetaId": "12c293b5-bde5-461a-8ebc-2fe9cda4a139",
       "metaId": "1f996abd-8e77-4770-884c-837a44a262bd",
       "name": "Exam",
-      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
-    },
-    {
-      "caption": {
-        "en": "Exam questions",
-        "ru": "Вопросы экзамена"
-      },
-      "parentMetaId": "e4815404-2b42-422b-a65c-b98b47548fd8",
-      "displayOrder": 7,
-      "targetType": "Dictionary",
-      "targetMetaId": "eb026368-0e90-4e3c-8c4c-98bcc4ffbe3e",
-      "metaId": "021aaaa7-5ff0-4a1e-be56-4ed21c4a5bd5",
-      "name": "ExamQuestion",
       "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
     }
   ]

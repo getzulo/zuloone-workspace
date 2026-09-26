@@ -57,3 +57,4 @@ obj/
 # Byte-code from running the CI scripts by hand.
 __pycache__/
 *.pyc
+.claude/tmp/

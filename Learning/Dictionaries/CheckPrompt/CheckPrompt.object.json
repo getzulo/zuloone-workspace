@@ -2,10 +2,10 @@
   "kind": "Dictionary",
   "object": {
     "caption": {
-      "en": "Check question",
-      "ru": "Вопрос проверки"
+      "en": "Test question",
+      "ru": "Вопрос теста"
     },
-    "description": "Вопрос версии страницы-проверки.",
+    "description": "Вопрос теста. На карточке висит, пока урок не опубликован; после публикации копируется на версию.",
     "isLogged": false,
     "isHierarchical": false,
     "numberSequenceMetaId": "071dbce3-6f5d-4e0d-a787-67f79d76cfd4",
@@ -13,8 +13,8 @@
     "isCached": false,
     "isSingleton": false,
     "notificationEnabled": false,
-    "defaultSearchProperty": "Name",
-    "displayFormat": "{Name}",
+    "defaultSearchProperty": "Text",
+    "displayFormat": "{Text}",
     "isKernel": false,
     "isObsolete": false,
     "isExtension": false,
@@ -49,7 +49,7 @@
       "length": 256,
       "isSystem": false,
       "isRequired": false,
-      "displayOrder": 3,
+      "displayOrder": 4,
       "isIndexed": false,
       "isUnique": false,
       "caption": {
@@ -57,7 +57,7 @@
         "ru": "Наименование"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "4fdca96a-226c-45f3-8891-2e009f86237b",
       "name": "Name",
@@ -109,19 +109,54 @@
       "fieldName": "UnitRevision",
       "edtMetaId": "cce2fda2-85dd-490e-929d-2a91db6c8012",
       "isSystem": false,
-      "isRequired": true,
-      "displayOrder": 1,
+      "isRequired": false,
+      "displayOrder": 2,
       "isIndexed": true,
       "isUnique": false,
       "caption": {
-        "en": "Page revision",
-        "ru": "Версия страницы"
+        "en": "Lesson revision",
+        "ru": "Версия урока"
       },
       "isTranslatable": false,
-      "isVisible": true,
+      "isVisible": false,
       "isCalculated": false,
       "metaId": "cf9b8d76-358e-4550-9006-e0a09979d2b9",
       "name": "UnitRevision",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    },
+    {
+      "dictionaryMetaId": "372b2b5b-2b15-4cdd-aac2-f57201c51afc",
+      "fieldName": "Unit",
+      "edtMetaId": "58148053-3d09-4074-809c-b49589ae6247",
+      "isSystem": false,
+      "isRequired": false,
+      "displayOrder": 1,
+      "isIndexed": true,
+      "isUnique": false,
+      "caption": { "en": "Lesson", "ru": "Урок" },
+      "isTranslatable": false,
+      "isVisible": true,
+      "isCalculated": false,
+      "metaId": "b0047446-6b99-4faa-af8a-f30423b04bf9",
+      "name": "Unit",
+      "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+    }
+  ],
+  "lists": [
+    {
+      "dictionaryMetaId": "372b2b5b-2b15-4cdd-aac2-f57201c51afc",
+      "name": "Options",
+      "caption": {
+        "en": "Answer options",
+        "ru": "Варианты ответа"
+      },
+      "type": "CheckOption",
+      "otherKey": "Prompt",
+      "autoLoad": true,
+      "cascadeDelete": true,
+      "defaultOrderBy": "SortOrder",
+      "description": "Варианты этого вопроса. На карточке вопроса и на карточке теста.",
+      "metaId": "46d80aeb-27f5-493c-5ad1-e8436037bd9c",
       "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
     }
   ]

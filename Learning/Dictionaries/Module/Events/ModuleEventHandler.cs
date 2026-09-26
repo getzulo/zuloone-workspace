@@ -1,21 +1,23 @@
 #nullable enable
+using System;
+using System.Threading.Tasks;
+using ZuloOne.Services.Contracts;
+
 namespace ZuloOne.Runtime.Generated;
 
-// Handler for Module. Override only the hooks you need.
-// This is the OWNER: it is link 0 of the chain, so it does not call next().
-// A handler in ANOTHER model declares itself with [ExtensionOf("Module")] and
-// must call next(...) from every override (ZOCOC001) — work AFTER next() sees
-// what the owner wrote. [Replace] swallows the chain on purpose.
 public partial class ModuleEventHandler : TypedDictionaryEventHandler<Module>
 {
-    // public override async Task<EventResult> OnBeforeSaveAsync(Module record, bool isNew, EventContext context)
-    // {
-    //     return EventResult.Ok();
-    // }
+    public override Task<EventResult> OnBeforeSaveAsync(Module record, bool isNew, EventContext context)
+    {
+        if (string.IsNullOrWhiteSpace(record.StableId))
+            record.StableId = "learn." + Guid.NewGuid().ToString("N").Substring(0, 12);
+        return Task.FromResult(EventResult.Ok());
+    }
 
-    // Live from the card (no Save): OnValidateField then OnFieldChanged.
-    // public override async Task<EventResult> OnFieldChangedAsync(Module record, string fieldName, object? value, EventContext context)
-    // {
-    //     return EventResult.Ok();
-    // }
+    public override async Task<EventResult> OnAfterSaveAsync(Module record, bool isNew, EventContext context)
+    {
+        if (!string.IsNullOrWhiteSpace(record.StableId))
+            await context.GetService<ILearningCatalog>().PublishCourseAsync(record.StableId);
+        return EventResult.Ok();
+    }
 }

@@ -1,0 +1,12 @@
+{
+  "kind": "FormLayout",
+  "object": {
+    "objectType": "Dictionary",
+    "objectMetaId": "c5b68bd8-53a5-401f-bbdf-40984c329e64",
+    "formKind": "Record",
+    "layoutJson": "{\"version\":4,\"nodes\":[{\"type\":\"group\",\"title\":\"\",\"columns\":2,\"frame\":\"band\",\"items\":[{\"type\":\"field\",\"name\":\"Text\",\"widget\":\"textarea\",\"span\":2},{\"type\":\"field\",\"name\":\"IsCorrect\"},{\"type\":\"field\",\"name\":\"SortOrder\"},{\"type\":\"field\",\"name\":\"Prompt\"}]}],\"hidden\":[\"ID\",\"Name\",\"Lesson\"]}",
+    "metaId": "ce508263-af7d-41b4-d259-60cb8ebf3514",
+    "name": "CheckOption.Record",
+    "modelId": "c4a8e2f1-7b36-4d19-8e50-6a1f9c3d72b8"
+  }
+}
