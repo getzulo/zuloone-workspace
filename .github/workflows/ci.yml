@@ -333,3 +333,4 @@ jobs:
         run: |
           docker rm -fv "${WS_CORE:-}" "${WS_PG:-}" 2>/dev/null || true
           docker network rm "${WS_NET:-}" 2>/dev/null || true
+          docker volume prune -f >/dev/null 2>&1 || true
